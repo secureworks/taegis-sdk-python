@@ -1,0 +1,24 @@
+[[rules]]
+description = "AWS Access Key"
+regex = '''(A3T[A-Z0-9]|AKIA|AGPA|AIDA|AROA|AIPA|ANPA|ANVA|ASIA)[A-Z0-9]{16}'''
+tags = ["key", "AWS"]
+
+[[rules]]
+description = "high entropy string"
+regex = '''([0-9a-zA-Z-._{}$\/\+=]{10,})'''
+[[rules.Entropies]]
+Min = "4.5"
+Max = "4.7"
+[rules.allowlist]
+description = "dont alert on comments linking to github commits"
+regexes = ['''[github.com]''']
+
+
+
+[[rules]]
+description = "diversity and inclusion"
+regex = '''([Mm]aster|[Bb]lacklist|[Ss]lave|[Ww]hitelist)+'''
+tags = ["dni"]
+[rules.allowlist]
+paths = ['''.github''']
+
