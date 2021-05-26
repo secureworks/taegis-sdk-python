@@ -7,29 +7,33 @@
 - Python 3.8 or higher.
 - Set `CLIENT_ID` and `CLIENT_SECRET` environment variables as described in the [Taegis XDR Documenation](https://docs.ctpx.secureworks.com/apis/api_authenticate/). Credentials used to create these variables MUST have `Admin Privileges`  otherwise you wont have enough permissions to  issue calls.
 
+
 ## Setup
 
-1. Open a terminal
-2. Change to your favorite local directory (i.e. `cd /opt`)
-3. Clone the repository
+1. Install git secrets `brew install gitleaks`
+2. Install pre-commit `brew install pre-commit`  & `pre-commit install`
+2. Check for secrets  `make secrets` or commit and the pre-commit hook will install
+4. Open a terminal
+5. Change to your favorite local directory (i.e. `cd /opt`)
+6. Clone the repository
 
    ```bash
    git clone git@github.com:secureworks/tdr-sdk-python.git
    ```
 
-4. Create a Virtual Environment
+7. Create a Virtual Environment
 
    ```bash
    python -m venv venv
    ```
 
-5. Activate Virtual Environment
+8. Activate Virtual Environment
 
    ```bash
    source ./venv/bin/activate
    ```
 
-6. Install the SDK
+9. Install the SDK
 
    ```bash
        pip install "/path/to/local/sdk"
