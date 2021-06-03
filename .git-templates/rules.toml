@@ -13,6 +13,35 @@ Max = "4.7"
 description = "dont alert on comments linking to github commits"
 regexes = ['''[github.com]''']
 
+[[rules]]
+description = "AWS Secret Key"
+regex = '''(?i)aws(.{0,20})?(?-i)['\"][0-9a-zA-Z\/+]{40}['\"]'''
+tags = ["key", "AWS"]
+
+[[rules]]
+description = "AWS MWS key"
+regex = '''amzn\.mws\.[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}'''
+tags = ["key", "AWS", "MWS"]
+
+[[rules]]
+description = "Github Personal Access Token"
+regex = '''ghp_[0-9a-zA-Z]{36}'''
+tags = ["key", "Github"]
+
+[[rules]]
+description = "Github OAuth Access Token"
+regex = '''gho_[0-9a-zA-Z]{36}'''
+tags = ["key", "Github"]
+
+[[rules]]
+description = "Github App Token"
+regex = '''(ghu|ghs)_[0-9a-zA-Z]{36}'''
+tags = ["key", "Github"]
+
+[[rules]]
+description = "Github Refresh Token"
+regex = '''ghr_[0-9a-zA-Z]{76}'''
+tags = ["key", "Github"]
 
 
 [[rules]]
