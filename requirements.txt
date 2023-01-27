@@ -1,0 +1,10 @@
+gql
+graphql-core
+python-dateutil
+oauthlib
+requests
+requests-oauthlib
+dataclasses-json
+pyjwt
+requests-toolbelt
+websockets

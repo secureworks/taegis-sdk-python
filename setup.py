@@ -1,17 +1,38 @@
 import setuptools
+from pathlib import Path
 
-with open("README.md", "r") as fh:
-    long_description = fh.read()
+README = Path() / "README.md"
+if not README.exists():
+    raise RuntimeError(f"{README.name} does not exist")
+
+REQUIREMENTS = Path() / "requirements.txt"
+if not REQUIREMENTS.exists():
+    raise RuntimeError(f"{REQUIREMENTS.name} does not exist")
+
+
+def get_version():
+    """Retrieve package version."""
+    version_path = Path() / "taegis_sdk_python" / "_version.py"
+    if not version_path.exists():
+        raise RuntimeError(f"{version_path.name} does not exist")
+
+    for line in version_path.read_text(encoding="utf-8").splitlines():
+        if line.startswith("__version__"):
+            quote = '"' if '"' in line else "'"
+            version = line.split()[2]
+            return version.replace(quote, "")
+    raise RuntimeError("Unable to read version.")
+
 
 setuptools.setup(
     name="taegis-sdk-python",
-    version="1.1.0",
-    author="Max Terekhov, Dani Vainstein, David Addai, Marco Sanabria, Jose Lopez",
-    author_email="",
-    description="Taegis XDR Python SDK",
-    long_description=long_description,
+    version=get_version(),
+    author="Secureworks",
+    author_email="sdks@secureworks.com",
+    description="Taegis Python SDK",
+    long_description=README.read_text(encoding="utf-8"),
     long_description_content_type="text/markdown",
-    url="https://github.com/secureworks/tdr-sdk-python",
+    url="https://github.com/secureworks/taegis-sdk-python",
     packages=setuptools.find_packages(),
     classifiers=[
         "Programming Language :: Python :: 3",
@@ -19,13 +40,8 @@ setuptools.setup(
         "Operating System :: OS Independent",
     ],
     install_requires=[
-        "gql==3.0.0a4",
-        "graphql-core",
-        "python-dateutil",
-        "oauthlib",
-        "requests",
-        "requests-oauthlib",
-        "stringcase"
+        package.replace("==", ">=")
+        for package in REQUIREMENTS.read_text(encoding="utf-8").splitlines()
     ],
-    python_requires='>=3.8',
+    python_requires=">=3.8",
 )

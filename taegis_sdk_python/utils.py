@@ -1,118 +1,131 @@
-import dataclasses
-import inspect
-import logging
-from datetime import datetime
-from typing import Any, Dict
+"""utils.py
 
-from oauthlib.oauth2 import BackendApplicationClient
-from requests_oauthlib import OAuth2Session
-import os
+Taegis SDK Python General Utilities"""
+import asyncio
+import concurrent
+from dataclasses import is_dataclass
+from enum import Enum
+from typing import Any, Callable, Dict, Optional, Union
 
-import stringcase
-from dateutil import tz
-from dateutil.parser import *
-from dateutil.relativedelta import *
-
-logger = logging.getLogger("query-builder.utils")
+from typing_inspect import get_args, is_union_type
 
 
-def get_args_from_frame(frame) -> Dict[str, Any]:
-    args, _, _, values = inspect.getargvalues(frame)
-    values_map = {}
-    args.pop(0)
-    for arg in args:
-        if hasattr(values[arg], "__dataclass_fields__"):
-            asdict = dataclasses.asdict(values[arg])
-            from operator import itemgetter
-            asdict = dict(filter(itemgetter(1), asdict.items()))
-            asdict = dict((stringcase.camelcase(k), v) for k, v in asdict.items())
-            values_map.update(asdict)
-        elif values[arg] is not None:
-            values_map[stringcase.camelcase(arg)] = values[arg]
-    return values_map
-
-
-def do_parse_time_to_utc_epoch(utc_str: str):
-    tod = datetime.now(tz.UTC)
-    if isinstance(utc_str, str):
-        utc_field = parse(utc_str)
-    else:
-        utc_field = utc_str
-    diff = relativedelta(utc_field, tod)
-    years = months = days = hours = ""
-    if abs(diff.years) > 0:
-        years = f"{abs(diff.years)} years, "
-    if abs(diff.months) > 0:
-        months = f"{abs(diff.months)} months, "
-    if abs(diff.days) > 0:
-        days = f"{abs(diff.days)} days, "
-    if abs(diff.hours) > 0:
-        hours = f"{abs(diff.days)} hours, "
-    epoch_field = (
-        f'{years}{months}{days}{hours}{abs(diff.minutes)} minutes '
-        f'and {abs(diff.seconds)} secs ago.')
-    return epoch_field, diff
-
-
-def duration_microseconds(delta):
-    return (24 * 60 * 60 * delta.days + delta.seconds) * 1000000 + delta.microseconds
-
-
-def duration_string(duration):
-    """Version of str(timedelta) which is not English specific."""
-    days, hours, minutes, seconds, microseconds = _get_duration_components(duration)
-
-    string = '{:02d}:{:02d}:{:02d}'.format(hours, minutes, seconds)
-    if days:
-        string = '{} '.format(days) + string
-    if microseconds:
-        string += '.{:06d}'.format(microseconds)
-
-    return string
-
-
-def _get_duration_components(duration):
-    days = duration.days
-    seconds = duration.seconds
-    microseconds = duration.microseconds
-
-    minutes = seconds // 60
-    seconds %= 60
-
-    hours = minutes // 60
-    minutes %= 60
-
-    return days, hours, minutes, seconds, microseconds
-
-
-def is_valid_value(value: Any) -> bool:
-    if value is None:
-        return False
-    if isinstance(value, str):
-        return True if value else False
-    return True
-
-
-def get_token():
+def build_output_string(dataclass) -> str:
     """
-    Get tokne url based on CLIENT_ID and CLIENT_SECRET values
-    :return: the token for the schema and execute queries
+    Generate GraphQL output string from defined Dataclass.
+
+    Parameters
+    ----------
+    dataclass : dataclass
+        Dataclass class reference
+
+    Returns
+    -------
+    str
+        GraphQL Output
     """
-    client_id = os.environ.get('CLIENT_ID')
-    client_secret = os.environ.get('CLIENT_SECRET')
-    client = BackendApplicationClient(client_id=client_id)
-    oauth_client = OAuth2Session(client=client)
-    token = oauth_client.fetch_token(token_url='https://api.ctpx.secureworks.com/auth/api/v2/auth/token',
-                                     client_id=client_id,
-                                     client_secret=client_secret)
-    return token
+    if is_union_type(dataclass):
+        fragments = ["__typename"]
+        for item in get_args(dataclass):
+            output_string = _build_dataclass_string(item)
+            fragments.append(f"... on {item.__name__} {{{output_string}}}")
+        return "\n".join(fragments)
+
+    return _build_dataclass_string(dataclass)
 
 
-__all__ = [
-    "duration_string",
-    "is_valid_value",
-    "duration_string",
-    "do_parse_time_to_utc_epoch",
-    "get_args_from_frame",
-    "get_token"
-]
+def _build_dataclass_string(dataclass) -> str:
+    """Build output string from a Dataclass."""
+
+    def get_nested_field(dataclass) -> str:
+        fields = []
+        for _, field in dataclass.fields.items():
+            fields.append(field.data_key)
+            if hasattr(field, "nested"):
+                fields.append(f"{{ {get_nested_field(field.nested)} }}")
+            if hasattr(field, "inner") and hasattr(field.inner, "nested"):
+                fields.append(f"{{ {get_nested_field(field.inner.nested)} }}")
+        return " ".join(fields)
+
+    fields = []
+    for _, field in dataclass.schema().declared_fields.items():
+        fields.append(field.data_key)
+        if hasattr(field, "nested"):
+            fields.append(f"{{ {get_nested_field(field.nested)} }}")
+        if hasattr(field, "inner") and hasattr(field.inner, "nested"):
+            fields.append(f"{{ {get_nested_field(field.inner.nested)} }}")
+    return " ".join(fields)
+
+
+def async_block(coro: Callable):
+    """Decorator for running async function synchronously in another thread.
+
+    This is used to ensure that our async calls are called separately from IPython's
+    async event loop.
+    """
+
+    def wrapper(*args, **kwargs):
+        def run_async(coro, *args, **kwargs):
+            return asyncio.run(coro(*args, **kwargs))
+
+        with concurrent.futures.ThreadPoolExecutor(max_workers=1) as executor:
+            future = executor.submit(run_async, coro, *args, **kwargs)
+            result = future.result()
+
+        return result
+
+    return wrapper
+
+
+def prepare_input(value: Any) -> Any:
+    """Prepare input objects for submitting to GraphQL.
+
+    Parameters
+    ----------
+    value : Any
+        Input value
+
+    Returns
+    -------
+    Any
+        _description_
+    """
+    if is_dataclass(value):
+        # return Dict[str. Any] where Any is not None
+        return {
+            key: value
+            for key, value in value.to_dict(encode_json=True).items()
+            if value is not None
+        }
+    # return value of Enum instead of the object
+    if isinstance(value, Enum):
+        return value.value
+    if isinstance(value, list):
+        return [prepare_input(item) for item in value]
+    return value
+
+
+def prepare_variables(
+    variables: Optional[Dict[str, Any]] = None
+) -> Union[None, Dict[str, Any]]:
+    """
+    Remove None values from a dictionary.
+
+    Parameters
+    ----------
+    variables : Optional[Dict[str, Any]]
+        Variables
+
+    Returns
+    -------
+    Union[None, Dict[str, Any]]
+        Variables
+    """
+    return (
+        {key: value for key, value in variables.items() if value is not None}
+        if variables
+        else None
+    )
+
+
+__all__ = ["build_output_string", "async_block", "prepare_input", "prepare_variables"]

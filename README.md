@@ -1,46 +1,50 @@
-# Taegis XDR Python SDK
+# Taegis SDK for Python
 
-`taegis-sdk-python` is Secureworks Taegis XDR Python SDK. It provides an easy to use API that enables Python developers to configure and manage Taegis XDR.
+The Taegis SDK is a Python library for interfacing with the GraphQL APIs in Taegis.
 
 ## Prerequisites
 
 - Python 3.8 or higher.
-- Set `CLIENT_ID` and `CLIENT_SECRET` environment variables as described in the [Taegis XDR Documenation](https://docs.ctpx.secureworks.com/apis/api_authenticate/). Credentials used to create these variables MUST have `Admin Privileges`  otherwise you wont have enough permissions to  issue calls.
+
+## Authentication
+
+- Set `CLIENT_ID` and `CLIENT_SECRET` environment variables as described in the [Taegis XDR Documenation](https://docs.ctpx.secureworks.com/apis/api_authenticate/).
+
+OR
+
+- Login using username/password with mfa upon service creation
+
+OR
+
+- Device Code SSO
 
 
 ## Setup
 
-1. Install git secrets `brew install gitleaks`
-2. Install pre-commit `brew install pre-commit`  & `pre-commit install`
-2. Check for secrets  `make secrets` or commit and the pre-commit hook will install
-4. Open a terminal
-5. Change to your favorite local directory (i.e. `cd /opt`)
-6. Clone the repository
+1. Open a terminal
+2. Change to your favorite local directory (i.e. `cd /opt`)
+3. Clone the repository
 
    ```bash
-   git clone git@github.com:secureworks/tdr-sdk-python.git
+   git clone https://github.com/secureworks/taegis-sdk-python.git
    ```
 
-7. Create a Virtual Environment
+4. Create a Virtual Environment
 
    ```bash
    python -m venv venv
    ```
 
-8. Activate Virtual Environment
+5. Activate Virtual Environment
 
    ```bash
    source ./venv/bin/activate
    ```
 
-9. Install the SDK
+6. Install the SDK
 
    ```bash
-       pip install "/path/to/local/sdk"
-
-   For example:
-
-       pip install /opt/taegis-sdk-python
+       pip install -e .
    ```
 
 
@@ -48,51 +52,185 @@
 
 To use the SDK, you must first import the `GraphQLService`
 
+
 ```python
 from taegis_sdk_python.services import GraphQLService
-
-# Instantiate GraphQL Service
+from pprint import pprint as pp
 service = GraphQLService()
 ```
 
 Now that you have the `GraphQLService`, you can make requests and process responses for `Taegis XDR Services`. The following example uses the `Investigations Service` to send a query to get all available investigations
 
 ```python
+result = service.investigations.query.investigations_search(
+    page=1,
+    per_page=3,
+    query="WHERE deleted_at IS NOT NULL EARLIEST=-90d"
+)
+pp(result)
+```
 
-# Get all Investigations
-raw_data, all_investigations = service.investigations.query.get_all_investigations(page=1, per_page=20)
+```python
+result = service.tenants.query.tenants(tenants_query=TenantsQuery(
+    max_results=10,
+    page_num=1,
+))
+pp(result)
+```
 
-# Print list of Investigations as a dictionary
-for data in raw_data:
-    print(str(data))
+```python
+results = service.events.subscription.event_query(
+    query="FROM process EARLIEST=-30d",
+    options=EventQueryOptions(
+        max_rows=20,
+        page_size=10,
+        skip_cache=True,
+    ),
+)
+pp(results)
+print()
+try:
+    next_page = next(
+        iter(
+            {
+                result.next
+                for result in results
+                if result.next
+            }
+        )
+    )
+except StopIteration:
+    next_page = None
 
-# Print list of Investigation dataclasses
-for investigation in all_investigations:
-    print(investigation)
-
+if next_page:
+    results = service.events.subscription.event_page(page_id=next_page)
+    pp(results)
 ```
 
 ## Custom Examples
 ### Custom Output
 
-The SDK enables users to override the output property of a query to retrieve specific response fields. For example, the following code will **ONLY** return the ids of all Closed Investigations. This query runs inside the `Service Context`.
+The SDK enables users to override the output property of a query to retrieve specific response fields. For example, the following code will **ONLY** return the ids, description and status of all Closed Investigations. This query runs inside the `Service Context`.
 
 ```python
 from taegis_sdk_python.services import GraphQLService
-from taegis_sdk_python.services.investigations.enums import InvestigationStatusEnum
 
 service = GraphQLService()
 
 # specify the output fields, and start the service context
-with service.core(output="{ id }"):
-    raw_data, all_investigations = service.investigations.query.get_all_investigations(
-        status=InvestigationStatusEnum.closed(),
+with service(output="investigations { id description status } totalCount"):
+    result = service.investigations.query.investigations_search(
         page=1,
-        per_page=20
+        per_page=3,
+        query="WHERE deleted_at IS NOT NULL EARLIEST=-90d"
     )
+pp(result)
+```
 
-for inv in all_investigations:
-    print(inv.id)
+### Change Tenant Context
+
+```python
+from taegis_sdk_python.services import GraphQLService
+
+service = GraphQLService()
+
+# specify the output fields, and start the service context
+with service(tenant_id="00000"):
+    result = service.investigations.query.investigations_search(
+        page=1,
+        per_page=3,
+        query="WHERE deleted_at IS NOT NULL EARLIEST=-90d"
+    )
+pp(result)
+```
+
+### Change the Environment
+
+```python
+from taegis_sdk_python.services import GraphQLService
+
+service = GraphQLService()
+
+# specify the output fields, and start the service context
+with service(environment="delta"):
+    result = service.investigations.query.investigations_search(
+        page=1,
+        per_page=3,
+        query="WHERE deleted_at IS NOT NULL EARLIEST=-90d"
+    )
+pp(result)
+```
+
+### Use a preexisting access token
+
+```python
+from taegis_sdk_python.services import GraphQLService
+
+service = GraphQLService()
+
+# specify the output fields, and start the service context
+with service(access_token="<your access token>"):
+    result = service.investigations.query.investigations_search(
+        page=1,
+        per_page=3,
+        query="WHERE deleted_at IS NOT NULL EARLIEST=-90d"
+    )
+pp(result)
+```
+
+### Arbitrary Query
+
+```python
+results = service.investigations.execute_query(
+    "alertsServiceSearch",
+    variables={
+        "in": {
+            "limit": 3,
+            "offset": 0,
+            "cql_query": "FROM alert EARLIEST=-1d"
+        }
+    },
+    output="""
+        search_id
+        alerts {
+            list {
+                id
+                metadata {
+                    title
+                }
+                status
+            }
+        }
+    """
+)
+print(results)
+```
+
+### Arbitrary Mutation
+
+```python
+results = service.investigations.execute_mutation(
+    "createInvestigation",
+    variables={
+        "investigation": {
+            "description": "SDK Test Investigation",
+            "key_findings": "This is a test.",
+            "priority": 1
+        }
+    },
+    output="""
+    id
+    created_at
+    created_by_user {
+        id
+        given_name
+        family_name
+    }
+    description
+    key_findings
+    """
+)
+print(results)
 ```
 
 ### Custom Query
@@ -113,14 +251,5 @@ gql_query = """
         }
     }
 """
-result = service.core.execute_gql_string(gql_query)
+result = service.investigations.execute(gql_query)
 ```
-
-## Execution History
-
-The `GraphQLService` supports an execution history log. This feature is currently **NOT** supported for `Custom Queries`.
-
- ```python
-for history_item in service.core.history:
-    print(history_item.as_json())
- ```
