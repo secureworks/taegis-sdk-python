@@ -1,4 +1,4 @@
-""""Audits Query."""
+"""Audits Query."""
 # pylint: disable=no-member, unused-argument, too-many-locals, duplicate-code, wildcard-import, unused-wildcard-import, cyclic-import
 
 
@@ -35,7 +35,7 @@ class TaegisSDKAuditsQuery:
             },
             output=build_output_string(Audit),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return Audit.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for query audit")
 
@@ -52,7 +52,7 @@ class TaegisSDKAuditsQuery:
             },
             output=build_output_string(AuditResult),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return AuditResult.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for query allAudits")
 
@@ -67,7 +67,7 @@ class TaegisSDKAuditsQuery:
             },
             output=build_output_string(AuditResult),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return AuditResult.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for query searchAudits")
 
@@ -82,6 +82,6 @@ class TaegisSDKAuditsQuery:
             },
             output=build_output_string(AuditEventResult),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return AuditEventResult.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for query ListApplicationEvents")

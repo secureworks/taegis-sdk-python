@@ -1,4 +1,4 @@
-""""Investigations Query."""
+"""Investigations Query."""
 # pylint: disable=no-member, unused-argument, too-many-locals, duplicate-code, wildcard-import, unused-wildcard-import, cyclic-import
 
 
@@ -33,7 +33,7 @@ class TaegisSDKInvestigationsQuery:
             variables={},
             output=build_output_string(InvestigationSummary),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return InvestigationSummary.schema().load(result.get(endpoint), many=True)
         raise GraphQLNoRowsInResultSetError("for query investigationSummary")
 
@@ -48,7 +48,7 @@ class TaegisSDKInvestigationsQuery:
             },
             output=build_output_string(Investigation),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return Investigation.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for query investigation")
 
@@ -63,7 +63,7 @@ class TaegisSDKInvestigationsQuery:
             },
             output=build_output_string(Investigation),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return Investigation.schema().load(result.get(endpoint), many=True)
         raise GraphQLNoRowsInResultSetError("for query investigations")
 
@@ -105,7 +105,7 @@ class TaegisSDKInvestigationsQuery:
             },
             output=build_output_string(Investigation),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return Investigation.schema().load(result.get(endpoint), many=True)
         raise GraphQLNoRowsInResultSetError("for query allInvestigations")
 
@@ -127,7 +127,7 @@ class TaegisSDKInvestigationsQuery:
             },
             output=build_output_string(Count),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return Count.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for query investigationCountOverTime")
 
@@ -149,7 +149,7 @@ class TaegisSDKInvestigationsQuery:
             },
             output=build_output_string(TimeSummaryForGroup),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return TimeSummaryForGroup.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for query meanTimeSummaryOverPeriod")
 
@@ -171,7 +171,7 @@ class TaegisSDKInvestigationsQuery:
             },
             output=build_output_string(InvestigationAssetOutput),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return InvestigationAssetOutput.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for query investigationAssets")
 
@@ -193,7 +193,7 @@ class TaegisSDKInvestigationsQuery:
             },
             output=build_output_string(InvestigationEventOutput),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return InvestigationEventOutput.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for query investigationEvents")
 
@@ -222,7 +222,7 @@ class TaegisSDKInvestigationsQuery:
             },
             output=build_output_string(InvestigationAlertOutput),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return InvestigationAlertOutput.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for query investigationAlerts")
 
@@ -237,7 +237,7 @@ class TaegisSDKInvestigationsQuery:
             },
             output=build_output_string(Event),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return Event.schema().load(result.get(endpoint), many=True)
         raise GraphQLNoRowsInResultSetError("for query investigationGenesisEvents")
 
@@ -252,7 +252,7 @@ class TaegisSDKInvestigationsQuery:
             },
             output=build_output_string(Alert),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return Alert.schema().load(result.get(endpoint), many=True)
         raise GraphQLNoRowsInResultSetError("for query investigationGenesisAlerts")
 
@@ -267,7 +267,7 @@ class TaegisSDKInvestigationsQuery:
             },
             output="",
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return result.get(endpoint)
         raise GraphQLNoRowsInResultSetError("for query investigationAuthCredentials")
 
@@ -282,7 +282,7 @@ class TaegisSDKInvestigationsQuery:
             },
             output=build_output_string(SearchQuery),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return SearchQuery.schema().load(result.get(endpoint), many=True)
         raise GraphQLNoRowsInResultSetError("for query investigationSearchQueries")
 
@@ -299,7 +299,7 @@ class TaegisSDKInvestigationsQuery:
             },
             output=build_output_string(InvestigationBulkResponse),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return InvestigationBulkResponse.schema().load(
                 result.get(endpoint), many=True
             )
@@ -310,7 +310,7 @@ class TaegisSDKInvestigationsQuery:
         endpoint = "investigationsBulkUpdateAlerts"
 
         result = self.service.execute_query(endpoint=endpoint, variables={}, output="")
-        if result is not None:
+        if result.get(endpoint) is not None:
             return result.get(endpoint)
         raise GraphQLNoRowsInResultSetError("for query investigationsBulkUpdateAlerts")
 
@@ -328,7 +328,7 @@ class TaegisSDKInvestigationsQuery:
             },
             output=build_output_string(SummaryGroup),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return SummaryGroup.schema().load(result.get(endpoint), many=True)
         raise GraphQLNoRowsInResultSetError("for query investigationStatusSummary")
 
@@ -358,7 +358,7 @@ class TaegisSDKInvestigationsQuery:
             },
             output=build_output_string(InvestigationsOutput),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return InvestigationsOutput.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for query investigationsSearch")
 
@@ -373,7 +373,7 @@ class TaegisSDKInvestigationsQuery:
             },
             output="",
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return result.get(endpoint)
         raise GraphQLNoRowsInResultSetError("for query investigationsAdvancedSearch")
 
@@ -390,7 +390,7 @@ class TaegisSDKInvestigationsQuery:
             },
             output=build_output_string(InvestigationProcessingResponse),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return InvestigationProcessingResponse.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for query investigationProcessingStatus")
 
@@ -406,7 +406,7 @@ class TaegisSDKInvestigationsQuery:
             },
             output="",
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return result.get(endpoint)
         raise GraphQLNoRowsInResultSetError("for query getFalsePositives")
 
@@ -421,7 +421,7 @@ class TaegisSDKInvestigationsQuery:
             },
             output="",
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return result.get(endpoint)
         raise GraphQLNoRowsInResultSetError("for query investigationsCount")
 
@@ -434,7 +434,7 @@ class TaegisSDKInvestigationsQuery:
             variables={},
             output=build_output_string(InvestigationStatusCountResponse),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return InvestigationStatusCountResponse.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for query investigationsStatusCount")
 
@@ -463,7 +463,7 @@ class TaegisSDKInvestigationsQuery:
             },
             output=build_output_string(InvestigationsExportOutput),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return InvestigationsExportOutput.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for query exportInvestigationsSearch")
 
@@ -478,7 +478,7 @@ class TaegisSDKInvestigationsQuery:
             },
             output=build_output_string(InvestigationFile),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return InvestigationFile.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for query investigationFile")
 
@@ -493,7 +493,7 @@ class TaegisSDKInvestigationsQuery:
             },
             output=build_output_string(InvestigationFile),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return InvestigationFile.schema().load(result.get(endpoint), many=True)
         raise GraphQLNoRowsInResultSetError("for query investigationFiles")
 
@@ -509,7 +509,7 @@ class TaegisSDKInvestigationsQuery:
             },
             output="",
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return result.get(endpoint)
         raise GraphQLNoRowsInResultSetError("for query downloadInvestigationFile")
 
@@ -533,7 +533,7 @@ class TaegisSDKInvestigationsQuery:
             },
             output=build_output_string(Investigation),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return Investigation.schema().load(result.get(endpoint), many=True)
         raise GraphQLNoRowsInResultSetError("for query investigationsBySession")
 
@@ -564,7 +564,7 @@ class TaegisSDKInvestigationsQuery:
             },
             output=build_output_string(InvestigationsOutput),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return InvestigationsOutput.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for query getHandoffInvestigations")
 
@@ -577,7 +577,7 @@ class TaegisSDKInvestigationsQuery:
             variables={},
             output=build_output_string(InvestigationKeyValuePair),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return InvestigationKeyValuePair.schema().load(
                 result.get(endpoint), many=True
             )
@@ -592,7 +592,7 @@ class TaegisSDKInvestigationsQuery:
             variables={},
             output=build_output_string(InvestigationKeyValuePair),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return InvestigationKeyValuePair.schema().load(
                 result.get(endpoint), many=True
             )
@@ -607,7 +607,7 @@ class TaegisSDKInvestigationsQuery:
             variables={},
             output=build_output_string(InvestigationKeyValuePair),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return InvestigationKeyValuePair.schema().load(
                 result.get(endpoint), many=True
             )
@@ -626,7 +626,7 @@ class TaegisSDKInvestigationsQuery:
             },
             output=build_output_string(InvestigationTimeline),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return InvestigationTimeline.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for query investigationTimeline")
 
@@ -643,6 +643,6 @@ class TaegisSDKInvestigationsQuery:
             },
             output=build_output_string(InvestigationEntities),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return InvestigationEntities.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for query investigationEntities")

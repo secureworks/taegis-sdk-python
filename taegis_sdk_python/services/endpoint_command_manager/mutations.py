@@ -1,4 +1,4 @@
-""""EndpointCommandManager Mutation."""
+"""EndpointCommandManager Mutation."""
 # pylint: disable=no-member, unused-argument, too-many-locals, duplicate-code, wildcard-import, unused-wildcard-import, cyclic-import
 
 
@@ -39,7 +39,7 @@ class TaegisSDKEndpointCommandManagerMutation:
             },
             output=build_output_string(IsolationExclusionRuleResult),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return IsolationExclusionRuleResult.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for mutation createIsolationExclusionRule")
 
@@ -56,7 +56,7 @@ class TaegisSDKEndpointCommandManagerMutation:
             },
             output=build_output_string(IsolationExclusionRuleResult),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return IsolationExclusionRuleResult.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for mutation updateIsolationExclusionRule")
 
@@ -71,7 +71,7 @@ class TaegisSDKEndpointCommandManagerMutation:
             },
             output=build_output_string(Result),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return Result.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for mutation deleteIsolationExclusionRule")
 
@@ -87,7 +87,7 @@ class TaegisSDKEndpointCommandManagerMutation:
             },
             output=build_output_string(Result),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return Result.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for mutation requestResourceFromEndpoint")
 
@@ -102,7 +102,7 @@ class TaegisSDKEndpointCommandManagerMutation:
             },
             output=build_output_string(Result),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return Result.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for mutation sendReconnect")
 
@@ -117,7 +117,7 @@ class TaegisSDKEndpointCommandManagerMutation:
             },
             output=build_output_string(Result),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return Result.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for mutation sendIsolate")
 
@@ -132,7 +132,7 @@ class TaegisSDKEndpointCommandManagerMutation:
             },
             output=build_output_string(Result),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return Result.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for mutation sendDeIsolate")
 
@@ -147,7 +147,7 @@ class TaegisSDKEndpointCommandManagerMutation:
             },
             output=build_output_string(Result),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return Result.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for mutation markForUninstall")
 
@@ -162,7 +162,7 @@ class TaegisSDKEndpointCommandManagerMutation:
             },
             output=build_output_string(Result),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return Result.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for mutation sendBlockUser")
 
@@ -177,6 +177,6 @@ class TaegisSDKEndpointCommandManagerMutation:
             },
             output=build_output_string(Result),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return Result.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for mutation sendUnblockUser")

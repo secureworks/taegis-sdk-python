@@ -1,4 +1,4 @@
-""""Assets Mutation."""
+"""Assets Mutation."""
 # pylint: disable=no-member, unused-argument, too-many-locals, duplicate-code, wildcard-import, unused-wildcard-import, cyclic-import
 
 
@@ -36,7 +36,7 @@ class TaegisSDKAssetsMutation:
             },
             output=build_output_string(Asset),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return Asset.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for mutation isolateAsset")
 
@@ -52,7 +52,7 @@ class TaegisSDKAssetsMutation:
             },
             output=build_output_string(Asset),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return Asset.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for mutation integrateAsset")
 
@@ -68,7 +68,7 @@ class TaegisSDKAssetsMutation:
             },
             output="",
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return result.get(endpoint)
         raise GraphQLNoRowsInResultSetError("for mutation deleteAssets")
 
@@ -84,7 +84,7 @@ class TaegisSDKAssetsMutation:
             },
             output=build_output_string(Tag),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return Tag.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for mutation createAssetTag")
 
@@ -100,7 +100,7 @@ class TaegisSDKAssetsMutation:
             },
             output=build_output_string(Tag),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return Tag.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for mutation updateAssetTag")
 
@@ -115,7 +115,7 @@ class TaegisSDKAssetsMutation:
             },
             output=build_output_string(Tag),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return Tag.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for mutation deleteAssetTag")
 
@@ -130,7 +130,7 @@ class TaegisSDKAssetsMutation:
             },
             output=build_output_string(Asset),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return Asset.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for mutation updateAsset")
 
@@ -152,7 +152,7 @@ class TaegisSDKAssetsMutation:
             },
             output=build_output_string(Asset),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return Asset.schema().load(result.get(endpoint), many=True)
         raise GraphQLNoRowsInResultSetError("for mutation addInvestigationAssets")
 
@@ -170,6 +170,6 @@ class TaegisSDKAssetsMutation:
             },
             output="",
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return result.get(endpoint)
         raise GraphQLNoRowsInResultSetError("for mutation removeInvestigationAssets")

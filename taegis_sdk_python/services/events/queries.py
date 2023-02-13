@@ -1,4 +1,4 @@
-""""Events Query."""
+"""Events Query."""
 # pylint: disable=no-member, unused-argument, too-many-locals, duplicate-code, wildcard-import, unused-wildcard-import, cyclic-import
 
 
@@ -38,7 +38,7 @@ class TaegisSDKEventsQuery:
             },
             output=build_output_string(Event),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return Event.schema().load(result.get(endpoint), many=True)
         raise GraphQLNoRowsInResultSetError("for query events")
 
@@ -53,7 +53,7 @@ class TaegisSDKEventsQuery:
             },
             output=build_output_string(EventQuery),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return EventQuery.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for query eventQuery")
 
@@ -70,6 +70,6 @@ class TaegisSDKEventsQuery:
             },
             output=build_output_string(EventQuery),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return EventQuery.schema().load(result.get(endpoint), many=True)
         raise GraphQLNoRowsInResultSetError("for query eventQueries")

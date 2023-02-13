@@ -1,4 +1,4 @@
-""""Comments Mutation."""
+"""Comments Mutation."""
 # pylint: disable=no-member, unused-argument, too-many-locals, duplicate-code, wildcard-import, unused-wildcard-import, cyclic-import
 
 
@@ -35,7 +35,7 @@ class TaegisSDKCommentsMutation:
             },
             output=build_output_string(Comment),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return Comment.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for mutation markCommentRead")
 
@@ -50,7 +50,7 @@ class TaegisSDKCommentsMutation:
             },
             output=build_output_string(Comment),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return Comment.schema().load(result.get(endpoint), many=True)
         raise GraphQLNoRowsInResultSetError("for mutation markParentCommentsRead")
 
@@ -65,7 +65,7 @@ class TaegisSDKCommentsMutation:
             },
             output=build_output_string(Comment),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return Comment.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for mutation createComment")
 
@@ -81,7 +81,7 @@ class TaegisSDKCommentsMutation:
             },
             output=build_output_string(Comment),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return Comment.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for mutation updateComment")
 
@@ -96,7 +96,7 @@ class TaegisSDKCommentsMutation:
             },
             output=build_output_string(Comment),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return Comment.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for mutation deleteComment")
 
@@ -111,6 +111,6 @@ class TaegisSDKCommentsMutation:
             },
             output="",
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return result.get(endpoint)
         raise GraphQLNoRowsInResultSetError("for mutation bulkRestoreComments")

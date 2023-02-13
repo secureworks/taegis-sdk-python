@@ -1,4 +1,4 @@
-""""Investigations Mutation."""
+"""Investigations Mutation."""
 # pylint: disable=no-member, unused-argument, too-many-locals, duplicate-code, wildcard-import, unused-wildcard-import, cyclic-import
 
 
@@ -35,7 +35,7 @@ class TaegisSDKInvestigationsMutation:
             },
             output=build_output_string(Investigation),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return Investigation.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for mutation createInvestigation")
 
@@ -53,7 +53,7 @@ class TaegisSDKInvestigationsMutation:
             },
             output=build_output_string(Investigation),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return Investigation.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for mutation updateInvestigation")
 
@@ -68,7 +68,7 @@ class TaegisSDKInvestigationsMutation:
             },
             output=build_output_string(Investigation),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return Investigation.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for mutation archiveInvestigation")
 
@@ -83,7 +83,7 @@ class TaegisSDKInvestigationsMutation:
             },
             output="",
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return result.get(endpoint)
         raise GraphQLNoRowsInResultSetError("for mutation bulkArchiveInvestigations")
 
@@ -98,7 +98,7 @@ class TaegisSDKInvestigationsMutation:
             },
             output=build_output_string(Investigation),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return Investigation.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for mutation unArchiveInvestigation")
 
@@ -113,7 +113,7 @@ class TaegisSDKInvestigationsMutation:
             },
             output="",
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return result.get(endpoint)
         raise GraphQLNoRowsInResultSetError("for mutation bulkUnArchiveInvestigations")
 
@@ -131,7 +131,7 @@ class TaegisSDKInvestigationsMutation:
             },
             output=build_output_string(ActivityLog),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return ActivityLog.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError(
             "for mutation createActivityLogForInvestigation"
@@ -151,7 +151,7 @@ class TaegisSDKInvestigationsMutation:
             },
             output=build_output_string(Investigation),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return Investigation.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for mutation addAssetsToInvestigation")
 
@@ -169,7 +169,7 @@ class TaegisSDKInvestigationsMutation:
             },
             output=build_output_string(Investigation),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return Investigation.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for mutation addEventsToInvestigation")
 
@@ -187,7 +187,7 @@ class TaegisSDKInvestigationsMutation:
             },
             output=build_output_string(Investigation),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return Investigation.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for mutation addAlertsToInvestigation")
 
@@ -205,7 +205,7 @@ class TaegisSDKInvestigationsMutation:
             },
             output=build_output_string(Investigation),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return Investigation.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError(
             "for mutation addGenesisEventsToInvestigation"
@@ -225,7 +225,7 @@ class TaegisSDKInvestigationsMutation:
             },
             output=build_output_string(Investigation),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return Investigation.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError(
             "for mutation addGenesisAlertsToInvestigation"
@@ -245,7 +245,7 @@ class TaegisSDKInvestigationsMutation:
             },
             output=build_output_string(Investigation),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return Investigation.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError(
             "for mutation addAuthCredentialsToInvestigation"
@@ -265,7 +265,7 @@ class TaegisSDKInvestigationsMutation:
             },
             output=build_output_string(Investigation),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return Investigation.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError(
             "for mutation addSearchQueriesToInvestigation"
@@ -291,7 +291,7 @@ class TaegisSDKInvestigationsMutation:
             },
             output=build_output_string(AccessVector),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return AccessVector.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for mutation addAccessVector")
 
@@ -306,7 +306,7 @@ class TaegisSDKInvestigationsMutation:
             },
             output=build_output_string(AccessVector),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return AccessVector.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for mutation removeAccessVector")
 
@@ -324,7 +324,7 @@ class TaegisSDKInvestigationsMutation:
             },
             output=build_output_string(Investigation),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return Investigation.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError(
             "for mutation removeAssetsFromInvestigation"
@@ -344,7 +344,7 @@ class TaegisSDKInvestigationsMutation:
             },
             output=build_output_string(Investigation),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return Investigation.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError(
             "for mutation removeEventsFromInvestigation"
@@ -364,7 +364,7 @@ class TaegisSDKInvestigationsMutation:
             },
             output=build_output_string(Investigation),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return Investigation.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError(
             "for mutation removeAlertsFromInvestigation"
@@ -384,7 +384,7 @@ class TaegisSDKInvestigationsMutation:
             },
             output=build_output_string(Investigation),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return Investigation.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError(
             "for mutation removeSearchQueriesFromInvestigation"
@@ -408,7 +408,7 @@ class TaegisSDKInvestigationsMutation:
             },
             output=build_output_string(Investigation),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return Investigation.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for mutation addBulkAlertsToInvestigation")
 
@@ -426,7 +426,7 @@ class TaegisSDKInvestigationsMutation:
             },
             output=build_output_string(Investigation),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return Investigation.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError(
             "for mutation addBulkAlerts2ToInvestigation"
@@ -446,7 +446,7 @@ class TaegisSDKInvestigationsMutation:
             },
             output=build_output_string(Investigation),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return Investigation.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError(
             "for mutation addBulkAlerts2ToExistingInvestigation"
@@ -466,7 +466,7 @@ class TaegisSDKInvestigationsMutation:
             },
             output=build_output_string(InvestigationProcessingResponse),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return InvestigationProcessingResponse.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError(
             "for mutation reProcessInvestigationBackgroundJob"
@@ -483,7 +483,7 @@ class TaegisSDKInvestigationsMutation:
             },
             output="",
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return result.get(endpoint)
         raise GraphQLNoRowsInResultSetError("for mutation deleteInvestigation")
 
@@ -498,7 +498,7 @@ class TaegisSDKInvestigationsMutation:
             },
             output="",
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return result.get(endpoint)
         raise GraphQLNoRowsInResultSetError("for mutation acknowledgeInvestigation")
 
@@ -513,7 +513,7 @@ class TaegisSDKInvestigationsMutation:
             },
             output=build_output_string(InvestigationFile),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return InvestigationFile.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for mutation fileUpload")
 
@@ -529,7 +529,7 @@ class TaegisSDKInvestigationsMutation:
             },
             output="",
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return result.get(endpoint)
         raise GraphQLNoRowsInResultSetError("for mutation deleteFile")
 
@@ -544,7 +544,7 @@ class TaegisSDKInvestigationsMutation:
             },
             output=build_output_string(FileUploadResponse),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return FileUploadResponse.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for mutation initFileUpload")
 
@@ -563,6 +563,6 @@ class TaegisSDKInvestigationsMutation:
             },
             output=build_output_string(InvestigationFile),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return InvestigationFile.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for mutation updateFileStatus")

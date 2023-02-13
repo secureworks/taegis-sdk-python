@@ -1,4 +1,4 @@
-""""Assets2 Mutation."""
+"""Assets2 Mutation."""
 # pylint: disable=no-member, unused-argument, too-many-locals, duplicate-code, wildcard-import, unused-wildcard-import, cyclic-import
 
 
@@ -45,7 +45,7 @@ class TaegisSDKAssets2Mutation:
             },
             output=build_output_string(BulkOpPayloadV2),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return BulkOpPayloadV2.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for mutation updateTagsForEndpointV2")
 
@@ -67,7 +67,7 @@ class TaegisSDKAssets2Mutation:
             },
             output=build_output_string(BulkOpPayloadV2),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return BulkOpPayloadV2.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for mutation bulkUpdateTagsForEndpointsV2")
 
@@ -84,7 +84,7 @@ class TaegisSDKAssets2Mutation:
             },
             output=build_output_string(BulkOpPayloadV2),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return BulkOpPayloadV2.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for mutation deleteAssetsV2")
 
@@ -101,7 +101,7 @@ class TaegisSDKAssets2Mutation:
             },
             output=build_output_string(BulkOpPayloadV2),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return BulkOpPayloadV2.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for mutation restoreAssetsV2")
 
@@ -120,7 +120,7 @@ class TaegisSDKAssets2Mutation:
             },
             output=build_output_string(BulkOpPayloadV2),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return BulkOpPayloadV2.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for mutation assignBulkAssetsToGroup")
 
@@ -140,7 +140,7 @@ class TaegisSDKAssets2Mutation:
             },
             output=build_output_string(BulkOpPayloadV2),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return BulkOpPayloadV2.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for mutation bulkDeleteTagsForEndpointsV2")
 
@@ -159,7 +159,7 @@ class TaegisSDKAssets2Mutation:
             },
             output=build_output_string(BulkOpPayloadV2),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return BulkOpPayloadV2.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError(
             "for mutation assignBulkAssetsToInvestigation"
@@ -180,7 +180,7 @@ class TaegisSDKAssets2Mutation:
             },
             output=build_output_string(BulkOpPayloadV2),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return BulkOpPayloadV2.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError(
             "for mutation bulkDeleteInvestigationForEndpoints"

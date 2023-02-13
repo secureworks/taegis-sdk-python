@@ -1,4 +1,4 @@
-""""MitreAttackInfo Query."""
+"""MitreAttackInfo Query."""
 # pylint: disable=no-member, unused-argument, too-many-locals, duplicate-code, wildcard-import, unused-wildcard-import, cyclic-import
 
 
@@ -37,7 +37,7 @@ class TaegisSDKMitreAttackInfoQuery:
             },
             output=build_output_string(MitreAttackInformation),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return MitreAttackInformation.schema().load(result.get(endpoint), many=True)
         raise GraphQLNoRowsInResultSetError(
             "for query getMitreAttackInfoByTechniqueName"
@@ -56,7 +56,7 @@ class TaegisSDKMitreAttackInfoQuery:
             },
             output=build_output_string(MitreAttackInformation),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return MitreAttackInformation.schema().load(result.get(endpoint), many=True)
         raise GraphQLNoRowsInResultSetError(
             "for query getMitreAttackInfoByTechniqueNames"
@@ -75,7 +75,7 @@ class TaegisSDKMitreAttackInfoQuery:
             },
             output=build_output_string(MitreAttackInformation),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return MitreAttackInformation.schema().load(result.get(endpoint), many=True)
         raise GraphQLNoRowsInResultSetError("for query getMitreAttackInfoByTechniqueId")
 
@@ -92,7 +92,7 @@ class TaegisSDKMitreAttackInfoQuery:
             },
             output=build_output_string(MitreAttackInformation),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return MitreAttackInformation.schema().load(result.get(endpoint), many=True)
         raise GraphQLNoRowsInResultSetError(
             "for query getMitreAttackInfoByTechniqueIds"
@@ -111,7 +111,7 @@ class TaegisSDKMitreAttackInfoQuery:
             },
             output=build_output_string(MitreAttackInformation),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return MitreAttackInformation.schema().load(result.get(endpoint), many=True)
         raise GraphQLNoRowsInResultSetError("for query getMitreAttackInfoByDataSource")
 
@@ -128,7 +128,7 @@ class TaegisSDKMitreAttackInfoQuery:
             },
             output=build_output_string(MitreAttackInformation),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return MitreAttackInformation.schema().load(result.get(endpoint), many=True)
         raise GraphQLNoRowsInResultSetError("for query getMitreAttackInfoByDataSources")
 
@@ -145,7 +145,7 @@ class TaegisSDKMitreAttackInfoQuery:
             },
             output=build_output_string(MitreAttackInformation),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return MitreAttackInformation.schema().load(result.get(endpoint), many=True)
         raise GraphQLNoRowsInResultSetError("for query getMitreAttackInfoByType")
 
@@ -162,7 +162,7 @@ class TaegisSDKMitreAttackInfoQuery:
             },
             output=build_output_string(MitreAttackInformation),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return MitreAttackInformation.schema().load(result.get(endpoint), many=True)
         raise GraphQLNoRowsInResultSetError("for query getMitreAttackInfoByTypes")
 
@@ -179,7 +179,7 @@ class TaegisSDKMitreAttackInfoQuery:
             },
             output=build_output_string(MitreAttackInformation),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return MitreAttackInformation.schema().load(result.get(endpoint), many=True)
         raise GraphQLNoRowsInResultSetError("for query getMitreAttackInfoByContributor")
 
@@ -196,7 +196,7 @@ class TaegisSDKMitreAttackInfoQuery:
             },
             output=build_output_string(MitreAttackInformation),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return MitreAttackInformation.schema().load(result.get(endpoint), many=True)
         raise GraphQLNoRowsInResultSetError(
             "for query getMitreAttackInfoByContributors"
@@ -211,7 +211,7 @@ class TaegisSDKMitreAttackInfoQuery:
             variables={},
             output=build_output_string(MitreAttackInformation),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return MitreAttackInformation.schema().load(result.get(endpoint), many=True)
         raise GraphQLNoRowsInResultSetError("for query getAllMitreAttackInfo")
 
@@ -228,6 +228,6 @@ class TaegisSDKMitreAttackInfoQuery:
             },
             output=build_output_string(MitreAttackInformation),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return MitreAttackInformation.schema().load(result.get(endpoint), many=True)
         raise GraphQLNoRowsInResultSetError("for query searchMitreInfoByRegexPattern")

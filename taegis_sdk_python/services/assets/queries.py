@@ -1,4 +1,4 @@
-""""Assets Query."""
+"""Assets Query."""
 # pylint: disable=no-member, unused-argument, too-many-locals, duplicate-code, wildcard-import, unused-wildcard-import, cyclic-import
 
 
@@ -35,7 +35,7 @@ class TaegisSDKAssetsQuery:
             },
             output=build_output_string(Tag),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return Tag.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for query tag")
 
@@ -50,7 +50,7 @@ class TaegisSDKAssetsQuery:
             },
             output=build_output_string(Asset),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return Asset.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for query asset")
 
@@ -65,7 +65,7 @@ class TaegisSDKAssetsQuery:
             },
             output=build_output_string(Asset),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return Asset.schema().load(result.get(endpoint), many=True)
         raise GraphQLNoRowsInResultSetError("for query assetsByTag")
 
@@ -74,7 +74,7 @@ class TaegisSDKAssetsQuery:
         endpoint = "allUniqueTags"
 
         result = self.service.execute_query(endpoint=endpoint, variables={}, output="")
-        if result is not None:
+        if result.get(endpoint) is not None:
             return result.get(endpoint)
         raise GraphQLNoRowsInResultSetError("for query allUniqueTags")
 
@@ -89,7 +89,7 @@ class TaegisSDKAssetsQuery:
             },
             output=build_output_string(EndpointInfo),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return EndpointInfo.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for query assetEndpointInfo")
 
@@ -117,7 +117,7 @@ class TaegisSDKAssetsQuery:
             },
             output=build_output_string(AssetsResult),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return AssetsResult.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for query allAssets")
 
@@ -135,7 +135,7 @@ class TaegisSDKAssetsQuery:
             },
             output=build_output_string(AssetsResult),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return AssetsResult.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for query allAssetsExport")
 
@@ -150,7 +150,7 @@ class TaegisSDKAssetsQuery:
             },
             output=build_output_string(AssetCounts),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return AssetCounts.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for query assetCount")
 
@@ -163,7 +163,7 @@ class TaegisSDKAssetsQuery:
             variables={},
             output=build_output_string(AssetCountsByEndpointType),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return AssetCountsByEndpointType.schema().load(
                 result.get(endpoint), many=True
             )
@@ -176,7 +176,7 @@ class TaegisSDKAssetsQuery:
         result = self.service.execute_query(
             endpoint=endpoint, variables={}, output=build_output_string(AssetCounts)
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return AssetCounts.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for query allAssetsCount")
 
@@ -191,7 +191,7 @@ class TaegisSDKAssetsQuery:
             },
             output=build_output_string(Asset),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return Asset.schema().load(result.get(endpoint), many=True)
         raise GraphQLNoRowsInResultSetError("for query assetsByIds")
 
@@ -206,7 +206,7 @@ class TaegisSDKAssetsQuery:
             },
             output=build_output_string(Asset),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return Asset.schema().load(result.get(endpoint), many=True)
         raise GraphQLNoRowsInResultSetError("for query assetsByHostIds")
 
@@ -221,7 +221,7 @@ class TaegisSDKAssetsQuery:
             },
             output=build_output_string(Asset),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return Asset.schema().load(result.get(endpoint), many=True)
         raise GraphQLNoRowsInResultSetError("for query assetsByIpAddresses")
 
@@ -239,7 +239,7 @@ class TaegisSDKAssetsQuery:
             },
             output=build_output_string(AssetHistory),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return AssetHistory.schema().load(result.get(endpoint), many=True)
         raise GraphQLNoRowsInResultSetError("for query allAssetHistories")
 
@@ -258,7 +258,7 @@ class TaegisSDKAssetsQuery:
             },
             output=build_output_string(AssetRedCloakHistory),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return AssetRedCloakHistory.schema().load(result.get(endpoint), many=True)
         raise GraphQLNoRowsInResultSetError("for query assetRedCloakHistories")
 
@@ -312,7 +312,7 @@ class TaegisSDKAssetsQuery:
             },
             output=build_output_string(AssetsResult),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return AssetsResult.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for query searchAssets")
 
@@ -332,7 +332,7 @@ class TaegisSDKAssetsQuery:
             },
             output=build_output_string(AssetsResult),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return AssetsResult.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for query searchAssetsV2")
 
@@ -354,7 +354,7 @@ class TaegisSDKAssetsQuery:
             },
             output=build_output_string(AssetsExportOutput),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return AssetsExportOutput.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for query exportSearchAssets")
 
@@ -369,6 +369,6 @@ class TaegisSDKAssetsQuery:
             },
             output=build_output_string(Asset),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return Asset.schema().load(result.get(endpoint), many=True)
         raise GraphQLNoRowsInResultSetError("for query assetsBySession")

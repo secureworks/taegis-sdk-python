@@ -7,6 +7,12 @@ from dataclasses import is_dataclass
 from enum import Enum
 from typing import Any, Callable, Dict, Optional, Union
 
+from graphql.type import (
+    is_union_type as is_gql_union_type,
+    is_wrapping_type,
+    is_object_type,
+)
+
 from typing_inspect import get_args, is_union_type
 
 
@@ -54,6 +60,64 @@ def _build_dataclass_string(dataclass) -> str:
             fields.append(f"{{ {get_nested_field(field.nested)} }}")
         if hasattr(field, "inner") and hasattr(field.inner, "nested"):
             fields.append(f"{{ {get_nested_field(field.inner.nested)} }}")
+    return " ".join(fields)
+
+
+def graphql_unwrap_field(field: Any) -> Any:
+    """
+    Unwrap GraphQL objects to the internal scalar/object.
+
+    Parameters
+    ----------
+    field : Any
+        Any GraphQL object.
+
+    Returns
+    -------
+    Any
+        The base GraphQL object.
+    """
+    if hasattr(field, "type"):
+        field_type = field.type
+    elif hasattr(field, "of_type"):
+        field_type = field.of_type
+    else:
+        return field
+
+    if is_wrapping_type(field_type):
+        return graphql_unwrap_field(field_type.of_type)
+    return field_type
+
+
+def build_output_string_from_introspection(field: Any) -> str:
+    """
+    Generate the fields string representation from a schema field.
+
+    Parameters
+    ----------
+    field : Any
+        A GraphQL schema field type.
+
+    Returns
+    -------
+    str
+        Output Fields
+    """
+    fields = []
+    field = graphql_unwrap_field(field)
+    if is_gql_union_type(field):
+        fragments = ["__typename"]
+        for gql_type in field.types:
+            fragments.append(
+                f"... on {gql_type.name} {{ {build_output_string_from_introspection(gql_type)} }}"
+            )
+        return "\n".join(fragments)
+
+    for name, gql_type in field.fields.items():
+        fields.append(name)
+        scalar = graphql_unwrap_field(gql_type)
+        if is_object_type(scalar):
+            fields.append(f"{{ {build_output_string_from_introspection(scalar)} }}")
     return " ".join(fields)
 
 

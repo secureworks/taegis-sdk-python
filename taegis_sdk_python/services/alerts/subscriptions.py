@@ -1,4 +1,4 @@
-""""Alerts Subscription."""
+"""Alerts Subscription."""
 # pylint: disable=no-member, unused-argument, too-many-locals, duplicate-code, wildcard-import, unused-wildcard-import, cyclic-import
 
 
@@ -37,9 +37,9 @@ class TaegisSDKAlertsSubscription:
             },
             output=build_output_string(BulkResolutionResponse),
         )
-        if result is not None:
+        if any(r.get(endpoint) for r in result):
             return BulkResolutionResponse.schema().load(
-                [r.get(endpoint) for r in result], many=True
+                [r.get(endpoint, {}) or {} for r in result], many=True
             )
         raise GraphQLNoRowsInResultSetError(
             "for subscription alertsServiceBulkResolutionProcessor"

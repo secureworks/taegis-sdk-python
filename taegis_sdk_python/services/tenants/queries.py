@@ -1,4 +1,4 @@
-""""Tenants Query."""
+"""Tenants Query."""
 # pylint: disable=no-member, unused-argument, too-many-locals, duplicate-code, wildcard-import, unused-wildcard-import, cyclic-import
 
 
@@ -38,7 +38,7 @@ class TaegisSDKTenantsQuery:
             },
             output=build_output_string(Service),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return Service.schema().load(result.get(endpoint), many=True)
         raise GraphQLNoRowsInResultSetError("for query assignableServices")
 
@@ -53,7 +53,7 @@ class TaegisSDKTenantsQuery:
             },
             output=build_output_string(TenantResults),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return TenantResults.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for query tenants")
 
@@ -68,7 +68,7 @@ class TaegisSDKTenantsQuery:
             },
             output=build_output_string(SSOConnection),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return SSOConnection.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for query getSSOConnection")
 
@@ -85,7 +85,7 @@ class TaegisSDKTenantsQuery:
             },
             output=build_output_string(SSOConnection),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return SSOConnection.schema().load(result.get(endpoint), many=True)
         raise GraphQLNoRowsInResultSetError("for query SSOConnections")
 
@@ -102,7 +102,7 @@ class TaegisSDKTenantsQuery:
             },
             output=build_output_string(SSOConnectionConfigResponse),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return SSOConnectionConfigResponse.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for query getSSOConnectionConfig")
 
@@ -117,7 +117,7 @@ class TaegisSDKTenantsQuery:
             },
             output=build_output_string(AuditResults),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return AuditResults.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for query audits")
 
@@ -132,6 +132,6 @@ class TaegisSDKTenantsQuery:
             },
             output=build_output_string(ServiceEvents),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return ServiceEvents.schema().load(result.get(endpoint), many=True)
         raise GraphQLNoRowsInResultSetError("for query serviceEvents")

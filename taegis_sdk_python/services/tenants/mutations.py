@@ -1,4 +1,4 @@
-""""Tenants Mutation."""
+"""Tenants Mutation."""
 # pylint: disable=no-member, unused-argument, too-many-locals, duplicate-code, wildcard-import, unused-wildcard-import, cyclic-import
 
 
@@ -35,7 +35,7 @@ class TaegisSDKTenantsMutation:
             },
             output=build_output_string(Service),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return Service.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for mutation createSubscription")
 
@@ -50,7 +50,7 @@ class TaegisSDKTenantsMutation:
             },
             output=build_output_string(Service),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return Service.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for mutation updateSubscription")
 
@@ -65,7 +65,7 @@ class TaegisSDKTenantsMutation:
             },
             output=build_output_string(Service),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return Service.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for mutation deleteSubscription")
 
@@ -81,7 +81,7 @@ class TaegisSDKTenantsMutation:
             },
             output=build_output_string(Tenant),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return Tenant.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for mutation assignSubscription")
 
@@ -97,7 +97,7 @@ class TaegisSDKTenantsMutation:
             },
             output=build_output_string(Tenant),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return Tenant.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for mutation unassignSubscription")
 
@@ -115,7 +115,7 @@ class TaegisSDKTenantsMutation:
             },
             output=build_output_string(TenantLabel),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return TenantLabel.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for mutation createTenantLabel")
 
@@ -134,7 +134,7 @@ class TaegisSDKTenantsMutation:
             },
             output=build_output_string(TenantLabel),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return TenantLabel.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for mutation updateTenantLabel")
 
@@ -150,7 +150,7 @@ class TaegisSDKTenantsMutation:
             },
             output=build_output_string(TenantLabel),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return TenantLabel.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for mutation deleteTenantLabel")
 
@@ -167,7 +167,7 @@ class TaegisSDKTenantsMutation:
             },
             output=build_output_string(SSOConnection),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return SSOConnection.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for mutation createSSOConnection")
 
@@ -184,7 +184,7 @@ class TaegisSDKTenantsMutation:
             },
             output=build_output_string(SSOConnection),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return SSOConnection.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for mutation updateSSOConnection")
 
@@ -199,7 +199,7 @@ class TaegisSDKTenantsMutation:
             },
             output=build_output_string(SSOConnection),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return SSOConnection.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for mutation deleteSSOConnection")
 
@@ -215,7 +215,7 @@ class TaegisSDKTenantsMutation:
             },
             output=build_output_string(Tenant),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return Tenant.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for mutation updateAllowResponseAction")
 
@@ -230,7 +230,7 @@ class TaegisSDKTenantsMutation:
             },
             output=build_output_string(Tenant),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return Tenant.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for mutation enableTenantSupport")
 
@@ -245,7 +245,7 @@ class TaegisSDKTenantsMutation:
             },
             output=build_output_string(Tenant),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return Tenant.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for mutation disableTenantSupport")
 
@@ -260,7 +260,7 @@ class TaegisSDKTenantsMutation:
             },
             output=build_output_string(Tenant),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return Tenant.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for mutation createTenant")
 
@@ -276,6 +276,6 @@ class TaegisSDKTenantsMutation:
             },
             output=build_output_string(Tenant),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return Tenant.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for mutation updateTenant")

@@ -1,4 +1,4 @@
-""""Clients Mutation."""
+"""Clients Mutation."""
 # pylint: disable=no-member, unused-argument, too-many-locals, duplicate-code, wildcard-import, unused-wildcard-import, cyclic-import
 
 
@@ -36,7 +36,7 @@ class TaegisSDKClientsMutation:
             },
             output=build_output_string(NewClient),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return NewClient.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for mutation createClient")
 
@@ -51,7 +51,7 @@ class TaegisSDKClientsMutation:
             },
             output=build_output_string(NewClient),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return NewClient.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for mutation rotateClientSecret")
 
@@ -69,7 +69,7 @@ class TaegisSDKClientsMutation:
             },
             output=build_output_string(Client),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return Client.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for mutation appendClientRoles")
 
@@ -85,7 +85,7 @@ class TaegisSDKClientsMutation:
             },
             output=build_output_string(Client),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return Client.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for mutation removeClientRoles")
 
@@ -100,6 +100,6 @@ class TaegisSDKClientsMutation:
             },
             output=build_output_string(Client),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return Client.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for mutation deleteClient")

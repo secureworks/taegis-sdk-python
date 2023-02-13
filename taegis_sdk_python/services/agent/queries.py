@@ -1,4 +1,4 @@
-""""Agent Query."""
+"""Agent Query."""
 # pylint: disable=no-member, unused-argument, too-many-locals, duplicate-code, wildcard-import, unused-wildcard-import, cyclic-import
 
 
@@ -37,7 +37,7 @@ class TaegisSDKAgentQuery:
             },
             output=build_output_string(Package),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return Package.schema().load(result.get(endpoint), many=True)
         raise GraphQLNoRowsInResultSetError("for query agentPackages")
 
@@ -54,7 +54,7 @@ class TaegisSDKAgentQuery:
             },
             output=build_output_string(PackageSignedUrl),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return PackageSignedUrl.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for query agentPackageSignedUrl")
 
@@ -69,6 +69,6 @@ class TaegisSDKAgentQuery:
             },
             output=build_output_string(PackageSignedUrl),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return PackageSignedUrl.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for query agentPackageSignedUrlByID")

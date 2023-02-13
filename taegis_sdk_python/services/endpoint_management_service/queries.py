@@ -1,4 +1,4 @@
-""""EndpointManagementService Query."""
+"""EndpointManagementService Query."""
 # pylint: disable=no-member, unused-argument, too-many-locals, duplicate-code, wildcard-import, unused-wildcard-import, cyclic-import
 
 
@@ -33,7 +33,7 @@ class TaegisSDKEndpointManagementServiceQuery:
         result = self.service.execute_query(
             endpoint=endpoint, variables={}, output=build_output_string(EndpointGroup)
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return EndpointGroup.schema().load(result.get(endpoint), many=True)
         raise GraphQLNoRowsInResultSetError("for query allEndpointGroups")
 
@@ -51,7 +51,7 @@ class TaegisSDKEndpointManagementServiceQuery:
             },
             output=build_output_string(EndpointGroupsPagedOutput),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return EndpointGroupsPagedOutput.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for query allEndpointGroupsPaged")
 
@@ -66,7 +66,7 @@ class TaegisSDKEndpointManagementServiceQuery:
             },
             output=build_output_string(EndpointGroup),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return EndpointGroup.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for query endpointGroupByID")
 
@@ -83,7 +83,7 @@ class TaegisSDKEndpointManagementServiceQuery:
             },
             output=build_output_string(EndpointGroup),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return EndpointGroup.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for query endpointGroupByRegistrationKey")
 
@@ -98,7 +98,7 @@ class TaegisSDKEndpointManagementServiceQuery:
             },
             output=build_output_string(Policy),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return Policy.schema().load(result.get(endpoint), many=True)
         raise GraphQLNoRowsInResultSetError("for query policyByName")
 
@@ -115,7 +115,7 @@ class TaegisSDKEndpointManagementServiceQuery:
             },
             output=build_output_string(BulkAssignRequestOutput),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return BulkAssignRequestOutput.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for query bulkAssignmentStatusByRequestID")
 
@@ -130,6 +130,6 @@ class TaegisSDKEndpointManagementServiceQuery:
             },
             output=build_output_string(BulkAssignRequestOutput),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return BulkAssignRequestOutput.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for query bulkAssignmentStatusByID")

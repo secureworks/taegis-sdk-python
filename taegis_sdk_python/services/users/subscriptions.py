@@ -1,4 +1,4 @@
-""""Users Subscription."""
+"""Users Subscription."""
 # pylint: disable=no-member, unused-argument, too-many-locals, duplicate-code, wildcard-import, unused-wildcard-import, cyclic-import
 
 

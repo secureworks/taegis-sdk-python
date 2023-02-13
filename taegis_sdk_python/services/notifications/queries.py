@@ -1,4 +1,4 @@
-""""Notifications Query."""
+"""Notifications Query."""
 # pylint: disable=no-member, unused-argument, too-many-locals, duplicate-code, wildcard-import, unused-wildcard-import, cyclic-import
 
 
@@ -46,7 +46,7 @@ class TaegisSDKNotificationsQuery:
             },
             output=build_output_string(NotificationsOutput),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return NotificationsOutput.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for query notifications")
 
@@ -61,6 +61,6 @@ class TaegisSDKNotificationsQuery:
             },
             output=build_output_string(Notification),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return Notification.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for query notification")

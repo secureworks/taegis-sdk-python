@@ -1,4 +1,4 @@
-""""Events Mutation."""
+"""Events Mutation."""
 # pylint: disable=no-member, unused-argument, too-many-locals, duplicate-code, wildcard-import, unused-wildcard-import, cyclic-import
 
 
@@ -35,6 +35,6 @@ class TaegisSDKEventsMutation:
             },
             output="",
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return result.get(endpoint)
         raise GraphQLNoRowsInResultSetError("for mutation deleteEventQuery")

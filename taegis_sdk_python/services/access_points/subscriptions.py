@@ -1,4 +1,4 @@
-"""MitreAttackInfo Subscription."""
+"""AccessPoints Subscription."""
 # pylint: disable=no-member, unused-argument, too-many-locals, duplicate-code, wildcard-import, unused-wildcard-import, cyclic-import
 
 
@@ -10,16 +10,16 @@ from __future__ import annotations
 from typing import TYPE_CHECKING, Any, List, Dict, Optional, Tuple, Union
 
 from taegis_sdk_python.utils import build_output_string, prepare_input
-from taegis_sdk_python.services.mitre_attack_info.types import *
+from taegis_sdk_python.services.access_points.types import *
 
 from taegis_sdk_python import GraphQLNoRowsInResultSetError
 
 if TYPE_CHECKING:  # pragma: no cover
-    from taegis_sdk_python.services.mitre_attack_info import MitreAttackInfoService
+    from taegis_sdk_python.services.access_points import AccessPointsService
 
 
-class TaegisSDKMitreAttackInfoSubscription:
-    """Teagis Mitre_attack_info Subscription operations."""
+class TaegisSDKAccessPointsSubscription:
+    """Teagis Access_points Subscription operations."""
 
-    def __init__(self, service: MitreAttackInfoService):
+    def __init__(self, service: AccessPointsService):
         self.service = service

@@ -1,4 +1,4 @@
-""""Alerts Query."""
+"""Alerts Query."""
 # pylint: disable=no-member, unused-argument, too-many-locals, duplicate-code, wildcard-import, unused-wildcard-import, cyclic-import
 
 
@@ -37,7 +37,7 @@ class TaegisSDKAlertsQuery:
             },
             output=build_output_string(AlertsResponse),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return AlertsResponse.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for query alertsServiceRetrieveAlertsById")
 
@@ -54,7 +54,7 @@ class TaegisSDKAlertsQuery:
             },
             output=build_output_string(AlertsResponse),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return AlertsResponse.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError(
             "for query alertsServiceRetrieveAlertsByHost"
@@ -73,7 +73,7 @@ class TaegisSDKAlertsQuery:
             },
             output=build_output_string(AlertsResponse),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return AlertsResponse.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError(
             "for query alertsServiceRetrieveAlertsByEntity"
@@ -92,7 +92,7 @@ class TaegisSDKAlertsQuery:
             },
             output=build_output_string(AlertsResponse),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return AlertsResponse.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError(
             "for query alertsServiceRetrieveAlertsByGroupKey"
@@ -111,7 +111,7 @@ class TaegisSDKAlertsQuery:
             },
             output=build_output_string(AlertsResponse),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return AlertsResponse.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for query alertsServiceSearch")
 
@@ -128,7 +128,7 @@ class TaegisSDKAlertsQuery:
             },
             output=build_output_string(AlertsResponse),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return AlertsResponse.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for query alertsServicePoll")
 
@@ -145,7 +145,7 @@ class TaegisSDKAlertsQuery:
             },
             output=build_output_string(AlertsAggregateResponse),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return AlertsAggregateResponse.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError(
             "for query alertsServiceAggregateAlertsBySeverity"
@@ -164,7 +164,7 @@ class TaegisSDKAlertsQuery:
             },
             output=build_output_string(TriageDashboardOutput),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return TriageDashboardOutput.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError(
             "for query alertsServiceAlertsDashboardTriage"

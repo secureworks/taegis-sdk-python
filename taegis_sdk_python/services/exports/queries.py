@@ -1,4 +1,4 @@
-""""Exports Query."""
+"""Exports Query."""
 # pylint: disable=no-member, unused-argument, too-many-locals, duplicate-code, wildcard-import, unused-wildcard-import, cyclic-import
 
 
@@ -37,7 +37,7 @@ class TaegisSDKExportsQuery:
             },
             output=build_output_string(Export),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return Export.schema().load(result.get(endpoint), many=True)
         raise GraphQLNoRowsInResultSetError("for query allExports")
 
@@ -52,7 +52,7 @@ class TaegisSDKExportsQuery:
             },
             output=build_output_string(Export),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return Export.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for query singleExport")
 
@@ -67,7 +67,7 @@ class TaegisSDKExportsQuery:
             },
             output="",
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return result.get(endpoint)
         raise GraphQLNoRowsInResultSetError("for query getExportURL")
 
@@ -89,7 +89,7 @@ class TaegisSDKExportsQuery:
             },
             output=build_output_string(ReportsOutput),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return ReportsOutput.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for query getReportsFromSchedule")
 
@@ -107,7 +107,7 @@ class TaegisSDKExportsQuery:
             },
             output=build_output_string(ReportsOutput),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return ReportsOutput.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for query allReports")
 
@@ -127,7 +127,7 @@ class TaegisSDKExportsQuery:
             },
             output=build_output_string(SchedulesOutput),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return SchedulesOutput.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for query allSchedules")
 
@@ -142,7 +142,7 @@ class TaegisSDKExportsQuery:
             },
             output=build_output_string(Schedule),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return Schedule.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for query singleSchedule")
 
@@ -157,7 +157,7 @@ class TaegisSDKExportsQuery:
             },
             output=build_output_string(Report),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return Report.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for query singleReport")
 
@@ -172,7 +172,7 @@ class TaegisSDKExportsQuery:
             },
             output="",
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return result.get(endpoint)
         raise GraphQLNoRowsInResultSetError("for query getReportURL")
 
@@ -187,7 +187,7 @@ class TaegisSDKExportsQuery:
             },
             output="",
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return result.get(endpoint)
         raise GraphQLNoRowsInResultSetError("for query getConnectedExportURL")
 
@@ -206,7 +206,7 @@ class TaegisSDKExportsQuery:
             },
             output="",
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return result.get(endpoint)
         raise GraphQLNoRowsInResultSetError("for query createAbsoluteTimeRedQLQuery")
 
@@ -223,7 +223,7 @@ class TaegisSDKExportsQuery:
             },
             output=build_output_string(ReportsOutput),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return ReportsOutput.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for query getReportsFromScheduleV2")
 
@@ -238,7 +238,7 @@ class TaegisSDKExportsQuery:
             },
             output=build_output_string(ReportsOutput),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return ReportsOutput.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for query allReportsV2")
 
@@ -255,7 +255,7 @@ class TaegisSDKExportsQuery:
             },
             output=build_output_string(SchedulesOutput),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return SchedulesOutput.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for query allSchedulesV2")
 
@@ -272,9 +272,24 @@ class TaegisSDKExportsQuery:
             },
             output="",
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return result.get(endpoint)
         raise GraphQLNoRowsInResultSetError("for query createAbsoluteTimeRedQLQueryV2")
+
+    def get_red_ql_query_with_time_range(self, input_: QueryWithTimeRangeInput) -> str:
+        """None."""
+        endpoint = "getRedQLQueryWithTimeRange"
+
+        result = self.service.execute_query(
+            endpoint=endpoint,
+            variables={
+                "input": prepare_input(input_),
+            },
+            output="",
+        )
+        if result.get(endpoint) is not None:
+            return result.get(endpoint)
+        raise GraphQLNoRowsInResultSetError("for query getRedQLQueryWithTimeRange")
 
     def get_all_unsubscriptions(self) -> List[Unsubscription]:
         """None."""
@@ -283,6 +298,6 @@ class TaegisSDKExportsQuery:
         result = self.service.execute_query(
             endpoint=endpoint, variables={}, output=build_output_string(Unsubscription)
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return Unsubscription.schema().load(result.get(endpoint), many=True)
         raise GraphQLNoRowsInResultSetError("for query getAllUnsubscriptions")

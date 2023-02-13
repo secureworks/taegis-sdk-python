@@ -1,4 +1,4 @@
-""""Events Subscription."""
+"""Events Subscription."""
 # pylint: disable=no-member, unused-argument, too-many-locals, duplicate-code, wildcard-import, unused-wildcard-import, cyclic-import
 
 
@@ -43,9 +43,9 @@ class TaegisSDKEventsSubscription:
             },
             output=build_output_string(EventQueryResults),
         )
-        if result is not None:
+        if any(r.get(endpoint) for r in result):
             return EventQueryResults.schema().load(
-                [r.get(endpoint) for r in result], many=True
+                [r.get(endpoint, {}) or {} for r in result], many=True
             )
         raise GraphQLNoRowsInResultSetError("for subscription eventQuery")
 
@@ -61,8 +61,8 @@ class TaegisSDKEventsSubscription:
             },
             output=build_output_string(EventQueryResults),
         )
-        if result is not None:
+        if any(r.get(endpoint) for r in result):
             return EventQueryResults.schema().load(
-                [r.get(endpoint) for r in result], many=True
+                [r.get(endpoint, {}) or {} for r in result], many=True
             )
         raise GraphQLNoRowsInResultSetError("for subscription eventPage")

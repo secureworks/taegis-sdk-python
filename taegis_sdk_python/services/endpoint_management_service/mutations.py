@@ -1,4 +1,4 @@
-""""EndpointManagementService Mutation."""
+"""EndpointManagementService Mutation."""
 # pylint: disable=no-member, unused-argument, too-many-locals, duplicate-code, wildcard-import, unused-wildcard-import, cyclic-import
 
 
@@ -37,7 +37,7 @@ class TaegisSDKEndpointManagementServiceMutation:
             },
             output=build_output_string(EndpointGroup),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return EndpointGroup.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for mutation createEndpointGroup")
 
@@ -52,7 +52,7 @@ class TaegisSDKEndpointManagementServiceMutation:
             },
             output=build_output_string(EndpointGroup),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return EndpointGroup.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for mutation updateEndpointGroup")
 
@@ -67,7 +67,7 @@ class TaegisSDKEndpointManagementServiceMutation:
             },
             output="",
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return result.get(endpoint)
         raise GraphQLNoRowsInResultSetError("for mutation deleteEndpointGroup")
 
@@ -82,7 +82,7 @@ class TaegisSDKEndpointManagementServiceMutation:
             },
             output=build_output_string(Policy),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return Policy.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for mutation createPolicy")
 
@@ -99,6 +99,6 @@ class TaegisSDKEndpointManagementServiceMutation:
             },
             output=build_output_string(BulkAssignRequestOutput),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return BulkAssignRequestOutput.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for mutation assignBulkAssetsToGroup")

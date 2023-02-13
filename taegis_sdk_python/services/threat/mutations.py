@@ -1,4 +1,4 @@
-""""Threat Mutation."""
+"""Threat Mutation."""
 # pylint: disable=no-member, unused-argument, too-many-locals, duplicate-code, wildcard-import, unused-wildcard-import, cyclic-import
 
 
@@ -35,7 +35,7 @@ class TaegisSDKThreatMutation:
             },
             output=build_output_string(ThreatIndicator),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return ThreatIndicator.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for mutation indicator")
 
@@ -50,7 +50,7 @@ class TaegisSDKThreatMutation:
             },
             output="",
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return result.get(endpoint)
         raise GraphQLNoRowsInResultSetError("for mutation threatDeleteDocument")
 
@@ -65,7 +65,7 @@ class TaegisSDKThreatMutation:
             },
             output=build_output_string(ThreatList),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return ThreatList.schema().load(result.get(endpoint), many=True)
         raise GraphQLNoRowsInResultSetError("for mutation createList")
 
@@ -80,7 +80,7 @@ class TaegisSDKThreatMutation:
             },
             output="",
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return result.get(endpoint)
         raise GraphQLNoRowsInResultSetError("for mutation deleteList")
 
@@ -95,6 +95,6 @@ class TaegisSDKThreatMutation:
             },
             output="",
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return result.get(endpoint)
         raise GraphQLNoRowsInResultSetError("for mutation restoreList")

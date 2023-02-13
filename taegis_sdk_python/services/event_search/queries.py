@@ -1,4 +1,4 @@
-""""EventSearch Query."""
+"""EventSearch Query."""
 # pylint: disable=no-member, unused-argument, too-many-locals, duplicate-code, wildcard-import, unused-wildcard-import, cyclic-import
 
 
@@ -37,7 +37,7 @@ class TaegisSDKEventSearchQuery:
             },
             output=build_output_string(AuxiliaryEventsSearchResponse),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return AuxiliaryEventsSearchResponse.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for query auxiliaryEventsById")
 
@@ -54,6 +54,6 @@ class TaegisSDKEventSearchQuery:
             },
             output=build_output_string(AuxiliaryEventsSearchResponse),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return AuxiliaryEventsSearchResponse.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for query auxiliaryEventsSearch")

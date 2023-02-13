@@ -113,6 +113,9 @@ class EventQueryProgress:
     rows_removed: Optional[int] = field(
         default=None, metadata=config(field_name="rowsRemoved")
     )
+    rows_filtered: Optional[int] = field(
+        default=None, metadata=config(field_name="rowsFiltered")
+    )
     results_truncated: Optional[bool] = field(
         default=None, metadata=config(field_name="resultsTruncated")
     )
@@ -154,6 +157,9 @@ class EventQueryOptions:
     )
     include_mitre_attack_info_data: Optional[bool] = field(
         default=None, metadata=config(field_name="includeMitreAttackInfoData")
+    )
+    save_to_cache: Optional[bool] = field(
+        default=None, metadata=config(field_name="saveToCache")
     )
     search_target: Optional[SearchTarget] = field(
         default=None, metadata=config(field_name="searchTarget")

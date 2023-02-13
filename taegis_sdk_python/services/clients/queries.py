@@ -1,4 +1,4 @@
-""""Clients Query."""
+"""Clients Query."""
 # pylint: disable=no-member, unused-argument, too-many-locals, duplicate-code, wildcard-import, unused-wildcard-import, cyclic-import
 
 
@@ -35,7 +35,7 @@ class TaegisSDKClientsQuery:
             },
             output=build_output_string(Client),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return Client.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for query client")
 
@@ -65,6 +65,6 @@ class TaegisSDKClientsQuery:
             },
             output=build_output_string(Client),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return Client.schema().load(result.get(endpoint), many=True)
         raise GraphQLNoRowsInResultSetError("for query clients")

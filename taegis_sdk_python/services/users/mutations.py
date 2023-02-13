@@ -1,4 +1,4 @@
-""""Users Mutation."""
+"""Users Mutation."""
 # pylint: disable=no-member, unused-argument, too-many-locals, duplicate-code, wildcard-import, unused-wildcard-import, cyclic-import
 
 
@@ -35,7 +35,7 @@ class TaegisSDKUsersMutation:
             },
             output=build_output_string(ForgotPasswordResponse),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return ForgotPasswordResponse.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for mutation forgotPassword")
 
@@ -50,7 +50,7 @@ class TaegisSDKUsersMutation:
             },
             output=build_output_string(ForgotPasswordResponse),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return ForgotPasswordResponse.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for mutation resetPassword")
 
@@ -65,7 +65,7 @@ class TaegisSDKUsersMutation:
             },
             output=build_output_string(ForgotPasswordResponse),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return ForgotPasswordResponse.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for mutation needMFAReset")
 
@@ -80,7 +80,7 @@ class TaegisSDKUsersMutation:
             },
             output=build_output_string(MFAResetResponse),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return MFAResetResponse.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for mutation resetMFA")
 
@@ -97,6 +97,6 @@ class TaegisSDKUsersMutation:
             },
             output=build_output_string(MFAResetResponse),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return MFAResetResponse.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for mutation registerTDRUser")

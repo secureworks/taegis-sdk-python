@@ -1,4 +1,4 @@
-""""EventSearch Mutation."""
+"""EventSearch Mutation."""
 # pylint: disable=no-member, unused-argument, too-many-locals, duplicate-code, wildcard-import, unused-wildcard-import, cyclic-import
 
 
@@ -37,7 +37,7 @@ class TaegisSDKEventSearchMutation:
             },
             output=build_output_string(AsynchronousEventsSearchPrepInputResponse),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return AsynchronousEventsSearchPrepInputResponse.from_dict(
                 result.get(endpoint)
             )

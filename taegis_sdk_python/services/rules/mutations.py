@@ -1,4 +1,4 @@
-""""Rules Mutation."""
+"""Rules Mutation."""
 # pylint: disable=no-member, unused-argument, too-many-locals, duplicate-code, wildcard-import, unused-wildcard-import, cyclic-import
 
 
@@ -38,7 +38,7 @@ class TaegisSDKRulesMutation:
             },
             output=build_output_string(Rule),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return Rule.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for mutation createCustomQLRule")
 
@@ -56,7 +56,7 @@ class TaegisSDKRulesMutation:
             },
             output=build_output_string(Rule),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return Rule.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for mutation createCustomSuppressionRule")
 
@@ -72,7 +72,7 @@ class TaegisSDKRulesMutation:
             },
             output=build_output_string(Rule),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return Rule.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for mutation createRule")
 
@@ -90,7 +90,7 @@ class TaegisSDKRulesMutation:
             },
             output=build_output_string(Rule),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return Rule.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for mutation createSuppressionRule")
 
@@ -108,7 +108,7 @@ class TaegisSDKRulesMutation:
             },
             output=build_output_string(Rule),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return Rule.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for mutation createEventTaggingRule")
 
@@ -126,7 +126,7 @@ class TaegisSDKRulesMutation:
             },
             output=build_output_string(Rule),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return Rule.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for mutation createQLEventTaggingRule")
 
@@ -142,7 +142,7 @@ class TaegisSDKRulesMutation:
             },
             output=build_output_string(RuleFilter),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return RuleFilter.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for mutation addFilterToRule")
 
@@ -158,7 +158,7 @@ class TaegisSDKRulesMutation:
             },
             output=build_output_string(Rule),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return Rule.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for mutation updateRule")
 
@@ -180,7 +180,7 @@ class TaegisSDKRulesMutation:
             },
             output=build_output_string(Rule),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return Rule.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for mutation deleteRule")
 
@@ -197,7 +197,7 @@ class TaegisSDKRulesMutation:
             },
             output=build_output_string(Rule),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return Rule.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for mutation restoreRule")
 
@@ -213,7 +213,7 @@ class TaegisSDKRulesMutation:
             },
             output=build_output_string(RuleFilter),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return RuleFilter.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for mutation updateFilter")
 
@@ -242,7 +242,7 @@ class TaegisSDKRulesMutation:
             },
             output=build_output_string(RuleFilter),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return RuleFilter.schema().load(result.get(endpoint), many=True)
         raise GraphQLNoRowsInResultSetError("for mutation updateFilters")
 
@@ -257,7 +257,7 @@ class TaegisSDKRulesMutation:
             },
             output=build_output_string(RuleFilter),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return RuleFilter.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for mutation deleteFilter")
 
@@ -273,7 +273,7 @@ class TaegisSDKRulesMutation:
             },
             output=build_output_string(Rule),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return Rule.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for mutation createQLRule")
 
@@ -291,7 +291,7 @@ class TaegisSDKRulesMutation:
             },
             output=build_output_string(RuleQLFilter),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return RuleQLFilter.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for mutation updateQLFilter")
 
@@ -306,7 +306,7 @@ class TaegisSDKRulesMutation:
             },
             output=build_output_string(Rule),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return Rule.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for mutation disableRule")
 
@@ -321,7 +321,7 @@ class TaegisSDKRulesMutation:
             },
             output=build_output_string(Rule),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return Rule.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for mutation enableRule")
 
@@ -343,7 +343,7 @@ class TaegisSDKRulesMutation:
             },
             output=build_output_string(Rule),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return Rule.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for mutation createRedQLRule")
 
@@ -365,6 +365,6 @@ class TaegisSDKRulesMutation:
             },
             output=build_output_string(RuleRedQLFilter),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return RuleRedQLFilter.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for mutation updateRedQLFilter")

@@ -931,6 +931,7 @@ class Investigation:
         default=None, metadata=config(field_name="files_count")
     )
     rn: Optional[str] = field(default=None, metadata=config(field_name="rn"))
+    short_id: Optional[str] = field(default=None, metadata=config(field_name="shortId"))
     genesis_alerts: Optional[List[Alert]] = field(
         default=None, metadata=config(field_name="genesis_alerts")
     )

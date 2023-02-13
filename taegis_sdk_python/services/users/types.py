@@ -19,6 +19,7 @@ class UsersAuthzObject(str, Enum):
 
     USER = "User"
     ROLE = "Role"
+    PRE_VERIFIED_USER = "PreVerifiedUser"
 
 
 class UsersAuthzAction(str, Enum):
@@ -322,6 +323,33 @@ class TDRUserTrialInviteInput:
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
+class PartnerRegistrationInput:
+    """PartnerRegistrationInput."""
+
+    email: Optional[str] = field(default=None, metadata=config(field_name="email"))
+    role_id: Optional[str] = field(default=None, metadata=config(field_name="role_id"))
+    role_expires_at: Optional[str] = field(
+        default=None, metadata=config(field_name="role_expires_at")
+    )
+    given_name: Optional[str] = field(
+        default=None, metadata=config(field_name="given_name")
+    )
+    family_name: Optional[str] = field(
+        default=None, metadata=config(field_name="family_name")
+    )
+    phone_number: Optional[str] = field(
+        default=None, metadata=config(field_name="phone_number")
+    )
+    timezone: Optional[str] = field(
+        default=None, metadata=config(field_name="timezone")
+    )
+    language: Optional[TDRUsersLanguage] = field(
+        default=None, metadata=config(field_name="language")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
 class TDRUsersSearchInput:
     """TDRUsersSearchInput."""
 
@@ -610,6 +638,9 @@ class TDRUser:
     is_scwx: Optional[bool] = field(default=None, metadata=config(field_name="is_scwx"))
     is_partner: Optional[bool] = field(
         default=None, metadata=config(field_name="is_partner")
+    )
+    pre_verified: Optional[bool] = field(
+        default=None, metadata=config(field_name="pre_verified")
     )
     tenants: Optional[List[TDRUserTenant]] = field(
         default=None, metadata=config(field_name="tenants")

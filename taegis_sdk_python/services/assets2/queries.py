@@ -1,4 +1,4 @@
-""""Assets2 Query."""
+"""Assets2 Query."""
 # pylint: disable=no-member, unused-argument, too-many-locals, duplicate-code, wildcard-import, unused-wildcard-import, cyclic-import
 
 
@@ -35,7 +35,7 @@ class TaegisSDKAssets2Query:
             },
             output=build_output_string(FacetV2),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return FacetV2.schema().load(result.get(endpoint), many=True)
         raise GraphQLNoRowsInResultSetError("for query facetsV2")
 
@@ -57,7 +57,7 @@ class TaegisSDKAssets2Query:
             },
             output=build_output_string(FacetInfoV2),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return FacetInfoV2.schema().load(result.get(endpoint), many=True)
         raise GraphQLNoRowsInResultSetError("for query facetInfoV2")
 
@@ -85,7 +85,7 @@ class TaegisSDKAssets2Query:
             },
             output=build_output_string(AssetsV2),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return AssetsV2.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for query assetsV2")
 
@@ -109,7 +109,7 @@ class TaegisSDKAssets2Query:
             },
             output=build_output_string(AssetsExportOutputV2),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return AssetsExportOutputV2.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for query exportAssetsV2")
 
@@ -124,7 +124,7 @@ class TaegisSDKAssets2Query:
             },
             output="",
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return result.get(endpoint)
         raise GraphQLNoRowsInResultSetError("for query tagKeysV2")
 
@@ -139,7 +139,7 @@ class TaegisSDKAssets2Query:
             },
             output="",
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return result.get(endpoint)
         raise GraphQLNoRowsInResultSetError("for query tagValuesV2")
 
@@ -154,7 +154,7 @@ class TaegisSDKAssets2Query:
             },
             output=build_output_string(TaskInfoPayload),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return TaskInfoPayload.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for query updateTagsForEndpointStatusV2")
 
@@ -169,7 +169,7 @@ class TaegisSDKAssets2Query:
             },
             output=build_output_string(TaskInfoPayload),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return TaskInfoPayload.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for query deleteAssetsStatusV2")
 
@@ -184,7 +184,7 @@ class TaegisSDKAssets2Query:
             },
             output=build_output_string(TaskInfoPayload),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return TaskInfoPayload.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for query restoreAssetsStatusV2")
 
@@ -199,7 +199,7 @@ class TaegisSDKAssets2Query:
             },
             output=build_output_string(TaskInfoPayload),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return TaskInfoPayload.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for query assignBulkAssetsToGroupStatus")
 
@@ -214,7 +214,7 @@ class TaegisSDKAssets2Query:
             },
             output=build_output_string(TaskInfoPayload),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return TaskInfoPayload.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError(
             "for query bulkUpdateTagsForEndpointsStatusV2"
@@ -231,7 +231,7 @@ class TaegisSDKAssets2Query:
             },
             output=build_output_string(TaskInfoPayload),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return TaskInfoPayload.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError(
             "for query bulkDeleteTagsForEndpointsStatusV2"
@@ -248,7 +248,7 @@ class TaegisSDKAssets2Query:
             },
             output=build_output_string(TaskInfoPayload),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return TaskInfoPayload.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError(
             "for query assignBulkAssetsToInvestigationStatus"
@@ -267,7 +267,7 @@ class TaegisSDKAssets2Query:
             },
             output=build_output_string(TaskInfoPayload),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return TaskInfoPayload.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError(
             "for query bulkDeleteInvestigationForEndpointsStatus"
@@ -280,6 +280,6 @@ class TaegisSDKAssets2Query:
         endpoint = "assetDeadPeriod"
 
         result = self.service.execute_query(endpoint=endpoint, variables={}, output="")
-        if result is not None:
+        if result.get(endpoint) is not None:
             return result.get(endpoint)
         raise GraphQLNoRowsInResultSetError("for query assetDeadPeriod")

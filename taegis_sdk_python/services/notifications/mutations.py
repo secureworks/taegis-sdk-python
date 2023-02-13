@@ -1,4 +1,4 @@
-""""Notifications Mutation."""
+"""Notifications Mutation."""
 # pylint: disable=no-member, unused-argument, too-many-locals, duplicate-code, wildcard-import, unused-wildcard-import, cyclic-import
 
 
@@ -35,7 +35,7 @@ class TaegisSDKNotificationsMutation:
             },
             output=build_output_string(Notification),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return Notification.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for mutation createNotification")
 
@@ -52,7 +52,7 @@ class TaegisSDKNotificationsMutation:
             },
             output=build_output_string(Notification),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return Notification.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError(
             "for mutation createNotificationViaTemplate"
@@ -71,7 +71,7 @@ class TaegisSDKNotificationsMutation:
             },
             output=build_output_string(Notification),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return Notification.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError(
             "for mutation createNotificationWithExistingHTML"
@@ -91,7 +91,7 @@ class TaegisSDKNotificationsMutation:
             },
             output=build_output_string(Notification),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return Notification.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for mutation updateNotification")
 
@@ -106,7 +106,7 @@ class TaegisSDKNotificationsMutation:
             },
             output=build_output_string(Notification),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return Notification.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for mutation deleteNotification")
 
@@ -121,7 +121,7 @@ class TaegisSDKNotificationsMutation:
             },
             output=build_output_string(Notification),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return Notification.schema().load(result.get(endpoint), many=True)
         raise GraphQLNoRowsInResultSetError("for mutation bulkDeleteNotification")
 
@@ -136,7 +136,7 @@ class TaegisSDKNotificationsMutation:
             },
             output=build_output_string(Notification),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return Notification.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for mutation readNotification")
 
@@ -151,7 +151,7 @@ class TaegisSDKNotificationsMutation:
             },
             output=build_output_string(Notification),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return Notification.schema().load(result.get(endpoint), many=True)
         raise GraphQLNoRowsInResultSetError("for mutation bulkReadNotification")
 
@@ -166,6 +166,6 @@ class TaegisSDKNotificationsMutation:
             },
             output="",
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return result.get(endpoint)
         raise GraphQLNoRowsInResultSetError("for mutation bulkRestoreNotifications")

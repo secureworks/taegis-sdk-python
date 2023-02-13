@@ -1,4 +1,4 @@
-""""EndpointCommandManager Query."""
+"""EndpointCommandManager Query."""
 # pylint: disable=no-member, unused-argument, too-many-locals, duplicate-code, wildcard-import, unused-wildcard-import, cyclic-import
 
 
@@ -37,7 +37,7 @@ class TaegisSDKEndpointCommandManagerQuery:
             },
             output="",
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return result.get(endpoint)
         raise GraphQLNoRowsInResultSetError("for query endpointUninstallStatus")
 
@@ -54,7 +54,7 @@ class TaegisSDKEndpointCommandManagerQuery:
             },
             output=build_output_string(HistoryEntry),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return HistoryEntry.schema().load(result.get(endpoint), many=True)
         raise GraphQLNoRowsInResultSetError("for query endpointCommandHistory")
 
@@ -67,6 +67,6 @@ class TaegisSDKEndpointCommandManagerQuery:
             variables={},
             output=build_output_string(IsolationExclusionRule),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return IsolationExclusionRule.schema().load(result.get(endpoint), many=True)
         raise GraphQLNoRowsInResultSetError("for query endpointIsolationExclusionRules")

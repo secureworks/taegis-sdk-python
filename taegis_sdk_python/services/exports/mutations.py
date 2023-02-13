@@ -1,4 +1,4 @@
-""""Exports Mutation."""
+"""Exports Mutation."""
 # pylint: disable=no-member, unused-argument, too-many-locals, duplicate-code, wildcard-import, unused-wildcard-import, cyclic-import
 
 
@@ -35,7 +35,7 @@ class TaegisSDKExportsMutation:
             },
             output=build_output_string(Export),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return Export.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for mutation newExport")
 
@@ -50,7 +50,7 @@ class TaegisSDKExportsMutation:
             },
             output=build_output_string(Export),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return Export.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for mutation cancelExport")
 
@@ -65,7 +65,7 @@ class TaegisSDKExportsMutation:
             },
             output=build_output_string(Export),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return Export.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for mutation deleteExport")
 
@@ -80,7 +80,7 @@ class TaegisSDKExportsMutation:
             },
             output=build_output_string(Export),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return Export.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for mutation retryExport")
 
@@ -95,7 +95,7 @@ class TaegisSDKExportsMutation:
             },
             output=build_output_string(Schedule),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return Schedule.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for mutation scheduleReport")
 
@@ -110,7 +110,7 @@ class TaegisSDKExportsMutation:
             },
             output=build_output_string(Schedule),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return Schedule.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for mutation deleteSchedule")
 
@@ -125,7 +125,7 @@ class TaegisSDKExportsMutation:
             },
             output=build_output_string(Schedule),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return Schedule.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for mutation editSchedule")
 
@@ -149,7 +149,7 @@ class TaegisSDKExportsMutation:
             },
             output=build_output_string(Report),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return Report.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for mutation reportFromSchedule")
 
@@ -165,7 +165,7 @@ class TaegisSDKExportsMutation:
             },
             output=build_output_string(Report),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return Report.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for mutation attachExportToReport")
 
@@ -180,7 +180,7 @@ class TaegisSDKExportsMutation:
             },
             output=build_output_string(Report),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return Report.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for mutation retryReport")
 
@@ -195,7 +195,7 @@ class TaegisSDKExportsMutation:
             },
             output=build_output_string(Report),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return Report.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for mutation archiveReport")
 
@@ -210,7 +210,7 @@ class TaegisSDKExportsMutation:
             },
             output=build_output_string(Report),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return Report.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for mutation unarchiveReport")
 
@@ -225,7 +225,7 @@ class TaegisSDKExportsMutation:
             },
             output=build_output_string(Report),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return Report.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for mutation deleteReport")
 
@@ -240,7 +240,7 @@ class TaegisSDKExportsMutation:
             },
             output=build_output_string(Report),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return Report.schema().load(result.get(endpoint), many=True)
         raise GraphQLNoRowsInResultSetError("for mutation deleteReports")
 
@@ -255,7 +255,7 @@ class TaegisSDKExportsMutation:
             },
             output=build_output_string(Schedule),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return Schedule.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for mutation pauseSchedule")
 
@@ -270,7 +270,7 @@ class TaegisSDKExportsMutation:
             },
             output=build_output_string(Schedule),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return Schedule.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for mutation resumeSchedule")
 
@@ -288,7 +288,7 @@ class TaegisSDKExportsMutation:
             },
             output=build_output_string(Export),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return Export.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for mutation createExportsZip")
 
@@ -305,7 +305,7 @@ class TaegisSDKExportsMutation:
             },
             output=build_output_string(Report),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return Report.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError(
             "for mutation manuallyRunReportFromSchedule"
@@ -322,7 +322,7 @@ class TaegisSDKExportsMutation:
             },
             output=build_output_string(Report),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return Report.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for mutation attachExportToReportV2")
 
@@ -337,7 +337,7 @@ class TaegisSDKExportsMutation:
             },
             output=build_output_string(Unsubscription),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return Unsubscription.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for mutation unsubscribe")
 
@@ -352,7 +352,7 @@ class TaegisSDKExportsMutation:
             },
             output=build_output_string(Schedule),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return Schedule.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for mutation resubscribe")
 
@@ -368,6 +368,6 @@ class TaegisSDKExportsMutation:
             },
             output=build_output_string(Schedule),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return Schedule.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for mutation shareWithUsers")

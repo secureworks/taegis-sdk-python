@@ -27,6 +27,13 @@ class ExportStatus(str, Enum):
     PAUSED = "Paused"
 
 
+class RelativeTimeRange(str, Enum):
+    """RelativeTimeRange."""
+
+    LAST_MONTH = "LAST_MONTH"
+    CURRENT_MONTH_TO_DATE = "CURRENT_MONTH_TO_DATE"
+
+
 class ExportType(str, Enum):
     """ExportType."""
 
@@ -54,6 +61,7 @@ class ReportChartType(str, Enum):
     DATASOURCETRENDING = "DATASOURCETRENDING"
     ALERT_SUMMARY = "ALERT_SUMMARY"
     INVESTIGATION_SUMMARY = "INVESTIGATION_SUMMARY"
+    USER_ADMINISTRATION = "USER_ADMINISTRATION"
 
 
 class ReportType(str, Enum):
@@ -233,6 +241,20 @@ class NewExportInput:
     locale: Optional[str] = field(default=None, metadata=config(field_name="locale"))
     export_type: Optional[ExportType] = field(
         default=None, metadata=config(field_name="exportType")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class QueryWithTimeRangeInput:
+    """QueryWithTimeRangeInput."""
+
+    query: Optional[str] = field(default=None, metadata=config(field_name="query"))
+    reference_time: Optional[str] = field(
+        default=None, metadata=config(field_name="referenceTime")
+    )
+    time_range: Optional[RelativeTimeRange] = field(
+        default=None, metadata=config(field_name="timeRange")
     )
 
 

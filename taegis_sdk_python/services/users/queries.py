@@ -1,4 +1,4 @@
-""""Users Query."""
+"""Users Query."""
 # pylint: disable=no-member, unused-argument, too-many-locals, duplicate-code, wildcard-import, unused-wildcard-import, cyclic-import
 
 
@@ -46,7 +46,7 @@ class TaegisSDKUsersQuery:
             },
             output=build_output_string(TDRUser),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return TDRUser.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for query tdruser")
 
@@ -78,7 +78,7 @@ class TaegisSDKUsersQuery:
             },
             output=build_output_string(TDRUser),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return TDRUser.schema().load(result.get(endpoint), many=True)
         raise GraphQLNoRowsInResultSetError("for query tdrusers")
 
@@ -93,7 +93,7 @@ class TaegisSDKUsersQuery:
             },
             output=build_output_string(TDRUser),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return TDRUser.schema().load(result.get(endpoint), many=True)
         raise GraphQLNoRowsInResultSetError("for query tdrusersByIDs")
 
@@ -111,7 +111,7 @@ class TaegisSDKUsersQuery:
             },
             output=build_output_string(SearchByIDsResponse),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return SearchByIDsResponse.schema().load(result.get(endpoint), many=True)
         raise GraphQLNoRowsInResultSetError("for query searchTDRUsersByIDs")
 
@@ -124,7 +124,7 @@ class TaegisSDKUsersQuery:
             variables={},
             output=build_output_string(TDRUserSupportPin),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return TDRUserSupportPin.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for query getSupportPin")
 
@@ -141,7 +141,7 @@ class TaegisSDKUsersQuery:
             },
             output=build_output_string(TDRUsersSearchResults),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return TDRUsersSearchResults.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for query tdrUsersSearch")
 
@@ -152,6 +152,6 @@ class TaegisSDKUsersQuery:
         result = self.service.execute_query(
             endpoint=endpoint, variables={}, output=build_output_string(TDRUser)
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return TDRUser.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for query currentTDRUser")

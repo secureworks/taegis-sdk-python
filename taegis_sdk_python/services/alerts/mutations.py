@@ -1,4 +1,4 @@
-""""Alerts Mutation."""
+"""Alerts Mutation."""
 # pylint: disable=no-member, unused-argument, too-many-locals, duplicate-code, wildcard-import, unused-wildcard-import, cyclic-import
 
 
@@ -37,7 +37,7 @@ class TaegisSDKAlertsMutation:
             },
             output=build_output_string(UpdateInvestigationResponse),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return UpdateInvestigationResponse.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError(
             "for mutation alertsServiceUpdateInvestigationInfo"
@@ -56,7 +56,7 @@ class TaegisSDKAlertsMutation:
             },
             output=build_output_string(UpdateResolutionResponse),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return UpdateResolutionResponse.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError(
             "for mutation alertsServiceUpdateResolutionInfo"
@@ -75,7 +75,7 @@ class TaegisSDKAlertsMutation:
             },
             output=build_output_string(BulkInvestigationsResponse),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return BulkInvestigationsResponse.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError(
             "for mutation alertsServiceBulkInvestigationsProcessor"
@@ -94,6 +94,6 @@ class TaegisSDKAlertsMutation:
             },
             output=build_output_string(EvictResponse),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return EvictResponse.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for mutation alertsServiceEvict")

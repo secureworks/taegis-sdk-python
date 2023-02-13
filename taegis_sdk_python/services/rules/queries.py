@@ -1,4 +1,4 @@
-""""Rules Query."""
+"""Rules Query."""
 # pylint: disable=no-member, unused-argument, too-many-locals, duplicate-code, wildcard-import, unused-wildcard-import, cyclic-import
 
 
@@ -42,7 +42,7 @@ class TaegisSDKRulesQuery:
             },
             output=build_output_string(Rule),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return Rule.schema().load(result.get(endpoint), many=True)
         raise GraphQLNoRowsInResultSetError("for query rules")
 
@@ -60,7 +60,7 @@ class TaegisSDKRulesQuery:
             },
             output=build_output_string(Rule),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return Rule.schema().load(result.get(endpoint), many=True)
         raise GraphQLNoRowsInResultSetError("for query allRules")
 
@@ -87,7 +87,7 @@ class TaegisSDKRulesQuery:
             },
             output=build_output_string(Rule),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return Rule.schema().load(result.get(endpoint), many=True)
         raise GraphQLNoRowsInResultSetError("for query suppressionRules")
 
@@ -110,7 +110,7 @@ class TaegisSDKRulesQuery:
             },
             output=build_output_string(Rule),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return Rule.schema().load(result.get(endpoint), many=True)
         raise GraphQLNoRowsInResultSetError("for query eventTaggingRules")
 
@@ -132,7 +132,7 @@ class TaegisSDKRulesQuery:
             },
             output=build_output_string(Rule),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return Rule.schema().load(result.get(endpoint), many=True)
         raise GraphQLNoRowsInResultSetError("for query deletedRules")
 
@@ -147,7 +147,7 @@ class TaegisSDKRulesQuery:
             },
             output="",
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return result.get(endpoint)
         raise GraphQLNoRowsInResultSetError("for query rulesCount")
 
@@ -162,7 +162,7 @@ class TaegisSDKRulesQuery:
             },
             output="",
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return result.get(endpoint)
         raise GraphQLNoRowsInResultSetError("for query suppressionRulesCount")
 
@@ -177,7 +177,7 @@ class TaegisSDKRulesQuery:
             },
             output="",
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return result.get(endpoint)
         raise GraphQLNoRowsInResultSetError("for query eventTaggingRulesCount")
 
@@ -190,7 +190,7 @@ class TaegisSDKRulesQuery:
             variables={},
             output=build_output_string(RuleCountResponse),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return RuleCountResponse.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for query detailedRulesCount")
 
@@ -214,7 +214,7 @@ class TaegisSDKRulesQuery:
             },
             output=build_output_string(Rule),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return Rule.schema().load(result.get(endpoint), many=True)
         raise GraphQLNoRowsInResultSetError("for query rulesForEvent")
 
@@ -232,7 +232,7 @@ class TaegisSDKRulesQuery:
             },
             output="",
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return result.get(endpoint)
         raise GraphQLNoRowsInResultSetError("for query rulesForEventCount")
 
@@ -247,7 +247,7 @@ class TaegisSDKRulesQuery:
             },
             output=build_output_string(Rule),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return Rule.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for query rule")
 
@@ -262,7 +262,7 @@ class TaegisSDKRulesQuery:
             },
             output="",
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return result.get(endpoint)
         raise GraphQLNoRowsInResultSetError("for query filterKeys")
 
@@ -299,7 +299,7 @@ class TaegisSDKRulesQuery:
             },
             output=build_output_string(Rule),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return Rule.schema().load(result.get(endpoint), many=True)
         raise GraphQLNoRowsInResultSetError("for query changesSince")
 
@@ -321,7 +321,7 @@ class TaegisSDKRulesQuery:
             },
             output=build_output_string(RuleTestMatchStep),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return RuleTestMatchStep.schema().load(result.get(endpoint), many=True)
         raise GraphQLNoRowsInResultSetError("for query testFilters")
 
@@ -336,7 +336,7 @@ class TaegisSDKRulesQuery:
             },
             output=build_output_string(RuleMetrics),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return RuleMetrics.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for query ruleMetrics")
 
@@ -345,7 +345,7 @@ class TaegisSDKRulesQuery:
         endpoint = "entityPrefixes"
 
         result = self.service.execute_query(endpoint=endpoint, variables={}, output="")
-        if result is not None:
+        if result.get(endpoint) is not None:
             return result.get(endpoint)
         raise GraphQLNoRowsInResultSetError("for query entityPrefixes")
 
@@ -365,7 +365,7 @@ class TaegisSDKRulesQuery:
             },
             output=build_output_string(ValidateQLFilter),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return ValidateQLFilter.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for query validateQLFilter")
 
@@ -387,7 +387,7 @@ class TaegisSDKRulesQuery:
             },
             output=build_output_string(SearchRulesOutput),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return SearchRulesOutput.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for query searchRules")
 
@@ -409,6 +409,6 @@ class TaegisSDKRulesQuery:
             },
             output=build_output_string(SearchRulesOutput),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return SearchRulesOutput.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for query updatedWatchlistRules")

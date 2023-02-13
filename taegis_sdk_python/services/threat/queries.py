@@ -1,4 +1,4 @@
-""""Threat Query."""
+"""Threat Query."""
 # pylint: disable=no-member, unused-argument, too-many-locals, duplicate-code, wildcard-import, unused-wildcard-import, cyclic-import
 
 
@@ -35,7 +35,7 @@ class TaegisSDKThreatQuery:
             },
             output=build_output_string(ThreatPublication),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return ThreatPublication.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for query threatPublication")
 
@@ -50,7 +50,7 @@ class TaegisSDKThreatQuery:
             },
             output=build_output_string(ThreatPublication),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return ThreatPublication.schema().load(result.get(endpoint), many=True)
         raise GraphQLNoRowsInResultSetError("for query threatPublications")
 
@@ -68,7 +68,7 @@ class TaegisSDKThreatQuery:
             },
             output=build_output_string(ThreatPublication),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return ThreatPublication.schema().load(result.get(endpoint), many=True)
         raise GraphQLNoRowsInResultSetError("for query threatLatestPublications")
 
@@ -86,7 +86,7 @@ class TaegisSDKThreatQuery:
             },
             output=build_output_string(ThreatResult),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return ThreatResult.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for query threatObjectById")
 
@@ -101,7 +101,7 @@ class TaegisSDKThreatQuery:
             },
             output=build_output_string(ThreatResult),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return ThreatResult.schema().load(result.get(endpoint), many=True)
         raise GraphQLNoRowsInResultSetError("for query threatIdentitiesByConfidence")
 
@@ -117,7 +117,7 @@ class TaegisSDKThreatQuery:
             },
             output="",
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return result.get(endpoint)
         raise GraphQLNoRowsInResultSetError("for query threatObjectsRelated")
 
@@ -132,7 +132,7 @@ class TaegisSDKThreatQuery:
             },
             output=build_output_string(ThreatResult),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return ThreatResult.schema().load(result.get(endpoint), many=True)
         raise GraphQLNoRowsInResultSetError("for query threatGetRelated")
 
@@ -147,7 +147,7 @@ class TaegisSDKThreatQuery:
             },
             output=build_output_string(ThreatRelationship),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return ThreatRelationship.schema().load(result.get(endpoint), many=True)
         raise GraphQLNoRowsInResultSetError("for query threatWatchlist")
 
@@ -162,7 +162,7 @@ class TaegisSDKThreatQuery:
             },
             output=build_output_string(ThreatReport),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return ThreatReport.schema().load(result.get(endpoint), many=True)
         raise GraphQLNoRowsInResultSetError("for query threatIndicatorPublications")
 
@@ -177,7 +177,7 @@ class TaegisSDKThreatQuery:
             },
             output=build_output_string(ThreatIndicatorIntelligence),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return ThreatIndicatorIntelligence.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for query threatIndicatorIntelligence")
 
@@ -192,7 +192,7 @@ class TaegisSDKThreatQuery:
             },
             output=build_output_string(ThreatRelationship),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return ThreatRelationship.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for query threatRelationship")
 
@@ -207,7 +207,7 @@ class TaegisSDKThreatQuery:
             },
             output=build_output_string(ThreatIdentity),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return ThreatIdentity.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for query threatIdentity")
 
@@ -222,7 +222,7 @@ class TaegisSDKThreatQuery:
             },
             output=build_output_string(ThreatMalware),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return ThreatMalware.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for query threatMalware")
 
@@ -239,7 +239,7 @@ class TaegisSDKThreatQuery:
             },
             output=build_output_string(ThreatIdentity),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return ThreatIdentity.schema().load(result.get(endpoint), many=True)
         raise GraphQLNoRowsInResultSetError("for query threatIdentities")
 
@@ -254,7 +254,7 @@ class TaegisSDKThreatQuery:
             },
             output=build_output_string(ThreatVidIntelligence),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return ThreatVidIntelligence.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for query threatVidIntelligence")
 
@@ -271,7 +271,7 @@ class TaegisSDKThreatQuery:
             },
             output=build_output_string(ThreatIndicatorIntelligence),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return ThreatIndicatorIntelligence.schema().load(
                 result.get(endpoint), many=True
             )
@@ -288,7 +288,7 @@ class TaegisSDKThreatQuery:
             },
             output=build_output_string(Lists),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return Lists.schema().load(result.get(endpoint), many=True)
         raise GraphQLNoRowsInResultSetError("for query lists")
 
@@ -304,7 +304,7 @@ class TaegisSDKThreatQuery:
             },
             output=build_output_string(ThreatList),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return ThreatList.schema().load(result.get(endpoint), many=True)
         raise GraphQLNoRowsInResultSetError("for query list")
 
@@ -320,7 +320,7 @@ class TaegisSDKThreatQuery:
             },
             output=build_output_string(ListItems),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return ListItems.schema().load(result.get(endpoint), many=True)
         raise GraphQLNoRowsInResultSetError("for query listItemsByTag")
 
@@ -338,6 +338,6 @@ class TaegisSDKThreatQuery:
             },
             output=build_output_string(ListItems),
         )
-        if result is not None:
+        if result.get(endpoint) is not None:
             return ListItems.schema().load(result.get(endpoint), many=True)
         raise GraphQLNoRowsInResultSetError("for query listItemsByName")
