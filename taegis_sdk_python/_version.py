@@ -1,2 +1,2 @@
 """Version idenitier."""
-__version__ = "1.0.0-alpha1"
+__version__ = "0.0.1"
