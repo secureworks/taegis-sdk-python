@@ -9,7 +9,11 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING, Any, List, Dict, Optional, Tuple, Union
 
-from taegis_sdk_python.utils import build_output_string, prepare_input
+from taegis_sdk_python.utils import (
+    build_output_string,
+    prepare_input,
+    parse_union_result,
+)
 from taegis_sdk_python.services.assets2.types import *
 
 from taegis_sdk_python import GraphQLNoRowsInResultSetError
@@ -272,6 +276,21 @@ class TaegisSDKAssets2Query:
         raise GraphQLNoRowsInResultSetError(
             "for query bulkDeleteInvestigationForEndpointsStatus"
         )
+
+    def bulk_reconnect_native_assets_status(self, id_: str) -> TaskInfoPayload:
+        """Return the status of the bulkReconnectNativeAssets operation.."""
+        endpoint = "bulkReconnectNativeAssetsStatus"
+
+        result = self.service.execute_query(
+            endpoint=endpoint,
+            variables={
+                "id": prepare_input(id_),
+            },
+            output=build_output_string(TaskInfoPayload),
+        )
+        if result.get(endpoint) is not None:
+            return TaskInfoPayload.from_dict(result.get(endpoint))
+        raise GraphQLNoRowsInResultSetError("for query bulkReconnectNativeAssetsStatus")
 
     def asset_dead_period(self) -> str:
         """Return the tenant's asset dead period threshold used by the api. The value

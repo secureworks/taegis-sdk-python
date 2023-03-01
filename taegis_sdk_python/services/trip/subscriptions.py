@@ -1,4 +1,4 @@
-"""MitreAttackInfo Subscription."""
+"""Trip Subscription."""
 # pylint: disable=no-member, unused-argument, too-many-locals, duplicate-code, wildcard-import, unused-wildcard-import, cyclic-import
 
 
@@ -14,16 +14,16 @@ from taegis_sdk_python.utils import (
     prepare_input,
     parse_union_result,
 )
-from taegis_sdk_python.services.mitre_attack_info.types import *
+from taegis_sdk_python.services.trip.types import *
 
 from taegis_sdk_python import GraphQLNoRowsInResultSetError
 
 if TYPE_CHECKING:  # pragma: no cover
-    from taegis_sdk_python.services.mitre_attack_info import MitreAttackInfoService
+    from taegis_sdk_python.services.trip import TripService
 
 
-class TaegisSDKMitreAttackInfoSubscription:
-    """Teagis Mitre_attack_info Subscription operations."""
+class TaegisSDKTripSubscription:
+    """Teagis Trip Subscription operations."""
 
-    def __init__(self, service: MitreAttackInfoService):
+    def __init__(self, service: TripService):
         self.service = service

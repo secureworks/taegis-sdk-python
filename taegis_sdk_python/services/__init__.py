@@ -32,6 +32,7 @@ from taegis_sdk_python.services.rules import RulesService
 from taegis_sdk_python.services.sharelinks import SharelinksService
 from taegis_sdk_python.services.tenants import TenantsService
 from taegis_sdk_python.services.threat import ThreatService
+from taegis_sdk_python.services.trip import TripService
 from taegis_sdk_python.services.users import UsersService
 
 
@@ -99,6 +100,7 @@ class GraphQLService:
         self._sharelinks = None
         self._tenants = None
         self._threat = None
+        self._trip = None
         self._users = None
 
     def __call__(self, **kwargs):
@@ -312,6 +314,13 @@ class GraphQLService:
         if not self._threat:
             self._threat = ThreatService(self)
         return self._threat
+
+    @property
+    def trip(self):
+        """Trip Service Endpoint."""
+        if not self._trip:
+            self._trip = TripService(self)
+        return self._trip
 
     @property
     def users(self):

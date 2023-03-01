@@ -36,10 +36,12 @@ class AsynchronousEventsSearchPrepInput:
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
-class GetEventByIDRequestInput:
-    """GetEventByIDRequestInput."""
+class AuxiliaryEventsByIDOptions:
+    """AuxiliaryEventsByIDOptions."""
 
-    ids: Optional[List[str]] = field(default=None, metadata=config(field_name="ids"))
+    search_events_api_first: Optional[bool] = field(
+        default=None, metadata=config(field_name="searchEventsAPIFirst")
+    )
 
 
 @dataclass_json
@@ -75,6 +77,17 @@ class Investigation:
     """Investigation."""
 
     id: Optional[str] = field(default=None, metadata=config(field_name="id"))
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class GetEventByIDRequestInput:
+    """GetEventByIDRequestInput."""
+
+    ids: Optional[List[str]] = field(default=None, metadata=config(field_name="ids"))
+    options: Optional[AuxiliaryEventsByIDOptions] = field(
+        default=None, metadata=config(field_name="options")
+    )
 
 
 @dataclass_json

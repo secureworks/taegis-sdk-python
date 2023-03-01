@@ -1894,6 +1894,9 @@ class AlertsMetadata:
         default=None, metadata=config(field_name="confidence")
     )
     title: Optional[str] = field(default=None, metadata=config(field_name="title"))
+    full_title: Optional[str] = field(
+        default=None, metadata=config(field_name="full_title")
+    )
     description: Optional[str] = field(
         default=None, metadata=config(field_name="description")
     )

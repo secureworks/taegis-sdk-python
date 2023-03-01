@@ -8,7 +8,7 @@ from taegis_sdk_python.services.alerts.types import SearchRequestInput
 
 service = GraphQLService()
 results = service.alerts.query.alerts_service_search(SearchRequestInput(
-    cql_query="FROM alerts WHERE severity >= 0.6 AND severity = 'OPEN' EARLIEST=-3d",
+    cql_query="FROM alert WHERE severity >= 0.6 AND status = 'OPEN' EARLIEST=-3d",
     limit=10000,
     offset=0,
 ))
@@ -22,14 +22,14 @@ from taegis_sdk_python.services.alerts.types import SearchRequestInput, PollRequ
 
 service = GraphQLService()
 results = service.alerts.query.alerts_service_search(SearchRequestInput(
-    cql_query="FROM alerts WHERE severity >= 0.6 AND severity = 'OPEN' EARLIEST=-3d",
+    cql_query="FROM alert WHERE severity >= 0.6 AND status = 'OPEN' EARLIEST=-3d",
     limit=1000000,
     offset=0,
 ))
 
 poll_responses = [results]
-search_id = result.search_id
-total_parts = result.alerts.total_parts
+search_id = results.search_id
+total_parts = results.alerts.total_parts
 
 if search_id:
     for part in range(2, total_parts + 1):
@@ -47,14 +47,13 @@ if search_id:
             raise exc
 
         if (
-            isinstance(response, AlertsResponse)
-            and response.alerts is not None
+            isinstance(results, AlertsResponse)
+            and results.alerts is not None
         ):
-            poll_responses.append(response)
+            poll_responses.append(results)
 
-alerts = [
-    alert
+print(sum(
+    len(response.alerts.list)
     for response in poll_responses
-    for alert in response.alerts.list
-]
+))
 ```

@@ -18,6 +18,7 @@ class RuleEventType(str, Enum):
     """RuleEventType."""
 
     ANTIVIRUS = "antivirus"
+    APICALL = "apicall"
     AUTH = "auth"
     CLOUDAUDIT = "cloudaudit"
     DHCP = "dhcp"
@@ -37,6 +38,7 @@ class RuleEventType(str, Enum):
     SCRIPT_BLOCK = "script_block"
     THIRDPARTYALERT = "thirdpartyalert"
     THREAD_INJECTION = "thread_injection"
+    PROCESS_MODULE = "process_module"
 
 
 class RuleEndpointPlatform(str, Enum):
@@ -87,6 +89,18 @@ class RuleVisibility(str, Enum):
 
     VISIBLE = "visible"
     HIDDEN = "hidden"
+
+
+class RuleDay(str, Enum):
+    """RuleDay."""
+
+    MONDAY = "Monday"
+    TUESDAY = "Tuesday"
+    WEDNESDAY = "Wednesday"
+    THURSDAY = "Thursday"
+    FRIDAY = "Friday"
+    SATURDAY = "Saturday"
+    SUNDAY = "Sunday"
 
 
 class RuleQueryKind(str, Enum):
@@ -636,6 +650,9 @@ class Rule:
     )
     event_type: Optional[RuleEventType] = field(
         default=None, metadata=config(field_name="eventType")
+    )
+    seven_day_group_key_rollover_day: Optional[RuleDay] = field(
+        default=None, metadata=config(field_name="sevenDayGroupKeyRolloverDay")
     )
     visibility: Optional[RuleVisibility] = field(
         default=None, metadata=config(field_name="visibility")

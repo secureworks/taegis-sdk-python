@@ -9,7 +9,11 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING, Any, List, Dict, Optional, Tuple, Union
 
-from taegis_sdk_python.utils import build_output_string, prepare_input
+from taegis_sdk_python.utils import (
+    build_output_string,
+    prepare_input,
+    parse_union_result,
+)
 from taegis_sdk_python.services.tenants.types import *
 
 from taegis_sdk_python import GraphQLNoRowsInResultSetError
@@ -90,15 +94,16 @@ class TaegisSDKTenantsQuery:
         raise GraphQLNoRowsInResultSetError("for query SSOConnections")
 
     def get_sso_connection_config(
-        self, metadata_url: str
+        self, metadata_url: Optional[str] = None, cert: Optional[str] = None
     ) -> SSOConnectionConfigResponse:
-        """Downloads configuration for an SSO connection. Currently applicable only to SAML connections."""
+        """Downloads configuration for an SSO connection if metadataURL is provided, or the certificate attributes if that is provided. Currently applicable only to SAML connections."""
         endpoint = "getSSOConnectionConfig"
 
         result = self.service.execute_query(
             endpoint=endpoint,
             variables={
                 "metadataURL": prepare_input(metadata_url),
+                "cert": prepare_input(cert),
             },
             output=build_output_string(SSOConnectionConfigResponse),
         )

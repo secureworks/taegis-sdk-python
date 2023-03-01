@@ -9,7 +9,11 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING, Any, List, Dict, Optional, Tuple, Union
 
-from taegis_sdk_python.utils import build_output_string, prepare_input
+from taegis_sdk_python.utils import (
+    build_output_string,
+    prepare_input,
+    parse_union_result,
+)
 from taegis_sdk_python.services.investigations.types import *
 
 from taegis_sdk_python import GraphQLNoRowsInResultSetError
@@ -83,7 +87,8 @@ class TaegisSDKInvestigationsQuery:
     ) -> List[Investigation]:
         """Get all investigations
         Max perPage Value is 100. If requesting over 100, only the first 100 will be returned.
-        deprecated: Use `investigationsSearch` for better investigations query experience.."""
+        deprecated: Use `investigationsSearch` for better investigations query experience..
+        """
         endpoint = "allInvestigations"
 
         result = self.service.execute_query(
@@ -207,7 +212,8 @@ class TaegisSDKInvestigationsQuery:
         order_direction: Optional[OrderDirection] = None,
     ) -> InvestigationAlertOutput:
         """Get investigation alerts by investigation id
-        deprecated: Use `investigation` query or alerts2 search query (paginated) to get alerts by investigation id."""
+        deprecated: Use `investigation` query or alerts2 search query (paginated) to get alerts by investigation id.
+        """
         endpoint = "investigationAlerts"
 
         result = self.service.execute_query(
@@ -343,7 +349,8 @@ class TaegisSDKInvestigationsQuery:
     ) -> InvestigationsOutput:
         """Investigations Search.
         Query fields accepts a CQL string (non aggregations). Use filterText for free text search.
-        Max perPage Value is 100. If requesting over 100, only the first 100 will be returned.."""
+        Max perPage Value is 100. If requesting over 100, only the first 100 will be returned..
+        """
         endpoint = "investigationsSearch"
 
         result = self.service.execute_query(
@@ -448,7 +455,8 @@ class TaegisSDKInvestigationsQuery:
         order_direction: Optional[OrderDirectionInput] = None,
     ) -> InvestigationsExportOutput:
         """Export investigations Search Raw Content
-        Max perPage Value is 100. If requesting over 100, only the first 100 will be returned.."""
+        Max perPage Value is 100. If requesting over 100, only the first 100 will be returned..
+        """
         endpoint = "exportInvestigationsSearch"
 
         result = self.service.execute_query(
@@ -521,7 +529,8 @@ class TaegisSDKInvestigationsQuery:
     ) -> List[Investigation]:
         """Get investigations by multi-tenant session
         DO NOT USE, this query is unsupported. Use investigationsSearch instead.
-        Max perPage Value is 100. If requesting over 100, only the first 100 will be returned.."""
+        Max perPage Value is 100. If requesting over 100, only the first 100 will be returned..
+        """
         endpoint = "investigationsBySession"
 
         result = self.service.execute_query(
@@ -547,7 +556,8 @@ class TaegisSDKInvestigationsQuery:
         exclude_threat_hunt_types: Optional[bool] = None,
     ) -> InvestigationsOutput:
         """Return list of Investigations which are handed off at least once for the the given dates and status
-        Max perPage Value is 100. If requesting over 100, only the first 100 will be returned.."""
+        Max perPage Value is 100. If requesting over 100, only the first 100 will be returned..
+        """
         endpoint = "getHandoffInvestigations"
 
         result = self.service.execute_query(

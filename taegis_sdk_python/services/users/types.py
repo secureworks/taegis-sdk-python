@@ -287,6 +287,7 @@ class AuthorizeCheckConnection:
     external_name: Optional[str] = field(
         default=None, metadata=config(field_name="external_name")
     )
+    status: Optional[str] = field(default=None, metadata=config(field_name="status"))
     testers: Optional[List[str]] = field(
         default=None, metadata=config(field_name="testers")
     )

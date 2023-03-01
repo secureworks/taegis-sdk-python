@@ -19,33 +19,11 @@ OR
 - Device Code SSO
 
 
-## Setup
+## Installation
 
-1. Open a terminal
-2. Change to your favorite local directory (i.e. `cd /opt`)
-3. Clone the repository
-
-   ```bash
-   git clone https://github.com/secureworks/taegis-sdk-python.git
-   ```
-
-4. Create a Virtual Environment
-
-   ```bash
-   python -m venv venv
-   ```
-
-5. Activate Virtual Environment
-
-   ```bash
-   source ./venv/bin/activate
-   ```
-
-6. Install the SDK
-
-   ```bash
-       pip install -e .
-   ```
+```bash
+python -m pip install taegis-sdk-python
+```
 
 
 ## Using the SDK

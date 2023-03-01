@@ -9,7 +9,11 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING, Any, List, Dict, Optional, Tuple, Union
 
-from taegis_sdk_python.utils import build_output_string, prepare_input
+from taegis_sdk_python.utils import (
+    build_output_string,
+    prepare_input,
+    parse_union_result,
+)
 from taegis_sdk_python.services.assets2.types import *
 
 from taegis_sdk_python import GraphQLNoRowsInResultSetError
@@ -149,7 +153,8 @@ class TaegisSDKAssets2Mutation:
     ) -> BulkOpPayloadV2:
         """Start a job to assign the endpoints matching the filter criteria to the
         investigation in the input. Use the task ID in the response to poll the
-        assignBulkAssetsToInvestigationStatus query to determine if the job succeeded.."""
+        assignBulkAssetsToInvestigationStatus query to determine if the job succeeded..
+        """
         endpoint = "assignBulkAssetsToInvestigation"
 
         result = self.service.execute_mutation(
@@ -170,7 +175,8 @@ class TaegisSDKAssets2Mutation:
     ) -> BulkOpPayloadV2:
         """Start a job to delete the provided investigation from the endpoints matching
         the filter criteria in the input. Use the task ID in the response to poll the
-        bulkDeleteInvestigationForEndpointsStatus query to determine if the job succeeded.."""
+        bulkDeleteInvestigationForEndpointsStatus query to determine if the job succeeded..
+        """
         endpoint = "bulkDeleteInvestigationForEndpoints"
 
         result = self.service.execute_mutation(
@@ -185,3 +191,20 @@ class TaegisSDKAssets2Mutation:
         raise GraphQLNoRowsInResultSetError(
             "for mutation bulkDeleteInvestigationForEndpoints"
         )
+
+    def bulk_reconnect_native_assets(
+        self, input_: BulkReconnectNativeAssetsInput
+    ) -> BulkOpPayloadV2:
+        """None."""
+        endpoint = "bulkReconnectNativeAssets"
+
+        result = self.service.execute_mutation(
+            endpoint=endpoint,
+            variables={
+                "input": prepare_input(input_),
+            },
+            output=build_output_string(BulkOpPayloadV2),
+        )
+        if result.get(endpoint) is not None:
+            return BulkOpPayloadV2.from_dict(result.get(endpoint))
+        raise GraphQLNoRowsInResultSetError("for mutation bulkReconnectNativeAssets")

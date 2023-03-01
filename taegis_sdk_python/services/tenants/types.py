@@ -428,6 +428,9 @@ class SAMLSSOConfiguration:
     metadata_url: Optional[str] = field(
         default=None, metadata=config(field_name="metadataURL")
     )
+    signing_cert_name: Optional[str] = field(
+        default=None, metadata=config(field_name="signingCertName")
+    )
     signing_cert: Optional[str] = field(
         default=None, metadata=config(field_name="signingCert")
     )
@@ -521,6 +524,19 @@ class TenantEnvironmentUpdateInput:
     enabled: Optional[bool] = field(default=None, metadata=config(field_name="enabled"))
     name: Optional[TenantEnvironment] = field(
         default=None, metadata=config(field_name="name")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class InternalSearchInputs:
+    """InternalSearchInputs."""
+
+    with_domains: Optional[List[str]] = field(
+        default=None, metadata=config(field_name="withDomains")
+    )
+    environment: Optional[SSOEnvironment] = field(
+        default=None, metadata=config(field_name="environment")
     )
 
 
@@ -738,15 +754,26 @@ class SSOConnection:
     external_id: Optional[str] = field(
         default=None, metadata=config(field_name="externalID")
     )
+    tenant_id: Optional[str] = field(
+        default=None, metadata=config(field_name="tenantID")
+    )
     updated_at: Optional[str] = field(
         default=None, metadata=config(field_name="updatedAt")
     )
     created_at: Optional[str] = field(
         default=None, metadata=config(field_name="createdAt")
     )
+    cert_name: Optional[str] = field(
+        default=None, metadata=config(field_name="certName")
+    )
     expires_at: Optional[str] = field(
         default=None, metadata=config(field_name="expiresAt")
     )
+    not_before: Optional[str] = field(
+        default=None, metadata=config(field_name="notBefore")
+    )
+    issuer: Optional[str] = field(default=None, metadata=config(field_name="issuer"))
+    subject: Optional[str] = field(default=None, metadata=config(field_name="subject"))
     domains: Optional[List[str]] = field(
         default=None, metadata=config(field_name="domains")
     )
@@ -862,6 +889,11 @@ class SSOConnectionConfigResponse:
     expires_at: Optional[str] = field(
         default=None, metadata=config(field_name="expiresAt")
     )
+    not_before: Optional[str] = field(
+        default=None, metadata=config(field_name="notBefore")
+    )
+    issuer: Optional[str] = field(default=None, metadata=config(field_name="issuer"))
+    subject: Optional[str] = field(default=None, metadata=config(field_name="subject"))
     sso_connection_configuration: Optional[SSOConnectionConfiguration] = field(
         default=None, metadata=config(field_name="ssoConnectionConfiguration")
     )

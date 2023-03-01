@@ -62,6 +62,7 @@ class OrderFieldInput(str, Enum):
     SERVICE_DESK_TYPE = "service_desk_type"
     ALL_ALERTS = "all_alerts"
     ALL_EVENTS = "all_events"
+    SHORT_ID = "short_id"
     PRIORITY = "priority"
     TYPE = "type"
 

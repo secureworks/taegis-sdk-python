@@ -7,7 +7,7 @@ The Taegis SDK is a Python library for interfacing with the GraphQL APIs in Taeg
 ### Installation
 
 ```bash
-pip install taegis_sdk_python
+python -m pip install taegis-sdk-python
 ```
 
 ### Example Usage

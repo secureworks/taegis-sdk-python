@@ -9,7 +9,11 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING, Any, List, Dict, Optional, Tuple, Union
 
-from taegis_sdk_python.utils import build_output_string, prepare_input
+from taegis_sdk_python.utils import (
+    build_output_string,
+    prepare_input,
+    parse_union_result,
+)
 from taegis_sdk_python.services.endpoint_command_manager.types import *
 
 from taegis_sdk_python import GraphQLNoRowsInResultSetError
@@ -29,7 +33,7 @@ class TaegisSDKEndpointCommandManagerMutation:
     def create_isolation_exclusion_rule(
         self, input_: CreateIsolationExclusionRuleArguments
     ) -> IsolationExclusionRuleResult:
-        """None."""
+        """Create/add an isolation exclusion rule."""
         endpoint = "createIsolationExclusionRule"
 
         result = self.service.execute_mutation(
@@ -46,7 +50,7 @@ class TaegisSDKEndpointCommandManagerMutation:
     def update_isolation_exclusion_rule(
         self, input_: UpdateIsolationExclusionRuleArguments
     ) -> IsolationExclusionRuleResult:
-        """None."""
+        """Update an isolation exclusion rule."""
         endpoint = "updateIsolationExclusionRule"
 
         result = self.service.execute_mutation(
@@ -61,7 +65,7 @@ class TaegisSDKEndpointCommandManagerMutation:
         raise GraphQLNoRowsInResultSetError("for mutation updateIsolationExclusionRule")
 
     def delete_isolation_exclusion_rule(self, rule_id: str) -> Result:
-        """None."""
+        """Delete an isolation exclusion rule."""
         endpoint = "deleteIsolationExclusionRule"
 
         result = self.service.execute_mutation(
@@ -92,7 +96,7 @@ class TaegisSDKEndpointCommandManagerMutation:
         raise GraphQLNoRowsInResultSetError("for mutation requestResourceFromEndpoint")
 
     def send_reconnect(self, input_: CommandRequestInput) -> Result:
-        """None."""
+        """Send a request to the endpoint for it to reconnect to the registration service and endpoint-interconnect."""
         endpoint = "sendReconnect"
 
         result = self.service.execute_mutation(
@@ -107,7 +111,7 @@ class TaegisSDKEndpointCommandManagerMutation:
         raise GraphQLNoRowsInResultSetError("for mutation sendReconnect")
 
     def send_isolate(self, input_: CommandRequestInput) -> Result:
-        """None."""
+        """sendIsolate send a request for the endpoint to isolate itself from the network."""
         endpoint = "sendIsolate"
 
         result = self.service.execute_mutation(
@@ -122,7 +126,7 @@ class TaegisSDKEndpointCommandManagerMutation:
         raise GraphQLNoRowsInResultSetError("for mutation sendIsolate")
 
     def send_de_isolate(self, input_: CommandRequestInput) -> Result:
-        """None."""
+        """sendDeIsolate send a request for the endpoint to de-isolate itself from the network."""
         endpoint = "sendDeIsolate"
 
         result = self.service.execute_mutation(
@@ -137,7 +141,7 @@ class TaegisSDKEndpointCommandManagerMutation:
         raise GraphQLNoRowsInResultSetError("for mutation sendDeIsolate")
 
     def mark_for_uninstall(self, input_: CommandRequestInput) -> Result:
-        """None."""
+        """markForUninstall request that endpoint uninstall the agent."""
         endpoint = "markForUninstall"
 
         result = self.service.execute_mutation(
@@ -152,7 +156,7 @@ class TaegisSDKEndpointCommandManagerMutation:
         raise GraphQLNoRowsInResultSetError("for mutation markForUninstall")
 
     def send_block_user(self, input_: BlockUserCommandInput) -> Result:
-        """None."""
+        """sendBlockUser send a request to block a user from logging into an endpoint."""
         endpoint = "sendBlockUser"
 
         result = self.service.execute_mutation(
@@ -167,7 +171,7 @@ class TaegisSDKEndpointCommandManagerMutation:
         raise GraphQLNoRowsInResultSetError("for mutation sendBlockUser")
 
     def send_unblock_user(self, input_: BlockUserCommandInput) -> Result:
-        """None."""
+        """sendUnblockUser send a request to unblock a user from logging into an endpoint."""
         endpoint = "sendUnblockUser"
 
         result = self.service.execute_mutation(

@@ -584,6 +584,9 @@ class Asset:
     deleted_at: Optional[str] = field(
         default=None, metadata=config(field_name="deletedAt")
     )
+    last_seen_at: Optional[str] = field(
+        default=None, metadata=config(field_name="lastSeenAt")
+    )
     bios_serial: Optional[str] = field(
         default=None, metadata=config(field_name="biosSerial")
     )

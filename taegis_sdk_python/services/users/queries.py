@@ -9,7 +9,11 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING, Any, List, Dict, Optional, Tuple, Union
 
-from taegis_sdk_python.utils import build_output_string, prepare_input
+from taegis_sdk_python.utils import (
+    build_output_string,
+    prepare_input,
+    parse_union_result,
+)
 from taegis_sdk_python.services.users.types import *
 
 from taegis_sdk_python import GraphQLNoRowsInResultSetError
@@ -101,7 +105,8 @@ class TaegisSDKUsersQuery:
         """ "
         Search users by id list. The list can contain a mixture of IDs or UserIDs. Errors are reported individually for each ID.
         Search will be processed using the X-Tenant-Context header as a filter first. Subsequent searches will use role assginments
-        for user IDs that have not been found until all users are retrieved or all role assignments are exhausted.."""
+        for user IDs that have not been found until all users are retrieved or all role assignments are exhausted..
+        """
         endpoint = "searchTDRUsersByIDs"
 
         result = self.service.execute_query(

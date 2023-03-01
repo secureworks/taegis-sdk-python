@@ -17,6 +17,8 @@ from taegis_sdk_python.utils import (
     build_output_string,
     prepare_input,
     prepare_variables,
+    parse_union_result,
+    build_output_string_from_introspection,
 )
 
 __all__ = [  # pylint: disable=duplicate-code

@@ -78,6 +78,8 @@ class AssetSearchOrderByInputV2(str, Enum):
     TAG_KEY_DESC = "tag_key_desc"
     TAG_VALUE_ASC = "tag_value_asc"
     TAG_VALUE_DESC = "tag_value_desc"
+    TAG_ASC = "tag_asc"
+    TAG_DESC = "tag_desc"
 
 
 class BulkOpStatusV2(str, Enum):
@@ -228,6 +230,10 @@ class TagWhereInputV2:
     value: Optional[str] = field(default=None, metadata=config(field_name="value"))
     value_contains: Optional[str] = field(
         default=None, metadata=config(field_name="value_contains")
+    )
+    tag: Optional[str] = field(default=None, metadata=config(field_name="tag"))
+    tag_contains: Optional[str] = field(
+        default=None, metadata=config(field_name="tag_contains")
     )
 
 
@@ -438,6 +444,9 @@ class AssetWhereInputV2:
     tags: Optional[TagWhereInputV2] = field(
         default=None, metadata=config(field_name="tags")
     )
+    tags_contains: Optional[TagWhereInputV2] = field(
+        default=None, metadata=config(field_name="tags_contains")
+    )
 
 
 @dataclass_json
@@ -551,6 +560,17 @@ class AssetV2:
     )
     investigations: Optional[List[Investigation]] = field(
         default=None, metadata=config(field_name="investigations")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class BulkReconnectNativeAssetsInput:
+    """BulkReconnectNativeAssetsInput."""
+
+    reason: Optional[str] = field(default=None, metadata=config(field_name="reason"))
+    where: Optional[AssetWhereInputV2] = field(
+        default=None, metadata=config(field_name="where")
     )
 
 

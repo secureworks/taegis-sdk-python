@@ -192,4 +192,33 @@ def prepare_variables(
     )
 
 
-__all__ = ["build_output_string", "async_block", "prepare_input", "prepare_variables"]
+def parse_union_result(union, result: Dict[str, Any]) -> Any:
+    """
+    Coerse result into a type from union.
+
+    Parameters
+    ----------
+    union : UnionType
+        UnionType object
+    result : Dict[str, Any]
+        Result object
+
+    Returns
+    -------
+    Any
+        Union of union types or result object
+    """
+    for item in get_args(union):
+        if result.get("__typename") == item.__name__:
+            return item.from_dict(result)
+    return result
+
+
+__all__ = [
+    "build_output_string",
+    "async_block",
+    "prepare_input",
+    "prepare_variables",
+    "parse_union_result",
+    "build_output_string_from_introspection",
+]

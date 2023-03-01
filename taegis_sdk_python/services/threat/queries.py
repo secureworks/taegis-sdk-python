@@ -9,7 +9,11 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING, Any, List, Dict, Optional, Tuple, Union
 
-from taegis_sdk_python.utils import build_output_string, prepare_input
+from taegis_sdk_python.utils import (
+    build_output_string,
+    prepare_input,
+    parse_union_result,
+)
 from taegis_sdk_python.services.threat.types import *
 
 from taegis_sdk_python import GraphQLNoRowsInResultSetError
@@ -24,14 +28,14 @@ class TaegisSDKThreatQuery:
     def __init__(self, service: ThreatService):
         self.service = service
 
-    def threat_publication(self, id: str) -> ThreatPublication:
+    def threat_publication(self, id_: str) -> ThreatPublication:
         """Retreives a publication by ID.."""
         endpoint = "threatPublication"
 
         result = self.service.execute_query(
             endpoint=endpoint,
             variables={
-                "ID": prepare_input(id),
+                "ID": prepare_input(id_),
             },
             output=build_output_string(ThreatPublication),
         )
@@ -87,7 +91,7 @@ class TaegisSDKThreatQuery:
             output=build_output_string(ThreatResult),
         )
         if result.get(endpoint) is not None:
-            return ThreatResult.from_dict(result.get(endpoint))
+            return parse_union_result(ThreatResult, result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for query threatObjectById")
 
     def threat_identities_by_confidence(self, confidence: int) -> List[ThreatResult]:
@@ -102,7 +106,7 @@ class TaegisSDKThreatQuery:
             output=build_output_string(ThreatResult),
         )
         if result.get(endpoint) is not None:
-            return ThreatResult.schema().load(result.get(endpoint), many=True)
+            return [parse_union_result(ThreatResult, r) for r in result.get(endpoint)]
         raise GraphQLNoRowsInResultSetError("for query threatIdentitiesByConfidence")
 
     def threat_objects_related(self, source_id: str, target_id: str) -> bool:
@@ -133,7 +137,7 @@ class TaegisSDKThreatQuery:
             output=build_output_string(ThreatResult),
         )
         if result.get(endpoint) is not None:
-            return ThreatResult.schema().load(result.get(endpoint), many=True)
+            return [parse_union_result(ThreatResult, r) for r in result.get(endpoint)]
         raise GraphQLNoRowsInResultSetError("for query threatGetRelated")
 
     def threat_watchlist(self, type_: ThreatParentType) -> List[ThreatRelationship]:
@@ -151,14 +155,14 @@ class TaegisSDKThreatQuery:
             return ThreatRelationship.schema().load(result.get(endpoint), many=True)
         raise GraphQLNoRowsInResultSetError("for query threatWatchlist")
 
-    def threat_indicator_publications(self, id: str) -> List[ThreatReport]:
+    def threat_indicator_publications(self, id_: str) -> List[ThreatReport]:
         """Gets publications related to indicators.."""
         endpoint = "threatIndicatorPublications"
 
         result = self.service.execute_query(
             endpoint=endpoint,
             variables={
-                "ID": prepare_input(id),
+                "ID": prepare_input(id_),
             },
             output=build_output_string(ThreatReport),
         )
@@ -166,14 +170,14 @@ class TaegisSDKThreatQuery:
             return ThreatReport.schema().load(result.get(endpoint), many=True)
         raise GraphQLNoRowsInResultSetError("for query threatIndicatorPublications")
 
-    def threat_indicator_intelligence(self, id: str) -> ThreatIndicatorIntelligence:
+    def threat_indicator_intelligence(self, id_: str) -> ThreatIndicatorIntelligence:
         """Retrieves all intelligence associated with an indicator.."""
         endpoint = "threatIndicatorIntelligence"
 
         result = self.service.execute_query(
             endpoint=endpoint,
             variables={
-                "ID": prepare_input(id),
+                "ID": prepare_input(id_),
             },
             output=build_output_string(ThreatIndicatorIntelligence),
         )
@@ -181,14 +185,14 @@ class TaegisSDKThreatQuery:
             return ThreatIndicatorIntelligence.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for query threatIndicatorIntelligence")
 
-    def threat_relationship(self, id: str) -> ThreatRelationship:
+    def threat_relationship(self, id_: str) -> ThreatRelationship:
         """Gets relationship by `id`.."""
         endpoint = "threatRelationship"
 
         result = self.service.execute_query(
             endpoint=endpoint,
             variables={
-                "ID": prepare_input(id),
+                "ID": prepare_input(id_),
             },
             output=build_output_string(ThreatRelationship),
         )
@@ -196,14 +200,14 @@ class TaegisSDKThreatQuery:
             return ThreatRelationship.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for query threatRelationship")
 
-    def threat_identity(self, id: str) -> ThreatIdentity:
+    def threat_identity(self, id_: str) -> ThreatIdentity:
         """Gets identity by `id`.."""
         endpoint = "threatIdentity"
 
         result = self.service.execute_query(
             endpoint=endpoint,
             variables={
-                "ID": prepare_input(id),
+                "ID": prepare_input(id_),
             },
             output=build_output_string(ThreatIdentity),
         )
@@ -211,14 +215,14 @@ class TaegisSDKThreatQuery:
             return ThreatIdentity.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for query threatIdentity")
 
-    def threat_malware(self, id: str) -> ThreatMalware:
+    def threat_malware(self, id_: str) -> ThreatMalware:
         """Gets malware by `id`.."""
         endpoint = "threatMalware"
 
         result = self.service.execute_query(
             endpoint=endpoint,
             variables={
-                "ID": prepare_input(id),
+                "ID": prepare_input(id_),
             },
             output=build_output_string(ThreatMalware),
         )
@@ -259,7 +263,7 @@ class TaegisSDKThreatQuery:
         raise GraphQLNoRowsInResultSetError("for query threatVidIntelligence")
 
     def threat_indicators_intelligence(
-        self, id: List[str]
+        self, id_: List[str]
     ) -> List[ThreatIndicatorIntelligence]:
         """Retrieves all intelligence associated with a list of indicators.."""
         endpoint = "threatIndicatorsIntelligence"
@@ -267,7 +271,7 @@ class TaegisSDKThreatQuery:
         result = self.service.execute_query(
             endpoint=endpoint,
             variables={
-                "ID": prepare_input(id),
+                "ID": prepare_input(id_),
             },
             output=build_output_string(ThreatIndicatorIntelligence),
         )

@@ -9,7 +9,11 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING, Any, List, Dict, Optional, Tuple, Union
 
-from taegis_sdk_python.utils import build_output_string, prepare_input
+from taegis_sdk_python.utils import (
+    build_output_string,
+    prepare_input,
+    parse_union_result,
+)
 from taegis_sdk_python.services.endpoint_command_manager.types import *
 
 from taegis_sdk_python import GraphQLNoRowsInResultSetError
@@ -27,7 +31,7 @@ class TaegisSDKEndpointCommandManagerQuery:
         self.service = service
 
     def endpoint_uninstall_status(self, arguments: UninstallStateArguments) -> bool:
-        """None."""
+        """Retrieve the endpoint uninstall status."""
         endpoint = "endpointUninstallStatus"
 
         result = self.service.execute_query(
@@ -44,7 +48,7 @@ class TaegisSDKEndpointCommandManagerQuery:
     def endpoint_command_history(
         self, arguments: CommandHistoryArguments
     ) -> List[HistoryEntry]:
-        """None."""
+        """Retrieve endpoint command histories."""
         endpoint = "endpointCommandHistory"
 
         result = self.service.execute_query(
@@ -58,8 +62,25 @@ class TaegisSDKEndpointCommandManagerQuery:
             return HistoryEntry.schema().load(result.get(endpoint), many=True)
         raise GraphQLNoRowsInResultSetError("for query endpointCommandHistory")
 
+    def endpoint_command_history_paged(
+        self, arguments: CommandHistoryPagedArguments
+    ) -> HistoryPagedOutput:
+        """Retrieve paged endpoint command histories."""
+        endpoint = "endpointCommandHistoryPaged"
+
+        result = self.service.execute_query(
+            endpoint=endpoint,
+            variables={
+                "arguments": prepare_input(arguments),
+            },
+            output=build_output_string(HistoryPagedOutput),
+        )
+        if result.get(endpoint) is not None:
+            return HistoryPagedOutput.from_dict(result.get(endpoint))
+        raise GraphQLNoRowsInResultSetError("for query endpointCommandHistoryPaged")
+
     def endpoint_isolation_exclusion_rules(self) -> List[IsolationExclusionRule]:
-        """None."""
+        """Retrieve all isolation exclusion rules."""
         endpoint = "endpointIsolationExclusionRules"
 
         result = self.service.execute_query(

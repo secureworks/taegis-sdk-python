@@ -96,12 +96,37 @@ class UserInfo:
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
+class HistoryPartialPageInfo:
+    """HistoryPartialPageInfo."""
+
+    has_next_page: Optional[bool] = field(
+        default=None, metadata=config(field_name="hasNextPage")
+    )
+    end_cursor: Optional[str] = field(
+        default=None, metadata=config(field_name="endCursor")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
 class CommandHistoryArguments:
     """CommandHistoryArguments."""
 
     endpoint_id: Optional[str] = field(
         default=None, metadata=config(field_name="endpointID")
     )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class CommandHistoryPagedArguments:
+    """CommandHistoryPagedArguments."""
+
+    endpoint_id: Optional[str] = field(
+        default=None, metadata=config(field_name="endpointID")
+    )
+    first: Optional[int] = field(default=None, metadata=config(field_name="first"))
+    after: Optional[str] = field(default=None, metadata=config(field_name="after"))
 
 
 @dataclass_json
@@ -211,3 +236,16 @@ class HistoryEntry:
         default=None, metadata=config(field_name="Status")
     )
     user: Optional[UserInfo] = field(default=None, metadata=config(field_name="User"))
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class HistoryPagedOutput:
+    """HistoryPagedOutput."""
+
+    history: Optional[List[HistoryEntry]] = field(
+        default=None, metadata=config(field_name="history")
+    )
+    partial_page_info: Optional[HistoryPartialPageInfo] = field(
+        default=None, metadata=config(field_name="partialPageInfo")
+    )

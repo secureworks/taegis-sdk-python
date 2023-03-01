@@ -9,7 +9,11 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING, Any, List, Dict, Optional, Tuple, Union
 
-from taegis_sdk_python.utils import build_output_string, prepare_input
+from taegis_sdk_python.utils import (
+    build_output_string,
+    prepare_input,
+    parse_union_result,
+)
 from taegis_sdk_python.services.rules.types import *
 
 from taegis_sdk_python import GraphQLNoRowsInResultSetError
@@ -187,7 +191,8 @@ class TaegisSDKRulesMutation:
     def restore_rule(self, rule_id: str) -> Rule:
         """Restore the given rule from deleted status.
 
-        It will remain disabled from being deleted and can be enabled with enableRule.."""
+        It will remain disabled from being deleted and can be enabled with enableRule..
+        """
         endpoint = "restoreRule"
 
         result = self.service.execute_mutation(
