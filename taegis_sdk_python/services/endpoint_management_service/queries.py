@@ -38,7 +38,9 @@ class TaegisSDKEndpointManagementServiceQuery:
             endpoint=endpoint, variables={}, output=build_output_string(EndpointGroup)
         )
         if result.get(endpoint) is not None:
-            return EndpointGroup.schema().load(result.get(endpoint), many=True)
+            return EndpointGroup.schema().load(
+                [r or {} for r in result.get(endpoint)], many=True
+            )
         raise GraphQLNoRowsInResultSetError("for query allEndpointGroups")
 
     def all_endpoint_groups_paged(
@@ -103,7 +105,9 @@ class TaegisSDKEndpointManagementServiceQuery:
             output=build_output_string(Policy),
         )
         if result.get(endpoint) is not None:
-            return Policy.schema().load(result.get(endpoint), many=True)
+            return Policy.schema().load(
+                [r or {} for r in result.get(endpoint)], many=True
+            )
         raise GraphQLNoRowsInResultSetError("for query policyByName")
 
     def bulk_assignment_status_by_request_id(

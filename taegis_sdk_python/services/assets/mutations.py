@@ -157,7 +157,9 @@ class TaegisSDKAssetsMutation:
             output=build_output_string(Asset),
         )
         if result.get(endpoint) is not None:
-            return Asset.schema().load(result.get(endpoint), many=True)
+            return Asset.schema().load(
+                [r or {} for r in result.get(endpoint)], many=True
+            )
         raise GraphQLNoRowsInResultSetError("for mutation addInvestigationAssets")
 
     def remove_investigation_assets(

@@ -59,7 +59,9 @@ class TaegisSDKEndpointCommandManagerQuery:
             output=build_output_string(HistoryEntry),
         )
         if result.get(endpoint) is not None:
-            return HistoryEntry.schema().load(result.get(endpoint), many=True)
+            return HistoryEntry.schema().load(
+                [r or {} for r in result.get(endpoint)], many=True
+            )
         raise GraphQLNoRowsInResultSetError("for query endpointCommandHistory")
 
     def endpoint_command_history_paged(
@@ -89,5 +91,7 @@ class TaegisSDKEndpointCommandManagerQuery:
             output=build_output_string(IsolationExclusionRule),
         )
         if result.get(endpoint) is not None:
-            return IsolationExclusionRule.schema().load(result.get(endpoint), many=True)
+            return IsolationExclusionRule.schema().load(
+                [r or {} for r in result.get(endpoint)], many=True
+            )
         raise GraphQLNoRowsInResultSetError("for query endpointIsolationExclusionRules")

@@ -70,7 +70,9 @@ class TaegisSDKAssetsQuery:
             output=build_output_string(Asset),
         )
         if result.get(endpoint) is not None:
-            return Asset.schema().load(result.get(endpoint), many=True)
+            return Asset.schema().load(
+                [r or {} for r in result.get(endpoint)], many=True
+            )
         raise GraphQLNoRowsInResultSetError("for query assetsByTag")
 
     def all_unique_tags(self) -> List[str]:
@@ -169,7 +171,7 @@ class TaegisSDKAssetsQuery:
         )
         if result.get(endpoint) is not None:
             return AssetCountsByEndpointType.schema().load(
-                result.get(endpoint), many=True
+                [r or {} for r in result.get(endpoint)], many=True
             )
         raise GraphQLNoRowsInResultSetError("for query assetCountGroupByEndpointType")
 
@@ -196,7 +198,9 @@ class TaegisSDKAssetsQuery:
             output=build_output_string(Asset),
         )
         if result.get(endpoint) is not None:
-            return Asset.schema().load(result.get(endpoint), many=True)
+            return Asset.schema().load(
+                [r or {} for r in result.get(endpoint)], many=True
+            )
         raise GraphQLNoRowsInResultSetError("for query assetsByIds")
 
     def assets_by_host_ids(self, host_ids: List[str]) -> List[Asset]:
@@ -211,7 +215,9 @@ class TaegisSDKAssetsQuery:
             output=build_output_string(Asset),
         )
         if result.get(endpoint) is not None:
-            return Asset.schema().load(result.get(endpoint), many=True)
+            return Asset.schema().load(
+                [r or {} for r in result.get(endpoint)], many=True
+            )
         raise GraphQLNoRowsInResultSetError("for query assetsByHostIds")
 
     def assets_by_ip_addresses(self, ip_addresses: List[str]) -> List[Asset]:
@@ -226,7 +232,9 @@ class TaegisSDKAssetsQuery:
             output=build_output_string(Asset),
         )
         if result.get(endpoint) is not None:
-            return Asset.schema().load(result.get(endpoint), many=True)
+            return Asset.schema().load(
+                [r or {} for r in result.get(endpoint)], many=True
+            )
         raise GraphQLNoRowsInResultSetError("for query assetsByIpAddresses")
 
     def all_asset_histories(
@@ -244,7 +252,9 @@ class TaegisSDKAssetsQuery:
             output=build_output_string(AssetHistory),
         )
         if result.get(endpoint) is not None:
-            return AssetHistory.schema().load(result.get(endpoint), many=True)
+            return AssetHistory.schema().load(
+                [r or {} for r in result.get(endpoint)], many=True
+            )
         raise GraphQLNoRowsInResultSetError("for query allAssetHistories")
 
     def asset_red_cloak_histories(
@@ -263,7 +273,9 @@ class TaegisSDKAssetsQuery:
             output=build_output_string(AssetRedCloakHistory),
         )
         if result.get(endpoint) is not None:
-            return AssetRedCloakHistory.schema().load(result.get(endpoint), many=True)
+            return AssetRedCloakHistory.schema().load(
+                [r or {} for r in result.get(endpoint)], many=True
+            )
         raise GraphQLNoRowsInResultSetError("for query assetRedCloakHistories")
 
     def search_assets(
@@ -374,5 +386,7 @@ class TaegisSDKAssetsQuery:
             output=build_output_string(Asset),
         )
         if result.get(endpoint) is not None:
-            return Asset.schema().load(result.get(endpoint), many=True)
+            return Asset.schema().load(
+                [r or {} for r in result.get(endpoint)], many=True
+            )
         raise GraphQLNoRowsInResultSetError("for query assetsBySession")

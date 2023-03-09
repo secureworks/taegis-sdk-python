@@ -38,7 +38,9 @@ class TaegisSDKInvestigationsQuery:
             output=build_output_string(InvestigationSummary),
         )
         if result.get(endpoint) is not None:
-            return InvestigationSummary.schema().load(result.get(endpoint), many=True)
+            return InvestigationSummary.schema().load(
+                [r or {} for r in result.get(endpoint)], many=True
+            )
         raise GraphQLNoRowsInResultSetError("for query investigationSummary")
 
     def investigation(self, investigation_id: str) -> Investigation:
@@ -68,7 +70,9 @@ class TaegisSDKInvestigationsQuery:
             output=build_output_string(Investigation),
         )
         if result.get(endpoint) is not None:
-            return Investigation.schema().load(result.get(endpoint), many=True)
+            return Investigation.schema().load(
+                [r or {} for r in result.get(endpoint)], many=True
+            )
         raise GraphQLNoRowsInResultSetError("for query investigations")
 
     def all_investigations(
@@ -111,7 +115,9 @@ class TaegisSDKInvestigationsQuery:
             output=build_output_string(Investigation),
         )
         if result.get(endpoint) is not None:
-            return Investigation.schema().load(result.get(endpoint), many=True)
+            return Investigation.schema().load(
+                [r or {} for r in result.get(endpoint)], many=True
+            )
         raise GraphQLNoRowsInResultSetError("for query allInvestigations")
 
     def investigation_count_over_time(
@@ -244,7 +250,9 @@ class TaegisSDKInvestigationsQuery:
             output=build_output_string(Event),
         )
         if result.get(endpoint) is not None:
-            return Event.schema().load(result.get(endpoint), many=True)
+            return Event.schema().load(
+                [r or {} for r in result.get(endpoint)], many=True
+            )
         raise GraphQLNoRowsInResultSetError("for query investigationGenesisEvents")
 
     def investigation_genesis_alerts(self, investigation_id: str) -> List[Alert]:
@@ -259,7 +267,9 @@ class TaegisSDKInvestigationsQuery:
             output=build_output_string(Alert),
         )
         if result.get(endpoint) is not None:
-            return Alert.schema().load(result.get(endpoint), many=True)
+            return Alert.schema().load(
+                [r or {} for r in result.get(endpoint)], many=True
+            )
         raise GraphQLNoRowsInResultSetError("for query investigationGenesisAlerts")
 
     def investigation_auth_credentials(self, investigation_id: str) -> List[str]:
@@ -289,7 +299,9 @@ class TaegisSDKInvestigationsQuery:
             output=build_output_string(SearchQuery),
         )
         if result.get(endpoint) is not None:
-            return SearchQuery.schema().load(result.get(endpoint), many=True)
+            return SearchQuery.schema().load(
+                [r or {} for r in result.get(endpoint)], many=True
+            )
         raise GraphQLNoRowsInResultSetError("for query investigationSearchQueries")
 
     def investigations_bulk_events_alerts(
@@ -307,7 +319,7 @@ class TaegisSDKInvestigationsQuery:
         )
         if result.get(endpoint) is not None:
             return InvestigationBulkResponse.schema().load(
-                result.get(endpoint), many=True
+                [r or {} for r in result.get(endpoint)], many=True
             )
         raise GraphQLNoRowsInResultSetError("for query investigationsBulkEventsAlerts")
 
@@ -335,7 +347,9 @@ class TaegisSDKInvestigationsQuery:
             output=build_output_string(SummaryGroup),
         )
         if result.get(endpoint) is not None:
-            return SummaryGroup.schema().load(result.get(endpoint), many=True)
+            return SummaryGroup.schema().load(
+                [r or {} for r in result.get(endpoint)], many=True
+            )
         raise GraphQLNoRowsInResultSetError("for query investigationStatusSummary")
 
     def investigations_search(
@@ -502,7 +516,9 @@ class TaegisSDKInvestigationsQuery:
             output=build_output_string(InvestigationFile),
         )
         if result.get(endpoint) is not None:
-            return InvestigationFile.schema().load(result.get(endpoint), many=True)
+            return InvestigationFile.schema().load(
+                [r or {} for r in result.get(endpoint)], many=True
+            )
         raise GraphQLNoRowsInResultSetError("for query investigationFiles")
 
     def download_investigation_file(self, investigation_id: str, file_id: str) -> str:
@@ -543,7 +559,9 @@ class TaegisSDKInvestigationsQuery:
             output=build_output_string(Investigation),
         )
         if result.get(endpoint) is not None:
-            return Investigation.schema().load(result.get(endpoint), many=True)
+            return Investigation.schema().load(
+                [r or {} for r in result.get(endpoint)], many=True
+            )
         raise GraphQLNoRowsInResultSetError("for query investigationsBySession")
 
     def get_handoff_investigations(
@@ -589,7 +607,7 @@ class TaegisSDKInvestigationsQuery:
         )
         if result.get(endpoint) is not None:
             return InvestigationKeyValuePair.schema().load(
-                result.get(endpoint), many=True
+                [r or {} for r in result.get(endpoint)], many=True
             )
         raise GraphQLNoRowsInResultSetError("for query investigationTypes")
 
@@ -604,7 +622,7 @@ class TaegisSDKInvestigationsQuery:
         )
         if result.get(endpoint) is not None:
             return InvestigationKeyValuePair.schema().load(
-                result.get(endpoint), many=True
+                [r or {} for r in result.get(endpoint)], many=True
             )
         raise GraphQLNoRowsInResultSetError("for query investigationStatusList")
 
@@ -619,7 +637,7 @@ class TaegisSDKInvestigationsQuery:
         )
         if result.get(endpoint) is not None:
             return InvestigationKeyValuePair.schema().load(
-                result.get(endpoint), many=True
+                [r or {} for r in result.get(endpoint)], many=True
             )
         raise GraphQLNoRowsInResultSetError("for query investigationPriorityList")
 

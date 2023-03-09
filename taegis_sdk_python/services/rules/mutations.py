@@ -248,7 +248,9 @@ class TaegisSDKRulesMutation:
             output=build_output_string(RuleFilter),
         )
         if result.get(endpoint) is not None:
-            return RuleFilter.schema().load(result.get(endpoint), many=True)
+            return RuleFilter.schema().load(
+                [r or {} for r in result.get(endpoint)], many=True
+            )
         raise GraphQLNoRowsInResultSetError("for mutation updateFilters")
 
     def delete_filter(self, filter_id: str) -> RuleFilter:

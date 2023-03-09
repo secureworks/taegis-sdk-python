@@ -36,7 +36,7 @@ class NotificationVarsItemInput:
     """NotificationVarsItemInput."""
 
     key: Optional[str] = field(default=None, metadata=config(field_name="key"))
-    value: Optional[str] = field(default=None, metadata=config(field_name="value"))
+    value: Optional[Any] = field(default=None, metadata=config(field_name="value"))
 
 
 @dataclass_json

@@ -147,7 +147,7 @@ class Visualization:
         default=None, metadata=config(field_name="visualization_type")
     )
     source: Optional[str] = field(default=None, metadata=config(field_name="source"))
-    config: Optional[dict] = field(default=None, metadata=config(field_name="config"))
+    config_: Optional[dict] = field(default=None, metadata=config(field_name="config"))
 
 
 @dataclass_json
@@ -159,7 +159,7 @@ class VisualizationInput:
         default=None, metadata=config(field_name="visualization_type")
     )
     source: Optional[str] = field(default=None, metadata=config(field_name="source"))
-    config: Optional[dict] = field(default=None, metadata=config(field_name="config"))
+    config_: Optional[dict] = field(default=None, metadata=config(field_name="config"))
 
 
 @dataclass_json

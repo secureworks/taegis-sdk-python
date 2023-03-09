@@ -42,7 +42,9 @@ class TaegisSDKAgentQuery:
             output=build_output_string(Package),
         )
         if result.get(endpoint) is not None:
-            return Package.schema().load(result.get(endpoint), many=True)
+            return Package.schema().load(
+                [r or {} for r in result.get(endpoint)], many=True
+            )
         raise GraphQLNoRowsInResultSetError("for query agentPackages")
 
     def agent_package_signed_url(

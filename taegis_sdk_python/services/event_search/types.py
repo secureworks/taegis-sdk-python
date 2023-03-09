@@ -85,6 +85,7 @@ class GetEventByIDRequestInput:
     """GetEventByIDRequestInput."""
 
     ids: Optional[List[str]] = field(default=None, metadata=config(field_name="ids"))
+    alert_id: Optional[str] = field(default=None, metadata=config(field_name="alertId"))
     options: Optional[AuxiliaryEventsByIDOptions] = field(
         default=None, metadata=config(field_name="options")
     )

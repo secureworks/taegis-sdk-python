@@ -70,5 +70,7 @@ class TaegisSDKClientsQuery:
             output=build_output_string(Client),
         )
         if result.get(endpoint) is not None:
-            return Client.schema().load(result.get(endpoint), many=True)
+            return Client.schema().load(
+                [r or {} for r in result.get(endpoint)], many=True
+            )
         raise GraphQLNoRowsInResultSetError("for query clients")

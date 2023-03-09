@@ -19,7 +19,6 @@ class UsersAuthzObject(str, Enum):
 
     USER = "User"
     ROLE = "Role"
-    PRE_VERIFIED_USER = "PreVerifiedUser"
 
 
 class UsersAuthzAction(str, Enum):
@@ -39,6 +38,7 @@ class UsersAuthzAction(str, Enum):
     NEED_NEW_MFA = "needNewMFA"
     SET_MFA = "setMFA"
     REGISTER_USER = "registerUser"
+    CREATE_PRE_REGISTERED_USER = "createPreRegisteredUser"
 
 
 class GraphQLQueryType(str, Enum):
@@ -290,6 +290,9 @@ class AuthorizeCheckConnection:
     status: Optional[str] = field(default=None, metadata=config(field_name="status"))
     testers: Optional[List[str]] = field(
         default=None, metadata=config(field_name="testers")
+    )
+    tenant_id: Optional[str] = field(
+        default=None, metadata=config(field_name="tenant_id")
     )
 
 
@@ -584,6 +587,15 @@ class TDRUser:
     )
     last_login: Optional[str] = field(
         default=None, metadata=config(field_name="last_login")
+    )
+    invited_date: Optional[str] = field(
+        default=None, metadata=config(field_name="invited_date")
+    )
+    registered_date: Optional[str] = field(
+        default=None, metadata=config(field_name="registered_date")
+    )
+    deactivated_date: Optional[str] = field(
+        default=None, metadata=config(field_name="deactivated_date")
     )
     status: Optional[str] = field(default=None, metadata=config(field_name="status"))
     status_localized: Optional[str] = field(

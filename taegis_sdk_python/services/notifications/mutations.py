@@ -126,7 +126,9 @@ class TaegisSDKNotificationsMutation:
             output=build_output_string(Notification),
         )
         if result.get(endpoint) is not None:
-            return Notification.schema().load(result.get(endpoint), many=True)
+            return Notification.schema().load(
+                [r or {} for r in result.get(endpoint)], many=True
+            )
         raise GraphQLNoRowsInResultSetError("for mutation bulkDeleteNotification")
 
     def read_notification(self, notification_id: str) -> Notification:
@@ -156,7 +158,9 @@ class TaegisSDKNotificationsMutation:
             output=build_output_string(Notification),
         )
         if result.get(endpoint) is not None:
-            return Notification.schema().load(result.get(endpoint), many=True)
+            return Notification.schema().load(
+                [r or {} for r in result.get(endpoint)], many=True
+            )
         raise GraphQLNoRowsInResultSetError("for mutation bulkReadNotification")
 
     def bulk_restore_notifications(self, ids: List[str]) -> List[str]:

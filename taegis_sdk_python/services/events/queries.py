@@ -43,7 +43,9 @@ class TaegisSDKEventsQuery:
             output=build_output_string(Event),
         )
         if result.get(endpoint) is not None:
-            return Event.schema().load(result.get(endpoint), many=True)
+            return Event.schema().load(
+                [r or {} for r in result.get(endpoint)], many=True
+            )
         raise GraphQLNoRowsInResultSetError("for query events")
 
     def event_query(self, id_: str) -> EventQuery:
@@ -75,5 +77,7 @@ class TaegisSDKEventsQuery:
             output=build_output_string(EventQuery),
         )
         if result.get(endpoint) is not None:
-            return EventQuery.schema().load(result.get(endpoint), many=True)
+            return EventQuery.schema().load(
+                [r or {} for r in result.get(endpoint)], many=True
+            )
         raise GraphQLNoRowsInResultSetError("for query eventQueries")

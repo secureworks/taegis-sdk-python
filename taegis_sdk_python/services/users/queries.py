@@ -83,7 +83,9 @@ class TaegisSDKUsersQuery:
             output=build_output_string(TDRUser),
         )
         if result.get(endpoint) is not None:
-            return TDRUser.schema().load(result.get(endpoint), many=True)
+            return TDRUser.schema().load(
+                [r or {} for r in result.get(endpoint)], many=True
+            )
         raise GraphQLNoRowsInResultSetError("for query tdrusers")
 
     def tdrusers_by_ids(self, user_ids: List[str]) -> List[TDRUser]:
@@ -98,7 +100,9 @@ class TaegisSDKUsersQuery:
             output=build_output_string(TDRUser),
         )
         if result.get(endpoint) is not None:
-            return TDRUser.schema().load(result.get(endpoint), many=True)
+            return TDRUser.schema().load(
+                [r or {} for r in result.get(endpoint)], many=True
+            )
         raise GraphQLNoRowsInResultSetError("for query tdrusersByIDs")
 
     def search_tdrusers_by_ids(self, user_ids: List[str]) -> List[SearchByIDsResponse]:
@@ -117,7 +121,9 @@ class TaegisSDKUsersQuery:
             output=build_output_string(SearchByIDsResponse),
         )
         if result.get(endpoint) is not None:
-            return SearchByIDsResponse.schema().load(result.get(endpoint), many=True)
+            return SearchByIDsResponse.schema().load(
+                [r or {} for r in result.get(endpoint)], many=True
+            )
         raise GraphQLNoRowsInResultSetError("for query searchTDRUsersByIDs")
 
     def get_support_pin(self) -> TDRUserSupportPin:

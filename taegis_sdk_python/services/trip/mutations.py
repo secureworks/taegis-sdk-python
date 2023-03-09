@@ -79,7 +79,9 @@ class TaegisSDKTripMutation:
             output=build_output_string(ApiIntegrationSummary),
         )
         if result.get(endpoint) is not None:
-            return ApiIntegrationSummary.schema().load(result.get(endpoint), many=True)
+            return ApiIntegrationSummary.schema().load(
+                [r or {} for r in result.get(endpoint)], many=True
+            )
         raise GraphQLNoRowsInResultSetError("for mutation deleteApiIntegration")
 
     def pause_api_integration(self, id_: int) -> ApiIntegrationUpdateResponse:

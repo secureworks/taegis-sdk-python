@@ -42,7 +42,9 @@ class TaegisSDKTripQuery:
             output=build_output_string(ApiProduct),
         )
         if result.get(endpoint) is not None:
-            return ApiProduct.schema().load(result.get(endpoint), many=True)
+            return ApiProduct.schema().load(
+                [r or {} for r in result.get(endpoint)], many=True
+            )
         raise GraphQLNoRowsInResultSetError("for query listActiveApiProducts")
 
     def list_api_integrations(self) -> List[ApiIntegrationSummary]:
@@ -55,7 +57,9 @@ class TaegisSDKTripQuery:
             output=build_output_string(ApiIntegrationSummary),
         )
         if result.get(endpoint) is not None:
-            return ApiIntegrationSummary.schema().load(result.get(endpoint), many=True)
+            return ApiIntegrationSummary.schema().load(
+                [r or {} for r in result.get(endpoint)], many=True
+            )
         raise GraphQLNoRowsInResultSetError("for query listApiIntegrations")
 
     def api_integration(self, id_: int) -> ApiIntegration:
@@ -89,7 +93,9 @@ class TaegisSDKTripQuery:
             output=build_output_string(ApiIntegrationHistory),
         )
         if result.get(endpoint) is not None:
-            return ApiIntegrationHistory.schema().load(result.get(endpoint), many=True)
+            return ApiIntegrationHistory.schema().load(
+                [r or {} for r in result.get(endpoint)], many=True
+            )
         raise GraphQLNoRowsInResultSetError("for query listApiIntegrationHistory")
 
     def get_api_integration_form(self, product_id: int) -> ApiForm:

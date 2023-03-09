@@ -55,7 +55,9 @@ class TaegisSDKCommentsMutation:
             output=build_output_string(Comment),
         )
         if result.get(endpoint) is not None:
-            return Comment.schema().load(result.get(endpoint), many=True)
+            return Comment.schema().load(
+                [r or {} for r in result.get(endpoint)], many=True
+            )
         raise GraphQLNoRowsInResultSetError("for mutation markParentCommentsRead")
 
     def create_comment(self, comment: CommentInput) -> Comment:

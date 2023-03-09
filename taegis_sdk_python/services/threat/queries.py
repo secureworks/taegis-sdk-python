@@ -55,7 +55,9 @@ class TaegisSDKThreatQuery:
             output=build_output_string(ThreatPublication),
         )
         if result.get(endpoint) is not None:
-            return ThreatPublication.schema().load(result.get(endpoint), many=True)
+            return ThreatPublication.schema().load(
+                [r or {} for r in result.get(endpoint)], many=True
+            )
         raise GraphQLNoRowsInResultSetError("for query threatPublications")
 
     def threat_latest_publications(
@@ -73,7 +75,9 @@ class TaegisSDKThreatQuery:
             output=build_output_string(ThreatPublication),
         )
         if result.get(endpoint) is not None:
-            return ThreatPublication.schema().load(result.get(endpoint), many=True)
+            return ThreatPublication.schema().load(
+                [r or {} for r in result.get(endpoint)], many=True
+            )
         raise GraphQLNoRowsInResultSetError("for query threatLatestPublications")
 
     def threat_object_by_id(
@@ -152,7 +156,9 @@ class TaegisSDKThreatQuery:
             output=build_output_string(ThreatRelationship),
         )
         if result.get(endpoint) is not None:
-            return ThreatRelationship.schema().load(result.get(endpoint), many=True)
+            return ThreatRelationship.schema().load(
+                [r or {} for r in result.get(endpoint)], many=True
+            )
         raise GraphQLNoRowsInResultSetError("for query threatWatchlist")
 
     def threat_indicator_publications(self, id_: str) -> List[ThreatReport]:
@@ -167,7 +173,9 @@ class TaegisSDKThreatQuery:
             output=build_output_string(ThreatReport),
         )
         if result.get(endpoint) is not None:
-            return ThreatReport.schema().load(result.get(endpoint), many=True)
+            return ThreatReport.schema().load(
+                [r or {} for r in result.get(endpoint)], many=True
+            )
         raise GraphQLNoRowsInResultSetError("for query threatIndicatorPublications")
 
     def threat_indicator_intelligence(self, id_: str) -> ThreatIndicatorIntelligence:
@@ -244,7 +252,9 @@ class TaegisSDKThreatQuery:
             output=build_output_string(ThreatIdentity),
         )
         if result.get(endpoint) is not None:
-            return ThreatIdentity.schema().load(result.get(endpoint), many=True)
+            return ThreatIdentity.schema().load(
+                [r or {} for r in result.get(endpoint)], many=True
+            )
         raise GraphQLNoRowsInResultSetError("for query threatIdentities")
 
     def threat_vid_intelligence(self, vid: str) -> ThreatVidIntelligence:
@@ -277,7 +287,7 @@ class TaegisSDKThreatQuery:
         )
         if result.get(endpoint) is not None:
             return ThreatIndicatorIntelligence.schema().load(
-                result.get(endpoint), many=True
+                [r or {} for r in result.get(endpoint)], many=True
             )
         raise GraphQLNoRowsInResultSetError("for query threatIndicatorsIntelligence")
 
@@ -293,7 +303,9 @@ class TaegisSDKThreatQuery:
             output=build_output_string(Lists),
         )
         if result.get(endpoint) is not None:
-            return Lists.schema().load(result.get(endpoint), many=True)
+            return Lists.schema().load(
+                [r or {} for r in result.get(endpoint)], many=True
+            )
         raise GraphQLNoRowsInResultSetError("for query lists")
 
     def list(self, id_: str, arguments: ListsArguments) -> List[ThreatList]:
@@ -309,7 +321,9 @@ class TaegisSDKThreatQuery:
             output=build_output_string(ThreatList),
         )
         if result.get(endpoint) is not None:
-            return ThreatList.schema().load(result.get(endpoint), many=True)
+            return ThreatList.schema().load(
+                [r or {} for r in result.get(endpoint)], many=True
+            )
         raise GraphQLNoRowsInResultSetError("for query list")
 
     def list_items_by_tag(self, tag: str, arguments: ListsArguments) -> List[ListItems]:
@@ -325,7 +339,9 @@ class TaegisSDKThreatQuery:
             output=build_output_string(ListItems),
         )
         if result.get(endpoint) is not None:
-            return ListItems.schema().load(result.get(endpoint), many=True)
+            return ListItems.schema().load(
+                [r or {} for r in result.get(endpoint)], many=True
+            )
         raise GraphQLNoRowsInResultSetError("for query listItemsByTag")
 
     def list_items_by_name(
@@ -343,5 +359,7 @@ class TaegisSDKThreatQuery:
             output=build_output_string(ListItems),
         )
         if result.get(endpoint) is not None:
-            return ListItems.schema().load(result.get(endpoint), many=True)
+            return ListItems.schema().load(
+                [r or {} for r in result.get(endpoint)], many=True
+            )
         raise GraphQLNoRowsInResultSetError("for query listItemsByName")

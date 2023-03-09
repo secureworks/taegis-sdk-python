@@ -40,7 +40,9 @@ class TaegisSDKAssets2Query:
             output=build_output_string(FacetV2),
         )
         if result.get(endpoint) is not None:
-            return FacetV2.schema().load(result.get(endpoint), many=True)
+            return FacetV2.schema().load(
+                [r or {} for r in result.get(endpoint)], many=True
+            )
         raise GraphQLNoRowsInResultSetError("for query facetsV2")
 
     def facet_info_v2(
@@ -62,7 +64,9 @@ class TaegisSDKAssets2Query:
             output=build_output_string(FacetInfoV2),
         )
         if result.get(endpoint) is not None:
-            return FacetInfoV2.schema().load(result.get(endpoint), many=True)
+            return FacetInfoV2.schema().load(
+                [r or {} for r in result.get(endpoint)], many=True
+            )
         raise GraphQLNoRowsInResultSetError("for query facetInfoV2")
 
     def assets_v2(
@@ -302,3 +306,12 @@ class TaegisSDKAssets2Query:
         if result.get(endpoint) is not None:
             return result.get(endpoint)
         raise GraphQLNoRowsInResultSetError("for query assetDeadPeriod")
+
+    def subject_can_isolate(self) -> bool:
+        """Returns whether a subject can isolate an asset for the current tenant context."""
+        endpoint = "subjectCanIsolate"
+
+        result = self.service.execute_query(endpoint=endpoint, variables={}, output="")
+        if result.get(endpoint) is not None:
+            return result.get(endpoint)
+        raise GraphQLNoRowsInResultSetError("for query subjectCanIsolate")

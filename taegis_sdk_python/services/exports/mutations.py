@@ -245,7 +245,9 @@ class TaegisSDKExportsMutation:
             output=build_output_string(Report),
         )
         if result.get(endpoint) is not None:
-            return Report.schema().load(result.get(endpoint), many=True)
+            return Report.schema().load(
+                [r or {} for r in result.get(endpoint)], many=True
+            )
         raise GraphQLNoRowsInResultSetError("for mutation deleteReports")
 
     def pause_schedule(self, schedule_id: str) -> Schedule:

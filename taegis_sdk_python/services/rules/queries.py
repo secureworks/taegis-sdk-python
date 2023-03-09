@@ -47,7 +47,9 @@ class TaegisSDKRulesQuery:
             output=build_output_string(Rule),
         )
         if result.get(endpoint) is not None:
-            return Rule.schema().load(result.get(endpoint), many=True)
+            return Rule.schema().load(
+                [r or {} for r in result.get(endpoint)], many=True
+            )
         raise GraphQLNoRowsInResultSetError("for query rules")
 
     def all_rules(
@@ -65,7 +67,9 @@ class TaegisSDKRulesQuery:
             output=build_output_string(Rule),
         )
         if result.get(endpoint) is not None:
-            return Rule.schema().load(result.get(endpoint), many=True)
+            return Rule.schema().load(
+                [r or {} for r in result.get(endpoint)], many=True
+            )
         raise GraphQLNoRowsInResultSetError("for query allRules")
 
     def suppression_rules(
@@ -92,7 +96,9 @@ class TaegisSDKRulesQuery:
             output=build_output_string(Rule),
         )
         if result.get(endpoint) is not None:
-            return Rule.schema().load(result.get(endpoint), many=True)
+            return Rule.schema().load(
+                [r or {} for r in result.get(endpoint)], many=True
+            )
         raise GraphQLNoRowsInResultSetError("for query suppressionRules")
 
     def event_tagging_rules(
@@ -115,7 +121,9 @@ class TaegisSDKRulesQuery:
             output=build_output_string(Rule),
         )
         if result.get(endpoint) is not None:
-            return Rule.schema().load(result.get(endpoint), many=True)
+            return Rule.schema().load(
+                [r or {} for r in result.get(endpoint)], many=True
+            )
         raise GraphQLNoRowsInResultSetError("for query eventTaggingRules")
 
     def deleted_rules(
@@ -137,7 +145,9 @@ class TaegisSDKRulesQuery:
             output=build_output_string(Rule),
         )
         if result.get(endpoint) is not None:
-            return Rule.schema().load(result.get(endpoint), many=True)
+            return Rule.schema().load(
+                [r or {} for r in result.get(endpoint)], many=True
+            )
         raise GraphQLNoRowsInResultSetError("for query deletedRules")
 
     def rules_count(self, rule_type: Optional[RuleType] = None) -> int:
@@ -219,7 +229,9 @@ class TaegisSDKRulesQuery:
             output=build_output_string(Rule),
         )
         if result.get(endpoint) is not None:
-            return Rule.schema().load(result.get(endpoint), many=True)
+            return Rule.schema().load(
+                [r or {} for r in result.get(endpoint)], many=True
+            )
         raise GraphQLNoRowsInResultSetError("for query rulesForEvent")
 
     def rules_for_event_count(
@@ -304,7 +316,9 @@ class TaegisSDKRulesQuery:
             output=build_output_string(Rule),
         )
         if result.get(endpoint) is not None:
-            return Rule.schema().load(result.get(endpoint), many=True)
+            return Rule.schema().load(
+                [r or {} for r in result.get(endpoint)], many=True
+            )
         raise GraphQLNoRowsInResultSetError("for query changesSince")
 
     def test_filters(
@@ -326,7 +340,9 @@ class TaegisSDKRulesQuery:
             output=build_output_string(RuleTestMatchStep),
         )
         if result.get(endpoint) is not None:
-            return RuleTestMatchStep.schema().load(result.get(endpoint), many=True)
+            return RuleTestMatchStep.schema().load(
+                [r or {} for r in result.get(endpoint)], many=True
+            )
         raise GraphQLNoRowsInResultSetError("for query testFilters")
 
     def rule_metrics(self, id_: str) -> RuleMetrics:

@@ -43,7 +43,9 @@ class TaegisSDKTenantsQuery:
             output=build_output_string(Service),
         )
         if result.get(endpoint) is not None:
-            return Service.schema().load(result.get(endpoint), many=True)
+            return Service.schema().load(
+                [r or {} for r in result.get(endpoint)], many=True
+            )
         raise GraphQLNoRowsInResultSetError("for query assignableServices")
 
     def tenants(self, tenants_query: TenantsQuery) -> TenantResults:
@@ -90,7 +92,9 @@ class TaegisSDKTenantsQuery:
             output=build_output_string(SSOConnection),
         )
         if result.get(endpoint) is not None:
-            return SSOConnection.schema().load(result.get(endpoint), many=True)
+            return SSOConnection.schema().load(
+                [r or {} for r in result.get(endpoint)], many=True
+            )
         raise GraphQLNoRowsInResultSetError("for query SSOConnections")
 
     def get_sso_connection_config(
@@ -138,5 +142,7 @@ class TaegisSDKTenantsQuery:
             output=build_output_string(ServiceEvents),
         )
         if result.get(endpoint) is not None:
-            return ServiceEvents.schema().load(result.get(endpoint), many=True)
+            return ServiceEvents.schema().load(
+                [r or {} for r in result.get(endpoint)], many=True
+            )
         raise GraphQLNoRowsInResultSetError("for query serviceEvents")

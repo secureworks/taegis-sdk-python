@@ -1,12 +1,13 @@
 """
 This needs to be a generated file.  Need to make jinja template.
 """
-from typing import Optional, Dict
-from taegis_sdk_python.authentication import get_token
+from typing import Dict, Optional
 
 from taegis_sdk_python._consts import TAEGIS_ENVIRONMENT_URLS
 from taegis_sdk_python._version import __version__
-
+from taegis_sdk_python.authentication import get_token
+from taegis_sdk_python.config import write_to_config
+from taegis_sdk_python.service_core import ServiceCore
 from taegis_sdk_python.services.access_points import AccessPointsService
 from taegis_sdk_python.services.agent import AgentService
 from taegis_sdk_python.services.alerts import AlertsService
@@ -14,13 +15,12 @@ from taegis_sdk_python.services.assets import AssetsService
 from taegis_sdk_python.services.assets2 import Assets2Service
 from taegis_sdk_python.services.audits import AuditsService
 from taegis_sdk_python.services.clients import ClientsService
+from taegis_sdk_python.services.collector import CollectorService
 from taegis_sdk_python.services.comments import CommentsService
-from taegis_sdk_python.services.endpoint_command_manager import (
-    EndpointCommandManagerService,
-)
-from taegis_sdk_python.services.endpoint_management_service import (
-    EndpointManagementServiceService,
-)
+from taegis_sdk_python.services.endpoint_command_manager import \
+    EndpointCommandManagerService
+from taegis_sdk_python.services.endpoint_management_service import \
+    EndpointManagementServiceService
 from taegis_sdk_python.services.event_search import EventSearchService
 from taegis_sdk_python.services.events import EventsService
 from taegis_sdk_python.services.exports import ExportsService
@@ -34,7 +34,6 @@ from taegis_sdk_python.services.tenants import TenantsService
 from taegis_sdk_python.services.threat import ThreatService
 from taegis_sdk_python.services.trip import TripService
 from taegis_sdk_python.services.users import UsersService
-
 
 __all__ = ["GraphQLService"]
 
@@ -86,6 +85,7 @@ class GraphQLService:
         self._assets2 = None
         self._audits = None
         self._clients = None
+        self._collector = None
         self._comments = None
         self._endpoint_command_manager = None
         self._endpoint_management_service = None
@@ -97,6 +97,7 @@ class GraphQLService:
         self._notebooks = None
         self._notifications = None
         self._rules = None
+        self._core = None
         self._sharelinks = None
         self._tenants = None
         self._threat = None
@@ -145,6 +146,10 @@ class GraphQLService:
                 request_url=self._environments.get(self.environment),
             )
         return access_token
+
+    def clear_access_token(self):
+        """Clear the current access token."""
+        write_to_config(self.environment, "access_token", "")
 
     @property
     def output(self):
@@ -216,6 +221,13 @@ class GraphQLService:
         if not self._clients:
             self._clients = ClientsService(self)
         return self._clients
+
+    @property
+    def collector(self):
+        """Collector Service Endpoint."""
+        if not self._collector:
+            self._collector = CollectorService(self)
+        return self._collector
 
     @property
     def comments(self):
@@ -293,6 +305,13 @@ class GraphQLService:
         if not self._rules:
             self._rules = RulesService(self)
         return self._rules
+    
+    @property
+    def core(self):
+        """Default Service Core"""
+        if not self._core:
+            self._core = ServiceCore(self)
+        return self._core
 
     @property
     def sharelinks(self):

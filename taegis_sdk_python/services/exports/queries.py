@@ -42,7 +42,9 @@ class TaegisSDKExportsQuery:
             output=build_output_string(Export),
         )
         if result.get(endpoint) is not None:
-            return Export.schema().load(result.get(endpoint), many=True)
+            return Export.schema().load(
+                [r or {} for r in result.get(endpoint)], many=True
+            )
         raise GraphQLNoRowsInResultSetError("for query allExports")
 
     def single_export(self, id_: str) -> Export:
@@ -303,5 +305,7 @@ class TaegisSDKExportsQuery:
             endpoint=endpoint, variables={}, output=build_output_string(Unsubscription)
         )
         if result.get(endpoint) is not None:
-            return Unsubscription.schema().load(result.get(endpoint), many=True)
+            return Unsubscription.schema().load(
+                [r or {} for r in result.get(endpoint)], many=True
+            )
         raise GraphQLNoRowsInResultSetError("for query getAllUnsubscriptions")

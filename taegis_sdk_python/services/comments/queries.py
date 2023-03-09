@@ -56,7 +56,9 @@ class TaegisSDKCommentsQuery:
             output=build_output_string(Comment),
         )
         if result.get(endpoint) is not None:
-            return Comment.schema().load(result.get(endpoint), many=True)
+            return Comment.schema().load(
+                [r or {} for r in result.get(endpoint)], many=True
+            )
         raise GraphQLNoRowsInResultSetError("for query commentsByParent")
 
     def comments_by_parent_section(
@@ -76,7 +78,9 @@ class TaegisSDKCommentsQuery:
             output=build_output_string(Comment),
         )
         if result.get(endpoint) is not None:
-            return Comment.schema().load(result.get(endpoint), many=True)
+            return Comment.schema().load(
+                [r or {} for r in result.get(endpoint)], many=True
+            )
         raise GraphQLNoRowsInResultSetError("for query commentsByParentSection")
 
     def comments_count_by_parent(self, parent_type: str, parent_id: str) -> ParentCount:
@@ -107,7 +111,9 @@ class TaegisSDKCommentsQuery:
             output=build_output_string(ParentCount),
         )
         if result.get(endpoint) is not None:
-            return ParentCount.schema().load(result.get(endpoint), many=True)
+            return ParentCount.schema().load(
+                [r or {} for r in result.get(endpoint)], many=True
+            )
         raise GraphQLNoRowsInResultSetError("for query commentsCountByParentType")
 
     def unread_comments_by_parents(self, parents: List[Parent]) -> List[Comment]:
@@ -122,7 +128,9 @@ class TaegisSDKCommentsQuery:
             output=build_output_string(Comment),
         )
         if result.get(endpoint) is not None:
-            return Comment.schema().load(result.get(endpoint), many=True)
+            return Comment.schema().load(
+                [r or {} for r in result.get(endpoint)], many=True
+            )
         raise GraphQLNoRowsInResultSetError("for query unreadCommentsByParents")
 
     def latest_bulk_comments_by_parent(
@@ -140,7 +148,9 @@ class TaegisSDKCommentsQuery:
             output=build_output_string(LatestComment),
         )
         if result.get(endpoint) is not None:
-            return LatestComment.schema().load(result.get(endpoint), many=True)
+            return LatestComment.schema().load(
+                [r or {} for r in result.get(endpoint)], many=True
+            )
         raise GraphQLNoRowsInResultSetError("for query latestBulkCommentsByParent")
 
     def comments_count_by_parent_ids(
@@ -158,5 +168,7 @@ class TaegisSDKCommentsQuery:
             output=build_output_string(ParentCount),
         )
         if result.get(endpoint) is not None:
-            return ParentCount.schema().load(result.get(endpoint), many=True)
+            return ParentCount.schema().load(
+                [r or {} for r in result.get(endpoint)], many=True
+            )
         raise GraphQLNoRowsInResultSetError("for query commentsCountByParentIds")
