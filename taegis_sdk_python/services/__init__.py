@@ -17,10 +17,12 @@ from taegis_sdk_python.services.audits import AuditsService
 from taegis_sdk_python.services.clients import ClientsService
 from taegis_sdk_python.services.collector import CollectorService
 from taegis_sdk_python.services.comments import CommentsService
-from taegis_sdk_python.services.endpoint_command_manager import \
-    EndpointCommandManagerService
-from taegis_sdk_python.services.endpoint_management_service import \
-    EndpointManagementServiceService
+from taegis_sdk_python.services.endpoint_command_manager import (
+    EndpointCommandManagerService,
+)
+from taegis_sdk_python.services.endpoint_management_service import (
+    EndpointManagementServiceService,
+)
 from taegis_sdk_python.services.event_search import EventSearchService
 from taegis_sdk_python.services.events import EventsService
 from taegis_sdk_python.services.exports import ExportsService
@@ -305,7 +307,7 @@ class GraphQLService:
         if not self._rules:
             self._rules = RulesService(self)
         return self._rules
-    
+
     @property
     def core(self):
         """Default Service Core"""

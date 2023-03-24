@@ -651,6 +651,75 @@ class ActivityLogInput:
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
+class AlertEvidence:
+    """AlertEvidence."""
+
+    id: Optional[str] = field(default=None, metadata=config(field_name="id"))
+    investigation_id: Optional[str] = field(
+        default=None, metadata=config(field_name="investigationId")
+    )
+    tenant_id: Optional[str] = field(
+        default=None, metadata=config(field_name="tenantId")
+    )
+    created_at: Optional[str] = field(
+        default=None, metadata=config(field_name="createdAt")
+    )
+    created_by: Optional[str] = field(
+        default=None, metadata=config(field_name="createdBy")
+    )
+    alert_id: Optional[str] = field(default=None, metadata=config(field_name="alertId"))
+    is_genesis: Optional[bool] = field(
+        default=None, metadata=config(field_name="isGenesis")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class EventEvidence:
+    """EventEvidence."""
+
+    id: Optional[str] = field(default=None, metadata=config(field_name="id"))
+    investigation_id: Optional[str] = field(
+        default=None, metadata=config(field_name="investigationId")
+    )
+    tenant_id: Optional[str] = field(
+        default=None, metadata=config(field_name="tenantId")
+    )
+    created_at: Optional[str] = field(
+        default=None, metadata=config(field_name="createdAt")
+    )
+    created_by: Optional[str] = field(
+        default=None, metadata=config(field_name="createdBy")
+    )
+    event_id: Optional[str] = field(default=None, metadata=config(field_name="eventId"))
+    is_genesis: Optional[bool] = field(
+        default=None, metadata=config(field_name="isGenesis")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class AssetEvidence:
+    """AssetEvidence."""
+
+    id: Optional[str] = field(default=None, metadata=config(field_name="id"))
+    investigation_id: Optional[str] = field(
+        default=None, metadata=config(field_name="investigationId")
+    )
+    tenant_id: Optional[str] = field(
+        default=None, metadata=config(field_name="tenantId")
+    )
+    created_at: Optional[str] = field(
+        default=None, metadata=config(field_name="createdAt")
+    )
+    created_by: Optional[str] = field(
+        default=None, metadata=config(field_name="createdBy")
+    )
+    asset_id: Optional[str] = field(default=None, metadata=config(field_name="assetId"))
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
 class InvestigationEntities:
     """InvestigationEntities."""
 
@@ -906,6 +975,9 @@ class Investigation:
     created_by_partner: Optional[bool] = field(
         default=None, metadata=config(field_name="created_by_partner")
     )
+    draft_promoted_at: Optional[str] = field(
+        default=None, metadata=config(field_name="draft_promoted_at")
+    )
     investigation_type: Optional[str] = field(
         default=None, metadata=config(field_name="investigationType")
     )
@@ -983,6 +1055,15 @@ class Investigation:
     )
     comments_count: Optional[ParentCount] = field(
         default=None, metadata=config(field_name="comments_count")
+    )
+    alerts_evidence: Optional[List[AlertEvidence]] = field(
+        default=None, metadata=config(field_name="alertsEvidence")
+    )
+    assets_evidence: Optional[List[AssetEvidence]] = field(
+        default=None, metadata=config(field_name="assetsEvidence")
+    )
+    events_evidence: Optional[List[EventEvidence]] = field(
+        default=None, metadata=config(field_name="eventsEvidence")
     )
 
 

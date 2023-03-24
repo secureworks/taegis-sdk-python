@@ -132,6 +132,9 @@ class EventFetchOptions:
     include_mitre_attack_info_data: Optional[bool] = field(
         default=None, metadata=config(field_name="includeMitreAttackInfoData")
     )
+    normalize_event_keys: Optional[bool] = field(
+        default=None, metadata=config(field_name="normalizeEventKeys")
+    )
 
 
 @dataclass_json

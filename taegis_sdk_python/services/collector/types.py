@@ -128,6 +128,9 @@ class UpdateDeploymentInput:
     )
     version: Optional[str] = field(default=None, metadata=config(field_name="version"))
     config_: Optional[dict] = field(default=None, metadata=config(field_name="config"))
+    alertable: Optional[bool] = field(
+        default=None, metadata=config(field_name="alertable")
+    )
 
 
 @dataclass_json
@@ -563,6 +566,9 @@ class DeploymentInput:
     chart: Optional[str] = field(default=None, metadata=config(field_name="chart"))
     version: Optional[str] = field(default=None, metadata=config(field_name="version"))
     config_: Optional[dict] = field(default=None, metadata=config(field_name="config"))
+    alertable: Optional[bool] = field(
+        default=None, metadata=config(field_name="alertable")
+    )
     endpoints: Optional[List[EndpointInput]] = field(
         default=None, metadata=config(field_name="endpoints")
     )
@@ -729,6 +735,9 @@ class Deployment:
     chart: Optional[str] = field(default=None, metadata=config(field_name="chart"))
     version: Optional[str] = field(default=None, metadata=config(field_name="version"))
     config_: Optional[dict] = field(default=None, metadata=config(field_name="config"))
+    alertable: Optional[bool] = field(
+        default=None, metadata=config(field_name="alertable")
+    )
     status: Optional[Status] = field(default=None, metadata=config(field_name="status"))
     endpoints: Optional[List[Endpoint]] = field(
         default=None, metadata=config(field_name="endpoints")

@@ -10,6 +10,7 @@ from typing import Any, Callable, Dict, Optional, Union
 from graphql.type import (
     is_union_type as is_gql_union_type,
     is_wrapping_type,
+    is_scalar_type,
     is_object_type,
 )
 
@@ -105,6 +106,10 @@ def build_output_string_from_introspection(field: Any) -> str:
     """
     fields = []
     field = graphql_unwrap_field(field)
+
+    if is_scalar_type(field):
+        return ""
+
     if is_gql_union_type(field):
         fragments = ["__typename"]
         for gql_type in field.types:
