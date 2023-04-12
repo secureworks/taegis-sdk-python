@@ -588,6 +588,7 @@ class TDRUser:
     last_login: Optional[str] = field(
         default=None, metadata=config(field_name="last_login")
     )
+    last_ip: Optional[str] = field(default=None, metadata=config(field_name="last_ip"))
     invited_date: Optional[str] = field(
         default=None, metadata=config(field_name="invited_date")
     )

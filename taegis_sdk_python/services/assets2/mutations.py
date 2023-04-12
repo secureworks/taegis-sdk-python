@@ -208,3 +208,20 @@ class TaegisSDKAssets2Mutation:
         if result.get(endpoint) is not None:
             return BulkOpPayloadV2.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for mutation bulkReconnectNativeAssets")
+
+    def bulk_uninstall_native_assets(
+        self, input_: BulkUninstallNativeAssetsInput
+    ) -> BulkOpPayloadV2:
+        """None."""
+        endpoint = "bulkUninstallNativeAssets"
+
+        result = self.service.execute_mutation(
+            endpoint=endpoint,
+            variables={
+                "input": prepare_input(input_),
+            },
+            output=build_output_string(BulkOpPayloadV2),
+        )
+        if result.get(endpoint) is not None:
+            return BulkOpPayloadV2.from_dict(result.get(endpoint))
+        raise GraphQLNoRowsInResultSetError("for mutation bulkUninstallNativeAssets")

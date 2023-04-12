@@ -19,6 +19,9 @@ class AuxiliaryEventsSearchInput:
     query: Optional[str] = field(default=None, metadata=config(field_name="query"))
     limit: Optional[int] = field(default=None, metadata=config(field_name="limit"))
     offset: Optional[int] = field(default=None, metadata=config(field_name="offset"))
+    search_id: Optional[str] = field(
+        default=None, metadata=config(field_name="search_id")
+    )
 
 
 @dataclass_json
@@ -118,6 +121,9 @@ class AuxiliaryEventsSearchResponse:
 
     total_hits: Optional[int] = field(
         default=None, metadata=config(field_name="total_hits")
+    )
+    search_id: Optional[str] = field(
+        default=None, metadata=config(field_name="search_id")
     )
     events: Optional[List[AuxiliaryEvent]] = field(
         default=None, metadata=config(field_name="events")

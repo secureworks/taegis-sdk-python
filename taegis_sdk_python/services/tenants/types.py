@@ -727,6 +727,9 @@ class Tenant:
     enabled_in_pilot: Optional[bool] = field(
         default=None, metadata=config(field_name="enabled_in_pilot")
     )
+    post_disablement_complete: Optional[bool] = field(
+        default=None, metadata=config(field_name="post_disablement_complete")
+    )
     labels: Optional[List[TenantLabel]] = field(
         default=None, metadata=config(field_name="labels")
     )
@@ -831,6 +834,9 @@ class TenantsQuery:
     )
     with_support: Optional[bool] = field(
         default=None, metadata=config(field_name="withSupport")
+    )
+    with_pending_post_disablement: Optional[bool] = field(
+        default=None, metadata=config(field_name="withPendingPostDisablement")
     )
     enabled_in_production: Optional[bool] = field(
         default=None, metadata=config(field_name="enabledInProduction")

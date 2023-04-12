@@ -88,7 +88,7 @@ class TaegisSDKAlertsMutation:
     def alerts_service_evict(
         self, in_: Optional[EvictRequestInput] = None
     ) -> EvictResponse:
-        """Evict a search request by search ID."""
+        """DEPRECATED: Does not do anything other than to return OK. No replacement necessary.."""
         endpoint = "alertsServiceEvict"
 
         result = self.service.execute_mutation(

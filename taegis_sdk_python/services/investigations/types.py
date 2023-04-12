@@ -1005,6 +1005,9 @@ class Investigation:
     )
     rn: Optional[str] = field(default=None, metadata=config(field_name="rn"))
     short_id: Optional[str] = field(default=None, metadata=config(field_name="shortId"))
+    close_reason: Optional[str] = field(
+        default=None, metadata=config(field_name="closeReason")
+    )
     genesis_alerts: Optional[List[Alert]] = field(
         default=None, metadata=config(field_name="genesis_alerts")
     )

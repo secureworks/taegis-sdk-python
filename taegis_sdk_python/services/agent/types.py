@@ -49,6 +49,8 @@ class AgentChannel(str, Enum):
     STABLE = "STABLE"
     DEV = "DEV"
     CANARY = "CANARY"
+    QE_PREV = "QE_PREV"
+    QE_NEXT = "QE_NEXT"
 
 
 @dataclass_json
@@ -85,6 +87,9 @@ class PackageDownloadInput:
     """PackageDownloadInput."""
 
     version: Optional[str] = field(default=None, metadata=config(field_name="version"))
+    language: Optional[str] = field(
+        default=None, metadata=config(field_name="language")
+    )
     platform: Optional[AgentPlatform] = field(
         default=None, metadata=config(field_name="platform")
     )
@@ -111,6 +116,9 @@ class Package:
         default=None, metadata=config(field_name="checksum")
     )
     size: Optional[int] = field(default=None, metadata=config(field_name="size"))
+    supported_languages: Optional[List[str]] = field(
+        default=None, metadata=config(field_name="supportedLanguages")
+    )
     platform: Optional[AgentPlatform] = field(
         default=None, metadata=config(field_name="platform")
     )
@@ -134,6 +142,9 @@ class PackageSearchInput:
         default=None, metadata=config(field_name="numRecentVersions")
     )
     version: Optional[str] = field(default=None, metadata=config(field_name="version"))
+    language: Optional[str] = field(
+        default=None, metadata=config(field_name="language")
+    )
     platform: Optional[AgentPlatform] = field(
         default=None, metadata=config(field_name="platform")
     )

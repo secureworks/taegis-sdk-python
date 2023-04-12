@@ -27,6 +27,7 @@ from taegis_sdk_python.services.event_search import EventSearchService
 from taegis_sdk_python.services.events import EventsService
 from taegis_sdk_python.services.exports import ExportsService
 from taegis_sdk_python.services.investigations import InvestigationsService
+from taegis_sdk_python.services.investigations2 import Investigations2Service
 from taegis_sdk_python.services.mitre_attack_info import MitreAttackInfoService
 from taegis_sdk_python.services.notebooks import NotebooksService
 from taegis_sdk_python.services.notifications import NotificationsService
@@ -95,6 +96,7 @@ class GraphQLService:
         self._events = None
         self._exports = None
         self._investigations = None
+        self._investigations2 = None
         self._mitre_attack_info = None
         self._notebooks = None
         self._notifications = None
@@ -279,6 +281,13 @@ class GraphQLService:
         if not self._investigations:
             self._investigations = InvestigationsService(self)
         return self._investigations
+
+    @property
+    def investigations2(self):
+        """Investigations2 Service Endpoint."""
+        if not self._investigations2:
+            self._investigations2 = Investigations2Service(self)
+        return self._investigations2
 
     @property
     def mitre_attack_info(self):

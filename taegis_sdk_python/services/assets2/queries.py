@@ -296,6 +296,21 @@ class TaegisSDKAssets2Query:
             return TaskInfoPayload.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for query bulkReconnectNativeAssetsStatus")
 
+    def bulk_uninstall_native_assets_status(self, id_: str) -> TaskInfoPayload:
+        """Return the status of the bulkUninstallNativeAssets operation.."""
+        endpoint = "bulkUninstallNativeAssetsStatus"
+
+        result = self.service.execute_query(
+            endpoint=endpoint,
+            variables={
+                "id": prepare_input(id_),
+            },
+            output=build_output_string(TaskInfoPayload),
+        )
+        if result.get(endpoint) is not None:
+            return TaskInfoPayload.from_dict(result.get(endpoint))
+        raise GraphQLNoRowsInResultSetError("for query bulkUninstallNativeAssetsStatus")
+
     def asset_dead_period(self) -> str:
         """Return the tenant's asset dead period threshold used by the api. The value
         from the tenants preference api is used if present, otherwise the default of
@@ -307,11 +322,15 @@ class TaegisSDKAssets2Query:
             return result.get(endpoint)
         raise GraphQLNoRowsInResultSetError("for query assetDeadPeriod")
 
-    def subject_can_isolate(self) -> bool:
+    def subject_can_isolate(self) -> CanIsolateResponse:
         """Returns whether a subject can isolate an asset for the current tenant context."""
         endpoint = "subjectCanIsolate"
 
-        result = self.service.execute_query(endpoint=endpoint, variables={}, output="")
+        result = self.service.execute_query(
+            endpoint=endpoint,
+            variables={},
+            output=build_output_string(CanIsolateResponse),
+        )
         if result.get(endpoint) is not None:
-            return result.get(endpoint)
+            return CanIsolateResponse.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for query subjectCanIsolate")

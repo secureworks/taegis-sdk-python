@@ -82,6 +82,14 @@ class AssetSearchOrderByInputV2(str, Enum):
     TAG_DESC = "tag_desc"
 
 
+class CanIsolateResponse(str, Enum):
+    """CanIsolateResponse."""
+
+    UNAUTHORIZED = "unauthorized"
+    AUTHORIZED = "authorized"
+    ALWAYS = "always"
+
+
 class BulkOpStatusV2(str, Enum):
     """BulkOpStatusV2."""
 
@@ -374,6 +382,21 @@ class AssetWhereInputV2:
     connection_status: Optional[str] = field(
         default=None, metadata=config(field_name="connectionStatus")
     )
+    created_at: Optional[str] = field(
+        default=None, metadata=config(field_name="createdAt")
+    )
+    created_at_lt: Optional[str] = field(
+        default=None, metadata=config(field_name="createdAt_lt")
+    )
+    created_at_lte: Optional[str] = field(
+        default=None, metadata=config(field_name="createdAt_lte")
+    )
+    created_at_gt: Optional[str] = field(
+        default=None, metadata=config(field_name="createdAt_gt")
+    )
+    created_at_gte: Optional[str] = field(
+        default=None, metadata=config(field_name="createdAt_gte")
+    )
     group_name: Optional[str] = field(
         default=None, metadata=config(field_name="groupName")
     )
@@ -405,6 +428,21 @@ class AssetWhereInputV2:
     isolation_status: Optional[str] = field(
         default=None, metadata=config(field_name="isolationStatus")
     )
+    last_seen_at: Optional[str] = field(
+        default=None, metadata=config(field_name="lastSeenAt")
+    )
+    last_seen_at_lt: Optional[str] = field(
+        default=None, metadata=config(field_name="lastSeenAt_lt")
+    )
+    last_seen_at_lte: Optional[str] = field(
+        default=None, metadata=config(field_name="lastSeenAt_lte")
+    )
+    last_seen_at_gt: Optional[str] = field(
+        default=None, metadata=config(field_name="lastSeenAt_gt")
+    )
+    last_seen_at_gte: Optional[str] = field(
+        default=None, metadata=config(field_name="lastSeenAt_gte")
+    )
     mac_address: Optional[str] = field(
         default=None, metadata=config(field_name="macAddress")
     )
@@ -425,6 +463,21 @@ class AssetWhereInputV2:
     )
     system_type: Optional[str] = field(
         default=None, metadata=config(field_name="systemType")
+    )
+    updated_at: Optional[str] = field(
+        default=None, metadata=config(field_name="updatedAt")
+    )
+    updated_at_lt: Optional[str] = field(
+        default=None, metadata=config(field_name="updatedAt_lt")
+    )
+    updated_at_lte: Optional[str] = field(
+        default=None, metadata=config(field_name="updatedAt_lte")
+    )
+    updated_at_gt: Optional[str] = field(
+        default=None, metadata=config(field_name="updatedAt_gt")
+    )
+    updated_at_gte: Optional[str] = field(
+        default=None, metadata=config(field_name="updatedAt_gte")
     )
     username: Optional[str] = field(
         default=None, metadata=config(field_name="username")
@@ -567,6 +620,17 @@ class AssetV2:
 @dataclass(order=True, eq=True, frozen=True)
 class BulkReconnectNativeAssetsInput:
     """BulkReconnectNativeAssetsInput."""
+
+    reason: Optional[str] = field(default=None, metadata=config(field_name="reason"))
+    where: Optional[AssetWhereInputV2] = field(
+        default=None, metadata=config(field_name="where")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class BulkUninstallNativeAssetsInput:
+    """BulkUninstallNativeAssetsInput."""
 
     reason: Optional[str] = field(default=None, metadata=config(field_name="reason"))
     where: Optional[AssetWhereInputV2] = field(

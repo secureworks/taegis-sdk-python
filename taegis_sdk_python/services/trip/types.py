@@ -33,7 +33,7 @@ class ApiProductStatus(str, Enum):
 class ApiIntegrationStatus(str, Enum):
     """ApiIntegrationStatus."""
 
-    NEW = "New"
+    PROVISIONING = "Provisioning"
     ACTIVE = "Active"
     DISABLED = "Disabled"
     PAUSED = "Paused"
@@ -68,6 +68,7 @@ class ApiFormItemValidatorType(str, Enum):
     """ApiFormItemValidatorType."""
 
     PATTERN = "Pattern"
+    JSON = "Json"
 
 
 @dataclass_json

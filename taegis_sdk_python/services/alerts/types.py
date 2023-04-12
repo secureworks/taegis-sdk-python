@@ -203,6 +203,9 @@ class SearchRequestInput:
     )
     offset: Optional[int] = field(default=None, metadata=config(field_name="offset"))
     limit: Optional[int] = field(default=None, metadata=config(field_name="limit"))
+    search_id: Optional[str] = field(
+        default=None, metadata=config(field_name="search_id")
+    )
 
 
 @dataclass_json
