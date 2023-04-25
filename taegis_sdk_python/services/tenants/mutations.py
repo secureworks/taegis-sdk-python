@@ -283,3 +283,21 @@ class TaegisSDKTenantsMutation:
         if result.get(endpoint) is not None:
             return Tenant.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for mutation updateTenant")
+
+    def change_tenant_hierarchy(
+        self, tenant_id: str, new_partner_tenant_id: str
+    ) -> Tenant:
+        """Allows changing the tenant's parent (tenant partner hierarchy)."""
+        endpoint = "changeTenantHierarchy"
+
+        result = self.service.execute_mutation(
+            endpoint=endpoint,
+            variables={
+                "tenantID": prepare_input(tenant_id),
+                "newPartnerTenantID": prepare_input(new_partner_tenant_id),
+            },
+            output=build_output_string(Tenant),
+        )
+        if result.get(endpoint) is not None:
+            return Tenant.from_dict(result.get(endpoint))
+        raise GraphQLNoRowsInResultSetError("for mutation changeTenantHierarchy")

@@ -137,7 +137,7 @@ class TaegisSDKCollectorMutation:
             return result.get(endpoint)
         raise GraphQLNoRowsInResultSetError("for mutation deleteOSConfig")
 
-    def add_host(self, cluster_id: str, host_input: HostsInput) -> Any:
+    def add_host(self, cluster_id: str, host_input: HostsInput) -> Dict[str, Any]:
         """Add a address:hostname mapping to a given cluster."""
         endpoint = "addHost"
 

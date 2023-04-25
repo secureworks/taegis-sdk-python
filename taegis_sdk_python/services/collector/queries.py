@@ -183,7 +183,7 @@ class TaegisSDKCollectorQuery:
             return Credentials.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for query getClusterCredentials")
 
-    def get_hosts(self, cluster_id: str) -> Any:
+    def get_hosts(self, cluster_id: str) -> Dict[str, Any]:
         """Get all of the host->address mappings associated with a given cluster."""
         endpoint = "getHosts"
 

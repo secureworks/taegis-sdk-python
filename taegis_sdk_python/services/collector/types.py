@@ -143,7 +143,7 @@ class EndpointInput:
     )
     address: Optional[str] = field(default=None, metadata=config(field_name="address"))
     port: Optional[int] = field(default=None, metadata=config(field_name="port"))
-    credentials: Optional[str] = field(
+    credentials: Optional[Any] = field(
         default=None, metadata=config(field_name="credentials")
     )
 
@@ -194,12 +194,12 @@ class Network:
     hostname: Optional[str] = field(
         default=None, metadata=config(field_name="hostname")
     )
-    hosts: Optional[Any] = field(default=None, metadata=config(field_name="hosts"))
+    hosts: Optional[dict] = field(default=None, metadata=config(field_name="hosts"))
     address: Optional[str] = field(default=None, metadata=config(field_name="address"))
     mask: Optional[str] = field(default=None, metadata=config(field_name="mask"))
     gateway: Optional[str] = field(default=None, metadata=config(field_name="gateway"))
-    dns: Optional[Any] = field(default=None, metadata=config(field_name="dns"))
-    ntp: Optional[Any] = field(default=None, metadata=config(field_name="ntp"))
+    dns: Optional[str] = field(default=None, metadata=config(field_name="dns"))
+    ntp: Optional[str] = field(default=None, metadata=config(field_name="ntp"))
     proxy: Optional[str] = field(default=None, metadata=config(field_name="proxy"))
 
 
@@ -528,12 +528,12 @@ class OSConfig:
     hostname: Optional[str] = field(
         default=None, metadata=config(field_name="hostname")
     )
-    hosts: Optional[Any] = field(default=None, metadata=config(field_name="hosts"))
+    hosts: Optional[dict] = field(default=None, metadata=config(field_name="hosts"))
     address: Optional[str] = field(default=None, metadata=config(field_name="address"))
     mask: Optional[str] = field(default=None, metadata=config(field_name="mask"))
     gateway: Optional[str] = field(default=None, metadata=config(field_name="gateway"))
-    dns: Optional[Any] = field(default=None, metadata=config(field_name="dns"))
-    ntp: Optional[Any] = field(default=None, metadata=config(field_name="ntp"))
+    dns: Optional[str] = field(default=None, metadata=config(field_name="dns"))
+    ntp: Optional[str] = field(default=None, metadata=config(field_name="ntp"))
     proxy: Optional[str] = field(default=None, metadata=config(field_name="proxy"))
     status: Optional[ConfigStatus] = field(
         default=None, metadata=config(field_name="status")
@@ -591,7 +591,7 @@ class Endpoint:
     )
     address: Optional[str] = field(default=None, metadata=config(field_name="address"))
     port: Optional[int] = field(default=None, metadata=config(field_name="port"))
-    credentials: Optional[str] = field(
+    credentials: Optional[Any] = field(
         default=None, metadata=config(field_name="credentials")
     )
     validity: Optional[ValidityPeriod] = field(

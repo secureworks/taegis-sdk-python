@@ -159,6 +159,12 @@ class TDRUserRoleAssignment:
     updated_at: Optional[str] = field(
         default=None, metadata=config(field_name="updated_at")
     )
+    created_by: Optional[str] = field(
+        default=None, metadata=config(field_name="created_by")
+    )
+    updated_by: Optional[str] = field(
+        default=None, metadata=config(field_name="updated_by")
+    )
     allowed_environments: Optional[List[str]] = field(
         default=None, metadata=config(field_name="allowed_environments")
     )

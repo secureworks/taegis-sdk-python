@@ -14,6 +14,14 @@ from dataclasses import dataclass, field
 from dataclasses_json import dataclass_json, config
 
 
+class HashType(str, Enum):
+    """HashType."""
+
+    SHA1 = "SHA1"
+    SHA256 = "SHA256"
+    SHA512 = "SHA512"
+
+
 class FetchRequestPathTypeEnum(str, Enum):
     """FetchRequestPathTypeEnum."""
 
@@ -172,6 +180,15 @@ class IsolationExclusionRuleResult:
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
+class HashAndType:
+    """HashAndType."""
+
+    value: Optional[str] = field(default=None, metadata=config(field_name="Value"))
+    type: Optional[HashType] = field(default=None, metadata=config(field_name="Type"))
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
 class IsolationExclusionRule:
     """IsolationExclusionRule."""
 
@@ -189,24 +206,6 @@ class IsolationExclusionRule:
     )
     user_id: Optional[str] = field(default=None, metadata=config(field_name="UserID"))
     user: Optional[UserInfo] = field(default=None, metadata=config(field_name="User"))
-
-
-@dataclass_json
-@dataclass(order=True, eq=True, frozen=True)
-class FetchRequestInput:
-    """FetchRequestInput."""
-
-    endpoint_id: Optional[str] = field(
-        default=None, metadata=config(field_name="endpointID")
-    )
-    reason: Optional[str] = field(default=None, metadata=config(field_name="reason"))
-    path: Optional[str] = field(default=None, metadata=config(field_name="path"))
-    path_type: Optional[FetchRequestPathTypeEnum] = field(
-        default=None, metadata=config(field_name="pathType")
-    )
-    reason_code: Optional[FetchRequestReasonCodeEnum] = field(
-        default=None, metadata=config(field_name="reasonCode")
-    )
 
 
 @dataclass_json
@@ -248,4 +247,25 @@ class HistoryPagedOutput:
     )
     partial_page_info: Optional[HistoryPartialPageInfo] = field(
         default=None, metadata=config(field_name="partialPageInfo")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class FetchRequestInput:
+    """FetchRequestInput."""
+
+    endpoint_id: Optional[str] = field(
+        default=None, metadata=config(field_name="endpointID")
+    )
+    reason: Optional[str] = field(default=None, metadata=config(field_name="reason"))
+    path: Optional[str] = field(default=None, metadata=config(field_name="path"))
+    path_type: Optional[FetchRequestPathTypeEnum] = field(
+        default=None, metadata=config(field_name="pathType")
+    )
+    reason_code: Optional[FetchRequestReasonCodeEnum] = field(
+        default=None, metadata=config(field_name="reasonCode")
+    )
+    hash_and_type: Optional[HashAndType] = field(
+        default=None, metadata=config(field_name="hashAndType")
     )

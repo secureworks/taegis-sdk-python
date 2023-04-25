@@ -23,6 +23,7 @@ from taegis_sdk_python.services.endpoint_command_manager import (
 from taegis_sdk_python.services.endpoint_management_service import (
     EndpointManagementServiceService,
 )
+from taegis_sdk_python.services.entity_profile import EntityProfileService
 from taegis_sdk_python.services.event_search import EventSearchService
 from taegis_sdk_python.services.events import EventsService
 from taegis_sdk_python.services.exports import ExportsService
@@ -92,6 +93,7 @@ class GraphQLService:
         self._comments = None
         self._endpoint_command_manager = None
         self._endpoint_management_service = None
+        self._entity_profile = None
         self._event_search = None
         self._events = None
         self._exports = None
@@ -253,6 +255,13 @@ class GraphQLService:
         if not self._endpoint_management_service:
             self._endpoint_management_service = EndpointManagementServiceService(self)
         return self._endpoint_management_service
+
+    @property
+    def entity_profile(self):
+        """Entity Profile Service Endpoint."""
+        if not self._entity_profile:
+            self._entity_profile = EntityProfileService(self)
+        return self._entity_profile
 
     @property
     def event_search(self):

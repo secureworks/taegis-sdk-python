@@ -146,7 +146,9 @@ class TaegisSDKNotificationsMutation:
             return Notification.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for mutation readNotification")
 
-    def bulk_read_notification(self, ids: List[str]) -> List[Notification]:
+    def bulk_read_notification(
+        self, ids: List[str], mark_all_as_read: Optional[bool] = None
+    ) -> List[Notification]:
         """Marks a list of notifications as read."""
         endpoint = "bulkReadNotification"
 
@@ -154,6 +156,7 @@ class TaegisSDKNotificationsMutation:
             endpoint=endpoint,
             variables={
                 "ids": prepare_input(ids),
+                "mark_all_as_read": prepare_input(mark_all_as_read),
             },
             output=build_output_string(Notification),
         )

@@ -22,6 +22,9 @@ class AuxiliaryEventsSearchInput:
     search_id: Optional[str] = field(
         default=None, metadata=config(field_name="search_id")
     )
+    with_event_data: Optional[bool] = field(
+        default=None, metadata=config(field_name="with_event_data")
+    )
 
 
 @dataclass_json

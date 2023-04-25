@@ -18,6 +18,7 @@ class AuthzObject(str, Enum):
     """AuthzObject."""
 
     TENANT = "Tenant"
+    TENANT_HIERARCHY = "TenantHierarchy"
     ENTERPRISE_SSO_CONNECTION = "EnterpriseSSOConnection"
 
 
