@@ -83,6 +83,29 @@ class TaegisSDKInvestigations2Mutation:
             return AddEvidenceToInvestigationResult.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for mutation addEvidenceToInvestigation")
 
+    def remove_evidence_from_investigation(
+        self, input_: RemoveEvidenceFromInvestigationInput
+    ) -> RemoveEvidenceFromInvestigationResult:
+        """Remove evidence from an existing investigation
+
+        This is a background job, it will be pretty quick, but removed alerts/events will likely still be present in the returned investigation
+        The processing status will reflect where the the investigation is at in the processing job.
+        """
+        endpoint = "removeEvidenceFromInvestigation"
+
+        result = self.service.execute_mutation(
+            endpoint=endpoint,
+            variables={
+                "input": prepare_input(input_),
+            },
+            output=build_output_string(RemoveEvidenceFromInvestigationResult),
+        )
+        if result.get(endpoint) is not None:
+            return RemoveEvidenceFromInvestigationResult.from_dict(result.get(endpoint))
+        raise GraphQLNoRowsInResultSetError(
+            "for mutation removeEvidenceFromInvestigation"
+        )
+
     def create_investigation_rule(
         self, input_: CreateInvestigationRuleInput
     ) -> InvestigationRule:

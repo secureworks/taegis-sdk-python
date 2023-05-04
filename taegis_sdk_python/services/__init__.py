@@ -17,6 +17,7 @@ from taegis_sdk_python.services.audits import AuditsService
 from taegis_sdk_python.services.clients import ClientsService
 from taegis_sdk_python.services.collector import CollectorService
 from taegis_sdk_python.services.comments import CommentsService
+from taegis_sdk_python.services.detector_registry import DetectorRegistryService
 from taegis_sdk_python.services.endpoint_command_manager import (
     EndpointCommandManagerService,
 )
@@ -32,6 +33,7 @@ from taegis_sdk_python.services.investigations2 import Investigations2Service
 from taegis_sdk_python.services.mitre_attack_info import MitreAttackInfoService
 from taegis_sdk_python.services.notebooks import NotebooksService
 from taegis_sdk_python.services.notifications import NotificationsService
+from taegis_sdk_python.services.preferences import PreferencesService
 from taegis_sdk_python.services.rules import RulesService
 from taegis_sdk_python.services.sharelinks import SharelinksService
 from taegis_sdk_python.services.tenants import TenantsService
@@ -91,6 +93,7 @@ class GraphQLService:
         self._clients = None
         self._collector = None
         self._comments = None
+        self._detector_registry = None
         self._endpoint_command_manager = None
         self._endpoint_management_service = None
         self._entity_profile = None
@@ -102,6 +105,7 @@ class GraphQLService:
         self._mitre_attack_info = None
         self._notebooks = None
         self._notifications = None
+        self._preferences = None
         self._rules = None
         self._core = None
         self._sharelinks = None
@@ -243,6 +247,13 @@ class GraphQLService:
         return self._comments
 
     @property
+    def detector_registry(self):
+        """Detector Registry Service Endpoint."""
+        if not self._detector_registry:
+            self._detector_registry = DetectorRegistryService(self)
+        return self._detector_registry
+
+    @property
     def endpoint_command_manager(self):
         """Endpoint Command Manager Service Endpoint."""
         if not self._endpoint_command_manager:
@@ -318,6 +329,13 @@ class GraphQLService:
         if not self._notifications:
             self._notifications = NotificationsService(self)
         return self._notifications
+
+    @property
+    def preferences(self):
+        """Preferences Service Endpoint."""
+        if not self._preferences:
+            self._preferences = PreferencesService(self)
+        return self._preferences
 
     @property
     def rules(self):

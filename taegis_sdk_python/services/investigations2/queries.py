@@ -43,6 +43,23 @@ class TaegisSDKInvestigations2Query:
             return InvestigationV2.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for query investigationV2")
 
+    def investigations_v2(
+        self, arguments: InvestigationsV2Arguments
+    ) -> InvestigationsV2:
+        """Search investigations."""
+        endpoint = "investigationsV2"
+
+        result = self.service.execute_query(
+            endpoint=endpoint,
+            variables={
+                "arguments": prepare_input(arguments),
+            },
+            output=build_output_string(InvestigationsV2),
+        )
+        if result.get(endpoint) is not None:
+            return InvestigationsV2.from_dict(result.get(endpoint))
+        raise GraphQLNoRowsInResultSetError("for query investigationsV2")
+
     def investigation_rule(
         self, arguments: InvestigationRuleArguments
     ) -> InvestigationRule:

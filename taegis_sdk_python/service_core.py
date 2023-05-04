@@ -78,16 +78,20 @@ class ServiceCore:
     @property
     def ws_client(self) -> Client:
         """GraphQL WebSockets Transport with Client."""
+        subprotocols = [
+            "graphql-ws",
+            f"access-token-{self.service.access_token}",
+        ]
+
+        if self.service.tenant_id:
+            subprotocols.append(f"x-tenant-context-{self.service.tenant_id}")
+
         transport = WebsocketsTransport(
             f"{self.wss_url}{self.gateway}",
             headers={
                 "User-Agent": f"taegis_sdk_python/{__version__}",
             },
-            subprotocols=[
-                "graphql-ws",
-                f"x-tenant-context-{self.service.tenant_id}",
-                f"access-token-{self.service.access_token}",
-            ],
+            subprotocols=subprotocols,
             connect_args={"max_size": None},
         )
         client = Client(transport=transport, fetch_schema_from_transport=True)

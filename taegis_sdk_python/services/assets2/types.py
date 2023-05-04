@@ -82,6 +82,13 @@ class AssetSearchOrderByInputV2(str, Enum):
     TAG_DESC = "tag_desc"
 
 
+class InvestigationsOrderByInput(str, Enum):
+    """InvestigationsOrderByInput."""
+
+    CREATED_AT_ASC = "created_at_asc"
+    CREATED_AT_DESC = "created_at_desc"
+
+
 class CanIsolateResponse(str, Enum):
     """CanIsolateResponse."""
 
@@ -199,10 +206,20 @@ class TagV2:
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
-class Investigation:
-    """Investigation."""
+class AssetInvestigation:
+    """AssetInvestigation."""
 
     id: Optional[str] = field(default=None, metadata=config(field_name="id"))
+    investigation_id: Optional[str] = field(
+        default=None, metadata=config(field_name="investigationId")
+    )
+    created_at: Optional[str] = field(
+        default=None, metadata=config(field_name="createdAt")
+    )
+    updated_at: Optional[str] = field(
+        default=None, metadata=config(field_name="updatedAt")
+    )
+    host_id: Optional[str] = field(default=None, metadata=config(field_name="hostId"))
 
 
 @dataclass_json
@@ -611,7 +628,7 @@ class AssetV2:
     endpoint_group: Optional[EndpointGroupV2] = field(
         default=None, metadata=config(field_name="endpointGroup")
     )
-    investigations: Optional[List[Investigation]] = field(
+    investigations: Optional[List[AssetInvestigation]] = field(
         default=None, metadata=config(field_name="investigations")
     )
 

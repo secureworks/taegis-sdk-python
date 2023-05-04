@@ -127,6 +127,25 @@ class AddEvidenceToInvestigationInput:
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
+class RemoveEvidenceFromInvestigationInput:
+    """RemoveEvidenceFromInvestigationInput."""
+
+    investigation_id: Optional[str] = field(
+        default=None, metadata=config(field_name="investigationId")
+    )
+    alerts: Optional[List[str]] = field(
+        default=None, metadata=config(field_name="alerts")
+    )
+    events: Optional[List[str]] = field(
+        default=None, metadata=config(field_name="events")
+    )
+    assets: Optional[List[str]] = field(
+        default=None, metadata=config(field_name="assets")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
 class DeleteInvestigationRuleInput:
     """DeleteInvestigationRuleInput."""
 
@@ -149,6 +168,25 @@ class AddEvidenceToInvestigationResult:
     )
     events: Optional[List[str]] = field(
         default=None, metadata=config(field_name="events")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class RemoveEvidenceFromInvestigationResult:
+    """RemoveEvidenceFromInvestigationResult."""
+
+    investigation_id: Optional[str] = field(
+        default=None, metadata=config(field_name="investigationId")
+    )
+    alerts: Optional[List[str]] = field(
+        default=None, metadata=config(field_name="alerts")
+    )
+    events: Optional[List[str]] = field(
+        default=None, metadata=config(field_name="events")
+    )
+    assets: Optional[List[str]] = field(
+        default=None, metadata=config(field_name="assets")
     )
 
 
@@ -466,6 +504,9 @@ class CreateInvestigationRuleInput:
     template_id: Optional[str] = field(
         default=None, metadata=config(field_name="templateId")
     )
+    response_data: Optional[dict] = field(
+        default=None, metadata=config(field_name="responseData")
+    )
     state: Optional[InvestigationRuleState] = field(
         default=None, metadata=config(field_name="state")
     )
@@ -514,8 +555,24 @@ class UpdateInvestigationRuleInput:
     template_id: Optional[str] = field(
         default=None, metadata=config(field_name="templateId")
     )
+    response_data: Optional[dict] = field(
+        default=None, metadata=config(field_name="responseData")
+    )
     state: Optional[InvestigationRuleState] = field(
         default=None, metadata=config(field_name="state")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class InvestigationsV2Arguments:
+    """InvestigationsV2Arguments."""
+
+    page: Optional[int] = field(default=None, metadata=config(field_name="page"))
+    per_page: Optional[int] = field(default=None, metadata=config(field_name="perPage"))
+    cql: Optional[str] = field(default=None, metadata=config(field_name="cql"))
+    order_by: Optional[PaginationOrder] = field(
+        default=None, metadata=config(field_name="orderBy")
     )
 
 
@@ -968,6 +1025,19 @@ class InvestigationV2:
     )
     comments_count: Optional[InvestigationCommentsCount] = field(
         default=None, metadata=config(field_name="commentsCount")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class InvestigationsV2:
+    """InvestigationsV2."""
+
+    total_count: Optional[int] = field(
+        default=None, metadata=config(field_name="totalCount")
+    )
+    investigations: Optional[List[InvestigationV2]] = field(
+        default=None, metadata=config(field_name="investigations")
     )
 
 
