@@ -151,6 +151,20 @@ class ZendeskConfigurationInput:
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
+class listAllTenantPreferencesInput:
+    """listAllTenantPreferencesInput."""
+
+    keys: Optional[List[str]] = field(default=None, metadata=config(field_name="keys"))
+    tenant_ids: Optional[List[str]] = field(
+        default=None, metadata=config(field_name="tenant_IDs")
+    )
+    environment: Optional[List[str]] = field(
+        default=None, metadata=config(field_name="environment")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
 class PartnerPreference:
     """PartnerPreference."""
 

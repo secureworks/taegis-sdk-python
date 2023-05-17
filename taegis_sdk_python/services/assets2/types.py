@@ -62,6 +62,8 @@ class AssetSearchOrderByInputV2(str, Enum):
     CONNECTION_STATUS_DESC = "connection_status_desc"
     ISOLATION_STATUS_ASC = "isolation_status_asc"
     ISOLATION_STATUS_DESC = "isolation_status_desc"
+    DESIRED_ISOLATION_STATUS_ASC = "desired_isolation_status_asc"
+    DESIRED_ISOLATION_STATUS_DESC = "desired_isolation_status_desc"
     IP_ADDRESS_ASC = "ip_address_asc"
     IP_ADDRESS_DESC = "ip_address_desc"
     ENDPOINT_TYPE_ASC = "endpoint_type_asc"
@@ -414,6 +416,9 @@ class AssetWhereInputV2:
     created_at_gte: Optional[str] = field(
         default=None, metadata=config(field_name="createdAt_gte")
     )
+    desired_isolation_status: Optional[str] = field(
+        default=None, metadata=config(field_name="desiredIsolationStatus")
+    )
     group_name: Optional[str] = field(
         default=None, metadata=config(field_name="groupName")
     )
@@ -601,6 +606,9 @@ class AssetV2:
     )
     isolation_status: Optional[str] = field(
         default=None, metadata=config(field_name="isolationStatus")
+    )
+    desired_isolation_status: Optional[str] = field(
+        default=None, metadata=config(field_name="desiredIsolationStatus")
     )
     model: Optional[str] = field(default=None, metadata=config(field_name="model"))
     cloud_provider_name: Optional[str] = field(

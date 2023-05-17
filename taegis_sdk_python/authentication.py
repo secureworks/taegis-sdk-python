@@ -178,7 +178,9 @@ def get_token_by_oauth(
 
 
 def get_token_by_password_grant(
-    request_url: str, username: str
+    request_url: str,
+    username: str,
+    password: Optional[str] = None,
 ) -> str:  # pragma: no cover
     """Get an access token by username/password with mfa.
 
@@ -201,7 +203,8 @@ def get_token_by_password_grant(
     """
     auth_uri = "/auth/api/v2/auth/token"
 
-    password = getpass("Password: ")
+    if not password:
+        password = getpass("Password: ")
 
     response = post(
         f"{request_url}{auth_uri}",

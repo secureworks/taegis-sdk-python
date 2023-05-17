@@ -198,6 +198,12 @@ class AuditEventResult:
 class AllAuditsInput:
     """AllAuditsInput."""
 
+    tenant_ids: Optional[List[str]] = field(
+        default=None, metadata=config(field_name="tenantIDs")
+    )
+    session_id: Optional[str] = field(
+        default=None, metadata=config(field_name="sessionID")
+    )
     offset: Optional[int] = field(default=None, metadata=config(field_name="offset"))
     limit: Optional[int] = field(default=None, metadata=config(field_name="limit"))
     before: Optional[str] = field(default=None, metadata=config(field_name="before"))
@@ -215,6 +221,12 @@ class AllAuditsInput:
 class AuditSearchInput:
     """AuditSearchInput."""
 
+    tenant_ids: Optional[List[str]] = field(
+        default=None, metadata=config(field_name="tenantIDs")
+    )
+    session_id: Optional[str] = field(
+        default=None, metadata=config(field_name="sessionID")
+    )
     offset: Optional[int] = field(default=None, metadata=config(field_name="offset"))
     limit: Optional[int] = field(default=None, metadata=config(field_name="limit"))
     id: Optional[str] = field(default=None, metadata=config(field_name="id"))

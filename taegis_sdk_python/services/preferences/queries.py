@@ -120,6 +120,25 @@ class TaegisSDKPreferencesQuery:
             )
         raise GraphQLNoRowsInResultSetError("for query listTenantPreferencesByKey")
 
+    def list_all_tenant_preferences(
+        self, filter_: listAllTenantPreferencesInput
+    ) -> List[TenantPreference]:
+        """None."""
+        endpoint = "listAllTenantPreferences"
+
+        result = self.service.execute_query(
+            endpoint=endpoint,
+            variables={
+                "filter": prepare_input(filter_),
+            },
+            output=build_output_string(TenantPreference),
+        )
+        if result.get(endpoint) is not None:
+            return TenantPreference.schema().load(
+                [r or {} for r in result.get(endpoint)], many=True
+            )
+        raise GraphQLNoRowsInResultSetError("for query listAllTenantPreferences")
+
     def ticketing_settings(self) -> List[TicketingSettings]:
         """None."""
         endpoint = "ticketingSettings"
