@@ -139,6 +139,23 @@ class TaegisSDKUsersQuery:
             return TDRUserSupportPin.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for query getSupportPin")
 
+    def get_support_pin_verification(self, support_pin: str) -> List[SupportPinDetails]:
+        """Get a list of details associated with the given support pin.."""
+        endpoint = "getSupportPinVerification"
+
+        result = self.service.execute_query(
+            endpoint=endpoint,
+            variables={
+                "supportPin": prepare_input(support_pin),
+            },
+            output=build_output_string(SupportPinDetails),
+        )
+        if result.get(endpoint) is not None:
+            return SupportPinDetails.schema().load(
+                [r or {} for r in result.get(endpoint)], many=True
+            )
+        raise GraphQLNoRowsInResultSetError("for query getSupportPinVerification")
+
     def tdr_users_search(
         self, filters: Optional[TDRUsersSearchInput] = None
     ) -> TDRUsersSearchResults:

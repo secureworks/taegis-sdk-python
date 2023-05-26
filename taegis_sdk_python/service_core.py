@@ -88,9 +88,7 @@ class ServiceCore:
 
         transport = WebsocketsTransport(
             f"{self.wss_url}{self.gateway}",
-            headers={
-                "User-Agent": f"taegis_sdk_python/{__version__}",
-            },
+            headers=self.service.headers,
             subprotocols=subprotocols,
             connect_args={"max_size": None},
         )

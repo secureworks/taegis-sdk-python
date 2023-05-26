@@ -207,6 +207,16 @@ class TDRUserRoleAssignmentInput:
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
+class SupportPinDetails:
+    """SupportPinDetails."""
+
+    email_address: Optional[str] = field(
+        default=None, metadata=config(field_name="emailAddress")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
 class ForgotPasswordResponse:
     """ForgotPasswordResponse."""
 

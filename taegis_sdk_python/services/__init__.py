@@ -1,7 +1,7 @@
 """
 This needs to be a generated file.  Need to make jinja template.
 """
-from typing import Dict, Optional
+from typing import Dict, Optional, Any
 
 from taegis_sdk_python._consts import TAEGIS_ENVIRONMENT_URLS
 from taegis_sdk_python._version import __version__
@@ -34,6 +34,7 @@ from taegis_sdk_python.services.mitre_attack_info import MitreAttackInfoService
 from taegis_sdk_python.services.notebooks import NotebooksService
 from taegis_sdk_python.services.notifications import NotificationsService
 from taegis_sdk_python.services.preferences import PreferencesService
+from taegis_sdk_python.services.roadrunner import RoadrunnerService
 from taegis_sdk_python.services.rules import RulesService
 from taegis_sdk_python.services.sharelinks import SharelinksService
 from taegis_sdk_python.services.tenants import TenantsService
@@ -54,6 +55,7 @@ class GraphQLService:
         tenant_id: Optional[str] = None,
         environments: Optional[Dict[str, str]] = None,
         gateway: Optional[str] = None,
+        extra_headers: Optional[Dict[str, Any]] = None,
     ):
         """
         GraphQLService
@@ -68,6 +70,8 @@ class GraphQLService:
             Environments dictionary {"identifier": "url"}
         gateway : Optional[str], optional
             Default Taegis Gateway, can be overwritten by service
+        extra_headers: Optional[Dict[str, Any]], optional
+            Extra HTTP Headers to be included in API calls
 
         Raises
         ------
@@ -83,6 +87,10 @@ class GraphQLService:
         self._tenant_id = tenant_id
         self._gateway = gateway or "/graphql"
         self._context_manager = {}
+        if not extra_headers:
+            self._extra_headers = {}
+        else:
+            self._extra_headers = extra_headers
 
         self._access_points = None
         self._agent = None
@@ -106,6 +114,7 @@ class GraphQLService:
         self._notebooks = None
         self._notifications = None
         self._preferences = None
+        self._roadrunner = None
         self._rules = None
         self._core = None
         self._sharelinks = None
@@ -167,6 +176,13 @@ class GraphQLService:
         return self._context_manager.get("output")
 
     @property
+    def extra_headers(self):
+        """Additional headers for API requests."""
+        extra_headers = self._extra_headers.copy()
+        extra_headers.update(self._context_manager.get("extra_headers", {}))
+        return extra_headers
+
+    @property
     def headers(self):
         """Taegis Headers."""
         headers = {
@@ -180,6 +196,8 @@ class GraphQLService:
 
         if self.tenant_id:
             headers["X-Tenant-Context"] = self.tenant_id
+
+        headers.update(self.extra_headers)
 
         return headers
 
@@ -336,6 +354,13 @@ class GraphQLService:
         if not self._preferences:
             self._preferences = PreferencesService(self)
         return self._preferences
+
+    @property
+    def roadrunner(self):
+        """Roadrunner Service Endpoint."""
+        if not self._roadrunner:
+            self._roadrunner = RoadrunnerService(self)
+        return self._roadrunner
 
     @property
     def rules(self):
