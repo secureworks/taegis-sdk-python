@@ -7,19 +7,21 @@
 
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Any, List, Dict, Optional, Tuple, Union
+import logging
+from typing import TYPE_CHECKING, Any, Dict, List, Optional, Tuple, Union
 
+from taegis_sdk_python import GraphQLNoRowsInResultSetError
 from taegis_sdk_python.utils import (
     build_output_string,
-    prepare_input,
     parse_union_result,
+    prepare_input,
 )
 from taegis_sdk_python.services.roadrunner.types import *
 
-from taegis_sdk_python import GraphQLNoRowsInResultSetError
-
 if TYPE_CHECKING:  # pragma: no cover
     from taegis_sdk_python.services.roadrunner import RoadrunnerService
+
+log = logging.getLogger(__name__)
 
 
 class TaegisSDKRoadrunnerQuery:
@@ -147,6 +149,10 @@ class TaegisSDKRoadrunnerQuery:
     ) -> List[Directory]:
         """None."""
         endpoint = "directory"
+
+        log.warning(
+            f"GraphQL Query `{endpoint}` is deprecated: 'Deprecated for MVP 10/2022 remove after suitable time if not used'"
+        )
 
         result = self.service.execute_query(
             endpoint=endpoint,

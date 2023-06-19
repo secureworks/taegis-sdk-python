@@ -3,21 +3,21 @@
 Taegis SDK Python General Utilities"""
 import asyncio
 import concurrent
+import logging
+from dataclasses import fields as dc_fields
 from dataclasses import is_dataclass
 from enum import Enum
 from typing import Any, Callable, Dict, Optional, Union
 
-from graphql.type import (
-    is_union_type as is_gql_union_type,
-    is_wrapping_type,
-    is_scalar_type,
-    is_object_type,
-)
-
+from graphql.type import is_object_type, is_scalar_type
+from graphql.type import is_union_type as is_gql_union_type
+from graphql.type import is_wrapping_type
 from typing_inspect import get_args, is_union_type
 
+log = logging.getLogger(__name__)
 
-def build_output_string(dataclass) -> str:
+
+def build_output_string(cls) -> str:
     """
     Generate GraphQL output string from defined Dataclass.
 
@@ -31,37 +31,48 @@ def build_output_string(dataclass) -> str:
     str
         GraphQL Output
     """
-    if is_union_type(dataclass):
+    if is_union_type(cls):
         fragments = ["__typename"]
-        for item in get_args(dataclass):
+        for item in get_args(cls):
             output_string = _build_dataclass_string(item)
             fragments.append(f"... on {item.__name__} {{{output_string}}}")
         return "\n".join(fragments)
 
-    return _build_dataclass_string(dataclass)
+    return _build_dataclass_string(cls)
 
 
-def _build_dataclass_string(dataclass) -> str:
+def _build_dataclass_string(cls) -> str:
     """Build output string from a Dataclass."""
 
-    def get_nested_field(dataclass) -> str:
-        fields = []
-        for _, field in dataclass.fields.items():
-            fields.append(field.data_key)
-            if hasattr(field, "nested"):
-                fields.append(f"{{ {get_nested_field(field.nested)} }}")
-            if hasattr(field, "inner") and hasattr(field.inner, "nested"):
-                fields.append(f"{{ {get_nested_field(field.inner.nested)} }}")
-        return " ".join(fields)
+    output_fields = []
+    for field in dc_fields(cls):
+        letter_case = field.metadata.get("dataclasses_json", {}).get("letter_case")
+        if letter_case:
+            field_name = letter_case(...)
+        else:
+            field_name = field.name
 
-    fields = []
-    for _, field in dataclass.schema().declared_fields.items():
-        fields.append(field.data_key)
-        if hasattr(field, "nested"):
-            fields.append(f"{{ {get_nested_field(field.nested)} }}")
-        if hasattr(field, "inner") and hasattr(field.inner, "nested"):
-            fields.append(f"{{ {get_nested_field(field.inner.nested)} }}")
-    return " ".join(fields)
+        if field.metadata.get("deprecated"):
+            log.warning(
+                f"Output field `{field_name}` is deprecated: "
+                f"'{field.metadata.get('deprecation_reason')}', "
+                "removing from default output..."
+            )
+            continue
+
+        output_fields.append(field_name)
+
+        # unwrap the field type
+        # example: Optional[List[List[Event]]]
+        # should submit Event for recursive iteration
+        type_ = field.type
+        while args := get_args(type_):
+            type_ = args[0]
+
+        if is_dataclass(type_):
+            output_fields.append(f"{{ {_build_dataclass_string(type_)} }}")
+
+    return " ".join(output_fields)
 
 
 def graphql_unwrap_field(field: Any) -> Any:
@@ -160,6 +171,19 @@ def prepare_input(value: Any) -> Any:
         _description_
     """
     if is_dataclass(value):
+        for field in dc_fields(value):
+            letter_case = field.metadata.get("dataclasses_json", {}).get("letter_case")
+            if letter_case:
+                field_name = letter_case(...)
+            else:
+                field_name = field.name
+
+            if field.metadata.get("deprecated"):
+                log.warning(
+                    f"Input field `{field_name}` is deprecated: "
+                    f"'{field.metadata.get('deprecation_reason')}'"
+                )
+
         # return Dict[str. Any] where Any is not None
         return {
             key: value

@@ -124,6 +124,9 @@ class Audit:
     )
     before: Optional[str] = field(default=None, metadata=config(field_name="before"))
     after: Optional[str] = field(default=None, metadata=config(field_name="after"))
+    owner_tenant_id: Optional[str] = field(
+        default=None, metadata=config(field_name="owner_tenant_id")
+    )
 
 
 @dataclass_json

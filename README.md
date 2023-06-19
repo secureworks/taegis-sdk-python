@@ -231,3 +231,15 @@ gql_query = """
 """
 result = service.investigations.execute(gql_query)
 ```
+
+### Deprecation Warnings
+
+Deprecated input fields, output fields and endpoints are set to log a warning.  For more information, see the [docs](docs/deprecation.md).
+
+Example:
+
+```
+GraphQL Query `allInvestigations` is deprecated: 'replaced by investigationsSearch'
+Output field `activity_logs` is deprecated: 'Not Supported - Use audit logs', removing from default output...
+Output field `assignee` is deprecated: 'No longer supported', removing from default output...
+```

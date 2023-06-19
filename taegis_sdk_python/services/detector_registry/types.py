@@ -14,8 +14,8 @@ from dataclasses import dataclass, field
 from dataclasses_json import dataclass_json, config
 
 
-class State(str, Enum):
-    """State."""
+class STATE(str, Enum):
+    """STATE."""
 
     DEPLOYED = "deployed"
     RESEARCH = "research"
@@ -86,4 +86,4 @@ class RegisteredDetector:
     updated_at: Optional[str] = field(
         default=None, metadata=config(field_name="updatedAt")
     )
-    state: Optional[State] = field(default=None, metadata=config(field_name="state"))
+    state: Optional[STATE] = field(default=None, metadata=config(field_name="state"))

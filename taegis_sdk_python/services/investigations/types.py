@@ -409,74 +409,6 @@ class InvestigationInfo:
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
-class Hostname:
-    """Hostname."""
-
-    id: Optional[str] = field(default=None, metadata=config(field_name="id"))
-    created_at: Optional[str] = field(
-        default=None, metadata=config(field_name="created_at")
-    )
-    updated_at: Optional[str] = field(
-        default=None, metadata=config(field_name="updated_at")
-    )
-    host_id: Optional[str] = field(default=None, metadata=config(field_name="host_id"))
-    hostname: Optional[str] = field(
-        default=None, metadata=config(field_name="hostname")
-    )
-
-
-@dataclass_json
-@dataclass(order=True, eq=True, frozen=True)
-class EthernetAddress:
-    """EthernetAddress."""
-
-    id: Optional[str] = field(default=None, metadata=config(field_name="id"))
-    created_at: Optional[str] = field(
-        default=None, metadata=config(field_name="created_at")
-    )
-    updated_at: Optional[str] = field(
-        default=None, metadata=config(field_name="updated_at")
-    )
-    host_id: Optional[str] = field(default=None, metadata=config(field_name="host_id"))
-    mac: Optional[str] = field(default=None, metadata=config(field_name="mac"))
-
-
-@dataclass_json
-@dataclass(order=True, eq=True, frozen=True)
-class IpAddress:
-    """IpAddress."""
-
-    id: Optional[str] = field(default=None, metadata=config(field_name="id"))
-    created_at: Optional[str] = field(
-        default=None, metadata=config(field_name="created_at")
-    )
-    updated_at: Optional[str] = field(
-        default=None, metadata=config(field_name="updated_at")
-    )
-    ip: Optional[str] = field(default=None, metadata=config(field_name="ip"))
-    host_id: Optional[str] = field(default=None, metadata=config(field_name="host_id"))
-
-
-@dataclass_json
-@dataclass(order=True, eq=True, frozen=True)
-class User:
-    """User."""
-
-    id: Optional[str] = field(default=None, metadata=config(field_name="id"))
-    created_at: Optional[str] = field(
-        default=None, metadata=config(field_name="created_at")
-    )
-    updated_at: Optional[str] = field(
-        default=None, metadata=config(field_name="updated_at")
-    )
-    host_id: Optional[str] = field(default=None, metadata=config(field_name="host_id"))
-    username: Optional[str] = field(
-        default=None, metadata=config(field_name="username")
-    )
-
-
-@dataclass_json
-@dataclass(order=True, eq=True, frozen=True)
 class MitreAttackInfo:
     """MitreAttackInfo."""
 
@@ -828,10 +760,24 @@ class Assignee:
     user_id: Optional[str] = field(default=None, metadata=config(field_name="user_id"))
     email: Optional[str] = field(default=None, metadata=config(field_name="email"))
     email_verified: Optional[bool] = field(
-        default=None, metadata=config(field_name="email_verified")
+        default=None,
+        metadata=config(
+            metadata={
+                "deprecated": True,
+                "deprecation_reason": "Do not use, is never available or true.",
+            },
+            field_name="email_verified",
+        ),
     )
     email_normalized: Optional[str] = field(
-        default=None, metadata=config(field_name="email_normalized")
+        default=None,
+        metadata=config(
+            metadata={
+                "deprecated": True,
+                "deprecation_reason": "Do not use, is not available.",
+            },
+            field_name="email_normalized",
+        ),
     )
     family_name: Optional[str] = field(
         default=None, metadata=config(field_name="family_name")
@@ -1033,7 +979,14 @@ class Investigation:
         default=None, metadata=config(field_name="search_queries")
     )
     activity_logs: Optional[List[ActivityLog]] = field(
-        default=None, metadata=config(field_name="activity_logs")
+        default=None,
+        metadata=config(
+            metadata={
+                "deprecated": True,
+                "deprecation_reason": "Not Supported - Use audit logs",
+            },
+            field_name="activity_logs",
+        ),
     )
     created_by_user: Optional[TDRUser] = field(
         default=None, metadata=config(field_name="created_by_user")
@@ -1045,7 +998,11 @@ class Investigation:
         default=None, metadata=config(field_name="assignee_user")
     )
     assignee: Optional[Assignee] = field(
-        default=None, metadata=config(field_name="assignee")
+        default=None,
+        metadata=config(
+            metadata={"deprecated": True, "deprecation_reason": "No longer supported"},
+            field_name="assignee",
+        ),
     )
     access_vectors: Optional[List[AccessVector]] = field(
         default=None, metadata=config(field_name="access_vectors")

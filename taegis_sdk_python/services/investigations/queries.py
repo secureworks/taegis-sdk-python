@@ -7,19 +7,21 @@
 
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Any, List, Dict, Optional, Tuple, Union
+import logging
+from typing import TYPE_CHECKING, Any, Dict, List, Optional, Tuple, Union
 
+from taegis_sdk_python import GraphQLNoRowsInResultSetError
 from taegis_sdk_python.utils import (
     build_output_string,
-    prepare_input,
     parse_union_result,
+    prepare_input,
 )
 from taegis_sdk_python.services.investigations.types import *
 
-from taegis_sdk_python import GraphQLNoRowsInResultSetError
-
 if TYPE_CHECKING:  # pragma: no cover
     from taegis_sdk_python.services.investigations import InvestigationsService
+
+log = logging.getLogger(__name__)
 
 
 class TaegisSDKInvestigationsQuery:
@@ -94,6 +96,10 @@ class TaegisSDKInvestigationsQuery:
         deprecated: Use `investigationsSearch` for better investigations query experience..
         """
         endpoint = "allInvestigations"
+
+        log.warning(
+            f"GraphQL Query `{endpoint}` is deprecated: 'replaced by investigationsSearch'"
+        )
 
         result = self.service.execute_query(
             endpoint=endpoint,
@@ -548,6 +554,10 @@ class TaegisSDKInvestigationsQuery:
         Max perPage Value is 100. If requesting over 100, only the first 100 will be returned..
         """
         endpoint = "investigationsBySession"
+
+        log.warning(
+            f"GraphQL Query `{endpoint}` is deprecated: 'Not Supported - use investigationsSearch'"
+        )
 
         result = self.service.execute_query(
             endpoint=endpoint,

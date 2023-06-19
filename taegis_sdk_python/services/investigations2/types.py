@@ -918,9 +918,19 @@ class InvestigationRule:
     tenant_filter: Optional[str] = field(
         default=None, metadata=config(field_name="tenantFilter")
     )
-    comment: Optional[str] = field(default=None, metadata=config(field_name="comment"))
+    comment: Optional[str] = field(
+        default=None,
+        metadata=config(
+            metadata={"deprecated": True, "deprecation_reason": "use appendComment"},
+            field_name="comment",
+        ),
+    )
     exclude_child_tenants: Optional[bool] = field(
-        default=None, metadata=config(field_name="excludeChildTenants")
+        default=None,
+        metadata=config(
+            metadata={"deprecated": True, "deprecation_reason": "use tenantFilter"},
+            field_name="excludeChildTenants",
+        ),
     )
     created_by: Optional[TDRUser] = field(
         default=None, metadata=config(field_name="createdBy")
@@ -948,20 +958,36 @@ class InvestigationV2:
         default=None, metadata=config(field_name="keyFindings")
     )
     alerts: Optional[List[str]] = field(
-        default=None, metadata=config(field_name="alerts")
+        default=None,
+        metadata=config(
+            metadata={"deprecated": True, "deprecation_reason": "use alertsEvidence"},
+            field_name="alerts",
+        ),
     )
     assets: Optional[List[str]] = field(
-        default=None, metadata=config(field_name="assets")
+        default=None,
+        metadata=config(
+            metadata={"deprecated": True, "deprecation_reason": "use assetsEvidence"},
+            field_name="assets",
+        ),
     )
     events: Optional[List[str]] = field(
-        default=None, metadata=config(field_name="events")
+        default=None,
+        metadata=config(
+            metadata={"deprecated": True, "deprecation_reason": "use eventsEvidence"},
+            field_name="events",
+        ),
     )
     search_queries: Optional[List[str]] = field(
         default=None, metadata=config(field_name="searchQueries")
     )
     tags: Optional[List[str]] = field(default=None, metadata=config(field_name="tags"))
     contributor_ids: Optional[List[str]] = field(
-        default=None, metadata=config(field_name="contributorIDs")
+        default=None,
+        metadata=config(
+            metadata={"deprecated": True, "deprecation_reason": "use contributorIds"},
+            field_name="contributorIDs",
+        ),
     )
     contributor_ids: Optional[List[str]] = field(
         default=None, metadata=config(field_name="contributorIds")
