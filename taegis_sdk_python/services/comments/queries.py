@@ -34,6 +34,10 @@ class TaegisSDKCommentsQuery:
         """None."""
         endpoint = "comment"
 
+        log.warning(
+            f"GraphQL Query `{endpoint}` is deprecated: 'use investigation-v2 comments queries'"
+        )
+
         result = self.service.execute_query(
             endpoint=endpoint,
             variables={
@@ -48,6 +52,10 @@ class TaegisSDKCommentsQuery:
     def comments_by_parent(self, parent_type: str, parent_id: str) -> List[Comment]:
         """None."""
         endpoint = "commentsByParent"
+
+        log.warning(
+            f"GraphQL Query `{endpoint}` is deprecated: 'use investigation-v2 comments queries'"
+        )
 
         result = self.service.execute_query(
             endpoint=endpoint,
@@ -69,6 +77,10 @@ class TaegisSDKCommentsQuery:
         """None."""
         endpoint = "commentsByParentSection"
 
+        log.warning(
+            f"GraphQL Query `{endpoint}` is deprecated: 'use investigation-v2 comments queries'"
+        )
+
         result = self.service.execute_query(
             endpoint=endpoint,
             variables={
@@ -89,6 +101,10 @@ class TaegisSDKCommentsQuery:
         """None."""
         endpoint = "commentsCountByParent"
 
+        log.warning(
+            f"GraphQL Query `{endpoint}` is deprecated: 'use investigation-v2 comments queries'"
+        )
+
         result = self.service.execute_query(
             endpoint=endpoint,
             variables={
@@ -104,6 +120,10 @@ class TaegisSDKCommentsQuery:
     def comments_count_by_parent_type(self, parent_type: str) -> List[ParentCount]:
         """None."""
         endpoint = "commentsCountByParentType"
+
+        log.warning(
+            f"GraphQL Query `{endpoint}` is deprecated: 'use investigation-v2 comments queries'"
+        )
 
         result = self.service.execute_query(
             endpoint=endpoint,
@@ -121,6 +141,10 @@ class TaegisSDKCommentsQuery:
     def unread_comments_by_parents(self, parents: List[Parent]) -> List[Comment]:
         """None."""
         endpoint = "unreadCommentsByParents"
+
+        log.warning(
+            f"GraphQL Query `{endpoint}` is deprecated: 'use investigation-v2 comments queries'"
+        )
 
         result = self.service.execute_query(
             endpoint=endpoint,
@@ -141,6 +165,10 @@ class TaegisSDKCommentsQuery:
         """None."""
         endpoint = "latestBulkCommentsByParent"
 
+        log.warning(
+            f"GraphQL Query `{endpoint}` is deprecated: 'use investigation-v2 comments queries'"
+        )
+
         result = self.service.execute_query(
             endpoint=endpoint,
             variables={
@@ -160,6 +188,10 @@ class TaegisSDKCommentsQuery:
     ) -> List[ParentCount]:
         """None."""
         endpoint = "commentsCountByParentIds"
+
+        log.warning(
+            f"GraphQL Query `{endpoint}` is deprecated: 'use investigation-v2 comments queries'"
+        )
 
         result = self.service.execute_query(
             endpoint=endpoint,

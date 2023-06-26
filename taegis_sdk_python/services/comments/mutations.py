@@ -34,6 +34,10 @@ class TaegisSDKCommentsMutation:
         """None."""
         endpoint = "markCommentRead"
 
+        log.warning(
+            f"GraphQL Mutation `{endpoint}` is deprecated: 'use investigation-v2 comments queries'"
+        )
+
         result = self.service.execute_mutation(
             endpoint=endpoint,
             variables={
@@ -48,6 +52,10 @@ class TaegisSDKCommentsMutation:
     def mark_parent_comments_read(self, parents: List[Parent]) -> List[Comment]:
         """None."""
         endpoint = "markParentCommentsRead"
+
+        log.warning(
+            f"GraphQL Mutation `{endpoint}` is deprecated: 'use investigation-v2 comments queries'"
+        )
 
         result = self.service.execute_mutation(
             endpoint=endpoint,
@@ -66,6 +74,10 @@ class TaegisSDKCommentsMutation:
         """None."""
         endpoint = "createComment"
 
+        log.warning(
+            f"GraphQL Mutation `{endpoint}` is deprecated: 'use investigation-v2 comments queries'"
+        )
+
         result = self.service.execute_mutation(
             endpoint=endpoint,
             variables={
@@ -80,6 +92,10 @@ class TaegisSDKCommentsMutation:
     def update_comment(self, comment_id: str, comment: CommentUpdate) -> Comment:
         """None."""
         endpoint = "updateComment"
+
+        log.warning(
+            f"GraphQL Mutation `{endpoint}` is deprecated: 'use investigation-v2 comments queries'"
+        )
 
         result = self.service.execute_mutation(
             endpoint=endpoint,
@@ -97,6 +113,10 @@ class TaegisSDKCommentsMutation:
         """None."""
         endpoint = "deleteComment"
 
+        log.warning(
+            f"GraphQL Mutation `{endpoint}` is deprecated: 'use investigation-v2 comments queries'"
+        )
+
         result = self.service.execute_mutation(
             endpoint=endpoint,
             variables={
@@ -111,6 +131,10 @@ class TaegisSDKCommentsMutation:
     def bulk_restore_comments(self, ids: List[str]) -> List[str]:
         """None."""
         endpoint = "bulkRestoreComments"
+
+        log.warning(
+            f"GraphQL Mutation `{endpoint}` is deprecated: 'use investigation-v2 comments queries'"
+        )
 
         result = self.service.execute_mutation(
             endpoint=endpoint,

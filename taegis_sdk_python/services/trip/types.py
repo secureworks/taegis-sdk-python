@@ -45,6 +45,7 @@ class ApiIntegrationHealthStatus(str, Enum):
     PENDING = "Pending"
     HEALTHY = "Healthy"
     UNHEALTHY = "Unhealthy"
+    PROVISIONING_FAILED = "ProvisioningFailed"
 
 
 class ApiIntegrationHistoryStatus(str, Enum):

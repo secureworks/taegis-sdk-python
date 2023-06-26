@@ -39,6 +39,7 @@ class InvestigationStatus(str, Enum):
     """InvestigationStatus."""
 
     DRAFT = "DRAFT"
+    DRAFT_DISMISSED = "DRAFT_DISMISSED"
     OPEN = "OPEN"
     AWAITING_ACTION = "AWAITING_ACTION"
     ACTIVE = "ACTIVE"
@@ -148,6 +149,14 @@ class RemoveEvidenceFromInvestigationInput:
 @dataclass(order=True, eq=True, frozen=True)
 class DeleteInvestigationRuleInput:
     """DeleteInvestigationRuleInput."""
+
+    id: Optional[str] = field(default=None, metadata=config(field_name="id"))
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class ArchiveInvestigationInput:
+    """ArchiveInvestigationInput."""
 
     id: Optional[str] = field(default=None, metadata=config(field_name="id"))
 
@@ -463,6 +472,14 @@ class TDRUser:
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
+class Client:
+    """Client."""
+
+    id: Optional[str] = field(default=None, metadata=config(field_name="id"))
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
 class CreateInvestigationRuleInput:
     """CreateInvestigationRuleInput."""
 
@@ -571,8 +588,18 @@ class InvestigationsV2Arguments:
     page: Optional[int] = field(default=None, metadata=config(field_name="page"))
     per_page: Optional[int] = field(default=None, metadata=config(field_name="perPage"))
     cql: Optional[str] = field(default=None, metadata=config(field_name="cql"))
+    search_children_tenants: Optional[bool] = field(
+        default=None, metadata=config(field_name="searchChildrenTenants")
+    )
     order_by: Optional[PaginationOrder] = field(
-        default=None, metadata=config(field_name="orderBy")
+        default=None,
+        metadata=config(
+            metadata={
+                "deprecated": True,
+                "deprecation_reason": "does not do anything - sorting is done through cql",
+            },
+            field_name="orderBy",
+        ),
     )
 
 
@@ -673,6 +700,7 @@ class CreateInvestigationInput:
     search_queries: Optional[List[str]] = field(
         default=None, metadata=config(field_name="searchQueries")
     )
+    rule_id: Optional[str] = field(default=None, metadata=config(field_name="ruleId"))
     template_id: Optional[str] = field(
         default=None, metadata=config(field_name="templateId")
     )
@@ -978,6 +1006,15 @@ class InvestigationV2:
             field_name="events",
         ),
     )
+    alerts_evidence_count: Optional[int] = field(
+        default=None, metadata=config(field_name="alertsEvidenceCount")
+    )
+    assets_evidence_count: Optional[int] = field(
+        default=None, metadata=config(field_name="assetsEvidenceCount")
+    )
+    events_evidence_count: Optional[int] = field(
+        default=None, metadata=config(field_name="eventsEvidenceCount")
+    )
     search_queries: Optional[List[str]] = field(
         default=None, metadata=config(field_name="searchQueries")
     )
@@ -1019,6 +1056,7 @@ class InvestigationV2:
     close_reason: Optional[str] = field(
         default=None, metadata=config(field_name="closeReason")
     )
+    rule_id: Optional[str] = field(default=None, metadata=config(field_name="ruleId"))
     alerts_evidence: Optional[List[AlertEvidence]] = field(
         default=None, metadata=config(field_name="alertsEvidence")
     )
@@ -1037,11 +1075,20 @@ class InvestigationV2:
     assignee: Optional[TDRUser] = field(
         default=None, metadata=config(field_name="assignee")
     )
+    assignee_client: Optional[Client] = field(
+        default=None, metadata=config(field_name="assigneeClient")
+    )
     created_by: Optional[TDRUser] = field(
         default=None, metadata=config(field_name="createdBy")
     )
+    created_by_client: Optional[Client] = field(
+        default=None, metadata=config(field_name="createdByClient")
+    )
     updated_by: Optional[TDRUser] = field(
         default=None, metadata=config(field_name="updatedBy")
+    )
+    updated_by_client: Optional[Client] = field(
+        default=None, metadata=config(field_name="updatedByClient")
     )
     type: Optional[InvestigationType] = field(
         default=None, metadata=config(field_name="type")

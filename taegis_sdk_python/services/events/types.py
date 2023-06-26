@@ -80,25 +80,11 @@ class LogicalType(str, Enum):
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
-class BackendTargetingStrategy:
-    """BackendTargetingStrategy."""
-
-    primary: Optional[int] = field(default=None, metadata=config(field_name="primary"))
-    exclude: Optional[List[int]] = field(
-        default=None, metadata=config(field_name="exclude")
-    )
-
-
-@dataclass_json
-@dataclass(order=True, eq=True, frozen=True)
 class Event:
     """Event."""
 
     id: Optional[str] = field(default=None, metadata=config(field_name="id"))
     values: Optional[dict] = field(default=None, metadata=config(field_name="values"))
-    backends: Optional[List[int]] = field(
-        default=None, metadata=config(field_name="backends")
-    )
 
 
 @dataclass_json
@@ -158,27 +144,6 @@ class EventFetchOptions:
     normalize_event_keys: Optional[bool] = field(
         default=None, metadata=config(field_name="normalizeEventKeys")
     )
-    backend_strategy: Optional[BackendTargetingStrategy] = field(
-        default=None, metadata=config(field_name="backendStrategy")
-    )
-
-
-@dataclass_json
-@dataclass(order=True, eq=True, frozen=True)
-class Field:
-    """Field."""
-
-    name: Optional[str] = field(default=None, metadata=config(field_name="name"))
-    searchable: Optional[bool] = field(
-        default=None, metadata=config(field_name="searchable")
-    )
-    debug: Optional[bool] = field(default=None, metadata=config(field_name="debug"))
-    base_type: Optional[BaseType] = field(
-        default=None, metadata=config(field_name="baseType")
-    )
-    logical_type: Optional[LogicalType] = field(
-        default=None, metadata=config(field_name="logicalType")
-    )
 
 
 @dataclass_json
@@ -206,27 +171,28 @@ class EventQueryOptions:
         default=None, metadata=config(field_name="includeMitreAttackInfoData")
     )
     save_to_cache: Optional[bool] = field(
-        default=None,
-        metadata=config(
-            metadata={
-                "deprecated": True,
-                "deprecation_reason": "Moving to backendStrategy as an exclusion option",
-            },
-            field_name="saveToCache",
-        ),
+        default=None, metadata=config(field_name="saveToCache")
     )
     search_target: Optional[SearchTarget] = field(
-        default=None,
-        metadata=config(
-            metadata={
-                "deprecated": True,
-                "deprecation_reason": "Moving to backendStrategy",
-            },
-            field_name="searchTarget",
-        ),
+        default=None, metadata=config(field_name="searchTarget")
     )
-    backend_strategy: Optional[BackendTargetingStrategy] = field(
-        default=None, metadata=config(field_name="backendStrategy")
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class Field:
+    """Field."""
+
+    name: Optional[str] = field(default=None, metadata=config(field_name="name"))
+    searchable: Optional[bool] = field(
+        default=None, metadata=config(field_name="searchable")
+    )
+    debug: Optional[bool] = field(default=None, metadata=config(field_name="debug"))
+    base_type: Optional[BaseType] = field(
+        default=None, metadata=config(field_name="baseType")
+    )
+    logical_type: Optional[LogicalType] = field(
+        default=None, metadata=config(field_name="logicalType")
     )
 
 
@@ -246,19 +212,7 @@ class EventQueryResult:
         default=None, metadata=config(field_name="completed")
     )
     expires: Optional[str] = field(default=None, metadata=config(field_name="expires"))
-    backend: Optional[str] = field(
-        default=None,
-        metadata=config(
-            metadata={
-                "deprecated": True,
-                "deprecation_reason": "Moved to backendTarget",
-            },
-            field_name="backend",
-        ),
-    )
-    backend_target: Optional[int] = field(
-        default=None, metadata=config(field_name="backendTarget")
-    )
+    backend: Optional[str] = field(default=None, metadata=config(field_name="backend"))
     facets: Optional[dict] = field(default=None, metadata=config(field_name="facets"))
     rows: Optional[List[dict]] = field(default=None, metadata=config(field_name="rows"))
     progress: Optional[EventQueryProgress] = field(

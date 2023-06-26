@@ -295,3 +295,20 @@ class TaegisSDKInvestigations2Mutation:
         if result.get(endpoint) is not None:
             return InvestigationV2.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for mutation closeInvestigation")
+
+    def archive_investigation_v2(
+        self, input_: ArchiveInvestigationInput
+    ) -> InvestigationV2:
+        """Archive investigation."""
+        endpoint = "archiveInvestigationV2"
+
+        result = self.service.execute_mutation(
+            endpoint=endpoint,
+            variables={
+                "input": prepare_input(input_),
+            },
+            output=build_output_string(InvestigationV2),
+        )
+        if result.get(endpoint) is not None:
+            return InvestigationV2.from_dict(result.get(endpoint))
+        raise GraphQLNoRowsInResultSetError("for mutation archiveInvestigationV2")

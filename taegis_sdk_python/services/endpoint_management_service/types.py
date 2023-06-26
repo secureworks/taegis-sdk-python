@@ -78,6 +78,12 @@ class EndpointGroup:
     skip_upgrade: Optional[bool] = field(
         default=None, metadata=config(field_name="skipUpgrade")
     )
+    archive_endpoint_after_days: Optional[int] = field(
+        default=None, metadata=config(field_name="ArchiveEndpointAfterDays")
+    )
+    is_archive_endpoint_enabled: Optional[bool] = field(
+        default=None, metadata=config(field_name="IsArchiveEndpointEnabled")
+    )
 
 
 @dataclass_json
@@ -152,6 +158,9 @@ class CreateEndpointGroupInput:
         default=None, metadata=config(field_name="isDefault")
     )
     channel: Optional[str] = field(default=None, metadata=config(field_name="channel"))
+    archive_endpoint_after_days: Optional[int] = field(
+        default=None, metadata=config(field_name="ArchiveEndpointAfterDays")
+    )
     policy_name: Optional[PolicyType] = field(
         default=None, metadata=config(field_name="policyName")
     )
@@ -171,6 +180,9 @@ class UpdateEndpointGroupInput:
         default=None, metadata=config(field_name="desiredVersion")
     )
     channel: Optional[str] = field(default=None, metadata=config(field_name="channel"))
+    archive_endpoint_after_days: Optional[int] = field(
+        default=None, metadata=config(field_name="ArchiveEndpointAfterDays")
+    )
     policy_name: Optional[PolicyType] = field(
         default=None, metadata=config(field_name="policyName")
     )
