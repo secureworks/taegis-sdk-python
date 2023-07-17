@@ -51,6 +51,8 @@ class AgentChannel(str, Enum):
     CANARY = "CANARY"
     QE_PREV = "QE_PREV"
     QE_NEXT = "QE_NEXT"
+    WEEKLY = "WEEKLY"
+    WEEKLY_NEXT = "WEEKLY_NEXT"
 
 
 @dataclass_json

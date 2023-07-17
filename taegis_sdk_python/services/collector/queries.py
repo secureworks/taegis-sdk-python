@@ -45,6 +45,46 @@ class TaegisSDKCollectorQuery:
             return Cluster.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for query getCluster")
 
+    def get_cluster_backlog_count(
+        self, cluster_id: str, time_range: TimeRange
+    ) -> List[ClusterNodeTimeSeries]:
+        """None."""
+        endpoint = "getClusterBacklogCount"
+
+        result = self.service.execute_query(
+            endpoint=endpoint,
+            variables={
+                "clusterID": prepare_input(cluster_id),
+                "timeRange": prepare_input(time_range),
+            },
+            output=build_output_string(ClusterNodeTimeSeries),
+        )
+        if result.get(endpoint) is not None:
+            return ClusterNodeTimeSeries.schema().load(
+                [r or {} for r in result.get(endpoint)], many=True
+            )
+        raise GraphQLNoRowsInResultSetError("for query getClusterBacklogCount")
+
+    def get_cluster_backlog_age(
+        self, cluster_id: str, time_range: TimeRange
+    ) -> List[ClusterNodeTimeSeries]:
+        """None."""
+        endpoint = "getClusterBacklogAge"
+
+        result = self.service.execute_query(
+            endpoint=endpoint,
+            variables={
+                "clusterID": prepare_input(cluster_id),
+                "timeRange": prepare_input(time_range),
+            },
+            output=build_output_string(ClusterNodeTimeSeries),
+        )
+        if result.get(endpoint) is not None:
+            return ClusterNodeTimeSeries.schema().load(
+                [r or {} for r in result.get(endpoint)], many=True
+            )
+        raise GraphQLNoRowsInResultSetError("for query getClusterBacklogAge")
+
     def get_clusters_by_ids(self, cluster_ids: List[str]) -> List[Cluster]:
         """Get clusters by IDs."""
         endpoint = "getClustersByIDs"

@@ -37,6 +37,7 @@ from taegis_sdk_python.services.preferences import PreferencesService
 from taegis_sdk_python.services.roadrunner import RoadrunnerService
 from taegis_sdk_python.services.rules import RulesService
 from taegis_sdk_python.services.sharelinks import SharelinksService
+from taegis_sdk_python.services.tenant_profiles import TenantProfilesService
 from taegis_sdk_python.services.tenants import TenantsService
 from taegis_sdk_python.services.threat import ThreatService
 from taegis_sdk_python.services.trip import TripService
@@ -118,6 +119,7 @@ class GraphQLService:
         self._rules = None
         self._core = None
         self._sharelinks = None
+        self._tenant_profiles = None
         self._tenants = None
         self._threat = None
         self._trip = None
@@ -382,6 +384,13 @@ class GraphQLService:
         if not self._sharelinks:
             self._sharelinks = SharelinksService(self)
         return self._sharelinks
+
+    @property
+    def tenant_profiles(self):
+        """Tenant Profiles Service Endpoint."""
+        if not self._tenant_profiles:
+            self._tenant_profiles = TenantProfilesService(self)
+        return self._tenant_profiles
 
     @property
     def tenants(self):

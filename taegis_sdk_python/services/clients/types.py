@@ -72,6 +72,12 @@ class Client:
     environment: Optional[str] = field(
         default=None, metadata=config(field_name="environment")
     )
+    token_request_time: Optional[str] = field(
+        default=None, metadata=config(field_name="token_request_time")
+    )
+    token_request_count: Optional[int] = field(
+        default=None, metadata=config(field_name="token_request_count")
+    )
     role_assignments: Optional[List[ClientRoleAssignment]] = field(
         default=None, metadata=config(field_name="role_assignments")
     )

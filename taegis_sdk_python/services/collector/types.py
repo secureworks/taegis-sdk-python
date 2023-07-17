@@ -338,6 +338,15 @@ class AggregateRateByCollector:
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
+class TimeSeries:
+    """TimeSeries."""
+
+    time: Optional[str] = field(default=None, metadata=config(field_name="time"))
+    value: Optional[str] = field(default=None, metadata=config(field_name="value"))
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
 class FlowRate:
     """FlowRate."""
 
@@ -616,6 +625,24 @@ class NetworkInput:
     proxy: Optional[str] = field(default=None, metadata=config(field_name="proxy"))
     hosts: Optional[List[HostsInput]] = field(
         default=None, metadata=config(field_name="hosts")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class ClusterNodeTimeSeries:
+    """ClusterNodeTimeSeries."""
+
+    cluster_id: Optional[str] = field(
+        default=None, metadata=config(field_name="clusterID")
+    )
+    tenant: Optional[str] = field(default=None, metadata=config(field_name="tenant"))
+    node_id: Optional[str] = field(default=None, metadata=config(field_name="nodeId"))
+    node_name: Optional[str] = field(
+        default=None, metadata=config(field_name="nodeName")
+    )
+    val: Optional[List[TimeSeries]] = field(
+        default=None, metadata=config(field_name="val")
     )
 
 

@@ -303,3 +303,20 @@ class TaegisSDKTenantsMutation:
         if result.get(endpoint) is not None:
             return Tenant.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for mutation changeTenantHierarchy")
+
+    def request_service(
+        self, tenant_service_input: TenantServiceInput
+    ) -> TenantService:
+        """Requests a service for the tenant, the subject should have tenant.update on TenantServiceInput.tenantID, only internal services can be requested."""
+        endpoint = "requestService"
+
+        result = self.service.execute_mutation(
+            endpoint=endpoint,
+            variables={
+                "tenantServiceInput": prepare_input(tenant_service_input),
+            },
+            output=build_output_string(TenantService),
+        )
+        if result.get(endpoint) is not None:
+            return TenantService.from_dict(result.get(endpoint))
+        raise GraphQLNoRowsInResultSetError("for mutation requestService")

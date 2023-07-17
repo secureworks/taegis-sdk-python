@@ -65,6 +65,9 @@ class EndpointGroup:
     is_system_generated: Optional[bool] = field(
         default=None, metadata=config(field_name="isSystemGenerated")
     )
+    is_default: Optional[bool] = field(
+        default=None, metadata=config(field_name="isDefault")
+    )
     desired_agent_version: Optional[str] = field(
         default=None, metadata=config(field_name="desiredAgentVersion")
     )

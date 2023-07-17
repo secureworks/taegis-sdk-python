@@ -31,6 +31,14 @@ class AuthzAction(str, Enum):
     DELETE = "Delete"
 
 
+class TenantType(str, Enum):
+    """TenantType."""
+
+    INTERNAL_TENANT = "InternalTenant"
+    CONNECTION_OWNER = "ConnectionOwner"
+    SERVICE_OWNER = "ServiceOwner"
+
+
 class TenantOrderField(str, Enum):
     """TenantOrderField."""
 
@@ -166,6 +174,45 @@ class Service:
     )
     owner_tenant_id: Optional[str] = field(
         default=None, metadata=config(field_name="owner_tenant_id")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class TenantService:
+    """TenantService."""
+
+    id: Optional[str] = field(default=None, metadata=config(field_name="id"))
+    service_id: Optional[str] = field(
+        default=None, metadata=config(field_name="service_id")
+    )
+    name: Optional[str] = field(default=None, metadata=config(field_name="name"))
+    description: Optional[str] = field(
+        default=None, metadata=config(field_name="description")
+    )
+    service_owner_id: Optional[str] = field(
+        default=None, metadata=config(field_name="service_owner_id")
+    )
+    owned_by_partner: Optional[bool] = field(
+        default=None, metadata=config(field_name="owned_by_partner")
+    )
+    created_at: Optional[str] = field(
+        default=None, metadata=config(field_name="created_at")
+    )
+    updated_at: Optional[str] = field(
+        default=None, metadata=config(field_name="updated_at")
+    )
+    requested_at: Optional[str] = field(
+        default=None, metadata=config(field_name="requested_at")
+    )
+    granted_at: Optional[str] = field(
+        default=None, metadata=config(field_name="granted_at")
+    )
+    revoked_at: Optional[str] = field(
+        default=None, metadata=config(field_name="revoked_at")
+    )
+    requested_by: Optional[str] = field(
+        default=None, metadata=config(field_name="requested_by")
     )
 
 
@@ -459,6 +506,19 @@ class AzureSSOConfiguration:
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
+class TenantServiceInput:
+    """TenantServiceInput."""
+
+    service_id: Optional[str] = field(
+        default=None, metadata=config(field_name="serviceID")
+    )
+    tenant_id: Optional[str] = field(
+        default=None, metadata=config(field_name="tenantID")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
 class AuditResults:
     """AuditResults."""
 
@@ -691,65 +751,6 @@ class TenantSSOConnectionQueryInput:
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
-class Tenant:
-    """Tenant."""
-
-    id: Optional[str] = field(default=None, metadata=config(field_name="id"))
-    created_at: Optional[str] = field(
-        default=None, metadata=config(field_name="created_at")
-    )
-    updated_at: Optional[str] = field(
-        default=None, metadata=config(field_name="updated_at")
-    )
-    enabled: Optional[bool] = field(default=None, metadata=config(field_name="enabled"))
-    name: Optional[str] = field(default=None, metadata=config(field_name="name"))
-    name_normalized: Optional[str] = field(
-        default=None, metadata=config(field_name="name_normalized")
-    )
-    domain: Optional[str] = field(default=None, metadata=config(field_name="domain"))
-    domain_normalized: Optional[str] = field(
-        default=None, metadata=config(field_name="domain_normalized")
-    )
-    description: Optional[str] = field(
-        default=None, metadata=config(field_name="description")
-    )
-    allow_response_actions: Optional[bool] = field(
-        default=None, metadata=config(field_name="allow_response_actions")
-    )
-    actions_approver: Optional[str] = field(
-        default=None, metadata=config(field_name="actions_approver")
-    )
-    expires_at: Optional[str] = field(
-        default=None, metadata=config(field_name="expires_at")
-    )
-    support_enabled: Optional[bool] = field(
-        default=None, metadata=config(field_name="support_enabled")
-    )
-    enabled_in_production: Optional[bool] = field(
-        default=None, metadata=config(field_name="enabled_in_production")
-    )
-    enabled_in_pilot: Optional[bool] = field(
-        default=None, metadata=config(field_name="enabled_in_pilot")
-    )
-    post_disablement_complete: Optional[bool] = field(
-        default=None, metadata=config(field_name="post_disablement_complete")
-    )
-    labels: Optional[List[TenantLabel]] = field(
-        default=None, metadata=config(field_name="labels")
-    )
-    environments: Optional[List[Environment]] = field(
-        default=None, metadata=config(field_name="environments")
-    )
-    services: Optional[List[Service]] = field(
-        default=None, metadata=config(field_name="services")
-    )
-    partnership: Optional[Partnership] = field(
-        default=None, metadata=config(field_name="partnership")
-    )
-
-
-@dataclass_json
-@dataclass(order=True, eq=True, frozen=True)
 class SSOConnection:
     """SSOConnection."""
 
@@ -806,6 +807,78 @@ class SSOConnection:
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
+class Tenant:
+    """Tenant."""
+
+    id: Optional[str] = field(default=None, metadata=config(field_name="id"))
+    created_at: Optional[str] = field(
+        default=None, metadata=config(field_name="created_at")
+    )
+    updated_at: Optional[str] = field(
+        default=None, metadata=config(field_name="updated_at")
+    )
+    enabled: Optional[bool] = field(default=None, metadata=config(field_name="enabled"))
+    name: Optional[str] = field(default=None, metadata=config(field_name="name"))
+    name_normalized: Optional[str] = field(
+        default=None, metadata=config(field_name="name_normalized")
+    )
+    domain: Optional[str] = field(default=None, metadata=config(field_name="domain"))
+    domain_normalized: Optional[str] = field(
+        default=None, metadata=config(field_name="domain_normalized")
+    )
+    description: Optional[str] = field(
+        default=None, metadata=config(field_name="description")
+    )
+    allow_response_actions: Optional[bool] = field(
+        default=None, metadata=config(field_name="allow_response_actions")
+    )
+    actions_approver: Optional[str] = field(
+        default=None, metadata=config(field_name="actions_approver")
+    )
+    expires_at: Optional[str] = field(
+        default=None, metadata=config(field_name="expires_at")
+    )
+    support_enabled: Optional[bool] = field(
+        default=None, metadata=config(field_name="support_enabled")
+    )
+    enabled_in_production: Optional[bool] = field(
+        default=None, metadata=config(field_name="enabled_in_production")
+    )
+    enabled_in_pilot: Optional[bool] = field(
+        default=None, metadata=config(field_name="enabled_in_pilot")
+    )
+    post_disablement_complete: Optional[bool] = field(
+        default=None, metadata=config(field_name="post_disablement_complete")
+    )
+    labels: Optional[List[TenantLabel]] = field(
+        default=None, metadata=config(field_name="labels")
+    )
+    environments: Optional[List[Environment]] = field(
+        default=None, metadata=config(field_name="environments")
+    )
+    services: Optional[List[Service]] = field(
+        default=None,
+        metadata=config(
+            metadata={"deprecated": True, "deprecation_reason": "use all services"},
+            field_name="services",
+        ),
+    )
+    granted_services: Optional[List[TenantService]] = field(
+        default=None, metadata=config(field_name="granted_services")
+    )
+    requested_services: Optional[List[TenantService]] = field(
+        default=None, metadata=config(field_name="requested_services")
+    )
+    all_services: Optional[List[TenantService]] = field(
+        default=None, metadata=config(field_name="all_services")
+    )
+    partnership: Optional[Partnership] = field(
+        default=None, metadata=config(field_name="partnership")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
 class TenantsQuery:
     """TenantsQuery."""
 
@@ -826,6 +899,9 @@ class TenantsQuery:
     )
     with_services: Optional[List[str]] = field(
         default=None, metadata=config(field_name="withServices")
+    )
+    with_requested_services: Optional[List[str]] = field(
+        default=None, metadata=config(field_name="withRequestedServices")
     )
     with_partner_subscription: Optional[str] = field(
         default=None, metadata=config(field_name="withPartnerSubscription")
