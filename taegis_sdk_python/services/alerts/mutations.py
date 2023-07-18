@@ -93,10 +93,6 @@ class TaegisSDKAlertsMutation:
         """DEPRECATED: Does not do anything other than to return OK. No replacement necessary.."""
         endpoint = "alertsServiceEvict"
 
-        log.warning(
-            f"GraphQL Mutation `{endpoint}` is deprecated: 'does not do anything other than to return OK. no replacement necessary'"
-        )
-
         result = self.service.execute_mutation(
             endpoint=endpoint,
             variables={

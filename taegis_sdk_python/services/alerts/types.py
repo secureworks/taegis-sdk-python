@@ -147,14 +147,7 @@ class BulkInvestigationsRequestInput:
         default=None, metadata=config(field_name="investigation_id")
     )
     genesis_alerts: Optional[List[str]] = field(
-        default=None,
-        metadata=config(
-            metadata={
-                "deprecated": True,
-                "deprecation_reason": "used to flag specific alerts as the genesis of the investigation",
-            },
-            field_name="genesis_alerts",
-        ),
+        default=None, metadata=config(field_name="genesis_alerts")
     )
     alerts: Optional[List[str]] = field(
         default=None, metadata=config(field_name="alerts")
@@ -197,16 +190,7 @@ class PollRequestInput:
     search_id: Optional[str] = field(
         default=None, metadata=config(field_name="search_id")
     )
-    part_id: Optional[int] = field(
-        default=None,
-        metadata=config(
-            metadata={
-                "deprecated": True,
-                "deprecation_reason": "part id is advanced transparently with each new call now",
-            },
-            field_name="part_id",
-        ),
-    )
+    part_id: Optional[int] = field(default=None, metadata=config(field_name="part_id"))
 
 
 @dataclass_json
@@ -497,11 +481,11 @@ class KeyValueRecordIndexed:
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
-class AggregationKeys:
-    """AggregationKeys."""
+class AggregationResponse:
+    """AggregationResponse."""
 
     key: Optional[str] = field(default=None, metadata=config(field_name="key"))
-    value: Optional[str] = field(default=None, metadata=config(field_name="value"))
+    value: Optional[float] = field(default=None, metadata=config(field_name="value"))
 
 
 @dataclass_json
@@ -564,14 +548,7 @@ class AuthScanLogonAttempt:
         default=None, metadata=config(field_name="target_user_name")
     )
     has_logon_success: Optional[bool] = field(
-        default=None,
-        metadata=config(
-            metadata={
-                "deprecated": True,
-                "deprecation_reason": "see list in successful_logon_attempts",
-            },
-            field_name="has_logon_success",
-        ),
+        default=None, metadata=config(field_name="has_logon_success")
     )
     num_attempts: Optional[int] = field(
         default=None, metadata=config(field_name="num_attempts")
@@ -1070,11 +1047,7 @@ class Investigation:
 
     id: Optional[str] = field(default=None, metadata=config(field_name="id"))
     genesis_alerts_flag: Optional[str] = field(
-        default=None,
-        metadata=config(
-            metadata={"deprecated": True, "deprecation_reason": "not in use anymore"},
-            field_name="GenesisAlertsFlag",
-        ),
+        default=None, metadata=config(field_name="GenesisAlertsFlag")
     )
 
 
@@ -1182,27 +1155,6 @@ class KeyValuePairsIndexed:
 
     record: Optional[List[KeyValueRecordIndexed]] = field(
         default=None, metadata=config(field_name="record")
-    )
-
-
-@dataclass_json
-@dataclass(order=True, eq=True, frozen=True)
-class AggregationResponse:
-    """AggregationResponse."""
-
-    key: Optional[str] = field(
-        default=None,
-        metadata=config(
-            metadata={
-                "deprecated": True,
-                "deprecation_reason": "use keys instead for the broken out name/value pairs",
-            },
-            field_name="key",
-        ),
-    )
-    value: Optional[float] = field(default=None, metadata=config(field_name="value"))
-    keys: Optional[List[AggregationKeys]] = field(
-        default=None, metadata=config(field_name="keys")
     )
 
 
@@ -1805,14 +1757,7 @@ class UpdateInvestigationRequestInput:
         default=None, metadata=config(field_name="investigation_id")
     )
     genesis_alerts: Optional[List[str]] = field(
-        default=None,
-        metadata=config(
-            metadata={
-                "deprecated": True,
-                "deprecation_reason": "was used to flag specific alerts as the genesis of the investigation",
-            },
-            field_name="genesis_alerts",
-        ),
+        default=None, metadata=config(field_name="genesis_alerts")
     )
     alerts: Optional[List[str]] = field(
         default=None, metadata=config(field_name="alerts")
