@@ -312,45 +312,6 @@ class SchedulesFilters:
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
-class ScheduleEditInput:
-    """ScheduleEditInput."""
-
-    id: Optional[str] = field(default=None, metadata=config(field_name="id"))
-    name: Optional[str] = field(default=None, metadata=config(field_name="name"))
-    description: Optional[str] = field(
-        default=None, metadata=config(field_name="description")
-    )
-    filters: Optional[dict] = field(default=None, metadata=config(field_name="filters"))
-    interval: Optional[int] = field(
-        default=None, metadata=config(field_name="interval")
-    )
-    day_of_month: Optional[int] = field(
-        default=None, metadata=config(field_name="dayOfMonth")
-    )
-    recipients: Optional[List[str]] = field(
-        default=None, metadata=config(field_name="recipients")
-    )
-    red_ql_query: Optional[str] = field(
-        default=None, metadata=config(field_name="redQLQuery")
-    )
-    generate_csv_export: Optional[bool] = field(
-        default=None, metadata=config(field_name="generateCSVExport")
-    )
-    run_at: Optional[str] = field(default=None, metadata=config(field_name="runAt"))
-    share_with_admin_group: Optional[bool] = field(
-        default=None, metadata=config(field_name="shareWithAdminGroup")
-    )
-    locale: Optional[str] = field(default=None, metadata=config(field_name="locale"))
-    chart_type: Optional[ReportChartType] = field(
-        default=None, metadata=config(field_name="chartType")
-    )
-    cadence: Optional[Cadence] = field(
-        default=None, metadata=config(field_name="cadence")
-    )
-
-
-@dataclass_json
-@dataclass(order=True, eq=True, frozen=True)
 class ReportsFilters:
     """ReportsFilters."""
 
@@ -515,6 +476,48 @@ class AllSchedulesInput:
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
+class ScheduleEditInput:
+    """ScheduleEditInput."""
+
+    id: Optional[str] = field(default=None, metadata=config(field_name="id"))
+    name: Optional[str] = field(default=None, metadata=config(field_name="name"))
+    description: Optional[str] = field(
+        default=None, metadata=config(field_name="description")
+    )
+    filters: Optional[dict] = field(default=None, metadata=config(field_name="filters"))
+    interval: Optional[int] = field(
+        default=None, metadata=config(field_name="interval")
+    )
+    day_of_month: Optional[int] = field(
+        default=None, metadata=config(field_name="dayOfMonth")
+    )
+    recipients: Optional[List[str]] = field(
+        default=None, metadata=config(field_name="recipients")
+    )
+    red_ql_query: Optional[str] = field(
+        default=None, metadata=config(field_name="redQLQuery")
+    )
+    generate_csv_export: Optional[bool] = field(
+        default=None, metadata=config(field_name="generateCSVExport")
+    )
+    run_at: Optional[str] = field(default=None, metadata=config(field_name="runAt"))
+    share_with_admin_group: Optional[bool] = field(
+        default=None, metadata=config(field_name="shareWithAdminGroup")
+    )
+    locale: Optional[str] = field(default=None, metadata=config(field_name="locale"))
+    chart_type: Optional[ReportChartType] = field(
+        default=None, metadata=config(field_name="chartType")
+    )
+    cadence: Optional[Cadence] = field(
+        default=None, metadata=config(field_name="cadence")
+    )
+    export_types: Optional[List[ExportType]] = field(
+        default=None, metadata=config(field_name="exportTypes")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
 class NewScheduleInput:
     """NewScheduleInput."""
 
@@ -557,6 +560,9 @@ class NewScheduleInput:
     )
     cadence: Optional[Cadence] = field(
         default=None, metadata=config(field_name="cadence")
+    )
+    export_types: Optional[List[ExportType]] = field(
+        default=None, metadata=config(field_name="exportTypes")
     )
     visualizations: Optional[List[VisualizationInput]] = field(
         default=None, metadata=config(field_name="visualizations")
@@ -619,6 +625,9 @@ class Schedule:
     )
     creator: Optional[TDRUser] = field(
         default=None, metadata=config(field_name="creator")
+    )
+    export_types: Optional[List[ExportType]] = field(
+        default=None, metadata=config(field_name="exportTypes")
     )
     visualizations: Optional[List[Visualization]] = field(
         default=None, metadata=config(field_name="visualizations")

@@ -28,6 +28,7 @@ from taegis_sdk_python.services.entity_profile import EntityProfileService
 from taegis_sdk_python.services.event_search import EventSearchService
 from taegis_sdk_python.services.events import EventsService
 from taegis_sdk_python.services.exports import ExportsService
+from taegis_sdk_python.services.fast_ioc import FastIocService
 from taegis_sdk_python.services.investigations import InvestigationsService
 from taegis_sdk_python.services.investigations2 import Investigations2Service
 from taegis_sdk_python.services.mitre_attack_info import MitreAttackInfoService
@@ -109,6 +110,7 @@ class GraphQLService:
         self._event_search = None
         self._events = None
         self._exports = None
+        self._fast_ioc = None
         self._investigations = None
         self._investigations2 = None
         self._mitre_attack_info = None
@@ -314,6 +316,13 @@ class GraphQLService:
         if not self._exports:
             self._exports = ExportsService(self)
         return self._exports
+
+    @property
+    def fast_ioc(self):
+        """Fast IOC Service Endpoint."""
+        if not self._fast_ioc:
+            self._fast_ioc = FastIocService(self)
+        return self._fast_ioc
 
     @property
     def investigations(self):

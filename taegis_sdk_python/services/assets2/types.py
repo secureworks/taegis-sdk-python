@@ -425,9 +425,15 @@ class AssetWhereInputV2:
     group_name_contains: Optional[str] = field(
         default=None, metadata=config(field_name="groupName_contains")
     )
+    group_name_autocomplete: Optional[str] = field(
+        default=None, metadata=config(field_name="groupName_autocomplete")
+    )
     host_id: Optional[str] = field(default=None, metadata=config(field_name="hostId"))
     host_id_contains: Optional[str] = field(
         default=None, metadata=config(field_name="hostId_contains")
+    )
+    host_id_autocomplete: Optional[str] = field(
+        default=None, metadata=config(field_name="hostId_autocomplete")
     )
     hostname: Optional[str] = field(
         default=None, metadata=config(field_name="hostname")
@@ -435,17 +441,26 @@ class AssetWhereInputV2:
     hostname_contains: Optional[str] = field(
         default=None, metadata=config(field_name="hostname_contains")
     )
+    hostname_autocomplete: Optional[str] = field(
+        default=None, metadata=config(field_name="hostname_autocomplete")
+    )
     investigation_id: Optional[str] = field(
         default=None, metadata=config(field_name="investigationId")
     )
     investigation_id_contains: Optional[str] = field(
         default=None, metadata=config(field_name="investigationId_contains")
     )
+    investigation_id_autocomplete: Optional[str] = field(
+        default=None, metadata=config(field_name="investigationId_autocomplete")
+    )
     ip_address: Optional[str] = field(
         default=None, metadata=config(field_name="ipAddress")
     )
     ip_address_contains: Optional[str] = field(
         default=None, metadata=config(field_name="ipAddress_contains")
+    )
+    ip_address_autocomplete: Optional[str] = field(
+        default=None, metadata=config(field_name="ipAddress_autocomplete")
     )
     isolation_status: Optional[str] = field(
         default=None, metadata=config(field_name="isolationStatus")
@@ -470,6 +485,9 @@ class AssetWhereInputV2:
     )
     mac_address_contains: Optional[str] = field(
         default=None, metadata=config(field_name="macAddress_contains")
+    )
+    mac_address_autocomplete: Optional[str] = field(
+        default=None, metadata=config(field_name="macAddress_autocomplete")
     )
     os_distributor: Optional[str] = field(
         default=None, metadata=config(field_name="osDistributor")
@@ -507,6 +525,9 @@ class AssetWhereInputV2:
     username_contains: Optional[str] = field(
         default=None, metadata=config(field_name="username_contains")
     )
+    username_autocomplete: Optional[str] = field(
+        default=None, metadata=config(field_name="username_autocomplete")
+    )
     and_: Optional[List["AssetWhereInputV2"]] = field(
         default=None, metadata=config(field_name="and")
     )
@@ -521,6 +542,9 @@ class AssetWhereInputV2:
     )
     tags_contains: Optional[TagWhereInputV2] = field(
         default=None, metadata=config(field_name="tags_contains")
+    )
+    tags_autocomplete: Optional[TagWhereInputV2] = field(
+        default=None, metadata=config(field_name="tags_autocomplete")
     )
 
 

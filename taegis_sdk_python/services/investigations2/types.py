@@ -303,8 +303,23 @@ class InvestigationTemplateArguments:
 class InvestigationTemplatesArguments:
     """InvestigationTemplatesArguments."""
 
-    name: Optional[str] = field(default=None, metadata=config(field_name="name"))
-    tags: Optional[List[str]] = field(default=None, metadata=config(field_name="tags"))
+    page: Optional[int] = field(default=None, metadata=config(field_name="page"))
+    per_page: Optional[int] = field(default=None, metadata=config(field_name="perPage"))
+    cql: Optional[str] = field(default=None, metadata=config(field_name="cql"))
+    name: Optional[str] = field(
+        default=None,
+        metadata=config(
+            metadata={"deprecated": True, "deprecation_reason": "no-op; use cql"},
+            field_name="name",
+        ),
+    )
+    tags: Optional[List[str]] = field(
+        default=None,
+        metadata=config(
+            metadata={"deprecated": True, "deprecation_reason": "no-op; use cql"},
+            field_name="tags",
+        ),
+    )
 
 
 @dataclass_json
@@ -321,8 +336,23 @@ class InvestigationRuleArguments:
 class InvestigationRulesArguments:
     """InvestigationRulesArguments."""
 
-    name: Optional[str] = field(default=None, metadata=config(field_name="name"))
-    tags: Optional[List[str]] = field(default=None, metadata=config(field_name="tags"))
+    page: Optional[int] = field(default=None, metadata=config(field_name="page"))
+    per_page: Optional[int] = field(default=None, metadata=config(field_name="perPage"))
+    cql: Optional[str] = field(default=None, metadata=config(field_name="cql"))
+    name: Optional[str] = field(
+        default=None,
+        metadata=config(
+            metadata={"deprecated": True, "deprecation_reason": "no-op; use cql"},
+            field_name="name",
+        ),
+    )
+    tags: Optional[List[str]] = field(
+        default=None,
+        metadata=config(
+            metadata={"deprecated": True, "deprecation_reason": "no-op; use cql"},
+            field_name="tags",
+        ),
+    )
 
 
 @dataclass_json
@@ -466,14 +496,6 @@ class AssetEvidence:
 @dataclass(order=True, eq=True, frozen=True)
 class TDRUser:
     """TDRUser."""
-
-    id: Optional[str] = field(default=None, metadata=config(field_name="id"))
-
-
-@dataclass_json
-@dataclass(order=True, eq=True, frozen=True)
-class Client:
-    """Client."""
 
     id: Optional[str] = field(default=None, metadata=config(field_name="id"))
 
@@ -700,6 +722,12 @@ class CreateInvestigationInput:
     search_queries: Optional[List[str]] = field(
         default=None, metadata=config(field_name="searchQueries")
     )
+    service_desk_id: Optional[str] = field(
+        default=None, metadata=config(field_name="serviceDeskId")
+    )
+    service_desk_type: Optional[str] = field(
+        default=None, metadata=config(field_name="serviceDeskType")
+    )
     rule_id: Optional[str] = field(default=None, metadata=config(field_name="ruleId"))
     template_id: Optional[str] = field(
         default=None, metadata=config(field_name="templateId")
@@ -728,6 +756,12 @@ class UpdateInvestigationV2Input:
     )
     assignee_id: Optional[str] = field(
         default=None, metadata=config(field_name="assigneeId")
+    )
+    service_desk_id: Optional[str] = field(
+        default=None, metadata=config(field_name="serviceDeskId")
+    )
+    service_desk_type: Optional[str] = field(
+        default=None, metadata=config(field_name="serviceDeskType")
     )
     type: Optional[InvestigationType] = field(
         default=None, metadata=config(field_name="type")
@@ -1057,6 +1091,12 @@ class InvestigationV2:
         default=None, metadata=config(field_name="closeReason")
     )
     rule_id: Optional[str] = field(default=None, metadata=config(field_name="ruleId"))
+    service_desk_id: Optional[str] = field(
+        default=None, metadata=config(field_name="serviceDeskId")
+    )
+    service_desk_type: Optional[str] = field(
+        default=None, metadata=config(field_name="serviceDeskType")
+    )
     alerts_evidence: Optional[List[AlertEvidence]] = field(
         default=None, metadata=config(field_name="alertsEvidence")
     )
@@ -1075,20 +1115,11 @@ class InvestigationV2:
     assignee: Optional[TDRUser] = field(
         default=None, metadata=config(field_name="assignee")
     )
-    assignee_client: Optional[Client] = field(
-        default=None, metadata=config(field_name="assigneeClient")
-    )
     created_by: Optional[TDRUser] = field(
         default=None, metadata=config(field_name="createdBy")
     )
-    created_by_client: Optional[Client] = field(
-        default=None, metadata=config(field_name="createdByClient")
-    )
     updated_by: Optional[TDRUser] = field(
         default=None, metadata=config(field_name="updatedBy")
-    )
-    updated_by_client: Optional[Client] = field(
-        default=None, metadata=config(field_name="updatedByClient")
     )
     type: Optional[InvestigationType] = field(
         default=None, metadata=config(field_name="type")

@@ -13,7 +13,7 @@ from gql.transport.websockets import WebsocketsTransport
 from graphql import GraphQLField, GraphQLSchema, GraphQLError
 from taegis_sdk_python._version import __version__
 from taegis_sdk_python.errors import InvalidGraphQLEndpoint
-from taegis_sdk_python.utils import async_block, prepare_variables
+from taegis_sdk_python.utils import async_block, prepare_variables, remove_node
 
 if TYPE_CHECKING:  # pragma: no cover
     from taegis_sdk_python.services import GraphQLService
@@ -252,35 +252,31 @@ class ServiceCore:
         str
             GraphQL string
         """
+        query_string = self._build_output_query(
+            operation_type=operation_type,
+            endpoint=endpoint,
+            graphql_field=graphql_field,
+            output=output,
+        )
+        query_string = " ".join(query_string.split())
+
         # open a connection for introspection and download schema
         with self.sync_client as session:
             # if multiple fields are invalid, we want to iterate until the
             # output string is valid
-            while True:
-                query_string = self._build_output_query(
-                    operation_type=operation_type,
-                    endpoint=endpoint,
-                    graphql_field=graphql_field,
-                    output=output,
-                )
-
-                # we don't want to infinitely process this, so if we break
-                # if the output string doesn't exist, or all the fields have been
-                # removed
-                if not (output or any(char not in {" ", "{", "}"} for char in output)):
-                    break
-
+            for _ in range(10000):
                 try:
                     session.client.validate(gql(query_string))
                     break
 
                 except GraphQLError as exc:
                     if "Cannot query field" in exc.message:
-                        for node in exc.nodes:
-                            log.warning(
-                                f"{self.service.environment} - field {node.name.value} not found.  Removing from query string..."
-                            )
-                            output = output.replace(node.name.value, "")
+                        log.warning(
+                            f"{self.service.environment} - field {exc.nodes[0].name.value} not found.  Removing from query string..."
+                        )
+                        query_string = remove_node(
+                            query_string, exc.nodes[0], exc.locations[0]
+                        )
                     else:
                         raise exc
 

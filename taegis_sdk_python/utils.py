@@ -9,6 +9,8 @@ from dataclasses import is_dataclass
 from enum import Enum
 from typing import Any, Callable, Dict, Optional, Union
 
+from graphql.language.ast import FieldNode
+from graphql.language.location import SourceLocation
 from graphql.type import is_object_type, is_scalar_type
 from graphql.type import is_union_type as is_gql_union_type
 from graphql.type import is_wrapping_type
@@ -243,6 +245,50 @@ def parse_union_result(union, result: Dict[str, Any]) -> Any:
     return result
 
 
+def remove_node(query: str, node: FieldNode, location: SourceLocation) -> str:
+    """Remove a GraphQL node with subnodes.
+
+    Parameters
+    ----------
+    query : str
+        GraphQL Query string
+    node : FieldNode
+        GraphQL Node
+    location : SourceLocation
+        GraphQL Node Location
+
+    Returns
+    -------
+    str
+        GraphQL Query string without erroring node (and subnodes)
+    """
+    key = node.name.value
+    start_idx = location.column - 1
+    end_idx = None
+
+    brackets_found = 0
+    for idx, char in enumerate(query):
+        if idx < start_idx + len(key):
+            continue
+
+        if char == " ":
+            continue
+
+        if brackets_found == 0 and char != "{":
+            end_idx = idx
+            break
+
+        if char == "{":
+            brackets_found += 1
+
+        elif char == "}":
+            brackets_found -= 1
+
+        end_idx = idx
+
+    return query[:start_idx] + query[end_idx:]
+
+
 __all__ = [
     "build_output_string",
     "async_block",
@@ -250,4 +296,5 @@ __all__ = [
     "prepare_variables",
     "parse_union_result",
     "build_output_string_from_introspection",
+    "remove_node",
 ]
