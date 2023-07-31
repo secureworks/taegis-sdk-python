@@ -110,7 +110,7 @@ class TaegisSDKTenantsMutation:
     def create_tenant_label(
         self, tenant_id: str, label_input: InputTenantLabel
     ) -> TenantLabel:
-        """Add Label to Tenant."""
+        """Add Label to Tenant. If label is for partner parent/child and is owned by SCWX, subject must have access to SCWX also.."""
         endpoint = "createTenantLabel"
 
         result = self.service.execute_mutation(
@@ -128,7 +128,7 @@ class TaegisSDKTenantsMutation:
     def update_tenant_label(
         self, label_id: str, tenant_id: str, label_input: InputTenantLabel
     ) -> TenantLabel:
-        """Update Label for a Tenant."""
+        """Update Label for a Tenant. If label is for partner parent/child and is owned by SCWX, subject must have access to SCWX also.."""
         endpoint = "updateTenantLabel"
 
         result = self.service.execute_mutation(
@@ -145,7 +145,7 @@ class TaegisSDKTenantsMutation:
         raise GraphQLNoRowsInResultSetError("for mutation updateTenantLabel")
 
     def delete_tenant_label(self, label_id: str, tenant_id: str) -> TenantLabel:
-        """Remove a Label from a Tenant."""
+        """Remove a Label from a Tenant. If label is for partner parent/child and is owned by SCWX, subject must have access to SCWX also.."""
         endpoint = "deleteTenantLabel"
 
         result = self.service.execute_mutation(

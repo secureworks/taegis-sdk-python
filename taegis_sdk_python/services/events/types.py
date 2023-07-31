@@ -80,8 +80,8 @@ class LogicalType(str, Enum):
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
-class BackendTargetingStrategy:
-    """BackendTargetingStrategy."""
+class BackendStrategy:
+    """BackendStrategy."""
 
     primary: Optional[int] = field(default=None, metadata=config(field_name="primary"))
     exclude: Optional[List[int]] = field(
@@ -91,13 +91,14 @@ class BackendTargetingStrategy:
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
-class Event:
-    """Event."""
+class EventProvenance:
+    """EventProvenance."""
 
-    id: Optional[str] = field(default=None, metadata=config(field_name="id"))
-    values: Optional[dict] = field(default=None, metadata=config(field_name="values"))
-    backends: Optional[List[int]] = field(
-        default=None, metadata=config(field_name="backends")
+    backend_sources: Optional[List[str]] = field(
+        default=None, metadata=config(field_name="backendSources")
+    )
+    from_cache: Optional[bool] = field(
+        default=None, metadata=config(field_name="fromCache")
     )
 
 
@@ -146,6 +147,18 @@ class EventQueryProgress:
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
+class Event:
+    """Event."""
+
+    id: Optional[str] = field(default=None, metadata=config(field_name="id"))
+    values: Optional[dict] = field(default=None, metadata=config(field_name="values"))
+    provenance: Optional[EventProvenance] = field(
+        default=None, metadata=config(field_name="provenance")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
 class EventFetchOptions:
     """EventFetchOptions."""
 
@@ -158,7 +171,7 @@ class EventFetchOptions:
     normalize_event_keys: Optional[bool] = field(
         default=None, metadata=config(field_name="normalizeEventKeys")
     )
-    backend_strategy: Optional[BackendTargetingStrategy] = field(
+    backend_strategy: Optional[BackendStrategy] = field(
         default=None, metadata=config(field_name="backendStrategy")
     )
 
@@ -225,7 +238,7 @@ class EventQueryOptions:
             field_name="searchTarget",
         ),
     )
-    backend_strategy: Optional[BackendTargetingStrategy] = field(
+    backend_strategy: Optional[BackendStrategy] = field(
         default=None, metadata=config(field_name="backendStrategy")
     )
 
@@ -251,18 +264,18 @@ class EventQueryResult:
         metadata=config(
             metadata={
                 "deprecated": True,
-                "deprecation_reason": "Moved to backendTarget",
+                "deprecation_reason": "Moved to backendSource",
             },
             field_name="backend",
         ),
-    )
-    backend_target: Optional[int] = field(
-        default=None, metadata=config(field_name="backendTarget")
     )
     facets: Optional[dict] = field(default=None, metadata=config(field_name="facets"))
     rows: Optional[List[dict]] = field(default=None, metadata=config(field_name="rows"))
     progress: Optional[EventQueryProgress] = field(
         default=None, metadata=config(field_name="progress")
+    )
+    provenance: Optional[EventProvenance] = field(
+        default=None, metadata=config(field_name="provenance")
     )
     fields: Optional[List[Field]] = field(
         default=None, metadata=config(field_name="fields")

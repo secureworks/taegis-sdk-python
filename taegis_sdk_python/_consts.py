@@ -8,6 +8,8 @@ TAEGIS_ENVIRONMENT_URLS = {
     "US2": "https://api.delta.taegis.secureworks.com",
     "echo": "https://api.echo.taegis.secureworks.com",
     "EU": "https://api.echo.taegis.secureworks.com",
+    "foxtrot": "https://api.foxtrot.taegis.secureworks.com",
+    "US3": "https://api.foxtrot.taegis.secureworks.com",
 }
 
 
@@ -19,4 +21,6 @@ TAEGIS_TENANTS_URLS = {
     "US2": "https://api-tenants.delta.taegis.secureworks.com",
     "echo": "https://api-tenants.echo.taegis.secureworks.com",
     "EU": "https://api-tenants.echo.taegis.secureworks.com",
+    "foxtrot": "https://api-tenants.foxtrot.taegis.secureworks.com",
+    "US3": "https://api-tenants.foxtrot.taegis.secureworks.com",
 }
