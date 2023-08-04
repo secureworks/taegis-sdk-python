@@ -62,6 +62,7 @@ class TenantEnvironment(str, Enum):
     CHARLIE = "charlie"
     ECHO = "echo"
     DELTA = "delta"
+    FOXTROT = "foxtrot"
 
 
 class SSOEnvironment(str, Enum):

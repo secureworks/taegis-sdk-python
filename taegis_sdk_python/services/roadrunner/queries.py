@@ -47,23 +47,6 @@ class TaegisSDKRoadrunnerQuery:
             )
         raise GraphQLNoRowsInResultSetError("for query syslogSample")
 
-    def syslog_message_count(
-        self, options: SyslogMessageCountOptions
-    ) -> SyslogMessageCount:
-        """None."""
-        endpoint = "syslogMessageCount"
-
-        result = self.service.execute_query(
-            endpoint=endpoint,
-            variables={
-                "options": prepare_input(options),
-            },
-            output=build_output_string(SyslogMessageCount),
-        )
-        if result.get(endpoint) is not None:
-            return SyslogMessageCount.from_dict(result.get(endpoint))
-        raise GraphQLNoRowsInResultSetError("for query syslogMessageCount")
-
     def all_parsers(self) -> List[Parser]:
         """None."""
         endpoint = "allParsers"

@@ -75,6 +75,9 @@ class InvestigationType(str, Enum):
     CTU_THREAT_HUNT = "CTU_THREAT_HUNT"
     MANAGED_XDR_ELITE_THREAT_HUNT = "MANAGED_XDR_ELITE_THREAT_HUNT"
     SECUREWORKS_INCIDENT_RESPONSE = "SECUREWORKS_INCIDENT_RESPONSE"
+    UNLIMITED_RESPONSE = "UNLIMITED_RESPONSE"
+    MANAGED_XDR_OT_INVESTIGATION = "MANAGED_XDR_OT_INVESTIGATION"
+    OT_INVESTIGATION = "OT_INVESTIGATION"
 
 
 class InvestigationProcessingState(str, Enum):
@@ -159,6 +162,68 @@ class ArchiveInvestigationInput:
     """ArchiveInvestigationInput."""
 
     id: Optional[str] = field(default=None, metadata=config(field_name="id"))
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class Metric:
+    """Metric."""
+
+    draft_promoted_at: Optional[str] = field(
+        default=None, metadata=config(field_name="draftPromotedAt")
+    )
+    time_to_draft_promotion: Optional[int] = field(
+        default=None, metadata=config(field_name="timeToDraftPromotion")
+    )
+    draft_promoted_by: Optional[str] = field(
+        default=None, metadata=config(field_name="draftPromotedBy")
+    )
+    handed_off_at: Optional[str] = field(
+        default=None, metadata=config(field_name="handedOffAt")
+    )
+    time_to_hand_off: Optional[int] = field(
+        default=None, metadata=config(field_name="timeToHandOff")
+    )
+    handed_off_by: Optional[str] = field(
+        default=None, metadata=config(field_name="handedOffBy")
+    )
+    acknowledged_at: Optional[str] = field(
+        default=None, metadata=config(field_name="acknowledgedAt")
+    )
+    time_to_acknowledgement: Optional[int] = field(
+        default=None, metadata=config(field_name="timeToAcknowledgement")
+    )
+    acknowledged_by: Optional[str] = field(
+        default=None, metadata=config(field_name="acknowledgedBy")
+    )
+    resolved_at: Optional[str] = field(
+        default=None, metadata=config(field_name="resolvedAt")
+    )
+    time_to_resolution: Optional[int] = field(
+        default=None, metadata=config(field_name="timeToResolution")
+    )
+    resolved_by: Optional[str] = field(
+        default=None, metadata=config(field_name="resolvedBy")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class Metrics:
+    """Metrics."""
+
+    mean_time_to_handoff: Optional[int] = field(
+        default=None, metadata=config(field_name="meanTimeToHandoff")
+    )
+    mean_time_to_acknowledgement: Optional[int] = field(
+        default=None, metadata=config(field_name="meanTimeToAcknowledgement")
+    )
+    mean_time_to_resolution: Optional[int] = field(
+        default=None, metadata=config(field_name="meanTimeToResolution")
+    )
+    mean_time_to_draft_promotion: Optional[int] = field(
+        default=None, metadata=config(field_name="meanTimeToDraftPromotion")
+    )
 
 
 @dataclass_json
@@ -387,6 +452,9 @@ class AddCommentToInvestigationInput:
     comment: Optional[str] = field(default=None, metadata=config(field_name="comment"))
     investigation_id: Optional[str] = field(
         default=None, metadata=config(field_name="investigationId")
+    )
+    is_internal: Optional[bool] = field(
+        default=None, metadata=config(field_name="isInternal")
     )
 
 
@@ -913,6 +981,9 @@ class CommentV2:
     read_by_ids: Optional[List[str]] = field(
         default=None, metadata=config(field_name="readByIds")
     )
+    is_internal: Optional[bool] = field(
+        default=None, metadata=config(field_name="isInternal")
+    )
     author: Optional[TDRUser] = field(
         default=None, metadata=config(field_name="author")
     )
@@ -1130,19 +1201,7 @@ class InvestigationV2:
     comments_count: Optional[InvestigationCommentsCount] = field(
         default=None, metadata=config(field_name="commentsCount")
     )
-
-
-@dataclass_json
-@dataclass(order=True, eq=True, frozen=True)
-class InvestigationsV2:
-    """InvestigationsV2."""
-
-    total_count: Optional[int] = field(
-        default=None, metadata=config(field_name="totalCount")
-    )
-    investigations: Optional[List[InvestigationV2]] = field(
-        default=None, metadata=config(field_name="investigations")
-    )
+    metric: Optional[Metric] = field(default=None, metadata=config(field_name="metric"))
 
 
 @dataclass_json
@@ -1199,8 +1258,27 @@ class InvestigationV2Timeline:
 class CommentsV2:
     """CommentsV2."""
 
+    total_count: Optional[int] = field(
+        default=None, metadata=config(field_name="totalCount")
+    )
     comments: Optional[List[CommentV2]] = field(
         default=None, metadata=config(field_name="comments")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class InvestigationsV2:
+    """InvestigationsV2."""
+
+    total_count: Optional[int] = field(
+        default=None, metadata=config(field_name="totalCount")
+    )
+    investigations: Optional[List[InvestigationV2]] = field(
+        default=None, metadata=config(field_name="investigations")
+    )
+    metrics: Optional[Metrics] = field(
+        default=None, metadata=config(field_name="metrics")
     )
 
 

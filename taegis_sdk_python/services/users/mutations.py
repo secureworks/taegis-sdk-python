@@ -193,6 +193,19 @@ class TaegisSDKUsersMutation:
             return TDRUser.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for mutation updateTDRUserInfo")
 
+    def current_user_reset_mfa(self) -> MFAResetResponse:
+        """Reset MFA while logged in. This will read the access token from the authorization header to get the target user."""
+        endpoint = "currentUserResetMFA"
+
+        result = self.service.execute_mutation(
+            endpoint=endpoint,
+            variables={},
+            output=build_output_string(MFAResetResponse),
+        )
+        if result.get(endpoint) is not None:
+            return MFAResetResponse.from_dict(result.get(endpoint))
+        raise GraphQLNoRowsInResultSetError("for mutation currentUserResetMFA")
+
     def register_partner_user(
         self, registration_input: PartnerRegistrationInput
     ) -> TDRUser:

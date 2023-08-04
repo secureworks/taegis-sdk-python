@@ -641,6 +641,9 @@ class ClusterNodeTimeSeries:
     node_name: Optional[str] = field(
         default=None, metadata=config(field_name="nodeName")
     )
+    ip_address: Optional[str] = field(
+        default=None, metadata=config(field_name="ipAddress")
+    )
     val: Optional[List[TimeSeries]] = field(
         default=None, metadata=config(field_name="val")
     )

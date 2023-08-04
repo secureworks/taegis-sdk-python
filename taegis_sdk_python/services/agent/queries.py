@@ -80,3 +80,22 @@ class TaegisSDKAgentQuery:
         if result.get(endpoint) is not None:
             return PackageSignedUrl.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for query agentPackageSignedUrlByID")
+
+    def available_channels(
+        self, platform: Optional[AgentPlatform] = None
+    ) -> List[ReleaseChannelsConfig]:
+        """None."""
+        endpoint = "availableChannels"
+
+        result = self.service.execute_query(
+            endpoint=endpoint,
+            variables={
+                "platform": prepare_input(platform),
+            },
+            output=build_output_string(ReleaseChannelsConfig),
+        )
+        if result.get(endpoint) is not None:
+            return ReleaseChannelsConfig.schema().load(
+                [r or {} for r in result.get(endpoint)], many=True
+            )
+        raise GraphQLNoRowsInResultSetError("for query availableChannels")

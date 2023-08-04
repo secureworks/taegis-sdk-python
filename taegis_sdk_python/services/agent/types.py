@@ -44,9 +44,10 @@ class AgentPkgType(str, Enum):
 class AgentChannel(str, Enum):
     """AgentChannel."""
 
-    BETA = "BETA"
-    PREVIEW = "PREVIEW"
     STABLE = "STABLE"
+    PREVIEW = "PREVIEW"
+    BETA = "BETA"
+    INTERNAL_PREVIEW = "INTERNAL_PREVIEW"
     DEV = "DEV"
     CANARY = "CANARY"
     QE_PREV = "QE_PREV"
@@ -80,6 +81,20 @@ class PackageSignedUrl:
     size: Optional[int] = field(default=None, metadata=config(field_name="size"))
     signed_url: Optional[str] = field(
         default=None, metadata=config(field_name="signedUrl")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class ReleaseChannelsConfig:
+    """ReleaseChannelsConfig."""
+
+    name: Optional[str] = field(default=None, metadata=config(field_name="name"))
+    description: Optional[str] = field(
+        default=None, metadata=config(field_name="description")
+    )
+    internal: Optional[bool] = field(
+        default=None, metadata=config(field_name="internal")
     )
 
 
