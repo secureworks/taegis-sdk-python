@@ -25,7 +25,7 @@ log = logging.getLogger(__name__)
 
 
 class TaegisSDKAgentQuery:
-    """Teagis Agent Query operations."""
+    """Taegis Agent Query operations."""
 
     def __init__(self, service: AgentService):
         self.service = service
@@ -81,17 +81,13 @@ class TaegisSDKAgentQuery:
             return PackageSignedUrl.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for query agentPackageSignedUrlByID")
 
-    def available_channels(
-        self, platform: Optional[AgentPlatform] = None
-    ) -> List[ReleaseChannelsConfig]:
+    def available_channels(self) -> List[ReleaseChannelsConfig]:
         """None."""
         endpoint = "availableChannels"
 
         result = self.service.execute_query(
             endpoint=endpoint,
-            variables={
-                "platform": prepare_input(platform),
-            },
+            variables={},
             output=build_output_string(ReleaseChannelsConfig),
         )
         if result.get(endpoint) is not None:

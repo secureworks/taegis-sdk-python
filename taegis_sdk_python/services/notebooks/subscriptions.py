@@ -25,7 +25,7 @@ log = logging.getLogger(__name__)
 
 
 class TaegisSDKNotebooksSubscription:
-    """Teagis Notebooks Subscription operations."""
+    """Taegis Notebooks Subscription operations."""
 
     def __init__(self, service: NotebooksService):
         self.service = service

@@ -25,7 +25,7 @@ log = logging.getLogger(__name__)
 
 
 class TaegisSDKCollectorMutation:
-    """Teagis Collector Mutation operations."""
+    """Taegis Collector Mutation operations."""
 
     def __init__(self, service: CollectorService):
         self.service = service

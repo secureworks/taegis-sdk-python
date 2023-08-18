@@ -25,7 +25,7 @@ log = logging.getLogger(__name__)
 
 
 class TaegisSDKTenantsSubscription:
-    """Teagis Tenants Subscription operations."""
+    """Taegis Tenants Subscription operations."""
 
     def __init__(self, service: TenantsService):
         self.service = service

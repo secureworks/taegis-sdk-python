@@ -25,7 +25,7 @@ log = logging.getLogger(__name__)
 
 
 class TaegisSDKEntityProfileQuery:
-    """Teagis Entity_profile Query operations."""
+    """Taegis Entity_profile Query operations."""
 
     def __init__(self, service: EntityProfileService):
         self.service = service

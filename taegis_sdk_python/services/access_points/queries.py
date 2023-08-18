@@ -25,7 +25,7 @@ log = logging.getLogger(__name__)
 
 
 class TaegisSDKAccessPointsQuery:
-    """Teagis Access_points Query operations."""
+    """Taegis Access_points Query operations."""
 
     def __init__(self, service: AccessPointsService):
         self.service = service

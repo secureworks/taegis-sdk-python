@@ -25,7 +25,7 @@ log = logging.getLogger(__name__)
 
 
 class TaegisSDKNotebooksMutation:
-    """Teagis Notebooks Mutation operations."""
+    """Taegis Notebooks Mutation operations."""
 
     def __init__(self, service: NotebooksService):
         self.service = service

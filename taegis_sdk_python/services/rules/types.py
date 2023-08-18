@@ -584,6 +584,7 @@ class RuleInput:
     attack_categories: Optional[List[str]] = field(
         default=None, metadata=config(field_name="attackCategories")
     )
+    enabled: Optional[bool] = field(default=None, metadata=config(field_name="enabled"))
     event_type: Optional[RuleEventType] = field(
         default=None, metadata=config(field_name="eventType")
     )

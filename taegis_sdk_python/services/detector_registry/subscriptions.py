@@ -25,7 +25,7 @@ log = logging.getLogger(__name__)
 
 
 class TaegisSDKDetectorRegistrySubscription:
-    """Teagis Detector_registry Subscription operations."""
+    """Taegis Detector_registry Subscription operations."""
 
     def __init__(self, service: DetectorRegistryService):
         self.service = service

@@ -25,7 +25,7 @@ log = logging.getLogger(__name__)
 
 
 class TaegisSDKCollectorQuery:
-    """Teagis Collector Query operations."""
+    """Taegis Collector Query operations."""
 
     def __init__(self, service: CollectorService):
         self.service = service

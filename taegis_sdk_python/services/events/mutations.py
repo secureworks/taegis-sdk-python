@@ -25,7 +25,7 @@ log = logging.getLogger(__name__)
 
 
 class TaegisSDKEventsMutation:
-    """Teagis Events Mutation operations."""
+    """Taegis Events Mutation operations."""
 
     def __init__(self, service: EventsService):
         self.service = service

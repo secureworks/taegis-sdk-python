@@ -25,7 +25,7 @@ log = logging.getLogger(__name__)
 
 
 class TaegisSDKEntityProfileMutation:
-    """Teagis Entity_profile Mutation operations."""
+    """Taegis Entity_profile Mutation operations."""
 
     def __init__(self, service: EntityProfileService):
         self.service = service

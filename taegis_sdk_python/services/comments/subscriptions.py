@@ -25,7 +25,7 @@ log = logging.getLogger(__name__)
 
 
 class TaegisSDKCommentsSubscription:
-    """Teagis Comments Subscription operations."""
+    """Taegis Comments Subscription operations."""
 
     def __init__(self, service: CommentsService):
         self.service = service

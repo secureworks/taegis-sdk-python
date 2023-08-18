@@ -25,7 +25,7 @@ log = logging.getLogger(__name__)
 
 
 class TaegisSDKMitreAttackInfoMutation:
-    """Teagis Mitre_attack_info Mutation operations."""
+    """Taegis Mitre_attack_info Mutation operations."""
 
     def __init__(self, service: MitreAttackInfoService):
         self.service = service

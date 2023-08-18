@@ -25,7 +25,7 @@ log = logging.getLogger(__name__)
 
 
 class TaegisSDKEventsQuery:
-    """Teagis Events Query operations."""
+    """Taegis Events Query operations."""
 
     def __init__(self, service: EventsService):
         self.service = service

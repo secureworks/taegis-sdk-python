@@ -27,7 +27,7 @@ log = logging.getLogger(__name__)
 
 
 class TaegisSDKMultiTenantContextQuery:
-    """Teagis Multi_tenant_context Query operations."""
+    """Taegis Multi_tenant_context Query operations."""
 
     def __init__(self, service: MultiTenantContextService):
         self.service = service

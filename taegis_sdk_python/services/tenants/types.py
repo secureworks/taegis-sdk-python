@@ -14,11 +14,19 @@ from dataclasses import dataclass, field
 from dataclasses_json import dataclass_json, config
 
 
+class CheckAlias(str, Enum):
+    """CheckAlias."""
+
+    TENANT_UPDATE = "TenantUpdate"
+    TENANT_MANAGER_UPDATE = "TenantManagerUpdate"
+
+
 class AuthzObject(str, Enum):
     """AuthzObject."""
 
     TENANT = "Tenant"
     TENANT_HIERARCHY = "TenantHierarchy"
+    TENANT_MANAGER = "TenantManager"
     ENTERPRISE_SSO_CONNECTION = "EnterpriseSSOConnection"
 
 
@@ -37,6 +45,7 @@ class TenantType(str, Enum):
     INTERNAL_TENANT = "InternalTenant"
     CONNECTION_OWNER = "ConnectionOwner"
     SERVICE_OWNER = "ServiceOwner"
+    INTERNAL_SERVICE_OWNER = "InternalServiceOwner"
 
 
 class TenantOrderField(str, Enum):
@@ -87,6 +96,13 @@ class SSOConnectionStatus(str, Enum):
     TESTING = "Testing"
     ENABLED = "Enabled"
     DISABLED = "Disabled"
+
+
+class Auth0DomainType(str, Enum):
+    """Auth0DomainType."""
+
+    PRIVATE = "PRIVATE"
+    CUSTOM = "CUSTOM"
 
 
 class AuditAction(str, Enum):
@@ -594,19 +610,6 @@ class TenantEnvironmentUpdateInput:
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
-class InternalSearchInputs:
-    """InternalSearchInputs."""
-
-    with_domains: Optional[List[str]] = field(
-        default=None, metadata=config(field_name="withDomains")
-    )
-    environment: Optional[SSOEnvironment] = field(
-        default=None, metadata=config(field_name="environment")
-    )
-
-
-@dataclass_json
-@dataclass(order=True, eq=True, frozen=True)
 class TenantUpdateInput:
     """TenantUpdateInput."""
 
@@ -654,6 +657,22 @@ class UpdateTenant:
     )
     labels: Optional[List[LabelsForTenantUpdate]] = field(
         default=None, metadata=config(field_name="labels")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class InternalSearchInputs:
+    """InternalSearchInputs."""
+
+    with_domains: Optional[List[str]] = field(
+        default=None, metadata=config(field_name="withDomains")
+    )
+    environment: Optional[SSOEnvironment] = field(
+        default=None, metadata=config(field_name="environment")
+    )
+    with_auth0_domain_type: Optional[Auth0DomainType] = field(
+        default=None, metadata=config(field_name="withAuth0DomainType")
     )
 
 
@@ -727,6 +746,79 @@ class TenantCreateInput:
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
+class NewSSOConnectionInput:
+    """NewSSOConnectionInput."""
+
+    name: Optional[str] = field(default=None, metadata=config(field_name="name"))
+    domains: Optional[List[str]] = field(
+        default=None, metadata=config(field_name="domains")
+    )
+    testers: Optional[List[str]] = field(
+        default=None, metadata=config(field_name="testers")
+    )
+    type: Optional[SSOConnectionType] = field(
+        default=None, metadata=config(field_name="type")
+    )
+    connection_configuration: Optional[ConnectionConfiguration] = field(
+        default=None, metadata=config(field_name="connectionConfiguration")
+    )
+    auth0_domain_type: Optional[Auth0DomainType] = field(
+        default=None, metadata=config(field_name="auth0DomainType")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class UpdateSSOConnectionInput:
+    """UpdateSSOConnectionInput."""
+
+    id: Optional[str] = field(default=None, metadata=config(field_name="id"))
+    name: Optional[str] = field(default=None, metadata=config(field_name="name"))
+    add_domains: Optional[List[str]] = field(
+        default=None, metadata=config(field_name="addDomains")
+    )
+    remove_domains: Optional[List[str]] = field(
+        default=None, metadata=config(field_name="removeDomains")
+    )
+    add_testers: Optional[List[str]] = field(
+        default=None, metadata=config(field_name="addTesters")
+    )
+    remove_testers: Optional[List[str]] = field(
+        default=None, metadata=config(field_name="removeTesters")
+    )
+    status: Optional[SSOConnectionStatus] = field(
+        default=None, metadata=config(field_name="status")
+    )
+    connection_configuration: Optional[ConnectionConfiguration] = field(
+        default=None, metadata=config(field_name="connectionConfiguration")
+    )
+    auth0_domain_type: Optional[Auth0DomainType] = field(
+        default=None, metadata=config(field_name="auth0DomainType")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class PermissionCheck:
+    """PermissionCheck."""
+
+    if_internal: Optional[bool] = field(
+        default=None, metadata=config(field_name="ifInternal")
+    )
+    alias: Optional[CheckAlias] = field(
+        default=None, metadata=config(field_name="alias")
+    )
+    object: Optional[AuthzObject] = field(
+        default=None, metadata=config(field_name="object")
+    )
+    action: Optional[AuthzAction] = field(
+        default=None, metadata=config(field_name="action")
+    )
+    on: Optional[TenantType] = field(default=None, metadata=config(field_name="on"))
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
 class TenantSSOConnectionQueryInput:
     """TenantSSOConnectionQueryInput."""
 
@@ -747,6 +839,9 @@ class TenantSSOConnectionQueryInput:
     )
     exclude_status: Optional[List[SSOConnectionStatus]] = field(
         default=None, metadata=config(field_name="excludeStatus")
+    )
+    with_auth0_domain_type: Optional[Auth0DomainType] = field(
+        default=None, metadata=config(field_name="withAuth0DomainType")
     )
 
 
@@ -803,6 +898,9 @@ class SSOConnection:
     )
     sso_connection_idp_config: Optional[SSOConnectionConfiguration] = field(
         default=None, metadata=config(field_name="ssoConnectionIDPConfig")
+    )
+    auth0_domain_type: Optional[Auth0DomainType] = field(
+        default=None, metadata=config(field_name="auth0DomainType")
     )
 
 
@@ -983,51 +1081,4 @@ class SSOConnectionConfigResponse:
     subject: Optional[str] = field(default=None, metadata=config(field_name="subject"))
     sso_connection_configuration: Optional[SSOConnectionConfiguration] = field(
         default=None, metadata=config(field_name="ssoConnectionConfiguration")
-    )
-
-
-@dataclass_json
-@dataclass(order=True, eq=True, frozen=True)
-class NewSSOConnectionInput:
-    """NewSSOConnectionInput."""
-
-    name: Optional[str] = field(default=None, metadata=config(field_name="name"))
-    domains: Optional[List[str]] = field(
-        default=None, metadata=config(field_name="domains")
-    )
-    testers: Optional[List[str]] = field(
-        default=None, metadata=config(field_name="testers")
-    )
-    type: Optional[SSOConnectionType] = field(
-        default=None, metadata=config(field_name="type")
-    )
-    connection_configuration: Optional[ConnectionConfiguration] = field(
-        default=None, metadata=config(field_name="connectionConfiguration")
-    )
-
-
-@dataclass_json
-@dataclass(order=True, eq=True, frozen=True)
-class UpdateSSOConnectionInput:
-    """UpdateSSOConnectionInput."""
-
-    id: Optional[str] = field(default=None, metadata=config(field_name="id"))
-    name: Optional[str] = field(default=None, metadata=config(field_name="name"))
-    add_domains: Optional[List[str]] = field(
-        default=None, metadata=config(field_name="addDomains")
-    )
-    remove_domains: Optional[List[str]] = field(
-        default=None, metadata=config(field_name="removeDomains")
-    )
-    add_testers: Optional[List[str]] = field(
-        default=None, metadata=config(field_name="addTesters")
-    )
-    remove_testers: Optional[List[str]] = field(
-        default=None, metadata=config(field_name="removeTesters")
-    )
-    status: Optional[SSOConnectionStatus] = field(
-        default=None, metadata=config(field_name="status")
-    )
-    connection_configuration: Optional[ConnectionConfiguration] = field(
-        default=None, metadata=config(field_name="connectionConfiguration")
     )

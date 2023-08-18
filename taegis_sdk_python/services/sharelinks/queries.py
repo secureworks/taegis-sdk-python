@@ -25,7 +25,7 @@ log = logging.getLogger(__name__)
 
 
 class TaegisSDKSharelinksQuery:
-    """Teagis Sharelinks Query operations."""
+    """Taegis Sharelinks Query operations."""
 
     def __init__(self, service: SharelinksService):
         self.service = service

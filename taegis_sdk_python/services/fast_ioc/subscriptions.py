@@ -25,7 +25,7 @@ log = logging.getLogger(__name__)
 
 
 class TaegisSDKFastIocSubscription:
-    """Teagis Fast_ioc Subscription operations."""
+    """Taegis Fast_ioc Subscription operations."""
 
     def __init__(self, service: FastIocService):
         self.service = service

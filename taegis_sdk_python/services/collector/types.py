@@ -198,8 +198,8 @@ class Network:
     address: Optional[str] = field(default=None, metadata=config(field_name="address"))
     mask: Optional[str] = field(default=None, metadata=config(field_name="mask"))
     gateway: Optional[str] = field(default=None, metadata=config(field_name="gateway"))
-    dns: Optional[str] = field(default=None, metadata=config(field_name="dns"))
-    ntp: Optional[str] = field(default=None, metadata=config(field_name="ntp"))
+    dns: Optional[Any] = field(default=None, metadata=config(field_name="dns"))
+    ntp: Optional[Any] = field(default=None, metadata=config(field_name="ntp"))
     proxy: Optional[str] = field(default=None, metadata=config(field_name="proxy"))
 
 
@@ -541,8 +541,8 @@ class OSConfig:
     address: Optional[str] = field(default=None, metadata=config(field_name="address"))
     mask: Optional[str] = field(default=None, metadata=config(field_name="mask"))
     gateway: Optional[str] = field(default=None, metadata=config(field_name="gateway"))
-    dns: Optional[str] = field(default=None, metadata=config(field_name="dns"))
-    ntp: Optional[str] = field(default=None, metadata=config(field_name="ntp"))
+    dns: Optional[Any] = field(default=None, metadata=config(field_name="dns"))
+    ntp: Optional[Any] = field(default=None, metadata=config(field_name="ntp"))
     proxy: Optional[str] = field(default=None, metadata=config(field_name="proxy"))
     status: Optional[ConfigStatus] = field(
         default=None, metadata=config(field_name="status")

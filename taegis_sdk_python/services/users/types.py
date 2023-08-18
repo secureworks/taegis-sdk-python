@@ -712,6 +712,9 @@ class TDRUsersSearchResults:
     total_count: Optional[int] = field(
         default=None, metadata=config(field_name="total_count")
     )
+    total_unfiltered_count: Optional[int] = field(
+        default=None, metadata=config(field_name="total_unfiltered_count")
+    )
     results: Optional[List[TDRUser]] = field(
         default=None, metadata=config(field_name="results")
     )

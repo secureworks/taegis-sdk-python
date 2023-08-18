@@ -27,7 +27,7 @@ log = logging.getLogger(__name__)
 
 
 class TaegisSDKEndpointCommandManagerQuery:
-    """Teagis Endpoint_command_manager Query operations."""
+    """Taegis Endpoint_command_manager Query operations."""
 
     def __init__(self, service: EndpointCommandManagerService):
         self.service = service

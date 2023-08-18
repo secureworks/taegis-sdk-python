@@ -96,6 +96,9 @@ class Audit:
     ccdp_status: Optional[str] = field(
         default=None, metadata=config(field_name="ccdpStatus")
     )
+    partner_internal_log: Optional[bool] = field(
+        default=None, metadata=config(field_name="partnerInternalLog")
+    )
 
 
 @dataclass_json
@@ -151,6 +154,9 @@ class AuditInput:
         default=None, metadata=config(field_name="afterState")
     )
     extras: Optional[dict] = field(default=None, metadata=config(field_name="extras"))
+    partner_internal_log: Optional[bool] = field(
+        default=None, metadata=config(field_name="partnerInternalLog")
+    )
 
 
 @dataclass_json

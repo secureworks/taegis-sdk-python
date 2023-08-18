@@ -25,7 +25,7 @@ log = logging.getLogger(__name__)
 
 
 class TaegisSDKThreatQuery:
-    """Teagis Threat Query operations."""
+    """Taegis Threat Query operations."""
 
     def __init__(self, service: ThreatService):
         self.service = service

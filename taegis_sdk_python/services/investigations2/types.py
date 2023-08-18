@@ -75,9 +75,6 @@ class InvestigationType(str, Enum):
     CTU_THREAT_HUNT = "CTU_THREAT_HUNT"
     MANAGED_XDR_ELITE_THREAT_HUNT = "MANAGED_XDR_ELITE_THREAT_HUNT"
     SECUREWORKS_INCIDENT_RESPONSE = "SECUREWORKS_INCIDENT_RESPONSE"
-    UNLIMITED_RESPONSE = "UNLIMITED_RESPONSE"
-    MANAGED_XDR_OT_INVESTIGATION = "MANAGED_XDR_OT_INVESTIGATION"
-    OT_INVESTIGATION = "OT_INVESTIGATION"
 
 
 class InvestigationProcessingState(str, Enum):
@@ -856,6 +853,30 @@ class CloseInvestigationInput:
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
+class InvestigationV2TimelineArguments:
+    """InvestigationV2TimelineArguments."""
+
+    investigation_id: Optional[str] = field(
+        default=None, metadata=config(field_name="investigationId")
+    )
+    page: Optional[int] = field(default=None, metadata=config(field_name="page"))
+    per_page: Optional[int] = field(default=None, metadata=config(field_name="perPage"))
+    created_after: Optional[str] = field(
+        default=None, metadata=config(field_name="createdAfter")
+    )
+    created_before: Optional[str] = field(
+        default=None, metadata=config(field_name="createdBefore")
+    )
+    order_by: Optional[PaginationOrder] = field(
+        default=None, metadata=config(field_name="orderBy")
+    )
+    entity_types: Optional[List[InvestigationV2TimelineEntityType]] = field(
+        default=None, metadata=config(field_name="entityTypes")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
 class InvestigationTemplate:
     """InvestigationTemplate."""
 
@@ -911,29 +932,8 @@ class InvestigationTemplate:
     updated_by: Optional[TDRUser] = field(
         default=None, metadata=config(field_name="updatedBy")
     )
-
-
-@dataclass_json
-@dataclass(order=True, eq=True, frozen=True)
-class InvestigationV2TimelineArguments:
-    """InvestigationV2TimelineArguments."""
-
-    investigation_id: Optional[str] = field(
-        default=None, metadata=config(field_name="investigationId")
-    )
-    page: Optional[int] = field(default=None, metadata=config(field_name="page"))
-    per_page: Optional[int] = field(default=None, metadata=config(field_name="perPage"))
-    created_after: Optional[str] = field(
-        default=None, metadata=config(field_name="createdAfter")
-    )
-    created_before: Optional[str] = field(
-        default=None, metadata=config(field_name="createdBefore")
-    )
-    order_by: Optional[PaginationOrder] = field(
-        default=None, metadata=config(field_name="orderBy")
-    )
-    entity_types: Optional[List[InvestigationV2TimelineEntityType]] = field(
-        default=None, metadata=config(field_name="entityTypes")
+    investigation_assignee_user: Optional[TDRUser] = field(
+        default=None, metadata=config(field_name="investigationAssigneeUser")
     )
 
 

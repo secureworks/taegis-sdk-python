@@ -25,7 +25,7 @@ log = logging.getLogger(__name__)
 
 
 class TaegisSDKTripMutation:
-    """Teagis Trip Mutation operations."""
+    """Taegis Trip Mutation operations."""
 
     def __init__(self, service: TripService):
         self.service = service

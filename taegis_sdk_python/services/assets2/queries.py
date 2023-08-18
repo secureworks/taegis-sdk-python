@@ -25,7 +25,7 @@ log = logging.getLogger(__name__)
 
 
 class TaegisSDKAssets2Query:
-    """Teagis Assets2 Query operations."""
+    """Taegis Assets2 Query operations."""
 
     def __init__(self, service: Assets2Service):
         self.service = service

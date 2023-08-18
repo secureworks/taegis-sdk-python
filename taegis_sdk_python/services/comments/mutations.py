@@ -25,7 +25,7 @@ log = logging.getLogger(__name__)
 
 
 class TaegisSDKCommentsMutation:
-    """Teagis Comments Mutation operations."""
+    """Taegis Comments Mutation operations."""
 
     def __init__(self, service: CommentsService):
         self.service = service

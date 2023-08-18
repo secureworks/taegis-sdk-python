@@ -25,7 +25,7 @@ log = logging.getLogger(__name__)
 
 
 class TaegisSDKExportsQuery:
-    """Teagis Exports Query operations."""
+    """Taegis Exports Query operations."""
 
     def __init__(self, service: ExportsService):
         self.service = service

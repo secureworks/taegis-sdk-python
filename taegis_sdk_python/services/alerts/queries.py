@@ -25,7 +25,7 @@ log = logging.getLogger(__name__)
 
 
 class TaegisSDKAlertsQuery:
-    """Teagis Alerts Query operations."""
+    """Taegis Alerts Query operations."""
 
     def __init__(self, service: AlertsService):
         self.service = service

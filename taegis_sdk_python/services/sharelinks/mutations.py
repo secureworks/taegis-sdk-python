@@ -25,7 +25,7 @@ log = logging.getLogger(__name__)
 
 
 class TaegisSDKSharelinksMutation:
-    """Teagis Sharelinks Mutation operations."""
+    """Taegis Sharelinks Mutation operations."""
 
     def __init__(self, service: SharelinksService):
         self.service = service

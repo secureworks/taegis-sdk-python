@@ -25,7 +25,7 @@ log = logging.getLogger(__name__)
 
 
 class TaegisSDKTenantsMutation:
-    """Teagis Tenants Mutation operations."""
+    """Taegis Tenants Mutation operations."""
 
     def __init__(self, service: TenantsService):
         self.service = service
@@ -160,6 +160,37 @@ class TaegisSDKTenantsMutation:
             return TenantLabel.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for mutation deleteTenantLabel")
 
+    def create_tenant(self, new_tenant: TenantCreateInput) -> Tenant:
+        """Creates a tenant, user needs to have access to the partner tenant to create a new tenant."""
+        endpoint = "createTenant"
+
+        result = self.service.execute_mutation(
+            endpoint=endpoint,
+            variables={
+                "newTenant": prepare_input(new_tenant),
+            },
+            output=build_output_string(Tenant),
+        )
+        if result.get(endpoint) is not None:
+            return Tenant.from_dict(result.get(endpoint))
+        raise GraphQLNoRowsInResultSetError("for mutation createTenant")
+
+    def update_tenant(self, tenant_id: str, tenant_update: TenantUpdateInput) -> Tenant:
+        """Allows to update a tenant."""
+        endpoint = "updateTenant"
+
+        result = self.service.execute_mutation(
+            endpoint=endpoint,
+            variables={
+                "tenantID": prepare_input(tenant_id),
+                "tenantUpdate": prepare_input(tenant_update),
+            },
+            output=build_output_string(Tenant),
+        )
+        if result.get(endpoint) is not None:
+            return Tenant.from_dict(result.get(endpoint))
+        raise GraphQLNoRowsInResultSetError("for mutation updateTenant")
+
     def create_sso_connection(
         self, new_connection: NewSSOConnectionInput
     ) -> SSOConnection:
@@ -254,37 +285,6 @@ class TaegisSDKTenantsMutation:
         if result.get(endpoint) is not None:
             return Tenant.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for mutation disableTenantSupport")
-
-    def create_tenant(self, new_tenant: TenantCreateInput) -> Tenant:
-        """Creates a tenant, user needs to have access to the partner tenant to create a new tenant."""
-        endpoint = "createTenant"
-
-        result = self.service.execute_mutation(
-            endpoint=endpoint,
-            variables={
-                "newTenant": prepare_input(new_tenant),
-            },
-            output=build_output_string(Tenant),
-        )
-        if result.get(endpoint) is not None:
-            return Tenant.from_dict(result.get(endpoint))
-        raise GraphQLNoRowsInResultSetError("for mutation createTenant")
-
-    def update_tenant(self, tenant_id: str, tenant_update: TenantUpdateInput) -> Tenant:
-        """Allows to update a tenant."""
-        endpoint = "updateTenant"
-
-        result = self.service.execute_mutation(
-            endpoint=endpoint,
-            variables={
-                "tenantID": prepare_input(tenant_id),
-                "tenantUpdate": prepare_input(tenant_update),
-            },
-            output=build_output_string(Tenant),
-        )
-        if result.get(endpoint) is not None:
-            return Tenant.from_dict(result.get(endpoint))
-        raise GraphQLNoRowsInResultSetError("for mutation updateTenant")
 
     def change_tenant_hierarchy(
         self, tenant_id: str, new_partner_tenant_id: str

@@ -25,7 +25,7 @@ log = logging.getLogger(__name__)
 
 
 class TaegisSDKEventSearchSubscription:
-    """Teagis Event_search Subscription operations."""
+    """Taegis Event_search Subscription operations."""
 
     def __init__(self, service: EventSearchService):
         self.service = service

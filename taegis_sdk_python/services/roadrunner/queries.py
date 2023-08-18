@@ -25,7 +25,7 @@ log = logging.getLogger(__name__)
 
 
 class TaegisSDKRoadrunnerQuery:
-    """Teagis Roadrunner Query operations."""
+    """Taegis Roadrunner Query operations."""
 
     def __init__(self, service: RoadrunnerService):
         self.service = service
