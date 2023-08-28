@@ -275,7 +275,7 @@ class TaegisSDKThreatQuery:
         raise GraphQLNoRowsInResultSetError("for query threatVidIntelligence")
 
     def threat_indicators_intelligence(
-        self, id_: List[str]
+        self, id_: Optional[List[str]] = None
     ) -> List[ThreatIndicatorIntelligence]:
         """Retrieves all intelligence associated with a list of indicators.."""
         endpoint = "threatIndicatorsIntelligence"

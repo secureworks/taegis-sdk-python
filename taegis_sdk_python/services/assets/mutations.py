@@ -165,7 +165,7 @@ class TaegisSDKAssetsMutation:
         raise GraphQLNoRowsInResultSetError("for mutation addInvestigationAssets")
 
     def remove_investigation_assets(
-        self, asset_ids: List[str], investigation_id: str
+        self, investigation_id: str, asset_ids: Optional[List[str]] = None
     ) -> bool:
         """remove investigation assets relation."""
         endpoint = "removeInvestigationAssets"

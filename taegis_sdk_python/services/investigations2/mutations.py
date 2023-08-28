@@ -312,3 +312,37 @@ class TaegisSDKInvestigations2Mutation:
         if result.get(endpoint) is not None:
             return InvestigationV2.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for mutation archiveInvestigationV2")
+
+    def init_investigation_file_upload(
+        self, input_: InitInvestigationFileUploadInput
+    ) -> InvestigationFileUpload:
+        """Initialize file upload to get Presigned URL to upload file."""
+        endpoint = "initInvestigationFileUpload"
+
+        result = self.service.execute_mutation(
+            endpoint=endpoint,
+            variables={
+                "input": prepare_input(input_),
+            },
+            output=build_output_string(InvestigationFileUpload),
+        )
+        if result.get(endpoint) is not None:
+            return InvestigationFileUpload.from_dict(result.get(endpoint))
+        raise GraphQLNoRowsInResultSetError("for mutation initInvestigationFileUpload")
+
+    def delete_investigation_file(
+        self, input_: DeleteInvestigationFileInput
+    ) -> InvestigationFileV2:
+        """Delete investigation file."""
+        endpoint = "deleteInvestigationFile"
+
+        result = self.service.execute_mutation(
+            endpoint=endpoint,
+            variables={
+                "input": prepare_input(input_),
+            },
+            output=build_output_string(InvestigationFileV2),
+        )
+        if result.get(endpoint) is not None:
+            return InvestigationFileV2.from_dict(result.get(endpoint))
+        raise GraphQLNoRowsInResultSetError("for mutation deleteInvestigationFile")

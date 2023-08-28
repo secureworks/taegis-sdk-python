@@ -14,6 +14,7 @@ from taegis_sdk_python.services.alerts import AlertsService
 from taegis_sdk_python.services.assets import AssetsService
 from taegis_sdk_python.services.assets2 import Assets2Service
 from taegis_sdk_python.services.audits import AuditsService
+from taegis_sdk_python.services.authz import AuthzService
 from taegis_sdk_python.services.clients import ClientsService
 from taegis_sdk_python.services.collector import CollectorService
 from taegis_sdk_python.services.comments import CommentsService
@@ -101,6 +102,7 @@ class GraphQLService:
         self._assets = None
         self._assets2 = None
         self._audits = None
+        self._authz = None
         self._clients = None
         self._collector = None
         self._comments = None
@@ -248,6 +250,13 @@ class GraphQLService:
         if not self._audits:
             self._audits = AuditsService(self)
         return self._audits
+
+    @property
+    def authz(self):
+        """Authz Service Endpoint."""
+        if not self._authz:
+            self._authz = AuthzService(self)
+        return self._authz
 
     @property
     def clients(self):

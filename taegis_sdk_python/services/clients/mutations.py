@@ -30,7 +30,7 @@ class TaegisSDKClientsMutation:
     def __init__(self, service: ClientsService):
         self.service = service
 
-    def create_client(self, name: str, roles: List[str]) -> NewClient:
+    def create_client(self, name: str, roles: Optional[List[str]] = None) -> NewClient:
         """Create a new client (SCWX (tenant 5000) clients are disallowed)."""
         endpoint = "createClient"
 

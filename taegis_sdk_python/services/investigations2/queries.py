@@ -193,3 +193,37 @@ class TaegisSDKInvestigations2Query:
                 [r or {} for r in result.get(endpoint)], many=True
             )
         raise GraphQLNoRowsInResultSetError("for query investigationV2Types")
+
+    def investigation_file_v2(
+        self, arguments: InvestigationFileV2Arguments
+    ) -> InvestigationFileV2:
+        """Get investigation file meta details - includes presigned download url."""
+        endpoint = "investigationFileV2"
+
+        result = self.service.execute_query(
+            endpoint=endpoint,
+            variables={
+                "arguments": prepare_input(arguments),
+            },
+            output=build_output_string(InvestigationFileV2),
+        )
+        if result.get(endpoint) is not None:
+            return InvestigationFileV2.from_dict(result.get(endpoint))
+        raise GraphQLNoRowsInResultSetError("for query investigationFileV2")
+
+    def investigation_files_v2(
+        self, arguments: InvestigationFilesV2Arguments
+    ) -> InvestigationFilesV2:
+        """Get investigation files meta details - does not include presigned download urls."""
+        endpoint = "investigationFilesV2"
+
+        result = self.service.execute_query(
+            endpoint=endpoint,
+            variables={
+                "arguments": prepare_input(arguments),
+            },
+            output=build_output_string(InvestigationFilesV2),
+        )
+        if result.get(endpoint) is not None:
+            return InvestigationFilesV2.from_dict(result.get(endpoint))
+        raise GraphQLNoRowsInResultSetError("for query investigationFilesV2")

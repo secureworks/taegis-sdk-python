@@ -60,7 +60,9 @@ class TaegisSDKInvestigationsQuery:
             return Investigation.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for query investigation")
 
-    def investigations(self, investigation_ids: List[str]) -> List[Investigation]:
+    def investigations(
+        self, investigation_ids: Optional[List[str]] = None
+    ) -> List[Investigation]:
         """Get investigations for the list of ids."""
         endpoint = "investigations"
 

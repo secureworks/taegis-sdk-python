@@ -47,7 +47,7 @@ class TaegisSDKMultiTenantContextMutation:
             return Session.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for mutation createSession")
 
-    def set_session(self, inputs: List[SessionInput]) -> List[Session]:
+    def set_session(self, inputs: Optional[List[SessionInput]] = None) -> List[Session]:
         """Sets a multi tenant session. Set the tenants you want to look at for a session.."""
         endpoint = "setSession"
 

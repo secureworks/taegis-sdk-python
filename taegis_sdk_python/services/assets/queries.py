@@ -188,7 +188,7 @@ class TaegisSDKAssetsQuery:
             return AssetCounts.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for query allAssetsCount")
 
-    def assets_by_ids(self, ids: List[str]) -> List[Asset]:
+    def assets_by_ids(self, ids: Optional[List[str]] = None) -> List[Asset]:
         """Bulk lookup by ids."""
         endpoint = "assetsByIds"
 
@@ -205,7 +205,7 @@ class TaegisSDKAssetsQuery:
             )
         raise GraphQLNoRowsInResultSetError("for query assetsByIds")
 
-    def assets_by_host_ids(self, host_ids: List[str]) -> List[Asset]:
+    def assets_by_host_ids(self, host_ids: Optional[List[str]] = None) -> List[Asset]:
         """Bulk lookup by hostIds."""
         endpoint = "assetsByHostIds"
 
@@ -222,7 +222,9 @@ class TaegisSDKAssetsQuery:
             )
         raise GraphQLNoRowsInResultSetError("for query assetsByHostIds")
 
-    def assets_by_ip_addresses(self, ip_addresses: List[str]) -> List[Asset]:
+    def assets_by_ip_addresses(
+        self, ip_addresses: Optional[List[str]] = None
+    ) -> List[Asset]:
         """Bulk lookup by ipAddress."""
         endpoint = "assetsByIpAddresses"
 

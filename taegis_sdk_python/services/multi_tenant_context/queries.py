@@ -32,7 +32,7 @@ class TaegisSDKMultiTenantContextQuery:
     def __init__(self, service: MultiTenantContextService):
         self.service = service
 
-    def get_session(self, keys: List[str]) -> List[Session]:
+    def get_session(self, keys: Optional[List[str]] = None) -> List[Session]:
         """Gets a multi tenant session. This contains the multiple tenants a subject can look at. If the global key is provided but the session does not exist, it will be populated.."""
         endpoint = "getSession"
 

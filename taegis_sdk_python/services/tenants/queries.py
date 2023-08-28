@@ -31,7 +31,7 @@ class TaegisSDKTenantsQuery:
         self.service = service
 
     def assignable_services(
-        self, service_ids: List[str], tenant_id: Optional[str] = None
+        self, tenant_id: Optional[str] = None, service_ids: Optional[List[str]] = None
     ) -> List[Service]:
         """Returns the assignable Services for the optional tenant, or assignable Services for all accessible tenants if a tenant is not specified.  Only Secureworks and Partners may manage Services, for other tenants this will return an empty list."""
         endpoint = "assignableServices"

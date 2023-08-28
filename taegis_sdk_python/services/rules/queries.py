@@ -326,7 +326,7 @@ class TaegisSDKRulesQuery:
     def test_filters(
         self,
         event_type: RuleEventType,
-        filters: List[RuleFilterInput],
+        filters: Optional[List[RuleFilterInput]] = None,
         sample_count: Optional[int] = None,
     ) -> List[RuleTestMatchStep]:
         """None."""

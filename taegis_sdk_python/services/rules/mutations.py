@@ -66,7 +66,9 @@ class TaegisSDKRulesMutation:
             return Rule.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for mutation createCustomSuppressionRule")
 
-    def create_rule(self, input_: RuleInput, filters: List[RuleFilterInput]) -> Rule:
+    def create_rule(
+        self, input_: RuleInput, filters: Optional[List[RuleFilterInput]] = None
+    ) -> Rule:
         """Create the given new rule, with optional filters."""
         endpoint = "createRule"
 

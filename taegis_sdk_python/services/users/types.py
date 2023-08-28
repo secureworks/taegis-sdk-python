@@ -310,6 +310,9 @@ class AuthorizeCheckConnection:
     tenant_id: Optional[str] = field(
         default=None, metadata=config(field_name="tenant_id")
     )
+    auth0_domain_type: Optional[str] = field(
+        default=None, metadata=config(field_name="auth0_domain_type")
+    )
 
 
 @dataclass_json

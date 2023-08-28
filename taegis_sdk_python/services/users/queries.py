@@ -90,7 +90,7 @@ class TaegisSDKUsersQuery:
             )
         raise GraphQLNoRowsInResultSetError("for query tdrusers")
 
-    def tdrusers_by_ids(self, user_ids: List[str]) -> List[TDRUser]:
+    def tdrusers_by_ids(self, user_ids: Optional[List[str]] = None) -> List[TDRUser]:
         """Search users by id list. The list can contain a mixture of IDs or UserIDs.."""
         endpoint = "tdrusersByIDs"
 
@@ -107,7 +107,9 @@ class TaegisSDKUsersQuery:
             )
         raise GraphQLNoRowsInResultSetError("for query tdrusersByIDs")
 
-    def search_tdrusers_by_ids(self, user_ids: List[str]) -> List[SearchByIDsResponse]:
+    def search_tdrusers_by_ids(
+        self, user_ids: Optional[List[str]] = None
+    ) -> List[SearchByIDsResponse]:
         """ "
         Search users by id list. The list can contain a mixture of IDs or UserIDs. Errors are reported individually for each ID.
         Search will be processed using the X-Tenant-Context header as a filter first. Subsequent searches will use role assginments

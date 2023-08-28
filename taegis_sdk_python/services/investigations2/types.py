@@ -75,6 +75,9 @@ class InvestigationType(str, Enum):
     CTU_THREAT_HUNT = "CTU_THREAT_HUNT"
     MANAGED_XDR_ELITE_THREAT_HUNT = "MANAGED_XDR_ELITE_THREAT_HUNT"
     SECUREWORKS_INCIDENT_RESPONSE = "SECUREWORKS_INCIDENT_RESPONSE"
+    UNLIMITED_RESPONSE = "UNLIMITED_RESPONSE"
+    MANAGED_XDR_OT_INVESTIGATION = "MANAGED_XDR_OT_INVESTIGATION"
+    OT_INVESTIGATION = "OT_INVESTIGATION"
 
 
 class InvestigationProcessingState(str, Enum):
@@ -567,6 +570,62 @@ class TDRUser:
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
+class InvestigationFileMeta:
+    """InvestigationFileMeta."""
+
+    content_type: Optional[str] = field(
+        default=None, metadata=config(field_name="contentType")
+    )
+    content_md5: Optional[str] = field(
+        default=None, metadata=config(field_name="contentMD5")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class InitInvestigationFileUploadInput:
+    """InitInvestigationFileUploadInput."""
+
+    investigation_id: Optional[str] = field(
+        default=None, metadata=config(field_name="investigationId")
+    )
+    name: Optional[str] = field(default=None, metadata=config(field_name="name"))
+    size: Optional[int] = field(default=None, metadata=config(field_name="size"))
+    content_type: Optional[str] = field(
+        default=None, metadata=config(field_name="contentType")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class InvestigationFileV2Arguments:
+    """InvestigationFileV2Arguments."""
+
+    file_id: Optional[str] = field(default=None, metadata=config(field_name="fileId"))
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class InvestigationFilesV2Arguments:
+    """InvestigationFilesV2Arguments."""
+
+    investigation_id: Optional[str] = field(
+        default=None, metadata=config(field_name="investigationId")
+    )
+    page: Optional[int] = field(default=None, metadata=config(field_name="page"))
+    per_page: Optional[int] = field(default=None, metadata=config(field_name="perPage"))
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class DeleteInvestigationFileInput:
+    """DeleteInvestigationFileInput."""
+
+    file_id: Optional[str] = field(default=None, metadata=config(field_name="fileId"))
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
 class CreateInvestigationRuleInput:
     """CreateInvestigationRuleInput."""
 
@@ -997,6 +1056,51 @@ class CommentV2:
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
+class InvestigationFileV2:
+    """InvestigationFileV2."""
+
+    id: Optional[str] = field(default=None, metadata=config(field_name="id"))
+    investigation_id: Optional[str] = field(
+        default=None, metadata=config(field_name="investigationId")
+    )
+    tenant_id: Optional[str] = field(
+        default=None, metadata=config(field_name="tenantId")
+    )
+    created_at: Optional[str] = field(
+        default=None, metadata=config(field_name="createdAt")
+    )
+    updated_at: Optional[str] = field(
+        default=None, metadata=config(field_name="updatedAt")
+    )
+    deleted_at: Optional[str] = field(
+        default=None, metadata=config(field_name="deletedAt")
+    )
+    uploaded_by_id: Optional[str] = field(
+        default=None, metadata=config(field_name="uploadedById")
+    )
+    deleted_by_id: Optional[str] = field(
+        default=None, metadata=config(field_name="deletedById")
+    )
+    name: Optional[str] = field(default=None, metadata=config(field_name="name"))
+    path: Optional[str] = field(default=None, metadata=config(field_name="path"))
+    size: Optional[int] = field(default=None, metadata=config(field_name="size"))
+    status: Optional[str] = field(default=None, metadata=config(field_name="status"))
+    download_url: Optional[str] = field(
+        default=None, metadata=config(field_name="downloadURL")
+    )
+    uploaded_by: Optional[TDRUser] = field(
+        default=None, metadata=config(field_name="uploadedBy")
+    )
+    deleted_by: Optional[TDRUser] = field(
+        default=None, metadata=config(field_name="deletedBy")
+    )
+    metadata: Optional[InvestigationFileMeta] = field(
+        default=None, metadata=config(field_name="metadata")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
 class InvestigationRule:
     """InvestigationRule."""
 
@@ -1263,6 +1367,32 @@ class CommentsV2:
     )
     comments: Optional[List[CommentV2]] = field(
         default=None, metadata=config(field_name="comments")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class InvestigationFileUpload:
+    """InvestigationFileUpload."""
+
+    presigned_url: Optional[str] = field(
+        default=None, metadata=config(field_name="presignedUrl")
+    )
+    file: Optional[InvestigationFileV2] = field(
+        default=None, metadata=config(field_name="file")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class InvestigationFilesV2:
+    """InvestigationFilesV2."""
+
+    total_count: Optional[int] = field(
+        default=None, metadata=config(field_name="totalCount")
+    )
+    files: Optional[List[InvestigationFileV2]] = field(
+        default=None, metadata=config(field_name="files")
     )
 
 

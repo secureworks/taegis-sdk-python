@@ -30,7 +30,9 @@ class TaegisSDKAssets2Query:
     def __init__(self, service: Assets2Service):
         self.service = service
 
-    def facets_v2(self, endpoint_type: List[EndpointTypeV2]) -> List[FacetV2]:
+    def facets_v2(
+        self, endpoint_type: Optional[List[EndpointTypeV2]] = None
+    ) -> List[FacetV2]:
         """Retrieve a list of facets for a given endpoint type.."""
         endpoint = "facetsV2"
 
