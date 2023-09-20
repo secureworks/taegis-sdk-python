@@ -90,6 +90,9 @@ class ReleaseChannelsConfig:
     """ReleaseChannelsConfig."""
 
     name: Optional[str] = field(default=None, metadata=config(field_name="name"))
+    display_name: Optional[str] = field(
+        default=None, metadata=config(field_name="displayName")
+    )
     description: Optional[str] = field(
         default=None, metadata=config(field_name="description")
     )

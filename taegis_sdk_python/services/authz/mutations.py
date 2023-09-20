@@ -31,8 +31,8 @@ class TaegisSDKAuthzMutation:
         self.service = service
 
     def authz_custom_role_create(self, input_: AuthzCustomRoleCreateInput) -> AuthzRole:
-        """AuthzCustomRoleCreate creates a new custom role."""
-        endpoint = "AuthzCustomRoleCreate"
+        """authzCustomRoleCreate creates a new custom role."""
+        endpoint = "authzCustomRoleCreate"
 
         result = self.service.execute_mutation(
             endpoint=endpoint,
@@ -43,7 +43,7 @@ class TaegisSDKAuthzMutation:
         )
         if result.get(endpoint) is not None:
             return AuthzRole.from_dict(result.get(endpoint))
-        raise GraphQLNoRowsInResultSetError("for mutation AuthzCustomRoleCreate")
+        raise GraphQLNoRowsInResultSetError("for mutation authzCustomRoleCreate")
 
     def authz_custom_role_update(self, input_: AuthzCustomRoleUpdateInput) -> AuthzRole:
         """authzCustomRoleUpdate updates an existing custom role."""
@@ -59,3 +59,18 @@ class TaegisSDKAuthzMutation:
         if result.get(endpoint) is not None:
             return AuthzRole.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for mutation authzCustomRoleUpdate")
+
+    def authz_custom_role_delete(self, id_: str) -> AuthzCustomRoleDeleteResponse:
+        """authzCustomRoleDelete deletes an existing custom role."""
+        endpoint = "authzCustomRoleDelete"
+
+        result = self.service.execute_mutation(
+            endpoint=endpoint,
+            variables={
+                "id": prepare_input(id_),
+            },
+            output=build_output_string(AuthzCustomRoleDeleteResponse),
+        )
+        if result.get(endpoint) is not None:
+            return AuthzCustomRoleDeleteResponse.from_dict(result.get(endpoint))
+        raise GraphQLNoRowsInResultSetError("for mutation authzCustomRoleDelete")

@@ -60,6 +60,23 @@ class TaegisSDKPreferencesQuery:
             return UserPreference.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for query userNotificationPreference")
 
+    def user_notification_preferences(
+        self, arguments: UserNotificationPreferencesArguments
+    ) -> UserNotificationPreferences:
+        """None."""
+        endpoint = "userNotificationPreferences"
+
+        result = self.service.execute_query(
+            endpoint=endpoint,
+            variables={
+                "arguments": prepare_input(arguments),
+            },
+            output=build_output_string(UserNotificationPreferences),
+        )
+        if result.get(endpoint) is not None:
+            return UserNotificationPreferences.from_dict(result.get(endpoint))
+        raise GraphQLNoRowsInResultSetError("for query userNotificationPreferences")
+
     def user_preference_by_key(self, key: str) -> UserPreference:
         """None."""
         endpoint = "userPreferenceByKey"

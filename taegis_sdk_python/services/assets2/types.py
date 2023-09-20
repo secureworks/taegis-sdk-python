@@ -607,6 +607,9 @@ class AssetV2:
     os_version: Optional[str] = field(
         default=None, metadata=config(field_name="osVersion")
     )
+    os_version_normalized: Optional[str] = field(
+        default=None, metadata=config(field_name="osVersionNormalized")
+    )
     os_distributor: Optional[str] = field(
         default=None, metadata=config(field_name="osDistributor")
     )

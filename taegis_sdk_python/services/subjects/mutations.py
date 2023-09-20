@@ -1,4 +1,4 @@
-"""EntityProfile Mutation."""
+"""Subjects Mutation."""
 # pylint: disable=no-member, unused-argument, too-many-locals, duplicate-code, wildcard-import, unused-wildcard-import, cyclic-import
 
 
@@ -16,16 +16,16 @@ from taegis_sdk_python.utils import (
     parse_union_result,
     prepare_input,
 )
-from taegis_sdk_python.services.entity_profile.types import *
+from taegis_sdk_python.services.subjects.types import *
 
 if TYPE_CHECKING:  # pragma: no cover
-    from taegis_sdk_python.services.entity_profile import EntityProfileService
+    from taegis_sdk_python.services.subjects import SubjectsService
 
 log = logging.getLogger(__name__)
 
 
-class TaegisSDKEntityProfileMutation:
-    """Taegis Entity_profile Mutation operations."""
+class TaegisSDKSubjectsMutation:
+    """Taegis Subjects Mutation operations."""
 
-    def __init__(self, service: EntityProfileService):
+    def __init__(self, service: SubjectsService):
         self.service = service

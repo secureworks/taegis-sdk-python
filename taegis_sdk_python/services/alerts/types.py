@@ -251,6 +251,19 @@ class TriageDashboardInputInput:
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
+class UpdateThreatScoreEntry:
+    """UpdateThreatScoreEntry."""
+
+    alert_id: Optional[str] = field(
+        default=None, metadata=config(field_name="alert_id")
+    )
+    threat_score: Optional[float] = field(
+        default=None, metadata=config(field_name="threat_score")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
 class AccountCompromiseDetectorDetailInput:
     """AccountCompromiseDetectorDetailInput."""
 
@@ -1134,6 +1147,19 @@ class SeverityUpdateInput:
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
+class UpdateThreatScoreRequestInput:
+    """UpdateThreatScoreRequestInput."""
+
+    threat_score: Optional[float] = field(
+        default=None, metadata=config(field_name="threat_score")
+    )
+    alert_ids: Optional[List[UpdateThreatScoreEntry]] = field(
+        default=None, metadata=config(field_name="alert_ids")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
 class PasswordSprayDetailInput:
     """PasswordSprayDetailInput."""
 
@@ -1374,6 +1400,16 @@ class UpdateResolutionResponse:
     reason: Optional[str] = field(default=None, metadata=config(field_name="reason"))
     resolution_status: Optional[ResponseStatus] = field(
         default=None, metadata=config(field_name="resolution_status")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class UpdateThreatScoreResponse:
+    """UpdateThreatScoreResponse."""
+
+    status: Optional[ResponseStatus] = field(
+        default=None, metadata=config(field_name="status")
     )
 
 
@@ -2234,6 +2270,9 @@ class Alert2:
     tags: Optional[List[str]] = field(default=None, metadata=config(field_name="tags"))
     sensor_types: Optional[List[str]] = field(
         default=None, metadata=config(field_name="sensor_types")
+    )
+    threat_score: Optional[float] = field(
+        default=None, metadata=config(field_name="threat_score")
     )
     metadata: Optional[AlertsMetadata] = field(
         default=None, metadata=config(field_name="metadata")

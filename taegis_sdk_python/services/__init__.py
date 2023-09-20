@@ -25,7 +25,6 @@ from taegis_sdk_python.services.endpoint_command_manager import (
 from taegis_sdk_python.services.endpoint_management_service import (
     EndpointManagementServiceService,
 )
-from taegis_sdk_python.services.entity_profile import EntityProfileService
 from taegis_sdk_python.services.event_search import EventSearchService
 from taegis_sdk_python.services.events import EventsService
 from taegis_sdk_python.services.exports import ExportsService
@@ -40,6 +39,7 @@ from taegis_sdk_python.services.preferences import PreferencesService
 from taegis_sdk_python.services.roadrunner import RoadrunnerService
 from taegis_sdk_python.services.rules import RulesService
 from taegis_sdk_python.services.sharelinks import SharelinksService
+from taegis_sdk_python.services.subjects import SubjectsService
 from taegis_sdk_python.services.tenant_profiles import TenantProfilesService
 from taegis_sdk_python.services.tenants import TenantsService
 from taegis_sdk_python.services.threat import ThreatService
@@ -91,6 +91,7 @@ class GraphQLService:
         self._tenant_id = tenant_id
         self._gateway = gateway or "/graphql"
         self._context_manager = {}
+        self._context_kwargs = []
         if not extra_headers:
             self._extra_headers = {}
         else:
@@ -109,7 +110,6 @@ class GraphQLService:
         self._detector_registry = None
         self._endpoint_command_manager = None
         self._endpoint_management_service = None
-        self._entity_profile = None
         self._event_search = None
         self._events = None
         self._exports = None
@@ -125,6 +125,7 @@ class GraphQLService:
         self._rules = None
         self._core = None
         self._sharelinks = None
+        self._subjects = None
         self._tenant_profiles = None
         self._tenants = None
         self._threat = None
@@ -132,14 +133,22 @@ class GraphQLService:
         self._users = None
 
     def __call__(self, **kwargs):
-        self._context_manager.update(kwargs)
+        self._context_kwargs.append(kwargs)
         return self
 
     def __enter__(self):
+        for kwarg in self._context_kwargs:
+            self._context_manager.update(kwarg)
         return self
 
     def __exit__(self, exc_type, exc_val, exc_tb):
         self._context_manager.clear()
+
+        if self._context_kwargs:
+            self._context_kwargs.pop()
+
+            for kwarg in self._context_kwargs:
+                self._context_manager.update(kwarg)
 
     @property
     def environment(self):
@@ -301,13 +310,6 @@ class GraphQLService:
         return self._endpoint_management_service
 
     @property
-    def entity_profile(self):
-        """Entity Profile Service Endpoint."""
-        if not self._entity_profile:
-            self._entity_profile = EntityProfileService(self)
-        return self._entity_profile
-
-    @property
     def event_search(self):
         """Events Search Service Endpoint."""
         if not self._event_search:
@@ -411,6 +413,13 @@ class GraphQLService:
         if not self._sharelinks:
             self._sharelinks = SharelinksService(self)
         return self._sharelinks
+
+    @property
+    def subjects(self):
+        """Subjects Service Endpoint."""
+        if not self._subjects:
+            self._subjects = SubjectsService(self)
+        return self._subjects
 
     @property
     def tenant_profiles(self):

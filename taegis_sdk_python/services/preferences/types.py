@@ -18,6 +18,7 @@ class PreferencesAuthzObject(str, Enum):
     """PreferencesAuthzObject."""
 
     TENANT_PREFERENCE = "TenantPreference"
+    USER_PREFERENCE = "UserPreference"
 
 
 class PreferencesAuthzAction(str, Enum):
@@ -28,6 +29,7 @@ class PreferencesAuthzAction(str, Enum):
     UPDATE = "Update"
     DELETE = "Delete"
     LIST_ALL = "ListAll"
+    READ_ADMIN = "ReadAdmin"
 
 
 class TicketingType(str, Enum):
@@ -64,6 +66,16 @@ class UserPreferenceItemInput:
 
     key: Optional[str] = field(default=None, metadata=config(field_name="key"))
     value: Optional[str] = field(default=None, metadata=config(field_name="value"))
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class UserNotificationPreferencesArguments:
+    """UserNotificationPreferencesArguments."""
+
+    user_ids: Optional[List[str]] = field(
+        default=None, metadata=config(field_name="userIds")
+    )
 
 
 @dataclass_json
@@ -221,6 +233,18 @@ class UserPreference:
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
+class UserNotificationPreferencesResponse:
+    """UserNotificationPreferencesResponse."""
+
+    user_id: Optional[str] = field(default=None, metadata=config(field_name="user_id"))
+    error: Optional[str] = field(default=None, metadata=config(field_name="error"))
+    user_notification_preference: Optional[UserPreference] = field(
+        default=None, metadata=config(field_name="user_notification_preference")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
 class NewUserPreferenceInput:
     """NewUserPreferenceInput."""
 
@@ -341,6 +365,19 @@ class TicketingSettings:
     )
     configuration: Optional[List[TenantPreferenceItem]] = field(
         default=None, metadata=config(field_name="configuration")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class UserNotificationPreferences:
+    """UserNotificationPreferences."""
+
+    total_count: Optional[int] = field(
+        default=None, metadata=config(field_name="totalCount")
+    )
+    user_preferences: Optional[List[UserNotificationPreferencesResponse]] = field(
+        default=None, metadata=config(field_name="userPreferences")
     )
 
 

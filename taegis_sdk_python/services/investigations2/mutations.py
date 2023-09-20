@@ -313,6 +313,57 @@ class TaegisSDKInvestigations2Mutation:
             return InvestigationV2.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for mutation archiveInvestigationV2")
 
+    def unarchive_investigation_v2(
+        self, input_: UnarchiveInvestigationInput
+    ) -> InvestigationV2:
+        """Unarchive investigation."""
+        endpoint = "unarchiveInvestigationV2"
+
+        result = self.service.execute_mutation(
+            endpoint=endpoint,
+            variables={
+                "input": prepare_input(input_),
+            },
+            output=build_output_string(InvestigationV2),
+        )
+        if result.get(endpoint) is not None:
+            return InvestigationV2.from_dict(result.get(endpoint))
+        raise GraphQLNoRowsInResultSetError("for mutation unarchiveInvestigationV2")
+
+    def archive_investigations_v2(
+        self, input_: ArchiveInvestigationsInput
+    ) -> ArchivedInvestigations:
+        """Bulk archive investigations."""
+        endpoint = "archiveInvestigationsV2"
+
+        result = self.service.execute_mutation(
+            endpoint=endpoint,
+            variables={
+                "input": prepare_input(input_),
+            },
+            output=build_output_string(ArchivedInvestigations),
+        )
+        if result.get(endpoint) is not None:
+            return ArchivedInvestigations.from_dict(result.get(endpoint))
+        raise GraphQLNoRowsInResultSetError("for mutation archiveInvestigationsV2")
+
+    def unarchive_investigations_v2(
+        self, input_: UnarchiveInvestigationsInput
+    ) -> UnarchivedInvestigations:
+        """Bulk unarchive investigations."""
+        endpoint = "unarchiveInvestigationsV2"
+
+        result = self.service.execute_mutation(
+            endpoint=endpoint,
+            variables={
+                "input": prepare_input(input_),
+            },
+            output=build_output_string(UnarchivedInvestigations),
+        )
+        if result.get(endpoint) is not None:
+            return UnarchivedInvestigations.from_dict(result.get(endpoint))
+        raise GraphQLNoRowsInResultSetError("for mutation unarchiveInvestigationsV2")
+
     def init_investigation_file_upload(
         self, input_: InitInvestigationFileUploadInput
     ) -> InvestigationFileUpload:

@@ -87,6 +87,9 @@ class EndpointGroup:
     is_archive_endpoint_enabled: Optional[bool] = field(
         default=None, metadata=config(field_name="IsArchiveEndpointEnabled")
     )
+    file_analysis_flag: Optional[bool] = field(
+        default=None, metadata=config(field_name="fileAnalysisFlag")
+    )
 
 
 @dataclass_json
@@ -164,6 +167,9 @@ class CreateEndpointGroupInput:
     archive_endpoint_after_days: Optional[int] = field(
         default=None, metadata=config(field_name="ArchiveEndpointAfterDays")
     )
+    file_analysis_flag: Optional[bool] = field(
+        default=None, metadata=config(field_name="fileAnalysisFlag")
+    )
     policy_name: Optional[PolicyType] = field(
         default=None, metadata=config(field_name="policyName")
     )
@@ -185,6 +191,9 @@ class UpdateEndpointGroupInput:
     channel: Optional[str] = field(default=None, metadata=config(field_name="channel"))
     archive_endpoint_after_days: Optional[int] = field(
         default=None, metadata=config(field_name="ArchiveEndpointAfterDays")
+    )
+    file_analysis_flag: Optional[bool] = field(
+        default=None, metadata=config(field_name="fileAnalysisFlag")
     )
     policy_name: Optional[PolicyType] = field(
         default=None, metadata=config(field_name="policyName")

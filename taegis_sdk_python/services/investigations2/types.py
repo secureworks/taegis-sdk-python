@@ -110,6 +110,14 @@ class InvestigationV2TimelineEntityType(str, Enum):
     AUDIT = "AUDIT"
 
 
+class CommentVisibilityFilter(str, Enum):
+    """CommentVisibilityFilter."""
+
+    INTERNAL = "INTERNAL"
+    NOT_INTERNAL = "NOT_INTERNAL"
+    ALL = "ALL"
+
+
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
 class AddEvidenceToInvestigationInput:
@@ -162,6 +170,57 @@ class ArchiveInvestigationInput:
     """ArchiveInvestigationInput."""
 
     id: Optional[str] = field(default=None, metadata=config(field_name="id"))
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class UnarchiveInvestigationInput:
+    """UnarchiveInvestigationInput."""
+
+    id: Optional[str] = field(default=None, metadata=config(field_name="id"))
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class ArchiveInvestigationsInput:
+    """ArchiveInvestigationsInput."""
+
+    ids: Optional[List[str]] = field(default=None, metadata=config(field_name="ids"))
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class UnarchiveInvestigationsInput:
+    """UnarchiveInvestigationsInput."""
+
+    ids: Optional[List[str]] = field(default=None, metadata=config(field_name="ids"))
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class ArchivedInvestigations:
+    """ArchivedInvestigations."""
+
+    ids: Optional[List[str]] = field(default=None, metadata=config(field_name="ids"))
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class UnarchivedInvestigations:
+    """UnarchivedInvestigations."""
+
+    ids: Optional[List[str]] = field(default=None, metadata=config(field_name="ids"))
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class InvestigationPriorityCount:
+    """InvestigationPriorityCount."""
+
+    priority: Optional[int] = field(
+        default=None, metadata=config(field_name="priority")
+    )
+    count: Optional[int] = field(default=None, metadata=config(field_name="count"))
 
 
 @dataclass_json
@@ -562,6 +621,29 @@ class AssetEvidence:
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
+class EntityEvidence:
+    """EntityEvidence."""
+
+    id: Optional[str] = field(default=None, metadata=config(field_name="id"))
+    investigation_id: Optional[str] = field(
+        default=None, metadata=config(field_name="investigationId")
+    )
+    tenant_id: Optional[str] = field(
+        default=None, metadata=config(field_name="tenantId")
+    )
+    created_at: Optional[str] = field(
+        default=None, metadata=config(field_name="createdAt")
+    )
+    created_by: Optional[str] = field(
+        default=None, metadata=config(field_name="createdBy")
+    )
+    entity_id: Optional[str] = field(
+        default=None, metadata=config(field_name="entityId")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
 class TDRUser:
     """TDRUser."""
 
@@ -728,6 +810,28 @@ class UpdateInvestigationRuleInput:
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
+class InvestigationStatusCount:
+    """InvestigationStatusCount."""
+
+    count: Optional[int] = field(default=None, metadata=config(field_name="count"))
+    status: Optional[InvestigationStatus] = field(
+        default=None, metadata=config(field_name="status")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class InvestigationTypeCount:
+    """InvestigationTypeCount."""
+
+    count: Optional[int] = field(default=None, metadata=config(field_name="count"))
+    type: Optional[InvestigationType] = field(
+        default=None, metadata=config(field_name="type")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
 class InvestigationsV2Arguments:
     """InvestigationsV2Arguments."""
 
@@ -791,21 +895,6 @@ class InvestigationV2TimelineEntity:
     )
     user_id: Optional[str] = field(default=None, metadata=config(field_name="userId"))
     user: Optional[TDRUser] = field(default=None, metadata=config(field_name="user"))
-
-
-@dataclass_json
-@dataclass(order=True, eq=True, frozen=True)
-class CommentsV2Arguments:
-    """CommentsV2Arguments."""
-
-    investigation_id: Optional[str] = field(
-        default=None, metadata=config(field_name="investigationId")
-    )
-    page: Optional[int] = field(default=None, metadata=config(field_name="page"))
-    per_page: Optional[int] = field(default=None, metadata=config(field_name="perPage"))
-    order_by: Optional[PaginationOrder] = field(
-        default=None, metadata=config(field_name="orderBy")
-    )
 
 
 @dataclass_json
@@ -931,6 +1020,40 @@ class InvestigationV2TimelineArguments:
     )
     entity_types: Optional[List[InvestigationV2TimelineEntityType]] = field(
         default=None, metadata=config(field_name="entityTypes")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class CommentsV2Arguments:
+    """CommentsV2Arguments."""
+
+    investigation_id: Optional[str] = field(
+        default=None, metadata=config(field_name="investigationId")
+    )
+    page: Optional[int] = field(default=None, metadata=config(field_name="page"))
+    per_page: Optional[int] = field(default=None, metadata=config(field_name="perPage"))
+    order_by: Optional[PaginationOrder] = field(
+        default=None, metadata=config(field_name="orderBy")
+    )
+    visibility: Optional[CommentVisibilityFilter] = field(
+        default=None, metadata=config(field_name="visibility")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class AggregatedCounts:
+    """AggregatedCounts."""
+
+    status: Optional[List[InvestigationStatusCount]] = field(
+        default=None, metadata=config(field_name="status")
+    )
+    type: Optional[List[InvestigationTypeCount]] = field(
+        default=None, metadata=config(field_name="type")
+    )
+    priority: Optional[List[InvestigationPriorityCount]] = field(
+        default=None, metadata=config(field_name="priority")
     )
 
 
@@ -1224,6 +1347,9 @@ class InvestigationV2:
     events_evidence_count: Optional[int] = field(
         default=None, metadata=config(field_name="eventsEvidenceCount")
     )
+    entities_evidence_count: Optional[int] = field(
+        default=None, metadata=config(field_name="entitiesEvidenceCount")
+    )
     search_queries: Optional[List[str]] = field(
         default=None, metadata=config(field_name="searchQueries")
     )
@@ -1280,6 +1406,9 @@ class InvestigationV2:
     )
     events_evidence: Optional[List[EventEvidence]] = field(
         default=None, metadata=config(field_name="eventsEvidence")
+    )
+    entities_evidence: Optional[List[EntityEvidence]] = field(
+        default=None, metadata=config(field_name="entitiesEvidence")
     )
     status: Optional[InvestigationStatus] = field(
         default=None, metadata=config(field_name="status")
@@ -1406,6 +1535,9 @@ class InvestigationsV2:
     )
     investigations: Optional[List[InvestigationV2]] = field(
         default=None, metadata=config(field_name="investigations")
+    )
+    aggregated_counts: Optional[AggregatedCounts] = field(
+        default=None, metadata=config(field_name="aggregatedCounts")
     )
     metrics: Optional[Metrics] = field(
         default=None, metadata=config(field_name="metrics")

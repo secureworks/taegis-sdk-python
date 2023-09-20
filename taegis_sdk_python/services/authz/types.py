@@ -108,6 +108,17 @@ class AuthzObjectActionStatusResponse:
     subject_permitted: Optional[bool] = field(
         default=None, metadata=config(field_name="subject_permitted")
     )
+    required_for_ui_login: Optional[bool] = field(
+        default=None, metadata=config(field_name="required_for_ui_login")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class AuthzCustomRoleDeleteResponse:
+    """AuthzCustomRoleDeleteResponse."""
+
+    deleted: Optional[bool] = field(default=None, metadata=config(field_name="deleted"))
 
 
 @dataclass_json
@@ -154,6 +165,7 @@ class AuthzPolicy:
     updated_at: Optional[str] = field(
         default=None, metadata=config(field_name="updatedAt")
     )
+    deleted: Optional[bool] = field(default=None, metadata=config(field_name="deleted"))
     object_actions: Optional[List[AuthzObjectAction]] = field(
         default=None, metadata=config(field_name="objectActions")
     )
@@ -214,6 +226,7 @@ class AuthzRole:
     updated_by: Optional[str] = field(
         default=None, metadata=config(field_name="updatedBy")
     )
+    deleted: Optional[bool] = field(default=None, metadata=config(field_name="deleted"))
     policies: Optional[List[AuthzPolicy]] = field(
         default=None, metadata=config(field_name="policies")
     )

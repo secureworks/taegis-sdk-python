@@ -108,3 +108,18 @@ class TaegisSDKEndpointManagementServiceMutation:
         if result.get(endpoint) is not None:
             return BulkAssignRequestOutput.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for mutation assignBulkAssetsToGroup")
+
+    def rotate_registration_key(self, endpoint_group_id: str) -> EndpointGroup:
+        """Rotate the registration key for a group."""
+        endpoint = "rotateRegistrationKey"
+
+        result = self.service.execute_mutation(
+            endpoint=endpoint,
+            variables={
+                "endpointGroupID": prepare_input(endpoint_group_id),
+            },
+            output=build_output_string(EndpointGroup),
+        )
+        if result.get(endpoint) is not None:
+            return EndpointGroup.from_dict(result.get(endpoint))
+        raise GraphQLNoRowsInResultSetError("for mutation rotateRegistrationKey")

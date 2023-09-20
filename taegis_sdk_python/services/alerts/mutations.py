@@ -107,3 +107,22 @@ class TaegisSDKAlertsMutation:
         if result.get(endpoint) is not None:
             return EvictResponse.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for mutation alertsServiceEvict")
+
+    def alerts_service_update_threat_score(
+        self, in_: UpdateThreatScoreRequestInput
+    ) -> UpdateThreatScoreResponse:
+        """Update threat score for a give list of alert IDs.."""
+        endpoint = "alertsServiceUpdateThreatScore"
+
+        result = self.service.execute_mutation(
+            endpoint=endpoint,
+            variables={
+                "in": prepare_input(in_),
+            },
+            output=build_output_string(UpdateThreatScoreResponse),
+        )
+        if result.get(endpoint) is not None:
+            return UpdateThreatScoreResponse.from_dict(result.get(endpoint))
+        raise GraphQLNoRowsInResultSetError(
+            "for mutation alertsServiceUpdateThreatScore"
+        )
