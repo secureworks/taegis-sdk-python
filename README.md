@@ -159,12 +159,11 @@ pp(result)
 ### Arbitrary Query
 
 ```python
-results = service.investigations.execute_query(
+results = service.alerts.execute_query(
     "alertsServiceSearch",
     variables={
         "in": {
             "limit": 3,
-            "offset": 0,
             "cql_query": "FROM alert EARLIEST=-1d"
         }
     },
