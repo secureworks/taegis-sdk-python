@@ -123,6 +123,14 @@ class AuthzCustomRoleDeleteResponse:
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
+class Subject:
+    """Subject."""
+
+    id: Optional[str] = field(default=None, metadata=config(field_name="id"))
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
 class AuthzPermission:
     """AuthzPermission."""
 
@@ -229,6 +237,12 @@ class AuthzRole:
     deleted: Optional[bool] = field(default=None, metadata=config(field_name="deleted"))
     policies: Optional[List[AuthzPolicy]] = field(
         default=None, metadata=config(field_name="policies")
+    )
+    created_by_subject: Optional[Subject] = field(
+        default=None, metadata=config(field_name="createdBySubject")
+    )
+    updated_by_subject: Optional[Subject] = field(
+        default=None, metadata=config(field_name="updatedBySubject")
     )
 
 

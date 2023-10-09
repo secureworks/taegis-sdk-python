@@ -233,7 +233,7 @@ class EventQueryOptions:
         metadata=config(
             metadata={
                 "deprecated": True,
-                "deprecation_reason": "Moving to backendStrategy",
+                "deprecation_reason": "Moved to backendStrategy; ignored",
             },
             field_name="searchTarget",
         ),

@@ -33,6 +33,7 @@ from taegis_sdk_python.services.investigations import InvestigationsService
 from taegis_sdk_python.services.investigations2 import Investigations2Service
 from taegis_sdk_python.services.mitre_attack_info import MitreAttackInfoService
 from taegis_sdk_python.services.multi_tenant_context import MultiTenantContextService
+from taegis_sdk_python.services.multi_tenant_ioc import MultiTenantIocService
 from taegis_sdk_python.services.notebooks import NotebooksService
 from taegis_sdk_python.services.notifications import NotificationsService
 from taegis_sdk_python.services.preferences import PreferencesService
@@ -118,6 +119,7 @@ class GraphQLService:
         self._investigations2 = None
         self._mitre_attack_info = None
         self._multi_tenant_context = None
+        self._multi_tenant_ioc = None
         self._notebooks = None
         self._notifications = None
         self._preferences = None
@@ -364,6 +366,13 @@ class GraphQLService:
         if not self._multi_tenant_context:
             self._multi_tenant_context = MultiTenantContextService(self)
         return self._multi_tenant_context
+
+    @property
+    def multi_tenant_ioc(self):
+        """MultiTenantIoc Service Endpoint."""
+        if not self._multi_tenant_ioc:
+            self._multi_tenant_ioc = MultiTenantIocService(self)
+        return self._multi_tenant_ioc
 
     @property
     def notebooks(self):

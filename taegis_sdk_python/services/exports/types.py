@@ -234,6 +234,9 @@ class NewExportInput:
     override_user_id: Optional[str] = field(
         default=None, metadata=config(field_name="overrideUserID")
     )
+    descriptive_file_name: Optional[str] = field(
+        default=None, metadata=config(field_name="descriptiveFileName")
+    )
     send_notification: Optional[bool] = field(
         default=None, metadata=config(field_name="sendNotification")
     )
