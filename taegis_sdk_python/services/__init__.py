@@ -15,6 +15,7 @@ from taegis_sdk_python.services.assets import AssetsService
 from taegis_sdk_python.services.assets2 import Assets2Service
 from taegis_sdk_python.services.audits import AuditsService
 from taegis_sdk_python.services.authz import AuthzService
+from taegis_sdk_python.services.byoti import ByotiService
 from taegis_sdk_python.services.clients import ClientsService
 from taegis_sdk_python.services.collector import CollectorService
 from taegis_sdk_python.services.comments import CommentsService
@@ -105,6 +106,7 @@ class GraphQLService:
         self._assets2 = None
         self._audits = None
         self._authz = None
+        self._byoti = None
         self._clients = None
         self._collector = None
         self._comments = None
@@ -270,6 +272,13 @@ class GraphQLService:
         return self._authz
 
     @property
+    def byoti(self):
+        """BYOTI (Bring Your Own Threat Intelligence) Service Endpoint."""
+        if not self._byoti:
+            self._byoti = ByotiService(self)
+        return self._byoti
+
+    @property
     def clients(self):
         """Clients Service Endpoint."""
         if not self._clients:
@@ -334,7 +343,7 @@ class GraphQLService:
 
     @property
     def fast_ioc(self):
-        """Fast IOC Service Endpoint."""
+        """Fast IOC (Indicator of Compromise) Service Endpoint. (Deprecated: Use MultiTenantIoc)"""
         if not self._fast_ioc:
             self._fast_ioc = FastIocService(self)
         return self._fast_ioc
@@ -369,7 +378,7 @@ class GraphQLService:
 
     @property
     def multi_tenant_ioc(self):
-        """MultiTenantIoc Service Endpoint."""
+        """MultiTenantIoc (Indicator of Compromise) Service Endpoint."""
         if not self._multi_tenant_ioc:
             self._multi_tenant_ioc = MultiTenantIocService(self)
         return self._multi_tenant_ioc
