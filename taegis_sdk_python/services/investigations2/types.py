@@ -696,6 +696,7 @@ class InvestigationFilesV2Arguments:
     )
     page: Optional[int] = field(default=None, metadata=config(field_name="page"))
     per_page: Optional[int] = field(default=None, metadata=config(field_name="perPage"))
+    cql: Optional[str] = field(default=None, metadata=config(field_name="cql"))
 
 
 @dataclass_json
@@ -928,6 +929,9 @@ class CreateInvestigationInput:
     )
     alerts: Optional[List[str]] = field(
         default=None, metadata=config(field_name="alerts")
+    )
+    alerts_search_query: Optional[str] = field(
+        default=None, metadata=config(field_name="alertsSearchQuery")
     )
     events: Optional[List[str]] = field(
         default=None, metadata=config(field_name="events")
@@ -1317,27 +1321,6 @@ class InvestigationV2:
     key_findings: Optional[str] = field(
         default=None, metadata=config(field_name="keyFindings")
     )
-    alerts: Optional[List[str]] = field(
-        default=None,
-        metadata=config(
-            metadata={"deprecated": True, "deprecation_reason": "use alertsEvidence"},
-            field_name="alerts",
-        ),
-    )
-    assets: Optional[List[str]] = field(
-        default=None,
-        metadata=config(
-            metadata={"deprecated": True, "deprecation_reason": "use assetsEvidence"},
-            field_name="assets",
-        ),
-    )
-    events: Optional[List[str]] = field(
-        default=None,
-        metadata=config(
-            metadata={"deprecated": True, "deprecation_reason": "use eventsEvidence"},
-            field_name="events",
-        ),
-    )
     alerts_evidence_count: Optional[int] = field(
         default=None, metadata=config(field_name="alertsEvidenceCount")
     )
@@ -1354,13 +1337,6 @@ class InvestigationV2:
         default=None, metadata=config(field_name="searchQueries")
     )
     tags: Optional[List[str]] = field(default=None, metadata=config(field_name="tags"))
-    contributor_ids: Optional[List[str]] = field(
-        default=None,
-        metadata=config(
-            metadata={"deprecated": True, "deprecation_reason": "use contributorIds"},
-            field_name="contributorIDs",
-        ),
-    )
     contributor_ids: Optional[List[str]] = field(
         default=None, metadata=config(field_name="contributorIds")
     )
@@ -1397,6 +1373,34 @@ class InvestigationV2:
     )
     service_desk_type: Optional[str] = field(
         default=None, metadata=config(field_name="serviceDeskType")
+    )
+    alerts: Optional[List[str]] = field(
+        default=None,
+        metadata=config(
+            metadata={"deprecated": True, "deprecation_reason": "use alertsEvidence"},
+            field_name="alerts",
+        ),
+    )
+    assets: Optional[List[str]] = field(
+        default=None,
+        metadata=config(
+            metadata={"deprecated": True, "deprecation_reason": "use assetsEvidence"},
+            field_name="assets",
+        ),
+    )
+    events: Optional[List[str]] = field(
+        default=None,
+        metadata=config(
+            metadata={"deprecated": True, "deprecation_reason": "use eventsEvidence"},
+            field_name="events",
+        ),
+    )
+    contributor_ids: Optional[List[str]] = field(
+        default=None,
+        metadata=config(
+            metadata={"deprecated": True, "deprecation_reason": "use contributorIds"},
+            field_name="contributorIDs",
+        ),
     )
     alerts_evidence: Optional[List[AlertEvidence]] = field(
         default=None, metadata=config(field_name="alertsEvidence")

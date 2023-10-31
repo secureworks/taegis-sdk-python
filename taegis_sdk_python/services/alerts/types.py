@@ -222,6 +222,9 @@ class SearchRequestInput:
     search_id: Optional[str] = field(
         default=None, metadata=config(field_name="search_id")
     )
+    metadata: Optional[dict] = field(
+        default=None, metadata=config(field_name="metadata")
+    )
 
 
 @dataclass_json
@@ -2371,6 +2374,7 @@ class AlertsResponse:
     search_id: Optional[str] = field(
         default=None, metadata=config(field_name="search_id")
     )
+    query_id: Optional[str] = field(default=None, metadata=config(field_name="queryId"))
     status: Optional[RPCResponseStatus] = field(
         default=None, metadata=config(field_name="status")
     )

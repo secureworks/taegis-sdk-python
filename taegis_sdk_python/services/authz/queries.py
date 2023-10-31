@@ -31,7 +31,7 @@ class TaegisSDKAuthzQuery:
         self.service = service
 
     def authz_role(self, id_: str) -> AuthzRole:
-        """None."""
+        """Retrieve a Role by its unique ID."""
         endpoint = "authzRole"
 
         result = self.service.execute_query(
@@ -46,7 +46,7 @@ class TaegisSDKAuthzQuery:
         raise GraphQLNoRowsInResultSetError("for query authzRole")
 
     def authz_assignable_roles(self) -> List[AuthzRole]:
-        """authzAssignableRoles returns all roles assignable within the requesting tenant."""
+        """Retrieve roles that can be assigned to users within the requesting tenant."""
         endpoint = "authzAssignableRoles"
 
         result = self.service.execute_query(
@@ -59,7 +59,7 @@ class TaegisSDKAuthzQuery:
         raise GraphQLNoRowsInResultSetError("for query authzAssignableRoles")
 
     def authz_subject_assignable_roles(self) -> List[AuthzRole]:
-        """authzSubjectAssignableRoles returns all roles assignable by the requesting subject within the requesting tenant."""
+        """Retrieve roles that the requesting subject can assign within the requesting tenant."""
         endpoint = "authzSubjectAssignableRoles"
 
         result = self.service.execute_query(
@@ -72,7 +72,7 @@ class TaegisSDKAuthzQuery:
         raise GraphQLNoRowsInResultSetError("for query authzSubjectAssignableRoles")
 
     def authz_assignable_internal_roles(self) -> List[AuthzRole]:
-        """None."""
+        """Retrieve internal roles that can be assigned to users within the requesting tenant."""
         endpoint = "authzAssignableInternalRoles"
 
         result = self.service.execute_query(
@@ -85,7 +85,7 @@ class TaegisSDKAuthzQuery:
         raise GraphQLNoRowsInResultSetError("for query authzAssignableInternalRoles")
 
     def authz_object_actions(self) -> List[AuthzObjectAction]:
-        """None."""
+        """Retrieve all authorization ObjectActions."""
         endpoint = "authzObjectActions"
 
         result = self.service.execute_query(
@@ -100,7 +100,7 @@ class TaegisSDKAuthzQuery:
         raise GraphQLNoRowsInResultSetError("for query authzObjectActions")
 
     def authz_policy(self, id_: str) -> AuthzPolicy:
-        """None."""
+        """Retrieve authorization policy by its ID."""
         endpoint = "authzPolicy"
 
         result = self.service.execute_query(
@@ -115,7 +115,7 @@ class TaegisSDKAuthzQuery:
         raise GraphQLNoRowsInResultSetError("for query authzPolicy")
 
     def authz_policies(self) -> List[AuthzPolicy]:
-        """None."""
+        """Retrieve all policies within the requesting tenant."""
         endpoint = "authzPolicies"
 
         result = self.service.execute_query(
@@ -128,7 +128,7 @@ class TaegisSDKAuthzQuery:
         raise GraphQLNoRowsInResultSetError("for query authzPolicies")
 
     def authz_check_permission(self, input_: AuthzObjectActionInput) -> AuthzPolicy:
-        """None."""
+        """Perform a permission check against the input ObjectAction, returning the applicable policy and authorization effect for the given subject & tenant context."""
         endpoint = "authzCheckPermission"
 
         result = self.service.execute_query(
@@ -145,7 +145,7 @@ class TaegisSDKAuthzQuery:
     def authz_check_permissions(
         self, input_: List[AuthzObjectActionInput]
     ) -> List[AuthzCheckPermissionsResponse]:
-        """None."""
+        """Perform a permission check against multiple input ObjectActions, returning the applicable policies and authorization effects for the given subject & tenant context."""
         endpoint = "authzCheckPermissions"
 
         result = self.service.execute_query(
@@ -164,7 +164,7 @@ class TaegisSDKAuthzQuery:
     def authz_check_tenants(
         self, input_: AuthzObjectActionInput, tenants: List[str]
     ) -> List[str]:
-        """Given a list of tenants and a permission, it will return the tenants which the subject can perform the action on."""
+        """Given a list of tenants and a permission, returns the IDs of tenants where the subject posesses the given permission."""
         endpoint = "authzCheckTenants"
 
         result = self.service.execute_query(
@@ -180,7 +180,7 @@ class TaegisSDKAuthzQuery:
         raise GraphQLNoRowsInResultSetError("for query authzCheckTenants")
 
     def authz_permissions(self) -> List[AuthzPermission]:
-        """None."""
+        """Retrieve the full list of subjects permissions for the tenant context."""
         endpoint = "authzPermissions"
 
         result = self.service.execute_query(
@@ -193,7 +193,7 @@ class TaegisSDKAuthzQuery:
         raise GraphQLNoRowsInResultSetError("for query authzPermissions")
 
     def authz_can_subject_assume_tenant(self) -> bool:
-        """None."""
+        """Determine if the subject can assume the target tenant."""
         endpoint = "authzCanSubjectAssumeTenant"
 
         result = self.service.execute_query(endpoint=endpoint, variables={}, output="")
@@ -221,7 +221,7 @@ class TaegisSDKAuthzQuery:
         )
 
     def authz_can_subject_idassume_tenant(self, subject_id: str) -> bool:
-        """None."""
+        """Indicates if the input subject can assume the target tenant."""
         endpoint = "authzCanSubjectIDAssumeTenant"
 
         result = self.service.execute_query(
@@ -236,7 +236,7 @@ class TaegisSDKAuthzQuery:
         raise GraphQLNoRowsInResultSetError("for query authzCanSubjectIDAssumeTenant")
 
     def authz_can_subject_assume_tenants(self, tenants: List[str]) -> List[str]:
-        """None."""
+        """Identify which tenants the subject can assume with an input list of Tenant IDs, returning the IDs where the tenant can be assumed."""
         endpoint = "authzCanSubjectAssumeTenants"
 
         result = self.service.execute_query(
@@ -251,7 +251,7 @@ class TaegisSDKAuthzQuery:
         raise GraphQLNoRowsInResultSetError("for query authzCanSubjectAssumeTenants")
 
     def authz_can_subject_assume_all_tenants(self) -> bool:
-        """None."""
+        """Determine if the subject can assume *all* tenants."""
         endpoint = "authzCanSubjectAssumeAllTenants"
 
         result = self.service.execute_query(endpoint=endpoint, variables={}, output="")
@@ -262,7 +262,7 @@ class TaegisSDKAuthzQuery:
     def authz_can_subject_assign_role(
         self, id_: str
     ) -> AuthzCanSubjectAssignRoleResponse:
-        """None."""
+        """Check if the subject can assign the input role."""
         endpoint = "authzCanSubjectAssignRole"
 
         result = self.service.execute_query(
@@ -277,7 +277,7 @@ class TaegisSDKAuthzQuery:
         raise GraphQLNoRowsInResultSetError("for query authzCanSubjectAssignRole")
 
     def authz_internal_permissions(self) -> List[AuthzPermission]:
-        """None."""
+        """Retrieve the full list of subjects internal permissions for the tenant context."""
         endpoint = "authzInternalPermissions"
 
         result = self.service.execute_query(
@@ -290,7 +290,7 @@ class TaegisSDKAuthzQuery:
         raise GraphQLNoRowsInResultSetError("for query authzInternalPermissions")
 
     def authz_object_action_status(self) -> List[AuthzObjectActionStatusResponse]:
-        """authzObjectActionStatus returns all object actions with their statuses for the current tenant context."""
+        """Retrieve all object actions with their statuses for the current tenant context."""
         endpoint = "authzObjectActionStatus"
 
         result = self.service.execute_query(
@@ -305,7 +305,7 @@ class TaegisSDKAuthzQuery:
         raise GraphQLNoRowsInResultSetError("for query authzObjectActionStatus")
 
     def authz_can_user_assume_tenant(self) -> bool:
-        """DEPRECATED: Please use authzCanSubjectAssumeTenant.."""
+        """DEPRECATED: Please use authzCanSubjectAssumeTenant."""
         endpoint = "authzCanUserAssumeTenant"
 
         result = self.service.execute_query(endpoint=endpoint, variables={}, output="")

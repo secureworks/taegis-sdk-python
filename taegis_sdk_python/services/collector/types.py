@@ -391,25 +391,85 @@ class DataSourceMetric:
     """DataSourceMetric."""
 
     cluster_id: Optional[str] = field(
-        default=None, metadata=config(field_name="clusterID")
+        default=None,
+        metadata=config(
+            metadata={
+                "deprecated": True,
+                "deprecation_reason": "All clients querying LogLastSeenMetrics and using this field should now use the DataSources API: https://docs.ctpx.secureworks.com/apis/datasources_api/",
+            },
+            field_name="clusterID",
+        ),
     )
     cluster_name: Optional[str] = field(
-        default=None, metadata=config(field_name="clusterName")
+        default=None,
+        metadata=config(
+            metadata={
+                "deprecated": True,
+                "deprecation_reason": "All clients querying LogLastSeenMetrics and using this field should now use the DataSources API: https://docs.ctpx.secureworks.com/apis/datasources_api/",
+            },
+            field_name="clusterName",
+        ),
     )
     source_id: Optional[str] = field(
-        default=None, metadata=config(field_name="sourceID")
+        default=None,
+        metadata=config(
+            metadata={
+                "deprecated": True,
+                "deprecation_reason": "All clients querying LogLastSeenMetrics and using this field should now use the DataSources API: https://docs.ctpx.secureworks.com/apis/datasources_api/",
+            },
+            field_name="sourceID",
+        ),
     )
     aliases: Optional[List[str]] = field(
-        default=None, metadata=config(field_name="aliases")
+        default=None,
+        metadata=config(
+            metadata={
+                "deprecated": True,
+                "deprecation_reason": "All clients querying LogLastSeenMetrics and using this field should now use the DataSources API: https://docs.ctpx.secureworks.com/apis/datasources_api/",
+            },
+            field_name="aliases",
+        ),
     )
-    service: Optional[str] = field(default=None, metadata=config(field_name="service"))
+    service: Optional[str] = field(
+        default=None,
+        metadata=config(
+            metadata={
+                "deprecated": True,
+                "deprecation_reason": "All clients querying LogLastSeenMetrics and using this field should now use the DataSources API: https://docs.ctpx.secureworks.com/apis/datasources_api/",
+            },
+            field_name="service",
+        ),
+    )
     sensor_types: Optional[List[str]] = field(
-        default=None, metadata=config(field_name="sensorTypes")
+        default=None,
+        metadata=config(
+            metadata={
+                "deprecated": True,
+                "deprecation_reason": "All clients querying LogLastSeenMetrics and using this field should now use the DataSources API: https://docs.ctpx.secureworks.com/apis/datasources_api/",
+            },
+            field_name="sensorTypes",
+        ),
     )
     last_seen: Optional[str] = field(
-        default=None, metadata=config(field_name="lastSeen")
+        default=None,
+        metadata=config(
+            metadata={
+                "deprecated": True,
+                "deprecation_reason": "All clients querying LogLastSeenMetrics and using this field should now use the DataSources API: https://docs.ctpx.secureworks.com/apis/datasources_api/",
+            },
+            field_name="lastSeen",
+        ),
     )
-    health: Optional[str] = field(default=None, metadata=config(field_name="health"))
+    health: Optional[str] = field(
+        default=None,
+        metadata=config(
+            metadata={
+                "deprecated": True,
+                "deprecation_reason": "All clients querying LogLastSeenMetrics and using this field should now use the DataSources API: https://docs.ctpx.secureworks.com/apis/datasources_api/",
+            },
+            field_name="health",
+        ),
+    )
 
 
 @dataclass_json
@@ -493,10 +553,24 @@ class GetDataSourceMetricsArguments:
     """GetDataSourceMetricsArguments."""
 
     cluster_id: Optional[str] = field(
-        default=None, metadata=config(field_name="clusterId")
+        default=None,
+        metadata=config(
+            metadata={
+                "deprecated": True,
+                "deprecation_reason": "All clients querying LogLastSeenMetrics and using this field should now use the DataSources API: https://docs.ctpx.secureworks.com/apis/datasources_api/",
+            },
+            field_name="clusterId",
+        ),
     )
     source_id: Optional[str] = field(
-        default=None, metadata=config(field_name="sourceId")
+        default=None,
+        metadata=config(
+            metadata={
+                "deprecated": True,
+                "deprecation_reason": "All clients querying LogLastSeenMetrics and using this field should now use the DataSources API: https://docs.ctpx.secureworks.com/apis/datasources_api/",
+            },
+            field_name="sourceId",
+        ),
     )
 
 
@@ -655,7 +729,14 @@ class LogLastSeenMetrics:
     """LogLastSeenMetrics."""
 
     log_metrics: Optional[List[LogLastSeenMetric]] = field(
-        default=None, metadata=config(field_name="logMetrics")
+        default=None,
+        metadata=config(
+            metadata={
+                "deprecated": True,
+                "deprecation_reason": "All clients querying LogLastSeenMetrics and using this field should now use the DataSources API: https://docs.ctpx.secureworks.com/apis/datasources_api/",
+            },
+            field_name="logMetrics",
+        ),
     )
 
 
@@ -665,7 +746,14 @@ class DataSourceMetrics:
     """DataSourceMetrics."""
 
     metrics: Optional[List[DataSourceMetric]] = field(
-        default=None, metadata=config(field_name="metrics")
+        default=None,
+        metadata=config(
+            metadata={
+                "deprecated": True,
+                "deprecation_reason": "All clients querying LogLastSeenMetrics and using this field should now use the DataSources API: https://docs.ctpx.secureworks.com/apis/datasources_api/",
+            },
+            field_name="metrics",
+        ),
     )
 
 

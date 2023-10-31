@@ -19,7 +19,7 @@ from taegis_sdk_python import GraphQLService, build_output_string
 from taegis_sdk_python.services.alerts.types import AlertsResponse
 
 service = GraphQLService()
-schema = service.alerts.get_sync_schema()
+schema = service.core.get_sync_schema()
 print(schema.query_type.fields["alertsServiceSearch"])
 print(schema.type_map["AlertsResponse"].fields)
 print(schema.type_map["AlertsList"].fields)

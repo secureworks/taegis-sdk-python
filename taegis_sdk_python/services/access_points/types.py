@@ -28,6 +28,16 @@ class AccessPoint:
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
+class AccessPointPrefixes:
+    """AccessPointPrefixes."""
+
+    prefixes: Optional[List[str]] = field(
+        default=None, metadata=config(field_name="prefixes")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
 class AccessPointCloudFormation:
     """AccessPointCloudFormation."""
 

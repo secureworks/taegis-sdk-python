@@ -152,10 +152,20 @@ class Parser:
     )
     code: Optional[str] = field(default=None, metadata=config(field_name="code"))
     directory_id: Optional[int] = field(
-        default=None, metadata=config(field_name="directoryId")
+        default=None,
+        metadata=config(
+            metadata={
+                "deprecated": True,
+                "deprecation_reason": "Deprecated for MVP 10/2022 remove after suitable time if not used",
+            },
+            field_name="directoryId",
+        ),
     )
     disabled: Optional[bool] = field(
         default=None, metadata=config(field_name="disabled")
+    )
+    override_global: Optional[bool] = field(
+        default=None, metadata=config(field_name="overrideGlobal")
     )
 
 
@@ -179,6 +189,9 @@ class UnvalidatedParserInput:
     )
     id: Optional[int] = field(default=None, metadata=config(field_name="id"))
     name: Optional[str] = field(default=None, metadata=config(field_name="name"))
+    override_global: Optional[bool] = field(
+        default=None, metadata=config(field_name="overrideGlobal")
+    )
 
 
 @dataclass_json
@@ -192,10 +205,20 @@ class UpdatedParserInput:
         default=None, metadata=config(field_name="parentId")
     )
     directory_id: Optional[int] = field(
-        default=None, metadata=config(field_name="directoryId")
+        default=None,
+        metadata=config(
+            metadata={
+                "deprecated": True,
+                "deprecation_reason": "Deprecated for MVP 10/2022 remove after suitable time if not used",
+            },
+            field_name="directoryId",
+        ),
     )
     disabled: Optional[bool] = field(
         default=None, metadata=config(field_name="disabled")
+    )
+    override_global: Optional[bool] = field(
+        default=None, metadata=config(field_name="overrideGlobal")
     )
 
 
@@ -359,10 +382,20 @@ class ParserInput:
         default=None, metadata=config(field_name="parentId")
     )
     directory_id: Optional[int] = field(
-        default=None, metadata=config(field_name="directoryId")
+        default=None,
+        metadata=config(
+            metadata={
+                "deprecated": True,
+                "deprecation_reason": "Deprecated for MVP 10/2022 remove after suitable time if not used",
+            },
+            field_name="directoryId",
+        ),
     )
     disabled: Optional[bool] = field(
         default=None, metadata=config(field_name="disabled")
+    )
+    override_global: Optional[bool] = field(
+        default=None, metadata=config(field_name="overrideGlobal")
     )
     type: Optional[ParserType] = field(default=None, metadata=config(field_name="type"))
     format: Optional[ParserFormatType] = field(

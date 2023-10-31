@@ -324,6 +324,7 @@ class EventQuery:
 class EventQueryResults:
     """EventQueryResults."""
 
+    query_id: Optional[str] = field(default=None, metadata=config(field_name="queryId"))
     next: Optional[str] = field(default=None, metadata=config(field_name="next"))
     prev: Optional[str] = field(default=None, metadata=config(field_name="prev"))
     query: Optional[EventQuery] = field(

@@ -243,6 +243,9 @@ class NewExportInput:
     selected_columns: Optional[List[str]] = field(
         default=None, metadata=config(field_name="selectedColumns")
     )
+    renamed_columns: Optional[dict] = field(
+        default=None, metadata=config(field_name="renamedColumns")
+    )
     locale: Optional[str] = field(default=None, metadata=config(field_name="locale"))
     export_type: Optional[ExportType] = field(
         default=None, metadata=config(field_name="exportType")
@@ -433,6 +436,9 @@ class Export:
     )
     selected_columns: Optional[List[str]] = field(
         default=None, metadata=config(field_name="selectedColumns")
+    )
+    renamed_columns: Optional[dict] = field(
+        default=None, metadata=config(field_name="renamedColumns")
     )
     locale: Optional[str] = field(default=None, metadata=config(field_name="locale"))
     status: Optional[ExportStatus] = field(

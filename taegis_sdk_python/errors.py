@@ -77,7 +77,8 @@ class InvalidGraphQLEndpoint(ServiceCoreException):
     """Error raises when a GraphQL endpoint is not found."""
 
 
-__all__ = [  # pylint: disable=duplicate-code
+# pylint: disable=duplicate-code
+__all__ = [
     "ServiceCoreException",
     "InvalidAuthenticationMethod",
     "AccessTokenException",

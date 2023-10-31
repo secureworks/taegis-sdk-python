@@ -632,6 +632,10 @@ class TaegisSDKCollectorQuery:
         """
         endpoint = "getLogLastSeenMetrics"
 
+        log.warning(
+            f"GraphQL Query `{endpoint}` is deprecated: 'All clients querying LogLastSeenMetrics and using this field should now use the DataSources API: https://docs.ctpx.secureworks.com/apis/datasources_api/'"
+        )
+
         result = self.service.execute_query(
             endpoint=endpoint,
             variables={
@@ -648,6 +652,10 @@ class TaegisSDKCollectorQuery:
     ) -> DataSourceMetrics:
         """Get metrics for all available data sources for a given cluster."""
         endpoint = "getDataSourceMetrics"
+
+        log.warning(
+            f"GraphQL Query `{endpoint}` is deprecated: 'All clients querying LogLastSeenMetrics and using this field should now use the DataSources API: https://docs.ctpx.secureworks.com/apis/datasources_api/'"
+        )
 
         result = self.service.execute_query(
             endpoint=endpoint,

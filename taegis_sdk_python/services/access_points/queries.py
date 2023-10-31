@@ -53,3 +53,16 @@ class TaegisSDKAccessPointsQuery:
         if result.get(endpoint) is not None:
             return AccessPointCloudFormation.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for query getAccessPointTemplate")
+
+    def get_access_point_prefixes(self) -> AccessPointPrefixes:
+        """None."""
+        endpoint = "getAccessPointPrefixes"
+
+        result = self.service.execute_query(
+            endpoint=endpoint,
+            variables={},
+            output=build_output_string(AccessPointPrefixes),
+        )
+        if result.get(endpoint) is not None:
+            return AccessPointPrefixes.from_dict(result.get(endpoint))
+        raise GraphQLNoRowsInResultSetError("for query getAccessPointPrefixes")

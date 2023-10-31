@@ -276,6 +276,23 @@ class TenantLabel:
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
+class UniqueLabelValues:
+    """UniqueLabelValues."""
+
+    results: Optional[List[str]] = field(
+        default=None, metadata=config(field_name="results")
+    )
+    count: Optional[int] = field(default=None, metadata=config(field_name="count"))
+    has_more: Optional[bool] = field(
+        default=None, metadata=config(field_name="hasMore")
+    )
+    total_count: Optional[int] = field(
+        default=None, metadata=config(field_name="totalCount")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
 class ChildTenant:
     """ChildTenant."""
 
@@ -949,6 +966,9 @@ class Tenant:
     post_disablement_complete: Optional[bool] = field(
         default=None, metadata=config(field_name="post_disablement_complete")
     )
+    data_retention_months: Optional[int] = field(
+        default=None, metadata=config(field_name="data_retention_months")
+    )
     labels: Optional[List[TenantLabel]] = field(
         default=None, metadata=config(field_name="labels")
     )
@@ -1022,6 +1042,9 @@ class TenantsQuery:
     )
     enabled_in_pilot: Optional[bool] = field(
         default=None, metadata=config(field_name="enabledInPilot")
+    )
+    with_data_retention_months: Optional[List[int]] = field(
+        default=None, metadata=config(field_name="withDataRetentionMonths")
     )
     environment_filter: Optional[TenantEnvironmentFilter] = field(
         default=None, metadata=config(field_name="environmentFilter")

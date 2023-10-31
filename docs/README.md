@@ -11,3 +11,4 @@ The Taegis SDK is a Python library for interfacing with the GraphQL APIs in Taeg
 * [Querying Investigations](querying_investigations.md)
 * [Extending the SDK](extending_the_sdk.md)
 * [Deprecation](deprecation.md)
+* [Exploring the Schema](exploring_the_schema.md)

@@ -27,7 +27,7 @@ pp(results)
 ## Exploring the SDK
 
 The SDK was built around utilizing the Python built-in: `help`.  You can use help on any object
-within the `GraphQLService` object structure to understand what is available and how to call it.
+within the `GraphQLService` object structure to understand what is available and how to call it.  The help menu is a great resource for determining input types.  Each service is self contained so that if you need an input, like `SearchRequestInput`, you will find it under `taegis_sdk_python.services.<service>.types`.
 
 ```python
 from taegis_sdk_python import GraphQLService

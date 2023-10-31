@@ -148,3 +148,16 @@ class TaegisSDKTenantsQuery:
                 [r or {} for r in result.get(endpoint)], many=True
             )
         raise GraphQLNoRowsInResultSetError("for query serviceEvents")
+
+    def requestable_services(self) -> List[Service]:
+        """Returns a list of services that can be requested (owned by SCWX and preconfigured)."""
+        endpoint = "requestableServices"
+
+        result = self.service.execute_query(
+            endpoint=endpoint, variables={}, output=build_output_string(Service)
+        )
+        if result.get(endpoint) is not None:
+            return Service.schema().load(
+                [r or {} for r in result.get(endpoint)], many=True
+            )
+        raise GraphQLNoRowsInResultSetError("for query requestableServices")

@@ -21,7 +21,8 @@ from taegis_sdk_python.utils import (
     build_output_string_from_introspection,
 )
 
-__all__ = [  # pylint: disable=duplicate-code
+# pylint: disable=duplicate-code
+__all__ = [
     "GraphQLService",
     "ServiceCoreException",
     "InvalidAuthenticationMethod",
