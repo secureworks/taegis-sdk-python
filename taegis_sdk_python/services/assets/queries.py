@@ -34,6 +34,8 @@ class TaegisSDKAssetsQuery:
         """Gen an asset tag by id."""
         endpoint = "tag"
 
+        log.warning(f"GraphQL Query `{endpoint}` is deprecated: 'No longer supported'")
+
         result = self.service.execute_query(
             endpoint=endpoint,
             variables={
@@ -49,6 +51,8 @@ class TaegisSDKAssetsQuery:
         """Get an asset by id."""
         endpoint = "asset"
 
+        log.warning(f"GraphQL Query `{endpoint}` is deprecated: 'No longer supported'")
+
         result = self.service.execute_query(
             endpoint=endpoint,
             variables={
@@ -63,6 +67,8 @@ class TaegisSDKAssetsQuery:
     def assets_by_tag(self, tags: List[str]) -> List[Asset]:
         """Get a list of assets with tag."""
         endpoint = "assetsByTag"
+
+        log.warning(f"GraphQL Query `{endpoint}` is deprecated: 'No longer supported'")
 
         result = self.service.execute_query(
             endpoint=endpoint,
@@ -80,6 +86,8 @@ class TaegisSDKAssetsQuery:
     def all_unique_tags(self) -> List[str]:
         """Get a list of all unique tags."""
         endpoint = "allUniqueTags"
+
+        log.warning(f"GraphQL Query `{endpoint}` is deprecated: 'No longer supported'")
 
         result = self.service.execute_query(endpoint=endpoint, variables={}, output="")
         if result.get(endpoint) is not None:
@@ -113,6 +121,8 @@ class TaegisSDKAssetsQuery:
         """Get a list of assets."""
         endpoint = "allAssets"
 
+        log.warning(f"GraphQL Query `{endpoint}` is deprecated: 'No longer supported'")
+
         result = self.service.execute_query(
             endpoint=endpoint,
             variables={
@@ -135,6 +145,8 @@ class TaegisSDKAssetsQuery:
         """Get a list of assets for export to CSV."""
         endpoint = "allAssetsExport"
 
+        log.warning(f"GraphQL Query `{endpoint}` is deprecated: 'No longer supported'")
+
         result = self.service.execute_query(
             endpoint=endpoint,
             variables={
@@ -151,6 +163,8 @@ class TaegisSDKAssetsQuery:
         """Count of assets of a specific endpoint_type."""
         endpoint = "assetCount"
 
+        log.warning(f"GraphQL Query `{endpoint}` is deprecated: 'No longer supported'")
+
         result = self.service.execute_query(
             endpoint=endpoint,
             variables={
@@ -165,6 +179,8 @@ class TaegisSDKAssetsQuery:
     def asset_count_group_by_endpoint_type(self) -> List[AssetCountsByEndpointType]:
         """Count of assets of grouped by endpoint_type."""
         endpoint = "assetCountGroupByEndpointType"
+
+        log.warning(f"GraphQL Query `{endpoint}` is deprecated: 'No longer supported'")
 
         result = self.service.execute_query(
             endpoint=endpoint,
@@ -181,6 +197,8 @@ class TaegisSDKAssetsQuery:
         """Count of all assets."""
         endpoint = "allAssetsCount"
 
+        log.warning(f"GraphQL Query `{endpoint}` is deprecated: 'No longer supported'")
+
         result = self.service.execute_query(
             endpoint=endpoint, variables={}, output=build_output_string(AssetCounts)
         )
@@ -191,6 +209,8 @@ class TaegisSDKAssetsQuery:
     def assets_by_ids(self, ids: Optional[List[str]] = None) -> List[Asset]:
         """Bulk lookup by ids."""
         endpoint = "assetsByIds"
+
+        log.warning(f"GraphQL Query `{endpoint}` is deprecated: 'No longer supported'")
 
         result = self.service.execute_query(
             endpoint=endpoint,
@@ -208,6 +228,8 @@ class TaegisSDKAssetsQuery:
     def assets_by_host_ids(self, host_ids: Optional[List[str]] = None) -> List[Asset]:
         """Bulk lookup by hostIds."""
         endpoint = "assetsByHostIds"
+
+        log.warning(f"GraphQL Query `{endpoint}` is deprecated: 'No longer supported'")
 
         result = self.service.execute_query(
             endpoint=endpoint,
@@ -227,6 +249,8 @@ class TaegisSDKAssetsQuery:
     ) -> List[Asset]:
         """Bulk lookup by ipAddress."""
         endpoint = "assetsByIpAddresses"
+
+        log.warning(f"GraphQL Query `{endpoint}` is deprecated: 'No longer supported'")
 
         result = self.service.execute_query(
             endpoint=endpoint,
@@ -307,6 +331,8 @@ class TaegisSDKAssetsQuery:
         """search assets. Soon to be deprecated."""
         endpoint = "searchAssets"
 
+        log.warning(f"GraphQL Query `{endpoint}` is deprecated: 'No longer supported'")
+
         result = self.service.execute_query(
             endpoint=endpoint,
             variables={
@@ -344,6 +370,8 @@ class TaegisSDKAssetsQuery:
         """search assets v2."""
         endpoint = "searchAssetsV2"
 
+        log.warning(f"GraphQL Query `{endpoint}` is deprecated: 'No longer supported'")
+
         result = self.service.execute_query(
             endpoint=endpoint,
             variables={
@@ -364,6 +392,8 @@ class TaegisSDKAssetsQuery:
     ) -> AssetsExportOutput:
         """export search assets results."""
         endpoint = "exportSearchAssets"
+
+        log.warning(f"GraphQL Query `{endpoint}` is deprecated: 'No longer supported'")
 
         result = self.service.execute_query(
             endpoint=endpoint,

@@ -395,62 +395,6 @@ class ReportsFilters:
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
-class Export:
-    """Export."""
-
-    id: Optional[str] = field(default=None, metadata=config(field_name="id"))
-    dataset: Optional[str] = field(default=None, metadata=config(field_name="dataset"))
-    created_at: Optional[str] = field(
-        default=None, metadata=config(field_name="createdAt")
-    )
-    updated_at: Optional[str] = field(
-        default=None, metadata=config(field_name="updatedAt")
-    )
-    filters: Optional[dict] = field(default=None, metadata=config(field_name="filters"))
-    name: Optional[str] = field(default=None, metadata=config(field_name="name"))
-    user_id: Optional[str] = field(default=None, metadata=config(field_name="userID"))
-    tenant: Optional[str] = field(default=None, metadata=config(field_name="tenant"))
-    file_name: Optional[str] = field(
-        default=None, metadata=config(field_name="fileName")
-    )
-    descriptive_file_name: Optional[str] = field(
-        default=None, metadata=config(field_name="descriptiveFileName")
-    )
-    file_size: Optional[str] = field(
-        default=None, metadata=config(field_name="fileSize")
-    )
-    file_requested: Optional[str] = field(
-        default=None, metadata=config(field_name="fileRequested")
-    )
-    error_description: Optional[str] = field(
-        default=None, metadata=config(field_name="errorDescription")
-    )
-    export_generated: Optional[str] = field(
-        default=None, metadata=config(field_name="exportGenerated")
-    )
-    in_progress_as_of: Optional[str] = field(
-        default=None, metadata=config(field_name="inProgressAsOf")
-    )
-    retry_count: Optional[int] = field(
-        default=None, metadata=config(field_name="retryCount")
-    )
-    selected_columns: Optional[List[str]] = field(
-        default=None, metadata=config(field_name="selectedColumns")
-    )
-    renamed_columns: Optional[dict] = field(
-        default=None, metadata=config(field_name="renamedColumns")
-    )
-    locale: Optional[str] = field(default=None, metadata=config(field_name="locale"))
-    status: Optional[ExportStatus] = field(
-        default=None, metadata=config(field_name="status")
-    )
-    export_type: Optional[ExportType] = field(
-        default=None, metadata=config(field_name="exportType")
-    )
-
-
-@dataclass_json
-@dataclass(order=True, eq=True, frozen=True)
 class ReportsFromScheduleInput:
     """ReportsFromScheduleInput."""
 
@@ -522,6 +466,65 @@ class ScheduleEditInput:
     )
     export_types: Optional[List[ExportType]] = field(
         default=None, metadata=config(field_name="exportTypes")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class Export:
+    """Export."""
+
+    id: Optional[str] = field(default=None, metadata=config(field_name="id"))
+    dataset: Optional[str] = field(default=None, metadata=config(field_name="dataset"))
+    created_at: Optional[str] = field(
+        default=None, metadata=config(field_name="createdAt")
+    )
+    updated_at: Optional[str] = field(
+        default=None, metadata=config(field_name="updatedAt")
+    )
+    filters: Optional[dict] = field(default=None, metadata=config(field_name="filters"))
+    name: Optional[str] = field(default=None, metadata=config(field_name="name"))
+    user_id: Optional[str] = field(default=None, metadata=config(field_name="userID"))
+    tenant: Optional[str] = field(default=None, metadata=config(field_name="tenant"))
+    file_name: Optional[str] = field(
+        default=None, metadata=config(field_name="fileName")
+    )
+    descriptive_file_name: Optional[str] = field(
+        default=None, metadata=config(field_name="descriptiveFileName")
+    )
+    file_size: Optional[str] = field(
+        default=None, metadata=config(field_name="fileSize")
+    )
+    file_requested: Optional[str] = field(
+        default=None, metadata=config(field_name="fileRequested")
+    )
+    error_description: Optional[str] = field(
+        default=None, metadata=config(field_name="errorDescription")
+    )
+    export_generated: Optional[str] = field(
+        default=None, metadata=config(field_name="exportGenerated")
+    )
+    in_progress_as_of: Optional[str] = field(
+        default=None, metadata=config(field_name="inProgressAsOf")
+    )
+    retry_count: Optional[int] = field(
+        default=None, metadata=config(field_name="retryCount")
+    )
+    selected_columns: Optional[List[str]] = field(
+        default=None, metadata=config(field_name="selectedColumns")
+    )
+    renamed_columns: Optional[dict] = field(
+        default=None, metadata=config(field_name="renamedColumns")
+    )
+    locale: Optional[str] = field(default=None, metadata=config(field_name="locale"))
+    creator: Optional[TDRUser] = field(
+        default=None, metadata=config(field_name="creator")
+    )
+    status: Optional[ExportStatus] = field(
+        default=None, metadata=config(field_name="status")
+    )
+    export_type: Optional[ExportType] = field(
+        default=None, metadata=config(field_name="exportType")
     )
 
 

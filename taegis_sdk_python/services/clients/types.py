@@ -18,14 +18,42 @@ class ClientRoleAssignment:
 
     id: Optional[str] = field(default=None, metadata=config(field_name="id"))
     tenant_id: Optional[str] = field(
-        default=None, metadata=config(field_name="tenant_id")
+        default=None,
+        metadata=config(
+            metadata={"deprecated": True, "deprecation_reason": "use tenantId"},
+            field_name="tenant_id",
+        ),
     )
-    role_id: Optional[str] = field(default=None, metadata=config(field_name="role_id"))
+    tenant_id: Optional[str] = field(
+        default=None, metadata=config(field_name="tenantID")
+    )
+    role_id: Optional[str] = field(
+        default=None,
+        metadata=config(
+            metadata={"deprecated": True, "deprecation_reason": "use roleId"},
+            field_name="role_id",
+        ),
+    )
+    role_id: Optional[str] = field(default=None, metadata=config(field_name="roleID"))
     role_name: Optional[str] = field(
-        default=None, metadata=config(field_name="role_name")
+        default=None,
+        metadata=config(
+            metadata={"deprecated": True, "deprecation_reason": "use roleName"},
+            field_name="role_name",
+        ),
+    )
+    role_name: Optional[str] = field(
+        default=None, metadata=config(field_name="roleName")
     )
     expires_at: Optional[str] = field(
-        default=None, metadata=config(field_name="expires_at")
+        default=None,
+        metadata=config(
+            metadata={"deprecated": True, "deprecation_reason": "use expiresAt"},
+            field_name="expires_at",
+        ),
+    )
+    expires_at: Optional[str] = field(
+        default=None, metadata=config(field_name="expiresAt")
     )
 
 
@@ -35,11 +63,32 @@ class ClientRoleAssignmentInput:
     """ClientRoleAssignmentInput."""
 
     tenant_id: Optional[str] = field(
-        default=None, metadata=config(field_name="tenant_id")
+        default=None,
+        metadata=config(
+            metadata={"deprecated": True, "deprecation_reason": "use tenantId"},
+            field_name="tenant_id",
+        ),
     )
-    role_id: Optional[str] = field(default=None, metadata=config(field_name="role_id"))
+    tenant_id: Optional[str] = field(
+        default=None, metadata=config(field_name="tenantID")
+    )
+    role_id: Optional[str] = field(
+        default=None,
+        metadata=config(
+            metadata={"deprecated": True, "deprecation_reason": "use roleId"},
+            field_name="role_id",
+        ),
+    )
+    role_id: Optional[str] = field(default=None, metadata=config(field_name="roleID"))
     expires_at: Optional[str] = field(
-        default=None, metadata=config(field_name="expires_at")
+        default=None,
+        metadata=config(
+            metadata={"deprecated": True, "deprecation_reason": "use expiresAt"},
+            field_name="expires_at",
+        ),
+    )
+    expires_at: Optional[str] = field(
+        default=None, metadata=config(field_name="expiresAt")
     )
 
 
@@ -51,35 +100,101 @@ class Client:
     id: Optional[str] = field(default=None, metadata=config(field_name="id"))
     name: Optional[str] = field(default=None, metadata=config(field_name="name"))
     client_id: Optional[str] = field(
-        default=None, metadata=config(field_name="client_id")
+        default=None,
+        metadata=config(
+            metadata={"deprecated": True, "deprecation_reason": "use clientId"},
+            field_name="client_id",
+        ),
+    )
+    client_id: Optional[str] = field(
+        default=None, metadata=config(field_name="clientID")
     )
     roles: Optional[str] = field(default=None, metadata=config(field_name="roles"))
     tenant_id: Optional[str] = field(
-        default=None, metadata=config(field_name="tenant_id")
+        default=None,
+        metadata=config(
+            metadata={"deprecated": True, "deprecation_reason": "use tenantId"},
+            field_name="tenant_id",
+        ),
+    )
+    tenant_id: Optional[str] = field(
+        default=None, metadata=config(field_name="tenantID")
     )
     created_at: Optional[str] = field(
-        default=None, metadata=config(field_name="created_at")
+        default=None,
+        metadata=config(
+            metadata={"deprecated": True, "deprecation_reason": "use createdAt"},
+            field_name="created_at",
+        ),
+    )
+    created_at: Optional[str] = field(
+        default=None, metadata=config(field_name="createdAt")
     )
     updated_at: Optional[str] = field(
-        default=None, metadata=config(field_name="updated_at")
+        default=None,
+        metadata=config(
+            metadata={"deprecated": True, "deprecation_reason": "use updatedAt"},
+            field_name="updated_at",
+        ),
+    )
+    updated_at: Optional[str] = field(
+        default=None, metadata=config(field_name="updatedAt")
     )
     created_by: Optional[str] = field(
-        default=None, metadata=config(field_name="created_by")
+        default=None,
+        metadata=config(
+            metadata={"deprecated": True, "deprecation_reason": "use createdBy"},
+            field_name="created_by",
+        ),
+    )
+    created_by: Optional[str] = field(
+        default=None, metadata=config(field_name="createdBy")
     )
     updated_by: Optional[str] = field(
-        default=None, metadata=config(field_name="updated_by")
+        default=None,
+        metadata=config(
+            metadata={"deprecated": True, "deprecation_reason": "use updatedBy"},
+            field_name="updated_by",
+        ),
+    )
+    updated_by: Optional[str] = field(
+        default=None, metadata=config(field_name="updatedBy")
     )
     environment: Optional[str] = field(
         default=None, metadata=config(field_name="environment")
     )
     token_request_time: Optional[str] = field(
-        default=None, metadata=config(field_name="token_request_time")
+        default=None,
+        metadata=config(
+            metadata={"deprecated": True, "deprecation_reason": "use tokenRequestTime"},
+            field_name="token_request_time",
+        ),
+    )
+    token_request_time: Optional[str] = field(
+        default=None, metadata=config(field_name="tokenRequestTime")
     )
     token_request_count: Optional[int] = field(
-        default=None, metadata=config(field_name="token_request_count")
+        default=None,
+        metadata=config(
+            metadata={
+                "deprecated": True,
+                "deprecation_reason": "use tokenRequestCount",
+            },
+            field_name="token_request_count",
+        ),
+    )
+    token_request_count: Optional[int] = field(
+        default=None, metadata=config(field_name="tokenRequestCount")
     )
     role_assignments: Optional[List[ClientRoleAssignment]] = field(
-        default=None, metadata=config(field_name="role_assignments")
+        default=None,
+        metadata=config(
+            metadata={"deprecated": True, "deprecation_reason": "use roleAssignments"},
+            field_name="role_assignments",
+        ),
+    )
+    role_assignments: Optional[List[ClientRoleAssignment]] = field(
+        default=None, metadata=config(field_name="roleAssignments")
     )
 
 
@@ -89,6 +204,13 @@ class NewClient:
     """NewClient."""
 
     client_secret: Optional[str] = field(
-        default=None, metadata=config(field_name="client_secret")
+        default=None,
+        metadata=config(
+            metadata={"deprecated": True, "deprecation_reason": "use clientSecret"},
+            field_name="client_secret",
+        ),
+    )
+    client_secret: Optional[str] = field(
+        default=None, metadata=config(field_name="clientSecret")
     )
     client: Optional[Client] = field(default=None, metadata=config(field_name="client"))

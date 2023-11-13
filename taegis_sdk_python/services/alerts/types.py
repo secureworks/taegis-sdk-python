@@ -241,7 +241,16 @@ class TimestampInput:
 class TriageDashboardInputInput:
     """TriageDashboardInputInput."""
 
-    key: Optional[str] = field(default=None, metadata=config(field_name="key"))
+    key: Optional[str] = field(
+        default=None,
+        metadata=config(
+            metadata={
+                "deprecated": True,
+                "deprecation_reason": "a multi-tenant session key is not needed anymore",
+            },
+            field_name="key",
+        ),
+    )
     service_filters: Optional[List[str]] = field(
         default=None, metadata=config(field_name="serviceFilters")
     )

@@ -123,6 +123,19 @@ class AuthzCustomRoleDeleteResponse:
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
+class AuthzSupportedFeatureState:
+    """AuthzSupportedFeatureState."""
+
+    enabled_in_tenant: Optional[bool] = field(
+        default=None, metadata=config(field_name="enabledInTenant")
+    )
+    enabled_in_child_tenants: Optional[bool] = field(
+        default=None, metadata=config(field_name="enabledInChildTenants")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
 class Subject:
     """Subject."""
 
@@ -197,6 +210,32 @@ class AuthzCustomRoleUpdateInput:
     )
     add_object_actions: Optional[List[AuthzObjectActionInput]] = field(
         default=None, metadata=config(field_name="addObjectActions")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class AuthzSupportedFeatureResponse:
+    """AuthzSupportedFeatureResponse."""
+
+    object: Optional[str] = field(default=None, metadata=config(field_name="object"))
+    feature_display_name: Optional[str] = field(
+        default=None, metadata=config(field_name="featureDisplayName")
+    )
+    feature_description: Optional[str] = field(
+        default=None, metadata=config(field_name="featureDescription")
+    )
+    updated_at: Optional[str] = field(
+        default=None, metadata=config(field_name="updatedAt")
+    )
+    updated_by: Optional[str] = field(
+        default=None, metadata=config(field_name="updatedBy")
+    )
+    feature_state: Optional[AuthzSupportedFeatureState] = field(
+        default=None, metadata=config(field_name="featureState")
+    )
+    updated_by_subject: Optional[Subject] = field(
+        default=None, metadata=config(field_name="updatedBySubject")
     )
 
 

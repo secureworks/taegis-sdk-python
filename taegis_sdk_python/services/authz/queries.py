@@ -304,6 +304,21 @@ class TaegisSDKAuthzQuery:
             )
         raise GraphQLNoRowsInResultSetError("for query authzObjectActionStatus")
 
+    def authz_supported_features(self) -> List[AuthzSupportedFeatureResponse]:
+        """Retrieve all supported features and their states for the current tenant context."""
+        endpoint = "authzSupportedFeatures"
+
+        result = self.service.execute_query(
+            endpoint=endpoint,
+            variables={},
+            output=build_output_string(AuthzSupportedFeatureResponse),
+        )
+        if result.get(endpoint) is not None:
+            return AuthzSupportedFeatureResponse.schema().load(
+                [r or {} for r in result.get(endpoint)], many=True
+            )
+        raise GraphQLNoRowsInResultSetError("for query authzSupportedFeatures")
+
     def authz_can_user_assume_tenant(self) -> bool:
         """DEPRECATED: Please use authzCanSubjectAssumeTenant."""
         endpoint = "authzCanUserAssumeTenant"

@@ -66,6 +66,10 @@ class TaegisSDKAssetsMutation:
         """Delete or un-delete asset."""
         endpoint = "deleteAssets"
 
+        log.warning(
+            f"GraphQL Mutation `{endpoint}` is deprecated: 'No longer supported'"
+        )
+
         result = self.service.execute_mutation(
             endpoint=endpoint,
             variables={
@@ -81,6 +85,10 @@ class TaegisSDKAssetsMutation:
     def create_asset_tag(self, host_id: str, tag: str) -> Tag:
         """Create a new tag for an asseti."""
         endpoint = "createAssetTag"
+
+        log.warning(
+            f"GraphQL Mutation `{endpoint}` is deprecated: 'No longer supported'"
+        )
 
         result = self.service.execute_mutation(
             endpoint=endpoint,
@@ -98,6 +106,10 @@ class TaegisSDKAssetsMutation:
         """Updates a tag for an asset."""
         endpoint = "updateAssetTag"
 
+        log.warning(
+            f"GraphQL Mutation `{endpoint}` is deprecated: 'No longer supported'"
+        )
+
         result = self.service.execute_mutation(
             endpoint=endpoint,
             variables={
@@ -114,6 +126,10 @@ class TaegisSDKAssetsMutation:
         """Deletes a tag for an asset."""
         endpoint = "deleteAssetTag"
 
+        log.warning(
+            f"GraphQL Mutation `{endpoint}` is deprecated: 'No longer supported'"
+        )
+
         result = self.service.execute_mutation(
             endpoint=endpoint,
             variables={
@@ -126,8 +142,12 @@ class TaegisSDKAssetsMutation:
         raise GraphQLNoRowsInResultSetError("for mutation deleteAssetTag")
 
     def update_asset(self, asset_input: Optional[AssetInput] = None) -> Asset:
-        """None."""
+        """Updated the tags for an asset."""
         endpoint = "updateAsset"
+
+        log.warning(
+            f"GraphQL Mutation `{endpoint}` is deprecated: 'No longer supported'"
+        )
 
         result = self.service.execute_mutation(
             endpoint=endpoint,
@@ -149,6 +169,10 @@ class TaegisSDKAssetsMutation:
         """add investigation assets relation for the list of host_ids and return the asset ids."""
         endpoint = "addInvestigationAssets"
 
+        log.warning(
+            f"GraphQL Mutation `{endpoint}` is deprecated: 'No longer supported as an api'"
+        )
+
         result = self.service.execute_mutation(
             endpoint=endpoint,
             variables={
@@ -169,6 +193,10 @@ class TaegisSDKAssetsMutation:
     ) -> bool:
         """remove investigation assets relation."""
         endpoint = "removeInvestigationAssets"
+
+        log.warning(
+            f"GraphQL Mutation `{endpoint}` is deprecated: 'No longer supported as an api'"
+        )
 
         result = self.service.execute_mutation(
             endpoint=endpoint,

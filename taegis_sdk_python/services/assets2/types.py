@@ -29,6 +29,7 @@ class EndpointTypeV2(str, Enum):
     ENDPOINT_REDCLOAK = "ENDPOINT_REDCLOAK"
     ENDPOINT_TAEGIS = "ENDPOINT_TAEGIS"
     ENDPOINT_CROWD_STRIKE = "ENDPOINT_CROWD_STRIKE"
+    ENDPOINT_CARBON_BLACK = "ENDPOINT_CARBON_BLACK"
     ENDPOINT_CARBON_BLACK_PSC = "ENDPOINT_CARBON_BLACK_PSC"
     ENDPOINT_MICROSOFT_ATP = "ENDPOINT_MICROSOFT_ATP"
     ENDPOINT_SENTINELONE = "ENDPOINT_SENTINELONE"
@@ -497,6 +498,15 @@ class AssetWhereInputV2:
     )
     os_version: Optional[str] = field(
         default=None, metadata=config(field_name="osVersion")
+    )
+    os_version_normalized: Optional[str] = field(
+        default=None, metadata=config(field_name="osVersionNormalized")
+    )
+    os_version_normalized_contains: Optional[str] = field(
+        default=None, metadata=config(field_name="osVersionNormalized_contains")
+    )
+    os_version_normalized_autocomplete: Optional[str] = field(
+        default=None, metadata=config(field_name="osVersionNormalized_autocomplete")
     )
     sensor_version: Optional[str] = field(
         default=None, metadata=config(field_name="sensorVersion")

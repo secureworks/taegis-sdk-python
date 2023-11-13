@@ -410,3 +410,37 @@ class TaegisSDKCollectorMutation:
         if result.get(endpoint) is not None:
             return Deleted.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for mutation deleteRoleDeployment")
+
+    def update_scheduled_service(
+        self, scheduled_service_input: Optional[ScheduledServiceInput] = None
+    ) -> ScheduledService:
+        """None."""
+        endpoint = "updateScheduledService"
+
+        result = self.service.execute_mutation(
+            endpoint=endpoint,
+            variables={
+                "scheduledServiceInput": prepare_input(scheduled_service_input),
+            },
+            output=build_output_string(ScheduledService),
+        )
+        if result.get(endpoint) is not None:
+            return ScheduledService.from_dict(result.get(endpoint))
+        raise GraphQLNoRowsInResultSetError("for mutation updateScheduledService")
+
+    def create_service(
+        self, service_input: Optional[CreateServiceInput] = None
+    ) -> Service:
+        """None."""
+        endpoint = "createService"
+
+        result = self.service.execute_mutation(
+            endpoint=endpoint,
+            variables={
+                "serviceInput": prepare_input(service_input),
+            },
+            output=build_output_string(Service),
+        )
+        if result.get(endpoint) is not None:
+            return Service.from_dict(result.get(endpoint))
+        raise GraphQLNoRowsInResultSetError("for mutation createService")

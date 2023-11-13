@@ -97,6 +97,117 @@ class CloudRegion:
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
+class Service:
+    """Service."""
+
+    id: Optional[str] = field(default=None, metadata=config(field_name="id"))
+    created_at: Optional[str] = field(
+        default=None, metadata=config(field_name="createdAt")
+    )
+    updated_at: Optional[str] = field(
+        default=None, metadata=config(field_name="updatedAt")
+    )
+    upgrade_version: Optional[str] = field(
+        default=None, metadata=config(field_name="upgradeVersion")
+    )
+    install_file: Optional[str] = field(
+        default=None, metadata=config(field_name="installFile")
+    )
+    verification_file: Optional[str] = field(
+        default=None, metadata=config(field_name="verificationFile")
+    )
+    name: Optional[str] = field(default=None, metadata=config(field_name="name"))
+    reboot: Optional[bool] = field(default=None, metadata=config(field_name="reboot"))
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class ServiceHistory:
+    """ServiceHistory."""
+
+    id: Optional[str] = field(default=None, metadata=config(field_name="id"))
+    created_at: Optional[str] = field(
+        default=None, metadata=config(field_name="createdAt")
+    )
+    updated_at: Optional[str] = field(
+        default=None, metadata=config(field_name="updatedAt")
+    )
+    name: Optional[str] = field(default=None, metadata=config(field_name="name"))
+    start_date: Optional[str] = field(
+        default=None, metadata=config(field_name="startDate")
+    )
+    end_date: Optional[str] = field(default=None, metadata=config(field_name="endDate"))
+    cluster_node_id: Optional[str] = field(
+        default=None, metadata=config(field_name="clusterNodeID")
+    )
+    cluster_id: Optional[str] = field(
+        default=None, metadata=config(field_name="clusterID")
+    )
+    service_id: Optional[str] = field(
+        default=None, metadata=config(field_name="serviceID")
+    )
+    status: Optional[str] = field(default=None, metadata=config(field_name="status"))
+    upgrade_version: Optional[str] = field(
+        default=None, metadata=config(field_name="upgradeVersion")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class ScheduledServiceInput:
+    """ScheduledServiceInput."""
+
+    id: Optional[str] = field(default=None, metadata=config(field_name="ID"))
+    cluster_node_id: Optional[str] = field(
+        default=None, metadata=config(field_name="clusterNodeID")
+    )
+    status: Optional[str] = field(default=None, metadata=config(field_name="status"))
+    retries: Optional[int] = field(default=None, metadata=config(field_name="retries"))
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class ClusterScheduledServiceInput:
+    """ClusterScheduledServiceInput."""
+
+    id: Optional[str] = field(default=None, metadata=config(field_name="id"))
+    cluster_node_id: Optional[str] = field(
+        default=None, metadata=config(field_name="clusterNodeID")
+    )
+    deferred: Optional[bool] = field(
+        default=None, metadata=config(field_name="deferred")
+    )
+    service_id: Optional[str] = field(
+        default=None, metadata=config(field_name="serviceID")
+    )
+    start_date: Optional[str] = field(
+        default=None, metadata=config(field_name="startDate")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class CreateServiceInput:
+    """CreateServiceInput."""
+
+    name: Optional[str] = field(default=None, metadata=config(field_name="name"))
+    upgrade_version: Optional[str] = field(
+        default=None, metadata=config(field_name="upgradeVersion")
+    )
+    install_file: Optional[str] = field(
+        default=None, metadata=config(field_name="installFile")
+    )
+    verification_file: Optional[str] = field(
+        default=None, metadata=config(field_name="verificationFile")
+    )
+    reboot: Optional[bool] = field(default=None, metadata=config(field_name="reboot"))
+    delete_schedule: Optional[bool] = field(
+        default=None, metadata=config(field_name="deleteSchedule")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
 class Activation:
     """Activation."""
 
@@ -553,14 +664,7 @@ class GetDataSourceMetricsArguments:
     """GetDataSourceMetricsArguments."""
 
     cluster_id: Optional[str] = field(
-        default=None,
-        metadata=config(
-            metadata={
-                "deprecated": True,
-                "deprecation_reason": "All clients querying LogLastSeenMetrics and using this field should now use the DataSources API: https://docs.ctpx.secureworks.com/apis/datasources_api/",
-            },
-            field_name="clusterId",
-        ),
+        default=None, metadata=config(field_name="clusterId")
     )
     source_id: Optional[str] = field(
         default=None,
@@ -584,6 +688,40 @@ class SyslogMessageCountV2Arguments:
     )
     cluster_id: Optional[str] = field(
         default=None, metadata=config(field_name="clusterId")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class ScheduledService:
+    """ScheduledService."""
+
+    id: Optional[str] = field(default=None, metadata=config(field_name="id"))
+    created_at: Optional[str] = field(
+        default=None, metadata=config(field_name="createdAt")
+    )
+    updated_at: Optional[str] = field(
+        default=None, metadata=config(field_name="updatedAt")
+    )
+    status: Optional[str] = field(default=None, metadata=config(field_name="status"))
+    client_status: Optional[str] = field(
+        default=None, metadata=config(field_name="clientStatus")
+    )
+    cluster_node_id: Optional[str] = field(
+        default=None, metadata=config(field_name="clusterNodeID")
+    )
+    cluster_id: Optional[str] = field(
+        default=None, metadata=config(field_name="clusterID")
+    )
+    deferred: Optional[bool] = field(
+        default=None, metadata=config(field_name="deferred")
+    )
+    start_date: Optional[str] = field(
+        default=None, metadata=config(field_name="startDate")
+    )
+    retries: Optional[int] = field(default=None, metadata=config(field_name="retries"))
+    service: Optional[Service] = field(
+        default=None, metadata=config(field_name="service")
     )
 
 
@@ -785,6 +923,19 @@ class ClusterNode:
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
+class ServiceTrack:
+    """ServiceTrack."""
+
+    scheduled_services: Optional[List[ScheduledService]] = field(
+        default=None, metadata=config(field_name="scheduledServices")
+    )
+    service_histories: Optional[List[ServiceHistory]] = field(
+        default=None, metadata=config(field_name="serviceHistories")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
 class OSConfigInput:
     """OSConfigInput."""
 
@@ -886,6 +1037,39 @@ class ClusterImageInput:
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
+class HAStaticClusterInput:
+    """HAStaticClusterInput."""
+
+    name: Optional[str] = field(default=None, metadata=config(field_name="name"))
+    description: Optional[str] = field(
+        default=None, metadata=config(field_name="description")
+    )
+    role: Optional[str] = field(default=None, metadata=config(field_name="role"))
+    ha_cidr_block: Optional[str] = field(
+        default=None, metadata=config(field_name="haCidrBlock")
+    )
+    ha_cidr_block_array: Optional[List[str]] = field(
+        default=None, metadata=config(field_name="haCidrBlockArray")
+    )
+    network: Optional[NetworkInput] = field(
+        default=None, metadata=config(field_name="network")
+    )
+    cluster_type: Optional[ClusterType] = field(
+        default=None, metadata=config(field_name="clusterType")
+    )
+    registration: Optional[RegistrationInput] = field(
+        default=None, metadata=config(field_name="registration")
+    )
+    maintenance: Optional[MaintenanceInput] = field(
+        default=None, metadata=config(field_name="maintenance")
+    )
+    cluster_nodes: Optional[List[ClusterNodeInput]] = field(
+        default=None, metadata=config(field_name="clusterNodes")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
 class ClusterInput:
     """ClusterInput."""
 
@@ -916,38 +1100,8 @@ class ClusterInput:
     cluster_nodes: Optional[List[ClusterNodeInput]] = field(
         default=None, metadata=config(field_name="clusterNodes")
     )
-
-
-@dataclass_json
-@dataclass(order=True, eq=True, frozen=True)
-class HAStaticClusterInput:
-    """HAStaticClusterInput."""
-
-    name: Optional[str] = field(default=None, metadata=config(field_name="name"))
-    description: Optional[str] = field(
-        default=None, metadata=config(field_name="description")
-    )
-    role: Optional[str] = field(default=None, metadata=config(field_name="role"))
-    ha_cidr_block: Optional[str] = field(
-        default=None, metadata=config(field_name="haCidrBlock")
-    )
-    ha_cidr_block_array: Optional[List[str]] = field(
-        default=None, metadata=config(field_name="haCidrBlockArray")
-    )
-    network: Optional[NetworkInput] = field(
-        default=None, metadata=config(field_name="network")
-    )
-    cluster_type: Optional[ClusterType] = field(
-        default=None, metadata=config(field_name="clusterType")
-    )
-    registration: Optional[RegistrationInput] = field(
-        default=None, metadata=config(field_name="registration")
-    )
-    maintenance: Optional[MaintenanceInput] = field(
-        default=None, metadata=config(field_name="maintenance")
-    )
-    cluster_nodes: Optional[List[ClusterNodeInput]] = field(
-        default=None, metadata=config(field_name="clusterNodes")
+    scheduled_services: Optional[List[ClusterScheduledServiceInput]] = field(
+        default=None, metadata=config(field_name="scheduledServices")
     )
 
 
@@ -1003,6 +1157,9 @@ class Cluster:
     )
     cluster_nodes: Optional[List[ClusterNode]] = field(
         default=None, metadata=config(field_name="clusterNodes")
+    )
+    service_track: Optional[ServiceTrack] = field(
+        default=None, metadata=config(field_name="serviceTrack")
     )
 
 

@@ -135,6 +135,9 @@ class AddEvidenceToInvestigationInput:
     events: Optional[List[str]] = field(
         default=None, metadata=config(field_name="events")
     )
+    search_queries: Optional[List[str]] = field(
+        default=None, metadata=config(field_name="searchQueries")
+    )
 
 
 @dataclass_json
@@ -153,6 +156,9 @@ class RemoveEvidenceFromInvestigationInput:
     )
     assets: Optional[List[str]] = field(
         default=None, metadata=config(field_name="assets")
+    )
+    search_queries: Optional[List[str]] = field(
+        default=None, metadata=config(field_name="searchQueries")
     )
 
 
@@ -302,6 +308,9 @@ class AddEvidenceToInvestigationResult:
     events: Optional[List[str]] = field(
         default=None, metadata=config(field_name="events")
     )
+    search_queries: Optional[List[str]] = field(
+        default=None, metadata=config(field_name="searchQueries")
+    )
 
 
 @dataclass_json
@@ -320,6 +329,9 @@ class RemoveEvidenceFromInvestigationResult:
     )
     assets: Optional[List[str]] = field(
         default=None, metadata=config(field_name="assets")
+    )
+    search_queries: Optional[List[str]] = field(
+        default=None, metadata=config(field_name="searchQueries")
     )
 
 
@@ -639,6 +651,32 @@ class EntityEvidence:
     )
     entity_id: Optional[str] = field(
         default=None, metadata=config(field_name="entityId")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class SearchQueryEvidence:
+    """SearchQueryEvidence."""
+
+    id: Optional[str] = field(default=None, metadata=config(field_name="id"))
+    investigation_id: Optional[str] = field(
+        default=None, metadata=config(field_name="investigationId")
+    )
+    tenant_id: Optional[str] = field(
+        default=None, metadata=config(field_name="tenantId")
+    )
+    created_at: Optional[str] = field(
+        default=None, metadata=config(field_name="createdAt")
+    )
+    created_by: Optional[str] = field(
+        default=None, metadata=config(field_name="createdBy")
+    )
+    search_query: Optional[str] = field(
+        default=None, metadata=config(field_name="searchQuery")
+    )
+    is_genesis: Optional[bool] = field(
+        default=None, metadata=config(field_name="isGenesis")
     )
 
 
@@ -1330,11 +1368,21 @@ class InvestigationV2:
     events_evidence_count: Optional[int] = field(
         default=None, metadata=config(field_name="eventsEvidenceCount")
     )
+    search_queries_evidence_count: Optional[int] = field(
+        default=None, metadata=config(field_name="searchQueriesEvidenceCount")
+    )
     entities_evidence_count: Optional[int] = field(
         default=None, metadata=config(field_name="entitiesEvidenceCount")
     )
     search_queries: Optional[List[str]] = field(
-        default=None, metadata=config(field_name="searchQueries")
+        default=None,
+        metadata=config(
+            metadata={
+                "deprecated": True,
+                "deprecation_reason": "use searchQueriesEvidence",
+            },
+            field_name="searchQueries",
+        ),
     )
     tags: Optional[List[str]] = field(default=None, metadata=config(field_name="tags"))
     contributor_ids: Optional[List[str]] = field(
@@ -1410,6 +1458,9 @@ class InvestigationV2:
     )
     events_evidence: Optional[List[EventEvidence]] = field(
         default=None, metadata=config(field_name="eventsEvidence")
+    )
+    search_queries_evidence: Optional[List[SearchQueryEvidence]] = field(
+        default=None, metadata=config(field_name="searchQueriesEvidence")
     )
     entities_evidence: Optional[List[EntityEvidence]] = field(
         default=None, metadata=config(field_name="entitiesEvidence")

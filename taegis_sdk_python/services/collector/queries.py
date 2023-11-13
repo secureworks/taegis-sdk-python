@@ -686,3 +686,18 @@ class TaegisSDKCollectorQuery:
                 [r or {} for r in result.get(endpoint)], many=True
             )
         raise GraphQLNoRowsInResultSetError("for query syslogMessageCountV2")
+
+    def get_scheduled_service(self, id_: str) -> ScheduledService:
+        """None."""
+        endpoint = "getScheduledService"
+
+        result = self.service.execute_query(
+            endpoint=endpoint,
+            variables={
+                "ID": prepare_input(id_),
+            },
+            output=build_output_string(ScheduledService),
+        )
+        if result.get(endpoint) is not None:
+            return ScheduledService.from_dict(result.get(endpoint))
+        raise GraphQLNoRowsInResultSetError("for query getScheduledService")
