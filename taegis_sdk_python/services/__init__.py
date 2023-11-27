@@ -19,6 +19,7 @@ from taegis_sdk_python.services.byoti import ByotiService
 from taegis_sdk_python.services.clients import ClientsService
 from taegis_sdk_python.services.collector import CollectorService
 from taegis_sdk_python.services.comments import CommentsService
+from taegis_sdk_python.services.datasources import DatasourcesService
 from taegis_sdk_python.services.detector_registry import DetectorRegistryService
 from taegis_sdk_python.services.endpoint_command_manager import (
     EndpointCommandManagerService,
@@ -110,6 +111,7 @@ class GraphQLService:
         self._clients = None
         self._collector = None
         self._comments = None
+        self._datasources = None
         self._detector_registry = None
         self._endpoint_command_manager = None
         self._endpoint_management_service = None
@@ -298,6 +300,13 @@ class GraphQLService:
         if not self._comments:
             self._comments = CommentsService(self)
         return self._comments
+
+    @property
+    def datasources(self):
+        """Datasources Service Endpoint."""
+        if not self._datasources:
+            self._datasources = DatasourcesService(self)
+        return self._datasources
 
     @property
     def detector_registry(self):

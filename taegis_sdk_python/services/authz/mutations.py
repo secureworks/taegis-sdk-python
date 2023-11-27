@@ -74,3 +74,22 @@ class TaegisSDKAuthzMutation:
         if result.get(endpoint) is not None:
             return AuthzCustomRoleDeleteResponse.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for mutation authzCustomRoleDelete")
+
+    def authz_update_supported_feature_state(
+        self, input_: AuthzUpdateSupportedFeatureStateInput
+    ) -> AuthzSupportedFeatureResponse:
+        """authzUpdateSupportedFeatureState updates the state of a supported feature."""
+        endpoint = "authzUpdateSupportedFeatureState"
+
+        result = self.service.execute_mutation(
+            endpoint=endpoint,
+            variables={
+                "input": prepare_input(input_),
+            },
+            output=build_output_string(AuthzSupportedFeatureResponse),
+        )
+        if result.get(endpoint) is not None:
+            return AuthzSupportedFeatureResponse.from_dict(result.get(endpoint))
+        raise GraphQLNoRowsInResultSetError(
+            "for mutation authzUpdateSupportedFeatureState"
+        )

@@ -25,6 +25,7 @@ class AuthzRequestPermissionObject(str, Enum):
     """AuthzRequestPermissionObject."""
 
     AUTHZ_CUSTOM_ROLES = "AuthzCustomRoles"
+    SUPPORTED_FEATURES = "SupportedFeatures"
 
 
 class AuthzRequestPermissionAction(str, Enum):
@@ -33,6 +34,13 @@ class AuthzRequestPermissionAction(str, Enum):
     CREATE = "create"
     UPDATE = "update"
     DELETE = "delete"
+
+
+class AuthzSupportedFeatureTarget(str, Enum):
+    """AuthzSupportedFeatureTarget."""
+
+    TENANT = "TENANT"
+    CHILD_TENANTS = "CHILD_TENANTS"
 
 
 @dataclass_json
@@ -166,6 +174,18 @@ class AuthzCustomRoleCreateInput:
     )
     object_actions: Optional[List[AuthzObjectActionInput]] = field(
         default=None, metadata=config(field_name="objectActions")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class AuthzUpdateSupportedFeatureStateInput:
+    """AuthzUpdateSupportedFeatureStateInput."""
+
+    object: Optional[str] = field(default=None, metadata=config(field_name="object"))
+    enabled: Optional[bool] = field(default=None, metadata=config(field_name="enabled"))
+    target: Optional[AuthzSupportedFeatureTarget] = field(
+        default=None, metadata=config(field_name="target")
     )
 
 

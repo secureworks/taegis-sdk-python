@@ -108,11 +108,13 @@ class TaegisSDKUsersQuery:
         raise GraphQLNoRowsInResultSetError("for query tdrusersByIDs")
 
     def search_tdrusers_by_ids(
-        self, user_ids: Optional[List[str]] = None
+        self,
+        user_ids: Optional[List[str]] = None,
+        include_masked_related_users: Optional[bool] = None,
     ) -> List[SearchByIDsResponse]:
         """ "
         Search users by id list. The list can contain a mixture of IDs or UserIDs. Errors are reported individually for each ID.
-        Search will be processed using the X-Tenant-Context header as a filter first. Subsequent searches will use role assginments
+        Search will be processed using the X-Tenant-Context header as a filter first. Subsequent searches will use role assignments
         for user IDs that have not been found until all users are retrieved or all role assignments are exhausted..
         """
         endpoint = "searchTDRUsersByIDs"
@@ -121,6 +123,9 @@ class TaegisSDKUsersQuery:
             endpoint=endpoint,
             variables={
                 "userIDs": prepare_input(user_ids),
+                "includeMaskedRelatedUsers": prepare_input(
+                    include_masked_related_users
+                ),
             },
             output=build_output_string(SearchByIDsResponse),
         )
