@@ -121,27 +121,3 @@ class TaegisSDKMultiTenantContextQuery:
         if result.get(endpoint) is not None:
             return result.get(endpoint)
         raise GraphQLNoRowsInResultSetError("for query getTenantServiceFilters")
-
-    def get_cached_triage(
-        self,
-        services: List[str],
-        show_claimed: Optional[bool] = None,
-        page: Optional[int] = None,
-        per_page: Optional[int] = None,
-    ) -> CachedTriageOutput:
-        """Gets cached triage data for all tenants the subject has access to and is sorted by oldest severe alert.."""
-        endpoint = "getCachedTriage"
-
-        result = self.service.execute_query(
-            endpoint=endpoint,
-            variables={
-                "services": prepare_input(services),
-                "showClaimed": prepare_input(show_claimed),
-                "page": prepare_input(page),
-                "perPage": prepare_input(per_page),
-            },
-            output=build_output_string(CachedTriageOutput),
-        )
-        if result.get(endpoint) is not None:
-            return CachedTriageOutput.from_dict(result.get(endpoint))
-        raise GraphQLNoRowsInResultSetError("for query getCachedTriage")

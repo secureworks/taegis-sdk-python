@@ -28,6 +28,8 @@ class PolicyType(str, Enum):
     LOW = "LOW"
     STANDARD = "STANDARD"
     HIGH = "HIGH"
+    LOW_COMPAT = "LOW_COMPAT"
+    STANDARD_COMPAT = "STANDARD_COMPAT"
 
 
 class BulkAssignRequestStatus(str, Enum):
@@ -89,6 +91,9 @@ class EndpointGroup:
     )
     file_analysis_flag: Optional[bool] = field(
         default=None, metadata=config(field_name="fileAnalysisFlag")
+    )
+    maintenance_window: Optional[str] = field(
+        default=None, metadata=config(field_name="maintenanceWindow")
     )
 
 
@@ -170,6 +175,9 @@ class CreateEndpointGroupInput:
     file_analysis_flag: Optional[bool] = field(
         default=None, metadata=config(field_name="fileAnalysisFlag")
     )
+    maintenance_window: Optional[str] = field(
+        default=None, metadata=config(field_name="maintenanceWindow")
+    )
     policy_name: Optional[PolicyType] = field(
         default=None, metadata=config(field_name="policyName")
     )
@@ -194,6 +202,9 @@ class UpdateEndpointGroupInput:
     )
     file_analysis_flag: Optional[bool] = field(
         default=None, metadata=config(field_name="fileAnalysisFlag")
+    )
+    maintenance_window: Optional[str] = field(
+        default=None, metadata=config(field_name="maintenanceWindow")
     )
     policy_name: Optional[PolicyType] = field(
         default=None, metadata=config(field_name="policyName")

@@ -63,6 +63,7 @@ class ReportChartType(str, Enum):
     INVESTIGATION_SUMMARY = "INVESTIGATION_SUMMARY"
     USER_ADMINISTRATION = "USER_ADMINISTRATION"
     INVESTIGATION_REPORT = "INVESTIGATION_REPORT"
+    ISENSOR_REPORT = "ISENSOR_REPORT"
 
 
 class ReportType(str, Enum):
@@ -520,6 +521,9 @@ class Export:
     creator: Optional[TDRUser] = field(
         default=None, metadata=config(field_name="creator")
     )
+    creator_v2: Optional[TDRUser] = field(
+        default=None, metadata=config(field_name="creatorV2")
+    )
     status: Optional[ExportStatus] = field(
         default=None, metadata=config(field_name="status")
     )
@@ -635,8 +639,14 @@ class Schedule:
     recipients: Optional[List[TDRUser]] = field(
         default=None, metadata=config(field_name="recipients")
     )
+    recipients_v2: Optional[List[TDRUser]] = field(
+        default=None, metadata=config(field_name="recipientsV2")
+    )
     creator: Optional[TDRUser] = field(
         default=None, metadata=config(field_name="creator")
+    )
+    creator_v2: Optional[TDRUser] = field(
+        default=None, metadata=config(field_name="creatorV2")
     )
     export_types: Optional[List[ExportType]] = field(
         default=None, metadata=config(field_name="exportTypes")
@@ -707,6 +717,9 @@ class Report:
     locale: Optional[str] = field(default=None, metadata=config(field_name="locale"))
     creator: Optional[TDRUser] = field(
         default=None, metadata=config(field_name="creator")
+    )
+    creator_v2: Optional[TDRUser] = field(
+        default=None, metadata=config(field_name="creatorV2")
     )
     schedule: Optional[Schedule] = field(
         default=None, metadata=config(field_name="schedule")

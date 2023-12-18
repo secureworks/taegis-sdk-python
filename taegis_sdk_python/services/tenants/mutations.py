@@ -320,3 +320,135 @@ class TaegisSDKTenantsMutation:
         if result.get(endpoint) is not None:
             return TenantService.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for mutation requestService")
+
+    def create_tenant_decommission_request(
+        self, input_: TenantDecommissionCreateRequestInput
+    ) -> TenantDecommissionRequest:
+        """Creates a new TenantDecommissionRequest for a tenant."""
+        endpoint = "createTenantDecommissionRequest"
+
+        result = self.service.execute_mutation(
+            endpoint=endpoint,
+            variables={
+                "input": prepare_input(input_),
+            },
+            output=build_output_string(TenantDecommissionRequest),
+        )
+        if result.get(endpoint) is not None:
+            return TenantDecommissionRequest.from_dict(result.get(endpoint))
+        raise GraphQLNoRowsInResultSetError(
+            "for mutation createTenantDecommissionRequest"
+        )
+
+    def update_tenant_decommission_request(
+        self, update_request: TenantDecommissionUpdateRequestInput
+    ) -> TenantDecommissionRequest:
+        """Updates an existing TenantDecommissionRequest."""
+        endpoint = "updateTenantDecommissionRequest"
+
+        result = self.service.execute_mutation(
+            endpoint=endpoint,
+            variables={
+                "updateRequest": prepare_input(update_request),
+            },
+            output=build_output_string(TenantDecommissionRequest),
+        )
+        if result.get(endpoint) is not None:
+            return TenantDecommissionRequest.from_dict(result.get(endpoint))
+        raise GraphQLNoRowsInResultSetError(
+            "for mutation updateTenantDecommissionRequest"
+        )
+
+    def defer_tenant_decommission_task(
+        self, task_id: TenantDecommissionTaskDeferInput
+    ) -> TenantDecommissionRequest:
+        """Sets defer time for a given TenantDecommissionTask."""
+        endpoint = "deferTenantDecommissionTask"
+
+        result = self.service.execute_mutation(
+            endpoint=endpoint,
+            variables={
+                "taskID": prepare_input(task_id),
+            },
+            output=build_output_string(TenantDecommissionRequest),
+        )
+        if result.get(endpoint) is not None:
+            return TenantDecommissionRequest.from_dict(result.get(endpoint))
+        raise GraphQLNoRowsInResultSetError("for mutation deferTenantDecommissionTask")
+
+    def submit_tenant_decommission_request(
+        self, request_id: str
+    ) -> TenantDecommissionRequest:
+        """Set the TenantDecommissionRequest ready for review."""
+        endpoint = "submitTenantDecommissionRequest"
+
+        result = self.service.execute_mutation(
+            endpoint=endpoint,
+            variables={
+                "requestID": prepare_input(request_id),
+            },
+            output=build_output_string(TenantDecommissionRequest),
+        )
+        if result.get(endpoint) is not None:
+            return TenantDecommissionRequest.from_dict(result.get(endpoint))
+        raise GraphQLNoRowsInResultSetError(
+            "for mutation submitTenantDecommissionRequest"
+        )
+
+    def approve_tenant_decommission_request(
+        self, request_id: str
+    ) -> TenantDecommissionRequest:
+        """Mark the TenantDecommissionRequest as approved."""
+        endpoint = "approveTenantDecommissionRequest"
+
+        result = self.service.execute_mutation(
+            endpoint=endpoint,
+            variables={
+                "requestID": prepare_input(request_id),
+            },
+            output=build_output_string(TenantDecommissionRequest),
+        )
+        if result.get(endpoint) is not None:
+            return TenantDecommissionRequest.from_dict(result.get(endpoint))
+        raise GraphQLNoRowsInResultSetError(
+            "for mutation approveTenantDecommissionRequest"
+        )
+
+    def execute_tenant_decommission_request(
+        self, request_id: str
+    ) -> TenantDecommissionRequest:
+        """Start the execution of the Tenant Decommission tasks, needs to be in approved status in order to start these tasks."""
+        endpoint = "executeTenantDecommissionRequest"
+
+        result = self.service.execute_mutation(
+            endpoint=endpoint,
+            variables={
+                "requestID": prepare_input(request_id),
+            },
+            output=build_output_string(TenantDecommissionRequest),
+        )
+        if result.get(endpoint) is not None:
+            return TenantDecommissionRequest.from_dict(result.get(endpoint))
+        raise GraphQLNoRowsInResultSetError(
+            "for mutation executeTenantDecommissionRequest"
+        )
+
+    def cancel_tenant_decommission_request(
+        self, request_id: str, reason: str
+    ) -> TenantDecommissionRequest:
+        """Cancels a Tenant Decommission Request."""
+        endpoint = "cancelTenantDecommissionRequest"
+
+        result = self.service.execute_mutation(
+            endpoint=endpoint,
+            variables={
+                "requestID": prepare_input(request_id),
+                "reason": prepare_input(reason),
+            },
+            output=build_output_string(TenantDecommissionRequest),
+        )
+        if result.get(endpoint) is not None:
+            return TenantDecommissionRequest.from_dict(result.get(endpoint))
+        raise GraphQLNoRowsInResultSetError(
+            "for mutation cancelTenantDecommissionRequest"
+        )

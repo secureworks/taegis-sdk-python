@@ -161,3 +161,37 @@ class TaegisSDKTenantsQuery:
                 [r or {} for r in result.get(endpoint)], many=True
             )
         raise GraphQLNoRowsInResultSetError("for query requestableServices")
+
+    def tenant_decommission_request(self, request_id: str) -> TenantDecommissionRequest:
+        """Return a existing Tenant Decommission request by its ID."""
+        endpoint = "tenantDecommissionRequest"
+
+        result = self.service.execute_query(
+            endpoint=endpoint,
+            variables={
+                "requestID": prepare_input(request_id),
+            },
+            output=build_output_string(TenantDecommissionRequest),
+        )
+        if result.get(endpoint) is not None:
+            return TenantDecommissionRequest.from_dict(result.get(endpoint))
+        raise GraphQLNoRowsInResultSetError("for query tenantDecommissionRequest")
+
+    def tenant_decommission_requests(
+        self, arguments: Optional[TenantDecommissionRequestsInput] = None
+    ) -> List[TenantDecommissionRequest]:
+        """Returns a list Tenant Decommission requests by a set of filters in the input argument."""
+        endpoint = "tenantDecommissionRequests"
+
+        result = self.service.execute_query(
+            endpoint=endpoint,
+            variables={
+                "arguments": prepare_input(arguments),
+            },
+            output=build_output_string(TenantDecommissionRequest),
+        )
+        if result.get(endpoint) is not None:
+            return TenantDecommissionRequest.schema().load(
+                [r or {} for r in result.get(endpoint)], many=True
+            )
+        raise GraphQLNoRowsInResultSetError("for query tenantDecommissionRequests")

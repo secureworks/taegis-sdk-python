@@ -255,3 +255,29 @@ class ApiForm:
     items: Optional[List[ApiFormItem]] = field(
         default=None, metadata=config(field_name="Items")
     )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class ApiIntegrationHistoryPage:
+    """ApiIntegrationHistoryPage."""
+
+    start_time: Optional[str] = field(
+        default=None, metadata=config(field_name="startTime")
+    )
+    end_time: Optional[str] = field(default=None, metadata=config(field_name="endTime"))
+    page_number: Optional[int] = field(
+        default=None, metadata=config(field_name="pageNumber")
+    )
+    page_size: Optional[int] = field(
+        default=None, metadata=config(field_name="pageSize")
+    )
+    total_pages: Optional[int] = field(
+        default=None, metadata=config(field_name="totalPages")
+    )
+    total_rows: Optional[int] = field(
+        default=None, metadata=config(field_name="totalRows")
+    )
+    results: Optional[List[ApiIntegrationHistory]] = field(
+        default=None, metadata=config(field_name="results")
+    )

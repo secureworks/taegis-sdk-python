@@ -28,6 +28,7 @@ class AuthzObject(str, Enum):
     TENANT_HIERARCHY = "TenantHierarchy"
     TENANT_MANAGER = "TenantManager"
     ENTERPRISE_SSO_CONNECTION = "EnterpriseSSOConnection"
+    TENANT_DECOMMISSION = "TenantDecommission"
 
 
 class AuthzAction(str, Enum):
@@ -37,6 +38,8 @@ class AuthzAction(str, Enum):
     READ = "Read"
     CREATE = "Create"
     DELETE = "Delete"
+    APPROVE = "Approve"
+    EXECUTE = "Execute"
 
 
 class TenantType(str, Enum):
@@ -125,6 +128,28 @@ class AuditAction(str, Enum):
     CREATE_SERVICE = "create_service"
     DELETE_SERVICE = "delete_service"
     UPDATE_SERVICE = "update_service"
+
+
+class TenantDecommissionRequestStatus(str, Enum):
+    """TenantDecommissionRequestStatus."""
+
+    CREATED = "CREATED"
+    IN_REVIEW = "IN_REVIEW"
+    APPROVED = "APPROVED"
+    PROCESSING = "PROCESSING"
+    ERROR_STATE = "ERROR_STATE"
+    COMPLETED = "COMPLETED"
+    CANCELLED = "CANCELLED"
+
+
+class TenantDecommissionTaskStatus(str, Enum):
+    """TenantDecommissionTaskStatus."""
+
+    PENDING = "PENDING"
+    DEFERRED = "DEFERRED"
+    SCHEDULED = "SCHEDULED"
+    ERROR = "ERROR"
+    COMPLETED = "COMPLETED"
 
 
 @dataclass_json
@@ -371,6 +396,17 @@ class AzureADConnectionParameters:
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
+class TenantDecommissionAgentSummary:
+    """TenantDecommissionAgentSummary."""
+
+    agent_type: Optional[str] = field(
+        default=None, metadata=config(field_name="agentType")
+    )
+    count: Optional[int] = field(default=None, metadata=config(field_name="count"))
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
 class NewService:
     """NewService."""
 
@@ -553,6 +589,53 @@ class TenantServiceInput:
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
+class TenantDecommissionCreateRequestInput:
+    """TenantDecommissionCreateRequestInput."""
+
+    tenant_id: Optional[str] = field(
+        default=None, metadata=config(field_name="tenantID")
+    )
+    name: Optional[str] = field(default=None, metadata=config(field_name="name"))
+    description: Optional[str] = field(
+        default=None, metadata=config(field_name="description")
+    )
+    point_of_contact: Optional[str] = field(
+        default=None, metadata=config(field_name="pointOfContact")
+    )
+    notes: Optional[str] = field(default=None, metadata=config(field_name="notes"))
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class TenantDecommissionUpdateRequestInput:
+    """TenantDecommissionUpdateRequestInput."""
+
+    request_id: Optional[str] = field(
+        default=None, metadata=config(field_name="requestID")
+    )
+    name: Optional[str] = field(default=None, metadata=config(field_name="name"))
+    description: Optional[str] = field(
+        default=None, metadata=config(field_name="description")
+    )
+    point_of_contact: Optional[str] = field(
+        default=None, metadata=config(field_name="pointOfContact")
+    )
+    notes: Optional[str] = field(default=None, metadata=config(field_name="notes"))
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class TenantDecommissionTaskDeferInput:
+    """TenantDecommissionTaskDeferInput."""
+
+    task_id: Optional[str] = field(default=None, metadata=config(field_name="taskID"))
+    defer_days: Optional[int] = field(
+        default=None, metadata=config(field_name="deferDays")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
 class AuditResults:
     """AuditResults."""
 
@@ -585,6 +668,82 @@ class Partnership:
     )
     subscriptions: Optional[List[PartnerSubscription]] = field(
         default=None, metadata=config(field_name="subscriptions")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class TenantDecommissionTask:
+    """TenantDecommissionTask."""
+
+    id: Optional[str] = field(default=None, metadata=config(field_name="id"))
+    created_at: Optional[str] = field(
+        default=None, metadata=config(field_name="createdAt")
+    )
+    updated_at: Optional[str] = field(
+        default=None, metadata=config(field_name="updatedAt")
+    )
+    name: Optional[str] = field(default=None, metadata=config(field_name="name"))
+    description: Optional[str] = field(
+        default=None, metadata=config(field_name="description")
+    )
+    error_text: Optional[str] = field(
+        default=None, metadata=config(field_name="errorText")
+    )
+    defer_days: Optional[int] = field(
+        default=None, metadata=config(field_name="deferDays")
+    )
+    status: Optional[TenantDecommissionTaskStatus] = field(
+        default=None, metadata=config(field_name="status")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class TenantDecommissionConfigReport:
+    """TenantDecommissionConfigReport."""
+
+    tenant_id: Optional[str] = field(
+        default=None, metadata=config(field_name="tenantID")
+    )
+    tenant_name: Optional[str] = field(
+        default=None, metadata=config(field_name="tenantName")
+    )
+    active_environments: Optional[str] = field(
+        default=None, metadata=config(field_name="activeEnvironments")
+    )
+    is_partner: Optional[bool] = field(
+        default=None, metadata=config(field_name="isPartner")
+    )
+    is_partner_tenant: Optional[bool] = field(
+        default=None, metadata=config(field_name="isPartnerTenant")
+    )
+    is_organization: Optional[bool] = field(
+        default=None, metadata=config(field_name="isOrganization")
+    )
+    is_organization_tenant: Optional[bool] = field(
+        default=None, metadata=config(field_name="isOrganizationTenant")
+    )
+    number_of_active_users: Optional[int] = field(
+        default=None, metadata=config(field_name="numberOfActiveUsers")
+    )
+    number_of_application_clients: Optional[int] = field(
+        default=None, metadata=config(field_name="numberOfApplicationClients")
+    )
+    custom_roles: Optional[List[str]] = field(
+        default=None, metadata=config(field_name="CustomRoles")
+    )
+    number_of_sso_connections: Optional[int] = field(
+        default=None, metadata=config(field_name="numberOfSSOConnections")
+    )
+    current_data_retention_months: Optional[int] = field(
+        default=None, metadata=config(field_name="CurrentDataRetentionMonths")
+    )
+    estimated_ingest_data_amount: Optional[str] = field(
+        default=None, metadata=config(field_name="EstimatedIngestDataAmount")
+    )
+    agent_summary: Optional[List[TenantDecommissionAgentSummary]] = field(
+        default=None, metadata=config(field_name="AgentSummary")
     )
 
 
@@ -758,6 +917,64 @@ class TenantCreateInput:
     )
     labels: Optional[List[InputTenantLabel]] = field(
         default=None, metadata=config(field_name="labels")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class TenantDecommissionRequestsInput:
+    """TenantDecommissionRequestsInput."""
+
+    for_tenants: Optional[List[str]] = field(
+        default=None, metadata=config(field_name="forTenants")
+    )
+    for_status: Optional[TenantDecommissionRequestStatus] = field(
+        default=None, metadata=config(field_name="forStatus")
+    )
+    for_time_period: Optional[TimeFilter] = field(
+        default=None, metadata=config(field_name="forTimePeriod")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class TenantDecommissionRequest:
+    """TenantDecommissionRequest."""
+
+    id: Optional[str] = field(default=None, metadata=config(field_name="id"))
+    created_at: Optional[str] = field(
+        default=None, metadata=config(field_name="createdAt")
+    )
+    updated_at: Optional[str] = field(
+        default=None, metadata=config(field_name="updatedAt")
+    )
+    created_by: Optional[str] = field(
+        default=None, metadata=config(field_name="createdBy")
+    )
+    approved_by: Optional[str] = field(
+        default=None, metadata=config(field_name="approvedBy")
+    )
+    executed_by: Optional[str] = field(
+        default=None, metadata=config(field_name="executedBy")
+    )
+    tenant_id: Optional[str] = field(
+        default=None, metadata=config(field_name="tenantID")
+    )
+    tenant_name: Optional[str] = field(
+        default=None, metadata=config(field_name="tenantName")
+    )
+    point_of_contact: Optional[str] = field(
+        default=None, metadata=config(field_name="pointOfContact")
+    )
+    notes: Optional[str] = field(default=None, metadata=config(field_name="notes"))
+    status: Optional[TenantDecommissionRequestStatus] = field(
+        default=None, metadata=config(field_name="status")
+    )
+    tenant_configuration: Optional[TenantDecommissionConfigReport] = field(
+        default=None, metadata=config(field_name="tenantConfiguration")
+    )
+    ordered_decommission_task_list: Optional[List[TenantDecommissionTask]] = field(
+        default=None, metadata=config(field_name="orderedDecommissionTaskList")
     )
 
 

@@ -119,6 +119,9 @@ class AuthzObjectActionStatusResponse:
     required_for_ui_login: Optional[bool] = field(
         default=None, metadata=config(field_name="required_for_ui_login")
     )
+    feature_enabled: Optional[bool] = field(
+        default=None, metadata=config(field_name="feature_enabled")
+    )
 
 
 @dataclass_json

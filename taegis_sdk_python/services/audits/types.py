@@ -14,6 +14,13 @@ from dataclasses import dataclass, field
 from dataclasses_json import dataclass_json, config
 
 
+class IntervalType(str, Enum):
+    """IntervalType."""
+
+    HOUR = "hour"
+    DAY = "day"
+
+
 class SortBy(str, Enum):
     """SortBy."""
 
@@ -161,6 +168,17 @@ class AuditInput:
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
+class ApplicationMetric:
+    """ApplicationMetric."""
+
+    application_name: Optional[str] = field(
+        default=None, metadata=config(field_name="applicationName")
+    )
+    count: Optional[int] = field(default=None, metadata=config(field_name="count"))
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
 class AuditEvent:
     """AuditEvent."""
 
@@ -183,6 +201,38 @@ class AuditResult:
     limit: Optional[int] = field(default=None, metadata=config(field_name="limit"))
     audits: Optional[List[Audit]] = field(
         default=None, metadata=config(field_name="audits")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class ApplicationAggregationInput:
+    """ApplicationAggregationInput."""
+
+    applications: Optional[List[str]] = field(
+        default=None, metadata=config(field_name="applications")
+    )
+    interval_type: Optional[IntervalType] = field(
+        default=None, metadata=config(field_name="intervalType")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class IntervalBucket:
+    """IntervalBucket."""
+
+    interval_key_in_mills: Optional[int] = field(
+        default=None, metadata=config(field_name="intervalKeyInMills")
+    )
+    interval_key: Optional[str] = field(
+        default=None, metadata=config(field_name="intervalKey")
+    )
+    total_count: Optional[int] = field(
+        default=None, metadata=config(field_name="totalCount")
+    )
+    application_metrics: Optional[List[ApplicationMetric]] = field(
+        default=None, metadata=config(field_name="applicationMetrics")
     )
 
 
@@ -282,4 +332,14 @@ class AuditSearchInput:
     )
     sort_order: Optional[SortOrder] = field(
         default=None, metadata=config(field_name="sortOrder")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class ApplicationAggregationResult:
+    """ApplicationAggregationResult."""
+
+    intervals: Optional[List[IntervalBucket]] = field(
+        default=None, metadata=config(field_name="intervals")
     )

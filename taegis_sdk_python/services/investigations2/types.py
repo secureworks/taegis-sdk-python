@@ -78,6 +78,7 @@ class InvestigationType(str, Enum):
     UNLIMITED_RESPONSE = "UNLIMITED_RESPONSE"
     MANAGED_XDR_OT_INVESTIGATION = "MANAGED_XDR_OT_INVESTIGATION"
     OT_INVESTIGATION = "OT_INVESTIGATION"
+    DETECTION_RESEARCH = "DETECTION_RESEARCH"
 
 
 class InvestigationProcessingState(str, Enum):
@@ -729,12 +730,19 @@ class InvestigationFileV2Arguments:
 class InvestigationFilesV2Arguments:
     """InvestigationFilesV2Arguments."""
 
-    investigation_id: Optional[str] = field(
-        default=None, metadata=config(field_name="investigationId")
-    )
     page: Optional[int] = field(default=None, metadata=config(field_name="page"))
     per_page: Optional[int] = field(default=None, metadata=config(field_name="perPage"))
     cql: Optional[str] = field(default=None, metadata=config(field_name="cql"))
+    investigation_id: Optional[str] = field(
+        default=None,
+        metadata=config(
+            metadata={
+                "deprecated": True,
+                "deprecation_reason": "use cql query field to filter by investigationId. Setting this field will ignore the provided cql query.",
+            },
+            field_name="investigationId",
+        ),
+    )
 
 
 @dataclass_json
@@ -784,6 +792,9 @@ class CreateInvestigationRuleInput:
     )
     tenant_filter: Optional[str] = field(
         default=None, metadata=config(field_name="tenantFilter")
+    )
+    skip_alert_prioritization: Optional[bool] = field(
+        default=None, metadata=config(field_name="skipAlertPrioritization")
     )
     template_id: Optional[str] = field(
         default=None, metadata=config(field_name="templateId")
@@ -835,6 +846,9 @@ class UpdateInvestigationRuleInput:
     )
     tenant_filter: Optional[str] = field(
         default=None, metadata=config(field_name="tenantFilter")
+    )
+    skip_alert_prioritization: Optional[bool] = field(
+        default=None, metadata=config(field_name="skipAlertPrioritization")
     )
     template_id: Optional[str] = field(
         default=None, metadata=config(field_name="templateId")
@@ -1320,6 +1334,9 @@ class InvestigationRule:
     tenant_filter: Optional[str] = field(
         default=None, metadata=config(field_name="tenantFilter")
     )
+    skip_alert_prioritization: Optional[bool] = field(
+        default=None, metadata=config(field_name="skipAlertPrioritization")
+    )
     comment: Optional[str] = field(
         default=None,
         metadata=config(
@@ -1370,19 +1387,6 @@ class InvestigationV2:
     )
     search_queries_evidence_count: Optional[int] = field(
         default=None, metadata=config(field_name="searchQueriesEvidenceCount")
-    )
-    entities_evidence_count: Optional[int] = field(
-        default=None, metadata=config(field_name="entitiesEvidenceCount")
-    )
-    search_queries: Optional[List[str]] = field(
-        default=None,
-        metadata=config(
-            metadata={
-                "deprecated": True,
-                "deprecation_reason": "use searchQueriesEvidence",
-            },
-            field_name="searchQueries",
-        ),
     )
     tags: Optional[List[str]] = field(default=None, metadata=config(field_name="tags"))
     contributor_ids: Optional[List[str]] = field(
@@ -1450,6 +1454,23 @@ class InvestigationV2:
             field_name="contributorIDs",
         ),
     )
+    search_queries: Optional[List[str]] = field(
+        default=None,
+        metadata=config(
+            metadata={
+                "deprecated": True,
+                "deprecation_reason": "use searchQueriesEvidence",
+            },
+            field_name="searchQueries",
+        ),
+    )
+    entities_evidence_count: Optional[int] = field(
+        default=None,
+        metadata=config(
+            metadata={"deprecated": True, "deprecation_reason": "use alertsEvidence"},
+            field_name="entitiesEvidenceCount",
+        ),
+    )
     alerts_evidence: Optional[List[AlertEvidence]] = field(
         default=None, metadata=config(field_name="alertsEvidence")
     )
@@ -1461,9 +1482,6 @@ class InvestigationV2:
     )
     search_queries_evidence: Optional[List[SearchQueryEvidence]] = field(
         default=None, metadata=config(field_name="searchQueriesEvidence")
-    )
-    entities_evidence: Optional[List[EntityEvidence]] = field(
-        default=None, metadata=config(field_name="entitiesEvidence")
     )
     status: Optional[InvestigationStatus] = field(
         default=None, metadata=config(field_name="status")
@@ -1490,6 +1508,16 @@ class InvestigationV2:
         default=None, metadata=config(field_name="commentsCount")
     )
     metric: Optional[Metric] = field(default=None, metadata=config(field_name="metric"))
+    entities_evidence: Optional[List[EntityEvidence]] = field(
+        default=None,
+        metadata=config(
+            metadata={
+                "deprecated": True,
+                "deprecation_reason": "call the entity api directly",
+            },
+            field_name="entitiesEvidence",
+        ),
+    )
 
 
 @dataclass_json

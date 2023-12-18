@@ -20,6 +20,7 @@ class SearchTarget(str, Enum):
     ATHENA = "Athena"
     PRESTO = "Presto"
     ATHENA_HUDI = "AthenaHudi"
+    ATHENA_HUDI_STAGING = "AthenaHudiStaging"
 
 
 class BaseType(str, Enum):

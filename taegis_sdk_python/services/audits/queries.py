@@ -91,3 +91,23 @@ class TaegisSDKAuditsQuery:
         if result.get(endpoint) is not None:
             return AuditEventResult.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for query ListApplicationEvents")
+
+    def aggregate_by_applications(
+        self,
+        aggregation_input: ApplicationAggregationInput,
+        audit_search_input: AuditSearchInput,
+    ) -> ApplicationAggregationResult:
+        """Aggregate By Applications."""
+        endpoint = "aggregateByApplications"
+
+        result = self.service.execute_query(
+            endpoint=endpoint,
+            variables={
+                "aggregationInput": prepare_input(aggregation_input),
+                "auditSearchInput": prepare_input(audit_search_input),
+            },
+            output=build_output_string(ApplicationAggregationResult),
+        )
+        if result.get(endpoint) is not None:
+            return ApplicationAggregationResult.from_dict(result.get(endpoint))
+        raise GraphQLNoRowsInResultSetError("for query aggregateByApplications")

@@ -80,8 +80,8 @@ class TaegisSDKTripQuery:
         raise GraphQLNoRowsInResultSetError("for query apiIntegration")
 
     def list_api_integration_history(
-        self, id_: int, start_time: str, end_time: str
-    ) -> List[ApiIntegrationHistory]:
+        self, id_: int, start_time: str, end_time: str, page_number: int, page_size: int
+    ) -> ApiIntegrationHistoryPage:
         """None."""
         endpoint = "listApiIntegrationHistory"
 
@@ -91,13 +91,13 @@ class TaegisSDKTripQuery:
                 "id": prepare_input(id_),
                 "startTime": prepare_input(start_time),
                 "endTime": prepare_input(end_time),
+                "pageNumber": prepare_input(page_number),
+                "pageSize": prepare_input(page_size),
             },
-            output=build_output_string(ApiIntegrationHistory),
+            output=build_output_string(ApiIntegrationHistoryPage),
         )
         if result.get(endpoint) is not None:
-            return ApiIntegrationHistory.schema().load(
-                [r or {} for r in result.get(endpoint)], many=True
-            )
+            return ApiIntegrationHistoryPage.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for query listApiIntegrationHistory")
 
     def get_api_integration_form(self, product_id: int) -> ApiForm:
