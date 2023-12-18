@@ -124,6 +124,57 @@ with service(
     ))
 ```
 
+### Change Tenant Context
+
+```python
+from taegis_sdk_python import GraphQLService
+
+service = GraphQLService()
+
+# specify the output fields, and start the service context
+with service(tenant_id="00000"):
+    result = service.investigations.query.investigations_search(
+        page=1,
+        per_page=3,
+        query="WHERE deleted_at IS NOT NULL EARLIEST=-90d"
+    )
+pp(result)
+```
+
+### Change the Environment
+
+```python
+from taegis_sdk_python import GraphQLService
+
+service = GraphQLService()
+
+# specify the output fields, and start the service context
+with service(environment="delta"):
+    result = service.investigations.query.investigations_search(
+        page=1,
+        per_page=3,
+        query="WHERE deleted_at IS NOT NULL EARLIEST=-90d"
+    )
+pp(result)
+```
+
+### Use a preexisting access token
+
+```python
+from taegis_sdk_python import GraphQLService
+
+service = GraphQLService()
+
+# specify the output fields, and start the service context
+with service(access_token="<your access token>"):
+    result = service.investigations.query.investigations_search(
+        page=1,
+        per_page=3,
+        query="WHERE deleted_at IS NOT NULL EARLIEST=-90d"
+    )
+pp(result)
+```
+
 ### Pruning GraphQL Output
 
 One of the benefits of using GraphQL is that you can define which fields that you want returned.
@@ -183,6 +234,100 @@ with service(output="search_id alerts { list { id status metadata { title severi
 pp(results)
 ```
 
+### Cascading Context
+
+The Python SDK service can handle a cascading context.  Each invocation of the `service` context manager, now overwrites the context per stack.  The main use case for this is to change the `output` of a single API call within a greater context without needing to exit the context entirely.  Any new level will temporarily overwrite any previous context definitions, the previous definitions will be available after exiting the current context.
+
+**Note**: The following example is for illustration purposes of the context manager.  The mix of API calls may not be useful together.
+
+```python
+from taegis_sdk_python import GraphQLService
+from taegis_sdk_python.services.investigations2.types import InvestigationsV2Arguments
+from taegis_sdk_python.services.alerts.types import SearchRequestInput
+
+service = GraphQLService()
+
+with service(environment="delta", tenant_id="00000"):
+    
+    # Context
+    #    environment: delta
+    #    tenant_id: 00000
+
+    with service(output="investigations { id alertsEvidence { id } }")
+        
+        # Context
+        #    environment: delta
+        #    tenant_id: 00000
+        #    output: investigations { id alertsEvidence { id } }
+        
+        investigation_results = service.investigations2.query.investigations_v2(InvestigationsV2Arguments(
+            page=1,
+            per_page=3,
+            cql="WHERE deleted_at IS NOT NULL EARLIEST=-90d"
+        ))
+    
+    # Context
+    #    environment: delta
+    #    tenant_id: 00000
+
+    alert_ids = [
+        alert.id
+        result for result in investigation_results
+        alert for alert in result.alerts_evidence
+    ]
+
+    with service(output="alerts { list { id metadata { title } status } }"):
+        
+        # Context
+        #    environment: delta
+        #    tenant_id: 00000
+        #    output: alerts { list { id metadata { title } status } }
+        
+        alert_results = service.alerts.query.alerts_search_search(SearchRequestInput(
+            offset=0,
+            limit=10000,
+            cql_query=f"FROM alert WHERE resource_id IN ('{'\',\''.join(alert_ids)]}')"
+        ))
+    
+    # Context
+    #    environment: delta
+    #    tenant_id: 00000
+
+    # may be useful for users/applications that have access to a parent/child tenant relationship
+    with service(tenant_id="00001", output="alerts { list { id metadata { title } status } }"):
+        
+        # Context
+        #    environment: delta
+        #    tenant_id: 00001
+        #    output: alerts { list { id metadata { title } status } }
+        
+        alert_results = service.alerts.query.alerts_search_search(SearchRequestInput(
+            offset=0,
+            limit=10000,
+            cql_query=f"FROM alert WHERE resource_id IN ('{'\',\''.join(alert_ids)]}')"
+        ))
+
+        with service(environment="charlie", output="email"):
+
+            # Context
+            #    environment: charlie
+            #    tenant_id: 00001
+            #    output: email
+
+            user = service.users.query.current_tdruser()
+
+        # Context
+        #    environment: delta
+        #    tenant_id: 00001
+        #    output: alerts { list { id metadata { title } status } }
+    
+    # Context
+    #    environment: delta
+    #    tenant_id: 00000
+
+# Context is now completely cleared
+```
+
 ## Arbitrary Queries
 
 If would like to run an API call that is different from the provided method or which the SDK
@@ -231,6 +376,33 @@ results = service.alerts.execute_query(
     """
 )
 pp(results)
+```
+
+### Arbitrary Mutation
+
+```python
+results = service.core.execute_mutation(
+    "createInvestigation",
+    variables={
+        "investigation": {
+            "description": "SDK Test Investigation",
+            "key_findings": "This is a test.",
+            "priority": 1
+        }
+    },
+    output="""
+    id
+    created_at
+    created_by_user {
+        id
+        given_name
+        family_name
+    }
+    description
+    key_findings
+    """
+)
+print(results)
 ```
 
 ## Raw Queries
@@ -294,4 +466,16 @@ print(service.alerts._build_output_query(
     graphql_field=schema.query_type.fields.get("investigationsStatusCount"),
     output=build_output_string(InvestigationStatusCountResponse)
 ))
+```
+
+### Deprecation Warnings
+
+Deprecated input fields, output fields and endpoints are set to log a warning.  For more information, see the [docs](docs/deprecation.md).
+
+Example:
+
+```
+GraphQL Query `allInvestigations` is deprecated: 'replaced by investigationsSearch'
+Output field `activity_logs` is deprecated: 'Not Supported - Use audit logs', removing from default output...
+Output field `assignee` is deprecated: 'No longer supported', removing from default output...
 ```
