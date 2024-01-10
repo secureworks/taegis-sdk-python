@@ -159,3 +159,20 @@ class TaegisSDKPreferencesMutation:
         if result.get(endpoint) is not None:
             return PartnerPreference.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for mutation savePartnerPreferences")
+
+    def set_user_preferences(
+        self, user_preference_input: UserPreferenceInput
+    ) -> UserPreferenceDictionary:
+        """None."""
+        endpoint = "setUserPreferences"
+
+        result = self.service.execute_mutation(
+            endpoint=endpoint,
+            variables={
+                "userPreferenceInput": prepare_input(user_preference_input),
+            },
+            output=build_output_string(UserPreferenceDictionary),
+        )
+        if result.get(endpoint) is not None:
+            return UserPreferenceDictionary.from_dict(result.get(endpoint))
+        raise GraphQLNoRowsInResultSetError("for mutation setUserPreferences")

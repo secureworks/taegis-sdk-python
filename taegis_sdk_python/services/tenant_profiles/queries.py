@@ -238,3 +238,52 @@ class TaegisSDKTenantProfilesQuery:
                 [r or {} for r in result.get(endpoint)], many=True
             )
         raise GraphQLNoRowsInResultSetError("for query downloadAttachmentsMtp")
+
+    def entity_of_interest_mtp(self, id_: str) -> EntityOfInterestMtp:
+        """Retrieve a single Entity of Interest by ID."""
+        endpoint = "entityOfInterestMtp"
+
+        result = self.service.execute_query(
+            endpoint=endpoint,
+            variables={
+                "id": prepare_input(id_),
+            },
+            output=build_output_string(EntityOfInterestMtp),
+        )
+        if result.get(endpoint) is not None:
+            return EntityOfInterestMtp.from_dict(result.get(endpoint))
+        raise GraphQLNoRowsInResultSetError("for query entityOfInterestMtp")
+
+    def tenant_entities_of_interest_mtp(self) -> List[EntityOfInterestMtp]:
+        """Retrieve all Entities of Interest for the current tenant."""
+        endpoint = "tenantEntitiesOfInterestMtp"
+
+        result = self.service.execute_query(
+            endpoint=endpoint,
+            variables={},
+            output=build_output_string(EntityOfInterestMtp),
+        )
+        if result.get(endpoint) is not None:
+            return EntityOfInterestMtp.schema().load(
+                [r or {} for r in result.get(endpoint)], many=True
+            )
+        raise GraphQLNoRowsInResultSetError("for query tenantEntitiesOfInterestMtp")
+
+    def list_all_tenant_entities_of_interest_mtp(
+        self, input_: Optional[ListAllTenantEntitiesOfInterestMtpInput] = None
+    ) -> EntityOfInterestMtps:
+        """Retrieve Entities of Interest given a set of filter criteria for the current tenant."""
+        endpoint = "listAllTenantEntitiesOfInterestMTP"
+
+        result = self.service.execute_query(
+            endpoint=endpoint,
+            variables={
+                "input": prepare_input(input_),
+            },
+            output=build_output_string(EntityOfInterestMtps),
+        )
+        if result.get(endpoint) is not None:
+            return EntityOfInterestMtps.from_dict(result.get(endpoint))
+        raise GraphQLNoRowsInResultSetError(
+            "for query listAllTenantEntitiesOfInterestMTP"
+        )

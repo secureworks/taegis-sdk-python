@@ -454,3 +454,53 @@ class TaegisSDKTenantProfilesMutation:
                 [r or {} for r in result.get(endpoint)], many=True
             )
         raise GraphQLNoRowsInResultSetError("for mutation updateAttachmentsMtp")
+
+    def create_entity_of_interest_mtp(
+        self, input_: Optional[EntityOfInterestCreateMtpInput] = None
+    ) -> EntityOfInterestMtp:
+        """Create a new Entity of Interest for the current tenant."""
+        endpoint = "createEntityOfInterestMtp"
+
+        result = self.service.execute_mutation(
+            endpoint=endpoint,
+            variables={
+                "input": prepare_input(input_),
+            },
+            output=build_output_string(EntityOfInterestMtp),
+        )
+        if result.get(endpoint) is not None:
+            return EntityOfInterestMtp.from_dict(result.get(endpoint))
+        raise GraphQLNoRowsInResultSetError("for mutation createEntityOfInterestMtp")
+
+    def update_entity_of_interest_mtp(
+        self, id_: str, input_: Optional[EntityOfInterestUpdateMtpInput] = None
+    ) -> EntityOfInterestMtp:
+        """Update an existing Entity of Interest."""
+        endpoint = "updateEntityOfInterestMtp"
+
+        result = self.service.execute_mutation(
+            endpoint=endpoint,
+            variables={
+                "id": prepare_input(id_),
+                "input": prepare_input(input_),
+            },
+            output=build_output_string(EntityOfInterestMtp),
+        )
+        if result.get(endpoint) is not None:
+            return EntityOfInterestMtp.from_dict(result.get(endpoint))
+        raise GraphQLNoRowsInResultSetError("for mutation updateEntityOfInterestMtp")
+
+    def delete_entity_of_interest_mtp(self, id_: str) -> EntityOfInterestMtp:
+        """Delete an Entity of Interest."""
+        endpoint = "deleteEntityOfInterestMtp"
+
+        result = self.service.execute_mutation(
+            endpoint=endpoint,
+            variables={
+                "id": prepare_input(id_),
+            },
+            output=build_output_string(EntityOfInterestMtp),
+        )
+        if result.get(endpoint) is not None:
+            return EntityOfInterestMtp.from_dict(result.get(endpoint))
+        raise GraphQLNoRowsInResultSetError("for mutation deleteEntityOfInterestMtp")

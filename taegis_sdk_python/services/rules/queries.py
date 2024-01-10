@@ -413,6 +413,28 @@ class TaegisSDKRulesQuery:
             return SearchRulesOutput.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for query searchRules")
 
+    def search_rules_by_field(
+        self,
+        filters: SearchRulesByFieldInput,
+        page: Optional[int] = None,
+        count: Optional[int] = None,
+    ) -> SearchRulesOutput:
+        """Search Rules by Rule Fields."""
+        endpoint = "SearchRulesByField"
+
+        result = self.service.execute_query(
+            endpoint=endpoint,
+            variables={
+                "filters": prepare_input(filters),
+                "page": prepare_input(page),
+                "count": prepare_input(count),
+            },
+            output=build_output_string(SearchRulesOutput),
+        )
+        if result.get(endpoint) is not None:
+            return SearchRulesOutput.from_dict(result.get(endpoint))
+        raise GraphQLNoRowsInResultSetError("for query SearchRulesByField")
+
     def updated_watchlist_rules(
         self,
         query: WatchlistRuleQueryInput,

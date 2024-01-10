@@ -76,6 +76,13 @@ class RuleAction(str, Enum):
     NONE = "NONE"
 
 
+class RuleScope(str, Enum):
+    """RuleScope."""
+
+    TENANT = "TENANT"
+    GLOBAL = "GLOBAL"
+
+
 class RuleSource(str, Enum):
     """RuleSource."""
 
@@ -557,6 +564,35 @@ class EventTaggingRulesInput:
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
+class SearchRulesByFieldInput:
+    """SearchRulesByFieldInput."""
+
+    id: Optional[str] = field(default=None, metadata=config(field_name="id"))
+    name: Optional[str] = field(default=None, metadata=config(field_name="name"))
+    attack_categories: Optional[List[str]] = field(
+        default=None, metadata=config(field_name="attackCategories")
+    )
+    enabled: Optional[bool] = field(default=None, metadata=config(field_name="enabled"))
+    deleted: Optional[bool] = field(default=None, metadata=config(field_name="deleted"))
+    updated_at: Optional[str] = field(
+        default=None, metadata=config(field_name="updatedAt")
+    )
+    rule_source: Optional[RuleSource] = field(
+        default=None, metadata=config(field_name="ruleSource")
+    )
+    rule_action: Optional[RuleAction] = field(
+        default=None, metadata=config(field_name="ruleAction")
+    )
+    scope: Optional[RuleScope] = field(
+        default=None, metadata=config(field_name="scope")
+    )
+    rule_type: Optional[RuleType] = field(
+        default=None, metadata=config(field_name="ruleType")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
 class RuleInput:
     """RuleInput."""
 
@@ -649,6 +685,9 @@ class Rule:
     updated_at: Optional[str] = field(
         default=None, metadata=config(field_name="updatedAt")
     )
+    scope_ids: Optional[List[str]] = field(
+        default=None, metadata=config(field_name="scopeIDs")
+    )
     event_type: Optional[RuleEventType] = field(
         default=None, metadata=config(field_name="eventType")
     )
@@ -681,6 +720,12 @@ class Rule:
     )
     rule_source: Optional[RuleSource] = field(
         default=None, metadata=config(field_name="ruleSource")
+    )
+    rule_type: Optional[RuleType] = field(
+        default=None, metadata=config(field_name="ruleType")
+    )
+    scope: Optional[RuleScope] = field(
+        default=None, metadata=config(field_name="scope")
     )
     red_ql_filter: Optional[RuleRedQLFilter] = field(
         default=None, metadata=config(field_name="redQLFilter")

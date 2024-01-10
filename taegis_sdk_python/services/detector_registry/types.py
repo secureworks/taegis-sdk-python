@@ -44,6 +44,9 @@ class SearchDetectors:
     alerting_rule: Optional[bool] = field(
         default=None, metadata=config(field_name="alertingRule")
     )
+    should_compact: Optional[bool] = field(
+        default=None, metadata=config(field_name="shouldCompact")
+    )
     created_on_or_after: Optional[str] = field(
         default=None, metadata=config(field_name="createdOnOrAfter")
     )
@@ -79,6 +82,9 @@ class RegisteredDetector:
     )
     alerting_rule: Optional[bool] = field(
         default=None, metadata=config(field_name="alertingRule")
+    )
+    should_compact: Optional[bool] = field(
+        default=None, metadata=config(field_name="shouldCompact")
     )
     created_at: Optional[str] = field(
         default=None, metadata=config(field_name="createdAt")

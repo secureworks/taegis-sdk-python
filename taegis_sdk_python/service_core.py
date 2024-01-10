@@ -5,12 +5,13 @@ Taegis ServiceCore manager.
 from __future__ import annotations
 
 import logging
-from typing import TYPE_CHECKING, Dict, List, Optional, Any
+from datetime import datetime, timedelta
+from typing import TYPE_CHECKING, Any, Dict, List, Optional, Union
 
 from gql import Client, gql
 from gql.transport.requests import RequestsHTTPTransport
 from gql.transport.websockets import WebsocketsTransport
-from graphql import GraphQLField, GraphQLSchema, GraphQLError
+from graphql import GraphQLError, GraphQLField, GraphQLSchema
 from taegis_sdk_python._version import __version__
 from taegis_sdk_python.errors import InvalidGraphQLEndpoint
 from taegis_sdk_python.utils import async_block, prepare_variables, remove_node
@@ -22,6 +23,60 @@ if TYPE_CHECKING:  # pragma: no cover
 log = logging.getLogger(__name__)
 
 
+class SchemaCache:
+    """GraphQL Schema Cache."""
+
+    def __init__(self, schema: Optional[GraphQLSchema] = None, expires: int = 5):
+        """Initialize SchemaCache.
+
+        Parameters
+        ----------
+        schema : Optional[GraphQLSchema], optional
+            GraphQL schema object, by default None
+        expires : int, optional
+            Schema expires in minutes, by default 5
+        """
+        self._schema = schema
+        self._inserted_at = datetime.now()
+        self.expires = expires
+
+    @property
+    def schema(self) -> Union[GraphQLSchema, None]:
+        """Return GraphQLSchema if it exists and is not expired.
+
+        Returns
+        -------
+        Union[GraphQLSchema, None]
+            GraphQL Schema
+        """
+        if self._inserted_at + timedelta(minutes=self.expires) < datetime.now():
+            self.schema = None
+        return self._schema
+
+    @schema.setter
+    def schema(self, schema: Optional[GraphQLSchema]):
+        """Set schema and update inserted_at.
+
+        Parameters
+        ----------
+        schema :
+            _description_
+        """
+        if self._schema is not schema:
+            self._schema = schema
+            self._inserted_at = datetime.now()
+
+    def should_fetch_schema(self) -> bool:
+        """Return True if schema is should be fetched in transport.
+
+        Returns
+        -------
+        bool
+            True if schema is should be fetched in transport.
+        """
+        return not self.schema
+
+
 class ServiceCore:
     """Taegis GraphQL Service core functionality."""
 
@@ -31,22 +86,24 @@ class ServiceCore:
         self._urls = self.service._environments
         self._gateway = self.service._gateway
 
+        self._schema = SchemaCache(schema=None, expires=self.service.schema_expiry)
+
         self._queries = None
         self._mutations = None
         self._subscriptions = None
 
     @property
-    def sync_url(self):
+    def sync_url(self) -> str:
         """Syncronous URL."""
         return self.service.url or self._urls.get(self.service.environment)
 
     @property
-    def wss_url(self):
+    def wss_url(self) -> str:
         """WebSockets URL."""
         return self.sync_url.replace("https", "wss")
 
     @property
-    def gateway(self):
+    def gateway(self) -> str:
         """GraphQL Gateway"""
         return self.service.gateway or self._gateway
 
@@ -72,7 +129,16 @@ class ServiceCore:
             f"{self.sync_url}{self.gateway}",
             headers=self.service.headers,
         )
-        client = Client(transport=transport, fetch_schema_from_transport=True)
+
+        client = Client(
+            transport=transport,
+            schema=self._schema.schema,
+            fetch_schema_from_transport=self._schema.should_fetch_schema(),
+        )
+
+        with client:
+            self._schema.schema = client.schema
+
         return client
 
     @property
@@ -83,6 +149,12 @@ class ServiceCore:
             f"access-token-{self.service.access_token}",
         ]
 
+        # we cannot build the async client and use it to fetch the schema
+        # due to async issues with the transport.  This will grab the schema
+        # from a sync client and use it to build the async client.
+        if not self._schema.schema:
+            self.sync_client  # pylint: disable=pointless-statement
+
         if self.service.tenant_id:
             subprotocols.append(f"x-tenant-context-{self.service.tenant_id}")
 
@@ -92,10 +164,32 @@ class ServiceCore:
             subprotocols=subprotocols,
             connect_args={"max_size": None},
         )
-        client = Client(transport=transport, fetch_schema_from_transport=True)
+
+        client = Client(
+            transport=transport,
+            schema=self._schema.schema,
+            fetch_schema_from_transport=self._schema.should_fetch_schema(),
+        )
+
         return client
 
-    def get_sync_schema(self) -> GraphQLSchema:
+    @property
+    def schema(self) -> GraphQLSchema:
+        """Retrieves introspection schema from Synchronous endpoint.
+
+        Returns
+        -------
+        GraphQLSchema
+        """
+        if not self._schema.schema:
+            self.sync_client  # pylint: disable=pointless-statement
+        return self._schema.schema
+
+    def clear_schema(self):
+        """Clears the introspection schema."""
+        self._schema.schema = None
+
+    def get_sync_schema(self) -> Union[GraphQLSchema, None]:
         """Retrieves introspection schema from Synchronous endpoint.
 
         Returns
@@ -108,7 +202,7 @@ class ServiceCore:
         return schema
 
     @async_block
-    async def get_ws_schema(self) -> GraphQLSchema:
+    async def get_ws_schema(self) -> Union[GraphQLSchema, None]:
         """Retrieves introspection schema from WebSockets endpoint.
 
         Returns

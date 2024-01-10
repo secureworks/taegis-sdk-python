@@ -330,7 +330,7 @@ with service(environment="delta", tenant_id="00000"):
 
 ## Arbitrary Queries
 
-If would like to run an API call that is different from the provided method or which the SDK
+If you would like to run an API call that is different from the provided method or which the SDK
 does not support, you can craft your own query/mutation/subscription.  Certain services may be
 configured differently; it is recommended to use the service endpoint you want to query against
 when available.
@@ -478,4 +478,32 @@ Example:
 GraphQL Query `allInvestigations` is deprecated: 'replaced by investigationsSearch'
 Output field `activity_logs` is deprecated: 'Not Supported - Use audit logs', removing from default output...
 Output field `assignee` is deprecated: 'No longer supported', removing from default output...
+```
+
+### Schema Fetching
+
+The Python SDK caches the schema for 5 minutes.  The fetched schema is used to help generate query strings and for error handling.  For applications that are time sensitive or have a large number of API calls, this funcationality will help amoratize the time needed to fetch the schema for validation and errors. This can be configured with the `schema_epiry` (in minutes) attribute on the `GraphQLService`.  The schema is fetched per service (alerts will cache a schema separate from investigations).  Expiration can be configured per service via context manager on the first API call to the service.
+
+> **Note:** This may have an effect on error handling the longer the expiration time is.  If the server side schema updates with a breaking change between caching and an API call, the SDK may build and validate a query string that is inconsistent with the deployed schema.
+
+```python
+from taegis_sdk_python import GraphQLService
+
+# all schemas will be cached for 15 minutes
+service = GraphQLService(schema_expiry=15)
+
+with service(schema_expiry=30): # users schema will now be cached for 30 minutes
+    results = service.users.query.current_tdruser()
+```
+
+The schema may be cleared per service using the `service.<service>.clear_schema()` method.
+
+```python
+from taegis_sdk_python import GraphQLService
+
+service = GraphQLService()
+
+user = service.users.query.current_tdruser() # schema will be cached for the users service
+
+service.users.clear_schema()  # local schema will be cleared and re-fetched on next call
 ```

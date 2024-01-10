@@ -63,7 +63,8 @@ class GraphQLService:
         environments: Optional[Dict[str, str]] = None,
         gateway: Optional[str] = None,
         extra_headers: Optional[Dict[str, Any]] = None,
-    ):
+        schema_expiry: int = 5,
+    ):  # pylint: disable=too-many-statements
         """
         GraphQLService
 
@@ -79,6 +80,8 @@ class GraphQLService:
             Default Taegis Gateway, can be overwritten by service
         extra_headers: Optional[Dict[str, Any]], optional
             Extra HTTP Headers to be included in API calls
+        schema_expiry: int, optional
+            Expire time for GraphQL Schema Caching in minutes, by default 1
 
         Raises
         ------
@@ -99,6 +102,7 @@ class GraphQLService:
             self._extra_headers = {}
         else:
             self._extra_headers = extra_headers
+        self._schema_expiry = schema_expiry
 
         self._access_points = None
         self._agent = None
@@ -223,6 +227,11 @@ class GraphQLService:
         headers.update(self.extra_headers)
 
         return headers
+
+    @property
+    def schema_expiry(self):
+        """GraphQL Schema Timeout."""
+        return self._context_manager.get("schema_expiry", self._schema_expiry)
 
     @property
     def access_points(self):

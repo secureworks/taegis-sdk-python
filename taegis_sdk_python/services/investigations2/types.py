@@ -691,6 +691,14 @@ class TDRUser:
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
+class Subject:
+    """Subject."""
+
+    id: Optional[str] = field(default=None, metadata=config(field_name="id"))
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
 class InvestigationFileMeta:
     """InvestigationFileMeta."""
 
@@ -920,38 +928,6 @@ class ExportInvestigationResourcesArgument:
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
-class InvestigationV2TimelineEntity:
-    """InvestigationV2TimelineEntity."""
-
-    type: Optional[str] = field(default=None, metadata=config(field_name="type"))
-    id: Optional[str] = field(default=None, metadata=config(field_name="id"))
-    investigation_id: Optional[str] = field(
-        default=None, metadata=config(field_name="investigationId")
-    )
-    tenant_id: Optional[str] = field(
-        default=None, metadata=config(field_name="tenantId")
-    )
-    created_at: Optional[str] = field(
-        default=None, metadata=config(field_name="createdAt")
-    )
-    timestamp: Optional[str] = field(
-        default=None, metadata=config(field_name="timestamp")
-    )
-    entity_id: Optional[str] = field(
-        default=None, metadata=config(field_name="entityId")
-    )
-    description: Optional[str] = field(
-        default=None, metadata=config(field_name="description")
-    )
-    descriptor: Optional[str] = field(
-        default=None, metadata=config(field_name="descriptor")
-    )
-    user_id: Optional[str] = field(default=None, metadata=config(field_name="userId"))
-    user: Optional[TDRUser] = field(default=None, metadata=config(field_name="user"))
-
-
-@dataclass_json
-@dataclass(order=True, eq=True, frozen=True)
 class InvestigationV2Type:
     """InvestigationV2Type."""
 
@@ -1081,6 +1057,41 @@ class InvestigationV2TimelineArguments:
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
+class InvestigationV2TimelineEntity:
+    """InvestigationV2TimelineEntity."""
+
+    type: Optional[str] = field(default=None, metadata=config(field_name="type"))
+    id: Optional[str] = field(default=None, metadata=config(field_name="id"))
+    investigation_id: Optional[str] = field(
+        default=None, metadata=config(field_name="investigationId")
+    )
+    tenant_id: Optional[str] = field(
+        default=None, metadata=config(field_name="tenantId")
+    )
+    created_at: Optional[str] = field(
+        default=None, metadata=config(field_name="createdAt")
+    )
+    timestamp: Optional[str] = field(
+        default=None, metadata=config(field_name="timestamp")
+    )
+    entity_id: Optional[str] = field(
+        default=None, metadata=config(field_name="entityId")
+    )
+    description: Optional[str] = field(
+        default=None, metadata=config(field_name="description")
+    )
+    descriptor: Optional[str] = field(
+        default=None, metadata=config(field_name="descriptor")
+    )
+    user_id: Optional[str] = field(default=None, metadata=config(field_name="userId"))
+    user: Optional[TDRUser] = field(default=None, metadata=config(field_name="user"))
+    user_subject: Optional[Subject] = field(
+        default=None, metadata=config(field_name="userSubject")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
 class CommentsV2Arguments:
     """CommentsV2Arguments."""
 
@@ -1110,6 +1121,22 @@ class AggregatedCounts:
     )
     priority: Optional[List[InvestigationPriorityCount]] = field(
         default=None, metadata=config(field_name="priority")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class InvestigationProcessingStatus:
+    """InvestigationProcessingStatus."""
+
+    assets: Optional[InvestigationProcessingState] = field(
+        default=None, metadata=config(field_name="assets")
+    )
+    events: Optional[InvestigationProcessingState] = field(
+        default=None, metadata=config(field_name="events")
+    )
+    alerts: Optional[InvestigationProcessingState] = field(
+        default=None, metadata=config(field_name="alerts")
     )
 
 
@@ -1167,69 +1194,17 @@ class InvestigationTemplate:
     created_by: Optional[TDRUser] = field(
         default=None, metadata=config(field_name="createdBy")
     )
+    created_by_subject: Optional[Subject] = field(
+        default=None, metadata=config(field_name="createdBySubject")
+    )
     updated_by: Optional[TDRUser] = field(
         default=None, metadata=config(field_name="updatedBy")
     )
+    updated_by_subject: Optional[Subject] = field(
+        default=None, metadata=config(field_name="updatedBySubject")
+    )
     investigation_assignee_user: Optional[TDRUser] = field(
         default=None, metadata=config(field_name="investigationAssigneeUser")
-    )
-
-
-@dataclass_json
-@dataclass(order=True, eq=True, frozen=True)
-class InvestigationProcessingStatus:
-    """InvestigationProcessingStatus."""
-
-    assets: Optional[InvestigationProcessingState] = field(
-        default=None, metadata=config(field_name="assets")
-    )
-    events: Optional[InvestigationProcessingState] = field(
-        default=None, metadata=config(field_name="events")
-    )
-    alerts: Optional[InvestigationProcessingState] = field(
-        default=None, metadata=config(field_name="alerts")
-    )
-
-
-@dataclass_json
-@dataclass(order=True, eq=True, frozen=True)
-class CommentV2:
-    """CommentV2."""
-
-    id: Optional[str] = field(default=None, metadata=config(field_name="id"))
-    created_at: Optional[str] = field(
-        default=None, metadata=config(field_name="createdAt")
-    )
-    updated_at: Optional[str] = field(
-        default=None, metadata=config(field_name="updatedAt")
-    )
-    author_id: Optional[str] = field(
-        default=None, metadata=config(field_name="authorId")
-    )
-    comment: Optional[str] = field(default=None, metadata=config(field_name="comment"))
-    investigation_id: Optional[str] = field(
-        default=None, metadata=config(field_name="investigationId")
-    )
-    tenant_id: Optional[str] = field(
-        default=None, metadata=config(field_name="tenantId")
-    )
-    mentions_ids: Optional[List[str]] = field(
-        default=None, metadata=config(field_name="mentionsIds")
-    )
-    read_by_ids: Optional[List[str]] = field(
-        default=None, metadata=config(field_name="readByIds")
-    )
-    is_internal: Optional[bool] = field(
-        default=None, metadata=config(field_name="isInternal")
-    )
-    author: Optional[TDRUser] = field(
-        default=None, metadata=config(field_name="author")
-    )
-    mentions_users: Optional[List[TDRUser]] = field(
-        default=None, metadata=config(field_name="mentionsUsers")
-    )
-    read_by: Optional[List[TDRUser]] = field(
-        default=None, metadata=config(field_name="readBy")
     )
 
 
@@ -1270,8 +1245,14 @@ class InvestigationFileV2:
     uploaded_by: Optional[TDRUser] = field(
         default=None, metadata=config(field_name="uploadedBy")
     )
+    uploaded_by_subject: Optional[Subject] = field(
+        default=None, metadata=config(field_name="uploadedBySubject")
+    )
     deleted_by: Optional[TDRUser] = field(
         default=None, metadata=config(field_name="deletedBy")
+    )
+    deleted_by_subject: Optional[Subject] = field(
+        default=None, metadata=config(field_name="deletedBySubject")
     )
     metadata: Optional[InvestigationFileMeta] = field(
         default=None, metadata=config(field_name="metadata")
@@ -1354,14 +1335,71 @@ class InvestigationRule:
     created_by: Optional[TDRUser] = field(
         default=None, metadata=config(field_name="createdBy")
     )
+    created_by_subject: Optional[Subject] = field(
+        default=None, metadata=config(field_name="createdBySubject")
+    )
     updated_by: Optional[TDRUser] = field(
         default=None, metadata=config(field_name="updatedBy")
+    )
+    updated_by_subject: Optional[Subject] = field(
+        default=None, metadata=config(field_name="updatedBySubject")
     )
     state: Optional[InvestigationRuleState] = field(
         default=None, metadata=config(field_name="state")
     )
     template: Optional[InvestigationTemplate] = field(
         default=None, metadata=config(field_name="template")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class CommentV2:
+    """CommentV2."""
+
+    id: Optional[str] = field(default=None, metadata=config(field_name="id"))
+    created_at: Optional[str] = field(
+        default=None, metadata=config(field_name="createdAt")
+    )
+    updated_at: Optional[str] = field(
+        default=None, metadata=config(field_name="updatedAt")
+    )
+    author_id: Optional[str] = field(
+        default=None, metadata=config(field_name="authorId")
+    )
+    comment: Optional[str] = field(default=None, metadata=config(field_name="comment"))
+    investigation_id: Optional[str] = field(
+        default=None, metadata=config(field_name="investigationId")
+    )
+    tenant_id: Optional[str] = field(
+        default=None, metadata=config(field_name="tenantId")
+    )
+    mentions_ids: Optional[List[str]] = field(
+        default=None, metadata=config(field_name="mentionsIds")
+    )
+    read_by_ids: Optional[List[str]] = field(
+        default=None, metadata=config(field_name="readByIds")
+    )
+    is_internal: Optional[bool] = field(
+        default=None, metadata=config(field_name="isInternal")
+    )
+    author: Optional[TDRUser] = field(
+        default=None, metadata=config(field_name="author")
+    )
+    author_subject: Optional[Subject] = field(
+        default=None, metadata=config(field_name="authorSubject")
+    )
+    mentions_subjects: Optional[List[Subject]] = field(
+        default=None, metadata=config(field_name="mentionsSubjects")
+    )
+    mentions_users: Optional[List[TDRUser]] = field(
+        default=None, metadata=config(field_name="mentionsUsers")
+    )
+    read_by_subjects: Optional[List[Subject]] = field(
+        default=None, metadata=config(field_name="readBySubjects")
+    )
+    read_by: Optional[List[TDRUser]] = field(
+        default=None, metadata=config(field_name="readBy")
     )
 
 
@@ -1489,14 +1527,26 @@ class InvestigationV2:
     contributors: Optional[List[TDRUser]] = field(
         default=None, metadata=config(field_name="contributors")
     )
+    contributor_subjects: Optional[List[Subject]] = field(
+        default=None, metadata=config(field_name="contributorSubjects")
+    )
     assignee: Optional[TDRUser] = field(
         default=None, metadata=config(field_name="assignee")
+    )
+    assignee_subject: Optional[Subject] = field(
+        default=None, metadata=config(field_name="assigneeSubject")
     )
     created_by: Optional[TDRUser] = field(
         default=None, metadata=config(field_name="createdBy")
     )
+    created_by_subject: Optional[Subject] = field(
+        default=None, metadata=config(field_name="createdBySubject")
+    )
     updated_by: Optional[TDRUser] = field(
         default=None, metadata=config(field_name="updatedBy")
+    )
+    updated_by_subject: Optional[Subject] = field(
+        default=None, metadata=config(field_name="updatedBySubject")
     )
     type: Optional[InvestigationType] = field(
         default=None, metadata=config(field_name="type")

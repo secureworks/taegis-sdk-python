@@ -89,6 +89,7 @@ class MtpAuthzObject(str, Enum):
 
     TENANT_PROFILE = "TenantProfile"
     TENANT_PROFILE_CSE_CONTACT = "TenantProfileCseContact"
+    TENANT_PROFILE_ENTITY_OF_INTEREST = "TenantProfileEntityOfInterest"
     TENANT_PROFILE_NETWORK_INFO = "TenantProfileNetworkInfo"
     TENANT_PROFILE_NETWORK_RANGE = "TenantProfileNetworkRange"
     TENANT_PROFILE_NOTES = "TenantProfileNotes"
@@ -100,6 +101,7 @@ class MtpAuthzAction(str, Enum):
 
     CREATE = "CREATE"
     READ = "READ"
+    LIST_ALL = "LIST_ALL"
     UPDATE = "UPDATE"
     DELETE = "DELETE"
     EXPORT = "EXPORT"
@@ -160,6 +162,92 @@ class FileUpdateInputMtp:
     id: Optional[str] = field(default=None, metadata=config(field_name="id"))
     client_visible: Optional[bool] = field(
         default=None, metadata=config(field_name="clientVisible")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class EntityOfInterestMtp:
+    """EntityOfInterestMtp."""
+
+    id: Optional[str] = field(default=None, metadata=config(field_name="id"))
+    profile_id: Optional[str] = field(
+        default=None, metadata=config(field_name="profileID")
+    )
+    tenant_id: Optional[str] = field(
+        default=None, metadata=config(field_name="tenantId")
+    )
+    name: Optional[str] = field(default=None, metadata=config(field_name="name"))
+    description: Optional[str] = field(
+        default=None, metadata=config(field_name="description")
+    )
+    identifier_type: Optional[str] = field(
+        default=None, metadata=config(field_name="identifierType")
+    )
+    identifier_value: Optional[str] = field(
+        default=None, metadata=config(field_name="identifierValue")
+    )
+    meta_data: Optional[dict] = field(
+        default=None, metadata=config(field_name="metaData")
+    )
+    created_at: Optional[str] = field(
+        default=None, metadata=config(field_name="createdAt")
+    )
+    updated_at: Optional[str] = field(
+        default=None, metadata=config(field_name="updatedAt")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class EntityOfInterestCreateMtpInput:
+    """EntityOfInterestCreateMtpInput."""
+
+    name: Optional[str] = field(default=None, metadata=config(field_name="name"))
+    description: Optional[str] = field(
+        default=None, metadata=config(field_name="description")
+    )
+    identifier_type: Optional[str] = field(
+        default=None, metadata=config(field_name="identifierType")
+    )
+    identifier_value: Optional[str] = field(
+        default=None, metadata=config(field_name="identifierValue")
+    )
+    meta_data: Optional[dict] = field(
+        default=None, metadata=config(field_name="metaData")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class EntityOfInterestUpdateMtpInput:
+    """EntityOfInterestUpdateMtpInput."""
+
+    name: Optional[str] = field(default=None, metadata=config(field_name="name"))
+    description: Optional[str] = field(
+        default=None, metadata=config(field_name="description")
+    )
+    identifier_type: Optional[str] = field(
+        default=None, metadata=config(field_name="identifierType")
+    )
+    identifier_value: Optional[str] = field(
+        default=None, metadata=config(field_name="identifierValue")
+    )
+    meta_data: Optional[dict] = field(
+        default=None, metadata=config(field_name="metaData")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class ListAllTenantEntitiesOfInterestMtpInput:
+    """ListAllTenantEntitiesOfInterestMtpInput."""
+
+    identifier_types: Optional[List[str]] = field(
+        default=None, metadata=config(field_name="identifier_types")
+    )
+    identifier_values: Optional[List[str]] = field(
+        default=None, metadata=config(field_name="identifier_values")
     )
 
 
@@ -412,6 +500,19 @@ class MfaAccessUpdateMtpInput:
     details: Optional[str] = field(default=None, metadata=config(field_name="details"))
     service: Optional[MfaServiceMtp] = field(
         default=None, metadata=config(field_name="service")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class EntityOfInterestMtps:
+    """EntityOfInterestMtps."""
+
+    total_count: Optional[int] = field(
+        default=None, metadata=config(field_name="totalCount")
+    )
+    entities_of_interest: Optional[List[EntityOfInterestMtp]] = field(
+        default=None, metadata=config(field_name="entitiesOfInterest")
     )
 
 

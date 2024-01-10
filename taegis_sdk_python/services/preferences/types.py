@@ -177,6 +177,23 @@ class listAllTenantPreferencesInput:
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
+class UserPreferenceInput:
+    """UserPreferenceInput."""
+
+    category: Optional[str] = field(
+        default=None, metadata=config(field_name="category")
+    )
+    sub_key: Optional[str] = field(default=None, metadata=config(field_name="subKey"))
+    preference_items: Optional[dict] = field(
+        default=None, metadata=config(field_name="preferenceItems")
+    )
+    is_global: Optional[bool] = field(
+        default=None, metadata=config(field_name="isGlobal")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
 class PartnerPreference:
     """PartnerPreference."""
 
@@ -206,6 +223,30 @@ class PartnerPreference:
     faq_link: Optional[str] = field(default=None, metadata=config(field_name="faqLink"))
     mention_email_inbox: Optional[str] = field(
         default=None, metadata=config(field_name="mentionEmailInbox")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class UserPreferenceDictionary:
+    """UserPreferenceDictionary."""
+
+    id: Optional[str] = field(default=None, metadata=config(field_name="id"))
+    category: Optional[str] = field(
+        default=None, metadata=config(field_name="category")
+    )
+    preferences: Optional[dict] = field(
+        default=None, metadata=config(field_name="preferences")
+    )
+    user_id: Optional[str] = field(default=None, metadata=config(field_name="userID"))
+    created_at: Optional[str] = field(
+        default=None, metadata=config(field_name="createdAt")
+    )
+    updated_at: Optional[str] = field(
+        default=None, metadata=config(field_name="updatedAt")
+    )
+    environment: Optional[str] = field(
+        default=None, metadata=config(field_name="environment")
     )
 
 
