@@ -24,6 +24,31 @@ results = service.users.query.current_tdruser()
 pp(results)
 ```
 
+### Querying the Correct Region
+
+Region or Environment identifiers:
+
+* `US1` or `charlie` or `production` for https://ctpx.secureworks.com/
+* `US2` or `delta` for https://delta.taegis.secureworks.com/
+* `US3` or `foxtrot` forhttps://foxtrot.taegis.secureworks.com/
+* `EU` or `echo` for  https://echo.taegis.secureworks.com/
+
+**Note**: `production` is useful for partners with child tenants that want to interate API calls over multiple tenants using the Tenants API.  The Tenants API uses the `production` identifier rather than `charlie` or `US1`, but this will direct the SDK to the correct region.
+
+```python
+service = GraphQLService(environment="US1")
+service = GraphQLService(environment="US2")
+service = GraphQLService(environment="US3")
+service = GraphQLService(environment="EU")
+
+# change the environment for an individual call
+with service(environment="US1"):
+    results = service.users.query.current_tdruser()
+
+with service(environment="US2"):
+    results = service.users.query.current_tdruser()
+```
+
 ## Exploring the SDK
 
 The SDK was built around utilizing the Python built-in: `help`.  You can use help on any object
@@ -94,7 +119,7 @@ from taegis_sdk_python.services.alerts.types import SearchRequestInput
 service = GraphQLService()
 
 with service(
-    environment="delta",
+    environment="US2",
     tenant_id="00000",
     output="""
         reason
@@ -149,7 +174,7 @@ from taegis_sdk_python import GraphQLService
 service = GraphQLService()
 
 # specify the output fields, and start the service context
-with service(environment="delta"):
+with service(environment="US2"):
     result = service.investigations.query.investigations_search(
         page=1,
         per_page=3,
@@ -247,16 +272,16 @@ from taegis_sdk_python.services.alerts.types import SearchRequestInput
 
 service = GraphQLService()
 
-with service(environment="delta", tenant_id="00000"):
+with service(environment="US2", tenant_id="00000"):
     
     # Context
-    #    environment: delta
+    #    environment: US2
     #    tenant_id: 00000
 
     with service(output="investigations { id alertsEvidence { id } }")
         
         # Context
-        #    environment: delta
+        #    environment: US2
         #    tenant_id: 00000
         #    output: investigations { id alertsEvidence { id } }
         
@@ -267,7 +292,7 @@ with service(environment="delta", tenant_id="00000"):
         ))
     
     # Context
-    #    environment: delta
+    #    environment: US2
     #    tenant_id: 00000
 
     alert_ids = [
@@ -279,7 +304,7 @@ with service(environment="delta", tenant_id="00000"):
     with service(output="alerts { list { id metadata { title } status } }"):
         
         # Context
-        #    environment: delta
+        #    environment: US2
         #    tenant_id: 00000
         #    output: alerts { list { id metadata { title } status } }
         
@@ -290,14 +315,14 @@ with service(environment="delta", tenant_id="00000"):
         ))
     
     # Context
-    #    environment: delta
+    #    environment: US2
     #    tenant_id: 00000
 
     # may be useful for users/applications that have access to a parent/child tenant relationship
     with service(tenant_id="00001", output="alerts { list { id metadata { title } status } }"):
         
         # Context
-        #    environment: delta
+        #    environment: US2
         #    tenant_id: 00001
         #    output: alerts { list { id metadata { title } status } }
         
@@ -307,22 +332,22 @@ with service(environment="delta", tenant_id="00000"):
             cql_query=f"FROM alert WHERE resource_id IN ('{'\',\''.join(alert_ids)]}')"
         ))
 
-        with service(environment="charlie", output="email"):
+        with service(environment="US1", output="email"):
 
             # Context
-            #    environment: charlie
+            #    environment: US1
             #    tenant_id: 00001
             #    output: email
 
             user = service.users.query.current_tdruser()
 
         # Context
-        #    environment: delta
+        #    environment: US2
         #    tenant_id: 00001
         #    output: alerts { list { id metadata { title } status } }
     
     # Context
-    #    environment: delta
+    #    environment: US2
     #    tenant_id: 00000
 
 # Context is now completely cleared

@@ -19,6 +19,7 @@ class CheckAlias(str, Enum):
 
     TENANT_UPDATE = "TenantUpdate"
     TENANT_MANAGER_UPDATE = "TenantManagerUpdate"
+    TENANT_CREATE = "TenantCreate"
 
 
 class AuthzObject(str, Enum):
@@ -49,6 +50,7 @@ class TenantType(str, Enum):
     CONNECTION_OWNER = "ConnectionOwner"
     SERVICE_OWNER = "ServiceOwner"
     INTERNAL_SERVICE_OWNER = "InternalServiceOwner"
+    PARENT_TENANT_INPUT = "ParentTenantInput"
 
 
 class TenantOrderField(str, Enum):
@@ -659,9 +661,22 @@ class AuditResults:
 class Partnership:
     """Partnership."""
 
-    parent: Optional[str] = field(default=None, metadata=config(field_name="parent"))
+    parent: Optional[str] = field(
+        default=None,
+        metadata=config(
+            metadata={"deprecated": True, "deprecation_reason": "Use `tenant.parent`"},
+            field_name="parent",
+        ),
+    )
     is_partner: Optional[bool] = field(
-        default=None, metadata=config(field_name="is_partner")
+        default=None,
+        metadata=config(
+            metadata={
+                "deprecated": True,
+                "deprecation_reason": "Use `tenant.is_partner`",
+            },
+            field_name="is_partner",
+        ),
     )
     child_tenants: Optional[List[str]] = field(
         default=None, metadata=config(field_name="child_tenants")
@@ -1171,6 +1186,17 @@ class Tenant:
     expires_at: Optional[str] = field(
         default=None, metadata=config(field_name="expires_at")
     )
+    parent: Optional[str] = field(default=None, metadata=config(field_name="parent"))
+    partner: Optional[str] = field(default=None, metadata=config(field_name="partner"))
+    organization: Optional[str] = field(
+        default=None, metadata=config(field_name="organization")
+    )
+    is_partner: Optional[bool] = field(
+        default=None, metadata=config(field_name="is_partner")
+    )
+    is_organization: Optional[bool] = field(
+        default=None, metadata=config(field_name="is_organization")
+    )
     support_enabled: Optional[bool] = field(
         default=None, metadata=config(field_name="support_enabled")
     )
@@ -1209,7 +1235,11 @@ class Tenant:
         default=None, metadata=config(field_name="all_services")
     )
     partnership: Optional[Partnership] = field(
-        default=None, metadata=config(field_name="partnership")
+        default=None,
+        metadata=config(
+            metadata={"deprecated": True, "deprecation_reason": "No longer supported"},
+            field_name="partnership",
+        ),
     )
 
 

@@ -136,6 +136,9 @@ class AuditInput:
     tenant_id: Optional[str] = field(
         default=None, metadata=config(field_name="tenantId")
     )
+    event_name: Optional[str] = field(
+        default=None, metadata=config(field_name="eventName")
+    )
     event_name_index: Optional[int] = field(
         default=None, metadata=config(field_name="eventNameIndex")
     )

@@ -232,22 +232,34 @@ class UserPreferenceDictionary:
     """UserPreferenceDictionary."""
 
     id: Optional[str] = field(default=None, metadata=config(field_name="id"))
+    user_id: Optional[str] = field(default=None, metadata=config(field_name="userID"))
     category: Optional[str] = field(
         default=None, metadata=config(field_name="category")
     )
+    sub_key: Optional[str] = field(default=None, metadata=config(field_name="subKey"))
     preferences: Optional[dict] = field(
         default=None, metadata=config(field_name="preferences")
     )
-    user_id: Optional[str] = field(default=None, metadata=config(field_name="userID"))
+    environment: Optional[str] = field(
+        default=None, metadata=config(field_name="environment")
+    )
     created_at: Optional[str] = field(
         default=None, metadata=config(field_name="createdAt")
     )
     updated_at: Optional[str] = field(
         default=None, metadata=config(field_name="updatedAt")
     )
-    environment: Optional[str] = field(
-        default=None, metadata=config(field_name="environment")
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class UnsetPreferenceSelector:
+    """UnsetPreferenceSelector."""
+
+    category: Optional[str] = field(
+        default=None, metadata=config(field_name="category")
     )
+    sub_key: Optional[str] = field(default=None, metadata=config(field_name="subKey"))
 
 
 @dataclass_json

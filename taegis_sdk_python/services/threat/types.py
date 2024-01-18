@@ -1406,6 +1406,9 @@ class ThreatIndicator:
     ipv4: Optional[str] = field(default=None, metadata=config(field_name="ipv4"))
     label: Optional[str] = field(default=None, metadata=config(field_name="label"))
     tags: Optional[List[str]] = field(default=None, metadata=config(field_name="tags"))
+    no_results: Optional[bool] = field(
+        default=None, metadata=config(field_name="noResults")
+    )
     type: Optional[ThreatObjectType] = field(
         default=None, metadata=config(field_name="type")
     )
