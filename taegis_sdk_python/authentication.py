@@ -266,8 +266,8 @@ def get_token_by_sso_device_code(
         Access Token
     """
     logger.debug("Trying by SSO device code auth url...")
-    init_endpoint = "/auth/device/code/auth"
-    token_endpoint = "/auth/device/code/token"
+    init_endpoint = "/universal-auth/device/code/auth"
+    token_endpoint = "/universal-auth/device/code/token"
 
     response = post(f"{request_url}{init_endpoint}", timeout=300)
 
