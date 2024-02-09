@@ -1113,6 +1113,9 @@ class CommentsV2Arguments:
 class AggregatedCounts:
     """AggregatedCounts."""
 
+    archived_count: Optional[int] = field(
+        default=None, metadata=config(field_name="archivedCount")
+    )
     status: Optional[List[InvestigationStatusCount]] = field(
         default=None, metadata=config(field_name="status")
     )

@@ -757,6 +757,9 @@ class TenantDecommissionConfigReport:
     estimated_ingest_data_amount: Optional[str] = field(
         default=None, metadata=config(field_name="EstimatedIngestDataAmount")
     )
+    created_at: Optional[str] = field(
+        default=None, metadata=config(field_name="createdAt")
+    )
     agent_summary: Optional[List[TenantDecommissionAgentSummary]] = field(
         default=None, metadata=config(field_name="AgentSummary")
     )

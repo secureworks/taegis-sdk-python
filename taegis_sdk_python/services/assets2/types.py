@@ -85,6 +85,45 @@ class AssetSearchOrderByInputV2(str, Enum):
     TAG_DESC = "tag_desc"
 
 
+class AssetHostnameSearchOrderByInput(str, Enum):
+    """AssetHostnameSearchOrderByInput."""
+
+    CREATED_AT_ASC = "created_at_asc"
+    CREATED_AT_DESC = "created_at_desc"
+    UPDATED_AT_ASC = "updated_at_asc"
+    UPDATED_AT_DESC = "updated_at_desc"
+    LAST_SEEN_AT_ASC = "last_seen_at_asc"
+    LAST_SEEN_AT_DESC = "last_seen_at_desc"
+    HOSTNAME_ASC = "hostname_asc"
+    HOSTNAME_DESC = "hostname_desc"
+
+
+class AssetIPAddressSearchOrderByInput(str, Enum):
+    """AssetIPAddressSearchOrderByInput."""
+
+    CREATED_AT_ASC = "created_at_asc"
+    CREATED_AT_DESC = "created_at_desc"
+    UPDATED_AT_ASC = "updated_at_asc"
+    UPDATED_AT_DESC = "updated_at_desc"
+    LAST_SEEN_AT_ASC = "last_seen_at_asc"
+    LAST_SEEN_AT_DESC = "last_seen_at_desc"
+    IP_ASC = "ip_asc"
+    IP_DESC = "ip_desc"
+
+
+class AssetMacAddressSearchOrderByInput(str, Enum):
+    """AssetMacAddressSearchOrderByInput."""
+
+    CREATED_AT_ASC = "created_at_asc"
+    CREATED_AT_DESC = "created_at_desc"
+    UPDATED_AT_ASC = "updated_at_asc"
+    UPDATED_AT_DESC = "updated_at_desc"
+    LAST_SEEN_AT_ASC = "last_seen_at_asc"
+    LAST_SEEN_AT_DESC = "last_seen_at_desc"
+    MAC_ASC = "mac_asc"
+    MAC_DESC = "mac_desc"
+
+
 class InvestigationsOrderByInput(str, Enum):
     """InvestigationsOrderByInput."""
 
@@ -286,6 +325,80 @@ class PageInfoV2:
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
+class AssetHostname:
+    """AssetHostname."""
+
+    host_id: Optional[str] = field(default=None, metadata=config(field_name="hostId"))
+    tenant_id: Optional[str] = field(
+        default=None, metadata=config(field_name="tenantId")
+    )
+    hostname: Optional[str] = field(
+        default=None, metadata=config(field_name="hostname")
+    )
+    created_at: Optional[str] = field(
+        default=None, metadata=config(field_name="createdAt")
+    )
+    updated_at: Optional[str] = field(
+        default=None, metadata=config(field_name="updatedAt")
+    )
+    deleted_at: Optional[str] = field(
+        default=None, metadata=config(field_name="deletedAt")
+    )
+    last_seen_at: Optional[str] = field(
+        default=None, metadata=config(field_name="lastSeenAt")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class AssetIPAddress:
+    """AssetIPAddress."""
+
+    host_id: Optional[str] = field(default=None, metadata=config(field_name="hostId"))
+    tenant_id: Optional[str] = field(
+        default=None, metadata=config(field_name="tenantId")
+    )
+    ip: Optional[str] = field(default=None, metadata=config(field_name="ip"))
+    created_at: Optional[str] = field(
+        default=None, metadata=config(field_name="createdAt")
+    )
+    updated_at: Optional[str] = field(
+        default=None, metadata=config(field_name="updatedAt")
+    )
+    deleted_at: Optional[str] = field(
+        default=None, metadata=config(field_name="deletedAt")
+    )
+    last_seen_at: Optional[str] = field(
+        default=None, metadata=config(field_name="lastSeenAt")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class AssetMacAddress:
+    """AssetMacAddress."""
+
+    host_id: Optional[str] = field(default=None, metadata=config(field_name="hostId"))
+    tenant_id: Optional[str] = field(
+        default=None, metadata=config(field_name="tenantId")
+    )
+    mac: Optional[str] = field(default=None, metadata=config(field_name="mac"))
+    created_at: Optional[str] = field(
+        default=None, metadata=config(field_name="createdAt")
+    )
+    updated_at: Optional[str] = field(
+        default=None, metadata=config(field_name="updatedAt")
+    )
+    deleted_at: Optional[str] = field(
+        default=None, metadata=config(field_name="deletedAt")
+    )
+    last_seen_at: Optional[str] = field(
+        default=None, metadata=config(field_name="lastSeenAt")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
 class KVTagInputV2:
     """KVTagInputV2."""
 
@@ -381,6 +494,54 @@ class TagFilter:
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
+class AssetsHostname:
+    """AssetsHostname."""
+
+    total_count: Optional[int] = field(
+        default=None, metadata=config(field_name="totalCount")
+    )
+    assets_hostnames: Optional[List[AssetHostname]] = field(
+        default=None, metadata=config(field_name="assetsHostnames")
+    )
+    page_info: Optional[PageInfoV2] = field(
+        default=None, metadata=config(field_name="pageInfo")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class AssetsIPAddress:
+    """AssetsIPAddress."""
+
+    total_count: Optional[int] = field(
+        default=None, metadata=config(field_name="totalCount")
+    )
+    assets_ip_addresses: Optional[List[AssetIPAddress]] = field(
+        default=None, metadata=config(field_name="assetsIPAddresses")
+    )
+    page_info: Optional[PageInfoV2] = field(
+        default=None, metadata=config(field_name="pageInfo")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class AssetsMacAddress:
+    """AssetsMacAddress."""
+
+    total_count: Optional[int] = field(
+        default=None, metadata=config(field_name="totalCount")
+    )
+    assets_mac_addresses: Optional[List[AssetMacAddress]] = field(
+        default=None, metadata=config(field_name="assetsMacAddresses")
+    )
+    page_info: Optional[PageInfoV2] = field(
+        default=None, metadata=config(field_name="pageInfo")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
 class TaskInfoPayload:
     """TaskInfoPayload."""
 
@@ -390,6 +551,233 @@ class TaskInfoPayload:
     )
     metadata: Optional[TaskInfoMetadata] = field(
         default=None, metadata=config(field_name="metadata")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class AssetHostnameWhereInput:
+    """AssetHostnameWhereInput."""
+
+    created_at: Optional[str] = field(
+        default=None, metadata=config(field_name="createdAt")
+    )
+    created_at_lt: Optional[str] = field(
+        default=None, metadata=config(field_name="createdAt_lt")
+    )
+    created_at_lte: Optional[str] = field(
+        default=None, metadata=config(field_name="createdAt_lte")
+    )
+    created_at_gt: Optional[str] = field(
+        default=None, metadata=config(field_name="createdAt_gt")
+    )
+    created_at_gte: Optional[str] = field(
+        default=None, metadata=config(field_name="createdAt_gte")
+    )
+    host_id: Optional[str] = field(default=None, metadata=config(field_name="hostId"))
+    host_id_contains: Optional[str] = field(
+        default=None, metadata=config(field_name="hostId_contains")
+    )
+    host_id_autocomplete: Optional[str] = field(
+        default=None, metadata=config(field_name="hostId_autocomplete")
+    )
+    hostname: Optional[str] = field(
+        default=None, metadata=config(field_name="hostname")
+    )
+    hostname_contains: Optional[str] = field(
+        default=None, metadata=config(field_name="hostname_contains")
+    )
+    hostname_autocomplete: Optional[str] = field(
+        default=None, metadata=config(field_name="hostname_autocomplete")
+    )
+    last_seen_at: Optional[str] = field(
+        default=None, metadata=config(field_name="lastSeenAt")
+    )
+    last_seen_at_lt: Optional[str] = field(
+        default=None, metadata=config(field_name="lastSeenAt_lt")
+    )
+    last_seen_at_lte: Optional[str] = field(
+        default=None, metadata=config(field_name="lastSeenAt_lte")
+    )
+    last_seen_at_gt: Optional[str] = field(
+        default=None, metadata=config(field_name="lastSeenAt_gt")
+    )
+    last_seen_at_gte: Optional[str] = field(
+        default=None, metadata=config(field_name="lastSeenAt_gte")
+    )
+    updated_at: Optional[str] = field(
+        default=None, metadata=config(field_name="updatedAt")
+    )
+    updated_at_lt: Optional[str] = field(
+        default=None, metadata=config(field_name="updatedAt_lt")
+    )
+    updated_at_lte: Optional[str] = field(
+        default=None, metadata=config(field_name="updatedAt_lte")
+    )
+    updated_at_gt: Optional[str] = field(
+        default=None, metadata=config(field_name="updatedAt_gt")
+    )
+    updated_at_gte: Optional[str] = field(
+        default=None, metadata=config(field_name="updatedAt_gte")
+    )
+    and_: Optional[List["AssetHostnameWhereInput"]] = field(
+        default=None, metadata=config(field_name="and")
+    )
+    or_: Optional[List["AssetHostnameWhereInput"]] = field(
+        default=None, metadata=config(field_name="or")
+    )
+    not_: Optional["AssetHostnameWhereInput"] = field(
+        default=None, metadata=config(field_name="not")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class AssetIPAddressWhereInput:
+    """AssetIPAddressWhereInput."""
+
+    created_at: Optional[str] = field(
+        default=None, metadata=config(field_name="createdAt")
+    )
+    created_at_lt: Optional[str] = field(
+        default=None, metadata=config(field_name="createdAt_lt")
+    )
+    created_at_lte: Optional[str] = field(
+        default=None, metadata=config(field_name="createdAt_lte")
+    )
+    created_at_gt: Optional[str] = field(
+        default=None, metadata=config(field_name="createdAt_gt")
+    )
+    created_at_gte: Optional[str] = field(
+        default=None, metadata=config(field_name="createdAt_gte")
+    )
+    host_id: Optional[str] = field(default=None, metadata=config(field_name="hostId"))
+    host_id_contains: Optional[str] = field(
+        default=None, metadata=config(field_name="hostId_contains")
+    )
+    host_id_autocomplete: Optional[str] = field(
+        default=None, metadata=config(field_name="hostId_autocomplete")
+    )
+    ip: Optional[str] = field(default=None, metadata=config(field_name="ip"))
+    ip_contains: Optional[str] = field(
+        default=None, metadata=config(field_name="ip_contains")
+    )
+    ip_autocomplete: Optional[str] = field(
+        default=None, metadata=config(field_name="ip_autocomplete")
+    )
+    last_seen_at: Optional[str] = field(
+        default=None, metadata=config(field_name="lastSeenAt")
+    )
+    last_seen_at_lt: Optional[str] = field(
+        default=None, metadata=config(field_name="lastSeenAt_lt")
+    )
+    last_seen_at_lte: Optional[str] = field(
+        default=None, metadata=config(field_name="lastSeenAt_lte")
+    )
+    last_seen_at_gt: Optional[str] = field(
+        default=None, metadata=config(field_name="lastSeenAt_gt")
+    )
+    last_seen_at_gte: Optional[str] = field(
+        default=None, metadata=config(field_name="lastSeenAt_gte")
+    )
+    updated_at: Optional[str] = field(
+        default=None, metadata=config(field_name="updatedAt")
+    )
+    updated_at_lt: Optional[str] = field(
+        default=None, metadata=config(field_name="updatedAt_lt")
+    )
+    updated_at_lte: Optional[str] = field(
+        default=None, metadata=config(field_name="updatedAt_lte")
+    )
+    updated_at_gt: Optional[str] = field(
+        default=None, metadata=config(field_name="updatedAt_gt")
+    )
+    updated_at_gte: Optional[str] = field(
+        default=None, metadata=config(field_name="updatedAt_gte")
+    )
+    and_: Optional[List["AssetIPAddressWhereInput"]] = field(
+        default=None, metadata=config(field_name="and")
+    )
+    or_: Optional[List["AssetIPAddressWhereInput"]] = field(
+        default=None, metadata=config(field_name="or")
+    )
+    not_: Optional["AssetIPAddressWhereInput"] = field(
+        default=None, metadata=config(field_name="not")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class AssetMacAddressWhereInput:
+    """AssetMacAddressWhereInput."""
+
+    created_at: Optional[str] = field(
+        default=None, metadata=config(field_name="createdAt")
+    )
+    created_at_lt: Optional[str] = field(
+        default=None, metadata=config(field_name="createdAt_lt")
+    )
+    created_at_lte: Optional[str] = field(
+        default=None, metadata=config(field_name="createdAt_lte")
+    )
+    created_at_gt: Optional[str] = field(
+        default=None, metadata=config(field_name="createdAt_gt")
+    )
+    created_at_gte: Optional[str] = field(
+        default=None, metadata=config(field_name="createdAt_gte")
+    )
+    host_id: Optional[str] = field(default=None, metadata=config(field_name="hostId"))
+    host_id_contains: Optional[str] = field(
+        default=None, metadata=config(field_name="hostId_contains")
+    )
+    host_id_autocomplete: Optional[str] = field(
+        default=None, metadata=config(field_name="hostId_autocomplete")
+    )
+    mac: Optional[str] = field(default=None, metadata=config(field_name="mac"))
+    mac_contains: Optional[str] = field(
+        default=None, metadata=config(field_name="mac_contains")
+    )
+    mac_autocomplete: Optional[str] = field(
+        default=None, metadata=config(field_name="mac_autocomplete")
+    )
+    last_seen_at: Optional[str] = field(
+        default=None, metadata=config(field_name="lastSeenAt")
+    )
+    last_seen_at_lt: Optional[str] = field(
+        default=None, metadata=config(field_name="lastSeenAt_lt")
+    )
+    last_seen_at_lte: Optional[str] = field(
+        default=None, metadata=config(field_name="lastSeenAt_lte")
+    )
+    last_seen_at_gt: Optional[str] = field(
+        default=None, metadata=config(field_name="lastSeenAt_gt")
+    )
+    last_seen_at_gte: Optional[str] = field(
+        default=None, metadata=config(field_name="lastSeenAt_gte")
+    )
+    updated_at: Optional[str] = field(
+        default=None, metadata=config(field_name="updatedAt")
+    )
+    updated_at_lt: Optional[str] = field(
+        default=None, metadata=config(field_name="updatedAt_lt")
+    )
+    updated_at_lte: Optional[str] = field(
+        default=None, metadata=config(field_name="updatedAt_lte")
+    )
+    updated_at_gt: Optional[str] = field(
+        default=None, metadata=config(field_name="updatedAt_gt")
+    )
+    updated_at_gte: Optional[str] = field(
+        default=None, metadata=config(field_name="updatedAt_gte")
+    )
+    and_: Optional[List["AssetMacAddressWhereInput"]] = field(
+        default=None, metadata=config(field_name="and")
+    )
+    or_: Optional[List["AssetMacAddressWhereInput"]] = field(
+        default=None, metadata=config(field_name="or")
+    )
+    not_: Optional["AssetMacAddressWhereInput"] = field(
+        default=None, metadata=config(field_name="not")
     )
 
 
@@ -713,6 +1101,45 @@ class AssetsV2:
     )
     page_info: Optional[PageInfoV2] = field(
         default=None, metadata=config(field_name="pageInfo")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class AssetHostnameFilter:
+    """AssetHostnameFilter."""
+
+    endpoint_types: Optional[List[EndpointTypeV2]] = field(
+        default=None, metadata=config(field_name="endpointTypes")
+    )
+    where: Optional[AssetHostnameWhereInput] = field(
+        default=None, metadata=config(field_name="where")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class AssetIPAddressFilter:
+    """AssetIPAddressFilter."""
+
+    endpoint_types: Optional[List[EndpointTypeV2]] = field(
+        default=None, metadata=config(field_name="endpointTypes")
+    )
+    where: Optional[AssetIPAddressWhereInput] = field(
+        default=None, metadata=config(field_name="where")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class AssetMacAddressFilter:
+    """AssetMacAddressFilter."""
+
+    endpoint_types: Optional[List[EndpointTypeV2]] = field(
+        default=None, metadata=config(field_name="endpointTypes")
+    )
+    where: Optional[AssetMacAddressWhereInput] = field(
+        default=None, metadata=config(field_name="where")
     )
 
 

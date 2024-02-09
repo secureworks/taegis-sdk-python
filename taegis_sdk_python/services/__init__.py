@@ -1,6 +1,7 @@
 """
 This needs to be a generated file.  Need to make jinja template.
 """
+
 from typing import Dict, Optional, Any
 
 from taegis_sdk_python._consts import TAEGIS_ENVIRONMENT_URLS
@@ -31,6 +32,7 @@ from taegis_sdk_python.services.event_search import EventSearchService
 from taegis_sdk_python.services.events import EventsService
 from taegis_sdk_python.services.exports import ExportsService
 from taegis_sdk_python.services.fast_ioc import FastIocService
+from taegis_sdk_python.services.file_info import FileInfoService
 from taegis_sdk_python.services.investigations import InvestigationsService
 from taegis_sdk_python.services.investigations2 import Investigations2Service
 from taegis_sdk_python.services.mitre_attack_info import MitreAttackInfoService
@@ -46,6 +48,7 @@ from taegis_sdk_python.services.subjects import SubjectsService
 from taegis_sdk_python.services.tenant_profiles import TenantProfilesService
 from taegis_sdk_python.services.tenants import TenantsService
 from taegis_sdk_python.services.threat import ThreatService
+from taegis_sdk_python.services.threat_score import ThreatScoreService
 from taegis_sdk_python.services.trip import TripService
 from taegis_sdk_python.services.users import UsersService
 
@@ -123,6 +126,7 @@ class GraphQLService:
         self._events = None
         self._exports = None
         self._fast_ioc = None
+        self._file_info = None
         self._investigations = None
         self._investigations2 = None
         self._mitre_attack_info = None
@@ -139,6 +143,7 @@ class GraphQLService:
         self._tenant_profiles = None
         self._tenants = None
         self._threat = None
+        self._threat_score = None
         self._trip = None
         self._users = None
 
@@ -367,6 +372,13 @@ class GraphQLService:
         return self._fast_ioc
 
     @property
+    def file_info(self):
+        """FileInfo Service Endpoint."""
+        if not self._file_info:
+            self._file_info = FileInfoService(self)
+        return self._file_info
+
+    @property
     def investigations(self):
         """Investigations Service Endpoint."""
         if not self._investigations:
@@ -477,6 +489,13 @@ class GraphQLService:
         if not self._threat:
             self._threat = ThreatService(self)
         return self._threat
+
+    @property
+    def threat_score(self):
+        """ThreatScore Service Endpoint."""
+        if not self._threat_score:
+            self._threat_score = ThreatScoreService(self)
+        return self._threat_score
 
     @property
     def trip(self):

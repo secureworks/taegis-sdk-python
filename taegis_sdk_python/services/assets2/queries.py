@@ -334,3 +334,87 @@ class TaegisSDKAssets2Query:
         if result.get(endpoint) is not None:
             return CanIsolateResponse(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for query subjectCanIsolate")
+
+    def assets_hostname(
+        self,
+        first: Optional[int] = None,
+        last: Optional[int] = None,
+        after: Optional[str] = None,
+        before: Optional[str] = None,
+        filter_: Optional[AssetHostnameFilter] = None,
+        order_by: Optional[AssetHostnameSearchOrderByInput] = None,
+    ) -> AssetsHostname:
+        """ "Retrieve hostname details."""
+        endpoint = "assetsHostname"
+
+        result = self.service.execute_query(
+            endpoint=endpoint,
+            variables={
+                "first": prepare_input(first),
+                "last": prepare_input(last),
+                "after": prepare_input(after),
+                "before": prepare_input(before),
+                "filter": prepare_input(filter_),
+                "orderBy": prepare_input(order_by),
+            },
+            output=build_output_string(AssetsHostname),
+        )
+        if result.get(endpoint) is not None:
+            return AssetsHostname.from_dict(result.get(endpoint))
+        raise GraphQLNoRowsInResultSetError("for query assetsHostname")
+
+    def assets_ip_address(
+        self,
+        first: Optional[int] = None,
+        last: Optional[int] = None,
+        after: Optional[str] = None,
+        before: Optional[str] = None,
+        filter_: Optional[AssetIPAddressFilter] = None,
+        order_by: Optional[AssetIPAddressSearchOrderByInput] = None,
+    ) -> AssetsIPAddress:
+        """ "Retrieve ipAddress details."""
+        endpoint = "assetsIPAddress"
+
+        result = self.service.execute_query(
+            endpoint=endpoint,
+            variables={
+                "first": prepare_input(first),
+                "last": prepare_input(last),
+                "after": prepare_input(after),
+                "before": prepare_input(before),
+                "filter": prepare_input(filter_),
+                "orderBy": prepare_input(order_by),
+            },
+            output=build_output_string(AssetsIPAddress),
+        )
+        if result.get(endpoint) is not None:
+            return AssetsIPAddress.from_dict(result.get(endpoint))
+        raise GraphQLNoRowsInResultSetError("for query assetsIPAddress")
+
+    def assets_mac_address(
+        self,
+        first: Optional[int] = None,
+        last: Optional[int] = None,
+        after: Optional[str] = None,
+        before: Optional[str] = None,
+        filter_: Optional[AssetMacAddressFilter] = None,
+        order_by: Optional[AssetMacAddressSearchOrderByInput] = None,
+    ) -> AssetsMacAddress:
+        """ "Retrieve Mac details."""
+        endpoint = "assetsMacAddress"
+
+        result = self.service.execute_query(
+            endpoint=endpoint,
+            variables={
+                "first": prepare_input(first),
+                "last": prepare_input(last),
+                "after": prepare_input(after),
+                "before": prepare_input(before),
+                "filter": prepare_input(filter_),
+                "orderBy": prepare_input(order_by),
+            },
+            output=build_output_string(AssetsMacAddress),
+        )
+        if result.get(endpoint) is not None:
+            return AssetsMacAddress.from_dict(result.get(endpoint))
+        raise GraphQLNoRowsInResultSetError("for query assetsMacAddress")

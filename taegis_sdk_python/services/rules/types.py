@@ -315,6 +315,14 @@ class PageInfoOffset:
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
+class TDRUser:
+    """TDRUser."""
+
+    id: Optional[str] = field(default=None, metadata=config(field_name="id"))
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
 class RuleTermCount:
     """RuleTermCount."""
 
@@ -653,7 +661,13 @@ class Rule:
     tenant_id: Optional[str] = field(
         default=None, metadata=config(field_name="tenantID")
     )
-    user_id: Optional[str] = field(default=None, metadata=config(field_name="userID"))
+    user_id: Optional[str] = field(
+        default=None,
+        metadata=config(
+            metadata={"deprecated": True, "deprecation_reason": "Use user.ID"},
+            field_name="userID",
+        ),
+    )
     group_key_template: Optional[str] = field(
         default=None, metadata=config(field_name="groupKeyTemplate")
     )
@@ -688,6 +702,7 @@ class Rule:
     scope_ids: Optional[List[str]] = field(
         default=None, metadata=config(field_name="scopeIDs")
     )
+    user: Optional[TDRUser] = field(default=None, metadata=config(field_name="user"))
     event_type: Optional[RuleEventType] = field(
         default=None, metadata=config(field_name="eventType")
     )

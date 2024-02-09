@@ -212,6 +212,9 @@ class AuditResult:
 class ApplicationAggregationInput:
     """ApplicationAggregationInput."""
 
+    time_zone: Optional[str] = field(
+        default=None, metadata=config(field_name="timeZone")
+    )
     applications: Optional[List[str]] = field(
         default=None, metadata=config(field_name="applications")
     )
@@ -343,6 +346,9 @@ class AuditSearchInput:
 class ApplicationAggregationResult:
     """ApplicationAggregationResult."""
 
+    time_zone: Optional[str] = field(
+        default=None, metadata=config(field_name="timeZone")
+    )
     intervals: Optional[List[IntervalBucket]] = field(
         default=None, metadata=config(field_name="intervals")
     )

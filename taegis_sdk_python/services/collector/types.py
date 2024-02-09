@@ -183,6 +183,7 @@ class ClusterScheduledServiceInput:
     start_date: Optional[str] = field(
         default=None, metadata=config(field_name="startDate")
     )
+    end_date: Optional[str] = field(default=None, metadata=config(field_name="endDate"))
 
 
 @dataclass_json
@@ -410,18 +411,30 @@ class BillOfMaterials:
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
-class Credentials:
-    """Credentials."""
+class PasswordHistory:
+    """PasswordHistory."""
 
     password: Optional[str] = field(
         default=None, metadata=config(field_name="password")
     )
-    private_key: Optional[str] = field(
-        default=None, metadata=config(field_name="privateKey")
+    password_hash: Optional[str] = field(
+        default=None, metadata=config(field_name="passwordHash")
     )
-    public_key: Optional[str] = field(
-        default=None, metadata=config(field_name="publicKey")
+    set_date: Optional[str] = field(default=None, metadata=config(field_name="setDate"))
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class PasswordHistoryInput:
+    """PasswordHistoryInput."""
+
+    password: Optional[str] = field(
+        default=None, metadata=config(field_name="password")
     )
+    password_hash: Optional[str] = field(
+        default=None, metadata=config(field_name="passwordHash")
+    )
+    set_date: Optional[str] = field(default=None, metadata=config(field_name="setDate"))
 
 
 @dataclass_json
@@ -716,6 +729,7 @@ class ScheduledService:
     deferred: Optional[bool] = field(
         default=None, metadata=config(field_name="deferred")
     )
+    end_date: Optional[str] = field(default=None, metadata=config(field_name="endDate"))
     start_date: Optional[str] = field(
         default=None, metadata=config(field_name="startDate")
     )
@@ -837,6 +851,52 @@ class NetworkInput:
     proxy: Optional[str] = field(default=None, metadata=config(field_name="proxy"))
     hosts: Optional[List[HostsInput]] = field(
         default=None, metadata=config(field_name="hosts")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class Credentials:
+    """Credentials."""
+
+    password: Optional[str] = field(
+        default=None, metadata=config(field_name="password")
+    )
+    password_hash: Optional[str] = field(
+        default=None, metadata=config(field_name="passwordHash")
+    )
+    private_key: Optional[str] = field(
+        default=None, metadata=config(field_name="privateKey")
+    )
+    public_key: Optional[str] = field(
+        default=None, metadata=config(field_name="publicKey")
+    )
+    set_date: Optional[str] = field(default=None, metadata=config(field_name="setDate"))
+    password_history: Optional[List[PasswordHistory]] = field(
+        default=None, metadata=config(field_name="passwordHistory")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class CredentialsInput:
+    """CredentialsInput."""
+
+    password: Optional[str] = field(
+        default=None, metadata=config(field_name="password")
+    )
+    password_hash: Optional[str] = field(
+        default=None, metadata=config(field_name="passwordHash")
+    )
+    private_key: Optional[str] = field(
+        default=None, metadata=config(field_name="privateKey")
+    )
+    public_key: Optional[str] = field(
+        default=None, metadata=config(field_name="publicKey")
+    )
+    set_date: Optional[str] = field(default=None, metadata=config(field_name="setDate"))
+    password_history: Optional[List[PasswordHistoryInput]] = field(
+        default=None, metadata=config(field_name="passwordHistory")
     )
 
 

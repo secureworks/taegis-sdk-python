@@ -7,8 +7,30 @@
 from typing import Optional, List, Dict, Union, Any, Tuple
 
 
+from enum import Enum
+
+
 from dataclasses import dataclass, field
 from dataclasses_json import dataclass_json, config
+
+
+class LogicalType(str, Enum):
+    """LogicalType."""
+
+    DOMAIN = "DOMAIN"
+    HASH = "HASH"
+    HOST = "HOST"
+    IP = "IP"
+    MAC = "MAC"
+    USER = "USER"
+    COMMAND = "COMMAND"
+
+
+class Operator(str, Enum):
+    """Operator."""
+
+    EQUALS = "EQUALS"
+    MATCHES_REGEX = "MATCHES_REGEX"
 
 
 @dataclass_json
@@ -37,22 +59,6 @@ class TenantCount:
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
-class LogicalTypeFilter:
-    """LogicalTypeFilter."""
-
-    logical_type: Optional[str] = field(
-        default=None, metadata=config(field_name="logicalType")
-    )
-    values: Optional[List[str]] = field(
-        default=None, metadata=config(field_name="values")
-    )
-    operator: Optional[str] = field(
-        default=None, metadata=config(field_name="operator")
-    )
-
-
-@dataclass_json
-@dataclass(order=True, eq=True, frozen=True)
 class TenantsInput:
     """TenantsInput."""
 
@@ -60,7 +66,11 @@ class TenantsInput:
         default=None, metadata=config(field_name="tenantIds")
     )
     session_key: Optional[str] = field(
-        default=None, metadata=config(field_name="sessionKey")
+        default=None,
+        metadata=config(
+            metadata={"deprecated": True, "deprecation_reason": "no longer supported"},
+            field_name="sessionKey",
+        ),
     )
 
 
@@ -90,6 +100,22 @@ class EventCountResult:
     next: Optional[str] = field(default=None, metadata=config(field_name="next"))
     results: Optional[List[EventCountByLogicalType]] = field(
         default=None, metadata=config(field_name="results")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class LogicalTypeFilter:
+    """LogicalTypeFilter."""
+
+    values: Optional[List[str]] = field(
+        default=None, metadata=config(field_name="values")
+    )
+    logical_type: Optional[LogicalType] = field(
+        default=None, metadata=config(field_name="logicalType")
+    )
+    operator: Optional[Operator] = field(
+        default=None, metadata=config(field_name="operator")
     )
 
 

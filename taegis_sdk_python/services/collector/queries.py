@@ -701,3 +701,18 @@ class TaegisSDKCollectorQuery:
         if result.get(endpoint) is not None:
             return ScheduledService.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for query getScheduledService")
+
+    def get_clusters_password_hash(self, cluster_id: str) -> str:
+        """Get a cluster's password hash."""
+        endpoint = "getClustersPasswordHash"
+
+        result = self.service.execute_query(
+            endpoint=endpoint,
+            variables={
+                "clusterID": prepare_input(cluster_id),
+            },
+            output="",
+        )
+        if result.get(endpoint) is not None:
+            return result.get(endpoint)
+        raise GraphQLNoRowsInResultSetError("for query getClustersPasswordHash")

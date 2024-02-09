@@ -1,4 +1,5 @@
 """"Threat Service."""
+
 from taegis_sdk_python.service_core import ServiceCore
 from taegis_sdk_python.services.threat.mutations import TaegisSDKThreatMutation
 from taegis_sdk_python.services.threat.queries import TaegisSDKThreatQuery

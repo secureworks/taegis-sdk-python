@@ -270,7 +270,7 @@ class TaegisSDKTenantProfilesQuery:
         raise GraphQLNoRowsInResultSetError("for query tenantEntitiesOfInterestMtp")
 
     def list_all_tenant_entities_of_interest_mtp(
-        self, input_: Optional[ListAllTenantEntitiesOfInterestMtpInput] = None
+        self, input_: ListAllTenantEntitiesOfInterestMtpInput
     ) -> EntityOfInterestMtps:
         """Retrieve Entities of Interest given a set of filter criteria for the current tenant."""
         endpoint = "listAllTenantEntitiesOfInterestMTP"

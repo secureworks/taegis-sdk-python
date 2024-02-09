@@ -329,7 +329,7 @@ class TaegisSDKRulesQuery:
         filters: Optional[List[RuleFilterInput]] = None,
         sample_count: Optional[int] = None,
     ) -> List[RuleTestMatchStep]:
-        """None."""
+        """Test rule filters. Only usable by Secureworks for now."""
         endpoint = "testFilters"
 
         result = self.service.execute_query(

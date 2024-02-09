@@ -82,20 +82,23 @@ class AuthzActionTuple:
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
-class AuthzCanSubjectAssumeTenantDetailedResponse:
-    """AuthzCanSubjectAssumeTenantDetailedResponse."""
+class TenantHierarchy:
+    """TenantHierarchy."""
 
     tenant_id: Optional[str] = field(
         default=None, metadata=config(field_name="tenantID")
     )
-    parent_tenant_id: Optional[str] = field(
-        default=None, metadata=config(field_name="parentTenantID")
+    organization_id: Optional[str] = field(
+        default=None, metadata=config(field_name="organizationID")
     )
-    subject_can_assume_tenant: Optional[bool] = field(
-        default=None, metadata=config(field_name="subjectCanAssumeTenant")
+    partner_id: Optional[str] = field(
+        default=None, metadata=config(field_name="partnerID")
     )
-    subject_is_scwx: Optional[bool] = field(
-        default=None, metadata=config(field_name="subjectIsScwx")
+    is_organization: Optional[bool] = field(
+        default=None, metadata=config(field_name="isOrganization")
+    )
+    is_partner: Optional[bool] = field(
+        default=None, metadata=config(field_name="isPartner")
     )
 
 
@@ -161,6 +164,28 @@ class AuthzPermission:
     object: Optional[str] = field(default=None, metadata=config(field_name="object"))
     actions: Optional[List[AuthzActionTuple]] = field(
         default=None, metadata=config(field_name="actions")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class AuthzCanSubjectAssumeTenantDetailedResponse:
+    """AuthzCanSubjectAssumeTenantDetailedResponse."""
+
+    tenant_id: Optional[str] = field(
+        default=None, metadata=config(field_name="tenantID")
+    )
+    parent_tenant_id: Optional[str] = field(
+        default=None, metadata=config(field_name="parentTenantID")
+    )
+    subject_can_assume_tenant: Optional[bool] = field(
+        default=None, metadata=config(field_name="subjectCanAssumeTenant")
+    )
+    subject_is_scwx: Optional[bool] = field(
+        default=None, metadata=config(field_name="subjectIsScwx")
+    )
+    tenant_hierarchy: Optional[TenantHierarchy] = field(
+        default=None, metadata=config(field_name="tenantHierarchy")
     )
 
 

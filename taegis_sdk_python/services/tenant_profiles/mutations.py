@@ -456,7 +456,7 @@ class TaegisSDKTenantProfilesMutation:
         raise GraphQLNoRowsInResultSetError("for mutation updateAttachmentsMtp")
 
     def create_entity_of_interest_mtp(
-        self, input_: Optional[EntityOfInterestCreateMtpInput] = None
+        self, input_: EntityOfInterestCreateMtpInput
     ) -> EntityOfInterestMtp:
         """Create a new Entity of Interest for the current tenant."""
         endpoint = "createEntityOfInterestMtp"
@@ -473,7 +473,7 @@ class TaegisSDKTenantProfilesMutation:
         raise GraphQLNoRowsInResultSetError("for mutation createEntityOfInterestMtp")
 
     def update_entity_of_interest_mtp(
-        self, id_: str, input_: Optional[EntityOfInterestUpdateMtpInput] = None
+        self, id_: str, input_: EntityOfInterestUpdateMtpInput
     ) -> EntityOfInterestMtp:
         """Update an existing Entity of Interest."""
         endpoint = "updateEntityOfInterestMtp"
