@@ -83,6 +83,7 @@ class Origin(str, Enum):
     INTERNAL = "INTERNAL"
     CUSTOMER = "CUSTOMER"
     EXTERNAL = "EXTERNAL"
+    PARTNER = "PARTNER"
 
 
 class RPCResponseStatus(str, Enum):
@@ -225,6 +226,9 @@ class SearchRequestInput:
     metadata: Optional[dict] = field(
         default=None, metadata=config(field_name="metadata")
     )
+    tenant_service_filters: Optional[List[str]] = field(
+        default=None, metadata=config(field_name="tenant_service_filters")
+    )
 
 
 @dataclass_json
@@ -234,31 +238,6 @@ class TimestampInput:
 
     seconds: Optional[int] = field(default=None, metadata=config(field_name="seconds"))
     nanos: Optional[int] = field(default=None, metadata=config(field_name="nanos"))
-
-
-@dataclass_json
-@dataclass(order=True, eq=True, frozen=True)
-class TriageDashboardInputInput:
-    """TriageDashboardInputInput."""
-
-    key: Optional[str] = field(
-        default=None,
-        metadata=config(
-            metadata={
-                "deprecated": True,
-                "deprecation_reason": "a multi-tenant session key is not needed anymore",
-            },
-            field_name="key",
-        ),
-    )
-    service_filters: Optional[List[str]] = field(
-        default=None, metadata=config(field_name="serviceFilters")
-    )
-    show_claimed: Optional[bool] = field(
-        default=None, metadata=config(field_name="showClaimed")
-    )
-    offset: Optional[int] = field(default=None, metadata=config(field_name="offset"))
-    limit: Optional[int] = field(default=None, metadata=config(field_name="limit"))
 
 
 @dataclass_json
@@ -1347,60 +1326,6 @@ class SeverityUpdate:
     )
     changed_at: Optional[Timestamp] = field(
         default=None, metadata=config(field_name="changed_at")
-    )
-
-
-@dataclass_json
-@dataclass(order=True, eq=True, frozen=True)
-class TenantAlertsToTriage:
-    """TenantAlertsToTriage."""
-
-    tenant_id: Optional[str] = field(
-        default=None, metadata=config(field_name="tenantID")
-    )
-    tenant_name: Optional[str] = field(
-        default=None, metadata=config(field_name="tenantName")
-    )
-    claimed_by: Optional[List[str]] = field(
-        default=None, metadata=config(field_name="claimedBy")
-    )
-    critical: Optional[int] = field(
-        default=None, metadata=config(field_name="critical")
-    )
-    high: Optional[int] = field(default=None, metadata=config(field_name="high"))
-    medium: Optional[int] = field(default=None, metadata=config(field_name="medium"))
-    low: Optional[int] = field(default=None, metadata=config(field_name="low"))
-    info: Optional[int] = field(default=None, metadata=config(field_name="info"))
-    endpoints_affected: Optional[int] = field(
-        default=None, metadata=config(field_name="endpointsAffected")
-    )
-    endpoints_total: Optional[int] = field(
-        default=None, metadata=config(field_name="endpointsTotal")
-    )
-    open_investigations: Optional[int] = field(
-        default=None, metadata=config(field_name="openInvestigations")
-    )
-    services: Optional[List[str]] = field(
-        default=None, metadata=config(field_name="services")
-    )
-    oldest_alert: Optional[Timestamp] = field(
-        default=None, metadata=config(field_name="oldestAlert")
-    )
-
-
-@dataclass_json
-@dataclass(order=True, eq=True, frozen=True)
-class TriageDashboardOutput:
-    """TriageDashboardOutput."""
-
-    total_results: Optional[int] = field(
-        default=None, metadata=config(field_name="totalResults")
-    )
-    next_offset: Optional[int] = field(
-        default=None, metadata=config(field_name="nextOffset")
-    )
-    tenant_triage: Optional[List[TenantAlertsToTriage]] = field(
-        default=None, metadata=config(field_name="tenantTriage")
     )
 
 

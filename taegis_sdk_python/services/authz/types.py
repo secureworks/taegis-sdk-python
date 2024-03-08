@@ -45,6 +45,14 @@ class AuthzSupportedFeatureTarget(str, Enum):
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
+class Subject:
+    """Subject."""
+
+    id: Optional[str] = field(default=None, metadata=config(field_name="id"))
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
 class AuthzObjectAction:
     """AuthzObjectAction."""
 
@@ -114,16 +122,47 @@ class AuthzObjectActionStatusResponse:
         default=None, metadata=config(field_name="description")
     )
     managed_only: Optional[bool] = field(
-        default=None, metadata=config(field_name="managed_only")
+        default=None, metadata=config(field_name="managedOnly")
+    )
+    managed_only: Optional[bool] = field(
+        default=None,
+        metadata=config(
+            metadata={"deprecated": True, "deprecation_reason": "use managedOnly"},
+            field_name="managed_only",
+        ),
     )
     subject_permitted: Optional[bool] = field(
-        default=None, metadata=config(field_name="subject_permitted")
+        default=None, metadata=config(field_name="subjectPermitted")
+    )
+    subject_permitted: Optional[bool] = field(
+        default=None,
+        metadata=config(
+            metadata={"deprecated": True, "deprecation_reason": "use subjectPermitted"},
+            field_name="subject_permitted",
+        ),
     )
     required_for_ui_login: Optional[bool] = field(
-        default=None, metadata=config(field_name="required_for_ui_login")
+        default=None, metadata=config(field_name="requiredForUiLogin")
+    )
+    required_for_ui_login: Optional[bool] = field(
+        default=None,
+        metadata=config(
+            metadata={
+                "deprecated": True,
+                "deprecation_reason": "use requiredForUiLogin",
+            },
+            field_name="required_for_ui_login",
+        ),
     )
     feature_enabled: Optional[bool] = field(
-        default=None, metadata=config(field_name="feature_enabled")
+        default=None, metadata=config(field_name="featureEnabled")
+    )
+    feature_enabled: Optional[bool] = field(
+        default=None,
+        metadata=config(
+            metadata={"deprecated": True, "deprecation_reason": "use featureEnabled"},
+            field_name="feature_enabled",
+        ),
     )
 
 
@@ -146,14 +185,6 @@ class AuthzSupportedFeatureState:
     enabled_in_child_tenants: Optional[bool] = field(
         default=None, metadata=config(field_name="enabledInChildTenants")
     )
-
-
-@dataclass_json
-@dataclass(order=True, eq=True, frozen=True)
-class Subject:
-    """Subject."""
-
-    id: Optional[str] = field(default=None, metadata=config(field_name="id"))
 
 
 @dataclass_json

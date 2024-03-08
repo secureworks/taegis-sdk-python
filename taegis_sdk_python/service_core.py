@@ -2,6 +2,7 @@
 
 Taegis ServiceCore manager.
 """
+
 from __future__ import annotations
 
 import logging
@@ -134,6 +135,7 @@ class ServiceCore:
             transport=transport,
             schema=self._schema.schema,
             fetch_schema_from_transport=self._schema.should_fetch_schema(),
+            introspection_args={"input_value_deprecation": True},
         )
 
         with client:
@@ -169,6 +171,7 @@ class ServiceCore:
             transport=transport,
             schema=self._schema.schema,
             fetch_schema_from_transport=self._schema.should_fetch_schema(),
+            introspection_args={"input_value_deprecation": True},
         )
 
         return client

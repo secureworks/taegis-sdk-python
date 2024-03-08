@@ -185,3 +185,22 @@ class TaegisSDKPreferencesQuery:
         if result.get(endpoint) is not None:
             return PartnerPreference.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for query partnerPreferences")
+
+    def get_preferences(
+        self, get_preference_selector: Optional[GetPreferenceSelector] = None
+    ) -> List[UserPreferenceDictionary]:
+        """None."""
+        endpoint = "getPreferences"
+
+        result = self.service.execute_query(
+            endpoint=endpoint,
+            variables={
+                "getPreferenceSelector": prepare_input(get_preference_selector),
+            },
+            output=build_output_string(UserPreferenceDictionary),
+        )
+        if result.get(endpoint) is not None:
+            return UserPreferenceDictionary.schema().load(
+                [r or {} for r in result.get(endpoint)], many=True
+            )
+        raise GraphQLNoRowsInResultSetError("for query getPreferences")

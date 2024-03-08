@@ -51,6 +51,7 @@ class TenantType(str, Enum):
     SERVICE_OWNER = "ServiceOwner"
     INTERNAL_SERVICE_OWNER = "InternalServiceOwner"
     PARENT_TENANT_INPUT = "ParentTenantInput"
+    PARTNER_TENANT = "PartnerTenant"
 
 
 class TenantOrderField(str, Enum):
@@ -123,7 +124,9 @@ class AuditAction(str, Enum):
     ENABLE_TENANT = "enable_tenant"
     ENABLED_SUPPORT_STATUS = "enabled_support_status"
     REMOVE_SERVICE_TO_TENANT = "remove_service_to_tenant"
+    TENANT_ADDED = "tenant_added"
     TENANT_DISABLED = "tenant_disabled"
+    TENANT_REMOVED = "tenant_removed"
     TENANT_UPDATED = "tenant_updated"
     UPDATE_LABEL_FOR_TENANT = "update_label_for_tenant"
     UPDATE_SSO_CONNECTION = "update_sso_connection"
@@ -786,6 +789,9 @@ class NewTenant:
     is_partner: Optional[bool] = field(
         default=None, metadata=config(field_name="isPartner")
     )
+    is_organization: Optional[bool] = field(
+        default=None, metadata=config(field_name="isOrganization")
+    )
     labels: Optional[List[InputTenantLabel]] = field(
         default=None, metadata=config(field_name="labels")
     )
@@ -814,6 +820,9 @@ class TenantUpdateInput:
     )
     clear_expiration: Optional[bool] = field(
         default=None, metadata=config(field_name="clearExpiration")
+    )
+    parent_tenant_id: Optional[str] = field(
+        default=None, metadata=config(field_name="parentTenantID")
     )
     environments: Optional[List[TenantEnvironmentUpdateInput]] = field(
         default=None, metadata=config(field_name="environments")
@@ -845,6 +854,9 @@ class UpdateTenant:
     )
     expires_at: Optional[int] = field(
         default=None, metadata=config(field_name="expires_at")
+    )
+    parent_tenant_id: Optional[str] = field(
+        default=None, metadata=config(field_name="parentTenantID")
     )
     environments: Optional[List[InputTenantEnvironment]] = field(
         default=None, metadata=config(field_name="environments")
@@ -922,10 +934,20 @@ class TenantCreateInput:
 
     name: Optional[str] = field(default=None, metadata=config(field_name="name"))
     partner_tenant_id: Optional[str] = field(
-        default=None, metadata=config(field_name="partnerTenantID")
+        default=None,
+        metadata=config(
+            metadata={"deprecated": True, "deprecation_reason": "Use parentTenantID"},
+            field_name="partnerTenantID",
+        ),
+    )
+    parent_tenant_id: Optional[str] = field(
+        default=None, metadata=config(field_name="parentTenantID")
     )
     is_partner: Optional[bool] = field(
         default=None, metadata=config(field_name="isPartner")
+    )
+    is_organization: Optional[bool] = field(
+        default=None, metadata=config(field_name="isOrganization")
     )
     expires_at: Optional[str] = field(
         default=None, metadata=config(field_name="expiresAt")
@@ -1280,6 +1302,9 @@ class TenantsQuery:
     )
     is_partner: Optional[bool] = field(
         default=None, metadata=config(field_name="isPartner")
+    )
+    is_organization: Optional[bool] = field(
+        default=None, metadata=config(field_name="isOrganization")
     )
     with_support: Optional[bool] = field(
         default=None, metadata=config(field_name="withSupport")

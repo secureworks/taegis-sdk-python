@@ -264,6 +264,17 @@ class UnsetPreferenceSelector:
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
+class GetPreferenceSelector:
+    """GetPreferenceSelector."""
+
+    category: Optional[str] = field(
+        default=None, metadata=config(field_name="category")
+    )
+    sub_key: Optional[str] = field(default=None, metadata=config(field_name="subKey"))
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
 class UserPreference:
     """UserPreference."""
 

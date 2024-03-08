@@ -156,22 +156,3 @@ class TaegisSDKAlertsQuery:
         raise GraphQLNoRowsInResultSetError(
             "for query alertsServiceAggregateAlertsBySeverity"
         )
-
-    def alerts_service_alerts_dashboard_triage(
-        self, in_: Optional[TriageDashboardInputInput] = None
-    ) -> TriageDashboardOutput:
-        """None."""
-        endpoint = "alertsServiceAlertsDashboardTriage"
-
-        result = self.service.execute_query(
-            endpoint=endpoint,
-            variables={
-                "in": prepare_input(in_),
-            },
-            output=build_output_string(TriageDashboardOutput),
-        )
-        if result.get(endpoint) is not None:
-            return TriageDashboardOutput.from_dict(result.get(endpoint))
-        raise GraphQLNoRowsInResultSetError(
-            "for query alertsServiceAlertsDashboardTriage"
-        )

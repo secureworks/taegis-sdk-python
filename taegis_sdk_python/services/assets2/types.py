@@ -244,6 +244,9 @@ class TagV2:
     tag: Optional[str] = field(default=None, metadata=config(field_name="tag"))
     key: Optional[str] = field(default=None, metadata=config(field_name="key"))
     value: Optional[str] = field(default=None, metadata=config(field_name="value"))
+    is_vendor_tag: Optional[bool] = field(
+        default=None, metadata=config(field_name="isVendorTag")
+    )
 
 
 @dataclass_json

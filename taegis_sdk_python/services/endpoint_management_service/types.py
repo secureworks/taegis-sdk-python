@@ -95,6 +95,9 @@ class EndpointGroup:
     maintenance_window: Optional[str] = field(
         default=None, metadata=config(field_name="maintenanceWindow")
     )
+    advanced_kernel_telemetry_enabled: Optional[bool] = field(
+        default=None, metadata=config(field_name="advancedKernelTelemetryEnabled")
+    )
 
 
 @dataclass_json
@@ -178,6 +181,9 @@ class CreateEndpointGroupInput:
     maintenance_window: Optional[str] = field(
         default=None, metadata=config(field_name="maintenanceWindow")
     )
+    advanced_kernel_telemetry_enabled: Optional[bool] = field(
+        default=None, metadata=config(field_name="advancedKernelTelemetryEnabled")
+    )
     policy_name: Optional[PolicyType] = field(
         default=None, metadata=config(field_name="policyName")
     )
@@ -205,6 +211,9 @@ class UpdateEndpointGroupInput:
     )
     maintenance_window: Optional[str] = field(
         default=None, metadata=config(field_name="maintenanceWindow")
+    )
+    advanced_kernel_telemetry_enabled: Optional[bool] = field(
+        default=None, metadata=config(field_name="advancedKernelTelemetryEnabled")
     )
     policy_name: Optional[PolicyType] = field(
         default=None, metadata=config(field_name="policyName")

@@ -257,7 +257,7 @@ class TaegisSDKTenantsMutation:
         raise GraphQLNoRowsInResultSetError("for mutation updateAllowResponseAction")
 
     def enable_tenant_support(self, tenant_id: str) -> Tenant:
-        """Allows users with the appropriate Secureworks Support role to access this Child tenant of a Partner."""
+        """Allows users with the appropriate Secureworks Support role to access this tenant under a Partner."""
         endpoint = "enableTenantSupport"
 
         result = self.service.execute_mutation(

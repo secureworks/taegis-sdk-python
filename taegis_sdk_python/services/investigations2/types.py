@@ -235,6 +235,9 @@ class InvestigationPriorityCount:
 class Metric:
     """Metric."""
 
+    draft_created_at: Optional[str] = field(
+        default=None, metadata=config(field_name="draftCreatedAt")
+    )
     draft_promoted_at: Optional[str] = field(
         default=None, metadata=config(field_name="draftPromotedAt")
     )
