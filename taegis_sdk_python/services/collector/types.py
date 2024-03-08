@@ -466,6 +466,9 @@ class TimeSeries:
     """TimeSeries."""
 
     time: Optional[str] = field(default=None, metadata=config(field_name="time"))
+    unix_time: Optional[int] = field(
+        default=None, metadata=config(field_name="unixTime")
+    )
     value: Optional[str] = field(default=None, metadata=config(field_name="value"))
 
 

@@ -293,7 +293,7 @@ class TaegisSDKThreatQuery:
             )
         raise GraphQLNoRowsInResultSetError("for query threatIndicatorsIntelligence")
 
-    def lists(self, arguments: ListsArguments) -> List[Lists]:
+    def lists(self, arguments: ListsArguments) -> Lists:
         """Retrieves Custom Lists for the respective tenant."""
         endpoint = "lists"
 
@@ -305,12 +305,10 @@ class TaegisSDKThreatQuery:
             output=build_output_string(Lists),
         )
         if result.get(endpoint) is not None:
-            return Lists.schema().load(
-                [r or {} for r in result.get(endpoint)], many=True
-            )
+            return Lists.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for query lists")
 
-    def list(self, id_: str, arguments: ListsArguments) -> List[ThreatList]:
+    def list(self, id_: str, arguments: ListsArguments) -> ThreatList:
         """Retrieves a custom list by ID."""
         endpoint = "list"
 
@@ -323,12 +321,10 @@ class TaegisSDKThreatQuery:
             output=build_output_string(ThreatList),
         )
         if result.get(endpoint) is not None:
-            return ThreatList.schema().load(
-                [r or {} for r in result.get(endpoint)], many=True
-            )
+            return ThreatList.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for query list")
 
-    def list_items_by_tag(self, tag: str, arguments: ListsArguments) -> List[ListItems]:
+    def list_items_by_tag(self, tag: str, arguments: ListsArguments) -> ListItems:
         """Retrieves list items that contains the specified tag (case sensitive)."""
         endpoint = "listItemsByTag"
 
@@ -341,14 +337,10 @@ class TaegisSDKThreatQuery:
             output=build_output_string(ListItems),
         )
         if result.get(endpoint) is not None:
-            return ListItems.schema().load(
-                [r or {} for r in result.get(endpoint)], many=True
-            )
+            return ListItems.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for query listItemsByTag")
 
-    def list_items_by_name(
-        self, name: str, arguments: ListsArguments
-    ) -> List[ListItems]:
+    def list_items_by_name(self, name: str, arguments: ListsArguments) -> ListItems:
         """Retrieves list items by indicator name."""
         endpoint = "listItemsByName"
 
@@ -361,7 +353,5 @@ class TaegisSDKThreatQuery:
             output=build_output_string(ListItems),
         )
         if result.get(endpoint) is not None:
-            return ListItems.schema().load(
-                [r or {} for r in result.get(endpoint)], many=True
-            )
+            return ListItems.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for query listItemsByName")

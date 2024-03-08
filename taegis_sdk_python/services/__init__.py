@@ -41,6 +41,7 @@ from taegis_sdk_python.services.multi_tenant_ioc import MultiTenantIocService
 from taegis_sdk_python.services.notebooks import NotebooksService
 from taegis_sdk_python.services.notifications import NotificationsService
 from taegis_sdk_python.services.preferences import PreferencesService
+from taegis_sdk_python.services.queries import QueriesService
 from taegis_sdk_python.services.roadrunner import RoadrunnerService
 from taegis_sdk_python.services.rules import RulesService
 from taegis_sdk_python.services.sharelinks import SharelinksService
@@ -106,6 +107,7 @@ class GraphQLService:
         else:
             self._extra_headers = extra_headers
         self._schema_expiry = schema_expiry
+        self._input_value_deprecation = None
 
         self._access_points = None
         self._agent = None
@@ -135,6 +137,7 @@ class GraphQLService:
         self._notebooks = None
         self._notifications = None
         self._preferences = None
+        self._queries = None
         self._roadrunner = None
         self._rules = None
         self._core = None
@@ -237,6 +240,15 @@ class GraphQLService:
     def schema_expiry(self):
         """GraphQL Schema Timeout."""
         return self._context_manager.get("schema_expiry", self._schema_expiry)
+
+    @property
+    def input_value_deprecation(self):
+        """GraphQL Query Deprecated Input Fields in Schema."""
+        return bool(
+            self._context_manager.get(
+                "input_value_deprecation", self._input_value_deprecation
+            )
+        )
 
     @property
     def access_points(self):
@@ -433,6 +445,13 @@ class GraphQLService:
         if not self._preferences:
             self._preferences = PreferencesService(self)
         return self._preferences
+
+    @property
+    def queries(self):
+        """Queries Service Endpoint."""
+        if not self._queries:
+            self._queries = QueriesService(self)
+        return self._queries
 
     @property
     def roadrunner(self):

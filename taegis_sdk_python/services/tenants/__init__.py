@@ -23,6 +23,7 @@ class TenantsService(ServiceCore):
         super().__init__(service)
         self._urls = TAEGIS_TENANTS_URLS
         self._gateway = "/public/query"
+        self._input_value_deprecation = False
 
     @property
     def query(self):

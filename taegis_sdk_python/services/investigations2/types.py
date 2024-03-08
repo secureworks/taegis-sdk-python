@@ -1536,9 +1536,6 @@ class InvestigationV2:
     contributor_subjects: Optional[List[Subject]] = field(
         default=None, metadata=config(field_name="contributorSubjects")
     )
-    assignee: Optional[TDRUser] = field(
-        default=None, metadata=config(field_name="assignee")
-    )
     assignee_subject: Optional[Subject] = field(
         default=None, metadata=config(field_name="assigneeSubject")
     )
@@ -1572,6 +1569,13 @@ class InvestigationV2:
                 "deprecation_reason": "call the entity api directly",
             },
             field_name="entitiesEvidence",
+        ),
+    )
+    assignee: Optional[TDRUser] = field(
+        default=None,
+        metadata=config(
+            metadata={"deprecated": True, "deprecation_reason": "use assigneeSubject"},
+            field_name="assignee",
         ),
     )
 

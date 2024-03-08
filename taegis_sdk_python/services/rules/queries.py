@@ -79,6 +79,7 @@ class TaegisSDKRulesQuery:
         page: Optional[int] = None,
         count: Optional[int] = None,
         kind: Optional[RuleQueryKind] = None,
+        rule_type: Optional[RuleType] = None,
     ) -> List[Rule]:
         """Return pages of alert suppression rules, sorted by descending updated at date.
 
@@ -94,6 +95,7 @@ class TaegisSDKRulesQuery:
                 "page": prepare_input(page),
                 "count": prepare_input(count),
                 "kind": prepare_input(kind),
+                "ruleType": prepare_input(rule_type),
             },
             output=build_output_string(Rule),
         )
@@ -167,7 +169,9 @@ class TaegisSDKRulesQuery:
             return result.get(endpoint)
         raise GraphQLNoRowsInResultSetError("for query rulesCount")
 
-    def suppression_rules_count(self, kind: Optional[RuleQueryKind] = None) -> int:
+    def suppression_rules_count(
+        self, kind: Optional[RuleQueryKind] = None, rule_type: Optional[RuleType] = None
+    ) -> int:
         """Return a count of suppression rules. The kind works like in the suppressionRules query."""
         endpoint = "suppressionRulesCount"
 
@@ -175,6 +179,7 @@ class TaegisSDKRulesQuery:
             endpoint=endpoint,
             variables={
                 "kind": prepare_input(kind),
+                "ruleType": prepare_input(rule_type),
             },
             output="",
         )

@@ -48,64 +48,10 @@ class AuditEventEnum(str, Enum):
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
-class Audit:
-    """Audit."""
+class Subject:
+    """Subject."""
 
     id: Optional[str] = field(default=None, metadata=config(field_name="id"))
-    log_type: Optional[str] = field(default=None, metadata=config(field_name="logType"))
-    application: Optional[str] = field(
-        default=None, metadata=config(field_name="application")
-    )
-    request_type: Optional[str] = field(
-        default=None, metadata=config(field_name="requestType")
-    )
-    username: Optional[str] = field(
-        default=None, metadata=config(field_name="username")
-    )
-    email: Optional[str] = field(default=None, metadata=config(field_name="email"))
-    token: Optional[dict] = field(default=None, metadata=config(field_name="token"))
-    source: Optional[str] = field(default=None, metadata=config(field_name="source"))
-    target_rn: Optional[str] = field(
-        default=None, metadata=config(field_name="targetRn")
-    )
-    action: Optional[str] = field(default=None, metadata=config(field_name="action"))
-    timestamp: Optional[str] = field(
-        default=None, metadata=config(field_name="timestamp")
-    )
-    event_name: Optional[str] = field(
-        default=None, metadata=config(field_name="eventName")
-    )
-    event_desc: Optional[str] = field(
-        default=None, metadata=config(field_name="eventDesc")
-    )
-    tenant_id: Optional[str] = field(
-        default=None, metadata=config(field_name="tenantId")
-    )
-    trace_id: Optional[str] = field(default=None, metadata=config(field_name="traceId"))
-    metadata: Optional[dict] = field(
-        default=None, metadata=config(field_name="metadata")
-    )
-    response_code: Optional[int] = field(
-        default=None, metadata=config(field_name="responseCode")
-    )
-    url: Optional[str] = field(default=None, metadata=config(field_name="url"))
-    headers: Optional[dict] = field(default=None, metadata=config(field_name="headers"))
-    request_params: Optional[dict] = field(
-        default=None, metadata=config(field_name="requestParams")
-    )
-    before_state: Optional[dict] = field(
-        default=None, metadata=config(field_name="beforeState")
-    )
-    after_state: Optional[dict] = field(
-        default=None, metadata=config(field_name="afterState")
-    )
-    extras: Optional[dict] = field(default=None, metadata=config(field_name="extras"))
-    ccdp_status: Optional[str] = field(
-        default=None, metadata=config(field_name="ccdpStatus")
-    )
-    partner_internal_log: Optional[bool] = field(
-        default=None, metadata=config(field_name="partnerInternalLog")
-    )
 
 
 @dataclass_json
@@ -187,6 +133,71 @@ class AuditEvent:
 
     name: Optional[str] = field(default=None, metadata=config(field_name="name"))
     desc: Optional[str] = field(default=None, metadata=config(field_name="desc"))
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class Audit:
+    """Audit."""
+
+    id: Optional[str] = field(default=None, metadata=config(field_name="id"))
+    log_type: Optional[str] = field(default=None, metadata=config(field_name="logType"))
+    application: Optional[str] = field(
+        default=None, metadata=config(field_name="application")
+    )
+    request_type: Optional[str] = field(
+        default=None, metadata=config(field_name="requestType")
+    )
+    username: Optional[str] = field(
+        default=None, metadata=config(field_name="username")
+    )
+    email: Optional[str] = field(default=None, metadata=config(field_name="email"))
+    token: Optional[dict] = field(default=None, metadata=config(field_name="token"))
+    source: Optional[str] = field(default=None, metadata=config(field_name="source"))
+    target_rn: Optional[str] = field(
+        default=None, metadata=config(field_name="targetRn")
+    )
+    action: Optional[str] = field(default=None, metadata=config(field_name="action"))
+    timestamp: Optional[str] = field(
+        default=None, metadata=config(field_name="timestamp")
+    )
+    event_name: Optional[str] = field(
+        default=None, metadata=config(field_name="eventName")
+    )
+    event_desc: Optional[str] = field(
+        default=None, metadata=config(field_name="eventDesc")
+    )
+    tenant_id: Optional[str] = field(
+        default=None, metadata=config(field_name="tenantId")
+    )
+    trace_id: Optional[str] = field(default=None, metadata=config(field_name="traceId"))
+    metadata: Optional[dict] = field(
+        default=None, metadata=config(field_name="metadata")
+    )
+    response_code: Optional[int] = field(
+        default=None, metadata=config(field_name="responseCode")
+    )
+    url: Optional[str] = field(default=None, metadata=config(field_name="url"))
+    headers: Optional[dict] = field(default=None, metadata=config(field_name="headers"))
+    request_params: Optional[dict] = field(
+        default=None, metadata=config(field_name="requestParams")
+    )
+    before_state: Optional[dict] = field(
+        default=None, metadata=config(field_name="beforeState")
+    )
+    after_state: Optional[dict] = field(
+        default=None, metadata=config(field_name="afterState")
+    )
+    extras: Optional[dict] = field(default=None, metadata=config(field_name="extras"))
+    ccdp_status: Optional[str] = field(
+        default=None, metadata=config(field_name="ccdpStatus")
+    )
+    partner_internal_log: Optional[bool] = field(
+        default=None, metadata=config(field_name="partnerInternalLog")
+    )
+    subject: Optional[Subject] = field(
+        default=None, metadata=config(field_name="subject")
+    )
 
 
 @dataclass_json

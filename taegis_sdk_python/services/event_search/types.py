@@ -46,14 +46,7 @@ class AuxiliaryEventsByIDOptions:
     """AuxiliaryEventsByIDOptions."""
 
     search_events_api_first: Optional[bool] = field(
-        default=None,
-        metadata=config(
-            metadata={
-                "deprecated": True,
-                "deprecation_reason": "events-api is now used automatically if needed",
-            },
-            field_name="searchEventsAPIFirst",
-        ),
+        default=None, metadata=config(field_name="searchEventsAPIFirst")
     )
 
 

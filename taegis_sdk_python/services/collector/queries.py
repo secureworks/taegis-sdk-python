@@ -273,6 +273,8 @@ class TaegisSDKCollectorQuery:
         """Get all of the host->address mappings associated with a given cluster."""
         endpoint = "getHosts"
 
+        log.warning(f"GraphQL Query `{endpoint}` is deprecated: 'No Longer needed'")
+
         result = self.service.execute_query(
             endpoint=endpoint,
             variables={
@@ -287,6 +289,10 @@ class TaegisSDKCollectorQuery:
     def get_cluster_activation_details(self, cluster_id: str) -> Activation:
         """None."""
         endpoint = "getClusterActivationDetails"
+
+        log.warning(
+            f"GraphQL Query `{endpoint}` is deprecated: 'Does not support HA collectors'"
+        )
 
         result = self.service.execute_query(
             endpoint=endpoint,
@@ -397,7 +403,7 @@ class TaegisSDKCollectorQuery:
             return Chart.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for query getChart")
 
-    def get_all_charts(self) -> List[ChartList]:
+    def get_all_charts(self) -> ChartList:
         """Get all of the Helm charts available for deployment to any cluster."""
         endpoint = "getAllCharts"
 
@@ -405,9 +411,7 @@ class TaegisSDKCollectorQuery:
             endpoint=endpoint, variables={}, output=build_output_string(ChartList)
         )
         if result.get(endpoint) is not None:
-            return ChartList.schema().load(
-                [r or {} for r in result.get(endpoint)], many=True
-            )
+            return ChartList.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for query getAllCharts")
 
     def get_bill_of_materials(self) -> BillOfMaterials:

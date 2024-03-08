@@ -143,6 +143,8 @@ class TaegisSDKCollectorMutation:
         """Add a address:hostname mapping to a given cluster."""
         endpoint = "addHost"
 
+        log.warning(f"GraphQL Mutation `{endpoint}` is deprecated: 'No Longer needed'")
+
         result = self.service.execute_mutation(
             endpoint=endpoint,
             variables={
@@ -158,6 +160,8 @@ class TaegisSDKCollectorMutation:
     def delete_host(self, cluster_id: str, address: str) -> Deleted:
         """Remove an address:hostname mapping from a given cluster by providing the IP address and associated host name."""
         endpoint = "deleteHost"
+
+        log.warning(f"GraphQL Mutation `{endpoint}` is deprecated: 'No Longer needed'")
 
         result = self.service.execute_mutation(
             endpoint=endpoint,

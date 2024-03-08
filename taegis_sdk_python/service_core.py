@@ -86,6 +86,7 @@ class ServiceCore:
 
         self._urls = self.service._environments
         self._gateway = self.service._gateway
+        self._input_value_deprecation = True
 
         self._schema = SchemaCache(schema=None, expires=self.service.schema_expiry)
 
@@ -135,7 +136,10 @@ class ServiceCore:
             transport=transport,
             schema=self._schema.schema,
             fetch_schema_from_transport=self._schema.should_fetch_schema(),
-            introspection_args={"input_value_deprecation": True},
+            introspection_args={
+                "input_value_deprecation": self.service.input_value_deprecation
+                or self._input_value_deprecation
+            },
         )
 
         with client:
@@ -171,7 +175,10 @@ class ServiceCore:
             transport=transport,
             schema=self._schema.schema,
             fetch_schema_from_transport=self._schema.should_fetch_schema(),
-            introspection_args={"input_value_deprecation": True},
+            introspection_args={
+                "input_value_deprecation": self.service.input_value_deprecation
+                or self._input_value_deprecation
+            },
         )
 
         return client

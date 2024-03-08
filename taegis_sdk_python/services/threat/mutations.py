@@ -60,7 +60,7 @@ class TaegisSDKThreatMutation:
             return result.get(endpoint)
         raise GraphQLNoRowsInResultSetError("for mutation threatDeleteDocument")
 
-    def create_list(self, input_: CreateListInput) -> List[ThreatList]:
+    def create_list(self, input_: CreateListInput) -> ThreatList:
         """None."""
         endpoint = "createList"
 
@@ -72,9 +72,7 @@ class TaegisSDKThreatMutation:
             output=build_output_string(ThreatList),
         )
         if result.get(endpoint) is not None:
-            return ThreatList.schema().load(
-                [r or {} for r in result.get(endpoint)], many=True
-            )
+            return ThreatList.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for mutation createList")
 
     def delete_list(self, input_: DeleteListInput) -> bool:
