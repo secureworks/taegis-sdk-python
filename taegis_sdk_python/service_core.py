@@ -138,7 +138,7 @@ class ServiceCore:
             fetch_schema_from_transport=self._schema.should_fetch_schema(),
             introspection_args={
                 "input_value_deprecation": (
-                    self.service.input_value_deprecation
+                    bool(self.service.input_value_deprecation)
                     if self.service.input_value_deprecation is not None
                     else self._input_value_deprecation
                 )
@@ -179,8 +179,11 @@ class ServiceCore:
             schema=self._schema.schema,
             fetch_schema_from_transport=self._schema.should_fetch_schema(),
             introspection_args={
-                "input_value_deprecation": self.service.input_value_deprecation
-                or self._input_value_deprecation
+                "input_value_deprecation": (
+                    bool(self.service.input_value_deprecation)
+                    if self.service.input_value_deprecation is not None
+                    else self._input_value_deprecation
+                )
             },
         )
 

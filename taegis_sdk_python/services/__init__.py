@@ -244,10 +244,8 @@ class GraphQLService:
     @property
     def input_value_deprecation(self):
         """GraphQL Query Deprecated Input Fields in Schema."""
-        return bool(
-            self._context_manager.get(
-                "input_value_deprecation", self._input_value_deprecation
-            )
+        return self._context_manager.get(
+            "input_value_deprecation", self._input_value_deprecation
         )
 
     @property
