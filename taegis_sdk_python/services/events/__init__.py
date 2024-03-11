@@ -19,6 +19,7 @@ class EventsService(ServiceCore):
     def __init__(self, service: GraphQLService):
         super().__init__(service)
         self._gateway = "/events/query"
+        self._input_value_deprecation = False
 
     @property
     def query(self):
