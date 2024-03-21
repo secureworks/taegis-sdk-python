@@ -143,6 +143,41 @@ class GetIndicatorsInput:
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
+class PaginateIndicatorsInput:
+    """PaginateIndicatorsInput."""
+
+    updated_after: Optional[str] = field(
+        default=None, metadata=config(field_name="updated_after")
+    )
+    with_partner_tenants: Optional[bool] = field(
+        default=None, metadata=config(field_name="with_partner_tenants")
+    )
+    reference_url: Optional[str] = field(
+        default=None, metadata=config(field_name="reference_url")
+    )
+    source_name: Optional[str] = field(
+        default=None, metadata=config(field_name="source_name")
+    )
+    integration_id: Optional[int] = field(
+        default=None, metadata=config(field_name="integration_id")
+    )
+    exclude_deleted: Optional[bool] = field(
+        default=None, metadata=config(field_name="exclude_deleted")
+    )
+    per_page: Optional[int] = field(
+        default=None, metadata=config(field_name="per_page")
+    )
+    cursor: Optional[str] = field(default=None, metadata=config(field_name="cursor"))
+    object_type: Optional[ObjectType] = field(
+        default=None, metadata=config(field_name="object_type")
+    )
+    severity: Optional[Severity] = field(
+        default=None, metadata=config(field_name="severity")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
 class ByotiIndicator:
     """ByotiIndicator."""
 
@@ -233,6 +268,7 @@ class SearchIndicatorsResponse:
     total_entries_size: Optional[int] = field(
         default=None, metadata=config(field_name="total_entries_size")
     )
+    cursor: Optional[str] = field(default=None, metadata=config(field_name="cursor"))
     indicators: Optional[List[ByotiIndicator]] = field(
         default=None, metadata=config(field_name="indicators")
     )

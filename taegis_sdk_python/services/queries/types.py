@@ -14,15 +14,15 @@ from dataclasses import dataclass, field
 from dataclasses_json import dataclass_json, config
 
 
-class QL_SORT_ORDER(str, Enum):
-    """QL_SORT_ORDER."""
+class QLSortOrderInput(str, Enum):
+    """QLSortOrderInput."""
 
     ASC = "ASC"
     DESC = "DESC"
 
 
-class QL_SORT_FIELD(str, Enum):
-    """QL_SORT_FIELD."""
+class QLSortFieldInput(str, Enum):
+    """QLSortFieldInput."""
 
     NAME = "NAME"
     CALLER_NAME = "CALLER_NAME"
@@ -113,6 +113,14 @@ class CreateSavedQLQuery:
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
+class QLQueriesInput:
+    """QLQueriesInput."""
+
+    rns: Optional[List[str]] = field(default=None, metadata=config(field_name="rns"))
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
 class UpdateSavedQLQueryInput:
     """UpdateSavedQLQueryInput."""
 
@@ -181,6 +189,7 @@ class QueryFilters:
 class SavedQLQuery:
     """SavedQLQuery."""
 
+    rn: Optional[str] = field(default=None, metadata=config(field_name="rn"))
     id: Optional[str] = field(
         default=None,
         metadata=config(
@@ -191,7 +200,6 @@ class SavedQLQuery:
             field_name="id",
         ),
     )
-    rn: Optional[str] = field(default=None, metadata=config(field_name="rn"))
     name: Optional[str] = field(default=None, metadata=config(field_name="name"))
     raw_query: Optional[str] = field(
         default=None, metadata=config(field_name="rawQuery")
@@ -276,6 +284,7 @@ class AddQLQueryToHistoryInput:
 class QLQuery:
     """QLQuery."""
 
+    rn: Optional[str] = field(default=None, metadata=config(field_name="rn"))
     id: Optional[str] = field(
         default=None,
         metadata=config(
@@ -286,12 +295,24 @@ class QLQuery:
             field_name="id",
         ),
     )
-    rn: Optional[str] = field(default=None, metadata=config(field_name="rn"))
     raw_query: Optional[str] = field(
         default=None, metadata=config(field_name="rawQuery")
     )
     caller_name: Optional[str] = field(
         default=None, metadata=config(field_name="callerName")
+    )
+    saved_name: Optional[str] = field(
+        default=None, metadata=config(field_name="savedName")
+    )
+    is_saved: Optional[bool] = field(
+        default=None,
+        metadata=config(
+            metadata={
+                "deprecated": True,
+                "deprecation_reason": "Saved query flow is deprecated.",
+            },
+            field_name="isSaved",
+        ),
     )
     metadata: Optional[dict] = field(
         default=None, metadata=config(field_name="metadata")
@@ -323,7 +344,14 @@ class QLQuery:
         default=None, metadata=config(field_name="createdAt")
     )
     updated_at: Optional[str] = field(
-        default=None, metadata=config(field_name="updatedAt")
+        default=None,
+        metadata=config(
+            metadata={
+                "deprecated": True,
+                "deprecation_reason": "Should not be able to update search queries.",
+            },
+            field_name="updatedAt",
+        ),
     )
     status: Optional[Search] = field(default=None, metadata=config(field_name="status"))
     user: Optional[Subject] = field(default=None, metadata=config(field_name="user"))
@@ -366,10 +394,10 @@ class ListSavedQLQueriesResults:
 class QuerySort:
     """QuerySort."""
 
-    field_: Optional[QL_SORT_FIELD] = field(
+    field_: Optional[QLSortFieldInput] = field(
         default=None, metadata=config(field_name="field")
     )
-    order: Optional[QL_SORT_ORDER] = field(
+    order: Optional[QLSortOrderInput] = field(
         default=None, metadata=config(field_name="order")
     )
 

@@ -30,33 +30,14 @@ class TaegisSDKQueriesQuery:
     def __init__(self, service: QueriesService):
         self.service = service
 
-    def ql_query(self, rn: str, session: Optional[str] = None) -> QLQuery:
-        """None."""
-        endpoint = "qlQuery"
-
-        result = self.service.execute_query(
-            endpoint=endpoint,
-            variables={
-                "rn": prepare_input(rn),
-                "session": prepare_input(session),
-            },
-            output=build_output_string(QLQuery),
-        )
-        if result.get(endpoint) is not None:
-            return QLQuery.from_dict(result.get(endpoint))
-        raise GraphQLNoRowsInResultSetError("for query qlQuery")
-
-    def ql_queries(
-        self, rns: List[str], session: Optional[str] = None
-    ) -> QLQueriesResults:
-        """None."""
+    def ql_queries(self, input_: QLQueriesInput) -> QLQueriesResults:
+        """Looks up search queries by their resource names.."""
         endpoint = "qlQueries"
 
         result = self.service.execute_query(
             endpoint=endpoint,
             variables={
-                "rns": prepare_input(rns),
-                "session": prepare_input(session),
+                "input": prepare_input(input_),
             },
             output=build_output_string(QLQueriesResults),
         )
@@ -65,16 +46,15 @@ class TaegisSDKQueriesQuery:
         raise GraphQLNoRowsInResultSetError("for query qlQueries")
 
     def list_ql_queries(
-        self, input_: Optional[ListQLQueriesInput] = None, session: Optional[str] = None
+        self, input_: Optional[ListQLQueriesInput] = None
     ) -> ListQLQueriesResults:
-        """None."""
+        """Searches for queries by their attributes.."""
         endpoint = "listQLQueries"
 
         result = self.service.execute_query(
             endpoint=endpoint,
             variables={
                 "input": prepare_input(input_),
-                "session": prepare_input(session),
             },
             output=build_output_string(ListQLQueriesResults),
         )
@@ -82,15 +62,33 @@ class TaegisSDKQueriesQuery:
             return ListQLQueriesResults.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for query listQLQueries")
 
-    def saved_ql_query(self, rn: str, session: Optional[str] = None) -> SavedQLQuery:
+    def ql_query(self, rn: str) -> QLQuery:
         """None."""
-        endpoint = "savedQLQuery"
+        endpoint = "qlQuery"
+
+        log.warning(f"GraphQL Query `{endpoint}` is deprecated: 'Use qlQueries.'")
 
         result = self.service.execute_query(
             endpoint=endpoint,
             variables={
                 "rn": prepare_input(rn),
-                "session": prepare_input(session),
+            },
+            output=build_output_string(QLQuery),
+        )
+        if result.get(endpoint) is not None:
+            return QLQuery.from_dict(result.get(endpoint))
+        raise GraphQLNoRowsInResultSetError("for query qlQuery")
+
+    def saved_ql_query(self, rn: str) -> SavedQLQuery:
+        """None."""
+        endpoint = "savedQLQuery"
+
+        log.warning(f"GraphQL Query `{endpoint}` is deprecated: 'Use qlQueries.'")
+
+        result = self.service.execute_query(
+            endpoint=endpoint,
+            variables={
+                "rn": prepare_input(rn),
             },
             output=build_output_string(SavedQLQuery),
         )
@@ -98,17 +96,16 @@ class TaegisSDKQueriesQuery:
             return SavedQLQuery.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for query savedQLQuery")
 
-    def saved_ql_queries(
-        self, rns: List[str], session: Optional[str] = None
-    ) -> SavedQLQueriesResults:
+    def saved_ql_queries(self, rns: List[str]) -> SavedQLQueriesResults:
         """None."""
         endpoint = "savedQLQueries"
+
+        log.warning(f"GraphQL Query `{endpoint}` is deprecated: 'Use qlQueries.'")
 
         result = self.service.execute_query(
             endpoint=endpoint,
             variables={
                 "rns": prepare_input(rns),
-                "session": prepare_input(session),
             },
             output=build_output_string(SavedQLQueriesResults),
         )
@@ -117,16 +114,17 @@ class TaegisSDKQueriesQuery:
         raise GraphQLNoRowsInResultSetError("for query savedQLQueries")
 
     def list_saved_ql_queries(
-        self, input_: Optional[ListQLQueriesInput] = None, session: Optional[str] = None
+        self, input_: Optional[ListQLQueriesInput] = None
     ) -> ListSavedQLQueriesResults:
         """None."""
         endpoint = "listSavedQLQueries"
+
+        log.warning(f"GraphQL Query `{endpoint}` is deprecated: 'Use listQLQueries.'")
 
         result = self.service.execute_query(
             endpoint=endpoint,
             variables={
                 "input": prepare_input(input_),
-                "session": prepare_input(session),
             },
             output=build_output_string(ListSavedQLQueriesResults),
         )

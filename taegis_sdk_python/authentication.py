@@ -2,6 +2,7 @@
 
 Authenication implementations for Taegis.
 """
+
 import logging
 import os
 from getpass import getpass
@@ -201,7 +202,7 @@ def get_token_by_password_grant(
     requests.HTTPError
         Any issue with retrieving token via HTTP
     """
-    auth_uri = "/auth/api/v2/auth/token"
+    auth_uri = "/universal-auth/token"
 
     if not password:
         password = getpass("Password: ")
@@ -218,10 +219,10 @@ def get_token_by_password_grant(
     try:
         mfa_token = response.json().get("mfa_token")
     except JSONDecodeError as exc:
-        raise HTTPError(response=response) from exc
+        raise HTTPError(response.text, response=response) from exc
 
     if not mfa_token:
-        raise HTTPError(response=response)
+        raise HTTPError(response.text, response=response)
 
     mfa_input = input("MFA Token: ")
 
@@ -238,13 +239,13 @@ def get_token_by_password_grant(
     try:
         access_token = response.json().get("access_token")
     except JSONDecodeError as exc:
-        raise HTTPError(response=response) from exc
+        raise HTTPError(response.text, response=response) from exc
 
     if not access_token:
         raise MissingAccessTokenError(
             message="Access token not found",
-            comments=["Check credentials provided to SSO provider."],
-            nested_exception=HTTPError(response=response),
+            comments=["Check credentials and MFA input."],
+            nested_exception=HTTPError(response.text, response=response),
         )
 
     return access_token
@@ -274,7 +275,7 @@ def get_token_by_sso_device_code(
     try:
         device_code_flow = response.json()
     except JSONDecodeError as exc:
-        raise HTTPError(response=response) from exc
+        raise HTTPError(response.text, response=response) from exc
 
     if device_code_flow.get("verification_uri_complete"):
         print(
@@ -303,13 +304,13 @@ def get_token_by_sso_device_code(
     try:
         access_token = response.json().get("access_token")
     except JSONDecodeError as exc:
-        raise HTTPError(response=response) from exc
+        raise HTTPError(response.text, response=response) from exc
 
     if not access_token:
         raise MissingAccessTokenError(
             message="Access token not found",
-            comments=["Check credentials and MFA input."],
-            nested_exception=HTTPError(response=response),
+            comments=["Check credentials provided to SSO provider."],
+            nested_exception=HTTPError(response.text, response=response),
         )
 
     return access_token

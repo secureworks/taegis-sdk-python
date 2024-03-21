@@ -62,6 +62,23 @@ class TaegisSDKThreatQuery:
             )
         raise GraphQLNoRowsInResultSetError("for query threatPublications")
 
+    def threat_publications_search(self, text: List[str]) -> List[ThreatPublication]:
+        """Gets publications for multiple indicators.."""
+        endpoint = "threatPublicationsSearch"
+
+        result = self.service.execute_query(
+            endpoint=endpoint,
+            variables={
+                "text": prepare_input(text),
+            },
+            output=build_output_string(ThreatPublication),
+        )
+        if result.get(endpoint) is not None:
+            return ThreatPublication.schema().load(
+                [r or {} for r in result.get(endpoint)], many=True
+            )
+        raise GraphQLNoRowsInResultSetError("for query threatPublicationsSearch")
+
     def threat_latest_publications(
         self, from_: int, size: int
     ) -> List[ThreatPublication]:
@@ -87,6 +104,8 @@ class TaegisSDKThreatQuery:
     ) -> ThreatResult:
         """Gets an object by `id`, `name` or `sharing_id`.."""
         endpoint = "threatObjectById"
+
+        log.warning(f"GraphQL Query `{endpoint}` is deprecated: 'No longer supported'")
 
         result = self.service.execute_query(
             endpoint=endpoint,
@@ -119,6 +138,8 @@ class TaegisSDKThreatQuery:
         """Checks if a relationship between source and target exists.."""
         endpoint = "threatObjectsRelated"
 
+        log.warning(f"GraphQL Query `{endpoint}` is deprecated: 'No longer supported'")
+
         result = self.service.execute_query(
             endpoint=endpoint,
             variables={
@@ -134,6 +155,8 @@ class TaegisSDKThreatQuery:
     def threat_get_related(self, source_id: str) -> List[ThreatResult]:
         """Gets relationship(s) between source and target(s).."""
         endpoint = "threatGetRelated"
+
+        log.warning(f"GraphQL Query `{endpoint}` is deprecated: 'No longer supported'")
 
         result = self.service.execute_query(
             endpoint=endpoint,
@@ -198,6 +221,8 @@ class TaegisSDKThreatQuery:
     def threat_relationship(self, id_: str) -> ThreatRelationship:
         """Gets relationship by `id`.."""
         endpoint = "threatRelationship"
+
+        log.warning(f"GraphQL Query `{endpoint}` is deprecated: 'No longer supported'")
 
         result = self.service.execute_query(
             endpoint=endpoint,
@@ -297,6 +322,8 @@ class TaegisSDKThreatQuery:
         """Retrieves Custom Lists for the respective tenant."""
         endpoint = "lists"
 
+        log.warning(f"GraphQL Query `{endpoint}` is deprecated: 'No longer supported'")
+
         result = self.service.execute_query(
             endpoint=endpoint,
             variables={
@@ -311,6 +338,8 @@ class TaegisSDKThreatQuery:
     def list(self, id_: str, arguments: ListsArguments) -> ThreatList:
         """Retrieves a custom list by ID."""
         endpoint = "list"
+
+        log.warning(f"GraphQL Query `{endpoint}` is deprecated: 'No longer supported'")
 
         result = self.service.execute_query(
             endpoint=endpoint,
@@ -328,6 +357,8 @@ class TaegisSDKThreatQuery:
         """Retrieves list items that contains the specified tag (case sensitive)."""
         endpoint = "listItemsByTag"
 
+        log.warning(f"GraphQL Query `{endpoint}` is deprecated: 'No longer supported'")
+
         result = self.service.execute_query(
             endpoint=endpoint,
             variables={
@@ -343,6 +374,8 @@ class TaegisSDKThreatQuery:
     def list_items_by_name(self, name: str, arguments: ListsArguments) -> ListItems:
         """Retrieves list items by indicator name."""
         endpoint = "listItemsByName"
+
+        log.warning(f"GraphQL Query `{endpoint}` is deprecated: 'No longer supported'")
 
         result = self.service.execute_query(
             endpoint=endpoint,

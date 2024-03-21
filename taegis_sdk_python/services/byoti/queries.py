@@ -63,3 +63,20 @@ class TaegisSDKByotiQuery:
         if result.get(endpoint) is not None:
             return SearchIndicatorsResponse.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for query getIndicators")
+
+    def paginate_indicators(
+        self, input_: Optional[PaginateIndicatorsInput] = None
+    ) -> SearchIndicatorsResponse:
+        """PaginateIndicators is similar to getIndicators but uses cursor based pagination."""
+        endpoint = "paginateIndicators"
+
+        result = self.service.execute_query(
+            endpoint=endpoint,
+            variables={
+                "input": prepare_input(input_),
+            },
+            output=build_output_string(SearchIndicatorsResponse),
+        )
+        if result.get(endpoint) is not None:
+            return SearchIndicatorsResponse.from_dict(result.get(endpoint))
+        raise GraphQLNoRowsInResultSetError("for query paginateIndicators")

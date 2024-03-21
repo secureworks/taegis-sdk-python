@@ -23,7 +23,6 @@ class LogicalType(str, Enum):
     IP = "IP"
     MAC = "MAC"
     USER = "USER"
-    COMMAND = "COMMAND"
 
 
 class Operator(str, Enum):

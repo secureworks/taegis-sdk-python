@@ -110,6 +110,18 @@ class RuleDay(str, Enum):
     SUNDAY = "Sunday"
 
 
+class RuleResolutionStatus(str, Enum):
+    """RuleResolutionStatus."""
+
+    OPEN = "OPEN"
+    TRUE_POSITIVE_BENIGN = "TRUE_POSITIVE_BENIGN"
+    TRUE_POSITIVE_MALICIOUS = "TRUE_POSITIVE_MALICIOUS"
+    FALSE_POSITIVE = "FALSE_POSITIVE"
+    NOT_ACTIONABLE = "NOT_ACTIONABLE"
+    OTHER = "OTHER"
+    SUPPRESSED = "SUPPRESSED"
+
+
 class RuleQueryKind(str, Enum):
     """RuleQueryKind."""
 
@@ -638,6 +650,9 @@ class RuleInput:
     result_visibility: Optional[RuleVisibility] = field(
         default=None, metadata=config(field_name="resultVisibility")
     )
+    status: Optional[RuleResolutionStatus] = field(
+        default=None, metadata=config(field_name="status")
+    )
     rule_source: Optional[RuleSource] = field(
         default=None, metadata=config(field_name="ruleSource")
     )
@@ -714,6 +729,9 @@ class Rule:
     )
     result_visibility: Optional[RuleVisibility] = field(
         default=None, metadata=config(field_name="resultVisibility")
+    )
+    status: Optional[RuleResolutionStatus] = field(
+        default=None, metadata=config(field_name="status")
     )
     attack_categories_details: Optional[List[AttackCategoryDetail]] = field(
         default=None, metadata=config(field_name="attackCategoriesDetails")

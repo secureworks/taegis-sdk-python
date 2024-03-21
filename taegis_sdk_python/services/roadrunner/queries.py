@@ -75,6 +75,15 @@ class TaegisSDKRoadrunnerQuery:
             return Parser.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for query parser")
 
+    def native_sensor_types(self) -> List[str]:
+        """None."""
+        endpoint = "nativeSensorTypes"
+
+        result = self.service.execute_query(endpoint=endpoint, variables={}, output="")
+        if result.get(endpoint) is not None:
+            return result.get(endpoint)
+        raise GraphQLNoRowsInResultSetError("for query nativeSensorTypes")
+
     def validate_parser(
         self, unvalidated_parser: UnvalidatedParserInput
     ) -> ValidateResult:

@@ -1899,6 +1899,9 @@ class AggregateAlertsBySeverityInputInput:
     filter_custom_alerts: Optional[bool] = field(
         default=None, metadata=config(field_name="filter_custom_alerts")
     )
+    tenant_service_filters: Optional[List[str]] = field(
+        default=None, metadata=config(field_name="tenant_service_filters")
+    )
     group_by: Optional[AggregateAlertsBySeverityInput_GroupBy] = field(
         default=None, metadata=config(field_name="group_by")
     )

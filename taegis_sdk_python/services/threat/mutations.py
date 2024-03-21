@@ -64,6 +64,10 @@ class TaegisSDKThreatMutation:
         """None."""
         endpoint = "createList"
 
+        log.warning(
+            f"GraphQL Mutation `{endpoint}` is deprecated: 'No longer supported'"
+        )
+
         result = self.service.execute_mutation(
             endpoint=endpoint,
             variables={
@@ -79,6 +83,10 @@ class TaegisSDKThreatMutation:
         """None."""
         endpoint = "deleteList"
 
+        log.warning(
+            f"GraphQL Mutation `{endpoint}` is deprecated: 'No longer supported'"
+        )
+
         result = self.service.execute_mutation(
             endpoint=endpoint,
             variables={
@@ -93,6 +101,10 @@ class TaegisSDKThreatMutation:
     def restore_list(self, input_: DeleteListInput) -> bool:
         """None."""
         endpoint = "restoreList"
+
+        log.warning(
+            f"GraphQL Mutation `{endpoint}` is deprecated: 'No longer supported'"
+        )
 
         result = self.service.execute_mutation(
             endpoint=endpoint,
