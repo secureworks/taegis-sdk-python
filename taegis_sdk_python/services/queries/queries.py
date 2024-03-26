@@ -83,7 +83,7 @@ class TaegisSDKQueriesQuery:
         """None."""
         endpoint = "savedQLQuery"
 
-        log.warning(f"GraphQL Query `{endpoint}` is deprecated: 'Use qlQueries.'")
+        log.warning(f"GraphQL Query `{endpoint}` is deprecated: 'Use savedQLQueries.'")
 
         result = self.service.execute_query(
             endpoint=endpoint,
@@ -99,8 +99,6 @@ class TaegisSDKQueriesQuery:
     def saved_ql_queries(self, rns: List[str]) -> SavedQLQueriesResults:
         """None."""
         endpoint = "savedQLQueries"
-
-        log.warning(f"GraphQL Query `{endpoint}` is deprecated: 'Use qlQueries.'")
 
         result = self.service.execute_query(
             endpoint=endpoint,
@@ -118,8 +116,6 @@ class TaegisSDKQueriesQuery:
     ) -> ListSavedQLQueriesResults:
         """None."""
         endpoint = "listSavedQLQueries"
-
-        log.warning(f"GraphQL Query `{endpoint}` is deprecated: 'Use listQLQueries.'")
 
         result = self.service.execute_query(
             endpoint=endpoint,

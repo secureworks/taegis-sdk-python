@@ -34,10 +34,6 @@ class TaegisSDKQueriesMutation:
         """Creates a new search query entry.."""
         endpoint = "addQLQueryToHistory"
 
-        log.warning(
-            f"GraphQL Mutation `{endpoint}` is deprecated: 'Use createQLQuery.'"
-        )
-
         result = self.service.execute_mutation(
             endpoint=endpoint,
             variables={
@@ -48,25 +44,6 @@ class TaegisSDKQueriesMutation:
         if result.get(endpoint) is not None:
             return QLQuery.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for mutation addQLQueryToHistory")
-
-    def create_saved_ql_query(self, input_: CreateSavedQLQueryInput) -> SavedQLQuery:
-        """Creates a new search query entry that is marked as Saved.."""
-        endpoint = "createSavedQLQuery"
-
-        log.warning(
-            f"GraphQL Mutation `{endpoint}` is deprecated: 'Use createQLQuery.'"
-        )
-
-        result = self.service.execute_mutation(
-            endpoint=endpoint,
-            variables={
-                "input": prepare_input(input_),
-            },
-            output=build_output_string(SavedQLQuery),
-        )
-        if result.get(endpoint) is not None:
-            return SavedQLQuery.from_dict(result.get(endpoint))
-        raise GraphQLNoRowsInResultSetError("for mutation createSavedQLQuery")
 
     def delete_ql_queries(self, input_: DeleteQLQueriesInput) -> DeleteQLQueriesResults:
         """Deletes search queries by their resource names.."""
@@ -83,13 +60,24 @@ class TaegisSDKQueriesMutation:
             return DeleteQLQueriesResults.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for mutation deleteQLQueries")
 
+    def create_saved_ql_query(self, input_: CreateSavedQLQueryInput) -> SavedQLQuery:
+        """Creates a new search query entry that is marked as Saved.."""
+        endpoint = "createSavedQLQuery"
+
+        result = self.service.execute_mutation(
+            endpoint=endpoint,
+            variables={
+                "input": prepare_input(input_),
+            },
+            output=build_output_string(SavedQLQuery),
+        )
+        if result.get(endpoint) is not None:
+            return SavedQLQuery.from_dict(result.get(endpoint))
+        raise GraphQLNoRowsInResultSetError("for mutation createSavedQLQuery")
+
     def update_saved_ql_query(self, input_: UpdateSavedQLQueryInput) -> SavedQLQuery:
         """None."""
         endpoint = "updateSavedQLQuery"
-
-        log.warning(
-            f"GraphQL Mutation `{endpoint}` is deprecated: 'No longer supported'"
-        )
 
         result = self.service.execute_mutation(
             endpoint=endpoint,
@@ -107,10 +95,6 @@ class TaegisSDKQueriesMutation:
     ) -> DeleteQLQueriesResults:
         """None."""
         endpoint = "deleteSavedQLQueries"
-
-        log.warning(
-            f"GraphQL Mutation `{endpoint}` is deprecated: 'No longer supported'"
-        )
 
         result = self.service.execute_mutation(
             endpoint=endpoint,

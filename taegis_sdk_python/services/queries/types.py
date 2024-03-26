@@ -190,16 +190,6 @@ class SavedQLQuery:
     """SavedQLQuery."""
 
     rn: Optional[str] = field(default=None, metadata=config(field_name="rn"))
-    id: Optional[str] = field(
-        default=None,
-        metadata=config(
-            metadata={
-                "deprecated": True,
-                "deprecation_reason": "Removing in favor of rn.",
-            },
-            field_name="id",
-        ),
-    )
     name: Optional[str] = field(default=None, metadata=config(field_name="name"))
     raw_query: Optional[str] = field(
         default=None, metadata=config(field_name="rawQuery")
@@ -209,26 +199,6 @@ class SavedQLQuery:
     )
     metadata: Optional[dict] = field(
         default=None, metadata=config(field_name="metadata")
-    )
-    user_id: Optional[str] = field(
-        default=None,
-        metadata=config(
-            metadata={
-                "deprecated": True,
-                "deprecation_reason": "Removing in favor of federated user data.",
-            },
-            field_name="userId",
-        ),
-    )
-    user_email: Optional[str] = field(
-        default=None,
-        metadata=config(
-            metadata={
-                "deprecated": True,
-                "deprecation_reason": "Removing in favor of federated user data.",
-            },
-            field_name="userEmail",
-        ),
     )
     tenant_ids: Optional[List[str]] = field(
         default=None, metadata=config(field_name="tenantIds")
@@ -285,16 +255,6 @@ class QLQuery:
     """QLQuery."""
 
     rn: Optional[str] = field(default=None, metadata=config(field_name="rn"))
-    id: Optional[str] = field(
-        default=None,
-        metadata=config(
-            metadata={
-                "deprecated": True,
-                "deprecation_reason": "Removing in favor of rn.",
-            },
-            field_name="id",
-        ),
-    )
     raw_query: Optional[str] = field(
         default=None, metadata=config(field_name="rawQuery")
     )
@@ -305,37 +265,10 @@ class QLQuery:
         default=None, metadata=config(field_name="savedName")
     )
     is_saved: Optional[bool] = field(
-        default=None,
-        metadata=config(
-            metadata={
-                "deprecated": True,
-                "deprecation_reason": "Saved query flow is deprecated.",
-            },
-            field_name="isSaved",
-        ),
+        default=None, metadata=config(field_name="isSaved")
     )
     metadata: Optional[dict] = field(
         default=None, metadata=config(field_name="metadata")
-    )
-    user_id: Optional[str] = field(
-        default=None,
-        metadata=config(
-            metadata={
-                "deprecated": True,
-                "deprecation_reason": "Removing in favor of federated user data.",
-            },
-            field_name="userId",
-        ),
-    )
-    user_email: Optional[str] = field(
-        default=None,
-        metadata=config(
-            metadata={
-                "deprecated": True,
-                "deprecation_reason": "Removing in favor of federated user data.",
-            },
-            field_name="userEmail",
-        ),
     )
     tenant_ids: Optional[List[str]] = field(
         default=None, metadata=config(field_name="tenantIds")
@@ -344,14 +277,7 @@ class QLQuery:
         default=None, metadata=config(field_name="createdAt")
     )
     updated_at: Optional[str] = field(
-        default=None,
-        metadata=config(
-            metadata={
-                "deprecated": True,
-                "deprecation_reason": "Should not be able to update search queries.",
-            },
-            field_name="updatedAt",
-        ),
+        default=None, metadata=config(field_name="updatedAt")
     )
     status: Optional[Search] = field(default=None, metadata=config(field_name="status"))
     user: Optional[Subject] = field(default=None, metadata=config(field_name="user"))

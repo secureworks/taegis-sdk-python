@@ -144,6 +144,7 @@ class ThreatRelationshipType(str, Enum):
     LISTED_ON = "listed_on"
     RELATED_TO = "related_to"
     INDIRECT = "indirect"
+    HAS_VID = "has_vid"
 
 
 class ThreatMalwareType(str, Enum):

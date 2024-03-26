@@ -29,22 +29,3 @@ class TaegisSDKEventSearchMutation:
 
     def __init__(self, service: EventSearchService):
         self.service = service
-
-    def asynchronous_events_search_prep(
-        self, in_: Optional[AsynchronousEventsSearchPrepInput] = None
-    ) -> AsynchronousEventsSearchPrepInputResponse:
-        """None."""
-        endpoint = "AsynchronousEventsSearchPrep"
-
-        result = self.service.execute_mutation(
-            endpoint=endpoint,
-            variables={
-                "in": prepare_input(in_),
-            },
-            output=build_output_string(AsynchronousEventsSearchPrepInputResponse),
-        )
-        if result.get(endpoint) is not None:
-            return AsynchronousEventsSearchPrepInputResponse.from_dict(
-                result.get(endpoint)
-            )
-        raise GraphQLNoRowsInResultSetError("for mutation AsynchronousEventsSearchPrep")

@@ -222,8 +222,6 @@ class TaegisSDKThreatQuery:
         """Gets relationship by `id`.."""
         endpoint = "threatRelationship"
 
-        log.warning(f"GraphQL Query `{endpoint}` is deprecated: 'No longer supported'")
-
         result = self.service.execute_query(
             endpoint=endpoint,
             variables={

@@ -63,3 +63,21 @@ class TaegisSDKEventSearchQuery:
         if result.get(endpoint) is not None:
             return AuxiliaryEventsSearchResponse.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for query auxiliaryEventsSearch")
+
+    def alert_ids_from_aux_events_search(
+        self, in_: AuxiliaryEventsSearchInput
+    ) -> List[str]:
+        """Will perform a more efficient search for auxiliary events that will only return a list of
+        alert IDs associated with the events found.."""
+        endpoint = "alertIdsFromAuxEventsSearch"
+
+        result = self.service.execute_query(
+            endpoint=endpoint,
+            variables={
+                "in": prepare_input(in_),
+            },
+            output="",
+        )
+        if result.get(endpoint) is not None:
+            return result.get(endpoint)
+        raise GraphQLNoRowsInResultSetError("for query alertIdsFromAuxEventsSearch")

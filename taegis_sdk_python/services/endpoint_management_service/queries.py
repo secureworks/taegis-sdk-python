@@ -143,3 +143,47 @@ class TaegisSDKEndpointManagementServiceQuery:
         if result.get(endpoint) is not None:
             return BulkAssignRequestOutput.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for query bulkAssignmentStatusByID")
+
+    def default_agent_setting(self) -> AgentSetting:
+        """fetch the default agent settings item."""
+        endpoint = "defaultAgentSetting"
+
+        result = self.service.execute_query(
+            endpoint=endpoint, variables={}, output=build_output_string(AgentSetting)
+        )
+        if result.get(endpoint) is not None:
+            return AgentSetting.from_dict(result.get(endpoint))
+        raise GraphQLNoRowsInResultSetError("for query defaultAgentSetting")
+
+    def agent_setting(self, id_: str) -> AgentSetting:
+        """fetch a single agent settings item by id."""
+        endpoint = "agentSetting"
+
+        result = self.service.execute_query(
+            endpoint=endpoint,
+            variables={
+                "id": prepare_input(id_),
+            },
+            output=build_output_string(AgentSetting),
+        )
+        if result.get(endpoint) is not None:
+            return AgentSetting.from_dict(result.get(endpoint))
+        raise GraphQLNoRowsInResultSetError("for query agentSetting")
+
+    def agent_settings(
+        self, first: Optional[int] = None, after: Optional[str] = None
+    ) -> AgentSettings:
+        """fetch paginated list of agent settings items."""
+        endpoint = "agentSettings"
+
+        result = self.service.execute_query(
+            endpoint=endpoint,
+            variables={
+                "first": prepare_input(first),
+                "after": prepare_input(after),
+            },
+            output=build_output_string(AgentSettings),
+        )
+        if result.get(endpoint) is not None:
+            return AgentSettings.from_dict(result.get(endpoint))
+        raise GraphQLNoRowsInResultSetError("for query agentSettings")

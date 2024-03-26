@@ -94,6 +94,19 @@ class ClientRoleAssignmentInput:
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
+class CredentialValidationResult:
+    """CredentialValidationResult."""
+
+    is_valid: Optional[bool] = field(
+        default=None, metadata=config(field_name="isValid")
+    )
+    environments: Optional[List[str]] = field(
+        default=None, metadata=config(field_name="environments")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
 class Client:
     """Client."""
 

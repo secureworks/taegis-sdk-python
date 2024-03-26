@@ -98,6 +98,9 @@ class EndpointGroup:
     advanced_kernel_telemetry_enabled: Optional[bool] = field(
         default=None, metadata=config(field_name="advancedKernelTelemetryEnabled")
     )
+    setting_id: Optional[str] = field(
+        default=None, metadata=config(field_name="settingId")
+    )
 
 
 @dataclass_json
@@ -158,6 +161,47 @@ class PartialPageInfo:
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
+class DailyWindowEntry:
+    """DailyWindowEntry."""
+
+    enabled: Optional[bool] = field(default=None, metadata=config(field_name="enabled"))
+    start_time: Optional[str] = field(
+        default=None, metadata=config(field_name="startTime")
+    )
+    end_time: Optional[str] = field(default=None, metadata=config(field_name="endTime"))
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class BooleanSettingInput:
+    """BooleanSettingInput."""
+
+    enabled: Optional[bool] = field(default=None, metadata=config(field_name="enabled"))
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class AutoArchiveInput:
+    """AutoArchiveInput."""
+
+    enabled: Optional[bool] = field(default=None, metadata=config(field_name="enabled"))
+    period: Optional[int] = field(default=None, metadata=config(field_name="period"))
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class DailyWindowEntryInput:
+    """DailyWindowEntryInput."""
+
+    enabled: Optional[bool] = field(default=None, metadata=config(field_name="enabled"))
+    start_time: Optional[str] = field(
+        default=None, metadata=config(field_name="startTime")
+    )
+    end_time: Optional[str] = field(default=None, metadata=config(field_name="endTime"))
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
 class CreateEndpointGroupInput:
     """CreateEndpointGroupInput."""
 
@@ -184,6 +228,9 @@ class CreateEndpointGroupInput:
     advanced_kernel_telemetry_enabled: Optional[bool] = field(
         default=None, metadata=config(field_name="advancedKernelTelemetryEnabled")
     )
+    setting_id: Optional[str] = field(
+        default=None, metadata=config(field_name="settingId")
+    )
     policy_name: Optional[PolicyType] = field(
         default=None, metadata=config(field_name="policyName")
     )
@@ -195,6 +242,9 @@ class UpdateEndpointGroupInput:
     """UpdateEndpointGroupInput."""
 
     group_id: Optional[str] = field(default=None, metadata=config(field_name="groupId"))
+    setting_id: Optional[str] = field(
+        default=None, metadata=config(field_name="settingId")
+    )
     name: Optional[str] = field(default=None, metadata=config(field_name="name"))
     description: Optional[str] = field(
         default=None, metadata=config(field_name="description")
@@ -228,6 +278,67 @@ class BulkAssignRequestOutput:
     id: Optional[str] = field(default=None, metadata=config(field_name="id"))
     status: Optional[BulkAssignRequestStatus] = field(
         default=None, metadata=config(field_name="status")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class AdvancedKernelTelemetry:
+    """AdvancedKernelTelemetry."""
+
+    name: Optional[str] = field(default=None, metadata=config(field_name="name"))
+    description: Optional[str] = field(
+        default=None, metadata=config(field_name="description")
+    )
+    enabled: Optional[bool] = field(default=None, metadata=config(field_name="enabled"))
+    platforms: Optional[List[EndpointPlatform]] = field(
+        default=None, metadata=config(field_name="platforms")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class AutoArchive:
+    """AutoArchive."""
+
+    name: Optional[str] = field(default=None, metadata=config(field_name="name"))
+    description: Optional[str] = field(
+        default=None, metadata=config(field_name="description")
+    )
+    enabled: Optional[bool] = field(default=None, metadata=config(field_name="enabled"))
+    period: Optional[int] = field(default=None, metadata=config(field_name="period"))
+    platforms: Optional[List[EndpointPlatform]] = field(
+        default=None, metadata=config(field_name="platforms")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class FileAnalysis:
+    """FileAnalysis."""
+
+    name: Optional[str] = field(default=None, metadata=config(field_name="name"))
+    description: Optional[str] = field(
+        default=None, metadata=config(field_name="description")
+    )
+    enabled: Optional[bool] = field(default=None, metadata=config(field_name="enabled"))
+    platforms: Optional[List[EndpointPlatform]] = field(
+        default=None, metadata=config(field_name="platforms")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class TamperProtection:
+    """TamperProtection."""
+
+    name: Optional[str] = field(default=None, metadata=config(field_name="name"))
+    description: Optional[str] = field(
+        default=None, metadata=config(field_name="description")
+    )
+    enabled: Optional[bool] = field(default=None, metadata=config(field_name="enabled"))
+    platforms: Optional[List[EndpointPlatform]] = field(
+        default=None, metadata=config(field_name="platforms")
     )
 
 
@@ -269,4 +380,236 @@ class EndpointGroupsPagedOutput:
     )
     partial_page_info: Optional[PartialPageInfo] = field(
         default=None, metadata=config(field_name="partialPageInfo")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class DailyWindows:
+    """DailyWindows."""
+
+    monday: Optional[DailyWindowEntry] = field(
+        default=None, metadata=config(field_name="monday")
+    )
+    tuesday: Optional[DailyWindowEntry] = field(
+        default=None, metadata=config(field_name="tuesday")
+    )
+    wednesday: Optional[DailyWindowEntry] = field(
+        default=None, metadata=config(field_name="wednesday")
+    )
+    thursday: Optional[DailyWindowEntry] = field(
+        default=None, metadata=config(field_name="thursday")
+    )
+    friday: Optional[DailyWindowEntry] = field(
+        default=None, metadata=config(field_name="friday")
+    )
+    saturday: Optional[DailyWindowEntry] = field(
+        default=None, metadata=config(field_name="saturday")
+    )
+    sunday: Optional[DailyWindowEntry] = field(
+        default=None, metadata=config(field_name="sunday")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class DailyWindowsInput:
+    """DailyWindowsInput."""
+
+    monday: Optional[DailyWindowEntryInput] = field(
+        default=None, metadata=config(field_name="monday")
+    )
+    tuesday: Optional[DailyWindowEntryInput] = field(
+        default=None, metadata=config(field_name="tuesday")
+    )
+    wednesday: Optional[DailyWindowEntryInput] = field(
+        default=None, metadata=config(field_name="wednesday")
+    )
+    thursday: Optional[DailyWindowEntryInput] = field(
+        default=None, metadata=config(field_name="thursday")
+    )
+    friday: Optional[DailyWindowEntryInput] = field(
+        default=None, metadata=config(field_name="friday")
+    )
+    saturday: Optional[DailyWindowEntryInput] = field(
+        default=None, metadata=config(field_name="saturday")
+    )
+    sunday: Optional[DailyWindowEntryInput] = field(
+        default=None, metadata=config(field_name="sunday")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class MaintenanceWindowInput:
+    """MaintenanceWindowInput."""
+
+    enabled: Optional[bool] = field(default=None, metadata=config(field_name="enabled"))
+    windows: Optional[DailyWindowsInput] = field(
+        default=None, metadata=config(field_name="windows")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class MaintenanceWindow:
+    """MaintenanceWindow."""
+
+    name: Optional[str] = field(default=None, metadata=config(field_name="name"))
+    description: Optional[str] = field(
+        default=None, metadata=config(field_name="description")
+    )
+    enabled: Optional[bool] = field(default=None, metadata=config(field_name="enabled"))
+    platforms: Optional[List[EndpointPlatform]] = field(
+        default=None, metadata=config(field_name="platforms")
+    )
+    windows: Optional[DailyWindows] = field(
+        default=None, metadata=config(field_name="windows")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class AgentSetting:
+    """AgentSetting."""
+
+    id: Optional[str] = field(default=None, metadata=config(field_name="id"))
+    name: Optional[str] = field(default=None, metadata=config(field_name="name"))
+    description: Optional[str] = field(
+        default=None, metadata=config(field_name="description")
+    )
+    channel: Optional[str] = field(default=None, metadata=config(field_name="channel"))
+    is_default: Optional[bool] = field(
+        default=None, metadata=config(field_name="isDefault")
+    )
+    created_at: Optional[str] = field(
+        default=None, metadata=config(field_name="createdAt")
+    )
+    updated_at: Optional[str] = field(
+        default=None, metadata=config(field_name="updatedAt")
+    )
+    advanced_kernel_telemetry: Optional[AdvancedKernelTelemetry] = field(
+        default=None, metadata=config(field_name="advancedKernelTelemetry")
+    )
+    auto_archive: Optional[AutoArchive] = field(
+        default=None, metadata=config(field_name="autoArchive")
+    )
+    file_analysis: Optional[FileAnalysis] = field(
+        default=None, metadata=config(field_name="fileAnalysis")
+    )
+    maintenance_window: Optional[MaintenanceWindow] = field(
+        default=None, metadata=config(field_name="maintenanceWindow")
+    )
+    tamper_protection: Optional[TamperProtection] = field(
+        default=None, metadata=config(field_name="tamperProtection")
+    )
+    policy_type: Optional[PolicyType] = field(
+        default=None, metadata=config(field_name="policyType")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class CreateAgentSettingsInput:
+    """CreateAgentSettingsInput."""
+
+    name: Optional[str] = field(default=None, metadata=config(field_name="name"))
+    description: Optional[str] = field(
+        default=None, metadata=config(field_name="description")
+    )
+    channel: Optional[str] = field(default=None, metadata=config(field_name="channel"))
+    advanced_kernel_telemetry: Optional[BooleanSettingInput] = field(
+        default=None, metadata=config(field_name="advancedKernelTelemetry")
+    )
+    auto_archive: Optional[AutoArchiveInput] = field(
+        default=None, metadata=config(field_name="autoArchive")
+    )
+    file_analysis: Optional[BooleanSettingInput] = field(
+        default=None, metadata=config(field_name="fileAnalysis")
+    )
+    tamper_protection: Optional[BooleanSettingInput] = field(
+        default=None, metadata=config(field_name="tamperProtection")
+    )
+    policy_type: Optional[PolicyType] = field(
+        default=None, metadata=config(field_name="policyType")
+    )
+    maintenance_window: Optional[MaintenanceWindowInput] = field(
+        default=None, metadata=config(field_name="maintenanceWindow")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class UpdateAgentSettingsInput:
+    """UpdateAgentSettingsInput."""
+
+    id: Optional[str] = field(default=None, metadata=config(field_name="id"))
+    name: Optional[str] = field(default=None, metadata=config(field_name="name"))
+    description: Optional[str] = field(
+        default=None, metadata=config(field_name="description")
+    )
+    channel: Optional[str] = field(default=None, metadata=config(field_name="channel"))
+    advanced_kernel_telemetry: Optional[BooleanSettingInput] = field(
+        default=None, metadata=config(field_name="advancedKernelTelemetry")
+    )
+    auto_archive: Optional[AutoArchiveInput] = field(
+        default=None, metadata=config(field_name="autoArchive")
+    )
+    file_analysis: Optional[BooleanSettingInput] = field(
+        default=None, metadata=config(field_name="fileAnalysis")
+    )
+    tamper_protection: Optional[BooleanSettingInput] = field(
+        default=None, metadata=config(field_name="tamperProtection")
+    )
+    policy_type: Optional[PolicyType] = field(
+        default=None, metadata=config(field_name="policyType")
+    )
+    maintenance_window: Optional[MaintenanceWindowInput] = field(
+        default=None, metadata=config(field_name="maintenanceWindow")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class UpdateDefaultAgentSettingInput:
+    """UpdateDefaultAgentSettingInput."""
+
+    name: Optional[str] = field(default=None, metadata=config(field_name="name"))
+    description: Optional[str] = field(
+        default=None, metadata=config(field_name="description")
+    )
+    channel: Optional[str] = field(default=None, metadata=config(field_name="channel"))
+    advanced_kernel_telemetry: Optional[BooleanSettingInput] = field(
+        default=None, metadata=config(field_name="advancedKernelTelemetry")
+    )
+    auto_archive: Optional[AutoArchiveInput] = field(
+        default=None, metadata=config(field_name="autoArchive")
+    )
+    file_analysis: Optional[BooleanSettingInput] = field(
+        default=None, metadata=config(field_name="fileAnalysis")
+    )
+    tamper_protection: Optional[BooleanSettingInput] = field(
+        default=None, metadata=config(field_name="tamperProtection")
+    )
+    policy_type: Optional[PolicyType] = field(
+        default=None, metadata=config(field_name="policyType")
+    )
+    maintenance_window: Optional[MaintenanceWindowInput] = field(
+        default=None, metadata=config(field_name="maintenanceWindow")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class AgentSettings:
+    """AgentSettings."""
+
+    total_count: Optional[int] = field(
+        default=None, metadata=config(field_name="totalCount")
+    )
+    settings: Optional[List[AgentSetting]] = field(
+        default=None, metadata=config(field_name="settings")
+    )
+    page_info: Optional[PartialPageInfo] = field(
+        default=None, metadata=config(field_name="pageInfo")
     )

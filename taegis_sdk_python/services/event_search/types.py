@@ -29,35 +29,11 @@ class AuxiliaryEventsSearchInput:
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
-class AsynchronousEventsSearchPrepInput:
-    """AsynchronousEventsSearchPrepInput."""
-
-    query: Optional[str] = field(default=None, metadata=config(field_name="query"))
-    limit: Optional[int] = field(default=None, metadata=config(field_name="limit"))
-    job_id: Optional[str] = field(default=None, metadata=config(field_name="jobId"))
-    table_name: Optional[str] = field(
-        default=None, metadata=config(field_name="tableName")
-    )
-
-
-@dataclass_json
-@dataclass(order=True, eq=True, frozen=True)
 class AuxiliaryEventsByIDOptions:
     """AuxiliaryEventsByIDOptions."""
 
     search_events_api_first: Optional[bool] = field(
         default=None, metadata=config(field_name="searchEventsAPIFirst")
-    )
-
-
-@dataclass_json
-@dataclass(order=True, eq=True, frozen=True)
-class AsynchronousEventsSearchPrepInputResponse:
-    """AsynchronousEventsSearchPrepInputResponse."""
-
-    job_id: Optional[str] = field(default=None, metadata=config(field_name="jobId"))
-    successful: Optional[bool] = field(
-        default=None, metadata=config(field_name="successful")
     )
 
 
@@ -93,7 +69,14 @@ class GetEventByIDRequestInput:
     ids: Optional[List[str]] = field(default=None, metadata=config(field_name="ids"))
     alert_id: Optional[str] = field(default=None, metadata=config(field_name="alertId"))
     options: Optional[AuxiliaryEventsByIDOptions] = field(
-        default=None, metadata=config(field_name="options")
+        default=None,
+        metadata=config(
+            metadata={
+                "deprecated": True,
+                "deprecation_reason": "Events-API is now used automatically when needed, so the searchEventsAPIFirst option is no longer used.",
+            },
+            field_name="options",
+        ),
     )
 
 

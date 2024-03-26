@@ -379,3 +379,19 @@ class TaegisSDKExportsMutation:
         if result.get(endpoint) is not None:
             return Schedule.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for mutation shareWithUsers")
+
+    def unshare_with_users(self, schedule_id: str, user_ids: List[str]) -> Schedule:
+        """None."""
+        endpoint = "unshareWithUsers"
+
+        result = self.service.execute_mutation(
+            endpoint=endpoint,
+            variables={
+                "scheduleID": prepare_input(schedule_id),
+                "userIDs": prepare_input(user_ids),
+            },
+            output=build_output_string(Schedule),
+        )
+        if result.get(endpoint) is not None:
+            return Schedule.from_dict(result.get(endpoint))
+        raise GraphQLNoRowsInResultSetError("for mutation unshareWithUsers")
