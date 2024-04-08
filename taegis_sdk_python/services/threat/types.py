@@ -145,6 +145,7 @@ class ThreatRelationshipType(str, Enum):
     RELATED_TO = "related_to"
     INDIRECT = "indirect"
     HAS_VID = "has_vid"
+    HOSTED_ON = "hosted_on"
 
 
 class ThreatMalwareType(str, Enum):
@@ -265,38 +266,6 @@ class ThreatObjectType(str, Enum):
     MALWARE = "malware"
     INTRUSIONSET = "intrusionset"
     REPORT = "report"
-
-
-class ListAction(str, Enum):
-    """ListAction."""
-
-    ALLOW = "allow"
-    BLOCK = "block"
-    WARN = "warn"
-
-
-class ItemType(str, Enum):
-    """ItemType."""
-
-    USER = "user"
-    CERTIFICATE = "certificate"
-    ASSET = "asset"
-    DOMAIN = "domain"
-    IPV4 = "ipv4"
-    IPV6 = "ipv6"
-    CIDR = "cidr"
-    URL = "url"
-    MD5 = "md5"
-    SHA256 = "sha256"
-    SHA1 = "sha1"
-    UNKNOWN = "unknown"
-
-
-class OrderByOptions(str, Enum):
-    """OrderByOptions."""
-
-    ASC = "asc"
-    DESC = "desc"
 
 
 @dataclass_json
@@ -527,6 +496,28 @@ class ThreatLocation:
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
+class TimsMalwareFile:
+    """TimsMalwareFile."""
+
+    file_hash: Optional[str] = field(
+        default=None, metadata=config(field_name="file_hash")
+    )
+    information_source: Optional[str] = field(
+        default=None, metadata=config(field_name="information_source")
+    )
+    threat_description: Optional[str] = field(
+        default=None, metadata=config(field_name="threat_description")
+    )
+    confidence: Optional[int] = field(
+        default=None, metadata=config(field_name="confidence")
+    )
+    source_internal: Optional[bool] = field(
+        default=None, metadata=config(field_name="source_internal")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
 class ThreatWhois:
     """ThreatWhois."""
 
@@ -731,35 +722,6 @@ class ThreatReportInput:
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
-class ListOwner:
-    """ListOwner."""
-
-    id: Optional[str] = field(default=None, metadata=config(field_name="id"))
-    tenant_id: Optional[str] = field(
-        default=None, metadata=config(field_name="tenant_id")
-    )
-    created_at: Optional[str] = field(
-        default=None, metadata=config(field_name="created_at")
-    )
-    modified_at: Optional[str] = field(
-        default=None, metadata=config(field_name="modified_at")
-    )
-    age_at: Optional[str] = field(default=None, metadata=config(field_name="age_at"))
-    deleted_at: Optional[str] = field(
-        default=None, metadata=config(field_name="deleted_at")
-    )
-
-
-@dataclass_json
-@dataclass(order=True, eq=True, frozen=True)
-class DeleteListInput:
-    """DeleteListInput."""
-
-    id: Optional[str] = field(default=None, metadata=config(field_name="id"))
-
-
-@dataclass_json
-@dataclass(order=True, eq=True, frozen=True)
 class ThreatGroup:
     """ThreatGroup."""
 
@@ -806,6 +768,22 @@ class ThreatGroup:
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
+class PagedMalwareFiles:
+    """PagedMalwareFiles."""
+
+    last_created: Optional[str] = field(
+        default=None, metadata=config(field_name="last_created")
+    )
+    has_more: Optional[bool] = field(
+        default=None, metadata=config(field_name="has_more")
+    )
+    files: Optional[List[TimsMalwareFile]] = field(
+        default=None, metadata=config(field_name="files")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
 class ThreatReport:
     """ThreatReport."""
 
@@ -834,129 +812,6 @@ class ThreatReport:
     tags: Optional[List[str]] = field(default=None, metadata=config(field_name="tags"))
     type: Optional[ThreatObjectType] = field(
         default=None, metadata=config(field_name="type")
-    )
-
-
-@dataclass_json
-@dataclass(order=True, eq=True, frozen=True)
-class ListItem:
-    """ListItem."""
-
-    id: Optional[str] = field(default=None, metadata=config(field_name="id"))
-    reference_id: Optional[str] = field(
-        default=None, metadata=config(field_name="reference_id")
-    )
-    name: Optional[str] = field(default=None, metadata=config(field_name="name"))
-    description: Optional[str] = field(
-        default=None, metadata=config(field_name="description")
-    )
-    confidence: Optional[int] = field(
-        default=None, metadata=config(field_name="confidence")
-    )
-    severity: Optional[int] = field(
-        default=None, metadata=config(field_name="severity")
-    )
-    tags: Optional[List[str]] = field(default=None, metadata=config(field_name="tags"))
-    created_at: Optional[str] = field(
-        default=None, metadata=config(field_name="created_at")
-    )
-    modified_at: Optional[str] = field(
-        default=None, metadata=config(field_name="modified_at")
-    )
-    age_at: Optional[str] = field(default=None, metadata=config(field_name="age_at"))
-    deleted_at: Optional[str] = field(
-        default=None, metadata=config(field_name="deleted_at")
-    )
-    item_type: Optional[ItemType] = field(
-        default=None, metadata=config(field_name="item_type")
-    )
-
-
-@dataclass_json
-@dataclass(order=True, eq=True, frozen=True)
-class ListInfo:
-    """ListInfo."""
-
-    list_id: Optional[str] = field(default=None, metadata=config(field_name="list_id"))
-    list_item_count: Optional[int] = field(
-        default=None, metadata=config(field_name="list_item_count")
-    )
-    list_name: Optional[str] = field(
-        default=None, metadata=config(field_name="list_name")
-    )
-    list_action: Optional[ListAction] = field(
-        default=None, metadata=config(field_name="list_action")
-    )
-
-
-@dataclass_json
-@dataclass(order=True, eq=True, frozen=True)
-class Lists:
-    """Lists."""
-
-    list_info: Optional[List[ListInfo]] = field(
-        default=None, metadata=config(field_name="list_info")
-    )
-
-
-@dataclass_json
-@dataclass(order=True, eq=True, frozen=True)
-class ListItemToList:
-    """ListItemToList."""
-
-    list_id: Optional[str] = field(default=None, metadata=config(field_name="listID"))
-    list_name: Optional[str] = field(
-        default=None, metadata=config(field_name="listName")
-    )
-    list_item: Optional[ListItem] = field(
-        default=None, metadata=config(field_name="listItem")
-    )
-
-
-@dataclass_json
-@dataclass(order=True, eq=True, frozen=True)
-class ListItems:
-    """ListItems."""
-
-    list_item_map: Optional[List[ListItemToList]] = field(
-        default=None, metadata=config(field_name="listItemMap")
-    )
-
-
-@dataclass_json
-@dataclass(order=True, eq=True, frozen=True)
-class ListItemInput:
-    """ListItemInput."""
-
-    reference_id: Optional[str] = field(
-        default=None, metadata=config(field_name="reference_id")
-    )
-    name: Optional[str] = field(default=None, metadata=config(field_name="name"))
-    description: Optional[str] = field(
-        default=None, metadata=config(field_name="description")
-    )
-    confidence: Optional[int] = field(
-        default=None, metadata=config(field_name="confidence")
-    )
-    severity: Optional[int] = field(
-        default=None, metadata=config(field_name="severity")
-    )
-    tags: Optional[List[str]] = field(default=None, metadata=config(field_name="tags"))
-    item_type: Optional[ItemType] = field(
-        default=None, metadata=config(field_name="item_type")
-    )
-
-
-@dataclass_json
-@dataclass(order=True, eq=True, frozen=True)
-class ListsArguments:
-    """ListsArguments."""
-
-    global_: Optional[bool] = field(default=None, metadata=config(field_name="global"))
-    page: Optional[int] = field(default=None, metadata=config(field_name="page"))
-    per_page: Optional[int] = field(default=None, metadata=config(field_name="perPage"))
-    order_by: Optional[OrderByOptions] = field(
-        default=None, metadata=config(field_name="orderBy")
     )
 
 
@@ -995,33 +850,6 @@ class ThreatIdentityInput:
     )
     sectors: Optional[List[ThreatIndustrySectors]] = field(
         default=None, metadata=config(field_name="sectors")
-    )
-
-
-@dataclass_json
-@dataclass(order=True, eq=True, frozen=True)
-class CreateListInput:
-    """CreateListInput."""
-
-    name: Optional[str] = field(default=None, metadata=config(field_name="name"))
-    description: Optional[str] = field(
-        default=None, metadata=config(field_name="description")
-    )
-    download_url: Optional[str] = field(
-        default=None, metadata=config(field_name="download_url")
-    )
-    confidence: Optional[int] = field(
-        default=None, metadata=config(field_name="confidence")
-    )
-    severity: Optional[int] = field(
-        default=None, metadata=config(field_name="severity")
-    )
-    tags: Optional[List[str]] = field(default=None, metadata=config(field_name="tags"))
-    items: Optional[List[ListItemInput]] = field(
-        default=None, metadata=config(field_name="items")
-    )
-    list_action: Optional[ListAction] = field(
-        default=None, metadata=config(field_name="list_action")
     )
 
 
@@ -1249,54 +1077,6 @@ class ThreatIndicatorInput:
     )
     kill_chain_phases: Optional[List[ThreatKillChainPhaseInput]] = field(
         default=None, metadata=config(field_name="kill_chain_phases")
-    )
-
-
-@dataclass_json
-@dataclass(order=True, eq=True, frozen=True)
-class ThreatList:
-    """ThreatList."""
-
-    id: Optional[str] = field(default=None, metadata=config(field_name="id"))
-    name: Optional[str] = field(default=None, metadata=config(field_name="name"))
-    description: Optional[str] = field(
-        default=None, metadata=config(field_name="description")
-    )
-    download_url: Optional[str] = field(
-        default=None, metadata=config(field_name="download_url")
-    )
-    item_count: Optional[int] = field(
-        default=None, metadata=config(field_name="item_count")
-    )
-    global_: Optional[bool] = field(default=None, metadata=config(field_name="global"))
-    internal: Optional[bool] = field(
-        default=None, metadata=config(field_name="internal")
-    )
-    confidence: Optional[int] = field(
-        default=None, metadata=config(field_name="confidence")
-    )
-    severity: Optional[int] = field(
-        default=None, metadata=config(field_name="severity")
-    )
-    tags: Optional[List[str]] = field(default=None, metadata=config(field_name="tags"))
-    created_at: Optional[str] = field(
-        default=None, metadata=config(field_name="created_at")
-    )
-    modified_at: Optional[str] = field(
-        default=None, metadata=config(field_name="modified_at")
-    )
-    age_at: Optional[str] = field(default=None, metadata=config(field_name="age_at"))
-    deleted_at: Optional[str] = field(
-        default=None, metadata=config(field_name="deleted_at")
-    )
-    owner: Optional[ListOwner] = field(
-        default=None, metadata=config(field_name="owner")
-    )
-    items: Optional[List[ListItem]] = field(
-        default=None, metadata=config(field_name="items")
-    )
-    list_action: Optional[ListAction] = field(
-        default=None, metadata=config(field_name="list_action")
     )
 
 

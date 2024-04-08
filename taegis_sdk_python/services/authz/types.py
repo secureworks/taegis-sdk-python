@@ -41,6 +41,7 @@ class AuthzSupportedFeatureTarget(str, Enum):
 
     TENANT = "TENANT"
     CHILD_TENANTS = "CHILD_TENANTS"
+    PARTNER_TENANTS = "PARTNER_TENANTS"
 
 
 @dataclass_json
@@ -184,6 +185,9 @@ class AuthzSupportedFeatureState:
     )
     enabled_in_child_tenants: Optional[bool] = field(
         default=None, metadata=config(field_name="enabledInChildTenants")
+    )
+    enabled_in_partner_tenants: Optional[bool] = field(
+        default=None, metadata=config(field_name="enabledInPartnerTenants")
     )
 
 

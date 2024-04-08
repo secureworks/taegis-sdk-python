@@ -18,7 +18,6 @@ class SearchTarget(str, Enum):
     """SearchTarget."""
 
     ATHENA = "Athena"
-    PRESTO = "Presto"
     ATHENA_HUDI = "AthenaHudi"
     ATHENA_HUDI_STAGING = "AthenaHudiStaging"
 

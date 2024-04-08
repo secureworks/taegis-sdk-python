@@ -26,6 +26,7 @@ class FetchRequestPathTypeEnum(str, Enum):
     """FetchRequestPathTypeEnum."""
 
     FILE = "FILE"
+    DIAGNOSTICS = "DIAGNOSTICS"
 
 
 class FetchRequestReasonCodeEnum(str, Enum):
@@ -33,6 +34,7 @@ class FetchRequestReasonCodeEnum(str, Enum):
 
     REASONCODE_UNSPECIFIED = "REASONCODE_UNSPECIFIED"
     POSSIBLY_MALICIOUS = "POSSIBLY_MALICIOUS"
+    TROUBLESHOOTING = "TROUBLESHOOTING"
 
 
 class StatusEnum(str, Enum):

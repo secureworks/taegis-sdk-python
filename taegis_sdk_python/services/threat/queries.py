@@ -170,7 +170,9 @@ class TaegisSDKThreatQuery:
         raise GraphQLNoRowsInResultSetError("for query threatGetRelated")
 
     def threat_watchlist(self, type_: ThreatParentType) -> List[ThreatRelationship]:
-        """Gets a watchlist by type. All results are considered **high confidence**.."""
+        """Gets a watchlist by type. All results are considered **high confidence**.
+        Only IP and DOMAIN types are supported. Used the paged service threatTimsMalwareFiles for FILE types..
+        """
         endpoint = "threatWatchlist"
 
         result = self.service.execute_query(
@@ -185,6 +187,30 @@ class TaegisSDKThreatQuery:
                 [r or {} for r in result.get(endpoint)], many=True
             )
         raise GraphQLNoRowsInResultSetError("for query threatWatchlist")
+
+    def threat_tims_malware_files(
+        self, last_created: Optional[str] = None
+    ) -> PagedMalwareFiles:
+        """Get all TIMS 2.0 Malware file hashes. All results are considered **high confidence**.
+        This is a paged service, requiring repeated queries. Total number of results can number over 750k.
+        For the initial query, do not provide any search parameters or set 'last_created' to null.
+        Subsequent queries should include the previous query's 'last_created' result from 'PagedMalwareFiles.last_created'
+        as the input parameter. Returns pages of 10,000 at a time, sorted by the indicators field 'created' in desc order.
+        The returned field 'has_more' will be false when the last page is returned.
+        * Note: 'created' refers to an internal field associated with the indicator, not the time the indicator was first found.
+        It is only used for sorting.."""
+        endpoint = "threatTimsMalwareFiles"
+
+        result = self.service.execute_query(
+            endpoint=endpoint,
+            variables={
+                "last_created": prepare_input(last_created),
+            },
+            output=build_output_string(PagedMalwareFiles),
+        )
+        if result.get(endpoint) is not None:
+            return PagedMalwareFiles.from_dict(result.get(endpoint))
+        raise GraphQLNoRowsInResultSetError("for query threatTimsMalwareFiles")
 
     def threat_indicator_publications(self, id_: str) -> List[ThreatReport]:
         """Gets publications related to indicators.."""
@@ -315,74 +341,3 @@ class TaegisSDKThreatQuery:
                 [r or {} for r in result.get(endpoint)], many=True
             )
         raise GraphQLNoRowsInResultSetError("for query threatIndicatorsIntelligence")
-
-    def lists(self, arguments: ListsArguments) -> Lists:
-        """Retrieves Custom Lists for the respective tenant."""
-        endpoint = "lists"
-
-        log.warning(f"GraphQL Query `{endpoint}` is deprecated: 'No longer supported'")
-
-        result = self.service.execute_query(
-            endpoint=endpoint,
-            variables={
-                "arguments": prepare_input(arguments),
-            },
-            output=build_output_string(Lists),
-        )
-        if result.get(endpoint) is not None:
-            return Lists.from_dict(result.get(endpoint))
-        raise GraphQLNoRowsInResultSetError("for query lists")
-
-    def list(self, id_: str, arguments: ListsArguments) -> ThreatList:
-        """Retrieves a custom list by ID."""
-        endpoint = "list"
-
-        log.warning(f"GraphQL Query `{endpoint}` is deprecated: 'No longer supported'")
-
-        result = self.service.execute_query(
-            endpoint=endpoint,
-            variables={
-                "id": prepare_input(id_),
-                "arguments": prepare_input(arguments),
-            },
-            output=build_output_string(ThreatList),
-        )
-        if result.get(endpoint) is not None:
-            return ThreatList.from_dict(result.get(endpoint))
-        raise GraphQLNoRowsInResultSetError("for query list")
-
-    def list_items_by_tag(self, tag: str, arguments: ListsArguments) -> ListItems:
-        """Retrieves list items that contains the specified tag (case sensitive)."""
-        endpoint = "listItemsByTag"
-
-        log.warning(f"GraphQL Query `{endpoint}` is deprecated: 'No longer supported'")
-
-        result = self.service.execute_query(
-            endpoint=endpoint,
-            variables={
-                "tag": prepare_input(tag),
-                "arguments": prepare_input(arguments),
-            },
-            output=build_output_string(ListItems),
-        )
-        if result.get(endpoint) is not None:
-            return ListItems.from_dict(result.get(endpoint))
-        raise GraphQLNoRowsInResultSetError("for query listItemsByTag")
-
-    def list_items_by_name(self, name: str, arguments: ListsArguments) -> ListItems:
-        """Retrieves list items by indicator name."""
-        endpoint = "listItemsByName"
-
-        log.warning(f"GraphQL Query `{endpoint}` is deprecated: 'No longer supported'")
-
-        result = self.service.execute_query(
-            endpoint=endpoint,
-            variables={
-                "name": prepare_input(name),
-                "arguments": prepare_input(arguments),
-            },
-            output=build_output_string(ListItems),
-        )
-        if result.get(endpoint) is not None:
-            return ListItems.from_dict(result.get(endpoint))
-        raise GraphQLNoRowsInResultSetError("for query listItemsByName")

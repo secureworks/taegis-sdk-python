@@ -694,6 +694,14 @@ class TDRUser:
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
+class TenantV4:
+    """TenantV4."""
+
+    id: Optional[str] = field(default=None, metadata=config(field_name="id"))
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
 class Subject:
     """Subject."""
 
@@ -891,6 +899,20 @@ class InvestigationTypeCount:
     count: Optional[int] = field(default=None, metadata=config(field_name="count"))
     type: Optional[InvestigationType] = field(
         default=None, metadata=config(field_name="type")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class InvestigationTenantCount:
+    """InvestigationTenantCount."""
+
+    tenant_id: Optional[str] = field(
+        default=None, metadata=config(field_name="tenantId")
+    )
+    count: Optional[int] = field(default=None, metadata=config(field_name="count"))
+    tenant: Optional[TenantV4] = field(
+        default=None, metadata=config(field_name="tenant")
     )
 
 
@@ -1113,6 +1135,22 @@ class CommentsV2Arguments:
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
+class InvestigationProcessingStatus:
+    """InvestigationProcessingStatus."""
+
+    assets: Optional[InvestigationProcessingState] = field(
+        default=None, metadata=config(field_name="assets")
+    )
+    events: Optional[InvestigationProcessingState] = field(
+        default=None, metadata=config(field_name="events")
+    )
+    alerts: Optional[InvestigationProcessingState] = field(
+        default=None, metadata=config(field_name="alerts")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
 class AggregatedCounts:
     """AggregatedCounts."""
 
@@ -1128,21 +1166,8 @@ class AggregatedCounts:
     priority: Optional[List[InvestigationPriorityCount]] = field(
         default=None, metadata=config(field_name="priority")
     )
-
-
-@dataclass_json
-@dataclass(order=True, eq=True, frozen=True)
-class InvestigationProcessingStatus:
-    """InvestigationProcessingStatus."""
-
-    assets: Optional[InvestigationProcessingState] = field(
-        default=None, metadata=config(field_name="assets")
-    )
-    events: Optional[InvestigationProcessingState] = field(
-        default=None, metadata=config(field_name="events")
-    )
-    alerts: Optional[InvestigationProcessingState] = field(
-        default=None, metadata=config(field_name="alerts")
+    tenant: Optional[List[InvestigationTenantCount]] = field(
+        default=None, metadata=config(field_name="tenant")
     )
 
 
@@ -1539,6 +1564,9 @@ class InvestigationV2:
     assignee_subject: Optional[Subject] = field(
         default=None, metadata=config(field_name="assigneeSubject")
     )
+    tenant: Optional[TenantV4] = field(
+        default=None, metadata=config(field_name="tenant")
+    )
     created_by: Optional[TDRUser] = field(
         default=None, metadata=config(field_name="createdBy")
     )
@@ -1560,7 +1588,9 @@ class InvestigationV2:
     comments_count: Optional[InvestigationCommentsCount] = field(
         default=None, metadata=config(field_name="commentsCount")
     )
-    metric: Optional[Metric] = field(default=None, metadata=config(field_name="metric"))
+    metrics: Optional[Metric] = field(
+        default=None, metadata=config(field_name="metrics")
+    )
     entities_evidence: Optional[List[EntityEvidence]] = field(
         default=None,
         metadata=config(
@@ -1576,6 +1606,13 @@ class InvestigationV2:
         metadata=config(
             metadata={"deprecated": True, "deprecation_reason": "use assigneeSubject"},
             field_name="assignee",
+        ),
+    )
+    metric: Optional[Metric] = field(
+        default=None,
+        metadata=config(
+            metadata={"deprecated": True, "deprecation_reason": "use metrics"},
+            field_name="metric",
         ),
     )
 
