@@ -587,10 +587,35 @@ class TDRUser:
     """TDRUser."""
 
     id: Optional[str] = field(default=None, metadata=config(field_name="id"))
-    id_uuid: Optional[str] = field(default=None, metadata=config(field_name="id_uuid"))
-    user_id: Optional[str] = field(default=None, metadata=config(field_name="user_id"))
+    idp_user_id: Optional[str] = field(
+        default=None, metadata=config(field_name="idp_user_id")
+    )
+    id_uuid: Optional[str] = field(
+        default=None,
+        metadata=config(
+            metadata={"deprecated": True, "deprecation_reason": "prefer `id`"},
+            field_name="id_uuid",
+        ),
+    )
+    user_id: Optional[str] = field(
+        default=None,
+        metadata=config(
+            metadata={
+                "deprecated": True,
+                "deprecation_reason": "will no longer be valid after migration to Cognito, migrate to `id`, or `idp_user_id` if the IDP ID is required",
+            },
+            field_name="user_id",
+        ),
+    )
     user_id_v1: Optional[str] = field(
-        default=None, metadata=config(field_name="user_id_v1")
+        default=None,
+        metadata=config(
+            metadata={
+                "deprecated": True,
+                "deprecation_reason": "superseded by `user_id`, which is also now deprecated",
+            },
+            field_name="user_id_v1",
+        ),
     )
     created_at: Optional[str] = field(
         default=None, metadata=config(field_name="created_at")

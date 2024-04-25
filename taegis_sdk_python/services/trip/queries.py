@@ -99,18 +99,3 @@ class TaegisSDKTripQuery:
         if result.get(endpoint) is not None:
             return ApiIntegrationHistoryPage.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for query listApiIntegrationHistory")
-
-    def get_api_integration_form(self, product_id: int) -> ApiForm:
-        """None."""
-        endpoint = "getApiIntegrationForm"
-
-        result = self.service.execute_query(
-            endpoint=endpoint,
-            variables={
-                "productId": prepare_input(product_id),
-            },
-            output=build_output_string(ApiForm),
-        )
-        if result.get(endpoint) is not None:
-            return ApiForm.from_dict(result.get(endpoint))
-        raise GraphQLNoRowsInResultSetError("for query getApiIntegrationForm")

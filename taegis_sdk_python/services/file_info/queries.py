@@ -30,14 +30,17 @@ class TaegisSDKFileInfoQuery:
     def __init__(self, service: FileInfoService):
         self.service = service
 
-    def file_info(self, file_hash: str) -> File:
-        """None."""
+    def file_info(
+        self, file_hash: str, include_all_rules: Optional[bool] = None
+    ) -> File:
+        """Returns details for a single file identified by the given hash. Set includeAllRules = true to include research rule matches."""
         endpoint = "fileInfo"
 
         result = self.service.execute_query(
             endpoint=endpoint,
             variables={
                 "fileHash": prepare_input(file_hash),
+                "includeAllRules": prepare_input(include_all_rules),
             },
             output=build_output_string(File),
         )
@@ -46,7 +49,7 @@ class TaegisSDKFileInfoQuery:
         raise GraphQLNoRowsInResultSetError("for query fileInfo")
 
     def file_info_counts(self, file_hash: str) -> FileCounts:
-        """None."""
+        """Returns the affected host and tenant counts for a single file."""
         endpoint = "fileInfoCounts"
 
         result = self.service.execute_query(
@@ -60,14 +63,17 @@ class TaegisSDKFileInfoQuery:
             return FileCounts.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for query fileInfoCounts")
 
-    def search_file_info(self, query: str) -> List[File]:
-        """None."""
+    def search_file_info(
+        self, query: str, include_all_rules: Optional[bool] = None
+    ) -> List[File]:
+        """Returns details for all files matching the given CQL query. Set includeAllRules = true to include research rule matches."""
         endpoint = "searchFileInfo"
 
         result = self.service.execute_query(
             endpoint=endpoint,
             variables={
                 "query": prepare_input(query),
+                "includeAllRules": prepare_input(include_all_rules),
             },
             output=build_output_string(File),
         )
@@ -78,7 +84,7 @@ class TaegisSDKFileInfoQuery:
         raise GraphQLNoRowsInResultSetError("for query searchFileInfo")
 
     def file_info_exists(self, file_hash: str) -> bool:
-        """None."""
+        """Returns true if we have details for a file with the given hash."""
         endpoint = "fileInfoExists"
 
         result = self.service.execute_query(

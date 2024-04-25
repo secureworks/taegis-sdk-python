@@ -232,7 +232,16 @@ class UserPreferenceDictionary:
     """UserPreferenceDictionary."""
 
     id: Optional[str] = field(default=None, metadata=config(field_name="id"))
-    user_id: Optional[str] = field(default=None, metadata=config(field_name="userID"))
+    user_id: Optional[str] = field(
+        default=None,
+        metadata=config(
+            metadata={"deprecated": True, "deprecation_reason": "Use `taegisUserId`"},
+            field_name="userID",
+        ),
+    )
+    taegis_user_id: Optional[str] = field(
+        default=None, metadata=config(field_name="taegisUserID")
+    )
     category: Optional[str] = field(
         default=None, metadata=config(field_name="category")
     )
@@ -285,7 +294,16 @@ class UserPreference:
     updated_at: Optional[str] = field(
         default=None, metadata=config(field_name="updated_at")
     )
-    user_id: Optional[str] = field(default=None, metadata=config(field_name="user_id"))
+    user_id: Optional[str] = field(
+        default=None,
+        metadata=config(
+            metadata={"deprecated": True, "deprecation_reason": "Use `taegis_user_id`"},
+            field_name="user_id",
+        ),
+    )
+    taegis_user_id: Optional[str] = field(
+        default=None, metadata=config(field_name="taegis_user_id")
+    )
     key: Optional[str] = field(default=None, metadata=config(field_name="key"))
     environment: Optional[str] = field(
         default=None, metadata=config(field_name="environment")
@@ -300,7 +318,16 @@ class UserPreference:
 class UserNotificationPreferencesResponse:
     """UserNotificationPreferencesResponse."""
 
-    user_id: Optional[str] = field(default=None, metadata=config(field_name="user_id"))
+    user_id: Optional[str] = field(
+        default=None,
+        metadata=config(
+            metadata={"deprecated": True, "deprecation_reason": "Use `taegis_user_id`"},
+            field_name="user_id",
+        ),
+    )
+    taegis_user_id: Optional[str] = field(
+        default=None, metadata=config(field_name="taegis_user_id")
+    )
     error: Optional[str] = field(default=None, metadata=config(field_name="error"))
     user_notification_preference: Optional[UserPreference] = field(
         default=None, metadata=config(field_name="user_notification_preference")

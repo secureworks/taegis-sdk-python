@@ -1352,6 +1352,35 @@ class UpdateThreatScoreResponse:
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
+class MatchedYaraRule:
+    """MatchedYaraRule."""
+
+    rule_name: Optional[str] = field(
+        default=None, metadata=config(field_name="rule_name")
+    )
+    rule_description: Optional[str] = field(
+        default=None, metadata=config(field_name="rule_description")
+    )
+    classification: Optional[str] = field(
+        default=None, metadata=config(field_name="classification")
+    )
+    confidence: Optional[float] = field(
+        default=None, metadata=config(field_name="confidence")
+    )
+    severity: Optional[float] = field(
+        default=None, metadata=config(field_name="severity")
+    )
+    attack_technique_ids: Optional[List[str]] = field(
+        default=None, metadata=config(field_name="attack_technique_ids")
+    )
+    vid: Optional[str] = field(default=None, metadata=config(field_name="vid"))
+    rule_created_date: Optional[Timestamp] = field(
+        default=None, metadata=config(field_name="rule_created_date")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
 class DDosIpCount:
     """DDosIpCount."""
 
@@ -2010,6 +2039,16 @@ class AlertsInvestigationInfo:
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
+class FileAnalysisDetail:
+    """FileAnalysisDetail."""
+
+    matched_yara_rule: Optional[List[MatchedYaraRule]] = field(
+        default=None, metadata=config(field_name="matched_yara_rule")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
 class HandsOnKeyboardDetails:
     """HandsOnKeyboardDetails."""
 
@@ -2177,6 +2216,9 @@ class EnrichmentDetail:
         AccountCompromiseDetectorDetail
     ] = field(
         default=None, metadata=config(field_name="account_compromise_detector_detail")
+    )
+    file_analysis_detail: Optional[FileAnalysisDetail] = field(
+        default=None, metadata=config(field_name="file_analysis_detail")
     )
     generic: Optional[GenericDetail] = field(
         default=None, metadata=config(field_name="generic")

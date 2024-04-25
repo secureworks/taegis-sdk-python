@@ -34,6 +34,10 @@ class TaegisSDKInvestigationsMutation:
         """Create new investigation."""
         endpoint = "createInvestigation"
 
+        log.warning(
+            f"GraphQL Mutation `{endpoint}` is deprecated: 'Use the createInvestigationV2 mutation'"
+        )
+
         result = self.service.execute_mutation(
             endpoint=endpoint,
             variables={
@@ -51,6 +55,10 @@ class TaegisSDKInvestigationsMutation:
         """Update investigation."""
         endpoint = "updateInvestigation"
 
+        log.warning(
+            f"GraphQL Mutation `{endpoint}` is deprecated: 'Use the updateInvestigationV2 mutation'"
+        )
+
         result = self.service.execute_mutation(
             endpoint=endpoint,
             variables={
@@ -67,6 +75,10 @@ class TaegisSDKInvestigationsMutation:
         """Archive investigation."""
         endpoint = "archiveInvestigation"
 
+        log.warning(
+            f"GraphQL Mutation `{endpoint}` is deprecated: 'Use the archiveInvestigationV2 mutation'"
+        )
+
         result = self.service.execute_mutation(
             endpoint=endpoint,
             variables={
@@ -81,6 +93,10 @@ class TaegisSDKInvestigationsMutation:
     def bulk_archive_investigations(self, ids: List[str]) -> List[str]:
         """Bulk Archive Investigations."""
         endpoint = "bulkArchiveInvestigations"
+
+        log.warning(
+            f"GraphQL Mutation `{endpoint}` is deprecated: 'Use the archiveInvestigationsV2 mutation'"
+        )
 
         result = self.service.execute_mutation(
             endpoint=endpoint,
@@ -97,6 +113,10 @@ class TaegisSDKInvestigationsMutation:
         """UnArchive Investigation."""
         endpoint = "unArchiveInvestigation"
 
+        log.warning(
+            f"GraphQL Mutation `{endpoint}` is deprecated: 'Use the unarchiveInvestigationV2 mutation'"
+        )
+
         result = self.service.execute_mutation(
             endpoint=endpoint,
             variables={
@@ -111,6 +131,10 @@ class TaegisSDKInvestigationsMutation:
     def bulk_un_archive_investigations(self, ids: List[str]) -> List[str]:
         """Bulk UnArchive Investigations."""
         endpoint = "bulkUnArchiveInvestigations"
+
+        log.warning(
+            f"GraphQL Mutation `{endpoint}` is deprecated: 'Use the unarchiveInvestigationsV2 mutation'"
+        )
 
         result = self.service.execute_mutation(
             endpoint=endpoint,
@@ -153,6 +177,10 @@ class TaegisSDKInvestigationsMutation:
         """Add assets to investigation."""
         endpoint = "addAssetsToInvestigation"
 
+        log.warning(
+            f"GraphQL Mutation `{endpoint}` is deprecated: 'Use the addEvidenceToInvestigation mutation'"
+        )
+
         result = self.service.execute_mutation(
             endpoint=endpoint,
             variables={
@@ -170,6 +198,10 @@ class TaegisSDKInvestigationsMutation:
     ) -> Investigation:
         """Add events to investigation."""
         endpoint = "addEventsToInvestigation"
+
+        log.warning(
+            f"GraphQL Mutation `{endpoint}` is deprecated: 'Use the addEvidenceToInvestigation mutation'"
+        )
 
         result = self.service.execute_mutation(
             endpoint=endpoint,
@@ -189,6 +221,10 @@ class TaegisSDKInvestigationsMutation:
         """Add alerts to investigation."""
         endpoint = "addAlertsToInvestigation"
 
+        log.warning(
+            f"GraphQL Mutation `{endpoint}` is deprecated: 'Use the addEvidenceToInvestigation mutation'"
+        )
+
         result = self.service.execute_mutation(
             endpoint=endpoint,
             variables={
@@ -206,6 +242,10 @@ class TaegisSDKInvestigationsMutation:
     ) -> Investigation:
         """Add genesis events to investigation."""
         endpoint = "addGenesisEventsToInvestigation"
+
+        log.warning(
+            f"GraphQL Mutation `{endpoint}` is deprecated: 'Use the addEvidenceToInvestigation mutation'"
+        )
 
         result = self.service.execute_mutation(
             endpoint=endpoint,
@@ -227,6 +267,10 @@ class TaegisSDKInvestigationsMutation:
         """Add genesis alerts to investigation."""
         endpoint = "addGenesisAlertsToInvestigation"
 
+        log.warning(
+            f"GraphQL Mutation `{endpoint}` is deprecated: 'Use the addEvidenceToInvestigation mutation'"
+        )
+
         result = self.service.execute_mutation(
             endpoint=endpoint,
             variables={
@@ -247,6 +291,10 @@ class TaegisSDKInvestigationsMutation:
         """Add auth credentials to investigation."""
         endpoint = "addAuthCredentialsToInvestigation"
 
+        log.warning(
+            f"GraphQL Mutation `{endpoint}` is deprecated: 'Use the addEvidenceToInvestigation mutation'"
+        )
+
         result = self.service.execute_mutation(
             endpoint=endpoint,
             variables={
@@ -266,6 +314,10 @@ class TaegisSDKInvestigationsMutation:
     ) -> Investigation:
         """Add search queries to investigation."""
         endpoint = "addSearchQueriesToInvestigation"
+
+        log.warning(
+            f"GraphQL Mutation `{endpoint}` is deprecated: 'Use the addEvidenceToInvestigation mutation'"
+        )
 
         result = self.service.execute_mutation(
             endpoint=endpoint,
@@ -291,6 +343,10 @@ class TaegisSDKInvestigationsMutation:
         """Access Vectors."""
         endpoint = "addAccessVector"
 
+        log.warning(
+            f"GraphQL Mutation `{endpoint}` is deprecated: 'Not currently supported and may not be supported in the future.'"
+        )
+
         result = self.service.execute_mutation(
             endpoint=endpoint,
             variables={
@@ -309,6 +365,10 @@ class TaegisSDKInvestigationsMutation:
         """None."""
         endpoint = "removeAccessVector"
 
+        log.warning(
+            f"GraphQL Mutation `{endpoint}` is deprecated: 'Not currently supported and may not be supported in the future.'"
+        )
+
         result = self.service.execute_mutation(
             endpoint=endpoint,
             variables={
@@ -325,6 +385,10 @@ class TaegisSDKInvestigationsMutation:
     ) -> Investigation:
         """Remove assets from investigation."""
         endpoint = "removeAssetsFromInvestigation"
+
+        log.warning(
+            f"GraphQL Mutation `{endpoint}` is deprecated: 'Use the removeEvidenceFromInvestigation mutation'"
+        )
 
         result = self.service.execute_mutation(
             endpoint=endpoint,
@@ -346,6 +410,10 @@ class TaegisSDKInvestigationsMutation:
         """Remove events from investigation."""
         endpoint = "removeEventsFromInvestigation"
 
+        log.warning(
+            f"GraphQL Mutation `{endpoint}` is deprecated: 'Use the removeEvidenceFromInvestigation mutation'"
+        )
+
         result = self.service.execute_mutation(
             endpoint=endpoint,
             variables={
@@ -366,6 +434,10 @@ class TaegisSDKInvestigationsMutation:
         """Remove alerts from investigation."""
         endpoint = "removeAlertsFromInvestigation"
 
+        log.warning(
+            f"GraphQL Mutation `{endpoint}` is deprecated: 'Use the removeEvidenceFromInvestigation mutation'"
+        )
+
         result = self.service.execute_mutation(
             endpoint=endpoint,
             variables={
@@ -385,6 +457,10 @@ class TaegisSDKInvestigationsMutation:
     ) -> Investigation:
         """Remove search queries from investigation."""
         endpoint = "removeSearchQueriesFromInvestigation"
+
+        log.warning(
+            f"GraphQL Mutation `{endpoint}` is deprecated: 'Use the removeEvidenceFromInvestigation mutation'"
+        )
 
         result = self.service.execute_mutation(
             endpoint=endpoint,
@@ -409,6 +485,10 @@ class TaegisSDKInvestigationsMutation:
         """Bulk add alerts to an investigation using restdb search query."""
         endpoint = "addBulkAlertsToInvestigation"
 
+        log.warning(
+            f"GraphQL Mutation `{endpoint}` is deprecated: 'Use the addEvidenceToInvestigation mutation'"
+        )
+
         result = self.service.execute_mutation(
             endpoint=endpoint,
             variables={
@@ -427,6 +507,10 @@ class TaegisSDKInvestigationsMutation:
     ) -> Investigation:
         """Bulk add alerts2 to an new investigation using cql query."""
         endpoint = "addBulkAlerts2ToInvestigation"
+
+        log.warning(
+            f"GraphQL Mutation `{endpoint}` is deprecated: 'Use the addEvidenceToInvestigation mutation'"
+        )
 
         result = self.service.execute_mutation(
             endpoint=endpoint,
@@ -447,6 +531,10 @@ class TaegisSDKInvestigationsMutation:
     ) -> Investigation:
         """Bulk add alerts2 to an existing investigation using cql query."""
         endpoint = "addBulkAlerts2ToExistingInvestigation"
+
+        log.warning(
+            f"GraphQL Mutation `{endpoint}` is deprecated: 'Use the addEvidenceToInvestigation mutation'"
+        )
 
         result = self.service.execute_mutation(
             endpoint=endpoint,
@@ -486,6 +574,10 @@ class TaegisSDKInvestigationsMutation:
         """Hard delete of investigation (Supported only in development environments)."""
         endpoint = "deleteInvestigation"
 
+        log.warning(
+            f"GraphQL Mutation `{endpoint}` is deprecated: 'Not supported - deleting investigations is not allowed'"
+        )
+
         result = self.service.execute_mutation(
             endpoint=endpoint,
             variables={
@@ -500,6 +592,10 @@ class TaegisSDKInvestigationsMutation:
     def acknowledge_investigation(self, investigation_id: str) -> str:
         """Update state_transitions table to acknowledge if current state is handoff, without changing the investigation itself."""
         endpoint = "acknowledgeInvestigation"
+
+        log.warning(
+            f"GraphQL Mutation `{endpoint}` is deprecated: 'Use the investigationV2 query'"
+        )
 
         result = self.service.execute_mutation(
             endpoint=endpoint,
@@ -516,6 +612,10 @@ class TaegisSDKInvestigationsMutation:
         """Upload File for an investigation."""
         endpoint = "fileUpload"
 
+        log.warning(
+            f"GraphQL Mutation `{endpoint}` is deprecated: 'Use the initInvestigationFileUpload query'"
+        )
+
         result = self.service.execute_mutation(
             endpoint=endpoint,
             variables={
@@ -530,6 +630,10 @@ class TaegisSDKInvestigationsMutation:
     def delete_file(self, investigation_id: str, file_id: str) -> bool:
         """Delete investigation files from S3 bucket."""
         endpoint = "deleteFile"
+
+        log.warning(
+            f"GraphQL Mutation `{endpoint}` is deprecated: 'Use the deleteInvestigationFile query'"
+        )
 
         result = self.service.execute_mutation(
             endpoint=endpoint,
@@ -547,6 +651,10 @@ class TaegisSDKInvestigationsMutation:
         """Initialize file upload to get Presigned URL to upload file."""
         endpoint = "initFileUpload"
 
+        log.warning(
+            f"GraphQL Mutation `{endpoint}` is deprecated: 'Use the initInvestigationFileUpload query'"
+        )
+
         result = self.service.execute_mutation(
             endpoint=endpoint,
             variables={
@@ -563,6 +671,10 @@ class TaegisSDKInvestigationsMutation:
     ) -> InvestigationFile:
         """Update investigation file  status."""
         endpoint = "updateFileStatus"
+
+        log.warning(
+            f"GraphQL Mutation `{endpoint}` is deprecated: 'No longer supported, migrate to the InvestigationsV2-API'"
+        )
 
         result = self.service.execute_mutation(
             endpoint=endpoint,

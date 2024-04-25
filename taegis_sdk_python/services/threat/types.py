@@ -19,7 +19,6 @@ class ThreatParentType(str, Enum):
 
     IP = "IP"
     DOMAIN = "DOMAIN"
-    FILE = "FILE"
 
 
 class ThreatIndicatorClass(str, Enum):

@@ -3,6 +3,7 @@ This needs to be a generated file.  Need to make jinja template.
 """
 
 from typing import Dict, Optional, Any
+import threading
 
 from taegis_sdk_python._consts import TAEGIS_ENVIRONMENT_URLS
 from taegis_sdk_python._version import __version__
@@ -20,6 +21,7 @@ from taegis_sdk_python.services.byoti import ByotiService
 from taegis_sdk_python.services.clients import ClientsService
 from taegis_sdk_python.services.collector import CollectorService
 from taegis_sdk_python.services.comments import CommentsService
+from taegis_sdk_python.services.contracted_endpoint import ContractedEndpointService
 from taegis_sdk_python.services.datasources import DatasourcesService
 from taegis_sdk_python.services.detector_registry import DetectorRegistryService
 from taegis_sdk_python.services.endpoint_command_manager import (
@@ -33,6 +35,7 @@ from taegis_sdk_python.services.events import EventsService
 from taegis_sdk_python.services.exports import ExportsService
 from taegis_sdk_python.services.fast_ioc import FastIocService
 from taegis_sdk_python.services.file_info import FileInfoService
+from taegis_sdk_python.services.ingest_stats import IngestStatsService
 from taegis_sdk_python.services.investigations import InvestigationsService
 from taegis_sdk_python.services.investigations2 import Investigations2Service
 from taegis_sdk_python.services.mitre_attack_info import MitreAttackInfoService
@@ -100,8 +103,8 @@ class GraphQLService:
 
         self._tenant_id = tenant_id
         self._gateway = gateway or "/graphql"
-        self._context_manager = {}
-        self._context_kwargs = []
+        self._thread_id = threading.get_ident()
+        self._context_kwargs = {}
         if not extra_headers:
             self._extra_headers = {}
         else:
@@ -120,6 +123,7 @@ class GraphQLService:
         self._clients = None
         self._collector = None
         self._comments = None
+        self._contracted_endpoint = None
         self._datasources = None
         self._detector_registry = None
         self._endpoint_command_manager = None
@@ -129,6 +133,7 @@ class GraphQLService:
         self._exports = None
         self._fast_ioc = None
         self._file_info = None
+        self._ingest_stats = None
         self._investigations = None
         self._investigations2 = None
         self._mitre_attack_info = None
@@ -151,22 +156,34 @@ class GraphQLService:
         self._users = None
 
     def __call__(self, **kwargs):
-        self._context_kwargs.append(kwargs)
+        if threading.get_ident() not in self._context_kwargs:
+            self._context_kwargs[threading.get_ident()] = []
+
+        self._context_kwargs[threading.get_ident()].append(kwargs)
         return self
 
     def __enter__(self):
-        for kwarg in self._context_kwargs:
-            self._context_manager.update(kwarg)
         return self
 
     def __exit__(self, exc_type, exc_val, exc_tb):
-        self._context_manager.clear()
+        if self._context_kwargs[threading.get_ident()]:
+            self._context_kwargs[threading.get_ident()].pop()
 
-        if self._context_kwargs:
-            self._context_kwargs.pop()
+        else:
+            del self._context_kwargs[threading.get_ident()]
 
-            for kwarg in self._context_kwargs:
-                self._context_manager.update(kwarg)
+    @property
+    def _context_manager(self):
+        """Internal Context Manager property."""
+        temp_context = {}
+
+        for kwarg in self._context_kwargs.get(self._thread_id, []):
+            temp_context.update(kwarg)
+        if self._thread_id != threading.get_ident():
+            for kwarg in self._context_kwargs.get(threading.get_ident(), []):
+                temp_context.update(kwarg)
+
+        return temp_context
 
     @property
     def environment(self):
@@ -326,6 +343,13 @@ class GraphQLService:
         return self._comments
 
     @property
+    def contracted_endpoint(self):
+        """ContractedEndpoint Service Endpoint."""
+        if not self._contracted_endpoint:
+            self._contracted_endpoint = ContractedEndpointService(self)
+        return self._contracted_endpoint
+
+    @property
     def datasources(self):
         """Datasources Service Endpoint."""
         if not self._datasources:
@@ -387,6 +411,13 @@ class GraphQLService:
         if not self._file_info:
             self._file_info = FileInfoService(self)
         return self._file_info
+
+    @property
+    def ingest_stats(self):
+        """IngestStats Service Endpoint."""
+        if not self._ingest_stats:
+            self._ingest_stats = IngestStatsService(self)
+        return self._ingest_stats
 
     @property
     def investigations(self):

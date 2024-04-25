@@ -34,6 +34,10 @@ class TaegisSDKInvestigationsQuery:
         """Get summary of investigations (tag and counts for each tag)."""
         endpoint = "investigationSummary"
 
+        log.warning(
+            f"GraphQL Query `{endpoint}` is deprecated: 'No longer supported, migrate to the InvestigationsV2-API'"
+        )
+
         result = self.service.execute_query(
             endpoint=endpoint,
             variables={},
@@ -48,6 +52,10 @@ class TaegisSDKInvestigationsQuery:
     def investigation(self, investigation_id: str) -> Investigation:
         """Get an investigation by id."""
         endpoint = "investigation"
+
+        log.warning(
+            f"GraphQL Query `{endpoint}` is deprecated: 'Use the investigationV2 query'"
+        )
 
         result = self.service.execute_query(
             endpoint=endpoint,
@@ -65,6 +73,10 @@ class TaegisSDKInvestigationsQuery:
     ) -> List[Investigation]:
         """Get investigations for the list of ids."""
         endpoint = "investigations"
+
+        log.warning(
+            f"GraphQL Query `{endpoint}` is deprecated: 'Use the investigationsV2 query'"
+        )
 
         result = self.service.execute_query(
             endpoint=endpoint,
@@ -100,7 +112,7 @@ class TaegisSDKInvestigationsQuery:
         endpoint = "allInvestigations"
 
         log.warning(
-            f"GraphQL Query `{endpoint}` is deprecated: 'replaced by investigationsSearch'"
+            f"GraphQL Query `{endpoint}` is deprecated: 'Use the investigationsV2 query'"
         )
 
         result = self.service.execute_query(
@@ -137,6 +149,10 @@ class TaegisSDKInvestigationsQuery:
         """Get the number of investigations created during a given time frame. Can optionslly pass in a desired 'transition_status' (handoff, acknowledge, resolution)."""
         endpoint = "investigationCountOverTime"
 
+        log.warning(
+            f"GraphQL Query `{endpoint}` is deprecated: 'No longer supported, migrate to the InvestigationsV2-API'"
+        )
+
         result = self.service.execute_query(
             endpoint=endpoint,
             variables={
@@ -158,6 +174,10 @@ class TaegisSDKInvestigationsQuery:
     ) -> TimeSummaryForGroup:
         """Get the average times it took to hand off, acknowledge, and resolve all investigations over the course of the period."""
         endpoint = "meanTimeSummaryOverPeriod"
+
+        log.warning(
+            f"GraphQL Query `{endpoint}` is deprecated: 'No longer supported, migrate to the InvestigationsV2-API'"
+        )
 
         result = self.service.execute_query(
             endpoint=endpoint,
@@ -181,6 +201,10 @@ class TaegisSDKInvestigationsQuery:
         """Get investigation assets by investigation id."""
         endpoint = "investigationAssets"
 
+        log.warning(
+            f"GraphQL Query `{endpoint}` is deprecated: 'No longer supported, migrate to the InvestigationsV2-API'"
+        )
+
         result = self.service.execute_query(
             endpoint=endpoint,
             variables={
@@ -202,6 +226,10 @@ class TaegisSDKInvestigationsQuery:
     ) -> InvestigationEventOutput:
         """Get investigation events by investigation id."""
         endpoint = "investigationEvents"
+
+        log.warning(
+            f"GraphQL Query `{endpoint}` is deprecated: 'No longer supported, migrate to the InvestigationsV2-API'"
+        )
 
         result = self.service.execute_query(
             endpoint=endpoint,
@@ -230,6 +258,10 @@ class TaegisSDKInvestigationsQuery:
         """
         endpoint = "investigationAlerts"
 
+        log.warning(
+            f"GraphQL Query `{endpoint}` is deprecated: 'No longer supported, migrate to the InvestigationsV2-API'"
+        )
+
         result = self.service.execute_query(
             endpoint=endpoint,
             variables={
@@ -250,6 +282,10 @@ class TaegisSDKInvestigationsQuery:
         """Get investigation genesis events by investigation id."""
         endpoint = "investigationGenesisEvents"
 
+        log.warning(
+            f"GraphQL Query `{endpoint}` is deprecated: 'No longer supported, migrate to the InvestigationsV2-API'"
+        )
+
         result = self.service.execute_query(
             endpoint=endpoint,
             variables={
@@ -266,6 +302,10 @@ class TaegisSDKInvestigationsQuery:
     def investigation_genesis_alerts(self, investigation_id: str) -> List[Alert]:
         """Get investigation genesis alerts by investigation id."""
         endpoint = "investigationGenesisAlerts"
+
+        log.warning(
+            f"GraphQL Query `{endpoint}` is deprecated: 'No longer supported, migrate to the InvestigationsV2-API'"
+        )
 
         result = self.service.execute_query(
             endpoint=endpoint,
@@ -284,6 +324,10 @@ class TaegisSDKInvestigationsQuery:
         """Get investigation auth credentials by investigation id."""
         endpoint = "investigationAuthCredentials"
 
+        log.warning(
+            f"GraphQL Query `{endpoint}` is deprecated: 'No longer supported, migrate to the InvestigationsV2-API'"
+        )
+
         result = self.service.execute_query(
             endpoint=endpoint,
             variables={
@@ -298,6 +342,10 @@ class TaegisSDKInvestigationsQuery:
     def investigation_search_queries(self, investigation_id: str) -> List[SearchQuery]:
         """Get investigation search queries by investigation id."""
         endpoint = "investigationSearchQueries"
+
+        log.warning(
+            f"GraphQL Query `{endpoint}` is deprecated: 'No longer supported, migrate to the InvestigationsV2-API'"
+        )
 
         result = self.service.execute_query(
             endpoint=endpoint,
@@ -318,6 +366,10 @@ class TaegisSDKInvestigationsQuery:
         """Get investigations by quering a string on events/alerts/genesis events/genesis alerts fields."""
         endpoint = "investigationsBulkEventsAlerts"
 
+        log.warning(
+            f"GraphQL Query `{endpoint}` is deprecated: 'No longer supported, migrate to the InvestigationsV2-API'"
+        )
+
         result = self.service.execute_query(
             endpoint=endpoint,
             variables={
@@ -335,6 +387,10 @@ class TaegisSDKInvestigationsQuery:
         """Updates Investigation Alerts and Investigation information from Alerts (ie Access Vectors)."""
         endpoint = "investigationsBulkUpdateAlerts"
 
+        log.warning(
+            f"GraphQL Query `{endpoint}` is deprecated: 'No longer supported, migrate to the InvestigationsV2-API'"
+        )
+
         result = self.service.execute_query(endpoint=endpoint, variables={}, output="")
         if result.get(endpoint) is not None:
             return result.get(endpoint)
@@ -345,6 +401,10 @@ class TaegisSDKInvestigationsQuery:
     ) -> List[SummaryGroup]:
         """Get summary of investigations and status filtered by updated_at."""
         endpoint = "investigationStatusSummary"
+
+        log.warning(
+            f"GraphQL Query `{endpoint}` is deprecated: 'No longer supported, migrate to the InvestigationsV2-API'"
+        )
 
         result = self.service.execute_query(
             endpoint=endpoint,
@@ -375,6 +435,10 @@ class TaegisSDKInvestigationsQuery:
         """
         endpoint = "investigationsSearch"
 
+        log.warning(
+            f"GraphQL Query `{endpoint}` is deprecated: 'Use the investigationsV2 query'"
+        )
+
         result = self.service.execute_query(
             endpoint=endpoint,
             variables={
@@ -395,6 +459,10 @@ class TaegisSDKInvestigationsQuery:
         """Investigations Advanced Search can perform aggregations/sorting/filtering on investigations using CQL."""
         endpoint = "investigationsAdvancedSearch"
 
+        log.warning(
+            f"GraphQL Query `{endpoint}` is deprecated: 'Use the investigationsV2 query'"
+        )
+
         result = self.service.execute_query(
             endpoint=endpoint,
             variables={
@@ -412,6 +480,10 @@ class TaegisSDKInvestigationsQuery:
         """Get investigation processing status by id."""
         endpoint = "investigationProcessingStatus"
 
+        log.warning(
+            f"GraphQL Query `{endpoint}` is deprecated: 'No longer supported, migrate to the InvestigationsV2-API'"
+        )
+
         result = self.service.execute_query(
             endpoint=endpoint,
             variables={
@@ -426,6 +498,10 @@ class TaegisSDKInvestigationsQuery:
     def get_false_positives(self, after: str, before: str) -> Dict[str, Any]:
         """MDR - false positives widget."""
         endpoint = "getFalsePositives"
+
+        log.warning(
+            f"GraphQL Query `{endpoint}` is deprecated: 'No longer supported, migrate to the InvestigationsV2-API'"
+        )
 
         result = self.service.execute_query(
             endpoint=endpoint,
@@ -443,6 +519,10 @@ class TaegisSDKInvestigationsQuery:
         """Get aggregated investigations counts based on CQL query."""
         endpoint = "investigationsCount"
 
+        log.warning(
+            f"GraphQL Query `{endpoint}` is deprecated: 'No longer supported, migrate to the InvestigationsV2-API'"
+        )
+
         result = self.service.execute_query(
             endpoint=endpoint,
             variables={
@@ -457,6 +537,10 @@ class TaegisSDKInvestigationsQuery:
     def investigations_status_count(self) -> InvestigationStatusCountResponse:
         """Get aggregated investigations status counts."""
         endpoint = "investigationsStatusCount"
+
+        log.warning(
+            f"GraphQL Query `{endpoint}` is deprecated: 'No longer supported, migrate to the InvestigationsV2-API'"
+        )
 
         result = self.service.execute_query(
             endpoint=endpoint,
@@ -481,6 +565,10 @@ class TaegisSDKInvestigationsQuery:
         """
         endpoint = "exportInvestigationsSearch"
 
+        log.warning(
+            f"GraphQL Query `{endpoint}` is deprecated: 'Use the investigationsV2 query'"
+        )
+
         result = self.service.execute_query(
             endpoint=endpoint,
             variables={
@@ -501,6 +589,10 @@ class TaegisSDKInvestigationsQuery:
         """Get investigation file details."""
         endpoint = "investigationFile"
 
+        log.warning(
+            f"GraphQL Query `{endpoint}` is deprecated: 'Use the investigationFileV2 query'"
+        )
+
         result = self.service.execute_query(
             endpoint=endpoint,
             variables={
@@ -515,6 +607,10 @@ class TaegisSDKInvestigationsQuery:
     def investigation_files(self, investigation_id: str) -> List[InvestigationFile]:
         """Get investigation files details."""
         endpoint = "investigationFiles"
+
+        log.warning(
+            f"GraphQL Query `{endpoint}` is deprecated: 'Use the investigationFilesV2 query'"
+        )
 
         result = self.service.execute_query(
             endpoint=endpoint,
@@ -532,6 +628,10 @@ class TaegisSDKInvestigationsQuery:
     def download_investigation_file(self, investigation_id: str, file_id: str) -> str:
         """Presigned URL to Download investigation file."""
         endpoint = "downloadInvestigationFile"
+
+        log.warning(
+            f"GraphQL Query `{endpoint}` is deprecated: 'Use the investigationFileV2 query'"
+        )
 
         result = self.service.execute_query(
             endpoint=endpoint,
@@ -558,7 +658,7 @@ class TaegisSDKInvestigationsQuery:
         endpoint = "investigationsBySession"
 
         log.warning(
-            f"GraphQL Query `{endpoint}` is deprecated: 'Not Supported - use investigationsSearch'"
+            f"GraphQL Query `{endpoint}` is deprecated: 'Use the investigationsV2 query'"
         )
 
         result = self.service.execute_query(
@@ -590,6 +690,10 @@ class TaegisSDKInvestigationsQuery:
         """
         endpoint = "getHandoffInvestigations"
 
+        log.warning(
+            f"GraphQL Query `{endpoint}` is deprecated: 'Use the investigationsV2 query'"
+        )
+
         result = self.service.execute_query(
             endpoint=endpoint,
             variables={
@@ -612,6 +716,10 @@ class TaegisSDKInvestigationsQuery:
         """Return investigation types list based on user."""
         endpoint = "investigationTypes"
 
+        log.warning(
+            f"GraphQL Query `{endpoint}` is deprecated: 'Use the investigationV2Types query'"
+        )
+
         result = self.service.execute_query(
             endpoint=endpoint,
             variables={},
@@ -627,6 +735,10 @@ class TaegisSDKInvestigationsQuery:
         """Return investigation status static list."""
         endpoint = "investigationStatusList"
 
+        log.warning(
+            f"GraphQL Query `{endpoint}` is deprecated: 'No longer supported, migrate to the InvestigationsV2-API enums'"
+        )
+
         result = self.service.execute_query(
             endpoint=endpoint,
             variables={},
@@ -641,6 +753,10 @@ class TaegisSDKInvestigationsQuery:
     def investigation_priority_list(self) -> List[InvestigationKeyValuePair]:
         """Return investigation priority static list."""
         endpoint = "investigationPriorityList"
+
+        log.warning(
+            f"GraphQL Query `{endpoint}` is deprecated: 'No longer supported, migrate to the InvestigationsV2-API enums'"
+        )
 
         result = self.service.execute_query(
             endpoint=endpoint,
@@ -659,6 +775,10 @@ class TaegisSDKInvestigationsQuery:
         """Return investigation timeline."""
         endpoint = "investigationTimeline"
 
+        log.warning(
+            f"GraphQL Query `{endpoint}` is deprecated: 'Use the investigationV2Types query'"
+        )
+
         result = self.service.execute_query(
             endpoint=endpoint,
             variables={
@@ -675,6 +795,8 @@ class TaegisSDKInvestigationsQuery:
     ) -> InvestigationEntities:
         """Get an investigation by id."""
         endpoint = "investigationEntities"
+
+        log.warning(f"GraphQL Query `{endpoint}` is deprecated: 'No longer supported'")
 
         result = self.service.execute_query(
             endpoint=endpoint,

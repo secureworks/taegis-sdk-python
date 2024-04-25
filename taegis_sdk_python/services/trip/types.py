@@ -65,13 +65,6 @@ class ApiFormItemType(str, Enum):
     OPTION = "Option"
 
 
-class ApiFormItemValidatorType(str, Enum):
-    """ApiFormItemValidatorType."""
-
-    PATTERN = "Pattern"
-    JSON = "Json"
-
-
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
 class ApiIntegrationParameterInput:
@@ -95,32 +88,8 @@ class ApiIntegrationParameter:
     """ApiIntegrationParameter."""
 
     name: Optional[str] = field(default=None, metadata=config(field_name="name"))
+    caption: Optional[str] = field(default=None, metadata=config(field_name="caption"))
     value: Optional[str] = field(default=None, metadata=config(field_name="value"))
-
-
-@dataclass_json
-@dataclass(order=True, eq=True, frozen=True)
-class ApiFormItemOption:
-    """ApiFormItemOption."""
-
-    order: Optional[int] = field(default=None, metadata=config(field_name="order"))
-    code: Optional[str] = field(default=None, metadata=config(field_name="code"))
-    description: Optional[str] = field(
-        default=None, metadata=config(field_name="description")
-    )
-
-
-@dataclass_json
-@dataclass(order=True, eq=True, frozen=True)
-class ApiFormItemValidator:
-    """ApiFormItemValidator."""
-
-    parameter: Optional[str] = field(
-        default=None, metadata=config(field_name="parameter")
-    )
-    type: Optional[ApiFormItemValidatorType] = field(
-        default=None, metadata=config(field_name="type")
-    )
 
 
 @dataclass_json
@@ -182,26 +151,8 @@ class ApiIntegrationSummary:
     status: Optional[ApiIntegrationHealthStatus] = field(
         default=None, metadata=config(field_name="status")
     )
-
-
-@dataclass_json
-@dataclass(order=True, eq=True, frozen=True)
-class ApiFormItem:
-    """ApiFormItem."""
-
-    order: Optional[int] = field(default=None, metadata=config(field_name="order"))
-    label: Optional[str] = field(default=None, metadata=config(field_name="label"))
-    caption: Optional[str] = field(default=None, metadata=config(field_name="caption"))
-    content: Optional[str] = field(default=None, metadata=config(field_name="content"))
-    secret: Optional[bool] = field(default=None, metadata=config(field_name="secret"))
-    type: Optional[ApiFormItemType] = field(
-        default=None, metadata=config(field_name="type")
-    )
-    options: Optional[List[ApiFormItemOption]] = field(
-        default=None, metadata=config(field_name="options")
-    )
-    validators: Optional[List[ApiFormItemValidator]] = field(
-        default=None, metadata=config(field_name="validators")
+    child_summaries: Optional[List["ApiIntegrationSummary"]] = field(
+        default=None, metadata=config(field_name="childSummaries")
     )
 
 
@@ -230,30 +181,14 @@ class ApiIntegration:
     parent_integration: Optional["ApiIntegration"] = field(
         default=None, metadata=config(field_name="parentIntegration")
     )
+    child_integrations: Optional[List["ApiIntegration"]] = field(
+        default=None, metadata=config(field_name="childIntegrations")
+    )
     status: Optional[ApiIntegrationStatus] = field(
         default=None, metadata=config(field_name="status")
     )
     parameters: Optional[List[ApiIntegrationParameter]] = field(
         default=None, metadata=config(field_name="parameters")
-    )
-
-
-@dataclass_json
-@dataclass(order=True, eq=True, frozen=True)
-class ApiForm:
-    """ApiForm."""
-
-    id: Optional[int] = field(default=None, metadata=config(field_name="id"))
-    active: Optional[bool] = field(default=None, metadata=config(field_name="active"))
-    title: Optional[str] = field(default=None, metadata=config(field_name="title"))
-    description: Optional[str] = field(
-        default=None, metadata=config(field_name="description")
-    )
-    product_id: Optional[int] = field(
-        default=None, metadata=config(field_name="productId")
-    )
-    items: Optional[List[ApiFormItem]] = field(
-        default=None, metadata=config(field_name="Items")
     )
 
 

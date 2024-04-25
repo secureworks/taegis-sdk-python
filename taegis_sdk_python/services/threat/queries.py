@@ -99,26 +99,6 @@ class TaegisSDKThreatQuery:
             )
         raise GraphQLNoRowsInResultSetError("for query threatLatestPublications")
 
-    def threat_object_by_id(
-        self, id_: str, object_type: ThreatObjectType
-    ) -> ThreatResult:
-        """Gets an object by `id`, `name` or `sharing_id`.."""
-        endpoint = "threatObjectById"
-
-        log.warning(f"GraphQL Query `{endpoint}` is deprecated: 'No longer supported'")
-
-        result = self.service.execute_query(
-            endpoint=endpoint,
-            variables={
-                "id": prepare_input(id_),
-                "objectType": prepare_input(object_type),
-            },
-            output=build_output_string(ThreatResult),
-        )
-        if result.get(endpoint) is not None:
-            return parse_union_result(ThreatResult, result.get(endpoint))
-        raise GraphQLNoRowsInResultSetError("for query threatObjectById")
-
     def threat_identities_by_confidence(self, confidence: int) -> List[ThreatResult]:
         """Gets identities by confidence score.."""
         endpoint = "threatIdentitiesByConfidence"
@@ -134,45 +114,10 @@ class TaegisSDKThreatQuery:
             return [parse_union_result(ThreatResult, r) for r in result.get(endpoint)]
         raise GraphQLNoRowsInResultSetError("for query threatIdentitiesByConfidence")
 
-    def threat_objects_related(self, source_id: str, target_id: str) -> bool:
-        """Checks if a relationship between source and target exists.."""
-        endpoint = "threatObjectsRelated"
-
-        log.warning(f"GraphQL Query `{endpoint}` is deprecated: 'No longer supported'")
-
-        result = self.service.execute_query(
-            endpoint=endpoint,
-            variables={
-                "sourceID": prepare_input(source_id),
-                "targetID": prepare_input(target_id),
-            },
-            output="",
-        )
-        if result.get(endpoint) is not None:
-            return result.get(endpoint)
-        raise GraphQLNoRowsInResultSetError("for query threatObjectsRelated")
-
-    def threat_get_related(self, source_id: str) -> List[ThreatResult]:
-        """Gets relationship(s) between source and target(s).."""
-        endpoint = "threatGetRelated"
-
-        log.warning(f"GraphQL Query `{endpoint}` is deprecated: 'No longer supported'")
-
-        result = self.service.execute_query(
-            endpoint=endpoint,
-            variables={
-                "sourceID": prepare_input(source_id),
-            },
-            output=build_output_string(ThreatResult),
-        )
-        if result.get(endpoint) is not None:
-            return [parse_union_result(ThreatResult, r) for r in result.get(endpoint)]
-        raise GraphQLNoRowsInResultSetError("for query threatGetRelated")
-
     def threat_watchlist(self, type_: ThreatParentType) -> List[ThreatRelationship]:
         """Gets a watchlist by type. All results are considered **high confidence**.
-        Only IP and DOMAIN types are supported. Used the paged service threatTimsMalwareFiles for FILE types..
-        """
+        Only IP and DOMAIN types are supported. FILE type has been removed from this endpoint.
+        Instead, use the paged endpoint threatTimsMalwareFiles for FILE types.."""
         endpoint = "threatWatchlist"
 
         result = self.service.execute_query(
@@ -228,6 +173,23 @@ class TaegisSDKThreatQuery:
                 [r or {} for r in result.get(endpoint)], many=True
             )
         raise GraphQLNoRowsInResultSetError("for query threatIndicatorPublications")
+
+    def threat_publications_indicators(self, id_: List[str]) -> List[ThreatIndicator]:
+        """Get list of indicators related to list of publications."""
+        endpoint = "threatPublicationsIndicators"
+
+        result = self.service.execute_query(
+            endpoint=endpoint,
+            variables={
+                "ID": prepare_input(id_),
+            },
+            output=build_output_string(ThreatIndicator),
+        )
+        if result.get(endpoint) is not None:
+            return ThreatIndicator.schema().load(
+                [r or {} for r in result.get(endpoint)], many=True
+            )
+        raise GraphQLNoRowsInResultSetError("for query threatPublicationsIndicators")
 
     def threat_indicator_intelligence(self, id_: str) -> ThreatIndicatorIntelligence:
         """Retrieves all intelligence associated with an indicator.."""

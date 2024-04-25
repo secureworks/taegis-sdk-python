@@ -8,6 +8,7 @@ import os
 from getpass import getpass
 from time import time
 from typing import Any, Dict, Tuple, Union, Optional
+import threading
 
 from oauthlib.oauth2 import BackendApplicationClient
 from requests import HTTPError, post
@@ -25,6 +26,8 @@ except ImportError:  # pragma: no cover
     from json.decoder import JSONDecodeError
 
 logger = logging.getLogger(__name__)
+
+LOCK = threading.RLock()
 
 
 def check_username(
@@ -103,23 +106,31 @@ def get_token(environment: str, request_url: str) -> str:  # pragma: no cover
     access_token = get_cached_token(environment)
 
     if not access_token:
-        client_id, client_secret = get_oauth_from_env(environment)
-        if client_id and client_secret:
-            access_token = get_token_by_oauth(request_url, client_id, client_secret)
-        else:
-            username = input("Username: ")
-            response = check_username(request_url, username)
+        with LOCK:
+            access_token = get_cached_token(environment)
 
-            if response.get("login_type") == "username-password":
-                access_token = get_token_by_password_grant(request_url, username)
-            elif response.get("login_type") == "sso":
-                access_token = get_token_by_sso_device_code(request_url)
-            else:
-                raise InvalidAuthenticationMethod(
-                    message="No known authenticition method for user"
-                )
+            if not access_token:
+                client_id, client_secret = get_oauth_from_env(environment)
+                if client_id and client_secret:
+                    access_token = get_token_by_oauth(
+                        request_url, client_id, client_secret
+                    )
+                else:
+                    username = input("Username: ")
+                    response = check_username(request_url, username)
 
-        write_to_config(environment, "access_token", access_token)
+                    if response.get("login_type") == "username-password":
+                        access_token = get_token_by_password_grant(
+                            request_url, username
+                        )
+                    elif response.get("login_type") == "sso":
+                        access_token = get_token_by_sso_device_code(request_url)
+                    else:
+                        raise InvalidAuthenticationMethod(
+                            message="No known authentication method for user"
+                        )
+
+                write_to_config(environment, "access_token", access_token)
 
     return access_token
 
@@ -130,7 +141,7 @@ def get_cached_token(env: str) -> Union[str, None]:  # pragma: no cover
 
     # check for token and expiry in config
     token = str(config.get(env, "access_token", fallback=""))
-    if token and get_token_exp(token) >= int(time()):
+    if token and get_token_exp(token) >= int(time()) + 15:
         return token
 
     return None

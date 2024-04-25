@@ -36,6 +36,10 @@ class TaegisSDKExportsQuery:
         """None."""
         endpoint = "allExports"
 
+        log.warning(
+            f"GraphQL Query `{endpoint}` is deprecated: 'Migration to V2 backend; Use 'searchReportsV2''"
+        )
+
         result = self.service.execute_query(
             endpoint=endpoint,
             variables={
@@ -53,6 +57,10 @@ class TaegisSDKExportsQuery:
         """None."""
         endpoint = "singleExport"
 
+        log.warning(
+            f"GraphQL Query `{endpoint}` is deprecated: 'Migration to V2 backend; Use 'reportV2''"
+        )
+
         result = self.service.execute_query(
             endpoint=endpoint,
             variables={
@@ -67,6 +75,10 @@ class TaegisSDKExportsQuery:
     def get_export_url(self, input_: str) -> str:
         """None."""
         endpoint = "getExportURL"
+
+        log.warning(
+            f"GraphQL Query `{endpoint}` is deprecated: 'Migration to V2 backend; Use 'downloadReportArtifactV2''"
+        )
 
         result = self.service.execute_query(
             endpoint=endpoint,

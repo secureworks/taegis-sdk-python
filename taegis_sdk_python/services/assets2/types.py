@@ -348,7 +348,11 @@ class AssetHostname:
         default=None, metadata=config(field_name="deletedAt")
     )
     last_seen_at: Optional[str] = field(
-        default=None, metadata=config(field_name="lastSeenAt")
+        default=None,
+        metadata=config(
+            metadata={"deprecated": True, "deprecation_reason": "use updatedAt"},
+            field_name="lastSeenAt",
+        ),
     )
 
 
@@ -372,7 +376,11 @@ class AssetIPAddress:
         default=None, metadata=config(field_name="deletedAt")
     )
     last_seen_at: Optional[str] = field(
-        default=None, metadata=config(field_name="lastSeenAt")
+        default=None,
+        metadata=config(
+            metadata={"deprecated": True, "deprecation_reason": "use updatedAt"},
+            field_name="lastSeenAt",
+        ),
     )
 
 
@@ -396,7 +404,11 @@ class AssetMacAddress:
         default=None, metadata=config(field_name="deletedAt")
     )
     last_seen_at: Optional[str] = field(
-        default=None, metadata=config(field_name="lastSeenAt")
+        default=None,
+        metadata=config(
+            metadata={"deprecated": True, "deprecation_reason": "use updatedAt"},
+            field_name="lastSeenAt",
+        ),
     )
 
 
@@ -594,19 +606,39 @@ class AssetHostnameWhereInput:
         default=None, metadata=config(field_name="hostname_autocomplete")
     )
     last_seen_at: Optional[str] = field(
-        default=None, metadata=config(field_name="lastSeenAt")
+        default=None,
+        metadata=config(
+            metadata={"deprecated": True, "deprecation_reason": "use updatedAt"},
+            field_name="lastSeenAt",
+        ),
     )
     last_seen_at_lt: Optional[str] = field(
-        default=None, metadata=config(field_name="lastSeenAt_lt")
+        default=None,
+        metadata=config(
+            metadata={"deprecated": True, "deprecation_reason": "use updatedAt_lt"},
+            field_name="lastSeenAt_lt",
+        ),
     )
     last_seen_at_lte: Optional[str] = field(
-        default=None, metadata=config(field_name="lastSeenAt_lte")
+        default=None,
+        metadata=config(
+            metadata={"deprecated": True, "deprecation_reason": "use updatedAt_lte"},
+            field_name="lastSeenAt_lte",
+        ),
     )
     last_seen_at_gt: Optional[str] = field(
-        default=None, metadata=config(field_name="lastSeenAt_gt")
+        default=None,
+        metadata=config(
+            metadata={"deprecated": True, "deprecation_reason": "use updatedAt_gt"},
+            field_name="lastSeenAt_gt",
+        ),
     )
     last_seen_at_gte: Optional[str] = field(
-        default=None, metadata=config(field_name="lastSeenAt_gte")
+        default=None,
+        metadata=config(
+            metadata={"deprecated": True, "deprecation_reason": "use updatedAt_gte"},
+            field_name="lastSeenAt_gte",
+        ),
     )
     updated_at: Optional[str] = field(
         default=None, metadata=config(field_name="updatedAt")
@@ -669,19 +701,39 @@ class AssetIPAddressWhereInput:
         default=None, metadata=config(field_name="ip_autocomplete")
     )
     last_seen_at: Optional[str] = field(
-        default=None, metadata=config(field_name="lastSeenAt")
+        default=None,
+        metadata=config(
+            metadata={"deprecated": True, "deprecation_reason": "use updatedAt"},
+            field_name="lastSeenAt",
+        ),
     )
     last_seen_at_lt: Optional[str] = field(
-        default=None, metadata=config(field_name="lastSeenAt_lt")
+        default=None,
+        metadata=config(
+            metadata={"deprecated": True, "deprecation_reason": "use updatedAt_lt"},
+            field_name="lastSeenAt_lt",
+        ),
     )
     last_seen_at_lte: Optional[str] = field(
-        default=None, metadata=config(field_name="lastSeenAt_lte")
+        default=None,
+        metadata=config(
+            metadata={"deprecated": True, "deprecation_reason": "use updatedAt_lte"},
+            field_name="lastSeenAt_lte",
+        ),
     )
     last_seen_at_gt: Optional[str] = field(
-        default=None, metadata=config(field_name="lastSeenAt_gt")
+        default=None,
+        metadata=config(
+            metadata={"deprecated": True, "deprecation_reason": "use updatedAt_gt"},
+            field_name="lastSeenAt_gt",
+        ),
     )
     last_seen_at_gte: Optional[str] = field(
-        default=None, metadata=config(field_name="lastSeenAt_gte")
+        default=None,
+        metadata=config(
+            metadata={"deprecated": True, "deprecation_reason": "use updatedAt_gte"},
+            field_name="lastSeenAt_gte",
+        ),
     )
     updated_at: Optional[str] = field(
         default=None, metadata=config(field_name="updatedAt")
@@ -744,19 +796,39 @@ class AssetMacAddressWhereInput:
         default=None, metadata=config(field_name="mac_autocomplete")
     )
     last_seen_at: Optional[str] = field(
-        default=None, metadata=config(field_name="lastSeenAt")
+        default=None,
+        metadata=config(
+            metadata={"deprecated": True, "deprecation_reason": "use updatedAt"},
+            field_name="lastSeenAt",
+        ),
     )
     last_seen_at_lt: Optional[str] = field(
-        default=None, metadata=config(field_name="lastSeenAt_lt")
+        default=None,
+        metadata=config(
+            metadata={"deprecated": True, "deprecation_reason": "use updatedAt_lt"},
+            field_name="lastSeenAt_lt",
+        ),
     )
     last_seen_at_lte: Optional[str] = field(
-        default=None, metadata=config(field_name="lastSeenAt_lte")
+        default=None,
+        metadata=config(
+            metadata={"deprecated": True, "deprecation_reason": "use updatedAt_lte"},
+            field_name="lastSeenAt_lte",
+        ),
     )
     last_seen_at_gt: Optional[str] = field(
-        default=None, metadata=config(field_name="lastSeenAt_gt")
+        default=None,
+        metadata=config(
+            metadata={"deprecated": True, "deprecation_reason": "use updatedAt_gt"},
+            field_name="lastSeenAt_gt",
+        ),
     )
     last_seen_at_gte: Optional[str] = field(
-        default=None, metadata=config(field_name="lastSeenAt_gte")
+        default=None,
+        metadata=config(
+            metadata={"deprecated": True, "deprecation_reason": "use updatedAt_gte"},
+            field_name="lastSeenAt_gte",
+        ),
     )
     updated_at: Optional[str] = field(
         default=None, metadata=config(field_name="updatedAt")

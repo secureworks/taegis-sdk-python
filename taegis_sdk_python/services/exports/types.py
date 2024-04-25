@@ -30,8 +30,10 @@ class ExportStatus(str, Enum):
 class RelativeTimeRange(str, Enum):
     """RelativeTimeRange."""
 
-    LAST_MONTH = "LAST_MONTH"
     CURRENT_MONTH_TO_DATE = "CURRENT_MONTH_TO_DATE"
+    LAST_MONTH = "LAST_MONTH"
+    LAST_QUARTER = "LAST_QUARTER"
+    LAST_YEAR = "LAST_YEAR"
 
 
 class ExportType(str, Enum):
@@ -262,6 +264,9 @@ class QueryWithTimeRangeInput:
     query: Optional[str] = field(default=None, metadata=config(field_name="query"))
     reference_time: Optional[str] = field(
         default=None, metadata=config(field_name="referenceTime")
+    )
+    time_zone: Optional[str] = field(
+        default=None, metadata=config(field_name="timeZone")
     )
     time_range: Optional[RelativeTimeRange] = field(
         default=None, metadata=config(field_name="timeRange")

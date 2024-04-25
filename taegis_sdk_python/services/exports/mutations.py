@@ -34,6 +34,10 @@ class TaegisSDKExportsMutation:
         """None."""
         endpoint = "newExport"
 
+        log.warning(
+            f"GraphQL Mutation `{endpoint}` is deprecated: 'Migration to V2 backend; Use 'createReportSpecV2''"
+        )
+
         result = self.service.execute_mutation(
             endpoint=endpoint,
             variables={
@@ -48,6 +52,10 @@ class TaegisSDKExportsMutation:
     def cancel_export(self, input_: str) -> Export:
         """None."""
         endpoint = "cancelExport"
+
+        log.warning(
+            f"GraphQL Mutation `{endpoint}` is deprecated: 'Migration to V2 backend; Use 'cancelReportArtifactV2''"
+        )
 
         result = self.service.execute_mutation(
             endpoint=endpoint,
@@ -64,6 +72,10 @@ class TaegisSDKExportsMutation:
         """None."""
         endpoint = "deleteExport"
 
+        log.warning(
+            f"GraphQL Mutation `{endpoint}` is deprecated: 'Migration to V2 backend; Use 'deleteReportArtifactV2''"
+        )
+
         result = self.service.execute_mutation(
             endpoint=endpoint,
             variables={
@@ -78,6 +90,10 @@ class TaegisSDKExportsMutation:
     def retry_export(self, id_: str) -> Export:
         """None."""
         endpoint = "retryExport"
+
+        log.warning(
+            f"GraphQL Mutation `{endpoint}` is deprecated: 'Migration to V2 backend; Use 'retryReportArtifactV2''"
+        )
 
         result = self.service.execute_mutation(
             endpoint=endpoint,

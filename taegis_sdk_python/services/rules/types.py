@@ -91,6 +91,25 @@ class RuleSource(str, Enum):
     CUSTOM = "CUSTOM"
 
 
+class AlertOrigin(str, Enum):
+    """AlertOrigin."""
+
+    INTERNAL = "INTERNAL"
+    CUSTOMER = "CUSTOMER"
+    EXTERNAL = "EXTERNAL"
+    PARTNER = "PARTNER"
+
+
+class AlertSeverity(str, Enum):
+    """AlertSeverity."""
+
+    INFO = "INFO"
+    LOW = "LOW"
+    MEDIUM = "MEDIUM"
+    HIGH = "HIGH"
+    CRITICAL = "CRITICAL"
+
+
 class RuleVisibility(str, Enum):
     """RuleVisibility."""
 
@@ -653,6 +672,12 @@ class RuleInput:
     status: Optional[RuleResolutionStatus] = field(
         default=None, metadata=config(field_name="status")
     )
+    origin: Optional[AlertOrigin] = field(
+        default=None, metadata=config(field_name="origin")
+    )
+    alert_severity: Optional[AlertSeverity] = field(
+        default=None, metadata=config(field_name="alertSeverity")
+    )
     rule_source: Optional[RuleSource] = field(
         default=None, metadata=config(field_name="ruleSource")
     )
@@ -732,6 +757,12 @@ class Rule:
     )
     status: Optional[RuleResolutionStatus] = field(
         default=None, metadata=config(field_name="status")
+    )
+    origin: Optional[AlertOrigin] = field(
+        default=None, metadata=config(field_name="origin")
+    )
+    alert_severity: Optional[AlertSeverity] = field(
+        default=None, metadata=config(field_name="alertSeverity")
     )
     attack_categories_details: Optional[List[AttackCategoryDetail]] = field(
         default=None, metadata=config(field_name="attackCategoriesDetails")

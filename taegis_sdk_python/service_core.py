@@ -8,8 +8,10 @@ from __future__ import annotations
 import logging
 from datetime import datetime, timedelta
 from typing import TYPE_CHECKING, Any, Dict, List, Optional, Union
+import threading
 
 from gql import Client, gql
+from gql.transport import Transport
 from gql.transport.requests import RequestsHTTPTransport
 from gql.transport.websockets import WebsocketsTransport
 from graphql import GraphQLError, GraphQLField, GraphQLSchema
@@ -25,57 +27,135 @@ log = logging.getLogger(__name__)
 
 
 class SchemaCache:
-    """GraphQL Schema Cache."""
+    """Taegis GraphQL Schema Cache."""
 
-    def __init__(self, schema: Optional[GraphQLSchema] = None, expires: int = 5):
-        """Initialize SchemaCache.
+    _lock = threading.RLock()
 
-        Parameters
-        ----------
-        schema : Optional[GraphQLSchema], optional
-            GraphQL schema object, by default None
-        expires : int, optional
-            Schema expires in minutes, by default 5
-        """
+    def __init__(self, expires: int, schema: Optional[GraphQLSchema] = None):
+        self._expires = expires
         self._schema = schema
         self._inserted_at = datetime.now()
-        self.expires = expires
 
-    @property
-    def schema(self) -> Union[GraphQLSchema, None]:
-        """Return GraphQLSchema if it exists and is not expired.
-
-        Returns
-        -------
-        Union[GraphQLSchema, None]
-            GraphQL Schema
-        """
-        if self._inserted_at + timedelta(minutes=self.expires) < datetime.now():
-            self.schema = None
-        return self._schema
-
-    @schema.setter
-    def schema(self, schema: Optional[GraphQLSchema]):
-        """Set schema and update inserted_at.
-
-        Parameters
-        ----------
-        schema :
-            _description_
-        """
-        if self._schema is not schema:
-            self._schema = schema
-            self._inserted_at = datetime.now()
-
-    def should_fetch_schema(self) -> bool:
-        """Return True if schema is should be fetched in transport.
+    def is_expired(self) -> bool:
+        """Returns if the schema is expired.
 
         Returns
         -------
         bool
-            True if schema is should be fetched in transport.
+            Is schema expired?
         """
-        return not self.schema
+        return self._inserted_at + timedelta(minutes=self._expires) <= datetime.now()
+
+    @property
+    def schema(self) -> Optional[GraphQLSchema]:
+        """Get the schema.
+
+        Returns
+        -------
+        Optional[GraphQLSchema]
+        """
+        log.debug(f"Schema is expired: {self.is_expired()}")
+
+        return self._schema
+
+
+class SchemaCacheMap:
+    """Taegis Schema Cache Map.
+
+    This is a singleton class that will cache the introspection schema for a given
+    GraphQL server.  The schema will be cached for a given amount of time and will
+    be retrieved from the transport if expired.
+    """
+
+    _instance = None
+    _lock = threading.RLock()
+
+    def __new__(cls, *args, **kwargs):
+        if cls._instance is None:
+            with cls._lock:
+                if cls._instance is None:
+                    cls._instance = super(SchemaCacheMap, cls).__new__(cls)
+                    cls._instance.__post_init__(*args, **kwargs)
+        return cls._instance
+
+    def __post_init__(self, expires: int = 5):
+        self._map = {}
+        self._expires = expires
+
+    def get(
+        self, transport: Transport, introspection_args: Dict[str, Any]
+    ) -> GraphQLSchema:
+        """Get the schema from the map.
+
+        Retrieves new schema if expired, thread locks to prevent another service
+        from retrieving the schema at the same time.
+
+        Parameters
+        ----------
+        transport : Transport
+            gql Transport
+        introspection_args : Dict[str, Any]
+            Introspection Query arguments
+
+        Returns
+        -------
+        GraphQLSchema
+        """
+        if transport.url not in self._map or self._map[transport.url].is_expired():
+            log.debug("Schema not in map or expired...")
+            with self._lock:
+                if (
+                    transport.url not in self._map
+                    or self._map[transport.url].is_expired()
+                ):
+                    self._map[transport.url] = SchemaCache(
+                        expires=self._expires,
+                        schema=self.retrieve_schema(transport, introspection_args),
+                    )
+
+        return self._map.get(transport.url).schema
+
+    def clear(self, transport: Transport):
+        """Clear the schema from the map.
+
+        Parameters
+        ----------
+        transport : Transport
+            gql Transport
+        """
+        if transport.url in self._map:
+            with self._lock:
+                if transport.url in self._map:
+                    del self._map[transport.url]
+
+    @staticmethod
+    def retrieve_schema(
+        transport: Transport, introspection_args: Dict[str, Any]
+    ) -> GraphQLSchema:
+        """Retrieve the schema from a gql Client with the provided transport and
+        introspection query arguments.
+
+        Parameters
+        ----------
+        transport : Transport
+        introspection_args : Dict[str, Any]
+
+        Returns
+        -------
+        GraphQLSchema
+        """
+        log.debug(f"Retrieving schema for {transport.url}...")
+
+        client = Client(
+            transport=transport,
+            fetch_schema_from_transport=True,
+            introspection_args=introspection_args,
+        )
+
+        with client:
+            schema = client.schema
+
+        return schema
 
 
 class ServiceCore:
@@ -88,7 +168,7 @@ class ServiceCore:
         self._gateway = self.service._gateway
         self._input_value_deprecation = True
 
-        self._schema = SchemaCache(schema=None, expires=self.service.schema_expiry)
+        self._cache_map = SchemaCacheMap(expires=self.service.schema_expiry)
 
         self._queries = None
         self._mutations = None
@@ -134,19 +214,17 @@ class ServiceCore:
 
         client = Client(
             transport=transport,
-            schema=self._schema.schema,
-            fetch_schema_from_transport=self._schema.should_fetch_schema(),
-            introspection_args={
-                "input_value_deprecation": (
-                    bool(self.service.input_value_deprecation)
-                    if self.service.input_value_deprecation is not None
-                    else self._input_value_deprecation
-                )
-            },
+            schema=self._cache_map.get(
+                transport,
+                introspection_args={
+                    "input_value_deprecation": (
+                        bool(self.service.input_value_deprecation)
+                        if self.service.input_value_deprecation is not None
+                        else self._input_value_deprecation
+                    )
+                },
+            ),
         )
-
-        with client:
-            self._schema.schema = client.schema
 
         return client
 
@@ -157,12 +235,6 @@ class ServiceCore:
             "graphql-ws",
             f"access-token-{self.service.access_token}",
         ]
-
-        # we cannot build the async client and use it to fetch the schema
-        # due to async issues with the transport.  This will grab the schema
-        # from a sync client and use it to build the async client.
-        if not self._schema.schema:
-            self.sync_client  # pylint: disable=pointless-statement
 
         if self.service.tenant_id:
             subprotocols.append(f"x-tenant-context-{self.service.tenant_id}")
@@ -176,15 +248,7 @@ class ServiceCore:
 
         client = Client(
             transport=transport,
-            schema=self._schema.schema,
-            fetch_schema_from_transport=self._schema.should_fetch_schema(),
-            introspection_args={
-                "input_value_deprecation": (
-                    bool(self.service.input_value_deprecation)
-                    if self.service.input_value_deprecation is not None
-                    else self._input_value_deprecation
-                )
-            },
+            schema=self.schema,
         )
 
         return client
@@ -197,13 +261,11 @@ class ServiceCore:
         -------
         GraphQLSchema
         """
-        if not self._schema.schema:
-            self.sync_client  # pylint: disable=pointless-statement
-        return self._schema.schema
+        return self.sync_client.schema
 
     def clear_schema(self):
         """Clears the introspection schema."""
-        self._schema.schema = None
+        self._cache_map.clear(self.sync_client.transport)
 
     def get_sync_schema(self) -> Union[GraphQLSchema, None]:
         """Retrieves introspection schema from Synchronous endpoint.
@@ -212,10 +274,7 @@ class ServiceCore:
         -------
         GraphQLSchema
         """
-        client = self.sync_client
-        with client:
-            schema = client.schema
-        return schema
+        return self.schema
 
     @async_block
     async def get_ws_schema(self) -> Union[GraphQLSchema, None]:
