@@ -33,7 +33,7 @@ class TaegisSDKInvestigations2Mutation:
     def create_investigation_v2(
         self, input_: CreateInvestigationInput
     ) -> InvestigationV2:
-        """Create new investigation."""
+        """createInvestigationV2 creates new investigation with the provided arguments.."""
         endpoint = "createInvestigationV2"
 
         result = self.service.execute_mutation(
@@ -50,7 +50,9 @@ class TaegisSDKInvestigations2Mutation:
     def update_investigation_v2(
         self, input_: UpdateInvestigationV2Input
     ) -> InvestigationV2:
-        """Update an existing investigation."""
+        """updateInvestigationV2 updates an existing investigation.
+        This is a PATCH style mutation, only fields that are send in the input will be updated..
+        """
         endpoint = "updateInvestigationV2"
 
         result = self.service.execute_mutation(
@@ -67,11 +69,17 @@ class TaegisSDKInvestigations2Mutation:
     def add_evidence_to_investigation(
         self, input_: AddEvidenceToInvestigationInput
     ) -> AddEvidenceToInvestigationResult:
-        """Add more evidence to an existing investigation
+        """addEvidenceToInvestigation will add more evidence to an existing investigation.
+        Evidence added through this mutation will not be considered genesis evidence.
+        The response will include the evidence that the service will attempt to add to the investigation.
 
-        This is a background job, it will be pretty quick, but added alerts/events will likely not show up in the returned investigation
-        The processing status will reflect where the the investigation is at in the processing job.
-        """
+        Adding evidence to investigations is an asynchronous operation.
+        It will typically finish pretty quickly, but added alerts/events will may not show up in the returned investigation until the async job is fully complete.
+        The processing status, that is found on the investigation type will reflect the state of the processing job.
+        Once the status is set to 'SUCCESS' the background job is complete and requesting the investigation will return the related evidence.
+
+        Adding, removing or updating evidence (closing an investigation) while other jobs are processing for a given investigation will cause the jobs to queue.
+        Jobs will be worked through in the order they were received.."""
         endpoint = "addEvidenceToInvestigation"
 
         result = self.service.execute_mutation(
@@ -88,11 +96,16 @@ class TaegisSDKInvestigations2Mutation:
     def remove_evidence_from_investigation(
         self, input_: RemoveEvidenceFromInvestigationInput
     ) -> RemoveEvidenceFromInvestigationResult:
-        """Remove evidence from an existing investigation
+        """removeEvidenceFromInvestigation will remove evidence from an existing investigation.
+        The response will include the evidence that the service will attempt to remove from the investigation.
 
-        This is a background job, it will be pretty quick, but removed alerts/events will likely still be present in the returned investigation
-        The processing status will reflect where the the investigation is at in the processing job.
-        """
+        Removing evidence from investigations is an asynchronous operation.
+        It will typically finish pretty quickly, but removed alerts/events will can remain attached to the investigation until the async job is fully complete.
+        The processing status, that is found on the investigation type will reflect the state of the processing job.
+        Once the status is set to 'SUCCESS' the background job is complete and requesting the investigation will only return evidence that was not removed.
+
+        Adding, removing or updating evidence (closing an investigation) while other jobs are processing for a given investigation will cause the jobs to queue.
+        Jobs will be worked through in the order they were received.."""
         endpoint = "removeEvidenceFromInvestigation"
 
         result = self.service.execute_mutation(
@@ -108,10 +121,36 @@ class TaegisSDKInvestigations2Mutation:
             "for mutation removeEvidenceFromInvestigation"
         )
 
+    def close_investigation(self, input_: CloseInvestigationInput) -> InvestigationV2:
+        """closeInvestigation will close an existing investigation.
+        If the investigation has alerts attached to it, the alertsResolutionStatus field is required and alerts will be resolved based on the provided status.
+        Once an investigation is closed, it can no longer be edited or have evidence added to it while in the closed state, it can only be archived.
+        A closed investigation can be reopened if changes are needed after closing.
+
+        Resolving evidence in an investigation is an asynchronous operation.
+        It will typically finish pretty quickly, but resolving alerts will may not reflect the updated status until the async job is fully complete.
+        The processing status, that is found on the investigation type will reflect the state of the processing job.
+        Once the status is set to 'SUCCESS' the background job is complete and the alerts will have been updated.
+
+        Adding, removing or updating evidence (closing an investigation) while other jobs are processing for a given investigation will cause the jobs to queue.
+        Jobs will be worked through in the order they were received.."""
+        endpoint = "closeInvestigation"
+
+        result = self.service.execute_mutation(
+            endpoint=endpoint,
+            variables={
+                "input": prepare_input(input_),
+            },
+            output=build_output_string(InvestigationV2),
+        )
+        if result.get(endpoint) is not None:
+            return InvestigationV2.from_dict(result.get(endpoint))
+        raise GraphQLNoRowsInResultSetError("for mutation closeInvestigation")
+
     def create_investigation_rule(
         self, input_: CreateInvestigationRuleInput
     ) -> InvestigationRule:
-        """Create a new investigation rule."""
+        """createInvestigationRule accepts input to create a new auto-investigation rule.."""
         endpoint = "createInvestigationRule"
 
         result = self.service.execute_mutation(
@@ -128,7 +167,7 @@ class TaegisSDKInvestigations2Mutation:
     def update_investigation_rule(
         self, input_: UpdateInvestigationRuleInput
     ) -> InvestigationRule:
-        """Update an existing investigation rule."""
+        """updateInvestigationRule accepts input to update an existing auto-investigation rule.."""
         endpoint = "updateInvestigationRule"
 
         result = self.service.execute_mutation(
@@ -145,7 +184,8 @@ class TaegisSDKInvestigations2Mutation:
     def delete_investigation_rule(
         self, input_: DeleteInvestigationRuleInput
     ) -> InvestigationRule:
-        """Delete an existing investigation rule - this is a hard delete at this time. Data will not be recoverable.."""
+        """deleteInvestigationRule removes an existing investigation rule.
+        This is a hard delete. Data will not be recoverable.."""
         endpoint = "deleteInvestigationRule"
 
         result = self.service.execute_mutation(
@@ -162,7 +202,7 @@ class TaegisSDKInvestigations2Mutation:
     def create_investigation_template(
         self, input_: CreateInvestigationTemplateInput
     ) -> InvestigationTemplate:
-        """Create a new investigation template."""
+        """createInvestigationTemplate accepts input to create a new auto-investigation template.."""
         endpoint = "createInvestigationTemplate"
 
         result = self.service.execute_mutation(
@@ -179,7 +219,7 @@ class TaegisSDKInvestigations2Mutation:
     def update_investigation_template(
         self, input_: UpdateInvestigationTemplateInput
     ) -> InvestigationTemplate:
-        """Update an existing investigation template."""
+        """updateInvestigationTemplate accepts input to update an existing auto-investigation template.."""
         endpoint = "updateInvestigationTemplate"
 
         result = self.service.execute_mutation(
@@ -196,7 +236,8 @@ class TaegisSDKInvestigations2Mutation:
     def delete_investigation_template(
         self, input_: DeleteInvestigationTemplateInput
     ) -> InvestigationTemplate:
-        """Delete an existing investigation template - this is a hard delete. Data will not be recoverable.."""
+        """deleteInvestigationTemplate removes an existing investigation template.
+        This is a hard delete. Data will not be recoverable.."""
         endpoint = "deleteInvestigationTemplate"
 
         result = self.service.execute_mutation(
@@ -213,7 +254,9 @@ class TaegisSDKInvestigations2Mutation:
     def import_investigation_resources(
         self, input_: ImportInvestigationResourcesInput
     ) -> List[InvestigationResource]:
-        """Create or update investigation resource(s)."""
+        """importInvestigationResources will import investigation resources (rules & templates) from a YAML file.
+        The input YAML structure can be retrieved from a YAML string exported from the exportInvestigationResources query..
+        """
         endpoint = "importInvestigationResources"
 
         result = self.service.execute_mutation(
@@ -233,7 +276,7 @@ class TaegisSDKInvestigations2Mutation:
     def add_comment_to_investigation(
         self, input_: AddCommentToInvestigationInput
     ) -> CommentV2:
-        """Add new comment to the provided investigation id."""
+        """addCommentToInvestigation adds a comment to an existing investigation.."""
         endpoint = "addCommentToInvestigation"
 
         result = self.service.execute_mutation(
@@ -250,7 +293,11 @@ class TaegisSDKInvestigations2Mutation:
     def update_investigation_comment(
         self, input_: UpdateInvestigationCommentInput
     ) -> CommentV2:
-        """Update existing comment."""
+        """updateInvestigationComment updates an existing comment on an investigation.
+        This is a PATCH style mutation, only fields that are send in the input will be updated.
+        Only the user who created the comment can update it.
+        Updating a comment and adding new @mentions will trigger new notifications but will not send notifications to @mentions that are already present in the comment..
+        """
         endpoint = "updateInvestigationComment"
 
         result = self.service.execute_mutation(
@@ -267,7 +314,8 @@ class TaegisSDKInvestigations2Mutation:
     def delete_investigation_comment(
         self, input_: DeleteInvestigationCommentInput
     ) -> CommentV2:
-        """Delete an investigation comment- this is a hard delete at this time. Data will not be recoverable.."""
+        """deleteInvestigationComment removes an existing comment from an investigation.
+        This is a hard delete. Data will not be recoverable.."""
         endpoint = "deleteInvestigationComment"
 
         result = self.service.execute_mutation(
@@ -281,25 +329,13 @@ class TaegisSDKInvestigations2Mutation:
             return CommentV2.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for mutation deleteInvestigationComment")
 
-    def close_investigation(self, input_: CloseInvestigationInput) -> InvestigationV2:
-        """Close an investigation and resolve associated alerts (if exists) asynchronously."""
-        endpoint = "closeInvestigation"
-
-        result = self.service.execute_mutation(
-            endpoint=endpoint,
-            variables={
-                "input": prepare_input(input_),
-            },
-            output=build_output_string(InvestigationV2),
-        )
-        if result.get(endpoint) is not None:
-            return InvestigationV2.from_dict(result.get(endpoint))
-        raise GraphQLNoRowsInResultSetError("for mutation closeInvestigation")
-
     def archive_investigation_v2(
         self, input_: ArchiveInvestigationInput
     ) -> InvestigationV2:
-        """Archive investigation."""
+        """archiveInvestigationV2 archives an existing investigation.
+        Only investigations that are closed can be archived.
+        There may be some investigations that are archived but not in closed states, these are legacy investigations that were archived before the "closed" requirement was introduced..
+        """
         endpoint = "archiveInvestigationV2"
 
         result = self.service.execute_mutation(
@@ -316,7 +352,7 @@ class TaegisSDKInvestigations2Mutation:
     def unarchive_investigation_v2(
         self, input_: UnarchiveInvestigationInput
     ) -> InvestigationV2:
-        """Unarchive investigation."""
+        """unarchiveInvestigationV2 unarchives an archived investigation.."""
         endpoint = "unarchiveInvestigationV2"
 
         result = self.service.execute_mutation(
@@ -333,7 +369,10 @@ class TaegisSDKInvestigations2Mutation:
     def archive_investigations_v2(
         self, input_: ArchiveInvestigationsInput
     ) -> ArchivedInvestigations:
-        """Bulk archive investigations."""
+        """archiveInvestigationsV2 archives a set of existing investigations.
+        Only investigations that are closed can be archived.
+        The response will include the ids of the investigations that were successfully archived and will not return errors for investigations that could not be archived..
+        """
         endpoint = "archiveInvestigationsV2"
 
         result = self.service.execute_mutation(
@@ -350,7 +389,9 @@ class TaegisSDKInvestigations2Mutation:
     def unarchive_investigations_v2(
         self, input_: UnarchiveInvestigationsInput
     ) -> UnarchivedInvestigations:
-        """Bulk unarchive investigations."""
+        """unarchiveInvestigationsV2 unarchives a set of archived investigations.
+        The response will include the ids of the investigations that were successfully unarchived and will not return errors for investigations that could not be unarchived..
+        """
         endpoint = "unarchiveInvestigationsV2"
 
         result = self.service.execute_mutation(
@@ -367,7 +408,9 @@ class TaegisSDKInvestigations2Mutation:
     def init_investigation_file_upload(
         self, input_: InitInvestigationFileUploadInput
     ) -> InvestigationFileUpload:
-        """Initialize file upload to get Presigned URL to upload file."""
+        """initInvestigationFileUpload initializes a file upload for an investigation.
+        The response will include a pre-signed URL that can be used to upload a file to the investigation..
+        """
         endpoint = "initInvestigationFileUpload"
 
         result = self.service.execute_mutation(
@@ -384,7 +427,8 @@ class TaegisSDKInvestigations2Mutation:
     def delete_investigation_file(
         self, input_: DeleteInvestigationFileInput
     ) -> InvestigationFileV2:
-        """Delete investigation file."""
+        """deleteInvestigationFile removes an existing file from an investigation.
+        This is a hard delete. Data will not be recoverable.."""
         endpoint = "deleteInvestigationFile"
 
         result = self.service.execute_mutation(

@@ -31,7 +31,7 @@ class TaegisSDKInvestigations2Query:
         self.service = service
 
     def investigation_v2(self, arguments: InvestigationV2Arguments) -> InvestigationV2:
-        """Get an Investigation."""
+        """investigationV2 gets a single Investigation.."""
         endpoint = "investigationV2"
 
         result = self.service.execute_query(
@@ -48,7 +48,7 @@ class TaegisSDKInvestigations2Query:
     def investigations_v2(
         self, arguments: InvestigationsV2Arguments
     ) -> InvestigationsV2:
-        """Search investigations."""
+        """investigationsV2 returns a list of investigations matching the provided arguments.."""
         endpoint = "investigationsV2"
 
         result = self.service.execute_query(
@@ -65,7 +65,7 @@ class TaegisSDKInvestigations2Query:
     def investigation_rule(
         self, arguments: InvestigationRuleArguments
     ) -> InvestigationRule:
-        """Get an auto-investigation rule."""
+        """investigationRule gets an auto-investigation rule."""
         endpoint = "investigationRule"
 
         result = self.service.execute_query(
@@ -82,7 +82,7 @@ class TaegisSDKInvestigations2Query:
     def investigation_rules(
         self, arguments: InvestigationRulesArguments
     ) -> InvestigationRules:
-        """Get auto-investigation rules."""
+        """investigationRules returns a list of investigation rules matching the provided arguments.."""
         endpoint = "investigationRules"
 
         result = self.service.execute_query(
@@ -99,7 +99,7 @@ class TaegisSDKInvestigations2Query:
     def investigation_template(
         self, arguments: InvestigationTemplateArguments
     ) -> InvestigationTemplate:
-        """Get an auto-investigation template."""
+        """investigationTemplate gets an auto-investigation template."""
         endpoint = "investigationTemplate"
 
         result = self.service.execute_query(
@@ -116,7 +116,7 @@ class TaegisSDKInvestigations2Query:
     def investigation_templates(
         self, arguments: InvestigationTemplatesArguments
     ) -> InvestigationTemplates:
-        """Get auto-investigation templates."""
+        """investigationTemplates returns a list of investigation templates matching the provided arguments.."""
         endpoint = "investigationTemplates"
 
         result = self.service.execute_query(
@@ -133,7 +133,9 @@ class TaegisSDKInvestigations2Query:
     def export_investigation_resources(
         self, arguments: ExportInvestigationResourcesArguments
     ) -> InvestigationResourceExport:
-        """Get the yaml string for auto-investigation resources (rules & templates)."""
+        """exportInvestigationResources returns a YAML string representation for auto-investigation resources (rules & templates).
+        The returned string can be saved into a file and imported back into the system using importInvestigationResources..
+        """
         endpoint = "exportInvestigationResources"
 
         result = self.service.execute_query(
@@ -150,7 +152,7 @@ class TaegisSDKInvestigations2Query:
     def investigation_v2_timeline(
         self, arguments: InvestigationV2TimelineArguments
     ) -> InvestigationV2Timeline:
-        """Get the investigation timeline."""
+        """investigationV2Timeline returns an investigation timeline detailing the order of alerts, events and other actions taken in relation to an investigation.."""
         endpoint = "investigationV2Timeline"
 
         result = self.service.execute_query(
@@ -165,7 +167,7 @@ class TaegisSDKInvestigations2Query:
         raise GraphQLNoRowsInResultSetError("for query investigationV2Timeline")
 
     def comments_v2(self, arguments: CommentsV2Arguments) -> CommentsV2:
-        """Get all investigation comments."""
+        """commentsV2 returns all the comments for an investigation."""
         endpoint = "commentsV2"
 
         result = self.service.execute_query(
@@ -180,7 +182,7 @@ class TaegisSDKInvestigations2Query:
         raise GraphQLNoRowsInResultSetError("for query commentsV2")
 
     def investigation_v2_types(self) -> List[InvestigationV2Type]:
-        """Get investigation types list based on user."""
+        """investigationV2Types returns the available investigation types for a given user and the current tenant's service level."""
         endpoint = "investigationV2Types"
 
         result = self.service.execute_query(
@@ -197,7 +199,8 @@ class TaegisSDKInvestigations2Query:
     def investigation_file_v2(
         self, arguments: InvestigationFileV2Arguments
     ) -> InvestigationFileV2:
-        """Get investigation file meta details - includes presigned download url."""
+        """investigationFileV2 returns file details for a single file attached to an investigation based on the arguments provided.
+        The result will also include a pre-signed download url.."""
         endpoint = "investigationFileV2"
 
         result = self.service.execute_query(
@@ -214,7 +217,9 @@ class TaegisSDKInvestigations2Query:
     def investigation_files_v2(
         self, arguments: InvestigationFilesV2Arguments
     ) -> InvestigationFilesV2:
-        """Get investigation files meta details - does not include presigned download urls."""
+        """investigationFilesV2 returns file details for all files matching the arguments provided.
+        The results will not include pre-signed download urls for each file metadata returned..
+        """
         endpoint = "investigationFilesV2"
 
         result = self.service.execute_query(

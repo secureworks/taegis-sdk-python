@@ -74,6 +74,10 @@ class TenantEnvironment(str, Enum):
     """TenantEnvironment."""
 
     PILOT = "pilot"
+    PILOT_CHARLIE = "pilot_charlie"
+    PILOT_DELTA = "pilot_delta"
+    PILOT_ECHO = "pilot_echo"
+    PILOT_FOXTROT = "pilot_foxtrot"
     CHARLIE = "charlie"
     ECHO = "echo"
     DELTA = "delta"
@@ -124,6 +128,7 @@ class AuditAction(str, Enum):
     ENABLE_TENANT = "enable_tenant"
     ENABLED_SUPPORT_STATUS = "enabled_support_status"
     REMOVE_SERVICE_TO_TENANT = "remove_service_to_tenant"
+    DELETE_SERVICE_FROM_TENANT = "delete_service_from_tenant"
     TENANT_ADDED = "tenant_added"
     TENANT_DISABLED = "tenant_disabled"
     TENANT_REMOVED = "tenant_removed"

@@ -166,11 +166,12 @@ class GraphQLService:
         return self
 
     def __exit__(self, exc_type, exc_val, exc_tb):
-        if self._context_kwargs[threading.get_ident()]:
-            self._context_kwargs[threading.get_ident()].pop()
+        if threading.get_ident() in self._context_kwargs:
+            if self._context_kwargs[threading.get_ident()]:
+                self._context_kwargs[threading.get_ident()].pop()
 
-        else:
-            del self._context_kwargs[threading.get_ident()]
+            else:
+                del self._context_kwargs[threading.get_ident()]
 
     @property
     def _context_manager(self):
