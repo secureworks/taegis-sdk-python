@@ -1,4 +1,5 @@
 """"Collector Service."""
+
 from taegis_sdk_python.service_core import ServiceCore
 from taegis_sdk_python.services.collector.mutations import TaegisSDKCollectorMutation
 from taegis_sdk_python.services.collector.queries import TaegisSDKCollectorQuery

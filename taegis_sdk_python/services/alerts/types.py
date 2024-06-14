@@ -212,6 +212,19 @@ class PollRequestInput:
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
+class AlertsCountByTenantInput:
+    """AlertsCountByTenantInput."""
+
+    ql_query: Optional[str] = field(
+        default=None, metadata=config(field_name="ql_query")
+    )
+    tenant_service_filters: Optional[List[str]] = field(
+        default=None, metadata=config(field_name="tenant_service_filters")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
 class SearchRequestInput:
     """SearchRequestInput."""
 
@@ -506,6 +519,14 @@ class AggregationKeys:
 
     key: Optional[str] = field(default=None, metadata=config(field_name="key"))
     value: Optional[str] = field(default=None, metadata=config(field_name="value"))
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class TenantV4:
+    """TenantV4."""
+
+    id: Optional[str] = field(default=None, metadata=config(field_name="id"))
 
 
 @dataclass_json
@@ -1256,6 +1277,27 @@ class AlertsAggregateResponse_AlertsAggregation:
     count: Optional[int] = field(default=None, metadata=config(field_name="count"))
     severities: Optional[AlertsAggregateResponse_AlertsAggregation_Severity] = field(
         default=None, metadata=config(field_name="severities")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class AlertsCountByTenantResponseItem:
+    """AlertsCountByTenantResponseItem."""
+
+    count: Optional[int] = field(default=None, metadata=config(field_name="count"))
+    tenant: Optional[TenantV4] = field(
+        default=None, metadata=config(field_name="tenant")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class AlertsCountByTenantResponse:
+    """AlertsCountByTenantResponse."""
+
+    items: Optional[List[AlertsCountByTenantResponseItem]] = field(
+        default=None, metadata=config(field_name="items")
     )
 
 
@@ -2033,7 +2075,14 @@ class AlertsInvestigationInfo:
         default=None, metadata=config(field_name="alert_resource_id")
     )
     initial_access_vector_info: Optional[List[InitialAccessVectorInfo]] = field(
-        default=None, metadata=config(field_name="initial_access_vector_info")
+        default=None,
+        metadata=config(
+            metadata={
+                "deprecated": True,
+                "deprecation_reason": "data no longer exists",
+            },
+            field_name="initial_access_vector_info",
+        ),
     )
 
 
@@ -2090,7 +2139,14 @@ class BulkInvestigationsResponse:
         default=None, metadata=config(field_name="status")
     )
     access_vector_info: Optional[List[AlertsInvestigationInfo]] = field(
-        default=None, metadata=config(field_name="access_vector_info")
+        default=None,
+        metadata=config(
+            metadata={
+                "deprecated": True,
+                "deprecation_reason": "data no longer exists",
+            },
+            field_name="access_vector_info",
+        ),
     )
 
 
@@ -2111,7 +2167,14 @@ class UpdateInvestigationResponse:
         default=None, metadata=config(field_name="status")
     )
     access_vector_info: Optional[List[AlertsInvestigationInfo]] = field(
-        default=None, metadata=config(field_name="access_vector_info")
+        default=None,
+        metadata=config(
+            metadata={
+                "deprecated": True,
+                "deprecation_reason": "data no longer exists",
+            },
+            field_name="access_vector_info",
+        ),
     )
 
 
@@ -2238,7 +2301,14 @@ class Alert2:
         default=None, metadata=config(field_name="attack_technique_ids")
     )
     tenant_id: Optional[str] = field(
-        default=None, metadata=config(field_name="tenant_id")
+        default=None,
+        metadata=config(
+            metadata={
+                "deprecated": True,
+                "deprecation_reason": "being replaced with Tenant field",
+            },
+            field_name="tenant_id",
+        ),
     )
     parent_tenant_id: Optional[str] = field(
         default=None, metadata=config(field_name="parent_tenant_id")
@@ -2261,6 +2331,9 @@ class Alert2:
     )
     visibility: Optional[Visibility] = field(
         default=None, metadata=config(field_name="visibility")
+    )
+    tenant: Optional[TenantV4] = field(
+        default=None, metadata=config(field_name="tenant")
     )
     suppression_rules: Optional[List[AlertRuleReference]] = field(
         default=None, metadata=config(field_name="suppression_rules")

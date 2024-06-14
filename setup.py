@@ -1,5 +1,8 @@
-import setuptools
+"""setup.py"""
+
 from pathlib import Path
+
+import setuptools
 
 README = Path() / "README.md"
 if not README.exists():

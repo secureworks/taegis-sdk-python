@@ -1,4 +1,5 @@
 """"Users Service."""
+
 from taegis_sdk_python.service_core import ServiceCore
 from taegis_sdk_python.services.users.mutations import TaegisSDKUsersMutation
 from taegis_sdk_python.services.users.queries import TaegisSDKUsersQuery

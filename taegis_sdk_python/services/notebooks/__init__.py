@@ -1,4 +1,5 @@
 """Notebooks Service."""
+
 from taegis_sdk_python.service_core import ServiceCore
 from taegis_sdk_python.services.notebooks.mutations import TaegisSDKNotebooksMutation
 from taegis_sdk_python.services.notebooks.queries import TaegisSDKNotebooksQuery

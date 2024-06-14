@@ -155,8 +155,7 @@ class TaegisSDKAssets2Mutation:
     ) -> BulkOpPayloadV2:
         """Start a job to assign the endpoints matching the filter criteria to the
         investigation in the input. Use the task ID in the response to poll the
-        assignBulkAssetsToInvestigationStatus query to determine if the job succeeded..
-        """
+        assignBulkAssetsToInvestigationStatus query to determine if the job succeeded.."""
         endpoint = "assignBulkAssetsToInvestigation"
 
         result = self.service.execute_mutation(
@@ -177,8 +176,7 @@ class TaegisSDKAssets2Mutation:
     ) -> BulkOpPayloadV2:
         """Start a job to delete the provided investigation from the endpoints matching
         the filter criteria in the input. Use the task ID in the response to poll the
-        bulkDeleteInvestigationForEndpointsStatus query to determine if the job succeeded..
-        """
+        bulkDeleteInvestigationForEndpointsStatus query to determine if the job succeeded.."""
         endpoint = "bulkDeleteInvestigationForEndpoints"
 
         result = self.service.execute_mutation(

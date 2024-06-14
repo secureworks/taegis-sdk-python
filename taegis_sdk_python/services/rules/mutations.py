@@ -195,8 +195,7 @@ class TaegisSDKRulesMutation:
     def restore_rule(self, rule_id: str) -> Rule:
         """Restore the given rule from deleted status.
 
-        It will remain disabled from being deleted and can be enabled with enableRule..
-        """
+        It will remain disabled from being deleted and can be enabled with enableRule.."""
         endpoint = "restoreRule"
 
         result = self.service.execute_mutation(

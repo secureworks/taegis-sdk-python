@@ -62,3 +62,14 @@ class TaegisSDKNotebooksMutation:
         if result.get(endpoint) is not None:
             return Notebook.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for mutation shutdownNotebook")
+
+    def delete_notebook(self) -> Notebook:
+        """deletes the current users notebook instance."""
+        endpoint = "deleteNotebook"
+
+        result = self.service.execute_mutation(
+            endpoint=endpoint, variables={}, output=build_output_string(Notebook)
+        )
+        if result.get(endpoint) is not None:
+            return Notebook.from_dict(result.get(endpoint))
+        raise GraphQLNoRowsInResultSetError("for mutation deleteNotebook")

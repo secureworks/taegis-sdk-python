@@ -1,4 +1,5 @@
 """Alerts Service."""
+
 from taegis_sdk_python.service_core import ServiceCore
 from taegis_sdk_python.services.alerts.mutations import TaegisSDKAlertsMutation
 from taegis_sdk_python.services.alerts.queries import TaegisSDKAlertsQuery

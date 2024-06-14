@@ -83,6 +83,8 @@ class AssetSearchOrderByInputV2(str, Enum):
     TAG_VALUE_DESC = "tag_value_desc"
     TAG_ASC = "tag_asc"
     TAG_DESC = "tag_desc"
+    VULNERABILITY_STATUS_ASC = "vulnerability_status_asc"
+    VULNERABILITY_STATUS_DESC = "vulnerability_status_desc"
 
 
 class AssetHostnameSearchOrderByInput(str, Enum):
@@ -146,6 +148,79 @@ class BulkOpStatusV2(str, Enum):
     TASK_STATE_FAILED = "TASK_STATE_FAILED"
     TASK_STATE_COMPLETED = "TASK_STATE_COMPLETED"
     TASK_STATE_IN_PROGRESS = "TASK_STATE_IN_PROGRESS"
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class FileAnalysis:
+    """FileAnalysis."""
+
+    enabled: Optional[bool] = field(default=None, metadata=config(field_name="enabled"))
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class AutoArchive:
+    """AutoArchive."""
+
+    enabled: Optional[bool] = field(default=None, metadata=config(field_name="enabled"))
+    period: Optional[int] = field(default=None, metadata=config(field_name="period"))
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class TamperProtection:
+    """TamperProtection."""
+
+    enabled: Optional[bool] = field(default=None, metadata=config(field_name="enabled"))
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class AdvancedKernelTelemetry:
+    """AdvancedKernelTelemetry."""
+
+    enabled: Optional[bool] = field(default=None, metadata=config(field_name="enabled"))
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class MaintenanceWindow:
+    """MaintenanceWindow."""
+
+    enabled: Optional[bool] = field(default=None, metadata=config(field_name="enabled"))
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class VulnerabilityDetails:
+    """VulnerabilityDetails."""
+
+    high_cps: Optional[str] = field(default=None, metadata=config(field_name="highCps"))
+    high_cvss: Optional[str] = field(
+        default=None, metadata=config(field_name="highCvss")
+    )
+    vulnerability_status: Optional[str] = field(
+        default=None, metadata=config(field_name="vulnerabilityStatus")
+    )
+    vdr_instance: Optional[str] = field(
+        default=None, metadata=config(field_name="vdrInstance")
+    )
+    vdr_asset_id: Optional[str] = field(
+        default=None, metadata=config(field_name="vdrAssetId")
+    )
+    vdr_organization_id: Optional[str] = field(
+        default=None, metadata=config(field_name="vdrOrganizationId")
+    )
+    vdr_hostname: Optional[str] = field(
+        default=None, metadata=config(field_name="vdrHostname")
+    )
+    created_at: Optional[str] = field(
+        default=None, metadata=config(field_name="createdAt")
+    )
+    updated_at: Optional[str] = field(
+        default=None, metadata=config(field_name="updatedAt")
+    )
 
 
 @dataclass_json
@@ -858,10 +933,74 @@ class AssetMacAddressWhereInput:
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
+class AgentSettings:
+    """AgentSettings."""
+
+    id: Optional[str] = field(default=None, metadata=config(field_name="id"))
+    is_default: Optional[bool] = field(
+        default=None, metadata=config(field_name="isDefault")
+    )
+    tenant_id: Optional[str] = field(
+        default=None, metadata=config(field_name="tenantId")
+    )
+    name: Optional[str] = field(default=None, metadata=config(field_name="name"))
+    policy_name: Optional[str] = field(
+        default=None, metadata=config(field_name="policyName")
+    )
+    description: Optional[str] = field(
+        default=None, metadata=config(field_name="description")
+    )
+    channel: Optional[str] = field(default=None, metadata=config(field_name="channel"))
+    skip_upgrade: Optional[bool] = field(
+        default=None, metadata=config(field_name="skipUpgrade")
+    )
+    created_at: Optional[str] = field(
+        default=None, metadata=config(field_name="createdAt")
+    )
+    updated_at: Optional[str] = field(
+        default=None, metadata=config(field_name="updatedAt")
+    )
+    file_analysis: Optional[FileAnalysis] = field(
+        default=None, metadata=config(field_name="fileAnalysis")
+    )
+    auto_archive: Optional[AutoArchive] = field(
+        default=None, metadata=config(field_name="autoArchive")
+    )
+    tamper_protection: Optional[TamperProtection] = field(
+        default=None, metadata=config(field_name="tamperProtection")
+    )
+    maintenance_window: Optional[MaintenanceWindow] = field(
+        default=None, metadata=config(field_name="maintenanceWindow")
+    )
+    advanced_kernel_telemetry: Optional[AdvancedKernelTelemetry] = field(
+        default=None, metadata=config(field_name="advancedKernelTelemetry")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
 class AssetWhereInputV2:
     """AssetWhereInputV2."""
 
     id: Optional[str] = field(default=None, metadata=config(field_name="id"))
+    agent_setting_id: Optional[str] = field(
+        default=None, metadata=config(field_name="agentSettingID")
+    )
+    agent_setting_id_contains: Optional[str] = field(
+        default=None, metadata=config(field_name="agentSettingID_contains")
+    )
+    agent_setting_id_autocomplete: Optional[str] = field(
+        default=None, metadata=config(field_name="agentSettingID_autocomplete")
+    )
+    cloud_instance_id: Optional[str] = field(
+        default=None, metadata=config(field_name="cloudInstanceId")
+    )
+    cloud_instance_id_contains: Optional[str] = field(
+        default=None, metadata=config(field_name="cloudInstanceId_contains")
+    )
+    cloud_instance_id_autocomplete: Optional[str] = field(
+        default=None, metadata=config(field_name="cloudInstanceId_autocomplete")
+    )
     connection_status: Optional[str] = field(
         default=None, metadata=config(field_name="connectionStatus")
     )
@@ -1001,6 +1140,15 @@ class AssetWhereInputV2:
     username_autocomplete: Optional[str] = field(
         default=None, metadata=config(field_name="username_autocomplete")
     )
+    vulnerability_status: Optional[str] = field(
+        default=None, metadata=config(field_name="vulnerabilityStatus")
+    )
+    vulnerability_status_contains: Optional[str] = field(
+        default=None, metadata=config(field_name="vulnerabilityStatus_contains")
+    )
+    vulnerability_status_autocomplete: Optional[str] = field(
+        default=None, metadata=config(field_name="vulnerabilityStatus_autocomplete")
+    )
     and_: Optional[List["AssetWhereInputV2"]] = field(
         default=None, metadata=config(field_name="and")
     )
@@ -1138,6 +1286,12 @@ class AssetV2:
     )
     investigations: Optional[List[AssetInvestigation]] = field(
         default=None, metadata=config(field_name="investigations")
+    )
+    vulnerability_details: Optional[VulnerabilityDetails] = field(
+        default=None, metadata=config(field_name="vulnerabilityDetails")
+    )
+    agent_settings: Optional[AgentSettings] = field(
+        default=None, metadata=config(field_name="agentSettings")
     )
 
 

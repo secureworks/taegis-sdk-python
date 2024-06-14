@@ -1,6 +1,7 @@
 """utils.py
 
 Taegis SDK Python General Utilities"""
+
 import asyncio
 import concurrent
 import logging

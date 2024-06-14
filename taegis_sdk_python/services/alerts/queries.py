@@ -104,6 +104,23 @@ class TaegisSDKAlertsQuery:
             "for query alertsServiceRetrieveAlertsByGroupKey"
         )
 
+    def alerts_count_by_tenant(
+        self, in_: AlertsCountByTenantInput
+    ) -> AlertsCountByTenantResponse:
+        """Returns the count of alerts per tenant. Allows a CQL query, but any aggregation or pipe will be ignored.."""
+        endpoint = "alertsCountByTenant"
+
+        result = self.service.execute_query(
+            endpoint=endpoint,
+            variables={
+                "in": prepare_input(in_),
+            },
+            output=build_output_string(AlertsCountByTenantResponse),
+        )
+        if result.get(endpoint) is not None:
+            return AlertsCountByTenantResponse.from_dict(result.get(endpoint))
+        raise GraphQLNoRowsInResultSetError("for query alertsCountByTenant")
+
     def alerts_service_search(
         self, in_: Optional[SearchRequestInput] = None
     ) -> AlertsResponse:

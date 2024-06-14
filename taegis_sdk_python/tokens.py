@@ -1,4 +1,5 @@
 """JSON Web Token utilities."""
+
 from typing import Any, Dict
 
 import jwt

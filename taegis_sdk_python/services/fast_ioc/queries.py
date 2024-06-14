@@ -49,8 +49,7 @@ class TaegisSDKFastIocQuery:
         self, arguments: EventAggregationArguments
     ) -> EventCountResult:
         """Generate a breakdown (histogram) of the aggregated count of events
-        that match the given constraints. The result rows are broken down per eventType and per day..
-        """
+        that match the given constraints. The result rows are broken down per eventType and per day.."""
         endpoint = "eventCountByLogicalType"
 
         result = self.service.execute_query(
@@ -71,8 +70,7 @@ class TaegisSDKFastIocQuery:
         limit: Optional[int] = None,
     ) -> EventCountResult:
         """Returns next page of results for eventCountByLogicalType if available.
-        If sessionKey not provided will fallback to auth header (single tenant search only)..
-        """
+        If sessionKey not provided will fallback to auth header (single tenant search only).."""
         endpoint = "eventCountPage"
 
         result = self.service.execute_query(

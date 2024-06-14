@@ -1,4 +1,5 @@
 """"DetectorRegistry Service."""
+
 from taegis_sdk_python.service_core import ServiceCore
 from taegis_sdk_python.services.detector_registry.mutations import (
     TaegisSDKDetectorRegistryMutation,

@@ -121,6 +121,24 @@ class CommentVisibilityFilter(str, Enum):
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
+class InvestigationsAggregationArguments:
+    """InvestigationsAggregationArguments."""
+
+    cql: Optional[str] = field(default=None, metadata=config(field_name="cql"))
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class InvestigationsAggregation:
+    """InvestigationsAggregation."""
+
+    aggregation: Optional[List[dict]] = field(
+        default=None, metadata=config(field_name="Aggregation")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
 class AddEvidenceToInvestigationInput:
     """AddEvidenceToInvestigationInput."""
 
@@ -845,7 +863,14 @@ class InvestigationsV2Arguments:
     page: Optional[int] = field(default=None, metadata=config(field_name="page"))
     per_page: Optional[int] = field(default=None, metadata=config(field_name="perPage"))
     search_children_tenants: Optional[bool] = field(
-        default=None, metadata=config(field_name="searchChildrenTenants")
+        default=None,
+        metadata=config(
+            metadata={
+                "deprecated": True,
+                "deprecation_reason": "does not do anything - the default is now to search children tenants if the calling context is partner",
+            },
+            field_name="searchChildrenTenants",
+        ),
     )
     order_by: Optional[PaginationOrder] = field(
         default=None,
@@ -1583,6 +1608,9 @@ class InvestigationV2:
     )
     service_desk_type: Optional[str] = field(
         default=None, metadata=config(field_name="serviceDeskType")
+    )
+    is_created_by_partner: Optional[bool] = field(
+        default=None, metadata=config(field_name="isCreatedByPartner")
     )
     alerts: Optional[List[str]] = field(
         default=None,

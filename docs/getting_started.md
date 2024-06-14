@@ -19,7 +19,7 @@ from pprint import pprint as pp
 
 service = GraphQLService()
 
-results = service.users.query.current_tdruser()
+results = service.subjects.query.current_subject()
 
 pp(results)
 ```
@@ -30,7 +30,7 @@ Region or Environment identifiers:
 
 * `US1` or `charlie` or `production` for https://ctpx.secureworks.com/
 * `US2` or `delta` for https://delta.taegis.secureworks.com/
-* `US3` or `foxtrot` forhttps://foxtrot.taegis.secureworks.com/
+* `US3` or `foxtrot` for https://foxtrot.taegis.secureworks.com/
 * `EU` or `echo` for  https://echo.taegis.secureworks.com/
 
 **Note**: `production` is useful for partners with child tenants that want to interate API calls over multiple tenants using the Tenants API.  The Tenants API uses the `production` identifier rather than `charlie` or `US1`, but this will direct the SDK to the correct region.
@@ -153,16 +153,17 @@ with service(
 
 ```python
 from taegis_sdk_python import GraphQLService
+from taegis_sdk_python.services.investigations.types import InvestigationsV2Arguments
 
 service = GraphQLService()
 
 # specify the output fields, and start the service context
 with service(tenant_id="00000"):
-    result = service.investigations.query.investigations_search(
+    result = service.investigations2.query.investigations_v2(InvestigationsV2Arguments(
         page=1,
         per_page=3,
-        query="WHERE deleted_at IS NOT NULL EARLIEST=-90d"
-    )
+        cql="WHERE deleted_at IS NOT NULL EARLIEST=-90d"
+    ))
 pp(result)
 ```
 
@@ -170,16 +171,17 @@ pp(result)
 
 ```python
 from taegis_sdk_python import GraphQLService
+from taegis_sdk_python.services.investigations.types import InvestigationsV2Arguments
 
 service = GraphQLService()
 
 # specify the output fields, and start the service context
 with service(environment="US2"):
-    result = service.investigations.query.investigations_search(
+    result = service.investigations2.query.investigations_v2(InvestigationsV2Arguments(
         page=1,
         per_page=3,
-        query="WHERE deleted_at IS NOT NULL EARLIEST=-90d"
-    )
+        cql="WHERE deleted_at IS NOT NULL EARLIEST=-90d"
+    ))
 pp(result)
 ```
 
@@ -187,16 +189,17 @@ pp(result)
 
 ```python
 from taegis_sdk_python import GraphQLService
+from taegis_sdk_python.services.investigations.types import InvestigationsV2Arguments
 
 service = GraphQLService()
 
 # specify the output fields, and start the service context
 with service(access_token="<your access token>"):
-    result = service.investigations.query.investigations_search(
+    result = service.investigations2.query.investigations_v2(InvestigationsV2Arguments(
         page=1,
         per_page=3,
-        query="WHERE deleted_at IS NOT NULL EARLIEST=-90d"
-    )
+        cql="WHERE deleted_at IS NOT NULL EARLIEST=-90d"
+    ))
 pp(result)
 ```
 

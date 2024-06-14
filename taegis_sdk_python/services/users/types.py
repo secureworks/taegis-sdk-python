@@ -526,6 +526,10 @@ class TDRUserAccessibleTenant:
     is_partner: Optional[bool] = field(
         default=None, metadata=config(field_name="is_partner")
     )
+    is_organization: Optional[bool] = field(
+        default=None, metadata=config(field_name="is_organization")
+    )
+    partner: Optional[str] = field(default=None, metadata=config(field_name="partner"))
     parent: Optional[str] = field(default=None, metadata=config(field_name="parent"))
     environments: Optional[List[TDRUserTenantEnvironment]] = field(
         default=None, metadata=config(field_name="environments")

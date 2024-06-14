@@ -1,4 +1,5 @@
 """AccessPoints Service."""
+
 from taegis_sdk_python.service_core import ServiceCore
 from taegis_sdk_python.services.access_points.mutations import (
     TaegisSDKAccessPointsMutation,

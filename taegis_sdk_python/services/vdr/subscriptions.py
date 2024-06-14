@@ -1,5 +1,4 @@
-"""Queries Subscription."""
-
+"""Vdr Subscription."""
 # pylint: disable=no-member, unused-argument, too-many-locals, duplicate-code, wildcard-import, unused-wildcard-import, cyclic-import
 
 
@@ -17,16 +16,16 @@ from taegis_sdk_python.utils import (
     parse_union_result,
     prepare_input,
 )
-from taegis_sdk_python.services.queries.types import *
+from taegis_sdk_python.services.vdr.types import *
 
 if TYPE_CHECKING:  # pragma: no cover
-    from taegis_sdk_python.services.queries import QueriesService
+    from taegis_sdk_python.services.vdr import VdrService
 
 log = logging.getLogger(__name__)
 
 
-class TaegisSDKQueriesSubscription:
-    """Taegis Queries Subscription operations."""
+class TaegisSDKVdrSubscription:
+    """Taegis Vdr Subscription operations."""
 
-    def __init__(self, service: QueriesService):
+    def __init__(self, service: VdrService):
         self.service = service

@@ -292,7 +292,34 @@ class ServiceCore:
     def execute_query(
         self, endpoint: str, output: str, variables: Optional[Dict[str, Any]] = None
     ) -> Any:
-        """Execute a GraphQL Query."""
+        """Execute a GraphQL Query.
+
+        Parameters
+        ----------
+        endpoint : str
+            GraphQL Query Endpoint
+            example: 'alertsServiceSearch'
+        output : str
+            Requested output fields in the API result set.
+            example: 'alerts { list { id metadata { title } } }'
+            example: 'investigations { id description }'
+            helper function:
+                from taegis_sdk_python import build_output_string
+                from taegis_sdk_python.services.alerts.types import AlertsReponse
+                print(build_output_string(AlertsResponse))
+        variables : Optional[Dict[str, Any]], optional
+            Variables submitted to GraphQL Operation, by default None
+            example: {'in': {'cql_query': 'FROM alert EARLIEST=-1d', 'offset': 0, 'limit': 10 } }
+
+        Returns
+        -------
+        Any
+            Query Results
+
+        Raises
+        ------
+        InvalidGraphQLEndpoint
+        """
         operation_type = "query"
         graphql_field = self.get_sync_schema().query_type.fields.get(endpoint)
         if not graphql_field:
@@ -318,7 +345,34 @@ class ServiceCore:
     def execute_mutation(
         self, endpoint: str, output: str, variables: Optional[Dict[str, Any]] = None
     ) -> Any:
-        """Execute a GraphQL Mutation."""
+        """Execute a GraphQL Mutation.
+
+        Parameters
+        ----------
+        endpoint : str
+            GraphQL Mutation Endpoint
+            example: 'alertsServiceSearch'
+        output : str
+            Requested output fields in the API result set.
+            example: 'alerts { list { id metadata { title } } }'
+            example: 'investigations { id description }'
+            helper function:
+                from taegis_sdk_python import build_output_string
+                from taegis_sdk_python.services.alerts.types import AlertsReponse
+                print(build_output_string(AlertsResponse))
+        variables : Optional[Dict[str, Any]], optional
+            Variables submitted to GraphQL Operation, by default None
+            example: {'in': {'cql_query': 'FROM alert EARLIEST=-1d', 'offset': 0, 'limit': 10 } }
+
+        Returns
+        -------
+        Any
+            Mutation Results
+
+        Raises
+        ------
+        InvalidGraphQLEndpoint
+        """
         operation_type = "mutation"
         graphql_field = self.get_sync_schema().mutation_type.fields.get(endpoint)
         if not graphql_field:
@@ -344,7 +398,34 @@ class ServiceCore:
     def execute_subscription(
         self, endpoint: str, output: str, variables: Optional[Dict[str, Any]] = None
     ) -> List[Any]:
-        """Execute a GraphQL Subscription."""
+        """Execute a GraphQL Subscription.
+
+        Parameters
+        ----------
+        endpoint : str
+            GraphQL Subscription Endpoint
+            example: 'alertsServiceSearch'
+        output : str
+            Requested output fields in the API result set.
+            example: 'alerts { list { id metadata { title } } }'
+            example: 'investigations { id description }'
+            helper function:
+                from taegis_sdk_python import build_output_string
+                from taegis_sdk_python.services.alerts.types import AlertsReponse
+                print(build_output_string(AlertsResponse))
+        variables : Optional[Dict[str, Any]], optional
+            Variables submitted to GraphQL Operation, by default None
+            example: {'in': {'cql_query': 'FROM alert EARLIEST=-1d', 'offset': 0, 'limit': 10 } }
+
+        Returns
+        -------
+        List[Any]
+            List of Subscription Results
+
+        Raises
+        ------
+        InvalidGraphQLEndpoint
+        """
         operation_type = "subscription"
         graphql_field = self.get_ws_schema().subscription_type.fields.get(endpoint)
         if not graphql_field:
@@ -370,7 +451,20 @@ class ServiceCore:
     def execute(
         self, query_string: str, variables: Optional[Dict[str, Any]] = None
     ) -> Any:
-        """Execute a syncronous GraphQL string."""
+        """Execute a GraphQL string.
+
+        Parameters
+        ----------
+        query_string : str
+            GraphQL string
+        variables : Optional[Dict[str, Any]], optional
+            Variables for query/mutation, by default None
+
+        Returns
+        -------
+        Any
+            Query/Mutation results
+        """
         query = gql(query_string)
         return self.sync_client.execute(
             query,
@@ -381,7 +475,20 @@ class ServiceCore:
     async def subscribe(
         self, query_string: str, variables: Optional[Dict[str, Any]] = None
     ) -> List[Any]:
-        """Execute a subsciption GraphQL string."""
+        """Execute a subsciption GraphQL string.
+
+        Parameters
+        ----------
+        query_string : str
+            GraphQL string
+        variables : Optional[Dict[str, Any]], optional
+            Variables for subscription, by default None
+
+        Returns
+        -------
+        List[Any]
+            List of subscription results
+        """
         query = gql(query_string)
         results = []
         async with self.ws_client as session:

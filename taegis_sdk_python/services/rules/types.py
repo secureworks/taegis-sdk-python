@@ -715,6 +715,9 @@ class Rule:
     description: Optional[str] = field(
         default=None, metadata=config(field_name="description")
     )
+    generative_ai_rule_explain: Optional[str] = field(
+        default=None, metadata=config(field_name="generativeAIRuleExplain")
+    )
     severity: Optional[float] = field(
         default=None, metadata=config(field_name="severity")
     )

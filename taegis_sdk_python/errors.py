@@ -2,6 +2,7 @@
 
 Taegis Python SDK Exception class definitions.
 """
+
 from typing import List, Optional
 
 

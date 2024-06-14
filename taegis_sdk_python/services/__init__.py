@@ -55,6 +55,7 @@ from taegis_sdk_python.services.threat import ThreatService
 from taegis_sdk_python.services.threat_score import ThreatScoreService
 from taegis_sdk_python.services.trip import TripService
 from taegis_sdk_python.services.users import UsersService
+from taegis_sdk_python.services.vdr import VDRService
 
 __all__ = ["GraphQLService"]
 
@@ -154,6 +155,7 @@ class GraphQLService:
         self._threat_score = None
         self._trip = None
         self._users = None
+        self._vdr = None
 
     def __call__(self, **kwargs):
         if threading.get_ident() not in self._context_kwargs:
@@ -559,3 +561,10 @@ class GraphQLService:
         if not self._users:
             self._users = UsersService(self)
         return self._users
+
+    @property
+    def vdr(self):
+        """Users Service Endpoint."""
+        if not self._vdr:
+            self._vdr = VDRService(self)
+        return self._vdr

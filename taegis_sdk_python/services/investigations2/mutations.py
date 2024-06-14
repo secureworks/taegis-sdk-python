@@ -51,8 +51,7 @@ class TaegisSDKInvestigations2Mutation:
         self, input_: UpdateInvestigationV2Input
     ) -> InvestigationV2:
         """updateInvestigationV2 updates an existing investigation.
-        This is a PATCH style mutation, only fields that are send in the input will be updated..
-        """
+        This is a PATCH style mutation, only fields that are send in the input will be updated.."""
         endpoint = "updateInvestigationV2"
 
         result = self.service.execute_mutation(
@@ -255,8 +254,7 @@ class TaegisSDKInvestigations2Mutation:
         self, input_: ImportInvestigationResourcesInput
     ) -> List[InvestigationResource]:
         """importInvestigationResources will import investigation resources (rules & templates) from a YAML file.
-        The input YAML structure can be retrieved from a YAML string exported from the exportInvestigationResources query..
-        """
+        The input YAML structure can be retrieved from a YAML string exported from the exportInvestigationResources query.."""
         endpoint = "importInvestigationResources"
 
         result = self.service.execute_mutation(
@@ -296,8 +294,7 @@ class TaegisSDKInvestigations2Mutation:
         """updateInvestigationComment updates an existing comment on an investigation.
         This is a PATCH style mutation, only fields that are send in the input will be updated.
         Only the user who created the comment can update it.
-        Updating a comment and adding new @mentions will trigger new notifications but will not send notifications to @mentions that are already present in the comment..
-        """
+        Updating a comment and adding new @mentions will trigger new notifications but will not send notifications to @mentions that are already present in the comment.."""
         endpoint = "updateInvestigationComment"
 
         result = self.service.execute_mutation(
@@ -334,8 +331,7 @@ class TaegisSDKInvestigations2Mutation:
     ) -> InvestigationV2:
         """archiveInvestigationV2 archives an existing investigation.
         Only investigations that are closed can be archived.
-        There may be some investigations that are archived but not in closed states, these are legacy investigations that were archived before the "closed" requirement was introduced..
-        """
+        There may be some investigations that are archived but not in closed states, these are legacy investigations that were archived before the "closed" requirement was introduced.."""
         endpoint = "archiveInvestigationV2"
 
         result = self.service.execute_mutation(
@@ -371,8 +367,7 @@ class TaegisSDKInvestigations2Mutation:
     ) -> ArchivedInvestigations:
         """archiveInvestigationsV2 archives a set of existing investigations.
         Only investigations that are closed can be archived.
-        The response will include the ids of the investigations that were successfully archived and will not return errors for investigations that could not be archived..
-        """
+        The response will include the ids of the investigations that were successfully archived and will not return errors for investigations that could not be archived.."""
         endpoint = "archiveInvestigationsV2"
 
         result = self.service.execute_mutation(
@@ -390,8 +385,7 @@ class TaegisSDKInvestigations2Mutation:
         self, input_: UnarchiveInvestigationsInput
     ) -> UnarchivedInvestigations:
         """unarchiveInvestigationsV2 unarchives a set of archived investigations.
-        The response will include the ids of the investigations that were successfully unarchived and will not return errors for investigations that could not be unarchived..
-        """
+        The response will include the ids of the investigations that were successfully unarchived and will not return errors for investigations that could not be unarchived.."""
         endpoint = "unarchiveInvestigationsV2"
 
         result = self.service.execute_mutation(
@@ -409,8 +403,7 @@ class TaegisSDKInvestigations2Mutation:
         self, input_: InitInvestigationFileUploadInput
     ) -> InvestigationFileUpload:
         """initInvestigationFileUpload initializes a file upload for an investigation.
-        The response will include a pre-signed URL that can be used to upload a file to the investigation..
-        """
+        The response will include a pre-signed URL that can be used to upload a file to the investigation.."""
         endpoint = "initInvestigationFileUpload"
 
         result = self.service.execute_mutation(

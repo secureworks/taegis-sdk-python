@@ -1,4 +1,5 @@
 """"Authz Service."""
+
 from taegis_sdk_python.service_core import ServiceCore
 from taegis_sdk_python.services.authz.mutations import TaegisSDKAuthzMutation
 from taegis_sdk_python.services.authz.queries import TaegisSDKAuthzQuery

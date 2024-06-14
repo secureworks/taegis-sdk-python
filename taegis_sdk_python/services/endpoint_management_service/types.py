@@ -165,10 +165,12 @@ class DailyWindowEntry:
     """DailyWindowEntry."""
 
     enabled: Optional[bool] = field(default=None, metadata=config(field_name="enabled"))
-    start_time: Optional[str] = field(
-        default=None, metadata=config(field_name="startTime")
+    start_time_hour: Optional[int] = field(
+        default=None, metadata=config(field_name="startTimeHour")
     )
-    end_time: Optional[str] = field(default=None, metadata=config(field_name="endTime"))
+    end_time_hour: Optional[int] = field(
+        default=None, metadata=config(field_name="endTimeHour")
+    )
 
 
 @dataclass_json
@@ -185,7 +187,9 @@ class AutoArchiveInput:
     """AutoArchiveInput."""
 
     enabled: Optional[bool] = field(default=None, metadata=config(field_name="enabled"))
-    period: Optional[int] = field(default=None, metadata=config(field_name="period"))
+    period_days: Optional[int] = field(
+        default=None, metadata=config(field_name="periodDays")
+    )
 
 
 @dataclass_json
@@ -194,10 +198,12 @@ class DailyWindowEntryInput:
     """DailyWindowEntryInput."""
 
     enabled: Optional[bool] = field(default=None, metadata=config(field_name="enabled"))
-    start_time: Optional[str] = field(
-        default=None, metadata=config(field_name="startTime")
+    start_time_hour: Optional[int] = field(
+        default=None, metadata=config(field_name="startTimeHour")
     )
-    end_time: Optional[str] = field(default=None, metadata=config(field_name="endTime"))
+    end_time_hour: Optional[int] = field(
+        default=None, metadata=config(field_name="endTimeHour")
+    )
 
 
 @dataclass_json
@@ -306,7 +312,9 @@ class AutoArchive:
         default=None, metadata=config(field_name="description")
     )
     enabled: Optional[bool] = field(default=None, metadata=config(field_name="enabled"))
-    period: Optional[int] = field(default=None, metadata=config(field_name="period"))
+    period_days: Optional[int] = field(
+        default=None, metadata=config(field_name="periodDays")
+    )
     platforms: Optional[List[EndpointPlatform]] = field(
         default=None, metadata=config(field_name="platforms")
     )
