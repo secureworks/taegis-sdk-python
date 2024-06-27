@@ -145,6 +145,7 @@ class ThreatRelationshipType(str, Enum):
     INDIRECT = "indirect"
     HAS_VID = "has_vid"
     HOSTED_ON = "hosted_on"
+    LINKED_TO = "linked_to"
 
 
 class ThreatMalwareType(str, Enum):
@@ -265,6 +266,8 @@ class ThreatObjectType(str, Enum):
     MALWARE = "malware"
     INTRUSIONSET = "intrusionset"
     REPORT = "report"
+    COUNTRY = "country"
+    CVE = "CVE"
 
 
 @dataclass_json
@@ -760,6 +763,59 @@ class ThreatGroup:
         default=None, metadata=config(field_name="LastKnownActivity")
     )
     tags: Optional[List[str]] = field(default=None, metadata=config(field_name="tags"))
+    type: Optional[ThreatObjectType] = field(
+        default=None, metadata=config(field_name="type")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class Country:
+    """Country."""
+
+    id: Optional[str] = field(default=None, metadata=config(field_name="id"))
+    country_name: Optional[str] = field(
+        default=None, metadata=config(field_name="country_name")
+    )
+    country_code: Optional[str] = field(
+        default=None, metadata=config(field_name="country_code")
+    )
+    geopoint: Optional[List[float]] = field(
+        default=None, metadata=config(field_name="geopoint")
+    )
+    region: Optional[str] = field(default=None, metadata=config(field_name="region"))
+    country_name_official: Optional[str] = field(
+        default=None, metadata=config(field_name="country_name_official")
+    )
+    country_name_alternatives: Optional[List[str]] = field(
+        default=None, metadata=config(field_name="country_name_alternatives")
+    )
+    country_code_alpha3: Optional[str] = field(
+        default=None, metadata=config(field_name="country_code_alpha3")
+    )
+    country_code_numeric3: Optional[str] = field(
+        default=None, metadata=config(field_name="country_code_numeric3")
+    )
+    capitals: Optional[List[str]] = field(
+        default=None, metadata=config(field_name="capitals")
+    )
+    subregion: Optional[str] = field(
+        default=None, metadata=config(field_name="subregion")
+    )
+    type: Optional[ThreatObjectType] = field(
+        default=None, metadata=config(field_name="type")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class CVE:
+    """CVE."""
+
+    id: Optional[str] = field(default=None, metadata=config(field_name="id"))
+    cve_number: Optional[str] = field(
+        default=None, metadata=config(field_name="cve_number")
+    )
     type: Optional[ThreatObjectType] = field(
         default=None, metadata=config(field_name="type")
     )

@@ -193,3 +193,25 @@ class TaegisSDKPreferencesMutation:
         if result.get(endpoint) is not None:
             return UserPreferenceDictionary.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for mutation unsetUserPreferences")
+
+    def update_user_notification_preference(
+        self,
+        update_user_notification_preference_input: UpdateUserNotificationPreferenceInput,
+    ) -> UserNotificationPreferencesResponse:
+        """None."""
+        endpoint = "updateUserNotificationPreference"
+
+        result = self.service.execute_mutation(
+            endpoint=endpoint,
+            variables={
+                "updateUserNotificationPreferenceInput": prepare_input(
+                    update_user_notification_preference_input
+                ),
+            },
+            output=build_output_string(UserNotificationPreferencesResponse),
+        )
+        if result.get(endpoint) is not None:
+            return UserNotificationPreferencesResponse.from_dict(result.get(endpoint))
+        raise GraphQLNoRowsInResultSetError(
+            "for mutation updateUserNotificationPreference"
+        )

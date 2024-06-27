@@ -152,6 +152,40 @@ class BulkOpStatusV2(str, Enum):
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
+class ConnectionDetails:
+    """ConnectionDetails."""
+
+    connection_status: Optional[str] = field(
+        default=None, metadata=config(field_name="connectionStatus")
+    )
+    updated_at: Optional[str] = field(
+        default=None, metadata=config(field_name="updatedAt")
+    )
+    last_connected_ts: Optional[str] = field(
+        default=None, metadata=config(field_name="lastConnectedTS")
+    )
+    last_disconnected_ts: Optional[str] = field(
+        default=None, metadata=config(field_name="lastDisconnectedTS")
+    )
+    last_disconnect_reason: Optional[str] = field(
+        default=None, metadata=config(field_name="lastDisconnectReason")
+    )
+    last_seen_at: Optional[str] = field(
+        default=None, metadata=config(field_name="lastSeenAt")
+    )
+    using_ssl: Optional[bool] = field(
+        default=None, metadata=config(field_name="usingSSL")
+    )
+    remote_ip: Optional[str] = field(
+        default=None, metadata=config(field_name="remoteIP")
+    )
+    remote_port: Optional[int] = field(
+        default=None, metadata=config(field_name="remotePort")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
 class FileAnalysis:
     """FileAnalysis."""
 
@@ -1199,7 +1233,14 @@ class AssetV2:
         default=None, metadata=config(field_name="deletedAt")
     )
     last_seen_at: Optional[str] = field(
-        default=None, metadata=config(field_name="lastSeenAt")
+        default=None,
+        metadata=config(
+            metadata={
+                "deprecated": True,
+                "deprecation_reason": "use connectionDetails.LastSeenAt",
+            },
+            field_name="lastSeenAt",
+        ),
     )
     bios_serial: Optional[str] = field(
         default=None, metadata=config(field_name="biosSerial")
@@ -1250,7 +1291,14 @@ class AssetV2:
         default=None, metadata=config(field_name="kernelVersion")
     )
     connection_status: Optional[str] = field(
-        default=None, metadata=config(field_name="connectionStatus")
+        default=None,
+        metadata=config(
+            metadata={
+                "deprecated": True,
+                "deprecation_reason": "use connectionDetails.connectionStatus",
+            },
+            field_name="connectionStatus",
+        ),
     )
     isolation_status: Optional[str] = field(
         default=None, metadata=config(field_name="isolationStatus")
@@ -1266,6 +1314,9 @@ class AssetV2:
         default=None, metadata=config(field_name="cloudInstanceId")
     )
     status: Optional[str] = field(default=None, metadata=config(field_name="status"))
+    un_installable: Optional[bool] = field(
+        default=None, metadata=config(field_name="unInstallable")
+    )
     hostnames: Optional[List[HostnameV2]] = field(
         default=None, metadata=config(field_name="hostnames")
     )
@@ -1292,6 +1343,9 @@ class AssetV2:
     )
     agent_settings: Optional[AgentSettings] = field(
         default=None, metadata=config(field_name="agentSettings")
+    )
+    connection_details: Optional[ConnectionDetails] = field(
+        default=None, metadata=config(field_name="connectionDetails")
     )
 
 

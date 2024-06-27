@@ -24,12 +24,13 @@ class PreferencesAuthzObject(str, Enum):
 class PreferencesAuthzAction(str, Enum):
     """PreferencesAuthzAction."""
 
-    CREATE = "Create"
-    READ = "Read"
-    UPDATE = "Update"
-    DELETE = "Delete"
-    LIST_ALL = "ListAll"
-    READ_ADMIN = "ReadAdmin"
+    CREATE = "create"
+    READ = "read"
+    UPDATE = "update"
+    DELETE = "delete"
+    LIST_ALL = "listAll"
+    READ_ADMIN = "readAdmin"
+    UPDATE_ADMIN = "updateAdmin"
 
 
 class TicketingType(str, Enum):
@@ -280,6 +281,20 @@ class GetPreferenceSelector:
         default=None, metadata=config(field_name="category")
     )
     sub_key: Optional[str] = field(default=None, metadata=config(field_name="subKey"))
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class UpdateUserNotificationPreferenceInput:
+    """UpdateUserNotificationPreferenceInput."""
+
+    user_email: Optional[str] = field(
+        default=None, metadata=config(field_name="userEmail")
+    )
+    global_: Optional[bool] = field(default=None, metadata=config(field_name="global"))
+    preferences: Optional[List[UserPreferenceItemInput]] = field(
+        default=None, metadata=config(field_name="preferences")
+    )
 
 
 @dataclass_json

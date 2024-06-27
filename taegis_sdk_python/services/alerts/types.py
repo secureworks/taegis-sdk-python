@@ -1663,6 +1663,29 @@ class ResolutionMetadata:
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
+class TuningUpdate:
+    """TuningUpdate."""
+
+    id: Optional[str] = field(default=None, metadata=config(field_name="id"))
+    field_name: Optional[str] = field(
+        default=None, metadata=config(field_name="field_name")
+    )
+    severity_value: Optional[float] = field(
+        default=None, metadata=config(field_name="severity_value")
+    )
+    suppressed_value: Optional[bool] = field(
+        default=None, metadata=config(field_name="suppressed_value")
+    )
+    origin_value: Optional[Origin] = field(
+        default=None, metadata=config(field_name="origin_value")
+    )
+    changed_at: Optional[Timestamp] = field(
+        default=None, metadata=config(field_name="changed_at")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
 class AuthScanDetail:
     """AuthScanDetail."""
 
@@ -2349,6 +2372,9 @@ class Alert2:
     )
     severity_history: Optional[List[SeverityUpdate]] = field(
         default=None, metadata=config(field_name="severity_history")
+    )
+    tuning_history: Optional[List[TuningUpdate]] = field(
+        default=None, metadata=config(field_name="tuning_history")
     )
     entities: Optional[EntityRelationships] = field(
         default=None, metadata=config(field_name="entities")

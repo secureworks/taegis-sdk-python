@@ -228,6 +228,9 @@ class EventQueryOptions:
             field_name="saveToCache",
         ),
     )
+    default_include_original_data: Optional[bool] = field(
+        default=None, metadata=config(field_name="defaultIncludeOriginalData")
+    )
     search_target: Optional[SearchTarget] = field(
         default=None,
         metadata=config(

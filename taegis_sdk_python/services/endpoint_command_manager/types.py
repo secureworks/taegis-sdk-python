@@ -53,6 +53,9 @@ class Result:
 
     success: Optional[bool] = field(default=None, metadata=config(field_name="Success"))
     reason: Optional[str] = field(default=None, metadata=config(field_name="Reason"))
+    request_id: Optional[str] = field(
+        default=None, metadata=config(field_name="requestID")
+    )
 
 
 @dataclass_json

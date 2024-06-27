@@ -195,7 +195,7 @@ class TaegisSDKAssets2Mutation:
     def bulk_reconnect_native_assets(
         self, input_: BulkReconnectNativeAssetsInput
     ) -> BulkOpPayloadV2:
-        """None."""
+        """Start a job to reconnect taegis endpoints matching the filter criteria in the input.."""
         endpoint = "bulkReconnectNativeAssets"
 
         result = self.service.execute_mutation(
@@ -212,7 +212,7 @@ class TaegisSDKAssets2Mutation:
     def bulk_uninstall_native_assets(
         self, input_: BulkUninstallNativeAssetsInput
     ) -> BulkOpPayloadV2:
-        """None."""
+        """Start a job to uninstall taegis endpoints matching the filter criteria in the input.."""
         endpoint = "bulkUninstallNativeAssets"
 
         result = self.service.execute_mutation(
