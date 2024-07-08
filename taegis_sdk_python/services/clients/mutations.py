@@ -46,9 +46,25 @@ class TaegisSDKClientsMutation:
             return NewClient.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for mutation createClient")
 
-    def rotate_client_secret(self, id_: str) -> NewClient:
+    def rotate_client_secret(self, id_: str, secret: Optional[str] = None) -> NewClient:
         """Generate a new secret for an existing client."""
         endpoint = "rotateClientSecret"
+
+        result = self.service.execute_mutation(
+            endpoint=endpoint,
+            variables={
+                "id": prepare_input(id_),
+                "secret": prepare_input(secret),
+            },
+            output=build_output_string(NewClient),
+        )
+        if result.get(endpoint) is not None:
+            return NewClient.from_dict(result.get(endpoint))
+        raise GraphQLNoRowsInResultSetError("for mutation rotateClientSecret")
+
+    def force_rotate_client_secret(self, id_: str) -> NewClient:
+        """Force rotate a new secret for an existing client.."""
+        endpoint = "forceRotateClientSecret"
 
         result = self.service.execute_mutation(
             endpoint=endpoint,
@@ -59,7 +75,7 @@ class TaegisSDKClientsMutation:
         )
         if result.get(endpoint) is not None:
             return NewClient.from_dict(result.get(endpoint))
-        raise GraphQLNoRowsInResultSetError("for mutation rotateClientSecret")
+        raise GraphQLNoRowsInResultSetError("for mutation forceRotateClientSecret")
 
     def append_client_roles(
         self, id_: str, roles: List[ClientRoleAssignmentInput]

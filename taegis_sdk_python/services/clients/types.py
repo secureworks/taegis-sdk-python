@@ -199,6 +199,7 @@ class Client:
     token_request_count: Optional[int] = field(
         default=None, metadata=config(field_name="tokenRequestCount")
     )
+    enabled: Optional[bool] = field(default=None, metadata=config(field_name="enabled"))
     role_assignments: Optional[List[ClientRoleAssignment]] = field(
         default=None,
         metadata=config(

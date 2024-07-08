@@ -146,6 +146,8 @@ class ThreatRelationshipType(str, Enum):
     HAS_VID = "has_vid"
     HOSTED_ON = "hosted_on"
     LINKED_TO = "linked_to"
+    GEOLOCATES_TO = "geolocates_to"
+    AFFILIATED_WITH = "affiliated_with"
 
 
 class ThreatMalwareType(str, Enum):

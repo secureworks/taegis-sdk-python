@@ -33,7 +33,20 @@ class AuxiliaryEventsByIDOptions:
     """AuxiliaryEventsByIDOptions."""
 
     search_events_api_first: Optional[bool] = field(
-        default=None, metadata=config(field_name="searchEventsAPIFirst")
+        default=None,
+        metadata=config(
+            metadata={
+                "deprecated": True,
+                "deprecation_reason": "Events-API is now used automatically when needed, so the searchEventsAPIFirst option is no longer used.",
+            },
+            field_name="searchEventsAPIFirst",
+        ),
+    )
+    fields: Optional[List[str]] = field(
+        default=None, metadata=config(field_name="fields")
+    )
+    skip_events_api_fallback: Optional[bool] = field(
+        default=None, metadata=config(field_name="skipEventsAPIFallback")
     )
 
 
@@ -69,14 +82,7 @@ class GetEventByIDRequestInput:
     ids: Optional[List[str]] = field(default=None, metadata=config(field_name="ids"))
     alert_id: Optional[str] = field(default=None, metadata=config(field_name="alertId"))
     options: Optional[AuxiliaryEventsByIDOptions] = field(
-        default=None,
-        metadata=config(
-            metadata={
-                "deprecated": True,
-                "deprecation_reason": "Events-API is now used automatically when needed, so the searchEventsAPIFirst option is no longer used.",
-            },
-            field_name="options",
-        ),
+        default=None, metadata=config(field_name="options")
     )
 
 

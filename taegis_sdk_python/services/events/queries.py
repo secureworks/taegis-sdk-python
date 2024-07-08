@@ -64,22 +64,3 @@ class TaegisSDKEventsQuery:
         if result.get(endpoint) is not None:
             return EventQuery.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for query eventQuery")
-
-    def event_queries(
-        self, metadata: Optional[Dict[str, Any]] = None
-    ) -> List[EventQuery]:
-        """Provide a catalog of cached queries.."""
-        endpoint = "eventQueries"
-
-        result = self.service.execute_query(
-            endpoint=endpoint,
-            variables={
-                "metadata": prepare_input(metadata),
-            },
-            output=build_output_string(EventQuery),
-        )
-        if result.get(endpoint) is not None:
-            return EventQuery.schema().load(
-                [r or {} for r in result.get(endpoint)], many=True
-            )
-        raise GraphQLNoRowsInResultSetError("for query eventQueries")
