@@ -186,3 +186,33 @@ class TaegisSDKEndpointCommandManagerMutation:
         if result.get(endpoint) is not None:
             return Result.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for mutation sendUnblockUser")
+
+    def release_file(self, input_: QuarantinedFileCommandInput) -> Result:
+        """release a file from quarantine."""
+        endpoint = "releaseFile"
+
+        result = self.service.execute_mutation(
+            endpoint=endpoint,
+            variables={
+                "input": prepare_input(input_),
+            },
+            output=build_output_string(Result),
+        )
+        if result.get(endpoint) is not None:
+            return Result.from_dict(result.get(endpoint))
+        raise GraphQLNoRowsInResultSetError("for mutation releaseFile")
+
+    def delete_file(self, input_: QuarantinedFileCommandInput) -> Result:
+        """issue the command to the endpoint to delete a file that has been quarantined."""
+        endpoint = "deleteFile"
+
+        result = self.service.execute_mutation(
+            endpoint=endpoint,
+            variables={
+                "input": prepare_input(input_),
+            },
+            output=build_output_string(Result),
+        )
+        if result.get(endpoint) is not None:
+            return Result.from_dict(result.get(endpoint))
+        raise GraphQLNoRowsInResultSetError("for mutation deleteFile")

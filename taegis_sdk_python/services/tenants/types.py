@@ -108,6 +108,13 @@ class SSOConnectionStatus(str, Enum):
     DISABLED = "Disabled"
 
 
+class ExternalProvider(str, Enum):
+    """ExternalProvider."""
+
+    AUTH0 = "AUTH0"
+    COGNITO = "COGNITO"
+
+
 class Auth0DomainType(str, Enum):
     """Auth0DomainType."""
 
@@ -1126,65 +1133,6 @@ class TenantSSOConnectionQueryInput:
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
-class SSOConnection:
-    """SSOConnection."""
-
-    id: Optional[str] = field(default=None, metadata=config(field_name="id"))
-    name: Optional[str] = field(default=None, metadata=config(field_name="name"))
-    external_name: Optional[str] = field(
-        default=None, metadata=config(field_name="externalName")
-    )
-    external_id: Optional[str] = field(
-        default=None, metadata=config(field_name="externalID")
-    )
-    tenant_id: Optional[str] = field(
-        default=None, metadata=config(field_name="tenantID")
-    )
-    updated_at: Optional[str] = field(
-        default=None, metadata=config(field_name="updatedAt")
-    )
-    created_at: Optional[str] = field(
-        default=None, metadata=config(field_name="createdAt")
-    )
-    cert_name: Optional[str] = field(
-        default=None, metadata=config(field_name="certName")
-    )
-    expires_at: Optional[str] = field(
-        default=None, metadata=config(field_name="expiresAt")
-    )
-    not_before: Optional[str] = field(
-        default=None, metadata=config(field_name="notBefore")
-    )
-    issuer: Optional[str] = field(default=None, metadata=config(field_name="issuer"))
-    subject: Optional[str] = field(default=None, metadata=config(field_name="subject"))
-    domains: Optional[List[str]] = field(
-        default=None, metadata=config(field_name="domains")
-    )
-    testers: Optional[List[str]] = field(
-        default=None, metadata=config(field_name="testers")
-    )
-    type: Optional[SSOConnectionType] = field(
-        default=None, metadata=config(field_name="type")
-    )
-    status: Optional[SSOConnectionStatus] = field(
-        default=None, metadata=config(field_name="status")
-    )
-    environment: Optional[SSOEnvironment] = field(
-        default=None, metadata=config(field_name="environment")
-    )
-    sso_connection_parameters: Optional[SSOConnectionParameters] = field(
-        default=None, metadata=config(field_name="ssoConnectionParameters")
-    )
-    sso_connection_idp_config: Optional[SSOConnectionConfiguration] = field(
-        default=None, metadata=config(field_name="ssoConnectionIDPConfig")
-    )
-    auth0_domain_type: Optional[Auth0DomainType] = field(
-        default=None, metadata=config(field_name="auth0DomainType")
-    )
-
-
-@dataclass_json
-@dataclass(order=True, eq=True, frozen=True)
 class Tenant:
     """Tenant."""
 
@@ -1270,6 +1218,68 @@ class Tenant:
             metadata={"deprecated": True, "deprecation_reason": "No longer supported"},
             field_name="partnership",
         ),
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class SSOConnection:
+    """SSOConnection."""
+
+    id: Optional[str] = field(default=None, metadata=config(field_name="id"))
+    name: Optional[str] = field(default=None, metadata=config(field_name="name"))
+    external_name: Optional[str] = field(
+        default=None, metadata=config(field_name="externalName")
+    )
+    external_id: Optional[str] = field(
+        default=None, metadata=config(field_name="externalID")
+    )
+    tenant_id: Optional[str] = field(
+        default=None, metadata=config(field_name="tenantID")
+    )
+    updated_at: Optional[str] = field(
+        default=None, metadata=config(field_name="updatedAt")
+    )
+    created_at: Optional[str] = field(
+        default=None, metadata=config(field_name="createdAt")
+    )
+    cert_name: Optional[str] = field(
+        default=None, metadata=config(field_name="certName")
+    )
+    expires_at: Optional[str] = field(
+        default=None, metadata=config(field_name="expiresAt")
+    )
+    not_before: Optional[str] = field(
+        default=None, metadata=config(field_name="notBefore")
+    )
+    issuer: Optional[str] = field(default=None, metadata=config(field_name="issuer"))
+    subject: Optional[str] = field(default=None, metadata=config(field_name="subject"))
+    domains: Optional[List[str]] = field(
+        default=None, metadata=config(field_name="domains")
+    )
+    testers: Optional[List[str]] = field(
+        default=None, metadata=config(field_name="testers")
+    )
+    type: Optional[SSOConnectionType] = field(
+        default=None, metadata=config(field_name="type")
+    )
+    status: Optional[SSOConnectionStatus] = field(
+        default=None, metadata=config(field_name="status")
+    )
+    environment: Optional[SSOEnvironment] = field(
+        default=None, metadata=config(field_name="environment")
+    )
+    external_provider: Optional[ExternalProvider] = field(
+        default=None, metadata=config(field_name="externalProvider")
+    )
+    sso_connection_parameters: Optional[SSOConnectionParameters] = field(
+        default=None, metadata=config(field_name="ssoConnectionParameters")
+    )
+    sso_connection_idp_config: Optional[SSOConnectionConfiguration] = field(
+        default=None, metadata=config(field_name="ssoConnectionIDPConfig")
+    )
+    auth0_domain_type: Optional[Auth0DomainType] = field(
+        default=None, metadata=config(field_name="auth0DomainType")
     )
 
 

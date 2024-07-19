@@ -185,6 +185,24 @@ class IsolationExclusionRuleResult:
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
+class QuarantinedFileCommandInput:
+    """QuarantinedFileCommandInput."""
+
+    endpoint_id: Optional[str] = field(
+        default=None, metadata=config(field_name="EndpointID")
+    )
+    file_id: Optional[str] = field(default=None, metadata=config(field_name="FileID"))
+    file_path: Optional[str] = field(
+        default=None, metadata=config(field_name="FilePath")
+    )
+    reason: Optional[str] = field(default=None, metadata=config(field_name="Reason"))
+    request_id: Optional[str] = field(
+        default=None, metadata=config(field_name="RequestID")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
 class HashAndType:
     """HashAndType."""
 

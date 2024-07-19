@@ -495,6 +495,7 @@ class TDRUserInfoInput:
 class AuthorizeCheckResponse:
     """AuthorizeCheckResponse."""
 
+    domain: Optional[str] = field(default=None, metadata=config(field_name="domain"))
     connection: Optional[AuthorizeCheckConnection] = field(
         default=None, metadata=config(field_name="connection")
     )
