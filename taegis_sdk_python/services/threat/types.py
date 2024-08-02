@@ -270,6 +270,14 @@ class ThreatObjectType(str, Enum):
     REPORT = "report"
     COUNTRY = "country"
     CVE = "CVE"
+    SWID = "swid"
+    XDR_EVENT_FILTER = "xdr_event_filter"
+    ATTACK_TACTIC = "attack_tactic"
+    ATTACK_TECHNIQUE = "attack_technique"
+    RED_CLOAK_WATCH_LIST = "red_cloak_watch_list"
+    RED_CLOAK_INSPECTOR_RULE = "red_cloak_inspector_rule"
+    RED_CLOAK_YARA_RULE = "red_cloak_yara_rule"
+    TAEGIS_YARA_RULE = "taegis_yara_rule"
 
 
 @dataclass_json
@@ -364,38 +372,6 @@ class ThreatTip:
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
-class ThreatSwid:
-    """ThreatSwid."""
-
-    id: Optional[str] = field(default=None, metadata=config(field_name="Id"))
-    author: Optional[str] = field(default=None, metadata=config(field_name="Author"))
-    created_at: Optional[str] = field(
-        default=None, metadata=config(field_name="CreatedAt")
-    )
-    engine_group_name: Optional[str] = field(
-        default=None, metadata=config(field_name="EngineGroupName")
-    )
-    file_name: Optional[str] = field(
-        default=None, metadata=config(field_name="FileName")
-    )
-    priority: Optional[int] = field(
-        default=None, metadata=config(field_name="Priority")
-    )
-    priority_value: Optional[str] = field(
-        default=None, metadata=config(field_name="PriorityValue")
-    )
-    revision: Optional[int] = field(
-        default=None, metadata=config(field_name="Revision")
-    )
-    swid: Optional[int] = field(default=None, metadata=config(field_name="Swid"))
-    swid_name: Optional[str] = field(
-        default=None, metadata=config(field_name="SwidName")
-    )
-    text: Optional[str] = field(default=None, metadata=config(field_name="Text"))
-
-
-@dataclass_json
-@dataclass(order=True, eq=True, frozen=True)
 class ThreatSwidInput:
     """ThreatSwidInput."""
 
@@ -460,6 +436,40 @@ class ThreatGroupInput:
         default=None, metadata=config(field_name="LastKnownActivity")
     )
     tags: Optional[List[str]] = field(default=None, metadata=config(field_name="tags"))
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class EventFilter:
+    """EventFilter."""
+
+    key_string: Optional[str] = field(
+        default=None, metadata=config(field_name="key_string")
+    )
+    pattern: Optional[str] = field(default=None, metadata=config(field_name="pattern"))
+    is_case_sensitive: Optional[bool] = field(
+        default=None, metadata=config(field_name="is_case_sensitive")
+    )
+    is_inverted: Optional[bool] = field(
+        default=None, metadata=config(field_name="is_inverted")
+    )
+    test_should: Optional[List[str]] = field(
+        default=None, metadata=config(field_name="test_should")
+    )
+    test_should_not: Optional[List[str]] = field(
+        default=None, metadata=config(field_name="test_should_not")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class ReferenceList:
+    """ReferenceList."""
+
+    description: Optional[str] = field(
+        default=None, metadata=config(field_name="description")
+    )
+    url: Optional[str] = field(default=None, metadata=config(field_name="url"))
 
 
 @dataclass_json
@@ -726,6 +736,41 @@ class ThreatReportInput:
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
+class ThreatSwid:
+    """ThreatSwid."""
+
+    id: Optional[str] = field(default=None, metadata=config(field_name="Id"))
+    author: Optional[str] = field(default=None, metadata=config(field_name="Author"))
+    created_at: Optional[str] = field(
+        default=None, metadata=config(field_name="CreatedAt")
+    )
+    engine_group_name: Optional[str] = field(
+        default=None, metadata=config(field_name="EngineGroupName")
+    )
+    file_name: Optional[str] = field(
+        default=None, metadata=config(field_name="FileName")
+    )
+    priority: Optional[int] = field(
+        default=None, metadata=config(field_name="Priority")
+    )
+    priority_value: Optional[str] = field(
+        default=None, metadata=config(field_name="PriorityValue")
+    )
+    revision: Optional[int] = field(
+        default=None, metadata=config(field_name="Revision")
+    )
+    swid: Optional[int] = field(default=None, metadata=config(field_name="Swid"))
+    swid_name: Optional[str] = field(
+        default=None, metadata=config(field_name="SwidName")
+    )
+    text: Optional[str] = field(default=None, metadata=config(field_name="Text"))
+    type: Optional[ThreatObjectType] = field(
+        default=None, metadata=config(field_name="type")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
 class ThreatGroup:
     """ThreatGroup."""
 
@@ -817,6 +862,240 @@ class CVE:
     id: Optional[str] = field(default=None, metadata=config(field_name="id"))
     cve_number: Optional[str] = field(
         default=None, metadata=config(field_name="cve_number")
+    )
+    type: Optional[ThreatObjectType] = field(
+        default=None, metadata=config(field_name="type")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class AttackTactic:
+    """AttackTactic."""
+
+    id: Optional[str] = field(default=None, metadata=config(field_name="id"))
+    attack_tactic_id: Optional[str] = field(
+        default=None, metadata=config(field_name="attack_tactic_id")
+    )
+    label: Optional[str] = field(default=None, metadata=config(field_name="label"))
+    name: Optional[str] = field(default=None, metadata=config(field_name="name"))
+    description: Optional[str] = field(
+        default=None, metadata=config(field_name="description")
+    )
+    author: Optional[str] = field(default=None, metadata=config(field_name="author"))
+    creation_date: Optional[str] = field(
+        default=None, metadata=config(field_name="creation_date")
+    )
+    modified_date: Optional[str] = field(
+        default=None, metadata=config(field_name="modified_date")
+    )
+    references: Optional[List[str]] = field(
+        default=None, metadata=config(field_name="references")
+    )
+    related_attack: Optional[List[str]] = field(
+        default=None, metadata=config(field_name="related_attack")
+    )
+    type: Optional[ThreatObjectType] = field(
+        default=None, metadata=config(field_name="type")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class AttackTechnique:
+    """AttackTechnique."""
+
+    id: Optional[str] = field(default=None, metadata=config(field_name="id"))
+    attack_technique_id: Optional[str] = field(
+        default=None, metadata=config(field_name="attack_technique_id")
+    )
+    label: Optional[str] = field(default=None, metadata=config(field_name="label"))
+    name: Optional[str] = field(default=None, metadata=config(field_name="name"))
+    description: Optional[str] = field(
+        default=None, metadata=config(field_name="description")
+    )
+    author: Optional[str] = field(default=None, metadata=config(field_name="author"))
+    creation_date: Optional[str] = field(
+        default=None, metadata=config(field_name="creation_date")
+    )
+    modified_date: Optional[str] = field(
+        default=None, metadata=config(field_name="modified_date")
+    )
+    references: Optional[List[str]] = field(
+        default=None, metadata=config(field_name="references")
+    )
+    related_attack: Optional[List[str]] = field(
+        default=None, metadata=config(field_name="related_attack")
+    )
+    related_capec: Optional[List[str]] = field(
+        default=None, metadata=config(field_name="related_capec")
+    )
+    type: Optional[ThreatObjectType] = field(
+        default=None, metadata=config(field_name="type")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class RedCloakWatchList:
+    """RedCloakWatchList."""
+
+    id: Optional[str] = field(default=None, metadata=config(field_name="id"))
+    label: Optional[str] = field(default=None, metadata=config(field_name="label"))
+    name: Optional[str] = field(default=None, metadata=config(field_name="name"))
+    description: Optional[str] = field(
+        default=None, metadata=config(field_name="description")
+    )
+    classification: Optional[str] = field(
+        default=None, metadata=config(field_name="classification")
+    )
+    confidence_value: Optional[str] = field(
+        default=None, metadata=config(field_name="confidence_value")
+    )
+    created_by: Optional[str] = field(
+        default=None, metadata=config(field_name="created_by")
+    )
+    last_modified_by: Optional[str] = field(
+        default=None, metadata=config(field_name="last_modified_by")
+    )
+    creation_time: Optional[str] = field(
+        default=None, metadata=config(field_name="creation_time")
+    )
+    criteria: Optional[List[str]] = field(
+        default=None, metadata=config(field_name="criteria")
+    )
+    doc_type: Optional[str] = field(
+        default=None, metadata=config(field_name="doc_type")
+    )
+    enabled: Optional[bool] = field(default=None, metadata=config(field_name="enabled"))
+    endpoint_platform: Optional[str] = field(
+        default=None, metadata=config(field_name="endpoint_platform")
+    )
+    countermeasure_visibility: Optional[int] = field(
+        default=None, metadata=config(field_name="countermeasure_visibility")
+    )
+    resources: Optional[List[str]] = field(
+        default=None, metadata=config(field_name="resources")
+    )
+    tag: Optional[str] = field(default=None, metadata=config(field_name="tag"))
+    domains: Optional[List[str]] = field(
+        default=None, metadata=config(field_name="domains")
+    )
+    allowed_domains: Optional[List[str]] = field(
+        default=None, metadata=config(field_name="allowed_domains")
+    )
+    day: Optional[str] = field(default=None, metadata=config(field_name="day"))
+    type: Optional[ThreatObjectType] = field(
+        default=None, metadata=config(field_name="type")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class RedCloakInspectorRule:
+    """RedCloakInspectorRule."""
+
+    id: Optional[str] = field(default=None, metadata=config(field_name="id"))
+    label: Optional[str] = field(default=None, metadata=config(field_name="label"))
+    name: Optional[str] = field(default=None, metadata=config(field_name="name"))
+    description: Optional[str] = field(
+        default=None, metadata=config(field_name="description")
+    )
+    rule_type: Optional[str] = field(
+        default=None, metadata=config(field_name="rule_type")
+    )
+    rule: Optional[str] = field(default=None, metadata=config(field_name="rule"))
+    threat_groups: Optional[List[str]] = field(
+        default=None, metadata=config(field_name="threat_groups")
+    )
+    active: Optional[bool] = field(default=None, metadata=config(field_name="active"))
+    classification: Optional[str] = field(
+        default=None, metadata=config(field_name="classification")
+    )
+    resources: Optional[List[str]] = field(
+        default=None, metadata=config(field_name="resources")
+    )
+    tags: Optional[List[str]] = field(default=None, metadata=config(field_name="tags"))
+    type: Optional[ThreatObjectType] = field(
+        default=None, metadata=config(field_name="type")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class RedCloakYaraRule:
+    """RedCloakYaraRule."""
+
+    id: Optional[str] = field(default=None, metadata=config(field_name="id"))
+    label: Optional[str] = field(default=None, metadata=config(field_name="label"))
+    yara_id: Optional[str] = field(default=None, metadata=config(field_name="yara_id"))
+    event_description: Optional[str] = field(
+        default=None, metadata=config(field_name="event_description")
+    )
+    author: Optional[str] = field(default=None, metadata=config(field_name="author"))
+    metadata: Optional[str] = field(
+        default=None, metadata=config(field_name="metadata")
+    )
+    metadata_ver: Optional[str] = field(
+        default=None, metadata=config(field_name="metadata_ver")
+    )
+    strings: Optional[str] = field(default=None, metadata=config(field_name="strings"))
+    condition: Optional[str] = field(
+        default=None, metadata=config(field_name="condition")
+    )
+    threat_group: Optional[str] = field(
+        default=None, metadata=config(field_name="threat_group")
+    )
+    rule_severity: Optional[str] = field(
+        default=None, metadata=config(field_name="rule_severity")
+    )
+    tlp: Optional[str] = field(default=None, metadata=config(field_name="tlp"))
+    mss: Optional[str] = field(default=None, metadata=config(field_name="mss"))
+    type: Optional[ThreatObjectType] = field(
+        default=None, metadata=config(field_name="type")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class TaegisYaraRule:
+    """TaegisYaraRule."""
+
+    id: Optional[str] = field(default=None, metadata=config(field_name="id"))
+    label: Optional[str] = field(default=None, metadata=config(field_name="label"))
+    event_description: Optional[str] = field(
+        default=None, metadata=config(field_name="event_description")
+    )
+    author: Optional[str] = field(default=None, metadata=config(field_name="author"))
+    name: Optional[str] = field(default=None, metadata=config(field_name="name"))
+    classification: Optional[str] = field(
+        default=None, metadata=config(field_name="classification")
+    )
+    yara_id: Optional[str] = field(default=None, metadata=config(field_name="yara_id"))
+    attack_categories: Optional[List[str]] = field(
+        default=None, metadata=config(field_name="attack_categories")
+    )
+    severity_float: Optional[float] = field(
+        default=None, metadata=config(field_name="severity_float")
+    )
+    confidence_float: Optional[float] = field(
+        default=None, metadata=config(field_name="confidence_float")
+    )
+    active: Optional[bool] = field(default=None, metadata=config(field_name="active"))
+    creation_date: Optional[str] = field(
+        default=None, metadata=config(field_name="creation_date")
+    )
+    modified_date: Optional[str] = field(
+        default=None, metadata=config(field_name="modified_date")
+    )
+    taegis_alert_visibility: Optional[str] = field(
+        default=None, metadata=config(field_name="taegis_alert_visibility")
+    )
+    taegis_create_alert: Optional[bool] = field(
+        default=None, metadata=config(field_name="taegis_create_alert")
+    )
+    metadata_ver: Optional[str] = field(
+        default=None, metadata=config(field_name="metadata_ver")
     )
     type: Optional[ThreatObjectType] = field(
         default=None, metadata=config(field_name="type")
@@ -925,6 +1204,51 @@ class ThreatVid:
     )
     threat_groups: Optional[List[ThreatGroup]] = field(
         default=None, metadata=config(field_name="ThreatGroups")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class XdrEventFilter:
+    """XdrEventFilter."""
+
+    id: Optional[str] = field(default=None, metadata=config(field_name="id"))
+    label: Optional[str] = field(default=None, metadata=config(field_name="label"))
+    name: Optional[str] = field(default=None, metadata=config(field_name="name"))
+    event_type: Optional[str] = field(
+        default=None, metadata=config(field_name="event_type")
+    )
+    visibility: Optional[str] = field(
+        default=None, metadata=config(field_name="visibility")
+    )
+    result_visibility: Optional[str] = field(
+        default=None, metadata=config(field_name="result_visibility")
+    )
+    severity_float: Optional[float] = field(
+        default=None, metadata=config(field_name="severity_float")
+    )
+    confidence_float: Optional[float] = field(
+        default=None, metadata=config(field_name="confidence_float")
+    )
+    enabled: Optional[bool] = field(default=None, metadata=config(field_name="enabled"))
+    create_alert: Optional[bool] = field(
+        default=None, metadata=config(field_name="create_alert")
+    )
+    tags: Optional[List[str]] = field(default=None, metadata=config(field_name="tags"))
+    related_attack: Optional[List[str]] = field(
+        default=None, metadata=config(field_name="related_attack")
+    )
+    endpoint_platforms: Optional[List[str]] = field(
+        default=None, metadata=config(field_name="endpoint_platforms")
+    )
+    type: Optional[ThreatObjectType] = field(
+        default=None, metadata=config(field_name="type")
+    )
+    references_list: Optional[List[ReferenceList]] = field(
+        default=None, metadata=config(field_name="references_list")
+    )
+    event_filters: Optional[List[EventFilter]] = field(
+        default=None, metadata=config(field_name="event_filters")
     )
 
 

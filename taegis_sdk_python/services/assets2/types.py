@@ -1150,6 +1150,9 @@ class AssetWhereInputV2:
     system_type: Optional[str] = field(
         default=None, metadata=config(field_name="systemType")
     )
+    un_installable: Optional[bool] = field(
+        default=None, metadata=config(field_name="unInstallable")
+    )
     updated_at: Optional[str] = field(
         default=None, metadata=config(field_name="updatedAt")
     )
