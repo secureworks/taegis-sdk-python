@@ -1136,47 +1136,6 @@ class InvestigationV2TimelineArguments:
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
-class InvestigationV2TimelineEntity:
-    """InvestigationV2TimelineEntity."""
-
-    id: Optional[str] = field(default=None, metadata=config(field_name="id"))
-    investigation_id: Optional[str] = field(
-        default=None, metadata=config(field_name="investigationId")
-    )
-    type: Optional[str] = field(default=None, metadata=config(field_name="type"))
-    tenant_id: Optional[str] = field(
-        default=None, metadata=config(field_name="tenantId")
-    )
-    created_at: Optional[str] = field(
-        default=None, metadata=config(field_name="createdAt")
-    )
-    timestamp: Optional[str] = field(
-        default=None, metadata=config(field_name="timestamp")
-    )
-    entity_id: Optional[str] = field(
-        default=None, metadata=config(field_name="entityId")
-    )
-    description: Optional[str] = field(
-        default=None, metadata=config(field_name="description")
-    )
-    descriptor: Optional[str] = field(
-        default=None, metadata=config(field_name="descriptor")
-    )
-    user_id: Optional[str] = field(default=None, metadata=config(field_name="userId"))
-    user_subject: Optional[Subject] = field(
-        default=None, metadata=config(field_name="userSubject")
-    )
-    user: Optional[TDRUser] = field(
-        default=None,
-        metadata=config(
-            metadata={"deprecated": True, "deprecation_reason": "use userSubject"},
-            field_name="user",
-        ),
-    )
-
-
-@dataclass_json
-@dataclass(order=True, eq=True, frozen=True)
 class CommentsV2Arguments:
     """CommentsV2Arguments."""
 
@@ -1206,6 +1165,83 @@ class InvestigationProcessingStatus:
     )
     alerts: Optional[InvestigationProcessingState] = field(
         default=None, metadata=config(field_name="alerts")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class InvestigationV2TimelineEntity:
+    """InvestigationV2TimelineEntity."""
+
+    id: Optional[str] = field(default=None, metadata=config(field_name="id"))
+    investigation_id: Optional[str] = field(
+        default=None, metadata=config(field_name="investigationId")
+    )
+    type: Optional[str] = field(default=None, metadata=config(field_name="type"))
+    tenant_id: Optional[str] = field(
+        default=None, metadata=config(field_name="tenantId")
+    )
+    created_at: Optional[str] = field(
+        default=None, metadata=config(field_name="createdAt")
+    )
+    resource_id: Optional[str] = field(
+        default=None, metadata=config(field_name="resourceId")
+    )
+    resource_created_at: Optional[str] = field(
+        default=None, metadata=config(field_name="resourceCreatedAt")
+    )
+    description: Optional[str] = field(
+        default=None, metadata=config(field_name="description")
+    )
+    descriptor: Optional[str] = field(
+        default=None, metadata=config(field_name="descriptor")
+    )
+    subject_id: Optional[str] = field(
+        default=None, metadata=config(field_name="subjectId")
+    )
+    is_partner_only: Optional[bool] = field(
+        default=None, metadata=config(field_name="isPartnerOnly")
+    )
+    entity_id: Optional[str] = field(
+        default=None,
+        metadata=config(
+            metadata={"deprecated": True, "deprecation_reason": "use resourceId"},
+            field_name="entityId",
+        ),
+    )
+    timestamp: Optional[str] = field(
+        default=None,
+        metadata=config(
+            metadata={
+                "deprecated": True,
+                "deprecation_reason": "use resourceCreatedAt",
+            },
+            field_name="timestamp",
+        ),
+    )
+    user_id: Optional[str] = field(
+        default=None,
+        metadata=config(
+            metadata={"deprecated": True, "deprecation_reason": "use subjectId"},
+            field_name="userId",
+        ),
+    )
+    subject: Optional[Subject] = field(
+        default=None, metadata=config(field_name="subject")
+    )
+    user: Optional[TDRUser] = field(
+        default=None,
+        metadata=config(
+            metadata={"deprecated": True, "deprecation_reason": "use subject"},
+            field_name="user",
+        ),
+    )
+    user_subject: Optional[Subject] = field(
+        default=None,
+        metadata=config(
+            metadata={"deprecated": True, "deprecation_reason": "use subject"},
+            field_name="userSubject",
+        ),
     )
 
 

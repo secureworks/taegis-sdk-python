@@ -28,6 +28,14 @@ class VdrAssetType(str, Enum):
     SITES = "sites"
 
 
+class VdrAssetsSortMode(str, Enum):
+    """VdrAssetsSortMode."""
+
+    SCORE = "SCORE"
+    LOCATION = "LOCATION"
+    LAST_REPORT = "LAST_REPORT"
+
+
 class VdrVulnerabilitiesSortMode(str, Enum):
     """VdrVulnerabilitiesSortMode."""
 
@@ -76,9 +84,6 @@ class VdrAssetFeatures:
     )
     recognized_response: Optional[List[str]] = field(
         default=None, metadata=config(field_name="recognizedResponse")
-    )
-    response_code: Optional[List[int]] = field(
-        default=None, metadata=config(field_name="responseCode")
     )
     scheme: Optional[List[str]] = field(
         default=None, metadata=config(field_name="scheme")
@@ -131,6 +136,67 @@ class VdrAssetInputArgs:
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
+class VdrNetConfig:
+    """VdrNetConfig."""
+
+    dns: Optional[List[str]] = field(default=None, metadata=config(field_name="dns"))
+    ip: Optional[str] = field(default=None, metadata=config(field_name="ip"))
+    gateway: Optional[str] = field(default=None, metadata=config(field_name="gateway"))
+    netmask: Optional[str] = field(default=None, metadata=config(field_name="netmask"))
+    static_ip: Optional[str] = field(
+        default=None, metadata=config(field_name="staticIP")
+    )
+    use_dhcp: Optional[bool] = field(
+        default=None, metadata=config(field_name="useDHCP")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class VdrStatistics:
+    """VdrStatistics."""
+
+    cpu_count: Optional[int] = field(
+        default=None, metadata=config(field_name="cpuCount")
+    )
+    cpu_load_average: Optional[float] = field(
+        default=None, metadata=config(field_name="cpuLoadAverage")
+    )
+    deploy_mode: Optional[str] = field(
+        default=None, metadata=config(field_name="deployMode")
+    )
+    memory_available: Optional[int] = field(
+        default=None, metadata=config(field_name="memoryAvailable")
+    )
+    memory_total: Optional[int] = field(
+        default=None, metadata=config(field_name="memoryTotal")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class VdrAffectedHost:
+    """VdrAffectedHost."""
+
+    host_id: Optional[str] = field(default=None, metadata=config(field_name="hostId"))
+    address: Optional[str] = field(default=None, metadata=config(field_name="address"))
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class VdrInspectHostArgs:
+    """VdrInspectHostArgs."""
+
+    hosts: Optional[List[str]] = field(
+        default=None, metadata=config(field_name="hosts")
+    )
+    alert_detail: Optional[str] = field(
+        default=None, metadata=config(field_name="alertDetail")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
 class VdrTenant:
     """VdrTenant."""
 
@@ -142,6 +208,128 @@ class VdrTenant:
         default=None, metadata=config(field_name="xdrTenantId")
     )
     host_url: Optional[str] = field(default=None, metadata=config(field_name="hostUrl"))
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class VdrVulnerabilityDetailsInputArgs:
+    """VdrVulnerabilityDetailsInputArgs."""
+
+    vulnerability_group_id: Optional[str] = field(
+        default=None, metadata=config(field_name="vulnerabilityGroupId")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class VdrVulnerabilityDetail:
+    """VdrVulnerabilityDetail."""
+
+    id: Optional[str] = field(default=None, metadata=config(field_name="id"))
+    assessment_date: Optional[str] = field(
+        default=None, metadata=config(field_name="assessmentDate")
+    )
+    assessment_user_id: Optional[int] = field(
+        default=None, metadata=config(field_name="assessmentUserId")
+    )
+    classification: Optional[str] = field(
+        default=None, metadata=config(field_name="classification")
+    )
+    cve_number: Optional[str] = field(
+        default=None, metadata=config(field_name="cveNumber")
+    )
+    definition_hash: Optional[str] = field(
+        default=None, metadata=config(field_name="definitionHash")
+    )
+    description: Optional[str] = field(
+        default=None, metadata=config(field_name="description")
+    )
+    detail: Optional[str] = field(default=None, metadata=config(field_name="detail"))
+    detection_hash: Optional[str] = field(
+        default=None, metadata=config(field_name="detectionHash")
+    )
+    detection_identity: Optional[str] = field(
+        default=None, metadata=config(field_name="detectionIdentity")
+    )
+    first_discovery_date: Optional[str] = field(
+        default=None, metadata=config(field_name="firstDiscoveryDate")
+    )
+    fixed_in_version: Optional[str] = field(
+        default=None, metadata=config(field_name="fixedInVersion")
+    )
+    host: Optional[str] = field(default=None, metadata=config(field_name="host"))
+    host_ids: Optional[List[str]] = field(
+        default=None, metadata=config(field_name="hostIds")
+    )
+    http_code: Optional[int] = field(
+        default=None, metadata=config(field_name="httpCode")
+    )
+    http_method: Optional[str] = field(
+        default=None, metadata=config(field_name="httpMethod")
+    )
+    installed_version: Optional[str] = field(
+        default=None, metadata=config(field_name="installedVersion")
+    )
+    is_verified: Optional[bool] = field(
+        default=None, metadata=config(field_name="isVerified")
+    )
+    kb_number: Optional[str] = field(
+        default=None, metadata=config(field_name="kbNumber")
+    )
+    last_seen_date: Optional[str] = field(
+        default=None, metadata=config(field_name="lastSeenDate")
+    )
+    param: Optional[str] = field(default=None, metadata=config(field_name="param"))
+    payload: Optional[str] = field(default=None, metadata=config(field_name="payload"))
+    plan_assign_date: Optional[str] = field(
+        default=None, metadata=config(field_name="planAssignDate")
+    )
+    plan_number: Optional[str] = field(
+        default=None, metadata=config(field_name="planNumber")
+    )
+    plan_user_id: Optional[str] = field(
+        default=None, metadata=config(field_name="planUserID")
+    )
+    port: Optional[int] = field(default=None, metadata=config(field_name="port"))
+    protocol: Optional[str] = field(
+        default=None, metadata=config(field_name="protocol")
+    )
+    score_base: Optional[float] = field(
+        default=None, metadata=config(field_name="scoreBase")
+    )
+    score_final_normalized: Optional[float] = field(
+        default=None, metadata=config(field_name="scoreFinalNormalized")
+    )
+    severity: Optional[str] = field(
+        default=None, metadata=config(field_name="severity")
+    )
+    snooze_until_date: Optional[str] = field(
+        default=None, metadata=config(field_name="snoozeUntilDate")
+    )
+    software: Optional[str] = field(
+        default=None, metadata=config(field_name="software")
+    )
+    url: Optional[str] = field(default=None, metadata=config(field_name="url"))
+    verify_date: Optional[str] = field(
+        default=None, metadata=config(field_name="verifyDate")
+    )
+    verify_user_id: Optional[str] = field(
+        default=None, metadata=config(field_name="verifyUserId")
+    )
+    vulnerability_identity: Optional[str] = field(
+        default=None, metadata=config(field_name="vulnerabilityIdentity")
+    )
+    vulnerable_range: Optional[str] = field(
+        default=None, metadata=config(field_name="vulnerableRange")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class VdrVulnerabilityDetailsHttpHeaders:
+    """VdrVulnerabilityDetailsHttpHeaders."""
+
+    id: Optional[str] = field(default=None, metadata=config(field_name="id"))
 
 
 @dataclass_json
@@ -174,6 +362,56 @@ class VdrTimeFilterInputArgs:
     to: Optional[str] = field(default=None, metadata=config(field_name="to"))
     relative: Optional[int] = field(
         default=None, metadata=config(field_name="relative")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class VdrAssetsFiltersInputArgs:
+    """VdrAssetsFiltersInputArgs."""
+
+    cve: Optional[List[str]] = field(default=None, metadata=config(field_name="cve"))
+    asset_type: Optional[List[VdrAssetType]] = field(
+        default=None, metadata=config(field_name="assetType")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class VdrDefinition:
+    """VdrDefinition."""
+
+    id: Optional[str] = field(default=None, metadata=config(field_name="id"))
+    url: Optional[str] = field(default=None, metadata=config(field_name="url"))
+    description: Optional[str] = field(
+        default=None, metadata=config(field_name="description")
+    )
+    cvssv2: Optional[str] = field(default=None, metadata=config(field_name="cvssv2"))
+    cvssv3: Optional[str] = field(default=None, metadata=config(field_name="cvssv3"))
+    references: Optional[List[str]] = field(
+        default=None, metadata=config(field_name="references")
+    )
+    is_detectable_externally: Optional[bool] = field(
+        default=None, metadata=config(field_name="isDetectableExternally")
+    )
+    is_detectable_internally: Optional[bool] = field(
+        default=None, metadata=config(field_name="isDetectableInternally")
+    )
+    affected_hosts: Optional[List[VdrAffectedHost]] = field(
+        default=None, metadata=config(field_name="affectedHosts")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class VdrVulnerabilityDetails:
+    """VdrVulnerabilityDetails."""
+
+    total_count: Optional[int] = field(
+        default=None, metadata=config(field_name="totalCount")
+    )
+    vulnerability_details: Optional[List[VdrVulnerabilityDetail]] = field(
+        default=None, metadata=config(field_name="vulnerabilityDetails")
     )
 
 
@@ -278,6 +516,9 @@ class VdrVulnerability:
     severity: Optional[str] = field(
         default=None, metadata=config(field_name="severity")
     )
+    top_cve_numbers: Optional[List[str]] = field(
+        default=None, metadata=config(field_name="topCveNumbers")
+    )
     url: Optional[str] = field(default=None, metadata=config(field_name="url"))
     verify_date: Optional[str] = field(
         default=None, metadata=config(field_name="verifyDate")
@@ -292,6 +533,19 @@ class VdrVulnerability:
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
+class VdrInspectHost:
+    """VdrInspectHost."""
+
+    definitions: Optional[List[VdrDefinition]] = field(
+        default=None, metadata=config(field_name="definitions")
+    )
+    matching_vulnerability_groups: Optional[List[VdrVulnerability]] = field(
+        default=None, metadata=config(field_name="matchingVulnerabilityGroups")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
 class VdrVulnerabilitiesFiltersInputArgs:
     """VdrVulnerabilitiesFiltersInputArgs."""
 
@@ -301,6 +555,85 @@ class VdrVulnerabilitiesFiltersInputArgs:
     )
     first_discovery_date: Optional[VdrTimeFilterInputArgs] = field(
         default=None, metadata=config(field_name="firstDiscoveryDate")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class VdrEdgeService:
+    """VdrEdgeService."""
+
+    id: Optional[int] = field(default=None, metadata=config(field_name="id"))
+    concurrency_limit: Optional[int] = field(
+        default=None, metadata=config(field_name="concurrencyLimit")
+    )
+    creation_date: Optional[str] = field(
+        default=None, metadata=config(field_name="creationDate")
+    )
+    creation_status: Optional[str] = field(
+        default=None, metadata=config(field_name="creationStatus")
+    )
+    description: Optional[str] = field(
+        default=None, metadata=config(field_name="description")
+    )
+    download_url: Optional[str] = field(
+        default=None, metadata=config(field_name="downloadURL")
+    )
+    identifier: Optional[str] = field(
+        default=None, metadata=config(field_name="identifier")
+    )
+    is_assigned: Optional[bool] = field(
+        default=None, metadata=config(field_name="isAssigned")
+    )
+    is_available: Optional[bool] = field(
+        default=None, metadata=config(field_name="isAvailable")
+    )
+    is_connected: Optional[bool] = field(
+        default=None, metadata=config(field_name="isConnected")
+    )
+    keys_status: Optional[str] = field(
+        default=None, metadata=config(field_name="keysStatus")
+    )
+    label: Optional[str] = field(default=None, metadata=config(field_name="label"))
+    last_connect_date: Optional[str] = field(
+        default=None, metadata=config(field_name="lastConnectDate")
+    )
+    platform: Optional[str] = field(
+        default=None, metadata=config(field_name="platform")
+    )
+    port: Optional[int] = field(default=None, metadata=config(field_name="port"))
+    scan_cluster: Optional[str] = field(
+        default=None, metadata=config(field_name="scanCluster")
+    )
+    current_net_config: Optional[VdrNetConfig] = field(
+        default=None, metadata=config(field_name="currentNetConfig")
+    )
+    net_config: Optional[VdrNetConfig] = field(
+        default=None, metadata=config(field_name="netConfig")
+    )
+    statistics: Optional[VdrStatistics] = field(
+        default=None, metadata=config(field_name="statistics")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class VdrAssetsInputArgs:
+    """VdrAssetsInputArgs."""
+
+    offset: Optional[int] = field(default=None, metadata=config(field_name="offset"))
+    limit: Optional[int] = field(default=None, metadata=config(field_name="limit"))
+    sort_by: Optional[VdrAssetsSortMode] = field(
+        default=None, metadata=config(field_name="sortBy")
+    )
+    sort_order: Optional[VdrSortOrder] = field(
+        default=None, metadata=config(field_name="sortOrder")
+    )
+    filters: Optional[VdrAssetsFiltersInputArgs] = field(
+        default=None, metadata=config(field_name="filters")
+    )
+    exclude_filters: Optional[VdrAssetsFiltersInputArgs] = field(
+        default=None, metadata=config(field_name="excludeFilters")
     )
 
 
@@ -428,6 +761,32 @@ class VdrAsset:
     )
     schedule: Optional[VdrAssetSchedule] = field(
         default=None, metadata=config(field_name="schedule")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class VdrAssets:
+    """VdrAssets."""
+
+    total_count: Optional[int] = field(
+        default=None, metadata=config(field_name="totalCount")
+    )
+    assets: Optional[List[VdrAsset]] = field(
+        default=None, metadata=config(field_name="assets")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class VdrEdgeServices:
+    """VdrEdgeServices."""
+
+    total_count: Optional[int] = field(
+        default=None, metadata=config(field_name="totalCount")
+    )
+    edge_services: Optional[List[VdrEdgeService]] = field(
+        default=None, metadata=config(field_name="edgeServices")
     )
 
 

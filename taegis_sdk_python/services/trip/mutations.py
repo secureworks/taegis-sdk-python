@@ -49,25 +49,27 @@ class TaegisSDKTripMutation:
             return ApiIntegration.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for mutation createApiIntegration")
 
-    def update_api_integration_parameters(
-        self, integration_id: int, parameters: List[ApiIntegrationParameterInput]
+    def update_api_integration(
+        self,
+        integration_id: int,
+        name: str,
+        parameters: List[ApiIntegrationParameterInput],
     ) -> ApiIntegration:
         """None."""
-        endpoint = "updateApiIntegrationParameters"
+        endpoint = "updateApiIntegration"
 
         result = self.service.execute_mutation(
             endpoint=endpoint,
             variables={
                 "integrationId": prepare_input(integration_id),
+                "name": prepare_input(name),
                 "parameters": prepare_input(parameters),
             },
             output=build_output_string(ApiIntegration),
         )
         if result.get(endpoint) is not None:
             return ApiIntegration.from_dict(result.get(endpoint))
-        raise GraphQLNoRowsInResultSetError(
-            "for mutation updateApiIntegrationParameters"
-        )
+        raise GraphQLNoRowsInResultSetError("for mutation updateApiIntegration")
 
     def delete_api_integration(self, id_: int) -> List[ApiIntegrationSummary]:
         """None."""

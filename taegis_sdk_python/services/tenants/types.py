@@ -389,6 +389,9 @@ class SSOConnectionParameters:
 class SAMLConnectionParameters:
     """SAMLConnectionParameters."""
 
+    metadata_url: Optional[str] = field(
+        default=None, metadata=config(field_name="metadataURL")
+    )
     signing_cert: Optional[str] = field(
         default=None, metadata=config(field_name="signingCert")
     )
@@ -1032,29 +1035,6 @@ class TenantDecommissionRequest:
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
-class NewSSOConnectionInput:
-    """NewSSOConnectionInput."""
-
-    name: Optional[str] = field(default=None, metadata=config(field_name="name"))
-    domains: Optional[List[str]] = field(
-        default=None, metadata=config(field_name="domains")
-    )
-    testers: Optional[List[str]] = field(
-        default=None, metadata=config(field_name="testers")
-    )
-    type: Optional[SSOConnectionType] = field(
-        default=None, metadata=config(field_name="type")
-    )
-    connection_configuration: Optional[ConnectionConfiguration] = field(
-        default=None, metadata=config(field_name="connectionConfiguration")
-    )
-    auth0_domain_type: Optional[Auth0DomainType] = field(
-        default=None, metadata=config(field_name="auth0DomainType")
-    )
-
-
-@dataclass_json
-@dataclass(order=True, eq=True, frozen=True)
 class UpdateSSOConnectionInput:
     """UpdateSSOConnectionInput."""
 
@@ -1128,6 +1108,32 @@ class TenantSSOConnectionQueryInput:
     )
     with_auth0_domain_type: Optional[Auth0DomainType] = field(
         default=None, metadata=config(field_name="withAuth0DomainType")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class NewSSOConnectionInput:
+    """NewSSOConnectionInput."""
+
+    name: Optional[str] = field(default=None, metadata=config(field_name="name"))
+    domains: Optional[List[str]] = field(
+        default=None, metadata=config(field_name="domains")
+    )
+    testers: Optional[List[str]] = field(
+        default=None, metadata=config(field_name="testers")
+    )
+    type: Optional[SSOConnectionType] = field(
+        default=None, metadata=config(field_name="type")
+    )
+    connection_configuration: Optional[ConnectionConfiguration] = field(
+        default=None, metadata=config(field_name="connectionConfiguration")
+    )
+    external_provider: Optional[ExternalProvider] = field(
+        default=None, metadata=config(field_name="externalProvider")
+    )
+    auth0_domain_type: Optional[Auth0DomainType] = field(
+        default=None, metadata=config(field_name="auth0DomainType")
     )
 
 

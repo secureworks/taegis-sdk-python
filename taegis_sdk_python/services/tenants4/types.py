@@ -168,6 +168,9 @@ class TenantsQuery:
     )
     count: Optional[int] = field(default=None, metadata=config(field_name="count"))
     cql: Optional[str] = field(default=None, metadata=config(field_name="cql"))
+    read_partner_roots: Optional[bool] = field(
+        default=None, metadata=config(field_name="readPartnerRoots")
+    )
     enabled_in: Optional[List[TenantRegion]] = field(
         default=None, metadata=config(field_name="enabledIn")
     )

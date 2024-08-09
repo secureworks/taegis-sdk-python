@@ -45,6 +45,21 @@ class TaegisSDKVdrQuery:
             return VdrAsset.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for query vdrAsset")
 
+    def vdr_assets(self, arguments: VdrAssetsInputArgs) -> VdrAssets:
+        """Get VDR assets."""
+        endpoint = "vdrAssets"
+
+        result = self.service.execute_query(
+            endpoint=endpoint,
+            variables={
+                "arguments": prepare_input(arguments),
+            },
+            output=build_output_string(VdrAssets),
+        )
+        if result.get(endpoint) is not None:
+            return VdrAssets.from_dict(result.get(endpoint))
+        raise GraphQLNoRowsInResultSetError("for query vdrAssets")
+
     def vdr_vulnerabilities(
         self, arguments: VdrVulnerabilitiesInputArgs
     ) -> VdrVulnerabilities:
@@ -62,6 +77,23 @@ class TaegisSDKVdrQuery:
             return VdrVulnerabilities.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for query vdrVulnerabilities")
 
+    def vdr_vulnerability_details(
+        self, arguments: VdrVulnerabilityDetailsInputArgs
+    ) -> VdrVulnerabilityDetails:
+        """Get VDR asset vulnerability details."""
+        endpoint = "vdrVulnerabilityDetails"
+
+        result = self.service.execute_query(
+            endpoint=endpoint,
+            variables={
+                "arguments": prepare_input(arguments),
+            },
+            output=build_output_string(VdrVulnerabilityDetails),
+        )
+        if result.get(endpoint) is not None:
+            return VdrVulnerabilityDetails.from_dict(result.get(endpoint))
+        raise GraphQLNoRowsInResultSetError("for query vdrVulnerabilityDetails")
+
     def vdr_tenant(self) -> VdrTenant:
         """Get VDR organization information."""
         endpoint = "vdrTenant"
@@ -72,3 +104,29 @@ class TaegisSDKVdrQuery:
         if result.get(endpoint) is not None:
             return VdrTenant.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for query vdrTenant")
+
+    def vdr_inspect_host(self, arguments: VdrInspectHostArgs) -> VdrInspectHost:
+        """Get Inspect Hosts information."""
+        endpoint = "vdrInspectHost"
+
+        result = self.service.execute_query(
+            endpoint=endpoint,
+            variables={
+                "arguments": prepare_input(arguments),
+            },
+            output=build_output_string(VdrInspectHost),
+        )
+        if result.get(endpoint) is not None:
+            return VdrInspectHost.from_dict(result.get(endpoint))
+        raise GraphQLNoRowsInResultSetError("for query vdrInspectHost")
+
+    def vdr_edge_services(self) -> VdrEdgeServices:
+        """Get VDR edge services."""
+        endpoint = "vdrEdgeServices"
+
+        result = self.service.execute_query(
+            endpoint=endpoint, variables={}, output=build_output_string(VdrEdgeServices)
+        )
+        if result.get(endpoint) is not None:
+            return VdrEdgeServices.from_dict(result.get(endpoint))
+        raise GraphQLNoRowsInResultSetError("for query vdrEdgeServices")
