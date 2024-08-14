@@ -7,7 +7,7 @@ import concurrent
 import logging
 from dataclasses import fields as dc_fields
 from dataclasses import is_dataclass
-from enum import Enum
+from enum import Enum, EnumMeta
 from typing import Any, Callable, Dict, Optional, Union
 
 from graphql.language.ast import FieldNode
@@ -16,6 +16,7 @@ from graphql.type import is_object_type, is_scalar_type
 from graphql.type import is_union_type as is_gql_union_type
 from graphql.type import is_wrapping_type
 from typing_inspect import get_args, is_union_type
+from taegis_sdk_python._consts import TaegisEnum
 
 log = logging.getLogger(__name__)
 
@@ -191,13 +192,29 @@ def prepare_input(value: Any) -> Any:
         return {
             key: value
             for key, value in value.to_dict(encode_json=True).items()
-            if value is not None
+            if value is not None and not value == TaegisEnum.UNKNOWN.value
         }
     # return value of Enum instead of the object
     if isinstance(value, Enum):
+        if value is TaegisEnum.UNKNOWN:
+            log.error(
+                "Input is of value TaegisEnum.UNKNOWN, "
+                "this is a placeholder that does not represent "
+                "a valid value to submit to Taegis APIs."
+            )
+            return None
         return value.value
     if isinstance(value, list):
         return [prepare_input(item) for item in value]
+
+    if value == TaegisEnum.UNKNOWN.value:
+        log.error(
+            "Input is of value TaegisEnum.UNKNOWN, "
+            "this is a placeholder that does not represent "
+            "a valid value to submit to Taegis APIs."
+        )
+        return None
+
     return value
 
 
@@ -217,11 +234,18 @@ def prepare_variables(
     Union[None, Dict[str, Any]]
         Variables
     """
-    return (
-        {key: value for key, value in variables.items() if value is not None}
-        if variables
-        else None
-    )
+    if variables is None:
+        return None
+
+    for key, value in variables.items():
+        if value is TaegisEnum.UNKNOWN or value == TaegisEnum.UNKNOWN.value:
+            raise ValueError(
+                f"{key} is of value TaegisEnum.UNKNOWN, "
+                "this is a placeholder that does not represent "
+                "a valid value to submit to Taegis APIs."
+            )
+
+    return {key: value for key, value in variables.items() if value is not None}
 
 
 def parse_union_result(union, result: Dict[str, Any]) -> Any:
@@ -288,6 +312,45 @@ def remove_node(query: str, node: FieldNode, location: SourceLocation) -> str:
         end_idx = idx
 
     return query[:start_idx] + query[end_idx:]
+
+
+def encode_enum(value: Any) -> Any:
+    """Encode Enum to string value.
+
+    Parameters
+    ----------
+    value : Any
+        Enum Object
+
+    Returns
+    -------
+    str
+        Enum Value
+    """
+    if isinstance(value, Enum):
+        return value.value
+    return value
+
+
+def decode_enum(type_: Union[Enum, EnumMeta], value: str):
+    """Decode Enum from string value.
+
+    Parameters
+    ----------
+    type_ : Union[Enum, EnumMeta]
+        Enum Type
+    value : str
+        Enum Value
+
+    Returns
+    -------
+    Enum
+        Enum Object
+    """
+    try:
+        return type_(value)
+    except ValueError:
+        return TaegisEnum.UNKNOWN
 
 
 __all__ = [

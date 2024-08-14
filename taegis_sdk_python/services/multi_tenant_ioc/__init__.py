@@ -25,6 +25,7 @@ class MultiTenantIocService(ServiceCore):
     def __init__(self, service: GraphQLService):
         super().__init__(service)
         self._gateway = "/multi-tenant-ioc/query"
+        self._input_value_deprecation = False
 
     @property
     def query(self):

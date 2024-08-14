@@ -1,5 +1,7 @@
 """Taegis Constants."""
 
+from enum import Enum
+
 TAEGIS_ENVIRONMENT_URLS = {
     "charlie": "https://api.ctpx.secureworks.com",
     "production": "https://api.ctpx.secureworks.com",
@@ -24,3 +26,9 @@ TAEGIS_TENANTS_URLS = {
     "foxtrot": "https://api-tenants.foxtrot.taegis.secureworks.com",
     "US3": "https://api-tenants.foxtrot.taegis.secureworks.com",
 }
+
+
+class TaegisEnum(str, Enum):
+    """Handler for Unknown Enums."""
+
+    UNKNOWN = "TAEGIS_SDK_PYTHON_UNKNOWN"
