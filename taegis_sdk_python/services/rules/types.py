@@ -772,11 +772,11 @@ class RuleInput:
             field_name="ruleAction",
         ),
     )
-    endpoint_platform: Optional[Union[List[RuleEndpointPlatform], TaegisEnum]] = field(
+    endpoint_platform: Optional[List[Union[RuleEndpointPlatform, TaegisEnum]]] = field(
         default=None,
         metadata=config(
             encoder=encode_enum,
-            decoder=lambda x: decode_enum(List[RuleEndpointPlatform], x),
+            decoder=lambda x: decode_enum(RuleEndpointPlatform, x),
             field_name="endpointPlatform",
         ),
     )
@@ -898,11 +898,11 @@ class Rule:
     attack_categories_details: Optional[List[AttackCategoryDetail]] = field(
         default=None, metadata=config(field_name="attackCategoriesDetails")
     )
-    endpoint_platform: Optional[Union[List[RuleEndpointPlatform], TaegisEnum]] = field(
+    endpoint_platform: Optional[List[Union[RuleEndpointPlatform, TaegisEnum]]] = field(
         default=None,
         metadata=config(
             encoder=encode_enum,
-            decoder=lambda x: decode_enum(List[RuleEndpointPlatform], x),
+            decoder=lambda x: decode_enum(RuleEndpointPlatform, x),
             field_name="endpointPlatform",
         ),
     )

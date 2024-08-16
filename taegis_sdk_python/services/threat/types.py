@@ -1248,11 +1248,11 @@ class ThreatIdentityInput:
             field_name="identity_class",
         ),
     )
-    sectors: Optional[Union[List[ThreatIndustrySectors], TaegisEnum]] = field(
+    sectors: Optional[List[Union[ThreatIndustrySectors, TaegisEnum]]] = field(
         default=None,
         metadata=config(
             encoder=encode_enum,
-            decoder=lambda x: decode_enum(List[ThreatIndustrySectors], x),
+            decoder=lambda x: decode_enum(ThreatIndustrySectors, x),
             field_name="sectors",
         ),
     )
@@ -1391,11 +1391,11 @@ class ThreatIdentity:
             field_name="identity_class",
         ),
     )
-    sectors: Optional[Union[List[ThreatIndustrySectors], TaegisEnum]] = field(
+    sectors: Optional[List[Union[ThreatIndustrySectors, TaegisEnum]]] = field(
         default=None,
         metadata=config(
             encoder=encode_enum,
-            decoder=lambda x: decode_enum(List[ThreatIndustrySectors], x),
+            decoder=lambda x: decode_enum(ThreatIndustrySectors, x),
             field_name="sectors",
         ),
     )
@@ -1575,11 +1575,11 @@ class ThreatIndicatorInput:
         default=None, metadata=config(field_name="valid_until")
     )
     score: Optional[int] = field(default=None, metadata=config(field_name="score"))
-    indicator_types: Optional[Union[List[ThreatIndicatorType], TaegisEnum]] = field(
+    indicator_types: Optional[List[Union[ThreatIndicatorType, TaegisEnum]]] = field(
         default=None,
         metadata=config(
             encoder=encode_enum,
-            decoder=lambda x: decode_enum(List[ThreatIndicatorType], x),
+            decoder=lambda x: decode_enum(ThreatIndicatorType, x),
             field_name="indicator_types",
         ),
     )
@@ -1651,11 +1651,11 @@ class ThreatMalware:
             field_name="type",
         ),
     )
-    malware_types: Optional[Union[List[ThreatMalwareType], TaegisEnum]] = field(
+    malware_types: Optional[List[Union[ThreatMalwareType, TaegisEnum]]] = field(
         default=None,
         metadata=config(
             encoder=encode_enum,
-            decoder=lambda x: decode_enum(List[ThreatMalwareType], x),
+            decoder=lambda x: decode_enum(ThreatMalwareType, x),
             field_name="malware_types",
         ),
     )
@@ -1663,30 +1663,30 @@ class ThreatMalware:
         default=None, metadata=config(field_name="kill_chain_phases")
     )
     architecture_execution_envs: Optional[
-        Union[List[ThreatArchitectureExecutionEnvs], TaegisEnum]
+        List[Union[ThreatArchitectureExecutionEnvs, TaegisEnum]]
     ] = field(
         default=None,
         metadata=config(
             encoder=encode_enum,
-            decoder=lambda x: decode_enum(List[ThreatArchitectureExecutionEnvs], x),
+            decoder=lambda x: decode_enum(ThreatArchitectureExecutionEnvs, x),
             field_name="architecture_execution_envs",
         ),
     )
     implementation_languages: Optional[
-        Union[List[ThreatImplementationLanguages], TaegisEnum]
+        List[Union[ThreatImplementationLanguages, TaegisEnum]]
     ] = field(
         default=None,
         metadata=config(
             encoder=encode_enum,
-            decoder=lambda x: decode_enum(List[ThreatImplementationLanguages], x),
+            decoder=lambda x: decode_enum(ThreatImplementationLanguages, x),
             field_name="implementation_languages",
         ),
     )
-    capabilities: Optional[Union[List[ThreatCapabilities], TaegisEnum]] = field(
+    capabilities: Optional[List[Union[ThreatCapabilities, TaegisEnum]]] = field(
         default=None,
         metadata=config(
             encoder=encode_enum,
-            decoder=lambda x: decode_enum(List[ThreatCapabilities], x),
+            decoder=lambda x: decode_enum(ThreatCapabilities, x),
             field_name="capabilities",
         ),
     )
@@ -1743,11 +1743,11 @@ class ThreatIndicator:
             field_name="type",
         ),
     )
-    indicator_types: Optional[Union[List[ThreatIndicatorType], TaegisEnum]] = field(
+    indicator_types: Optional[List[Union[ThreatIndicatorType, TaegisEnum]]] = field(
         default=None,
         metadata=config(
             encoder=encode_enum,
-            decoder=lambda x: decode_enum(List[ThreatIndicatorType], x),
+            decoder=lambda x: decode_enum(ThreatIndicatorType, x),
             field_name="indicator_types",
         ),
     )

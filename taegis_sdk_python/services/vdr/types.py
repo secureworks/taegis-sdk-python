@@ -374,11 +374,11 @@ class VdrAssetsFiltersInputArgs:
     """VdrAssetsFiltersInputArgs."""
 
     cve: Optional[List[str]] = field(default=None, metadata=config(field_name="cve"))
-    asset_type: Optional[Union[List[VdrAssetType], TaegisEnum]] = field(
+    asset_type: Optional[List[Union[VdrAssetType, TaegisEnum]]] = field(
         default=None,
         metadata=config(
             encoder=encode_enum,
-            decoder=lambda x: decode_enum(List[VdrAssetType], x),
+            decoder=lambda x: decode_enum(VdrAssetType, x),
             field_name="assetType",
         ),
     )
@@ -558,11 +558,11 @@ class VdrVulnerabilitiesFiltersInputArgs:
     """VdrVulnerabilitiesFiltersInputArgs."""
 
     cve: Optional[List[str]] = field(default=None, metadata=config(field_name="cve"))
-    severity: Optional[Union[List[VdrVulnerabilitySeverity], TaegisEnum]] = field(
+    severity: Optional[List[Union[VdrVulnerabilitySeverity, TaegisEnum]]] = field(
         default=None,
         metadata=config(
             encoder=encode_enum,
-            decoder=lambda x: decode_enum(List[VdrVulnerabilitySeverity], x),
+            decoder=lambda x: decode_enum(VdrVulnerabilitySeverity, x),
             field_name="severity",
         ),
     )

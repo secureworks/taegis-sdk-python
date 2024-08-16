@@ -114,7 +114,9 @@ class TaegisSDKThreatQuery:
             return [parse_union_result(ThreatResult, r) for r in result.get(endpoint)]
         raise GraphQLNoRowsInResultSetError("for query threatIdentitiesByConfidence")
 
-    def threat_watchlist(self, type_: ThreatParentType) -> List[ThreatRelationship]:
+    def threat_watchlist(
+        self, type_: Union[ThreatParentType, TaegisEnum]
+    ) -> List[ThreatRelationship]:
         """Gets a watchlist by type. All results are considered **high confidence**.
         Only IP and DOMAIN types are supported. FILE type has been removed from this endpoint.
         Instead, use the paged endpoint threatTimsMalwareFiles for FILE types.."""

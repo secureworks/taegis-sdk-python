@@ -672,12 +672,12 @@ class InvestigationTimelineEntityFilters:
         default=None, metadata=config(field_name="entityTypes")
     )
     entities: Optional[
-        Union[List[InvestigationTimelineEntityType], TaegisEnum]
+        List[Union[InvestigationTimelineEntityType, TaegisEnum]]
     ] = field(
         default=None,
         metadata=config(
             encoder=encode_enum,
-            decoder=lambda x: decode_enum(List[InvestigationTimelineEntityType], x),
+            decoder=lambda x: decode_enum(InvestigationTimelineEntityType, x),
             field_name="entities",
         ),
     )

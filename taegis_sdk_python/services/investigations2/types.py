@@ -1202,12 +1202,12 @@ class InvestigationV2TimelineArguments:
         ),
     )
     entity_types: Optional[
-        Union[List[InvestigationV2TimelineEntityType], TaegisEnum]
+        List[Union[InvestigationV2TimelineEntityType, TaegisEnum]]
     ] = field(
         default=None,
         metadata=config(
             encoder=encode_enum,
-            decoder=lambda x: decode_enum(List[InvestigationV2TimelineEntityType], x),
+            decoder=lambda x: decode_enum(InvestigationV2TimelineEntityType, x),
             field_name="entityTypes",
         ),
     )

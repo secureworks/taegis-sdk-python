@@ -174,11 +174,11 @@ class TenantsQuery:
     read_partner_roots: Optional[bool] = field(
         default=None, metadata=config(field_name="readPartnerRoots")
     )
-    enabled_in: Optional[Union[List[TenantRegion], TaegisEnum]] = field(
+    enabled_in: Optional[List[Union[TenantRegion, TaegisEnum]]] = field(
         default=None,
         metadata=config(
             encoder=encode_enum,
-            decoder=lambda x: decode_enum(List[TenantRegion], x),
+            decoder=lambda x: decode_enum(TenantRegion, x),
             field_name="enabledIn",
         ),
     )
@@ -253,11 +253,11 @@ class TenantV4:
     updated_at: Optional[str] = field(
         default=None, metadata=config(field_name="updatedAt")
     )
-    enabled_at_regions: Optional[Union[List[TenantRegion], TaegisEnum]] = field(
+    enabled_at_regions: Optional[List[Union[TenantRegion, TaegisEnum]]] = field(
         default=None,
         metadata=config(
             encoder=encode_enum,
-            decoder=lambda x: decode_enum(List[TenantRegion], x),
+            decoder=lambda x: decode_enum(TenantRegion, x),
             field_name="enabledAtRegions",
         ),
     )

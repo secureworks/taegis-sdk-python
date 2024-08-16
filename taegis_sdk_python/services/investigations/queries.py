@@ -100,8 +100,8 @@ class TaegisSDKInvestigationsQuery:
         created_before: Optional[str] = None,
         updated_after: Optional[str] = None,
         updated_before: Optional[str] = None,
-        order_by_field: Optional[OrderFieldInput] = None,
-        order_direction: Optional[OrderDirectionInput] = None,
+        order_by_field: Optional[Union[OrderFieldInput, TaegisEnum]] = None,
+        order_direction: Optional[Union[OrderDirectionInput, TaegisEnum]] = None,
         is_deleted: Optional[bool] = None,
         hide_threat_hunting_investigations: Optional[bool] = None,
     ) -> List[Investigation]:
@@ -250,7 +250,7 @@ class TaegisSDKInvestigationsQuery:
         per_page: Optional[int] = None,
         filter_query: Optional[str] = None,
         order_by_field: Optional[str] = None,
-        order_direction: Optional[OrderDirection] = None,
+        order_direction: Optional[Union[OrderDirection, TaegisEnum]] = None,
     ) -> InvestigationAlertOutput:
         """Get investigation alerts by investigation id
         deprecated: Use `investigation` query or alerts2 search query (paginated) to get alerts by investigation id."""
@@ -424,8 +424,8 @@ class TaegisSDKInvestigationsQuery:
         per_page: Optional[int] = None,
         query: Optional[str] = None,
         filter_text: Optional[str] = None,
-        order_by_field: Optional[OrderFieldInput] = None,
-        order_direction: Optional[OrderDirectionInput] = None,
+        order_by_field: Optional[Union[OrderFieldInput, TaegisEnum]] = None,
+        order_direction: Optional[Union[OrderDirectionInput, TaegisEnum]] = None,
     ) -> InvestigationsOutput:
         """Investigations Search.
         Query fields accepts a CQL string (non aggregations). Use filterText for free text search.
@@ -554,8 +554,8 @@ class TaegisSDKInvestigationsQuery:
         per_page: Optional[int] = None,
         query: Optional[str] = None,
         filter_text: Optional[str] = None,
-        order_by_field: Optional[OrderFieldInput] = None,
-        order_direction: Optional[OrderDirectionInput] = None,
+        order_by_field: Optional[Union[OrderFieldInput, TaegisEnum]] = None,
+        order_direction: Optional[Union[OrderDirectionInput, TaegisEnum]] = None,
     ) -> InvestigationsExportOutput:
         """Export investigations Search Raw Content
         Max perPage Value is 100. If requesting over 100, only the first 100 will be returned.."""

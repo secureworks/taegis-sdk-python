@@ -315,11 +315,11 @@ class AdvancedKernelTelemetry:
         default=None, metadata=config(field_name="description")
     )
     enabled: Optional[bool] = field(default=None, metadata=config(field_name="enabled"))
-    platforms: Optional[Union[List[EndpointPlatform], TaegisEnum]] = field(
+    platforms: Optional[List[Union[EndpointPlatform, TaegisEnum]]] = field(
         default=None,
         metadata=config(
             encoder=encode_enum,
-            decoder=lambda x: decode_enum(List[EndpointPlatform], x),
+            decoder=lambda x: decode_enum(EndpointPlatform, x),
             field_name="platforms",
         ),
     )
@@ -338,11 +338,11 @@ class AutoArchive:
     period_days: Optional[int] = field(
         default=None, metadata=config(field_name="periodDays")
     )
-    platforms: Optional[Union[List[EndpointPlatform], TaegisEnum]] = field(
+    platforms: Optional[List[Union[EndpointPlatform, TaegisEnum]]] = field(
         default=None,
         metadata=config(
             encoder=encode_enum,
-            decoder=lambda x: decode_enum(List[EndpointPlatform], x),
+            decoder=lambda x: decode_enum(EndpointPlatform, x),
             field_name="platforms",
         ),
     )
@@ -358,11 +358,11 @@ class FileAnalysis:
         default=None, metadata=config(field_name="description")
     )
     enabled: Optional[bool] = field(default=None, metadata=config(field_name="enabled"))
-    platforms: Optional[Union[List[EndpointPlatform], TaegisEnum]] = field(
+    platforms: Optional[List[Union[EndpointPlatform, TaegisEnum]]] = field(
         default=None,
         metadata=config(
             encoder=encode_enum,
-            decoder=lambda x: decode_enum(List[EndpointPlatform], x),
+            decoder=lambda x: decode_enum(EndpointPlatform, x),
             field_name="platforms",
         ),
     )
@@ -378,11 +378,11 @@ class TamperProtection:
         default=None, metadata=config(field_name="description")
     )
     enabled: Optional[bool] = field(default=None, metadata=config(field_name="enabled"))
-    platforms: Optional[Union[List[EndpointPlatform], TaegisEnum]] = field(
+    platforms: Optional[List[Union[EndpointPlatform, TaegisEnum]]] = field(
         default=None,
         metadata=config(
             encoder=encode_enum,
-            decoder=lambda x: decode_enum(List[EndpointPlatform], x),
+            decoder=lambda x: decode_enum(EndpointPlatform, x),
             field_name="platforms",
         ),
     )
@@ -526,11 +526,11 @@ class MaintenanceWindow:
         default=None, metadata=config(field_name="description")
     )
     enabled: Optional[bool] = field(default=None, metadata=config(field_name="enabled"))
-    platforms: Optional[Union[List[EndpointPlatform], TaegisEnum]] = field(
+    platforms: Optional[List[Union[EndpointPlatform, TaegisEnum]]] = field(
         default=None,
         metadata=config(
             encoder=encode_enum,
-            decoder=lambda x: decode_enum(List[EndpointPlatform], x),
+            decoder=lambda x: decode_enum(EndpointPlatform, x),
             field_name="platforms",
         ),
     )

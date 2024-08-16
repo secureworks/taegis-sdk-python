@@ -2104,11 +2104,11 @@ class AggregateAlertsBySeverityInputInput:
     latest: Optional[TimestampInput] = field(
         default=None, metadata=config(field_name="latest")
     )
-    excluded_severities: Optional[Union[List[AlertsSeverity], TaegisEnum]] = field(
+    excluded_severities: Optional[List[Union[AlertsSeverity, TaegisEnum]]] = field(
         default=None,
         metadata=config(
             encoder=encode_enum,
-            decoder=lambda x: decode_enum(List[AlertsSeverity], x),
+            decoder=lambda x: decode_enum(AlertsSeverity, x),
             field_name="excluded_severities",
         ),
     )

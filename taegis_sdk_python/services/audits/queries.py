@@ -77,7 +77,9 @@ class TaegisSDKAuditsQuery:
             return AuditResult.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for query searchAudits")
 
-    def list_application_events(self, application: AuditEventEnum) -> AuditEventResult:
+    def list_application_events(
+        self, application: Union[AuditEventEnum, TaegisEnum]
+    ) -> AuditEventResult:
         """Get event name list."""
         endpoint = "ListApplicationEvents"
 

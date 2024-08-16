@@ -117,11 +117,11 @@ class Subject:
 class SubjectSelector:
     """SubjectSelector."""
 
-    with_types: Optional[Union[List[SubjectType], TaegisEnum]] = field(
+    with_types: Optional[List[Union[SubjectType, TaegisEnum]]] = field(
         default=None,
         metadata=config(
             encoder=encode_enum,
-            decoder=lambda x: decode_enum(List[SubjectType], x),
+            decoder=lambda x: decode_enum(SubjectType, x),
             field_name="withTypes",
         ),
     )

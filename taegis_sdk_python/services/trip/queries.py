@@ -31,7 +31,7 @@ class TaegisSDKTripQuery:
         self.service = service
 
     def list_active_api_products(
-        self, application: ApiProductGroup
+        self, application: Union[ApiProductGroup, TaegisEnum]
     ) -> List[ApiProduct]:
         """None."""
         endpoint = "listActiveApiProducts"

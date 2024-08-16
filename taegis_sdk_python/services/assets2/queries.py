@@ -31,7 +31,7 @@ class TaegisSDKAssets2Query:
         self.service = service
 
     def facets_v2(
-        self, endpoint_type: Optional[List[EndpointTypeV2]] = None
+        self, endpoint_type: Optional[List[Union[EndpointTypeV2, TaegisEnum]]] = None
     ) -> List[FacetV2]:
         """Retrieve a list of facets for a given endpoint type.."""
         endpoint = "facetsV2"
@@ -52,7 +52,7 @@ class TaegisSDKAssets2Query:
     def facet_info_v2(
         self,
         facets: List[str],
-        order_by: Optional[FacetInfoOrderByInputV2] = None,
+        order_by: Optional[Union[FacetInfoOrderByInputV2, TaegisEnum]] = None,
         filter_: Optional[AssetFilter] = None,
     ) -> List[FacetInfoV2]:
         """Get facet info based on a currently selected facet.."""
@@ -80,7 +80,7 @@ class TaegisSDKAssets2Query:
         after: Optional[str] = None,
         before: Optional[str] = None,
         filter_: Optional[AssetFilter] = None,
-        order_by: Optional[AssetSearchOrderByInputV2] = None,
+        order_by: Optional[Union[AssetSearchOrderByInputV2, TaegisEnum]] = None,
     ) -> AssetsV2:
         """Retrieve assets.."""
         endpoint = "assetsV2"
@@ -106,7 +106,7 @@ class TaegisSDKAssets2Query:
         first: Optional[int] = None,
         after: Optional[str] = None,
         filter_: Optional[AssetFilter] = None,
-        order_by: Optional[AssetSearchOrderByInputV2] = None,
+        order_by: Optional[Union[AssetSearchOrderByInputV2, TaegisEnum]] = None,
     ) -> AssetsExportOutputV2:
         """Retrieve assets in a form coercible into CSV files.."""
         endpoint = "exportAssetsV2"
@@ -342,7 +342,7 @@ class TaegisSDKAssets2Query:
         after: Optional[str] = None,
         before: Optional[str] = None,
         filter_: Optional[AssetHostnameFilter] = None,
-        order_by: Optional[AssetHostnameSearchOrderByInput] = None,
+        order_by: Optional[Union[AssetHostnameSearchOrderByInput, TaegisEnum]] = None,
     ) -> AssetsHostname:
         """ "Retrieve hostname details."""
         endpoint = "assetsHostname"
@@ -370,7 +370,7 @@ class TaegisSDKAssets2Query:
         after: Optional[str] = None,
         before: Optional[str] = None,
         filter_: Optional[AssetIPAddressFilter] = None,
-        order_by: Optional[AssetIPAddressSearchOrderByInput] = None,
+        order_by: Optional[Union[AssetIPAddressSearchOrderByInput, TaegisEnum]] = None,
     ) -> AssetsIPAddress:
         """ "Retrieve ipAddress details."""
         endpoint = "assetsIPAddress"
@@ -398,7 +398,7 @@ class TaegisSDKAssets2Query:
         after: Optional[str] = None,
         before: Optional[str] = None,
         filter_: Optional[AssetMacAddressFilter] = None,
-        order_by: Optional[AssetMacAddressSearchOrderByInput] = None,
+        order_by: Optional[Union[AssetMacAddressSearchOrderByInput, TaegisEnum]] = None,
     ) -> AssetsMacAddress:
         """ "Retrieve Mac details."""
         endpoint = "assetsMacAddress"

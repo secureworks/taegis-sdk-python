@@ -616,11 +616,11 @@ class AssetsExportOutputV2:
 class TagFilter:
     """TagFilter."""
 
-    endpoint_types: Optional[Union[List[EndpointTypeV2], TaegisEnum]] = field(
+    endpoint_types: Optional[List[Union[EndpointTypeV2, TaegisEnum]]] = field(
         default=None,
         metadata=config(
             encoder=encode_enum,
-            decoder=lambda x: decode_enum(List[EndpointTypeV2], x),
+            decoder=lambda x: decode_enum(EndpointTypeV2, x),
             field_name="endpointTypes",
         ),
     )
@@ -1413,11 +1413,11 @@ class AssetsV2:
 class AssetHostnameFilter:
     """AssetHostnameFilter."""
 
-    endpoint_types: Optional[Union[List[EndpointTypeV2], TaegisEnum]] = field(
+    endpoint_types: Optional[List[Union[EndpointTypeV2, TaegisEnum]]] = field(
         default=None,
         metadata=config(
             encoder=encode_enum,
-            decoder=lambda x: decode_enum(List[EndpointTypeV2], x),
+            decoder=lambda x: decode_enum(EndpointTypeV2, x),
             field_name="endpointTypes",
         ),
     )
@@ -1431,11 +1431,11 @@ class AssetHostnameFilter:
 class AssetIPAddressFilter:
     """AssetIPAddressFilter."""
 
-    endpoint_types: Optional[Union[List[EndpointTypeV2], TaegisEnum]] = field(
+    endpoint_types: Optional[List[Union[EndpointTypeV2, TaegisEnum]]] = field(
         default=None,
         metadata=config(
             encoder=encode_enum,
-            decoder=lambda x: decode_enum(List[EndpointTypeV2], x),
+            decoder=lambda x: decode_enum(EndpointTypeV2, x),
             field_name="endpointTypes",
         ),
     )
@@ -1449,11 +1449,11 @@ class AssetIPAddressFilter:
 class AssetMacAddressFilter:
     """AssetMacAddressFilter."""
 
-    endpoint_types: Optional[Union[List[EndpointTypeV2], TaegisEnum]] = field(
+    endpoint_types: Optional[List[Union[EndpointTypeV2, TaegisEnum]]] = field(
         default=None,
         metadata=config(
             encoder=encode_enum,
-            decoder=lambda x: decode_enum(List[EndpointTypeV2], x),
+            decoder=lambda x: decode_enum(EndpointTypeV2, x),
             field_name="endpointTypes",
         ),
     )
@@ -1467,19 +1467,19 @@ class AssetMacAddressFilter:
 class AssetFilter:
     """AssetFilter."""
 
-    endpoint_types: Optional[Union[List[EndpointTypeV2], TaegisEnum]] = field(
+    endpoint_types: Optional[List[Union[EndpointTypeV2, TaegisEnum]]] = field(
         default=None,
         metadata=config(
             encoder=encode_enum,
-            decoder=lambda x: decode_enum(List[EndpointTypeV2], x),
+            decoder=lambda x: decode_enum(EndpointTypeV2, x),
             field_name="endpointTypes",
         ),
     )
-    asset_state: Optional[Union[List[AssetState], TaegisEnum]] = field(
+    asset_state: Optional[List[Union[AssetState, TaegisEnum]]] = field(
         default=None,
         metadata=config(
             encoder=encode_enum,
-            decoder=lambda x: decode_enum(List[AssetState], x),
+            decoder=lambda x: decode_enum(AssetState, x),
             field_name="assetState",
         ),
     )

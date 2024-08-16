@@ -113,9 +113,9 @@ class TaegisSDKAssetsQuery:
         self,
         offset: Optional[int] = None,
         limit: Optional[int] = None,
-        order_by: Optional[AssetsOrderByInput] = None,
-        order_direction: Optional[AssetsOrderDirectionInput] = None,
-        filter_asset_state: Optional[AssetStateFilter] = None,
+        order_by: Optional[Union[AssetsOrderByInput, TaegisEnum]] = None,
+        order_direction: Optional[Union[AssetsOrderDirectionInput, TaegisEnum]] = None,
+        filter_asset_state: Optional[Union[AssetStateFilter, TaegisEnum]] = None,
         only_most_recent: Optional[bool] = None,
     ) -> AssetsResult:
         """Get a list of assets."""
@@ -159,7 +159,9 @@ class TaegisSDKAssetsQuery:
             return AssetsResult.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for query allAssetsExport")
 
-    def asset_count(self, endpoint_type: Optional[AgentType] = None) -> AssetCounts:
+    def asset_count(
+        self, endpoint_type: Optional[Union[AgentType, TaegisEnum]] = None
+    ) -> AssetCounts:
         """Count of assets of a specific endpoint_type."""
         endpoint = "assetCount"
 
@@ -323,10 +325,10 @@ class TaegisSDKAssetsQuery:
         tag: Optional[str] = None,
         host_id_partial_match: Optional[bool] = None,
         only_most_recent: Optional[bool] = None,
-        order_by: Optional[AssetsOrderByInput] = None,
-        order_direction: Optional[AssetsOrderDirectionInput] = None,
+        order_by: Optional[Union[AssetsOrderByInput, TaegisEnum]] = None,
+        order_direction: Optional[Union[AssetsOrderDirectionInput, TaegisEnum]] = None,
         or_search: Optional[bool] = None,
-        filter_asset_state: Optional[AssetStateFilter] = None,
+        filter_asset_state: Optional[Union[AssetStateFilter, TaegisEnum]] = None,
     ) -> AssetsResult:
         """search assets. Soon to be deprecated."""
         endpoint = "searchAssets"

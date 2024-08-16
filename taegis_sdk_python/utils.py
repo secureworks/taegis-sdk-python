@@ -327,6 +327,8 @@ def encode_enum(value: Any) -> Any:
     str
         Enum Value
     """
+    if isinstance(value, list):
+        return [encode_enum(v) for v in value]
     if isinstance(value, Enum):
         return value.value
     return value
@@ -347,6 +349,8 @@ def decode_enum(type_: Union[Enum, EnumMeta], value: str):
     Enum
         Enum Object
     """
+    if isinstance(value, list):
+        return [decode_enum(type_, v) for v in value]
     try:
         return type_(value)
     except ValueError:

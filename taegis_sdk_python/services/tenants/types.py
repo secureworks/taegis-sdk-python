@@ -957,11 +957,11 @@ class TenantAuditsQuery:
     max_results: Optional[int] = field(
         default=None, metadata=config(field_name="maxResults")
     )
-    for_actions: Optional[Union[List[AuditAction], TaegisEnum]] = field(
+    for_actions: Optional[List[Union[AuditAction, TaegisEnum]]] = field(
         default=None,
         metadata=config(
             encoder=encode_enum,
-            decoder=lambda x: decode_enum(List[AuditAction], x),
+            decoder=lambda x: decode_enum(AuditAction, x),
             field_name="forActions",
         ),
     )
@@ -995,11 +995,11 @@ class TenantCreateInput:
     expires_at: Optional[str] = field(
         default=None, metadata=config(field_name="expiresAt")
     )
-    environments: Optional[Union[List[TenantEnvironment], TaegisEnum]] = field(
+    environments: Optional[List[Union[TenantEnvironment, TaegisEnum]]] = field(
         default=None,
         metadata=config(
             encoder=encode_enum,
-            decoder=lambda x: decode_enum(List[TenantEnvironment], x),
+            decoder=lambda x: decode_enum(TenantEnvironment, x),
             field_name="environments",
         ),
     )
@@ -1180,19 +1180,19 @@ class TenantSSOConnectionQueryInput:
             field_name="environment",
         ),
     )
-    with_status: Optional[Union[List[SSOConnectionStatus], TaegisEnum]] = field(
+    with_status: Optional[List[Union[SSOConnectionStatus, TaegisEnum]]] = field(
         default=None,
         metadata=config(
             encoder=encode_enum,
-            decoder=lambda x: decode_enum(List[SSOConnectionStatus], x),
+            decoder=lambda x: decode_enum(SSOConnectionStatus, x),
             field_name="withStatus",
         ),
     )
-    exclude_status: Optional[Union[List[SSOConnectionStatus], TaegisEnum]] = field(
+    exclude_status: Optional[List[Union[SSOConnectionStatus, TaegisEnum]]] = field(
         default=None,
         metadata=config(
             encoder=encode_enum,
-            decoder=lambda x: decode_enum(List[SSOConnectionStatus], x),
+            decoder=lambda x: decode_enum(SSOConnectionStatus, x),
             field_name="excludeStatus",
         ),
     )

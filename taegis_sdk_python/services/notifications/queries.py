@@ -36,7 +36,9 @@ class TaegisSDKNotificationsQuery:
         per_page: Optional[int] = None,
         is_deleted: Optional[bool] = None,
         is_read: Optional[bool] = None,
-        order_direction: Optional[NotificationsOrderDirection] = None,
+        order_direction: Optional[
+            Union[NotificationsOrderDirection, TaegisEnum]
+        ] = None,
     ) -> NotificationsOutput:
         """Get all Notifications.."""
         endpoint = "notifications"

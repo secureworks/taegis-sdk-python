@@ -613,12 +613,12 @@ class ListAllTenantEntitiesOfInterestMtpInput:
         default=None, metadata=config(field_name="identifierValues")
     )
     identifier_types: Optional[
-        Union[List[EntityOfInterestIdentifierTypeMtp], TaegisEnum]
+        List[Union[EntityOfInterestIdentifierTypeMtp, TaegisEnum]]
     ] = field(
         default=None,
         metadata=config(
             encoder=encode_enum,
-            decoder=lambda x: decode_enum(List[EntityOfInterestIdentifierTypeMtp], x),
+            decoder=lambda x: decode_enum(EntityOfInterestIdentifierTypeMtp, x),
             field_name="identifierTypes",
         ),
     )

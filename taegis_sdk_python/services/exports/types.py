@@ -514,11 +514,11 @@ class ScheduleEditInput:
             field_name="cadence",
         ),
     )
-    export_types: Optional[Union[List[ExportType], TaegisEnum]] = field(
+    export_types: Optional[List[Union[ExportType, TaegisEnum]]] = field(
         default=None,
         metadata=config(
             encoder=encode_enum,
-            decoder=lambda x: decode_enum(List[ExportType], x),
+            decoder=lambda x: decode_enum(ExportType, x),
             field_name="exportTypes",
         ),
     )
@@ -656,11 +656,11 @@ class NewScheduleInput:
             field_name="cadence",
         ),
     )
-    export_types: Optional[Union[List[ExportType], TaegisEnum]] = field(
+    export_types: Optional[List[Union[ExportType, TaegisEnum]]] = field(
         default=None,
         metadata=config(
             encoder=encode_enum,
-            decoder=lambda x: decode_enum(List[ExportType], x),
+            decoder=lambda x: decode_enum(ExportType, x),
             field_name="exportTypes",
         ),
     )
@@ -747,11 +747,11 @@ class Schedule:
     creator_v2: Optional[TDRUser] = field(
         default=None, metadata=config(field_name="creatorV2")
     )
-    export_types: Optional[Union[List[ExportType], TaegisEnum]] = field(
+    export_types: Optional[List[Union[ExportType, TaegisEnum]]] = field(
         default=None,
         metadata=config(
             encoder=encode_enum,
-            decoder=lambda x: decode_enum(List[ExportType], x),
+            decoder=lambda x: decode_enum(ExportType, x),
             field_name="exportTypes",
         ),
     )
