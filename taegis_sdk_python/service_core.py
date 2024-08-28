@@ -6,17 +6,18 @@ Taegis ServiceCore manager.
 from __future__ import annotations
 
 import logging
+import threading
 from datetime import datetime, timedelta
 from typing import TYPE_CHECKING, Any, Dict, List, Optional, Union
-import threading
+
+from graphql import GraphQLError, GraphQLField, GraphQLSchema
 
 from gql import Client, gql
 from gql.transport import Transport
-from gql.transport.requests import RequestsHTTPTransport
-from gql.transport.websockets import WebsocketsTransport
-from graphql import GraphQLError, GraphQLField, GraphQLSchema
+from gql.transport.aiohttp import AIOHTTPTransport
 from taegis_sdk_python._version import __version__
 from taegis_sdk_python.errors import InvalidGraphQLEndpoint
+from taegis_sdk_python.transport.aiohttp_websockets import AIOHTTPWebsocketsTransport
 from taegis_sdk_python.utils import async_block, prepare_variables, remove_node
 
 if TYPE_CHECKING:  # pragma: no cover
@@ -129,7 +130,8 @@ class SchemaCacheMap:
                     del self._map[transport.url]
 
     @staticmethod
-    def retrieve_schema(
+    @async_block
+    async def retrieve_schema(
         transport: Transport, introspection_args: Dict[str, Any]
     ) -> GraphQLSchema:
         """Retrieve the schema from a gql Client with the provided transport and
@@ -152,7 +154,7 @@ class SchemaCacheMap:
             introspection_args=introspection_args,
         )
 
-        with client:
+        async with client:
             schema = client.schema
 
         return schema
@@ -207,9 +209,13 @@ class ServiceCore:
     @property
     def sync_client(self) -> Client:
         """GraphQL Synchronous Transport with Client."""
-        transport = RequestsHTTPTransport(
+        client_session_args = {"trust_env": self.service.trust_env}
+
+        transport = AIOHTTPTransport(
             f"{self.sync_url}{self.gateway}",
             headers=self.service.headers,
+            ssl=self.service.ssl,
+            client_session_args=client_session_args,
         )
 
         client = Client(
@@ -239,11 +245,17 @@ class ServiceCore:
         if self.service.tenant_id:
             subprotocols.append(f"x-tenant-context-{self.service.tenant_id}")
 
-        transport = WebsocketsTransport(
+        client_session_args = {"trust_env": self.service.trust_env}
+
+        transport = AIOHTTPWebsocketsTransport(
             f"{self.wss_url}{self.gateway}",
             headers=self.service.headers,
             subprotocols=subprotocols,
-            connect_args={"max_size": None},
+            ssl=self.service.ssl,
+            client_session_args=client_session_args,
+            proxy=self.service.proxy,
+            proxy_auth=self.service.proxy_auth,
+            proxy_headers=self.service.proxy_headers,
         )
 
         client = Client(
@@ -448,7 +460,8 @@ class ServiceCore:
 
         return self.subscribe(query_string, variables)
 
-    def execute(
+    @async_block
+    async def execute(
         self, query_string: str, variables: Optional[Dict[str, Any]] = None
     ) -> Any:
         """Execute a GraphQL string.
@@ -465,10 +478,19 @@ class ServiceCore:
         Any
             Query/Mutation results
         """
+        extra_args = {}
+        if self.service.proxy:
+            extra_args = {
+                "proxy": self.service.proxy,
+                "proxy_auth": self.service.proxy_auth,
+                "proxy_headers": self.service.proxy_headers,
+            }
+
         query = gql(query_string)
-        return self.sync_client.execute(
+        return await self.sync_client.execute_async(
             query,
             variable_values=prepare_variables(variables),
+            extra_args=extra_args,
         )
 
     @async_block
@@ -500,7 +522,8 @@ class ServiceCore:
 
         return results[:-1]
 
-    def _build_validated_query(
+    @async_block
+    async def _build_validated_query(
         self,
         operation_type: str,
         endpoint: str,
@@ -537,7 +560,7 @@ class ServiceCore:
         query_string = " ".join(query_string.split())
 
         # open a connection for introspection and download schema
-        with self.sync_client as session:
+        async with self.sync_client as session:
             # if multiple fields are invalid, we want to iterate until the
             # output string is valid
             for _ in range(10000):

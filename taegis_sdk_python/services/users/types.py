@@ -320,6 +320,19 @@ class AuthorizeCheckConnection:
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
+class CognitoSSORemovedUsers:
+    """CognitoSSORemovedUsers."""
+
+    removed_user_names: Optional[List[str]] = field(
+        default=None, metadata=config(field_name="removedUserNames")
+    )
+    remove_user_error: Optional[str] = field(
+        default=None, metadata=config(field_name="removeUserError")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
 class TDRUserInviteInput:
     """TDRUserInviteInput."""
 
@@ -472,6 +485,9 @@ class UserRegistrationInput:
     )
     is_sso_user: Optional[bool] = field(
         default=None, metadata=config(field_name="is_sso_user")
+    )
+    temporary_password: Optional[str] = field(
+        default=None, metadata=config(field_name="temporary_password")
     )
     eula: Optional[EULAAcceptance] = field(
         default=None, metadata=config(field_name="eula")

@@ -135,3 +135,33 @@ class TaegisSDKFileInfoMutation:
         if result.get(endpoint) is not None:
             return result.get(endpoint)
         raise GraphQLNoRowsInResultSetError("for mutation createFilePathMetadata")
+
+    def submit_file_fetch_request(self, event_id: str) -> bool:
+        """Submit a file fetch request."""
+        endpoint = "submitFileFetchRequest"
+
+        result = self.service.execute_mutation(
+            endpoint=endpoint,
+            variables={
+                "eventID": prepare_input(event_id),
+            },
+            output="",
+        )
+        if result.get(endpoint) is not None:
+            return result.get(endpoint)
+        raise GraphQLNoRowsInResultSetError("for mutation submitFileFetchRequest")
+
+    def create_file_marking(self, input_: FileMarkingInput) -> FileMarking:
+        """Create a file marking record based on its filehash."""
+        endpoint = "createFileMarking"
+
+        result = self.service.execute_mutation(
+            endpoint=endpoint,
+            variables={
+                "input": prepare_input(input_),
+            },
+            output=build_output_string(FileMarking),
+        )
+        if result.get(endpoint) is not None:
+            return FileMarking.from_dict(result.get(endpoint))
+        raise GraphQLNoRowsInResultSetError("for mutation createFileMarking")

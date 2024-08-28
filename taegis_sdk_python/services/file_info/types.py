@@ -266,7 +266,39 @@ class FileSignatureCertificateInput:
     signatureid: Optional[str] = field(
         default=None, metadata=config(field_name="signatureid")
     )
-    sha256: Optional[str] = field(default=None, metadata=config(field_name="sha256"))
+    sha256: Optional[str] = field(
+        default=None,
+        metadata=config(
+            metadata={
+                "deprecated": True,
+                "deprecation_reason": "can not extract sha256 of certificates.",
+            },
+            field_name="sha256",
+        ),
+    )
+    version: Optional[int] = field(default=None, metadata=config(field_name="version"))
+    serial_number: Optional[str] = field(
+        default=None, metadata=config(field_name="serialNumber")
+    )
+    signature_algorithm: Optional[str] = field(
+        default=None, metadata=config(field_name="signatureAlgorithm")
+    )
+    valid_from: Optional[str] = field(
+        default=None, metadata=config(field_name="validFrom")
+    )
+    valid_to: Optional[str] = field(default=None, metadata=config(field_name="validTo"))
+    issuer: Optional[str] = field(default=None, metadata=config(field_name="issuer"))
+    subject: Optional[str] = field(default=None, metadata=config(field_name="subject"))
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class SignatureCertificate:
+    """SignatureCertificate."""
+
+    signature_id: Optional[str] = field(
+        default=None, metadata=config(field_name="signatureId")
+    )
     version: Optional[int] = field(default=None, metadata=config(field_name="version"))
     serial_number: Optional[str] = field(
         default=None, metadata=config(field_name="serialNumber")
@@ -805,6 +837,76 @@ class HostDetails:
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
+class FileMarkingStatus:
+    """FileMarkingStatus."""
+
+    explanation: Optional[str] = field(
+        default=None, metadata=config(field_name="explanation")
+    )
+    is_marked_malicious: Optional[bool] = field(
+        default=None, metadata=config(field_name="isMarkedMalicious")
+    )
+    created_at: Optional[str] = field(
+        default=None, metadata=config(field_name="createdAt")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class FileMarking:
+    """FileMarking."""
+
+    id: Optional[str] = field(default=None, metadata=config(field_name="id"))
+    file_metadata_id: Optional[str] = field(
+        default=None, metadata=config(field_name="fileMetadataId")
+    )
+    user_id: Optional[str] = field(default=None, metadata=config(field_name="userId"))
+    tenant_id: Optional[str] = field(
+        default=None, metadata=config(field_name="tenantId")
+    )
+    explanation: Optional[str] = field(
+        default=None, metadata=config(field_name="explanation")
+    )
+    is_marked_malicious: Optional[bool] = field(
+        default=None, metadata=config(field_name="isMarkedMalicious")
+    )
+    created_at: Optional[str] = field(
+        default=None, metadata=config(field_name="createdAt")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class FetchableFileAppearancesResponse:
+    """FetchableFileAppearancesResponse."""
+
+    event_id: Optional[str] = field(default=None, metadata=config(field_name="eventID"))
+    fetchable_appearances: Optional[bool] = field(
+        default=None, metadata=config(field_name="fetchableAppearances")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class FileMarkingInput:
+    """FileMarkingInput."""
+
+    file_metadata_id: Optional[str] = field(
+        default=None, metadata=config(field_name="fileMetadataId")
+    )
+    file_hash: Optional[str] = field(
+        default=None, metadata=config(field_name="fileHash")
+    )
+    explanation: Optional[str] = field(
+        default=None, metadata=config(field_name="explanation")
+    )
+    is_marked_malicious: Optional[bool] = field(
+        default=None, metadata=config(field_name="isMarkedMalicious")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
 class FilePathMetadataInput:
     """FilePathMetadataInput."""
 
@@ -884,7 +986,14 @@ class SignatureInput:
         default=None, metadata=config(field_name="signerInfo")
     )
     certificates: Optional[List[FileSignatureCertificateInput]] = field(
-        default=None, metadata=config(field_name="certificates")
+        default=None,
+        metadata=config(
+            metadata={
+                "deprecated": True,
+                "deprecation_reason": "can not extract sha256 of certificates.",
+            },
+            field_name="certificates",
+        ),
     )
 
 
@@ -926,7 +1035,17 @@ class PEMetadata:
         default=None, metadata=config(field_name="sections")
     )
     signature: Optional[Signature] = field(
-        default=None, metadata=config(field_name="signature")
+        default=None,
+        metadata=config(
+            metadata={
+                "deprecated": True,
+                "deprecation_reason": "Making signature 1-Many relation",
+            },
+            field_name="signature",
+        ),
+    )
+    signatures: Optional[List[Signature]] = field(
+        default=None, metadata=config(field_name="signatures")
     )
     debug: Optional[Debug] = field(default=None, metadata=config(field_name="debug"))
     coff_header: Optional[CoffHeader] = field(
@@ -946,6 +1065,9 @@ class PEMetadata:
     )
     data_directories: Optional[List[DataDirectory]] = field(
         default=None, metadata=config(field_name="dataDirectories")
+    )
+    certificates: Optional[List[SignatureCertificate]] = field(
+        default=None, metadata=config(field_name="certificates")
     )
 
 
@@ -985,7 +1107,17 @@ class PEMetadataInput:
         default=None, metadata=config(field_name="sections")
     )
     signature: Optional[SignatureInput] = field(
-        default=None, metadata=config(field_name="signature")
+        default=None,
+        metadata=config(
+            metadata={
+                "deprecated": True,
+                "deprecation_reason": "Making Signatures 1-Many relation",
+            },
+            field_name="signature",
+        ),
+    )
+    signatures: Optional[List[SignatureInput]] = field(
+        default=None, metadata=config(field_name="signatures")
     )
     coff_header: Optional[CoffHeaderInput] = field(
         default=None, metadata=config(field_name="coffHeader")
@@ -1007,6 +1139,9 @@ class PEMetadataInput:
     )
     datadirectories: Optional[List[DataDirectoryInput]] = field(
         default=None, metadata=config(field_name="datadirectories")
+    )
+    certificates: Optional[List[FileSignatureCertificateInput]] = field(
+        default=None, metadata=config(field_name="certificates")
     )
 
 

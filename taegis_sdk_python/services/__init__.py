@@ -2,8 +2,14 @@
 This needs to be a generated file.  Need to make jinja template.
 """
 
-from typing import Dict, Optional, Any
+import logging
 import threading
+from ssl import SSLContext
+from typing import Any, Dict, Optional, Union, Literal
+
+import aiohttp
+from aiohttp.client_reqrep import Fingerprint
+from aiohttp.typedefs import LooseHeaders
 
 from taegis_sdk_python._consts import TAEGIS_ENVIRONMENT_URLS
 from taegis_sdk_python._version import __version__
@@ -60,6 +66,8 @@ from taegis_sdk_python.services.vdr import VDRService
 
 __all__ = ["GraphQLService"]
 
+log = logging.getLogger(__name__)
+
 
 class GraphQLService:
     """Taegis GraphQL Service manager."""
@@ -73,6 +81,11 @@ class GraphQLService:
         gateway: Optional[str] = None,
         extra_headers: Optional[Dict[str, Any]] = None,
         schema_expiry: int = 5,
+        proxy: Optional[str] = None,
+        proxy_auth: Optional[aiohttp.BasicAuth] = None,
+        proxy_headers: Optional[LooseHeaders] = None,
+        trust_env: bool = False,
+        ssl: Optional[Union[SSLContext, Literal[False], Fingerprint]] = None,
     ):  # pylint: disable=too-many-statements
         """
         GraphQLService
@@ -113,6 +126,18 @@ class GraphQLService:
             self._extra_headers = extra_headers
         self._schema_expiry = schema_expiry
         self._input_value_deprecation = None
+
+        if trust_env and proxy:
+            raise ValueError("trust_env and proxy cannot be used together")
+
+        if proxy_auth and not proxy:
+            raise ValueError("proxy_auth requires proxy to be set")
+
+        self._proxy = proxy
+        self._proxy_auth = proxy_auth
+        self._proxy_headers = proxy_headers
+        self._ssl = ssl
+        self._trust_env = trust_env
 
         self._access_points = None
         self._agent = None
@@ -269,6 +294,49 @@ class GraphQLService:
         return self._context_manager.get(
             "input_value_deprecation", self._input_value_deprecation
         )
+
+    @property
+    def proxy(self):
+        """Proxy URL for API requests."""
+        return self._context_manager.get("proxy", self._proxy)
+
+    @property
+    def proxy_auth(self):
+        """Proxy Auth for API requests."""
+        value = self._context_manager.get("proxy_auth", self._proxy_auth)
+
+        if value and not self.proxy:
+            log.warning("proxy_auth is ignored when proxy is not set")
+            return None
+
+        return value
+
+    @property
+    def proxy_headers(self):
+        """Proxy Headers for API requests."""
+        value = self._context_manager.get("proxy_headers", self._proxy_headers)
+
+        if value and not self.proxy:
+            log.warning("proxy_headers is ignored when proxy is not set")
+            return None
+
+        return value
+
+    @property
+    def ssl(self):
+        """SSL Context for API requests."""
+        return self._context_manager.get("ssl", self._ssl)
+
+    @property
+    def trust_env(self):
+        """Trust Environment for Proxy Authentication."""
+        value = self._context_manager.get("trust_env", self._trust_env)
+
+        if value and self.proxy:
+            log.warning("trust_env is ignored when proxy is set")
+            return False
+
+        return value
 
     @property
     def access_points(self):

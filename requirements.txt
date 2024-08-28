@@ -9,3 +9,4 @@ pyjwt>=2.8.0
 requests-toolbelt
 websockets
 filelock>=3.12.4
+aiohttp

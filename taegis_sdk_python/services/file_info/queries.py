@@ -11,15 +11,17 @@ import logging
 from typing import TYPE_CHECKING, Any, Dict, List, Optional, Tuple, Union
 
 from taegis_sdk_python import GraphQLNoRowsInResultSetError
+from taegis_sdk_python._consts import TaegisEnum
+from taegis_sdk_python.services.file_info.types import *
 from taegis_sdk_python.utils import (
     build_output_string,
     parse_union_result,
     prepare_input,
 )
-from taegis_sdk_python.services.file_info.types import *
 
 if TYPE_CHECKING:  # pragma: no cover
     from taegis_sdk_python.services.file_info import FileInfoService
+
 
 log = logging.getLogger(__name__)
 
@@ -83,6 +85,25 @@ class TaegisSDKFileInfoQuery:
             )
         raise GraphQLNoRowsInResultSetError("for query searchFileInfo")
 
+    def event_has_fetchable_file_appearances(
+        self, event_id: str
+    ) -> FetchableFileAppearancesResponse:
+        """Returns true if fetchable file appearances can be extracted from the given event."""
+        endpoint = "eventHasFetchableFileAppearances"
+
+        result = self.service.execute_query(
+            endpoint=endpoint,
+            variables={
+                "eventID": prepare_input(event_id),
+            },
+            output=build_output_string(FetchableFileAppearancesResponse),
+        )
+        if result.get(endpoint) is not None:
+            return FetchableFileAppearancesResponse.from_dict(result.get(endpoint))
+        raise GraphQLNoRowsInResultSetError(
+            "for query eventHasFetchableFileAppearances"
+        )
+
     def file_info_exists(self, file_hash: str) -> bool:
         """Returns true if we have details for a file with the given hash."""
         endpoint = "fileInfoExists"
@@ -97,3 +118,21 @@ class TaegisSDKFileInfoQuery:
         if result.get(endpoint) is not None:
             return result.get(endpoint)
         raise GraphQLNoRowsInResultSetError("for query fileInfoExists")
+
+    def get_file_marking_status(
+        self, file_hash: str, file_metadata_id: Optional[str] = None
+    ) -> FileMarkingStatus:
+        """Returns FileMarkingStatus for a file with the given file-hash or fileMetadataId."""
+        endpoint = "getFileMarkingStatus"
+
+        result = self.service.execute_query(
+            endpoint=endpoint,
+            variables={
+                "fileHash": prepare_input(file_hash),
+                "fileMetadataId": prepare_input(file_metadata_id),
+            },
+            output=build_output_string(FileMarkingStatus),
+        )
+        if result.get(endpoint) is not None:
+            return FileMarkingStatus.from_dict(result.get(endpoint))
+        raise GraphQLNoRowsInResultSetError("for query getFileMarkingStatus")

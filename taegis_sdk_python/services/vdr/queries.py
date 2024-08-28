@@ -11,15 +11,17 @@ import logging
 from typing import TYPE_CHECKING, Any, Dict, List, Optional, Tuple, Union
 
 from taegis_sdk_python import GraphQLNoRowsInResultSetError
+from taegis_sdk_python._consts import TaegisEnum
+from taegis_sdk_python.services.vdr.types import *
 from taegis_sdk_python.utils import (
     build_output_string,
     parse_union_result,
     prepare_input,
 )
-from taegis_sdk_python.services.vdr.types import *
 
 if TYPE_CHECKING:  # pragma: no cover
     from taegis_sdk_python.services.vdr import VdrService
+
 
 log = logging.getLogger(__name__)
 
@@ -130,3 +132,20 @@ class TaegisSDKVdrQuery:
         if result.get(endpoint) is not None:
             return VdrEdgeServices.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for query vdrEdgeServices")
+
+    def vdr_vulnerability_metrics(
+        self, arguments: Optional[VdrVulnerabilityMetricsInputArgs] = None
+    ) -> VdrVulnerabilityMetrics:
+        """Get vulnerability metrics for first discovered or last seen."""
+        endpoint = "vdrVulnerabilityMetrics"
+
+        result = self.service.execute_query(
+            endpoint=endpoint,
+            variables={
+                "arguments": prepare_input(arguments),
+            },
+            output=build_output_string(VdrVulnerabilityMetrics),
+        )
+        if result.get(endpoint) is not None:
+            return VdrVulnerabilityMetrics.from_dict(result.get(endpoint))
+        raise GraphQLNoRowsInResultSetError("for query vdrVulnerabilityMetrics")

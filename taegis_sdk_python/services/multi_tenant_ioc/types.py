@@ -50,6 +50,17 @@ class EventWindow:
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
+class DataAvailabilityError:
+    """DataAvailabilityError."""
+
+    message: Optional[str] = field(default=None, metadata=config(field_name="message"))
+    unavailable_dates: Optional[List[str]] = field(
+        default=None, metadata=config(field_name="unavailableDates")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
 class TenantCount:
     """TenantCount."""
 
@@ -102,6 +113,9 @@ class EventCountResult:
     next: Optional[str] = field(default=None, metadata=config(field_name="next"))
     results: Optional[List[EventCountByLogicalType]] = field(
         default=None, metadata=config(field_name="results")
+    )
+    error: Optional[DataAvailabilityError] = field(
+        default=None, metadata=config(field_name="error")
     )
 
 

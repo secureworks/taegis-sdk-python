@@ -56,6 +56,14 @@ class VdrVulnerabilitySeverity(str, Enum):
     INFO = "INFO"
 
 
+class VdrMetricsPeriod(str, Enum):
+    """VdrMetricsPeriod."""
+
+    DAY_1 = "DAY_1"
+    DAYS_7 = "DAYS_7"
+    DAYS_30 = "DAYS_30"
+
+
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
 class VdrApiEntityLinks:
@@ -370,6 +378,17 @@ class VdrTimeFilterInputArgs:
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
+class VdrSeries:
+    """VdrSeries."""
+
+    data: Optional[List[float]] = field(
+        default=None, metadata=config(field_name="data")
+    )
+    label: Optional[str] = field(default=None, metadata=config(field_name="label"))
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
 class VdrAssetsFiltersInputArgs:
     """VdrAssetsFiltersInputArgs."""
 
@@ -554,20 +573,35 @@ class VdrInspectHost:
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
-class VdrVulnerabilitiesFiltersInputArgs:
-    """VdrVulnerabilitiesFiltersInputArgs."""
+class VdrSeriesGroup:
+    """VdrSeriesGroup."""
 
-    cve: Optional[List[str]] = field(default=None, metadata=config(field_name="cve"))
-    severity: Optional[List[Union[VdrVulnerabilitySeverity, TaegisEnum]]] = field(
+    severity: Optional[str] = field(
+        default=None, metadata=config(field_name="severity")
+    )
+    series: Optional[List[VdrSeries]] = field(
+        default=None, metadata=config(field_name="series")
+    )
+    period: Optional[Union[VdrMetricsPeriod, TaegisEnum]] = field(
         default=None,
         metadata=config(
             encoder=encode_enum,
-            decoder=lambda x: decode_enum(VdrVulnerabilitySeverity, x),
-            field_name="severity",
+            decoder=lambda x: decode_enum(VdrMetricsPeriod, x),
+            field_name="period",
         ),
     )
-    first_discovery_date: Optional[VdrTimeFilterInputArgs] = field(
-        default=None, metadata=config(field_name="firstDiscoveryDate")
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class VdrVulnerabilityMetrics:
+    """VdrVulnerabilityMetrics."""
+
+    first_discovered: Optional[List[VdrSeriesGroup]] = field(
+        default=None, metadata=config(field_name="firstDiscovered")
+    )
+    last_seen: Optional[List[VdrSeriesGroup]] = field(
+        default=None, metadata=config(field_name="lastSeen")
     )
 
 
@@ -662,36 +696,31 @@ class VdrAssetsInputArgs:
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
-class VdrVulnerabilitiesInputArgs:
-    """VdrVulnerabilitiesInputArgs."""
+class VdrVulnerabilitiesFiltersInputArgs:
+    """VdrVulnerabilitiesFiltersInputArgs."""
 
-    host_id: Optional[str] = field(default=None, metadata=config(field_name="hostId"))
-    host_ids: Optional[List[str]] = field(
-        default=None, metadata=config(field_name="hostIds")
-    )
-    offset: Optional[int] = field(default=None, metadata=config(field_name="offset"))
-    limit: Optional[int] = field(default=None, metadata=config(field_name="limit"))
-    sort_by: Optional[Union[VdrVulnerabilitiesSortMode, TaegisEnum]] = field(
+    cve: Optional[List[str]] = field(default=None, metadata=config(field_name="cve"))
+    severity: Optional[List[Union[VdrVulnerabilitySeverity, TaegisEnum]]] = field(
         default=None,
         metadata=config(
             encoder=encode_enum,
-            decoder=lambda x: decode_enum(VdrVulnerabilitiesSortMode, x),
-            field_name="sortBy",
+            decoder=lambda x: decode_enum(VdrVulnerabilitySeverity, x),
+            field_name="severity",
         ),
     )
-    sort_order: Optional[Union[VdrSortOrder, TaegisEnum]] = field(
+    first_discovery_date: Optional[VdrTimeFilterInputArgs] = field(
+        default=None, metadata=config(field_name="firstDiscoveryDate")
+    )
+    last_seen_date: Optional[VdrTimeFilterInputArgs] = field(
+        default=None, metadata=config(field_name="lastSeenDate")
+    )
+    period: Optional[Union[VdrMetricsPeriod, TaegisEnum]] = field(
         default=None,
         metadata=config(
             encoder=encode_enum,
-            decoder=lambda x: decode_enum(VdrSortOrder, x),
-            field_name="sortOrder",
+            decoder=lambda x: decode_enum(VdrMetricsPeriod, x),
+            field_name="period",
         ),
-    )
-    filters: Optional[VdrVulnerabilitiesFiltersInputArgs] = field(
-        default=None, metadata=config(field_name="filters")
-    )
-    exclude_filters: Optional[VdrVulnerabilitiesFiltersInputArgs] = field(
-        default=None, metadata=config(field_name="excludeFilters")
     )
 
 
@@ -838,4 +867,52 @@ class VdrVulnerabilities:
     )
     vulnerabilities: Optional[List[VdrVulnerability]] = field(
         default=None, metadata=config(field_name="vulnerabilities")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class VdrVulnerabilityMetricsInputArgs:
+    """VdrVulnerabilityMetricsInputArgs."""
+
+    filters: Optional[VdrVulnerabilitiesFiltersInputArgs] = field(
+        default=None, metadata=config(field_name="filters")
+    )
+    exclude_filters: Optional[VdrVulnerabilitiesFiltersInputArgs] = field(
+        default=None, metadata=config(field_name="excludeFilters")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class VdrVulnerabilitiesInputArgs:
+    """VdrVulnerabilitiesInputArgs."""
+
+    host_id: Optional[str] = field(default=None, metadata=config(field_name="hostId"))
+    host_ids: Optional[List[str]] = field(
+        default=None, metadata=config(field_name="hostIds")
+    )
+    offset: Optional[int] = field(default=None, metadata=config(field_name="offset"))
+    limit: Optional[int] = field(default=None, metadata=config(field_name="limit"))
+    sort_by: Optional[Union[VdrVulnerabilitiesSortMode, TaegisEnum]] = field(
+        default=None,
+        metadata=config(
+            encoder=encode_enum,
+            decoder=lambda x: decode_enum(VdrVulnerabilitiesSortMode, x),
+            field_name="sortBy",
+        ),
+    )
+    sort_order: Optional[Union[VdrSortOrder, TaegisEnum]] = field(
+        default=None,
+        metadata=config(
+            encoder=encode_enum,
+            decoder=lambda x: decode_enum(VdrSortOrder, x),
+            field_name="sortOrder",
+        ),
+    )
+    filters: Optional[VdrVulnerabilitiesFiltersInputArgs] = field(
+        default=None, metadata=config(field_name="filters")
+    )
+    exclude_filters: Optional[VdrVulnerabilitiesFiltersInputArgs] = field(
+        default=None, metadata=config(field_name="excludeFilters")
     )
