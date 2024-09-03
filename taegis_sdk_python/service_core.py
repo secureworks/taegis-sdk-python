@@ -230,6 +230,7 @@ class ServiceCore:
                     )
                 },
             ),
+            execute_timeout=self.service.execute_timeout,
         )
 
         return client
@@ -261,6 +262,7 @@ class ServiceCore:
         client = Client(
             transport=transport,
             schema=self.schema,
+            execute_timeout=self.service.execute_timeout,
         )
 
         return client

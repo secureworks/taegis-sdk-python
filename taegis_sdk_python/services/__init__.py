@@ -86,6 +86,7 @@ class GraphQLService:
         proxy_headers: Optional[LooseHeaders] = None,
         trust_env: bool = False,
         ssl: Optional[Union[SSLContext, Literal[False], Fingerprint]] = None,
+        execute_timeout: Optional[Union[int, float]] = 30,
     ):  # pylint: disable=too-many-statements
         """
         GraphQLService
@@ -138,6 +139,8 @@ class GraphQLService:
         self._proxy_headers = proxy_headers
         self._ssl = ssl
         self._trust_env = trust_env
+
+        self._execute_timeout = execute_timeout
 
         self._access_points = None
         self._agent = None
@@ -337,6 +340,11 @@ class GraphQLService:
             return False
 
         return value
+
+    @property
+    def execute_timeout(self):
+        """GraphQL Execute Timeout."""
+        return self._context_manager.get("execute_timeout", self._execute_timeout)
 
     @property
     def access_points(self):
