@@ -125,7 +125,7 @@ class TaegisSDKEndpointManagementServiceMutation:
             return EndpointGroup.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for mutation rotateRegistrationKey")
 
-    def create_agent_setting(self, input_: CreateAgentSettingsInput) -> AgentSetting:
+    def create_agent_setting(self, input_: AgentSettingsInput) -> AgentSetting:
         """create agent settings item."""
         endpoint = "createAgentSetting"
 
@@ -140,13 +140,16 @@ class TaegisSDKEndpointManagementServiceMutation:
             return AgentSetting.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for mutation createAgentSetting")
 
-    def update_agent_setting(self, input_: UpdateAgentSettingsInput) -> AgentSetting:
+    def update_agent_setting(
+        self, id_: str, input_: AgentSettingsInput
+    ) -> AgentSetting:
         """update agent settings item."""
         endpoint = "updateAgentSetting"
 
         result = self.service.execute_mutation(
             endpoint=endpoint,
             variables={
+                "id": prepare_input(id_),
                 "input": prepare_input(input_),
             },
             output=build_output_string(AgentSetting),
@@ -155,9 +158,7 @@ class TaegisSDKEndpointManagementServiceMutation:
             return AgentSetting.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for mutation updateAgentSetting")
 
-    def update_default_agent_setting(
-        self, input_: UpdateDefaultAgentSettingInput
-    ) -> AgentSetting:
+    def update_default_agent_setting(self, input_: AgentSettingsInput) -> AgentSetting:
         """update the default agent settings item."""
         endpoint = "updateDefaultAgentSetting"
 
@@ -186,3 +187,71 @@ class TaegisSDKEndpointManagementServiceMutation:
         if result.get(endpoint) is not None:
             return result.get(endpoint)
         raise GraphQLNoRowsInResultSetError("for mutation deleteAgentSetting")
+
+    def update_group_policy_override(
+        self, input_: UpdatePolicyOverrideInput
+    ) -> EndpointGroup:
+        """Update the policy override for an endpoint group."""
+        endpoint = "updateGroupPolicyOverride"
+
+        result = self.service.execute_mutation(
+            endpoint=endpoint,
+            variables={
+                "input": prepare_input(input_),
+            },
+            output=build_output_string(EndpointGroup),
+        )
+        if result.get(endpoint) is not None:
+            return EndpointGroup.from_dict(result.get(endpoint))
+        raise GraphQLNoRowsInResultSetError("for mutation updateGroupPolicyOverride")
+
+    def delete_group_policy_override(self, id_: str) -> EndpointGroup:
+        """Delete the policy override for an endpoint group."""
+        endpoint = "deleteGroupPolicyOverride"
+
+        result = self.service.execute_mutation(
+            endpoint=endpoint,
+            variables={
+                "id": prepare_input(id_),
+            },
+            output=build_output_string(EndpointGroup),
+        )
+        if result.get(endpoint) is not None:
+            return EndpointGroup.from_dict(result.get(endpoint))
+        raise GraphQLNoRowsInResultSetError("for mutation deleteGroupPolicyOverride")
+
+    def update_agent_setting_policy_override(
+        self, input_: UpdatePolicyOverrideInput
+    ) -> AgentSetting:
+        """Update the policy override for an agent setting."""
+        endpoint = "updateAgentSettingPolicyOverride"
+
+        result = self.service.execute_mutation(
+            endpoint=endpoint,
+            variables={
+                "input": prepare_input(input_),
+            },
+            output=build_output_string(AgentSetting),
+        )
+        if result.get(endpoint) is not None:
+            return AgentSetting.from_dict(result.get(endpoint))
+        raise GraphQLNoRowsInResultSetError(
+            "for mutation updateAgentSettingPolicyOverride"
+        )
+
+    def delete_agent_setting_policy_override(self, id_: str) -> AgentSetting:
+        """Delete the policy override for an agent setting."""
+        endpoint = "deleteAgentSettingPolicyOverride"
+
+        result = self.service.execute_mutation(
+            endpoint=endpoint,
+            variables={
+                "id": prepare_input(id_),
+            },
+            output=build_output_string(AgentSetting),
+        )
+        if result.get(endpoint) is not None:
+            return AgentSetting.from_dict(result.get(endpoint))
+        raise GraphQLNoRowsInResultSetError(
+            "for mutation deleteAgentSettingPolicyOverride"
+        )

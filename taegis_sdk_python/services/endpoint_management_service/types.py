@@ -44,66 +44,17 @@ class BulkAssignRequestStatus(str, Enum):
     COMPLETE = "COMPLETE"
 
 
-@dataclass_json
-@dataclass(order=True, eq=True, frozen=True)
-class EndpointGroup:
-    """EndpointGroup."""
+class NGAVProtectionMode(str, Enum):
+    """NGAVProtectionMode."""
 
-    id: Optional[str] = field(default=None, metadata=config(field_name="id"))
-    tenant_id: Optional[str] = field(
-        default=None, metadata=config(field_name="tenantId")
-    )
-    group_id: Optional[str] = field(default=None, metadata=config(field_name="groupId"))
-    name: Optional[str] = field(default=None, metadata=config(field_name="name"))
-    description: Optional[str] = field(
-        default=None, metadata=config(field_name="description")
-    )
-    registration_key: Optional[str] = field(
-        default=None, metadata=config(field_name="registrationKey")
-    )
-    registration_key_expires_at: Optional[str] = field(
-        default=None, metadata=config(field_name="registrationKeyExpiresAt")
-    )
-    policy_name: Optional[str] = field(
-        default=None, metadata=config(field_name="policyName")
-    )
-    is_system_generated: Optional[bool] = field(
-        default=None, metadata=config(field_name="isSystemGenerated")
-    )
-    is_default: Optional[bool] = field(
-        default=None, metadata=config(field_name="isDefault")
-    )
-    desired_agent_version: Optional[str] = field(
-        default=None, metadata=config(field_name="desiredAgentVersion")
-    )
-    channel: Optional[str] = field(default=None, metadata=config(field_name="channel"))
-    created_at: Optional[str] = field(
-        default=None, metadata=config(field_name="createdAt")
-    )
-    updated_at: Optional[str] = field(
-        default=None, metadata=config(field_name="updatedAt")
-    )
-    skip_upgrade: Optional[bool] = field(
-        default=None, metadata=config(field_name="skipUpgrade")
-    )
-    archive_endpoint_after_days: Optional[int] = field(
-        default=None, metadata=config(field_name="ArchiveEndpointAfterDays")
-    )
-    is_archive_endpoint_enabled: Optional[bool] = field(
-        default=None, metadata=config(field_name="IsArchiveEndpointEnabled")
-    )
-    file_analysis_flag: Optional[bool] = field(
-        default=None, metadata=config(field_name="fileAnalysisFlag")
-    )
-    maintenance_window: Optional[str] = field(
-        default=None, metadata=config(field_name="maintenanceWindow")
-    )
-    advanced_kernel_telemetry_enabled: Optional[bool] = field(
-        default=None, metadata=config(field_name="advancedKernelTelemetryEnabled")
-    )
-    setting_id: Optional[str] = field(
-        default=None, metadata=config(field_name="settingId")
-    )
+    DETECT = "DETECT"
+    PROTECT = "PROTECT"
+
+
+class AgentSettingsProfile(str, Enum):
+    """AgentSettingsProfile."""
+
+    DEFAULT = "DEFAULT"
 
 
 @dataclass_json
@@ -164,6 +115,26 @@ class PartialPageInfo:
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
+class AutoArchive:
+    """AutoArchive."""
+
+    enabled: Optional[bool] = field(default=None, metadata=config(field_name="enabled"))
+    period_days: Optional[int] = field(
+        default=None, metadata=config(field_name="periodDays")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class PolicyOverride:
+    """PolicyOverride."""
+
+    format: Optional[str] = field(default=None, metadata=config(field_name="format"))
+    value: Optional[str] = field(default=None, metadata=config(field_name="value"))
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
 class DailyWindowEntry:
     """DailyWindowEntry."""
 
@@ -173,6 +144,26 @@ class DailyWindowEntry:
     )
     end_time_hour: Optional[int] = field(
         default=None, metadata=config(field_name="endTimeHour")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class ToggleSetting:
+    """ToggleSetting."""
+
+    enabled: Optional[bool] = field(default=None, metadata=config(field_name="enabled"))
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class EnumValue:
+    """EnumValue."""
+
+    value: Optional[int] = field(default=None, metadata=config(field_name="value"))
+    name: Optional[str] = field(default=None, metadata=config(field_name="name"))
+    description: Optional[str] = field(
+        default=None, metadata=config(field_name="description")
     )
 
 
@@ -190,7 +181,7 @@ class AutoArchiveInput:
     """AutoArchiveInput."""
 
     enabled: Optional[bool] = field(default=None, metadata=config(field_name="enabled"))
-    period_days: Optional[int] = field(
+    period_days: Optional[float] = field(
         default=None, metadata=config(field_name="periodDays")
     )
 
@@ -207,6 +198,25 @@ class DailyWindowEntryInput:
     end_time_hour: Optional[int] = field(
         default=None, metadata=config(field_name="endTimeHour")
     )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class ExperimentalSettingsInput:
+    """ExperimentalSettingsInput."""
+
+    value: Optional[Any] = field(default=None, metadata=config(field_name="value"))
+    path: Optional[str] = field(default=None, metadata=config(field_name="path"))
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class UpdatePolicyOverrideInput:
+    """UpdatePolicyOverrideInput."""
+
+    id: Optional[str] = field(default=None, metadata=config(field_name="id"))
+    format: Optional[str] = field(default=None, metadata=config(field_name="format"))
+    value: Optional[str] = field(default=None, metadata=config(field_name="value"))
 
 
 @dataclass_json
@@ -307,8 +317,40 @@ class BulkAssignRequestOutput:
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
-class AdvancedKernelTelemetry:
-    """AdvancedKernelTelemetry."""
+class NGAV:
+    """NGAV."""
+
+    enabled: Optional[bool] = field(default=None, metadata=config(field_name="enabled"))
+    selected_mode: Optional[Union[NGAVProtectionMode, TaegisEnum]] = field(
+        default=None,
+        metadata=config(
+            encoder=encode_enum,
+            decoder=lambda x: decode_enum(NGAVProtectionMode, x),
+            field_name="selectedMode",
+        ),
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class NGAVInput:
+    """NGAVInput."""
+
+    enabled: Optional[bool] = field(default=None, metadata=config(field_name="enabled"))
+    protection_mode: Optional[Union[NGAVProtectionMode, TaegisEnum]] = field(
+        default=None,
+        metadata=config(
+            encoder=encode_enum,
+            decoder=lambda x: decode_enum(NGAVProtectionMode, x),
+            field_name="protectionMode",
+        ),
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class ToggleSettingDefaults:
+    """ToggleSettingDefaults."""
 
     name: Optional[str] = field(default=None, metadata=config(field_name="name"))
     description: Optional[str] = field(
@@ -327,8 +369,8 @@ class AdvancedKernelTelemetry:
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
-class AutoArchive:
-    """AutoArchive."""
+class AutoArchiveDefaults:
+    """AutoArchiveDefaults."""
 
     name: Optional[str] = field(default=None, metadata=config(field_name="name"))
     description: Optional[str] = field(
@@ -338,46 +380,6 @@ class AutoArchive:
     period_days: Optional[int] = field(
         default=None, metadata=config(field_name="periodDays")
     )
-    platforms: Optional[List[Union[EndpointPlatform, TaegisEnum]]] = field(
-        default=None,
-        metadata=config(
-            encoder=encode_enum,
-            decoder=lambda x: decode_enum(EndpointPlatform, x),
-            field_name="platforms",
-        ),
-    )
-
-
-@dataclass_json
-@dataclass(order=True, eq=True, frozen=True)
-class FileAnalysis:
-    """FileAnalysis."""
-
-    name: Optional[str] = field(default=None, metadata=config(field_name="name"))
-    description: Optional[str] = field(
-        default=None, metadata=config(field_name="description")
-    )
-    enabled: Optional[bool] = field(default=None, metadata=config(field_name="enabled"))
-    platforms: Optional[List[Union[EndpointPlatform, TaegisEnum]]] = field(
-        default=None,
-        metadata=config(
-            encoder=encode_enum,
-            decoder=lambda x: decode_enum(EndpointPlatform, x),
-            field_name="platforms",
-        ),
-    )
-
-
-@dataclass_json
-@dataclass(order=True, eq=True, frozen=True)
-class TamperProtection:
-    """TamperProtection."""
-
-    name: Optional[str] = field(default=None, metadata=config(field_name="name"))
-    description: Optional[str] = field(
-        default=None, metadata=config(field_name="description")
-    )
-    enabled: Optional[bool] = field(default=None, metadata=config(field_name="enabled"))
     platforms: Optional[List[Union[EndpointPlatform, TaegisEnum]]] = field(
         default=None,
         metadata=config(
@@ -438,14 +440,65 @@ class CreatePolicyInput:
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
-class EndpointGroupsPagedOutput:
-    """EndpointGroupsPagedOutput."""
+class ExperimentalSetting:
+    """ExperimentalSetting."""
 
-    groups: Optional[List[EndpointGroup]] = field(
-        default=None, metadata=config(field_name="groups")
+    path: Optional[str] = field(default=None, metadata=config(field_name="path"))
+    name: Optional[str] = field(default=None, metadata=config(field_name="name"))
+    description: Optional[str] = field(
+        default=None, metadata=config(field_name="description")
     )
-    partial_page_info: Optional[PartialPageInfo] = field(
-        default=None, metadata=config(field_name="partialPageInfo")
+    module_name: Optional[str] = field(
+        default=None, metadata=config(field_name="moduleName")
+    )
+    field_type: Optional[str] = field(
+        default=None, metadata=config(field_name="fieldType")
+    )
+    range: Optional[List[int]] = field(
+        default=None, metadata=config(field_name="range")
+    )
+    value: Optional[Any] = field(default=None, metadata=config(field_name="value"))
+    platforms: Optional[List[Union[EndpointPlatform, TaegisEnum]]] = field(
+        default=None,
+        metadata=config(
+            encoder=encode_enum,
+            decoder=lambda x: decode_enum(EndpointPlatform, x),
+            field_name="platforms",
+        ),
+    )
+    enum_values: Optional[List[EnumValue]] = field(
+        default=None, metadata=config(field_name="enumValues")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class NGAVDefaults:
+    """NGAVDefaults."""
+
+    name: Optional[str] = field(default=None, metadata=config(field_name="name"))
+    description: Optional[str] = field(
+        default=None, metadata=config(field_name="description")
+    )
+    enabled: Optional[bool] = field(default=None, metadata=config(field_name="enabled"))
+    platforms: Optional[List[Union[EndpointPlatform, TaegisEnum]]] = field(
+        default=None,
+        metadata=config(
+            encoder=encode_enum,
+            decoder=lambda x: decode_enum(EndpointPlatform, x),
+            field_name="platforms",
+        ),
+    )
+    modes: Optional[List[EnumValue]] = field(
+        default=None, metadata=config(field_name="modes")
+    )
+    selected_mode: Optional[Union[NGAVProtectionMode, TaegisEnum]] = field(
+        default=None,
+        metadata=config(
+            encoder=encode_enum,
+            decoder=lambda x: decode_enum(NGAVProtectionMode, x),
+            field_name="selectedMode",
+        ),
     )
 
 
@@ -507,6 +560,17 @@ class DailyWindowsInput:
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
+class MaintenanceWindow:
+    """MaintenanceWindow."""
+
+    enabled: Optional[bool] = field(default=None, metadata=config(field_name="enabled"))
+    windows: Optional[DailyWindows] = field(
+        default=None, metadata=config(field_name="windows")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
 class MaintenanceWindowInput:
     """MaintenanceWindowInput."""
 
@@ -518,8 +582,8 @@ class MaintenanceWindowInput:
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
-class MaintenanceWindow:
-    """MaintenanceWindow."""
+class MaintenanceWindowDefaults:
+    """MaintenanceWindowDefaults."""
 
     name: Optional[str] = field(default=None, metadata=config(field_name="name"))
     description: Optional[str] = field(
@@ -541,6 +605,98 @@ class MaintenanceWindow:
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
+class AgentSettingsInput:
+    """AgentSettingsInput."""
+
+    name: Optional[str] = field(default=None, metadata=config(field_name="name"))
+    description: Optional[str] = field(
+        default=None, metadata=config(field_name="description")
+    )
+    channel: Optional[str] = field(default=None, metadata=config(field_name="channel"))
+    profile_name: Optional[Union[AgentSettingsProfile, TaegisEnum]] = field(
+        default=None,
+        metadata=config(
+            encoder=encode_enum,
+            decoder=lambda x: decode_enum(AgentSettingsProfile, x),
+            field_name="profileName",
+        ),
+    )
+    advanced_kernel_telemetry: Optional[BooleanSettingInput] = field(
+        default=None, metadata=config(field_name="advancedKernelTelemetry")
+    )
+    auto_archive: Optional[AutoArchiveInput] = field(
+        default=None, metadata=config(field_name="autoArchive")
+    )
+    file_analysis: Optional[BooleanSettingInput] = field(
+        default=None, metadata=config(field_name="fileAnalysis")
+    )
+    tamper_protection: Optional[BooleanSettingInput] = field(
+        default=None, metadata=config(field_name="tamperProtection")
+    )
+    ngav: Optional[NGAVInput] = field(default=None, metadata=config(field_name="ngav"))
+    policy_type: Optional[Union[PolicyType, TaegisEnum]] = field(
+        default=None,
+        metadata=config(
+            encoder=encode_enum,
+            decoder=lambda x: decode_enum(PolicyType, x),
+            field_name="policyType",
+        ),
+    )
+    maintenance_window: Optional[MaintenanceWindowInput] = field(
+        default=None, metadata=config(field_name="maintenanceWindow")
+    )
+    experimental_settings: Optional[List[ExperimentalSettingsInput]] = field(
+        default=None, metadata=config(field_name="experimentalSettings")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class AgentSettingsDefaults:
+    """AgentSettingsDefaults."""
+
+    channel: Optional[str] = field(default=None, metadata=config(field_name="channel"))
+    profile_name: Optional[Union[AgentSettingsProfile, TaegisEnum]] = field(
+        default=None,
+        metadata=config(
+            encoder=encode_enum,
+            decoder=lambda x: decode_enum(AgentSettingsProfile, x),
+            field_name="profileName",
+        ),
+    )
+    advanced_kernel_telemetry: Optional[ToggleSettingDefaults] = field(
+        default=None, metadata=config(field_name="advancedKernelTelemetry")
+    )
+    auto_archive: Optional[AutoArchiveDefaults] = field(
+        default=None, metadata=config(field_name="autoArchive")
+    )
+    file_analysis: Optional[ToggleSettingDefaults] = field(
+        default=None, metadata=config(field_name="fileAnalysis")
+    )
+    maintenance_window: Optional[MaintenanceWindowDefaults] = field(
+        default=None, metadata=config(field_name="maintenanceWindow")
+    )
+    tamper_protection: Optional[ToggleSettingDefaults] = field(
+        default=None, metadata=config(field_name="tamperProtection")
+    )
+    policy_type: Optional[Union[PolicyType, TaegisEnum]] = field(
+        default=None,
+        metadata=config(
+            encoder=encode_enum,
+            decoder=lambda x: decode_enum(PolicyType, x),
+            field_name="policyType",
+        ),
+    )
+    ngav: Optional[NGAVDefaults] = field(
+        default=None, metadata=config(field_name="ngav")
+    )
+    experimental_settings: Optional[List[ExperimentalSetting]] = field(
+        default=None, metadata=config(field_name="experimentalSettings")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
 class AgentSetting:
     """AgentSetting."""
 
@@ -553,25 +709,36 @@ class AgentSetting:
     is_default: Optional[bool] = field(
         default=None, metadata=config(field_name="isDefault")
     )
+    skip_upgrade: Optional[bool] = field(
+        default=None, metadata=config(field_name="skipUpgrade")
+    )
     created_at: Optional[str] = field(
         default=None, metadata=config(field_name="createdAt")
     )
     updated_at: Optional[str] = field(
         default=None, metadata=config(field_name="updatedAt")
     )
-    advanced_kernel_telemetry: Optional[AdvancedKernelTelemetry] = field(
+    profile_name: Optional[Union[AgentSettingsProfile, TaegisEnum]] = field(
+        default=None,
+        metadata=config(
+            encoder=encode_enum,
+            decoder=lambda x: decode_enum(AgentSettingsProfile, x),
+            field_name="profileName",
+        ),
+    )
+    advanced_kernel_telemetry: Optional[ToggleSetting] = field(
         default=None, metadata=config(field_name="advancedKernelTelemetry")
     )
     auto_archive: Optional[AutoArchive] = field(
         default=None, metadata=config(field_name="autoArchive")
     )
-    file_analysis: Optional[FileAnalysis] = field(
+    file_analysis: Optional[ToggleSetting] = field(
         default=None, metadata=config(field_name="fileAnalysis")
     )
     maintenance_window: Optional[MaintenanceWindow] = field(
         default=None, metadata=config(field_name="maintenanceWindow")
     )
-    tamper_protection: Optional[TamperProtection] = field(
+    tamper_protection: Optional[ToggleSetting] = field(
         default=None, metadata=config(field_name="tamperProtection")
     )
     policy_type: Optional[Union[PolicyType, TaegisEnum]] = field(
@@ -582,111 +749,93 @@ class AgentSetting:
             field_name="policyType",
         ),
     )
-
-
-@dataclass_json
-@dataclass(order=True, eq=True, frozen=True)
-class CreateAgentSettingsInput:
-    """CreateAgentSettingsInput."""
-
-    name: Optional[str] = field(default=None, metadata=config(field_name="name"))
-    description: Optional[str] = field(
-        default=None, metadata=config(field_name="description")
+    policy_override: Optional[PolicyOverride] = field(
+        default=None, metadata=config(field_name="policyOverride")
     )
-    channel: Optional[str] = field(default=None, metadata=config(field_name="channel"))
-    advanced_kernel_telemetry: Optional[BooleanSettingInput] = field(
-        default=None, metadata=config(field_name="advancedKernelTelemetry")
-    )
-    auto_archive: Optional[AutoArchiveInput] = field(
-        default=None, metadata=config(field_name="autoArchive")
-    )
-    file_analysis: Optional[BooleanSettingInput] = field(
-        default=None, metadata=config(field_name="fileAnalysis")
-    )
-    tamper_protection: Optional[BooleanSettingInput] = field(
-        default=None, metadata=config(field_name="tamperProtection")
-    )
-    policy_type: Optional[Union[PolicyType, TaegisEnum]] = field(
-        default=None,
-        metadata=config(
-            encoder=encode_enum,
-            decoder=lambda x: decode_enum(PolicyType, x),
-            field_name="policyType",
-        ),
-    )
-    maintenance_window: Optional[MaintenanceWindowInput] = field(
-        default=None, metadata=config(field_name="maintenanceWindow")
+    ngav: Optional[NGAV] = field(default=None, metadata=config(field_name="ngav"))
+    experimental_settings: Optional[List[ExperimentalSetting]] = field(
+        default=None, metadata=config(field_name="experimentalSettings")
     )
 
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
-class UpdateAgentSettingsInput:
-    """UpdateAgentSettingsInput."""
+class EndpointGroup:
+    """EndpointGroup."""
 
     id: Optional[str] = field(default=None, metadata=config(field_name="id"))
+    tenant_id: Optional[str] = field(
+        default=None, metadata=config(field_name="tenantId")
+    )
+    group_id: Optional[str] = field(default=None, metadata=config(field_name="groupId"))
     name: Optional[str] = field(default=None, metadata=config(field_name="name"))
     description: Optional[str] = field(
         default=None, metadata=config(field_name="description")
     )
+    registration_key: Optional[str] = field(
+        default=None, metadata=config(field_name="registrationKey")
+    )
+    registration_key_expires_at: Optional[str] = field(
+        default=None, metadata=config(field_name="registrationKeyExpiresAt")
+    )
+    policy_name: Optional[str] = field(
+        default=None, metadata=config(field_name="policyName")
+    )
+    is_system_generated: Optional[bool] = field(
+        default=None, metadata=config(field_name="isSystemGenerated")
+    )
+    is_default: Optional[bool] = field(
+        default=None, metadata=config(field_name="isDefault")
+    )
+    desired_agent_version: Optional[str] = field(
+        default=None, metadata=config(field_name="desiredAgentVersion")
+    )
     channel: Optional[str] = field(default=None, metadata=config(field_name="channel"))
-    advanced_kernel_telemetry: Optional[BooleanSettingInput] = field(
-        default=None, metadata=config(field_name="advancedKernelTelemetry")
+    created_at: Optional[str] = field(
+        default=None, metadata=config(field_name="createdAt")
     )
-    auto_archive: Optional[AutoArchiveInput] = field(
-        default=None, metadata=config(field_name="autoArchive")
+    updated_at: Optional[str] = field(
+        default=None, metadata=config(field_name="updatedAt")
     )
-    file_analysis: Optional[BooleanSettingInput] = field(
-        default=None, metadata=config(field_name="fileAnalysis")
+    skip_upgrade: Optional[bool] = field(
+        default=None, metadata=config(field_name="skipUpgrade")
     )
-    tamper_protection: Optional[BooleanSettingInput] = field(
-        default=None, metadata=config(field_name="tamperProtection")
+    archive_endpoint_after_days: Optional[int] = field(
+        default=None, metadata=config(field_name="ArchiveEndpointAfterDays")
     )
-    policy_type: Optional[Union[PolicyType, TaegisEnum]] = field(
-        default=None,
-        metadata=config(
-            encoder=encode_enum,
-            decoder=lambda x: decode_enum(PolicyType, x),
-            field_name="policyType",
-        ),
+    is_archive_endpoint_enabled: Optional[bool] = field(
+        default=None, metadata=config(field_name="IsArchiveEndpointEnabled")
     )
-    maintenance_window: Optional[MaintenanceWindowInput] = field(
+    file_analysis_flag: Optional[bool] = field(
+        default=None, metadata=config(field_name="fileAnalysisFlag")
+    )
+    maintenance_window: Optional[str] = field(
         default=None, metadata=config(field_name="maintenanceWindow")
+    )
+    advanced_kernel_telemetry_enabled: Optional[bool] = field(
+        default=None, metadata=config(field_name="advancedKernelTelemetryEnabled")
+    )
+    setting_id: Optional[str] = field(
+        default=None, metadata=config(field_name="settingId")
+    )
+    agent_setting: Optional[AgentSetting] = field(
+        default=None, metadata=config(field_name="agentSetting")
+    )
+    policy_override: Optional[PolicyOverride] = field(
+        default=None, metadata=config(field_name="policyOverride")
     )
 
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
-class UpdateDefaultAgentSettingInput:
-    """UpdateDefaultAgentSettingInput."""
+class EndpointGroupsPagedOutput:
+    """EndpointGroupsPagedOutput."""
 
-    name: Optional[str] = field(default=None, metadata=config(field_name="name"))
-    description: Optional[str] = field(
-        default=None, metadata=config(field_name="description")
+    groups: Optional[List[EndpointGroup]] = field(
+        default=None, metadata=config(field_name="groups")
     )
-    channel: Optional[str] = field(default=None, metadata=config(field_name="channel"))
-    advanced_kernel_telemetry: Optional[BooleanSettingInput] = field(
-        default=None, metadata=config(field_name="advancedKernelTelemetry")
-    )
-    auto_archive: Optional[AutoArchiveInput] = field(
-        default=None, metadata=config(field_name="autoArchive")
-    )
-    file_analysis: Optional[BooleanSettingInput] = field(
-        default=None, metadata=config(field_name="fileAnalysis")
-    )
-    tamper_protection: Optional[BooleanSettingInput] = field(
-        default=None, metadata=config(field_name="tamperProtection")
-    )
-    policy_type: Optional[Union[PolicyType, TaegisEnum]] = field(
-        default=None,
-        metadata=config(
-            encoder=encode_enum,
-            decoder=lambda x: decode_enum(PolicyType, x),
-            field_name="policyType",
-        ),
-    )
-    maintenance_window: Optional[MaintenanceWindowInput] = field(
-        default=None, metadata=config(field_name="maintenanceWindow")
+    partial_page_info: Optional[PartialPageInfo] = field(
+        default=None, metadata=config(field_name="partialPageInfo")
     )
 
 

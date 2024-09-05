@@ -189,3 +189,20 @@ class TaegisSDKEndpointManagementServiceQuery:
         if result.get(endpoint) is not None:
             return AgentSettings.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for query agentSettings")
+
+    def get_settings_for_profile(
+        self, profile_name: Optional[Union[AgentSettingsProfile, TaegisEnum]] = None
+    ) -> AgentSettingsDefaults:
+        """fetch the setting defaults for a given profile."""
+        endpoint = "getSettingsForProfile"
+
+        result = self.service.execute_query(
+            endpoint=endpoint,
+            variables={
+                "profileName": prepare_input(profile_name),
+            },
+            output=build_output_string(AgentSettingsDefaults),
+        )
+        if result.get(endpoint) is not None:
+            return AgentSettingsDefaults.from_dict(result.get(endpoint))
+        raise GraphQLNoRowsInResultSetError("for query getSettingsForProfile")

@@ -44,6 +44,7 @@ from taegis_sdk_python.services.file_info import FileInfoService
 from taegis_sdk_python.services.ingest_stats import IngestStatsService
 from taegis_sdk_python.services.investigations import InvestigationsService
 from taegis_sdk_python.services.investigations2 import Investigations2Service
+from taegis_sdk_python.services.isensor import IsensorService
 from taegis_sdk_python.services.mitre_attack_info import MitreAttackInfoService
 from taegis_sdk_python.services.multi_tenant_context import MultiTenantContextService
 from taegis_sdk_python.services.multi_tenant_ioc import MultiTenantIocService
@@ -166,6 +167,7 @@ class GraphQLService:
         self._ingest_stats = None
         self._investigations = None
         self._investigations2 = None
+        self._isensor = None
         self._mitre_attack_info = None
         self._multi_tenant_context = None
         self._multi_tenant_ioc = None
@@ -513,6 +515,13 @@ class GraphQLService:
         if not self._investigations2:
             self._investigations2 = Investigations2Service(self)
         return self._investigations2
+
+    @property
+    def isensor(self):
+        """Isensor Service Endpoint."""
+        if not self._isensor:
+            self._isensor = IsensorService(self)
+        return self._isensor
 
     @property
     def mitre_attack_info(self):
