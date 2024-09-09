@@ -42,6 +42,7 @@ class RuleEventType(str, Enum):
     THIRDPARTYALERT = "thirdpartyalert"
     THREAD_INJECTION = "thread_injection"
     PROCESS_MODULE = "process_module"
+    TAEGIS_AGENT_DETECTION = "taegis_agent_detection"
 
 
 class RuleEndpointPlatform(str, Enum):

@@ -61,6 +61,7 @@ from taegis_sdk_python.services.tenants import TenantsService
 from taegis_sdk_python.services.tenants4 import Tenants4Service
 from taegis_sdk_python.services.threat import ThreatService
 from taegis_sdk_python.services.threat_score import ThreatScoreService
+from taegis_sdk_python.services.trigger_action import TriggerActionService
 from taegis_sdk_python.services.trip import TripService
 from taegis_sdk_python.services.users import UsersService
 from taegis_sdk_python.services.vdr import VDRService
@@ -185,6 +186,7 @@ class GraphQLService:
         self._tenants4 = None
         self._threat = None
         self._threat_score = None
+        self._trigger_action = None
         self._trip = None
         self._users = None
         self._vdr = None
@@ -643,6 +645,13 @@ class GraphQLService:
         return self._threat_score
 
     @property
+    def trigger_action(self):
+        """Trigger Action Service Endpoint."""
+        if not self._trigger_action:
+            self._trigger_action = TriggerActionService(self)
+        return self._trigger_action
+
+    @property
     def trip(self):
         """Trip Service Endpoint."""
         if not self._trip:
@@ -658,7 +667,7 @@ class GraphQLService:
 
     @property
     def vdr(self):
-        """Users Service Endpoint."""
+        """VDR Service Endpoint."""
         if not self._vdr:
             self._vdr = VDRService(self)
         return self._vdr
