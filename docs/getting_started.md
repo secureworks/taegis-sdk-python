@@ -535,3 +535,33 @@ user = service.users.query.current_tdruser() # schema will be cached for the use
 
 service.users.clear_schema()  # local schema will be cleared and re-fetched on next call
 ```
+
+### Subscription Message Size
+
+The maxiumum message size for a subscription can be configured with the `max_message_size` 
+parameter for all subscriptions.  Invididual calls can be modified via the context manager.
+The default is set to 0; which removes the limit.  This option only effects subscriptions;
+queries and mutations are not effected by this.
+
+A `ConnectionResetError` will be thrown if the message size is reached or exceeded.
+
+```python
+from taegis_sdk_python import GraphQLService
+
+service = GraphQLService(max_message_size=4194304)  # sets default to 4MB
+
+with service(max_message_size=5242880):  # sets specific API call to 5MB
+    options = EventQueryOptions(
+        timestamp_ascending=True,
+        page_size=1000,
+        max_rows=1000,
+        skip_cache=True,
+        aggregation_off=False,
+    )
+    results = service.events.subscription.event_query("FROM process EARLIEST=-1d", options=options)
+
+try:
+    results = service.events.subscription.event_query("FROM process EARLIEST=-1d", options=options)
+except ConnectionResetError as exc:
+    # handle error
+```

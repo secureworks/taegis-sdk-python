@@ -257,6 +257,7 @@ class ServiceCore:
             proxy=self.service.proxy,
             proxy_auth=self.service.proxy_auth,
             proxy_headers=self.service.proxy_headers,
+            connect_args={"max_msg_size": self.service.max_message_size},
         )
 
         client = Client(

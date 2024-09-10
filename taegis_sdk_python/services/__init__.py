@@ -89,6 +89,7 @@ class GraphQLService:
         trust_env: bool = False,
         ssl: Optional[Union[SSLContext, Literal[False], Fingerprint]] = None,
         execute_timeout: Optional[Union[int, float]] = 30,
+        max_message_size: int = 0,
     ):  # pylint: disable=too-many-statements
         """
         GraphQLService
@@ -107,11 +108,29 @@ class GraphQLService:
             Extra HTTP Headers to be included in API calls
         schema_expiry: int, optional
             Expire time for GraphQL Schema Caching in minutes, by default 1
+        proxy: str, optional
+            Proxy URL for API requests
+            Examples:
+                http://proxy.example.com:8080
+                http://username:password@proxy.example.com:8080
+        proxy_auth: aiohttp.BasicAuth, optional
+            Examples:
+                aiohttp.BasicAuth("username", "password")
+        proxy_headers: Optional[LooseHeaders], optional
+            Proxy Headers for API requests
+        trust_env: bool, optional
+            Trust Environment Variables for Proxy Authentication
+        ssl: Optional[Union[SSLContext, Literal[False], Fingerprint]], optional
+            SSL Context for API requests
+        execute_timeout: Optional[Union[int, float]], optional
+            Timeout for GraphQL Execute in seconds, by default 30
+        max_message_size: int, optional
+            Max Message Size for Subscriptions, by default 0
 
         Raises
         ------
         ValueError
-            environment must be charlie, delta, or echo
+            environment must be charlie, delta, echo, or foxtrot (or equivalent)
         """
         self._environments = environments or TAEGIS_ENVIRONMENT_URLS
         self._environment = environment or list(self._environments)[0]
@@ -143,6 +162,7 @@ class GraphQLService:
         self._trust_env = trust_env
 
         self._execute_timeout = execute_timeout
+        self._max_message_size = max_message_size
 
         self._access_points = None
         self._agent = None
@@ -294,6 +314,11 @@ class GraphQLService:
     def schema_expiry(self):
         """GraphQL Schema Timeout."""
         return self._context_manager.get("schema_expiry", self._schema_expiry)
+
+    @property
+    def max_message_size(self):
+        """Max Message Size for Subscriptions."""
+        return self._context_manager.get("max_message_size", self._max_message_size)
 
     @property
     def input_value_deprecation(self):
