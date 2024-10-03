@@ -101,3 +101,32 @@ class TaegisSDKTripQuery:
         if result.get(endpoint) is not None:
             return ApiIntegrationHistoryPage.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for query listApiIntegrationHistory")
+
+    def get_form_options(self, product_id: int, form_item_name: str) -> List[str]:
+        """None."""
+        endpoint = "getFormOptions"
+
+        result = self.service.execute_query(
+            endpoint=endpoint,
+            variables={
+                "productId": prepare_input(product_id),
+                "formItemName": prepare_input(form_item_name),
+            },
+            output="",
+        )
+        if result.get(endpoint) is not None:
+            return result.get(endpoint)
+        raise GraphQLNoRowsInResultSetError("for query getFormOptions")
+
+    def get_env_config(self) -> List[TripEnvConfig]:
+        """None."""
+        endpoint = "getEnvConfig"
+
+        result = self.service.execute_query(
+            endpoint=endpoint, variables={}, output=build_output_string(TripEnvConfig)
+        )
+        if result.get(endpoint) is not None:
+            return TripEnvConfig.schema().load(
+                [r or {} for r in result.get(endpoint)], many=True
+            )
+        raise GraphQLNoRowsInResultSetError("for query getEnvConfig")

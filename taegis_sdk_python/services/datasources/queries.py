@@ -52,3 +52,74 @@ class TaegisSDKDatasourcesQuery:
                 [r or {} for r in result.get(endpoint)], many=True
             )
         raise GraphQLNoRowsInResultSetError("for query getDataSourceLastSeenAsset")
+
+    def get_data_source_last_seen_assets_v2(
+        self,
+        first: Optional[int] = None,
+        last: Optional[int] = None,
+        after: Optional[str] = None,
+        before: Optional[str] = None,
+        filter_: Optional[DataSourceAssetsFilter] = None,
+        sort: Optional[Union[LastSeenAssetsSort, TaegisEnum]] = None,
+    ) -> LastSeenAssets:
+        """Fetches the last seen data about all data sources associated with a tenant based on input parameters.
+        It provides ability to filter the data by collectorId and sourceId. The data returned by this query
+        is eventually consistent. Consequently, actions such as deleting an asset may not be immediately reflected in the
+        result set. Authorization permission is required with read access to the collector object.
+        It also supports forward and backward pagination.."""
+        endpoint = "getDataSourceLastSeenAssetsV2"
+
+        result = self.service.execute_query(
+            endpoint=endpoint,
+            variables={
+                "first": prepare_input(first),
+                "last": prepare_input(last),
+                "after": prepare_input(after),
+                "before": prepare_input(before),
+                "filter": prepare_input(filter_),
+                "sort": prepare_input(sort),
+            },
+            output=build_output_string(LastSeenAssets),
+        )
+        if result.get(endpoint) is not None:
+            return LastSeenAssets.from_dict(result.get(endpoint))
+        raise GraphQLNoRowsInResultSetError("for query getDataSourceLastSeenAssetsV2")
+
+    def get_data_source_last_seen_asset_filter_values(
+        self, input_: List[Union[FilterCriteria, TaegisEnum]]
+    ) -> List[FilterValues]:
+        """Provides clients with the ability to retrieve the possible values for a given filter criteria. Note that unique
+        values will be returned, for enum types, only those observed in the data set will be returned.."""
+        endpoint = "getDataSourceLastSeenAssetFilterValues"
+
+        result = self.service.execute_query(
+            endpoint=endpoint,
+            variables={
+                "input": prepare_input(input_),
+            },
+            output=build_output_string(FilterValues),
+        )
+        if result.get(endpoint) is not None:
+            return FilterValues.schema().load(
+                [r or {} for r in result.get(endpoint)], many=True
+            )
+        raise GraphQLNoRowsInResultSetError(
+            "for query getDataSourceLastSeenAssetFilterValues"
+        )
+
+    def data_source_last_seen_assets_query(
+        self, input_: LastSeenQueryInput
+    ) -> LastSeenAssetsQueryResult:
+        """Allows querying last seen data for assets using CQL."""
+        endpoint = "dataSourceLastSeenAssetsQuery"
+
+        result = self.service.execute_query(
+            endpoint=endpoint,
+            variables={
+                "input": prepare_input(input_),
+            },
+            output=build_output_string(LastSeenAssetsQueryResult),
+        )
+        if result.get(endpoint) is not None:
+            return LastSeenAssetsQueryResult.from_dict(result.get(endpoint))
+        raise GraphQLNoRowsInResultSetError("for query dataSourceLastSeenAssetsQuery")

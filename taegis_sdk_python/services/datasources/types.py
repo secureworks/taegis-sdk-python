@@ -38,6 +38,33 @@ class HealthState(str, Enum):
     WARNING = "WARNING"
 
 
+class FilterCriteria(str, Enum):
+    """FilterCriteria."""
+
+    SOURCE_ID = "SOURCE_ID"
+    STATUS = "STATUS"
+    TYPE = "TYPE"
+    SENSOR_TYPE = "SENSOR_TYPE"
+    XDR_RELAY = "XDR_RELAY"
+
+
+class LastSeenAssetsSort(str, Enum):
+    """LastSeenAssetsSort."""
+
+    SOURCE_ID_ASC = "SOURCE_ID_ASC"
+    SOURCE_ID_DESC = "SOURCE_ID_DESC"
+    STATUS_ASC = "STATUS_ASC"
+    STATUS_DESC = "STATUS_DESC"
+    LOG_LAST_SEEN_ASC = "LOG_LAST_SEEN_ASC"
+    LOG_LAST_SEEN_DESC = "LOG_LAST_SEEN_DESC"
+    TYPE_ASC = "TYPE_ASC"
+    TYPE_DESC = "TYPE_DESC"
+    SENSOR_TYPE_ASC = "SENSOR_TYPE_ASC"
+    SENSOR_TYPE_DESC = "SENSOR_TYPE_DESC"
+    COLLECTOR_ID_ASC = "COLLECTOR_ID_ASC"
+    COLLECTOR_ID_DESC = "COLLECTOR_ID_DESC"
+
+
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
 class DeletedAsset:
@@ -82,11 +109,98 @@ class GetDataSourceInput:
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
+class PageInfo:
+    """PageInfo."""
+
+    end_cursor: Optional[str] = field(
+        default=None, metadata=config(field_name="endCursor")
+    )
+    start_cursor: Optional[str] = field(
+        default=None, metadata=config(field_name="startCursor")
+    )
+    has_next_page: Optional[bool] = field(
+        default=None, metadata=config(field_name="hasNextPage")
+    )
+    has_previous_page: Optional[bool] = field(
+        default=None, metadata=config(field_name="hasPreviousPage")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class QLPageCursor:
+    """QLPageCursor."""
+
+    next_cursor: Optional[str] = field(
+        default=None, metadata=config(field_name="nextCursor")
+    )
+    previous_cursor: Optional[str] = field(
+        default=None, metadata=config(field_name="previousCursor")
+    )
+    cursor: Optional[str] = field(default=None, metadata=config(field_name="cursor"))
+    count: Optional[int] = field(default=None, metadata=config(field_name="count"))
+    total_count: Optional[int] = field(
+        default=None, metadata=config(field_name="totalCount")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class DataSourcesWhereInput:
+    """DataSourcesWhereInput."""
+
+    source_id: Optional[List[str]] = field(
+        default=None, metadata=config(field_name="sourceId")
+    )
+    type: Optional[List[str]] = field(default=None, metadata=config(field_name="type"))
+    sensor_type: Optional[List[str]] = field(
+        default=None, metadata=config(field_name="sensorType")
+    )
+    collector_id: Optional[List[str]] = field(
+        default=None, metadata=config(field_name="collectorId")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class LastSeenQueryInput:
+    """LastSeenQueryInput."""
+
+    ql: Optional[str] = field(default=None, metadata=config(field_name="ql"))
+    cursor: Optional[str] = field(default=None, metadata=config(field_name="cursor"))
+    count: Optional[int] = field(default=None, metadata=config(field_name="count"))
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class FilterValue:
+    """FilterValue."""
+
+    value: Optional[str] = field(default=None, metadata=config(field_name="value"))
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
 class ClusterIdentity:
     """ClusterIdentity."""
 
     id: Optional[str] = field(default=None, metadata=config(field_name="id"))
     name: Optional[str] = field(default=None, metadata=config(field_name="name"))
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class FilterValues:
+    """FilterValues."""
+
+    filter: Optional[Union[FilterCriteria, TaegisEnum]] = field(
+        default=None,
+        metadata=config(
+            encoder=encode_enum,
+            decoder=lambda x: decode_enum(FilterCriteria, x),
+            field_name="filter",
+        ),
+    )
 
 
 @dataclass_json
@@ -118,3 +232,59 @@ class LastSeenAsset:
     collector: Optional[ClusterIdentity] = field(
         default=None, metadata=config(field_name="collector")
     )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class DataSourceAssetsFilter:
+    """DataSourceAssetsFilter."""
+
+    status: Optional[List[Union[HealthState, TaegisEnum]]] = field(
+        default=None,
+        metadata=config(
+            encoder=encode_enum,
+            decoder=lambda x: decode_enum(HealthState, x),
+            field_name="status",
+        ),
+    )
+    where: Optional[DataSourcesWhereInput] = field(
+        default=None, metadata=config(field_name="where")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class LastSeenAssets:
+    """LastSeenAssets."""
+
+    total_count: Optional[int] = field(
+        default=None, metadata=config(field_name="totalCount")
+    )
+    assets: Optional[List[LastSeenAsset]] = field(
+        default=None, metadata=config(field_name="assets")
+    )
+    page_info: Optional[PageInfo] = field(
+        default=None, metadata=config(field_name="pageInfo")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class LastSeenAssetsQueryResult:
+    """LastSeenAssetsQueryResult."""
+
+    aggregations: Optional[List[dict]] = field(
+        default=None, metadata=config(field_name="aggregations")
+    )
+    assets: Optional[List[LastSeenAsset]] = field(
+        default=None, metadata=config(field_name="assets")
+    )
+    pagination: Optional[QLPageCursor] = field(
+        default=None, metadata=config(field_name="pagination")
+    )
+
+
+FilterValueResponse = Union[
+    FilterValue,
+    ClusterIdentity,
+]

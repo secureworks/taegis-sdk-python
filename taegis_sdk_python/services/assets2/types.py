@@ -1338,6 +1338,9 @@ class AssetV2:
     un_installable: Optional[bool] = field(
         default=None, metadata=config(field_name="unInstallable")
     )
+    agent_policy_version: Optional[str] = field(
+        default=None, metadata=config(field_name="agentPolicyVersion")
+    )
     hostnames: Optional[List[HostnameV2]] = field(
         default=None, metadata=config(field_name="hostnames")
     )
@@ -1374,17 +1377,6 @@ class AssetV2:
 @dataclass(order=True, eq=True, frozen=True)
 class BulkReconnectNativeAssetsInput:
     """BulkReconnectNativeAssetsInput."""
-
-    reason: Optional[str] = field(default=None, metadata=config(field_name="reason"))
-    where: Optional[AssetWhereInputV2] = field(
-        default=None, metadata=config(field_name="where")
-    )
-
-
-@dataclass_json
-@dataclass(order=True, eq=True, frozen=True)
-class BulkUninstallNativeAssetsInput:
-    """BulkUninstallNativeAssetsInput."""
 
     reason: Optional[str] = field(default=None, metadata=config(field_name="reason"))
     where: Optional[AssetWhereInputV2] = field(
@@ -1568,4 +1560,25 @@ class BulkUpdateTagsForEndpointsInputV2:
     )
     tags: Optional[List[KVTagInputV2]] = field(
         default=None, metadata=config(field_name="tags")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class BulkUninstallNativeAssetsInput:
+    """BulkUninstallNativeAssetsInput."""
+
+    reason: Optional[str] = field(default=None, metadata=config(field_name="reason"))
+    agent_count: Optional[int] = field(
+        default=None, metadata=config(field_name="agentCount")
+    )
+    filter: Optional[AssetFilter] = field(
+        default=None, metadata=config(field_name="filter")
+    )
+    where: Optional[AssetWhereInputV2] = field(
+        default=None,
+        metadata=config(
+            metadata={"deprecated": True, "deprecation_reason": "use filter.where"},
+            field_name="where",
+        ),
     )

@@ -1855,6 +1855,22 @@ class ThreatVidIntelligence:
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
+class ThreatMalwareIntelligence:
+    """ThreatMalwareIntelligence."""
+
+    malware: Optional[ThreatMalware] = field(
+        default=None, metadata=config(field_name="malware")
+    )
+    groups: Optional[List[ThreatGroup]] = field(
+        default=None, metadata=config(field_name="groups")
+    )
+    reports: Optional[List[ThreatReport]] = field(
+        default=None, metadata=config(field_name="reports")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
 class ThreatIndicatorIntelligence:
     """ThreatIndicatorIntelligence."""
 

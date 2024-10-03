@@ -272,6 +272,9 @@ class VdrVulnerabilityDetail:
     host_ids: Optional[List[str]] = field(
         default=None, metadata=config(field_name="hostIds")
     )
+    hostname: Optional[str] = field(
+        default=None, metadata=config(field_name="hostname")
+    )
     http_code: Optional[int] = field(
         default=None, metadata=config(field_name="httpCode")
     )
@@ -502,6 +505,9 @@ class VdrVulnerability:
     host: Optional[str] = field(default=None, metadata=config(field_name="host"))
     host_ids: Optional[List[str]] = field(
         default=None, metadata=config(field_name="hostIds")
+    )
+    hostname: Optional[str] = field(
+        default=None, metadata=config(field_name="hostname")
     )
     http_code: Optional[int] = field(
         default=None, metadata=config(field_name="httpCode")

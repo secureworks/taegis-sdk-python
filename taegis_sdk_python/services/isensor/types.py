@@ -112,6 +112,40 @@ class IsensorReportTimePeriod(str, Enum):
     PREVIOUS_YEAR = "PREVIOUS_YEAR"
 
 
+class NdrMaintenanceFreq(str, Enum):
+    """NdrMaintenanceFreq."""
+
+    YEARLY = "YEARLY"
+    MONTHLY = "MONTHLY"
+    WEEKLY = "WEEKLY"
+    DAILY = "DAILY"
+
+
+class NdrWeekDay(str, Enum):
+    """NdrWeekDay."""
+
+    SUN = "SUN"
+    MON = "MON"
+    TUE = "TUE"
+    WED = "WED"
+    THU = "THU"
+    FRI = "FRI"
+    SAT = "SAT"
+
+
+class NdrEventDeviceStatus(str, Enum):
+    """NdrEventDeviceStatus."""
+
+    ACTIVE = "ACTIVE"
+    CANCELLED = "CANCELLED"
+    FAILED = "FAILED"
+    NEW = "NEW"
+    PREVIEWED = "PREVIEWED"
+    RESCHEDULED = "RESCHEDULED"
+    SCHEDULED = "SCHEDULED"
+    SUCCEEDED = "SUCCEEDED"
+
+
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
 class IsensorJobLogs:
@@ -347,6 +381,46 @@ class IsensorChangeMgmtReportInput:
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
+class NdrMaintenanceWindowInput:
+    """NdrMaintenanceWindowInput."""
+
+    internal_device_name: Optional[str] = field(
+        default=None, metadata=config(field_name="internalDeviceName")
+    )
+    name: Optional[str] = field(default=None, metadata=config(field_name="name"))
+    description: Optional[str] = field(
+        default=None, metadata=config(field_name="description")
+    )
+    start_hour: Optional[int] = field(
+        default=None, metadata=config(field_name="startHour")
+    )
+    timezone: Optional[str] = field(
+        default=None, metadata=config(field_name="timezone")
+    )
+    start_date: Optional[str] = field(
+        default=None, metadata=config(field_name="startDate")
+    )
+    duration: Optional[int] = field(
+        default=None, metadata=config(field_name="duration")
+    )
+    all_tenant_devices: Optional[bool] = field(
+        default=None, metadata=config(field_name="allTenantDevices")
+    )
+    outage_permitted: Optional[bool] = field(
+        default=None, metadata=config(field_name="outagePermitted")
+    )
+    week_day: Optional[Union[NdrWeekDay, TaegisEnum]] = field(
+        default=None,
+        metadata=config(
+            encoder=encode_enum,
+            decoder=lambda x: decode_enum(NdrWeekDay, x),
+            field_name="weekDay",
+        ),
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
 class IsensorChangeMgmtReportPayload:
     """IsensorChangeMgmtReportPayload."""
 
@@ -406,6 +480,65 @@ class IsensorReportRuleset:
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
+class NdrEventDeviceResult:
+    """NdrEventDeviceResult."""
+
+    event_device_id: Optional[str] = field(
+        default=None, metadata=config(field_name="eventDeviceId")
+    )
+    internal_device_name: Optional[str] = field(
+        default=None, metadata=config(field_name="internalDeviceName")
+    )
+    name: Optional[str] = field(default=None, metadata=config(field_name="name"))
+    description: Optional[str] = field(
+        default=None, metadata=config(field_name="description")
+    )
+    start_date: Optional[str] = field(
+        default=None, metadata=config(field_name="startDate")
+    )
+    deferrable: Optional[bool] = field(
+        default=None, metadata=config(field_name="deferrable")
+    )
+    status: Optional[Union[NdrEventDeviceStatus, TaegisEnum]] = field(
+        default=None,
+        metadata=config(
+            encoder=encode_enum,
+            decoder=lambda x: decode_enum(NdrEventDeviceStatus, x),
+            field_name="status",
+        ),
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class NdrDeferEventDeviceResult:
+    """NdrDeferEventDeviceResult."""
+
+    event_device_id: Optional[str] = field(
+        default=None, metadata=config(field_name="eventDeviceId")
+    )
+    internal_device_name: Optional[str] = field(
+        default=None, metadata=config(field_name="internalDeviceName")
+    )
+    start_date: Optional[str] = field(
+        default=None, metadata=config(field_name="startDate")
+    )
+    name: Optional[str] = field(default=None, metadata=config(field_name="name"))
+    description: Optional[str] = field(
+        default=None, metadata=config(field_name="description")
+    )
+    status: Optional[Union[NdrEventDeviceStatus, TaegisEnum]] = field(
+        default=None,
+        metadata=config(
+            encoder=encode_enum,
+            decoder=lambda x: decode_enum(NdrEventDeviceStatus, x),
+            field_name="status",
+        ),
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
 class IsensorDetail:
     """IsensorDetail."""
 
@@ -450,6 +583,60 @@ class IsensorDetail:
             encoder=encode_enum,
             decoder=lambda x: decode_enum(IsensorHealth, x),
             field_name="health",
+        ),
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class NdrMaintenanceWindowResult:
+    """NdrMaintenanceWindowResult."""
+
+    internal_device_name: Optional[str] = field(
+        default=None, metadata=config(field_name="internalDeviceName")
+    )
+    name: Optional[str] = field(default=None, metadata=config(field_name="name"))
+    description: Optional[str] = field(
+        default=None, metadata=config(field_name="description")
+    )
+    device_id: Optional[str] = field(
+        default=None, metadata=config(field_name="deviceId")
+    )
+    start_hour: Optional[int] = field(
+        default=None, metadata=config(field_name="startHour")
+    )
+    timezone: Optional[str] = field(
+        default=None, metadata=config(field_name="timezone")
+    )
+    start_date: Optional[str] = field(
+        default=None, metadata=config(field_name="startDate")
+    )
+    duration: Optional[int] = field(
+        default=None, metadata=config(field_name="duration")
+    )
+    all_tenant_devices: Optional[bool] = field(
+        default=None, metadata=config(field_name="allTenantDevices")
+    )
+    outage_permitted: Optional[bool] = field(
+        default=None, metadata=config(field_name="outagePermitted")
+    )
+    no_device: Optional[bool] = field(
+        default=None, metadata=config(field_name="noDevice")
+    )
+    freq: Optional[Union[NdrMaintenanceFreq, TaegisEnum]] = field(
+        default=None,
+        metadata=config(
+            encoder=encode_enum,
+            decoder=lambda x: decode_enum(NdrMaintenanceFreq, x),
+            field_name="freq",
+        ),
+    )
+    week_day: Optional[Union[NdrWeekDay, TaegisEnum]] = field(
+        default=None,
+        metadata=config(
+            encoder=encode_enum,
+            decoder=lambda x: decode_enum(NdrWeekDay, x),
+            field_name="weekDay",
         ),
     )
 

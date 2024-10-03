@@ -83,6 +83,13 @@ class TDRUsersLanguage(str, Enum):
     JA = "ja"
 
 
+class IDP(str, Enum):
+    """IDP."""
+
+    AUTH0 = "Auth0"
+    COGNITO = "Cognito"
+
+
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
 class TDRUserTenant:
@@ -120,6 +127,9 @@ class TDRUserTenantLabel:
     )
     name: Optional[str] = field(default=None, metadata=config(field_name="name"))
     value: Optional[str] = field(default=None, metadata=config(field_name="value"))
+    owner_partner_tenant_id: Optional[str] = field(
+        default=None, metadata=config(field_name="owner_partner_tenant_id")
+    )
 
 
 @dataclass_json
@@ -266,6 +276,28 @@ class MFAResetResponse:
     mfa_token: Optional[str] = field(
         default=None, metadata=config(field_name="mfa_token")
     )
+    challenge_session: Optional[str] = field(
+        default=None, metadata=config(field_name="challenge_session")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class VerifyMFARegistrationInput:
+    """VerifyMFARegistrationInput."""
+
+    code: Optional[str] = field(default=None, metadata=config(field_name="code"))
+    challenge_session: Optional[str] = field(
+        default=None, metadata=config(field_name="challenge_session")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class VerifyMFARegistrationResponse:
+    """VerifyMFARegistrationResponse."""
+
+    status: Optional[str] = field(default=None, metadata=config(field_name="status"))
 
 
 @dataclass_json
@@ -281,6 +313,28 @@ class Auth0LogEntry:
     ip: Optional[str] = field(default=None, metadata=config(field_name="ip"))
     description: Optional[str] = field(
         default=None, metadata=config(field_name="description")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class CognitoAuthEventPageDetails:
+    """CognitoAuthEventPageDetails."""
+
+    page: Optional[str] = field(default=None, metadata=config(field_name="page"))
+    per_page: Optional[int] = field(default=None, metadata=config(field_name="perPage"))
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class CognitoAuthEventType:
+    """CognitoAuthEventType."""
+
+    challenge_name: Optional[str] = field(
+        default=None, metadata=config(field_name="challengeName")
+    )
+    challenge_response: Optional[str] = field(
+        default=None, metadata=config(field_name="challengeResponse")
     )
 
 
@@ -320,6 +374,19 @@ class AuthorizeCheckConnection:
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
+class MigrateSSOUsersResponse:
+    """MigrateSSOUsersResponse."""
+
+    migrated_user_emails: Optional[List[str]] = field(
+        default=None, metadata=config(field_name="migratedUserEmails")
+    )
+    migrate_user_error: Optional[str] = field(
+        default=None, metadata=config(field_name="migrateUserError")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
 class CognitoSSORemovedUsers:
     """CognitoSSORemovedUsers."""
 
@@ -341,6 +408,7 @@ class TDRUserInviteInput:
     role_expires_at: Optional[str] = field(
         default=None, metadata=config(field_name="role_expires_at")
     )
+    app: Optional[str] = field(default=None, metadata=config(field_name="app"))
     language: Optional[Union[TDRUsersLanguage, TaegisEnum]] = field(
         default=None,
         metadata=config(
@@ -372,6 +440,22 @@ class TDRUserTrialInviteInput:
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
+class CognitoAuthLogEntry:
+    """CognitoAuthLogEntry."""
+
+    id: Optional[str] = field(default=None, metadata=config(field_name="id"))
+    date: Optional[str] = field(default=None, metadata=config(field_name="date"))
+    ip: Optional[str] = field(default=None, metadata=config(field_name="ip"))
+    event_response: Optional[str] = field(
+        default=None, metadata=config(field_name="eventResponse")
+    )
+    auth_event_type: Optional[List[CognitoAuthEventType]] = field(
+        default=None, metadata=config(field_name="authEventType")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
 class PartnerRegistrationInput:
     """PartnerRegistrationInput."""
 
@@ -398,6 +482,24 @@ class PartnerRegistrationInput:
             encoder=encode_enum,
             decoder=lambda x: decode_enum(TDRUsersLanguage, x),
             field_name="language",
+        ),
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class MigrateSSOUsersInput:
+    """MigrateSSOUsersInput."""
+
+    domains: Optional[List[str]] = field(
+        default=None, metadata=config(field_name="domains")
+    )
+    target_idp: Optional[Union[IDP, TaegisEnum]] = field(
+        default=None,
+        metadata=config(
+            encoder=encode_enum,
+            decoder=lambda x: decode_enum(IDP, x),
+            field_name="target_idp",
         ),
     )
 
@@ -853,3 +955,16 @@ class PinValidation:
         default=None, metadata=config(field_name="successful")
     )
     user: Optional[TDRUser] = field(default=None, metadata=config(field_name="user"))
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class CognitoLogEntry:
+    """CognitoLogEntry."""
+
+    next_auth_log_entry_page: Optional[str] = field(
+        default=None, metadata=config(field_name="nextAuthLogEntryPage")
+    )
+    auth_log_entry: Optional[List[CognitoAuthLogEntry]] = field(
+        default=None, metadata=config(field_name="authLogEntry")
+    )

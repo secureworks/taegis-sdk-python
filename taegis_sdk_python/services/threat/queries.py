@@ -324,3 +324,18 @@ class TaegisSDKThreatQuery:
                 [r or {} for r in result.get(endpoint)], many=True
             )
         raise GraphQLNoRowsInResultSetError("for query threatRuleVidIntelligence")
+
+    def threat_malware_intelligence(self, id_: str) -> ThreatMalwareIntelligence:
+        """Retrieves all intelligence associated with a malware.."""
+        endpoint = "threatMalwareIntelligence"
+
+        result = self.service.execute_query(
+            endpoint=endpoint,
+            variables={
+                "ID": prepare_input(id_),
+            },
+            output=build_output_string(ThreatMalwareIntelligence),
+        )
+        if result.get(endpoint) is not None:
+            return ThreatMalwareIntelligence.from_dict(result.get(endpoint))
+        raise GraphQLNoRowsInResultSetError("for query threatMalwareIntelligence")

@@ -1285,6 +1285,12 @@ class Tenant:
     organization: Optional[str] = field(
         default=None, metadata=config(field_name="organization")
     )
+    partner_name: Optional[str] = field(
+        default=None, metadata=config(field_name="partner_name")
+    )
+    organization_name: Optional[str] = field(
+        default=None, metadata=config(field_name="organization_name")
+    )
     is_partner: Optional[bool] = field(
         default=None, metadata=config(field_name="is_partner")
     )

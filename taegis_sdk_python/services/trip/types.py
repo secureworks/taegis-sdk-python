@@ -97,6 +97,15 @@ class ApiIntegrationParameter:
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
+class TripEnvConfig:
+    """TripEnvConfig."""
+
+    key: Optional[str] = field(default=None, metadata=config(field_name="key"))
+    value: Optional[str] = field(default=None, metadata=config(field_name="value"))
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
 class ApiIntegrationHistory:
     """ApiIntegrationHistory."""
 

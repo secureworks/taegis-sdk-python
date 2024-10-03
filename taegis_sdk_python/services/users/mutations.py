@@ -49,7 +49,7 @@ class TaegisSDKUsersMutation:
     def invite_tdrusers(
         self, invites: List[TDRUserInviteInput]
     ) -> List[InviteUsersResponse]:
-        """Invite mutiple TDRUsers. The tenant to use for the request will be extracted from the X-Tenant-Context header."""
+        """Invite multiple TDRUsers. The tenant to use for the request will be extracted from the X-Tenant-Context header."""
         endpoint = "inviteTDRUsers"
 
         result = self.service.execute_mutation(
@@ -300,3 +300,20 @@ class TaegisSDKUsersMutation:
         if result.get(endpoint) is not None:
             return MFAResetResponse.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for mutation registerTDRUser")
+
+    def verify_mfa_registration(
+        self, verify_mfa_input: VerifyMFARegistrationInput
+    ) -> VerifyMFARegistrationResponse:
+        """Verify MFA registration."""
+        endpoint = "verifyMFARegistration"
+
+        result = self.service.execute_mutation(
+            endpoint=endpoint,
+            variables={
+                "verifyMFAInput": prepare_input(verify_mfa_input),
+            },
+            output=build_output_string(VerifyMFARegistrationResponse),
+        )
+        if result.get(endpoint) is not None:
+            return VerifyMFARegistrationResponse.from_dict(result.get(endpoint))
+        raise GraphQLNoRowsInResultSetError("for mutation verifyMFARegistration")

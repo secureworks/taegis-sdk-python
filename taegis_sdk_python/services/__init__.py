@@ -88,7 +88,7 @@ class GraphQLService:
         proxy_headers: Optional[LooseHeaders] = None,
         trust_env: bool = False,
         ssl: Optional[Union[SSLContext, Literal[False], Fingerprint]] = None,
-        execute_timeout: Optional[Union[int, float]] = 30,
+        execute_timeout: Optional[Union[int, float]] = 300,
         max_message_size: int = 0,
     ):  # pylint: disable=too-many-statements
         """

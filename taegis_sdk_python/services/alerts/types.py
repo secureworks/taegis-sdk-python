@@ -2132,6 +2132,9 @@ class AlertsMetadata:
     description: Optional[str] = field(
         default=None, metadata=config(field_name="description")
     )
+    read_only: Optional[bool] = field(
+        default=None, metadata=config(field_name="read_only")
+    )
     creator: Optional[Creator] = field(
         default=None, metadata=config(field_name="creator")
     )

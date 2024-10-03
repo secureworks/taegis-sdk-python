@@ -840,6 +840,9 @@ class HostDetails:
 class FileMarkingStatus:
     """FileMarkingStatus."""
 
+    file_resource: Optional[str] = field(
+        default=None, metadata=config(field_name="fileResource")
+    )
     explanation: Optional[str] = field(
         default=None, metadata=config(field_name="explanation")
     )

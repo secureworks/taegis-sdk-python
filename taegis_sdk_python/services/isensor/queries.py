@@ -45,6 +45,21 @@ class TaegisSDKIsensorQuery:
             )
         raise GraphQLNoRowsInResultSetError("for query iSensorDetails")
 
+    def i_sensor_details_by_id(self, id_: str) -> IsensorDetail:
+        """Get NDR overview data."""
+        endpoint = "iSensorDetailsByID"
+
+        result = self.service.execute_query(
+            endpoint=endpoint,
+            variables={
+                "id": prepare_input(id_),
+            },
+            output=build_output_string(IsensorDetail),
+        )
+        if result.get(endpoint) is not None:
+            return IsensorDetail.from_dict(result.get(endpoint))
+        raise GraphQLNoRowsInResultSetError("for query iSensorDetailsByID")
+
     def i_sensor_firewall_rules(self, id_: str) -> IsensorFirewallRules:
         """Get iSensor firewall rules."""
         endpoint = "iSensorFirewallRules"
@@ -170,3 +185,37 @@ class TaegisSDKIsensorQuery:
         if result.get(endpoint) is not None:
             return ISensorArtifact.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for query iSensorChangeMgmtReportLocation")
+
+    def ndr_maintenance_windows(self, idn: str) -> List[NdrMaintenanceWindowResult]:
+        """Get NDR Device Maintenance window."""
+        endpoint = "ndrMaintenanceWindows"
+
+        result = self.service.execute_query(
+            endpoint=endpoint,
+            variables={
+                "idn": prepare_input(idn),
+            },
+            output=build_output_string(NdrMaintenanceWindowResult),
+        )
+        if result.get(endpoint) is not None:
+            return NdrMaintenanceWindowResult.schema().load(
+                [r or {} for r in result.get(endpoint)], many=True
+            )
+        raise GraphQLNoRowsInResultSetError("for query ndrMaintenanceWindows")
+
+    def ndr_maintenance_event_devices(self, idn: str) -> List[NdrEventDeviceResult]:
+        """Get Upcoming NDR EventDevice Events scheduled for idn."""
+        endpoint = "ndrMaintenanceEventDevices"
+
+        result = self.service.execute_query(
+            endpoint=endpoint,
+            variables={
+                "idn": prepare_input(idn),
+            },
+            output=build_output_string(NdrEventDeviceResult),
+        )
+        if result.get(endpoint) is not None:
+            return NdrEventDeviceResult.schema().load(
+                [r or {} for r in result.get(endpoint)], many=True
+            )
+        raise GraphQLNoRowsInResultSetError("for query ndrMaintenanceEventDevices")

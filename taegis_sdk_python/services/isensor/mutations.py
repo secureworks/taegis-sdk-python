@@ -139,3 +139,40 @@ class TaegisSDKIsensorMutation:
         raise GraphQLNoRowsInResultSetError(
             "for mutation iSensorRuleVariableCustomizations"
         )
+
+    def ndr_save_maintenance_window(
+        self, input_: NdrMaintenanceWindowInput
+    ) -> NdrMaintenanceWindowResult:
+        """Create a new ndr device maintenance window of a given input."""
+        endpoint = "ndrSaveMaintenanceWindow"
+
+        result = self.service.execute_mutation(
+            endpoint=endpoint,
+            variables={
+                "input": prepare_input(input_),
+            },
+            output=build_output_string(NdrMaintenanceWindowResult),
+        )
+        if result.get(endpoint) is not None:
+            return NdrMaintenanceWindowResult.from_dict(result.get(endpoint))
+        raise GraphQLNoRowsInResultSetError("for mutation ndrSaveMaintenanceWindow")
+
+    def ndr_defer_maintenance_event_device(
+        self, id_: str, idn: str
+    ) -> NdrDeferEventDeviceResult:
+        """Defer Event Device event for given id."""
+        endpoint = "ndrDeferMaintenanceEventDevice"
+
+        result = self.service.execute_mutation(
+            endpoint=endpoint,
+            variables={
+                "id": prepare_input(id_),
+                "idn": prepare_input(idn),
+            },
+            output=build_output_string(NdrDeferEventDeviceResult),
+        )
+        if result.get(endpoint) is not None:
+            return NdrDeferEventDeviceResult.from_dict(result.get(endpoint))
+        raise GraphQLNoRowsInResultSetError(
+            "for mutation ndrDeferMaintenanceEventDevice"
+        )
