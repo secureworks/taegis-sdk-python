@@ -279,6 +279,9 @@ class MFAResetResponse:
     challenge_session: Optional[str] = field(
         default=None, metadata=config(field_name="challenge_session")
     )
+    challenge_name: Optional[str] = field(
+        default=None, metadata=config(field_name="challenge_name")
+    )
 
 
 @dataclass_json
@@ -327,8 +330,8 @@ class CognitoAuthEventPageDetails:
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
-class CognitoAuthEventType:
-    """CognitoAuthEventType."""
+class CognitoAuthChallengeType:
+    """CognitoAuthChallengeType."""
 
     challenge_name: Optional[str] = field(
         default=None, metadata=config(field_name="challengeName")
@@ -449,8 +452,11 @@ class CognitoAuthLogEntry:
     event_response: Optional[str] = field(
         default=None, metadata=config(field_name="eventResponse")
     )
-    auth_event_type: Optional[List[CognitoAuthEventType]] = field(
-        default=None, metadata=config(field_name="authEventType")
+    event_type: Optional[str] = field(
+        default=None, metadata=config(field_name="eventType")
+    )
+    auth_challenge_type: Optional[List[CognitoAuthChallengeType]] = field(
+        default=None, metadata=config(field_name="authChallengeType")
     )
 
 
@@ -539,6 +545,9 @@ class TDRUsersSearchInput:
     )
     omit_role_assignments: Optional[bool] = field(
         default=None, metadata=config(field_name="omitRoleAssignments")
+    )
+    read_from_writer: Optional[bool] = field(
+        default=None, metadata=config(field_name="readFromWriter")
     )
     sort_by: Optional[Union[TDRUsersSearchSortBy, TaegisEnum]] = field(
         default=None,

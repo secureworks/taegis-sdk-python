@@ -48,6 +48,7 @@ from taegis_sdk_python.services.isensor import IsensorService
 from taegis_sdk_python.services.mitre_attack_info import MitreAttackInfoService
 from taegis_sdk_python.services.multi_tenant_context import MultiTenantContextService
 from taegis_sdk_python.services.multi_tenant_ioc import MultiTenantIocService
+from taegis_sdk_python.services.nl_search import NlSearchService
 from taegis_sdk_python.services.notebooks import NotebooksService
 from taegis_sdk_python.services.notifications import NotificationsService
 from taegis_sdk_python.services.preferences import PreferencesService
@@ -192,6 +193,7 @@ class GraphQLService:
         self._mitre_attack_info = None
         self._multi_tenant_context = None
         self._multi_tenant_ioc = None
+        self._nl_search = None
         self._notebooks = None
         self._notifications = None
         self._preferences = None
@@ -570,6 +572,13 @@ class GraphQLService:
         if not self._multi_tenant_ioc:
             self._multi_tenant_ioc = MultiTenantIocService(self)
         return self._multi_tenant_ioc
+
+    @property
+    def nl_search(self):
+        """NlSearch Service Endpoint."""
+        if not self._nl_search:
+            self._nl_search = NlSearchService(self)
+        return self._nl_search
 
     @property
     def notebooks(self):

@@ -569,6 +569,9 @@ class IsensorDetail:
     tenant_id: Optional[str] = field(
         default=None, metadata=config(field_name="tenantId")
     )
+    is_partner: Optional[bool] = field(
+        default=None, metadata=config(field_name="isPartner")
+    )
     mode: Optional[Union[ISensorMode, TaegisEnum]] = field(
         default=None,
         metadata=config(

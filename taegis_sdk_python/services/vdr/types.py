@@ -186,6 +186,19 @@ class VdrStatistics:
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
+class VdrInspectScore:
+    """VdrInspectScore."""
+
+    step_base: Optional[float] = field(
+        default=None, metadata=config(field_name="stepBase")
+    )
+    step_final: Optional[float] = field(
+        default=None, metadata=config(field_name="stepFinal")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
 class VdrAffectedHost:
     """VdrAffectedHost."""
 
@@ -408,6 +421,36 @@ class VdrAssetsFiltersInputArgs:
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
+class VdrMatchingVulnerabilityGroup:
+    """VdrMatchingVulnerabilityGroup."""
+
+    id: Optional[str] = field(default=None, metadata=config(field_name="id"))
+    classification: Optional[str] = field(
+        default=None, metadata=config(field_name="classification")
+    )
+    cvenumber: Optional[str] = field(
+        default=None, metadata=config(field_name="cvenumber")
+    )
+    description: Optional[str] = field(
+        default=None, metadata=config(field_name="description")
+    )
+    differentiator: Optional[str] = field(
+        default=None, metadata=config(field_name="differentiator")
+    )
+    host: Optional[str] = field(default=None, metadata=config(field_name="host"))
+    host_id: Optional[List[str]] = field(
+        default=None, metadata=config(field_name="hostId")
+    )
+    severity: Optional[str] = field(
+        default=None, metadata=config(field_name="severity")
+    )
+    scores: Optional[VdrInspectScore] = field(
+        default=None, metadata=config(field_name="scores")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
 class VdrDefinition:
     """VdrDefinition."""
 
@@ -572,9 +615,9 @@ class VdrInspectHost:
     definitions: Optional[List[VdrDefinition]] = field(
         default=None, metadata=config(field_name="definitions")
     )
-    matching_vulnerability_groups: Optional[List[VdrVulnerability]] = field(
-        default=None, metadata=config(field_name="matchingVulnerabilityGroups")
-    )
+    matching_vulnerability_groups: Optional[
+        List[VdrMatchingVulnerabilityGroup]
+    ] = field(default=None, metadata=config(field_name="matchingVulnerabilityGroups"))
 
 
 @dataclass_json

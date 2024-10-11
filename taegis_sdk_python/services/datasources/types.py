@@ -221,6 +221,9 @@ class LastSeenAsset:
     last_seen: Optional[int] = field(
         default=None, metadata=config(field_name="lastSeen")
     )
+    tenant_id: Optional[str] = field(
+        default=None, metadata=config(field_name="tenantID")
+    )
     health: Optional[Union[HealthState, TaegisEnum]] = field(
         default=None,
         metadata=config(

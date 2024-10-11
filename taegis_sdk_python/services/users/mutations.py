@@ -224,7 +224,9 @@ class TaegisSDKUsersMutation:
             return TDRUser.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for mutation registerPartnerUser")
 
-    def forgot_password(self, email: str) -> ForgotPasswordResponse:
+    def forgot_password(
+        self, email: str, app: Optional[str] = None
+    ) -> ForgotPasswordResponse:
         """Initiate the password reset workflow requested by a user."""
         endpoint = "forgotPassword"
 
@@ -232,6 +234,7 @@ class TaegisSDKUsersMutation:
             endpoint=endpoint,
             variables={
                 "email": prepare_input(email),
+                "app": prepare_input(app),
             },
             output=build_output_string(ForgotPasswordResponse),
         )
