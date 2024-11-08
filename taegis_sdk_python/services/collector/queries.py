@@ -727,3 +727,18 @@ class TaegisSDKCollectorQuery:
         if result.get(endpoint) is not None:
             return result.get(endpoint)
         raise GraphQLNoRowsInResultSetError("for query getClustersPasswordHash")
+
+    def get_data_collectors(self, input_: QlQueryInput) -> DataCollectorResult:
+        """Searches and/or aggregates on Data collectors cql schema."""
+        endpoint = "getDataCollectors"
+
+        result = self.service.execute_query(
+            endpoint=endpoint,
+            variables={
+                "input": prepare_input(input_),
+            },
+            output=build_output_string(DataCollectorResult),
+        )
+        if result.get(endpoint) is not None:
+            return DataCollectorResult.from_dict(result.get(endpoint))
+        raise GraphQLNoRowsInResultSetError("for query getDataCollectors")

@@ -17,6 +17,14 @@ from taegis_sdk_python._consts import TaegisEnum
 from taegis_sdk_python.utils import encode_enum, decode_enum
 
 
+class ThreatFacetObject(str, Enum):
+    """ThreatFacetObject."""
+
+    THREAT_GROUP = "threat_group"
+    MALWARE = "malware"
+    REPORT = "report"
+
+
 class ThreatParentType(str, Enum):
     """ThreatParentType."""
 
@@ -286,6 +294,36 @@ class ThreatObjectType(str, Enum):
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
+class ThreatPageInput:
+    """ThreatPageInput."""
+
+    offset: Optional[int] = field(default=None, metadata=config(field_name="offset"))
+    limit: Optional[int] = field(default=None, metadata=config(field_name="limit"))
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class Facet:
+    """Facet."""
+
+    label: Optional[str] = field(default=None, metadata=config(field_name="label"))
+    facet: Optional[str] = field(default=None, metadata=config(field_name="facet"))
+    search_only: Optional[bool] = field(
+        default=None, metadata=config(field_name="searchOnly")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class FacetFieldInfo:
+    """FacetFieldInfo."""
+
+    field_: Optional[str] = field(default=None, metadata=config(field_name="field"))
+    count: Optional[int] = field(default=None, metadata=config(field_name="count"))
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
 class PageInfo:
     """PageInfo."""
 
@@ -536,6 +574,31 @@ class TimsMalwareFile:
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
+class ThreatTags:
+    """ThreatTags."""
+
+    group_tag: Optional[List[str]] = field(
+        default=None, metadata=config(field_name="groupTag")
+    )
+    malware_tag: Optional[List[str]] = field(
+        default=None, metadata=config(field_name="malwareTag")
+    )
+    vid_tag: Optional[List[str]] = field(
+        default=None, metadata=config(field_name="vidTag")
+    )
+    report_tag: Optional[List[str]] = field(
+        default=None, metadata=config(field_name="reportTag")
+    )
+    country_tag: Optional[List[str]] = field(
+        default=None, metadata=config(field_name="countryTag")
+    )
+    cve_tag: Optional[List[str]] = field(
+        default=None, metadata=config(field_name="cveTag")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
 class ThreatWhois:
     """ThreatWhois."""
 
@@ -740,6 +803,17 @@ class ThreatReportInput:
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
+class FacetInfo:
+    """FacetInfo."""
+
+    facet: Optional[str] = field(default=None, metadata=config(field_name="facet"))
+    fields: Optional[List[FacetFieldInfo]] = field(
+        default=None, metadata=config(field_name="fields")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
 class ThreatSwid:
     """ThreatSwid."""
 
@@ -819,6 +893,24 @@ class ThreatGroup:
         default=None, metadata=config(field_name="LastKnownActivity")
     )
     tags: Optional[List[str]] = field(default=None, metadata=config(field_name="tags"))
+    group_tag: Optional[List[str]] = field(
+        default=None, metadata=config(field_name="groupTag")
+    )
+    malware_tag: Optional[List[str]] = field(
+        default=None, metadata=config(field_name="malwareTag")
+    )
+    vid_tag: Optional[List[str]] = field(
+        default=None, metadata=config(field_name="vidTag")
+    )
+    report_tag: Optional[List[str]] = field(
+        default=None, metadata=config(field_name="reportTag")
+    )
+    country_tag: Optional[List[str]] = field(
+        default=None, metadata=config(field_name="countryTag")
+    )
+    cve_tag: Optional[List[str]] = field(
+        default=None, metadata=config(field_name="cveTag")
+    )
     type: Optional[Union[ThreatObjectType, TaegisEnum]] = field(
         default=None,
         metadata=config(
@@ -1200,6 +1292,24 @@ class ThreatReport:
         default=None, metadata=config(field_name="sharing_id")
     )
     tags: Optional[List[str]] = field(default=None, metadata=config(field_name="tags"))
+    group_tag: Optional[List[str]] = field(
+        default=None, metadata=config(field_name="groupTag")
+    )
+    malware_tag: Optional[List[str]] = field(
+        default=None, metadata=config(field_name="malwareTag")
+    )
+    vid_tag: Optional[List[str]] = field(
+        default=None, metadata=config(field_name="vidTag")
+    )
+    report_tag: Optional[List[str]] = field(
+        default=None, metadata=config(field_name="reportTag")
+    )
+    country_tag: Optional[List[str]] = field(
+        default=None, metadata=config(field_name="countryTag")
+    )
+    cve_tag: Optional[List[str]] = field(
+        default=None, metadata=config(field_name="cveTag")
+    )
     type: Optional[Union[ThreatObjectType, TaegisEnum]] = field(
         default=None,
         metadata=config(
@@ -1255,6 +1365,56 @@ class ThreatIdentityInput:
             decoder=lambda x: decode_enum(ThreatIndustrySectors, x),
             field_name="sectors",
         ),
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class ThreatWhereInput:
+    """ThreatWhereInput."""
+
+    threat_group: Optional[str] = field(
+        default=None, metadata=config(field_name="threatGroup")
+    )
+    threat_group_contains: Optional[str] = field(
+        default=None, metadata=config(field_name="threatGroup_contains")
+    )
+    malware: Optional[str] = field(default=None, metadata=config(field_name="malware"))
+    malware_contains: Optional[str] = field(
+        default=None, metadata=config(field_name="malware_contains")
+    )
+    tips: Optional[str] = field(default=None, metadata=config(field_name="tips"))
+    tips_contains: Optional[str] = field(
+        default=None, metadata=config(field_name="tips_contains")
+    )
+    ta: Optional[str] = field(default=None, metadata=config(field_name="ta"))
+    ta_contains: Optional[str] = field(
+        default=None, metadata=config(field_name="ta_contains")
+    )
+    ca: Optional[str] = field(default=None, metadata=config(field_name="ca"))
+    ca_contains: Optional[str] = field(
+        default=None, metadata=config(field_name="ca_contains")
+    )
+    country: Optional[str] = field(default=None, metadata=config(field_name="country"))
+    country_contains: Optional[str] = field(
+        default=None, metadata=config(field_name="country_contains")
+    )
+    cve: Optional[str] = field(default=None, metadata=config(field_name="cve"))
+    cve_contains: Optional[str] = field(
+        default=None, metadata=config(field_name="cve_contains")
+    )
+    vid: Optional[str] = field(default=None, metadata=config(field_name="vid"))
+    vid_contains: Optional[str] = field(
+        default=None, metadata=config(field_name="vid_contains")
+    )
+    and_: Optional[List["ThreatWhereInput"]] = field(
+        default=None, metadata=config(field_name="and")
+    )
+    or_: Optional[List["ThreatWhereInput"]] = field(
+        default=None, metadata=config(field_name="or")
+    )
+    not_: Optional["ThreatWhereInput"] = field(
+        default=None, metadata=config(field_name="not")
     )
 
 
@@ -1643,6 +1803,24 @@ class ThreatMalware:
     technical_details: Optional[str] = field(
         default=None, metadata=config(field_name="technical_details")
     )
+    group_tag: Optional[List[str]] = field(
+        default=None, metadata=config(field_name="groupTag")
+    )
+    malware_tag: Optional[List[str]] = field(
+        default=None, metadata=config(field_name="malwareTag")
+    )
+    vid_tag: Optional[List[str]] = field(
+        default=None, metadata=config(field_name="vidTag")
+    )
+    report_tag: Optional[List[str]] = field(
+        default=None, metadata=config(field_name="reportTag")
+    )
+    country_tag: Optional[List[str]] = field(
+        default=None, metadata=config(field_name="countryTag")
+    )
+    cve_tag: Optional[List[str]] = field(
+        default=None, metadata=config(field_name="cveTag")
+    )
     type: Optional[Union[ThreatObjectType, TaegisEnum]] = field(
         default=None,
         metadata=config(
@@ -1786,6 +1964,16 @@ class ThreatIndicator:
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
+class ThreatFilter:
+    """ThreatFilter."""
+
+    where: Optional[ThreatWhereInput] = field(
+        default=None, metadata=config(field_name="where")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
 class ThreatIdentityRelationship:
     """ThreatIdentityRelationship."""
 
@@ -1833,6 +2021,22 @@ class ThreatGroupRelationship:
     )
     relationship: Optional[ThreatRelationship] = field(
         default=None, metadata=config(field_name="relationship")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class ThreatObjectIntelligence:
+    """ThreatObjectIntelligence."""
+
+    malwares: Optional[List[ThreatMalware]] = field(
+        default=None, metadata=config(field_name="malwares")
+    )
+    groups: Optional[List[ThreatGroup]] = field(
+        default=None, metadata=config(field_name="groups")
+    )
+    reports: Optional[List[ThreatReport]] = field(
+        default=None, metadata=config(field_name="reports")
     )
 
 
@@ -1888,6 +2092,30 @@ class ThreatIndicatorIntelligence:
     )
     groups: Optional[List[ThreatGroupRelationship]] = field(
         default=None, metadata=config(field_name="groups")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class ThreatIntelligence:
+    """ThreatIntelligence."""
+
+    total_results: Optional[int] = field(
+        default=None, metadata=config(field_name="total_results")
+    )
+    intel: Optional[ThreatObjectIntelligence] = field(
+        default=None, metadata=config(field_name="intel")
+    )
+    facets: Optional[List[Facet]] = field(
+        default=None, metadata=config(field_name="facets")
+    )
+    threat_object_type: Optional[Union[ThreatFacetObject, TaegisEnum]] = field(
+        default=None,
+        metadata=config(
+            encoder=encode_enum,
+            decoder=lambda x: decode_enum(ThreatFacetObject, x),
+            field_name="threatObjectType",
+        ),
     )
 
 

@@ -201,7 +201,16 @@ class AutoArchive:
     """AutoArchive."""
 
     enabled: Optional[bool] = field(default=None, metadata=config(field_name="enabled"))
-    period: Optional[int] = field(default=None, metadata=config(field_name="period"))
+    period: Optional[int] = field(
+        default=None,
+        metadata=config(
+            metadata={"deprecated": True, "deprecation_reason": "use periodDays"},
+            field_name="period",
+        ),
+    )
+    period_days: Optional[int] = field(
+        default=None, metadata=config(field_name="periodDays")
+    )
 
 
 @dataclass_json

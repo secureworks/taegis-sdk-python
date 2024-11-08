@@ -363,6 +363,9 @@ class AuthorizeCheckConnection:
     external_name: Optional[str] = field(
         default=None, metadata=config(field_name="external_name")
     )
+    external_provider: Optional[str] = field(
+        default=None, metadata=config(field_name="external_provider")
+    )
     status: Optional[str] = field(default=None, metadata=config(field_name="status"))
     testers: Optional[List[str]] = field(
         default=None, metadata=config(field_name="testers")
@@ -399,6 +402,18 @@ class CognitoSSORemovedUsers:
     remove_user_error: Optional[str] = field(
         default=None, metadata=config(field_name="removeUserError")
     )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class SetLastLoginInput:
+    """SetLastLoginInput."""
+
+    email: Optional[str] = field(default=None, metadata=config(field_name="email"))
+    last_login: Optional[str] = field(
+        default=None, metadata=config(field_name="last_login")
+    )
+    last_ip: Optional[str] = field(default=None, metadata=config(field_name="last_ip"))
 
 
 @dataclass_json
@@ -499,6 +514,9 @@ class MigrateSSOUsersInput:
 
     domains: Optional[List[str]] = field(
         default=None, metadata=config(field_name="domains")
+    )
+    pre_migrate: Optional[bool] = field(
+        default=None, metadata=config(field_name="pre_migrate")
     )
     target_idp: Optional[Union[IDP, TaegisEnum]] = field(
         default=None,

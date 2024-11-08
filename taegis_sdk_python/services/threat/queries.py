@@ -339,3 +339,49 @@ class TaegisSDKThreatQuery:
         if result.get(endpoint) is not None:
             return ThreatMalwareIntelligence.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for query threatMalwareIntelligence")
+
+    def threat_intelligence(
+        self,
+        threat_object_type: Union[ThreatFacetObject, TaegisEnum],
+        page: Optional[ThreatPageInput] = None,
+        filter_: Optional[ThreatFilter] = None,
+    ) -> ThreatIntelligence:
+        """Retrieves all intelligence based on input threat object type and filters."""
+        endpoint = "threatIntelligence"
+
+        result = self.service.execute_query(
+            endpoint=endpoint,
+            variables={
+                "page": prepare_input(page),
+                "threatObjectType": prepare_input(threat_object_type),
+                "filter": prepare_input(filter_),
+            },
+            output=build_output_string(ThreatIntelligence),
+        )
+        if result.get(endpoint) is not None:
+            return ThreatIntelligence.from_dict(result.get(endpoint))
+        raise GraphQLNoRowsInResultSetError("for query threatIntelligence")
+
+    def threat_facet_info(
+        self,
+        object_type: Union[ThreatFacetObject, TaegisEnum],
+        facets: Optional[List[str]] = None,
+        filters: Optional[ThreatFilter] = None,
+    ) -> List[FacetInfo]:
+        """Retrieves facet count based on object type and filters."""
+        endpoint = "threatFacetInfo"
+
+        result = self.service.execute_query(
+            endpoint=endpoint,
+            variables={
+                "objectType": prepare_input(object_type),
+                "facets": prepare_input(facets),
+                "filters": prepare_input(filters),
+            },
+            output=build_output_string(FacetInfo),
+        )
+        if result.get(endpoint) is not None:
+            return FacetInfo.schema().load(
+                [r or {} for r in result.get(endpoint)], many=True
+            )
+        raise GraphQLNoRowsInResultSetError("for query threatFacetInfo")

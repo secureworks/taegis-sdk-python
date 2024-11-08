@@ -712,6 +712,36 @@ class SyslogMessageCountV2Arguments:
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
+class QlQueryInput:
+    """QlQueryInput."""
+
+    cql_query: Optional[str] = field(
+        default=None, metadata=config(field_name="cqlQuery")
+    )
+    cursor: Optional[str] = field(default=None, metadata=config(field_name="cursor"))
+    count: Optional[int] = field(default=None, metadata=config(field_name="count"))
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class QLPageCursor:
+    """QLPageCursor."""
+
+    next_cursor: Optional[str] = field(
+        default=None, metadata=config(field_name="nextCursor")
+    )
+    previous_cursor: Optional[str] = field(
+        default=None, metadata=config(field_name="previousCursor")
+    )
+    cursor: Optional[str] = field(default=None, metadata=config(field_name="cursor"))
+    count: Optional[int] = field(default=None, metadata=config(field_name="count"))
+    total_count: Optional[int] = field(
+        default=None, metadata=config(field_name="totalCount")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
 class ScheduledService:
     """ScheduledService."""
 
@@ -975,6 +1005,19 @@ class DataSourceMetrics:
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
+class NodeInfo:
+    """NodeInfo."""
+
+    node_health: Optional[str] = field(
+        default=None, metadata=config(field_name="nodeHealth")
+    )
+    network: Optional[Network] = field(
+        default=None, metadata=config(field_name="network")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
 class ClusterNode:
     """ClusterNode."""
 
@@ -1093,6 +1136,41 @@ class Deployment:
     status: Optional[Status] = field(default=None, metadata=config(field_name="status"))
     endpoints: Optional[List[Endpoint]] = field(
         default=None, metadata=config(field_name="endpoints")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class DataCollector:
+    """DataCollector."""
+
+    id: Optional[str] = field(default=None, metadata=config(field_name="id"))
+    name: Optional[str] = field(default=None, metadata=config(field_name="name"))
+    type: Optional[str] = field(default=None, metadata=config(field_name="type"))
+    collector_health: Optional[str] = field(
+        default=None, metadata=config(field_name="collectorHealth")
+    )
+    is_ha: Optional[bool] = field(default=None, metadata=config(field_name="isHa"))
+    tenant: Optional[str] = field(default=None, metadata=config(field_name="tenant"))
+    nodes: Optional[NodeInfo] = field(default=None, metadata=config(field_name="nodes"))
+    applications: Optional[List[Deployment]] = field(
+        default=None, metadata=config(field_name="applications")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class DataCollectorResult:
+    """DataCollectorResult."""
+
+    aggregation: Optional[List[dict]] = field(
+        default=None, metadata=config(field_name="aggregation")
+    )
+    data_collectors: Optional[List[DataCollector]] = field(
+        default=None, metadata=config(field_name="dataCollectors")
+    )
+    pagination: Optional[QLPageCursor] = field(
+        default=None, metadata=config(field_name="pagination")
     )
 
 
@@ -1234,6 +1312,9 @@ class Cluster:
     is_ha: Optional[bool] = field(default=None, metadata=config(field_name="isHa"))
     ha_cidr_block: Optional[str] = field(
         default=None, metadata=config(field_name="haCidrBlock")
+    )
+    partner_tenant_name: Optional[str] = field(
+        default=None, metadata=config(field_name="partnerTenantName")
     )
     cluster_type: Optional[Union[ClusterType, TaegisEnum]] = field(
         default=None,

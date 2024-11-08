@@ -58,7 +58,7 @@ pp(result)
 
 ```python
 results = service.events.subscription.event_query(
-    query="FROM process EARLIEST=-30d",
+    query="FROM process EARLIEST=-1d",
     options=EventQueryOptions(
         max_rows=20,
         page_size=10,

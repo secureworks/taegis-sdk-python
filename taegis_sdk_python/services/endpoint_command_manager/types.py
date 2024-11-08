@@ -70,6 +70,9 @@ class CommandRequestInput:
         default=None, metadata=config(field_name="endpointID")
     )
     reason: Optional[str] = field(default=None, metadata=config(field_name="reason"))
+    request_id: Optional[str] = field(
+        default=None, metadata=config(field_name="requestID")
+    )
 
 
 @dataclass_json

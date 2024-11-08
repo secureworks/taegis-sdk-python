@@ -115,6 +115,13 @@ class InvestigationV2TimelineEntityType(str, Enum):
     AUDIT = "AUDIT"
 
 
+class InvestigationRuleType(str, Enum):
+    """InvestigationRuleType."""
+
+    STATIC = "STATIC"
+    ALERT_THREAD = "ALERT_THREAD"
+
+
 class CommentVisibilityFilter(str, Enum):
     """CommentVisibilityFilter."""
 
@@ -876,6 +883,9 @@ class InvestigationsV2Arguments:
     cql: Optional[str] = field(default=None, metadata=config(field_name="cql"))
     page: Optional[int] = field(default=None, metadata=config(field_name="page"))
     per_page: Optional[int] = field(default=None, metadata=config(field_name="perPage"))
+    tenant_service_filters: Optional[List[str]] = field(
+        default=None, metadata=config(field_name="tenantServiceFilters")
+    )
     search_children_tenants: Optional[bool] = field(
         default=None,
         metadata=config(
@@ -913,124 +923,6 @@ class ExportInvestigationResourcesArgument:
             encoder=encode_enum,
             decoder=lambda x: decode_enum(InvestigationResourceType, x),
             field_name="type",
-        ),
-    )
-
-
-@dataclass_json
-@dataclass(order=True, eq=True, frozen=True)
-class CreateInvestigationRuleInput:
-    """CreateInvestigationRuleInput."""
-
-    name: Optional[str] = field(default=None, metadata=config(field_name="name"))
-    title: Optional[str] = field(default=None, metadata=config(field_name="title"))
-    description: Optional[str] = field(
-        default=None, metadata=config(field_name="description")
-    )
-    tags: Optional[List[str]] = field(default=None, metadata=config(field_name="tags"))
-    order: Optional[int] = field(default=None, metadata=config(field_name="order"))
-    filter: Optional[str] = field(default=None, metadata=config(field_name="filter"))
-    append_filter: Optional[str] = field(
-        default=None, metadata=config(field_name="appendFilter")
-    )
-    append_comment: Optional[str] = field(
-        default=None, metadata=config(field_name="appendComment")
-    )
-    group_by: Optional[List[str]] = field(
-        default=None, metadata=config(field_name="groupBy")
-    )
-    group_count: Optional[int] = field(
-        default=None, metadata=config(field_name="groupCount")
-    )
-    group_duration: Optional[str] = field(
-        default=None, metadata=config(field_name="groupDuration")
-    )
-    group_extend_on_append: Optional[bool] = field(
-        default=None, metadata=config(field_name="groupExtendOnAppend")
-    )
-    search_queries: Optional[List[str]] = field(
-        default=None, metadata=config(field_name="searchQueries")
-    )
-    search_window: Optional[str] = field(
-        default=None, metadata=config(field_name="searchWindow")
-    )
-    tenant_filter: Optional[str] = field(
-        default=None, metadata=config(field_name="tenantFilter")
-    )
-    skip_alert_prioritization: Optional[bool] = field(
-        default=None, metadata=config(field_name="skipAlertPrioritization")
-    )
-    template_id: Optional[str] = field(
-        default=None, metadata=config(field_name="templateId")
-    )
-    response_data: Optional[dict] = field(
-        default=None, metadata=config(field_name="responseData")
-    )
-    state: Optional[Union[InvestigationRuleState, TaegisEnum]] = field(
-        default=None,
-        metadata=config(
-            encoder=encode_enum,
-            decoder=lambda x: decode_enum(InvestigationRuleState, x),
-            field_name="state",
-        ),
-    )
-
-
-@dataclass_json
-@dataclass(order=True, eq=True, frozen=True)
-class UpdateInvestigationRuleInput:
-    """UpdateInvestigationRuleInput."""
-
-    id: Optional[str] = field(default=None, metadata=config(field_name="id"))
-    title: Optional[str] = field(default=None, metadata=config(field_name="title"))
-    description: Optional[str] = field(
-        default=None, metadata=config(field_name="description")
-    )
-    tags: Optional[List[str]] = field(default=None, metadata=config(field_name="tags"))
-    order: Optional[int] = field(default=None, metadata=config(field_name="order"))
-    filter: Optional[str] = field(default=None, metadata=config(field_name="filter"))
-    append_filter: Optional[str] = field(
-        default=None, metadata=config(field_name="appendFilter")
-    )
-    append_comment: Optional[str] = field(
-        default=None, metadata=config(field_name="appendComment")
-    )
-    group_by: Optional[List[str]] = field(
-        default=None, metadata=config(field_name="groupBy")
-    )
-    group_count: Optional[int] = field(
-        default=None, metadata=config(field_name="groupCount")
-    )
-    group_duration: Optional[str] = field(
-        default=None, metadata=config(field_name="groupDuration")
-    )
-    group_extend_on_append: Optional[bool] = field(
-        default=None, metadata=config(field_name="groupExtendOnAppend")
-    )
-    search_queries: Optional[List[str]] = field(
-        default=None, metadata=config(field_name="searchQueries")
-    )
-    search_window: Optional[str] = field(
-        default=None, metadata=config(field_name="searchWindow")
-    )
-    tenant_filter: Optional[str] = field(
-        default=None, metadata=config(field_name="tenantFilter")
-    )
-    skip_alert_prioritization: Optional[bool] = field(
-        default=None, metadata=config(field_name="skipAlertPrioritization")
-    )
-    template_id: Optional[str] = field(
-        default=None, metadata=config(field_name="templateId")
-    )
-    response_data: Optional[dict] = field(
-        default=None, metadata=config(field_name="responseData")
-    )
-    state: Optional[Union[InvestigationRuleState, TaegisEnum]] = field(
-        default=None,
-        metadata=config(
-            encoder=encode_enum,
-            decoder=lambda x: decode_enum(InvestigationRuleState, x),
-            field_name="state",
         ),
     )
 
@@ -1173,6 +1065,140 @@ class CloseInvestigationInput:
             encoder=encode_enum,
             decoder=lambda x: decode_enum(AlertResolutionStatus, x),
             field_name="alertsResolutionStatus",
+        ),
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class CreateInvestigationRuleInput:
+    """CreateInvestigationRuleInput."""
+
+    name: Optional[str] = field(default=None, metadata=config(field_name="name"))
+    title: Optional[str] = field(default=None, metadata=config(field_name="title"))
+    description: Optional[str] = field(
+        default=None, metadata=config(field_name="description")
+    )
+    tags: Optional[List[str]] = field(default=None, metadata=config(field_name="tags"))
+    order: Optional[int] = field(default=None, metadata=config(field_name="order"))
+    filter: Optional[str] = field(default=None, metadata=config(field_name="filter"))
+    append_filter: Optional[str] = field(
+        default=None, metadata=config(field_name="appendFilter")
+    )
+    append_comment: Optional[str] = field(
+        default=None, metadata=config(field_name="appendComment")
+    )
+    group_by: Optional[List[str]] = field(
+        default=None, metadata=config(field_name="groupBy")
+    )
+    group_count: Optional[int] = field(
+        default=None, metadata=config(field_name="groupCount")
+    )
+    group_duration: Optional[str] = field(
+        default=None, metadata=config(field_name="groupDuration")
+    )
+    group_extend_on_append: Optional[bool] = field(
+        default=None, metadata=config(field_name="groupExtendOnAppend")
+    )
+    search_queries: Optional[List[str]] = field(
+        default=None, metadata=config(field_name="searchQueries")
+    )
+    search_window: Optional[str] = field(
+        default=None, metadata=config(field_name="searchWindow")
+    )
+    tenant_filter: Optional[str] = field(
+        default=None, metadata=config(field_name="tenantFilter")
+    )
+    skip_alert_prioritization: Optional[bool] = field(
+        default=None, metadata=config(field_name="skipAlertPrioritization")
+    )
+    template_id: Optional[str] = field(
+        default=None, metadata=config(field_name="templateId")
+    )
+    response_data: Optional[dict] = field(
+        default=None, metadata=config(field_name="responseData")
+    )
+    type: Optional[Union[InvestigationRuleType, TaegisEnum]] = field(
+        default=None,
+        metadata=config(
+            encoder=encode_enum,
+            decoder=lambda x: decode_enum(InvestigationRuleType, x),
+            field_name="type",
+        ),
+    )
+    state: Optional[Union[InvestigationRuleState, TaegisEnum]] = field(
+        default=None,
+        metadata=config(
+            encoder=encode_enum,
+            decoder=lambda x: decode_enum(InvestigationRuleState, x),
+            field_name="state",
+        ),
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class UpdateInvestigationRuleInput:
+    """UpdateInvestigationRuleInput."""
+
+    id: Optional[str] = field(default=None, metadata=config(field_name="id"))
+    title: Optional[str] = field(default=None, metadata=config(field_name="title"))
+    description: Optional[str] = field(
+        default=None, metadata=config(field_name="description")
+    )
+    tags: Optional[List[str]] = field(default=None, metadata=config(field_name="tags"))
+    order: Optional[int] = field(default=None, metadata=config(field_name="order"))
+    filter: Optional[str] = field(default=None, metadata=config(field_name="filter"))
+    append_filter: Optional[str] = field(
+        default=None, metadata=config(field_name="appendFilter")
+    )
+    append_comment: Optional[str] = field(
+        default=None, metadata=config(field_name="appendComment")
+    )
+    group_by: Optional[List[str]] = field(
+        default=None, metadata=config(field_name="groupBy")
+    )
+    group_count: Optional[int] = field(
+        default=None, metadata=config(field_name="groupCount")
+    )
+    group_duration: Optional[str] = field(
+        default=None, metadata=config(field_name="groupDuration")
+    )
+    group_extend_on_append: Optional[bool] = field(
+        default=None, metadata=config(field_name="groupExtendOnAppend")
+    )
+    search_queries: Optional[List[str]] = field(
+        default=None, metadata=config(field_name="searchQueries")
+    )
+    search_window: Optional[str] = field(
+        default=None, metadata=config(field_name="searchWindow")
+    )
+    tenant_filter: Optional[str] = field(
+        default=None, metadata=config(field_name="tenantFilter")
+    )
+    skip_alert_prioritization: Optional[bool] = field(
+        default=None, metadata=config(field_name="skipAlertPrioritization")
+    )
+    template_id: Optional[str] = field(
+        default=None, metadata=config(field_name="templateId")
+    )
+    response_data: Optional[dict] = field(
+        default=None, metadata=config(field_name="responseData")
+    )
+    type: Optional[Union[InvestigationRuleType, TaegisEnum]] = field(
+        default=None,
+        metadata=config(
+            encoder=encode_enum,
+            decoder=lambda x: decode_enum(InvestigationRuleType, x),
+            field_name="type",
+        ),
+    )
+    state: Optional[Union[InvestigationRuleState, TaegisEnum]] = field(
+        default=None,
+        metadata=config(
+            encoder=encode_enum,
+            decoder=lambda x: decode_enum(InvestigationRuleState, x),
+            field_name="state",
         ),
     )
 
@@ -1527,6 +1553,69 @@ class InvestigationTemplate:
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
+class CommentV2:
+    """CommentV2."""
+
+    id: Optional[str] = field(default=None, metadata=config(field_name="id"))
+    author_id: Optional[str] = field(
+        default=None, metadata=config(field_name="authorId")
+    )
+    created_at: Optional[str] = field(
+        default=None, metadata=config(field_name="createdAt")
+    )
+    updated_at: Optional[str] = field(
+        default=None, metadata=config(field_name="updatedAt")
+    )
+    comment: Optional[str] = field(default=None, metadata=config(field_name="comment"))
+    investigation_id: Optional[str] = field(
+        default=None, metadata=config(field_name="investigationId")
+    )
+    tenant_id: Optional[str] = field(
+        default=None, metadata=config(field_name="tenantId")
+    )
+    mentions_ids: Optional[List[str]] = field(
+        default=None, metadata=config(field_name="mentionsIds")
+    )
+    read_by_ids: Optional[List[str]] = field(
+        default=None, metadata=config(field_name="readByIds")
+    )
+    is_internal: Optional[bool] = field(
+        default=None, metadata=config(field_name="isInternal")
+    )
+    author_subject: Optional[Subject] = field(
+        default=None, metadata=config(field_name="authorSubject")
+    )
+    mentions_subjects: Optional[List[Subject]] = field(
+        default=None, metadata=config(field_name="mentionsSubjects")
+    )
+    read_by_subjects: Optional[List[Subject]] = field(
+        default=None, metadata=config(field_name="readBySubjects")
+    )
+    author: Optional[TDRUser] = field(
+        default=None,
+        metadata=config(
+            metadata={"deprecated": True, "deprecation_reason": "use authorSubject"},
+            field_name="author",
+        ),
+    )
+    mentions_users: Optional[List[TDRUser]] = field(
+        default=None,
+        metadata=config(
+            metadata={"deprecated": True, "deprecation_reason": "use mentionsSubjects"},
+            field_name="mentionsUsers",
+        ),
+    )
+    read_by: Optional[List[TDRUser]] = field(
+        default=None,
+        metadata=config(
+            metadata={"deprecated": True, "deprecation_reason": "use readBySubjects"},
+            field_name="readBy",
+        ),
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
 class InvestigationRule:
     """InvestigationRule."""
 
@@ -1604,6 +1693,14 @@ class InvestigationRule:
     updated_by_subject: Optional[Subject] = field(
         default=None, metadata=config(field_name="updatedBySubject")
     )
+    type: Optional[Union[InvestigationRuleType, TaegisEnum]] = field(
+        default=None,
+        metadata=config(
+            encoder=encode_enum,
+            decoder=lambda x: decode_enum(InvestigationRuleType, x),
+            field_name="type",
+        ),
+    )
     state: Optional[Union[InvestigationRuleState, TaegisEnum]] = field(
         default=None,
         metadata=config(
@@ -1627,69 +1724,6 @@ class InvestigationRule:
         metadata=config(
             metadata={"deprecated": True, "deprecation_reason": "use updatedBySubject"},
             field_name="updatedBy",
-        ),
-    )
-
-
-@dataclass_json
-@dataclass(order=True, eq=True, frozen=True)
-class CommentV2:
-    """CommentV2."""
-
-    id: Optional[str] = field(default=None, metadata=config(field_name="id"))
-    author_id: Optional[str] = field(
-        default=None, metadata=config(field_name="authorId")
-    )
-    created_at: Optional[str] = field(
-        default=None, metadata=config(field_name="createdAt")
-    )
-    updated_at: Optional[str] = field(
-        default=None, metadata=config(field_name="updatedAt")
-    )
-    comment: Optional[str] = field(default=None, metadata=config(field_name="comment"))
-    investigation_id: Optional[str] = field(
-        default=None, metadata=config(field_name="investigationId")
-    )
-    tenant_id: Optional[str] = field(
-        default=None, metadata=config(field_name="tenantId")
-    )
-    mentions_ids: Optional[List[str]] = field(
-        default=None, metadata=config(field_name="mentionsIds")
-    )
-    read_by_ids: Optional[List[str]] = field(
-        default=None, metadata=config(field_name="readByIds")
-    )
-    is_internal: Optional[bool] = field(
-        default=None, metadata=config(field_name="isInternal")
-    )
-    author_subject: Optional[Subject] = field(
-        default=None, metadata=config(field_name="authorSubject")
-    )
-    mentions_subjects: Optional[List[Subject]] = field(
-        default=None, metadata=config(field_name="mentionsSubjects")
-    )
-    read_by_subjects: Optional[List[Subject]] = field(
-        default=None, metadata=config(field_name="readBySubjects")
-    )
-    author: Optional[TDRUser] = field(
-        default=None,
-        metadata=config(
-            metadata={"deprecated": True, "deprecation_reason": "use authorSubject"},
-            field_name="author",
-        ),
-    )
-    mentions_users: Optional[List[TDRUser]] = field(
-        default=None,
-        metadata=config(
-            metadata={"deprecated": True, "deprecation_reason": "use mentionsSubjects"},
-            field_name="mentionsUsers",
-        ),
-    )
-    read_by: Optional[List[TDRUser]] = field(
-        default=None,
-        metadata=config(
-            metadata={"deprecated": True, "deprecation_reason": "use readBySubjects"},
-            field_name="readBy",
         ),
     )
 

@@ -572,6 +572,13 @@ class IsensorDetail:
     is_partner: Optional[bool] = field(
         default=None, metadata=config(field_name="isPartner")
     )
+    ndr_software_version: Optional[str] = field(
+        default=None, metadata=config(field_name="ndrSoftwareVersion")
+    )
+    ips_engine_version: Optional[str] = field(
+        default=None, metadata=config(field_name="ipsEngineVersion")
+    )
+    hw_type: Optional[str] = field(default=None, metadata=config(field_name="hwType"))
     mode: Optional[Union[ISensorMode, TaegisEnum]] = field(
         default=None,
         metadata=config(

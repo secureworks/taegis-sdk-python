@@ -385,6 +385,9 @@ class SSOConnectionParameters:
     callback_url: Optional[str] = field(
         default=None, metadata=config(field_name="callbackURL")
     )
+    input_metadata_url: Optional[str] = field(
+        default=None, metadata=config(field_name="inputMetadataURL")
+    )
 
 
 @dataclass_json
@@ -400,6 +403,9 @@ class SAMLConnectionParameters:
     )
     sign_in_endpoint: Optional[str] = field(
         default=None, metadata=config(field_name="signInEndpoint")
+    )
+    input_metadata_url: Optional[str] = field(
+        default=None, metadata=config(field_name="inputMetadataURL")
     )
 
 

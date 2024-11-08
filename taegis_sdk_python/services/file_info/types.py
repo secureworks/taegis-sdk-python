@@ -846,8 +846,8 @@ class FileMarkingStatus:
     explanation: Optional[str] = field(
         default=None, metadata=config(field_name="explanation")
     )
-    is_marked_malicious: Optional[bool] = field(
-        default=None, metadata=config(field_name="isMarkedMalicious")
+    is_global_alerting: Optional[bool] = field(
+        default=None, metadata=config(field_name="isGlobalAlerting")
     )
     created_at: Optional[str] = field(
         default=None, metadata=config(field_name="createdAt")
@@ -870,8 +870,8 @@ class FileMarking:
     explanation: Optional[str] = field(
         default=None, metadata=config(field_name="explanation")
     )
-    is_marked_malicious: Optional[bool] = field(
-        default=None, metadata=config(field_name="isMarkedMalicious")
+    is_global_alerting: Optional[bool] = field(
+        default=None, metadata=config(field_name="isGlobalAlerting")
     )
     created_at: Optional[str] = field(
         default=None, metadata=config(field_name="createdAt")
@@ -903,8 +903,8 @@ class FileMarkingInput:
     explanation: Optional[str] = field(
         default=None, metadata=config(field_name="explanation")
     )
-    is_marked_malicious: Optional[bool] = field(
-        default=None, metadata=config(field_name="isMarkedMalicious")
+    is_global_alerting: Optional[bool] = field(
+        default=None, metadata=config(field_name="isGlobalAlerting")
     )
 
 
