@@ -1,4 +1,5 @@
 """Users Query."""
+
 # pylint: disable=no-member, unused-argument, too-many-locals, duplicate-code, wildcard-import, unused-wildcard-import, cyclic-import
 
 
@@ -117,7 +118,8 @@ class TaegisSDKUsersQuery:
         """ "
         Search users by id list. The list can contain a mixture of IDs or UserIDs. Errors are reported individually for each ID.
         Search will be processed using the X-Tenant-Context header as a filter first. Subsequent searches will use role assignments
-        for user IDs that have not been found until all users are retrieved or all role assignments are exhausted.."""
+        for user IDs that have not been found until all users are retrieved or all role assignments are exhausted..
+        """
         endpoint = "searchTDRUsersByIDs"
 
         result = self.service.execute_query(

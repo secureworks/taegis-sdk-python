@@ -1,4 +1,5 @@
 """Datasources Query."""
+
 # pylint: disable=no-member, unused-argument, too-many-locals, duplicate-code, wildcard-import, unused-wildcard-import, cyclic-import
 
 
@@ -89,7 +90,8 @@ class TaegisSDKDatasourcesQuery:
         self, input_: List[Union[FilterCriteria, TaegisEnum]]
     ) -> List[FilterValues]:
         """Provides clients with the ability to retrieve the possible values for a given filter criteria. Note that unique
-        values will be returned, for enum types, only those observed in the data set will be returned.."""
+        values will be returned, for enum types, only those observed in the data set will be returned..
+        """
         endpoint = "getDataSourceLastSeenAssetFilterValues"
 
         result = self.service.execute_query(

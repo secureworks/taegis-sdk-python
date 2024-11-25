@@ -1,4 +1,5 @@
 """Investigations2 Query."""
+
 # pylint: disable=no-member, unused-argument, too-many-locals, duplicate-code, wildcard-import, unused-wildcard-import, cyclic-import
 
 
@@ -136,7 +137,8 @@ class TaegisSDKInvestigations2Query:
         self, arguments: ExportInvestigationResourcesArguments
     ) -> InvestigationResourceExport:
         """exportInvestigationResources returns a YAML string representation for auto-investigation resources (rules & templates).
-        The returned string can be saved into a file and imported back into the system using importInvestigationResources.."""
+        The returned string can be saved into a file and imported back into the system using importInvestigationResources..
+        """
         endpoint = "exportInvestigationResources"
 
         result = self.service.execute_query(
@@ -219,7 +221,8 @@ class TaegisSDKInvestigations2Query:
         self, arguments: InvestigationFilesV2Arguments
     ) -> InvestigationFilesV2:
         """investigationFilesV2 returns file details for all files matching the arguments provided.
-        The results will not include pre-signed download urls for each file metadata returned.."""
+        The results will not include pre-signed download urls for each file metadata returned..
+        """
         endpoint = "investigationFilesV2"
 
         result = self.service.execute_query(

@@ -1,4 +1,5 @@
 """Vdr Query."""
+
 # pylint: disable=no-member, unused-argument, too-many-locals, duplicate-code, wildcard-import, unused-wildcard-import, cyclic-import
 
 
@@ -11,17 +12,15 @@ import logging
 from typing import TYPE_CHECKING, Any, Dict, List, Optional, Tuple, Union
 
 from taegis_sdk_python import GraphQLNoRowsInResultSetError
-from taegis_sdk_python._consts import TaegisEnum
-from taegis_sdk_python.services.vdr.types import *
 from taegis_sdk_python.utils import (
     build_output_string,
     parse_union_result,
     prepare_input,
 )
+from taegis_sdk_python.services.vdr.types import *
 
 if TYPE_CHECKING:  # pragma: no cover
     from taegis_sdk_python.services.vdr import VdrService
-
 
 log = logging.getLogger(__name__)
 
@@ -149,3 +148,52 @@ class TaegisSDKVdrQuery:
         if result.get(endpoint) is not None:
             return VdrVulnerabilityMetrics.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for query vdrVulnerabilityMetrics")
+
+    def vdr_scans(self, arguments: Optional[VdrScanInputArgs] = None) -> VdrScans:
+        """Get VDR scans."""
+        endpoint = "vdrScans"
+
+        result = self.service.execute_query(
+            endpoint=endpoint,
+            variables={
+                "arguments": prepare_input(arguments),
+            },
+            output=build_output_string(VdrScans),
+        )
+        if result.get(endpoint) is not None:
+            return VdrScans.from_dict(result.get(endpoint))
+        raise GraphQLNoRowsInResultSetError("for query vdrScans")
+
+    def vdr_vulnerability_definition(
+        self, definition_hash: str
+    ) -> VdrVulnerabilityDefinition:
+        """Get Vulnerability info and reference urls."""
+        endpoint = "vdrVulnerabilityDefinition"
+
+        result = self.service.execute_query(
+            endpoint=endpoint,
+            variables={
+                "definitionHash": prepare_input(definition_hash),
+            },
+            output=build_output_string(VdrVulnerabilityDefinition),
+        )
+        if result.get(endpoint) is not None:
+            return VdrVulnerabilityDefinition.from_dict(result.get(endpoint))
+        raise GraphQLNoRowsInResultSetError("for query vdrVulnerabilityDefinition")
+
+    def vdr_threat_intel(self, threat_intel_ids: List[str]) -> List[VdrThreatIntel]:
+        """Get Counter Threat Unit intel."""
+        endpoint = "vdrThreatIntel"
+
+        result = self.service.execute_query(
+            endpoint=endpoint,
+            variables={
+                "threatIntelIds": prepare_input(threat_intel_ids),
+            },
+            output=build_output_string(VdrThreatIntel),
+        )
+        if result.get(endpoint) is not None:
+            return VdrThreatIntel.schema().load(
+                [r or {} for r in result.get(endpoint)], many=True
+            )
+        raise GraphQLNoRowsInResultSetError("for query vdrThreatIntel")

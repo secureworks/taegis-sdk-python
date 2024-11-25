@@ -1,4 +1,5 @@
 """Collector Query."""
+
 # pylint: disable=no-member, unused-argument, too-many-locals, duplicate-code, wildcard-import, unused-wildcard-import, cyclic-import
 
 
@@ -640,7 +641,8 @@ class TaegisSDKCollectorQuery:
         self, cluster_id: Optional[str] = None
     ) -> LogLastSeenMetrics:
         """Get last seen metrics for all available log sources for a given cluster.
-        If no clusterId is specified, this will return all log sources metrics for all existing clusters."""
+        If no clusterId is specified, this will return all log sources metrics for all existing clusters.
+        """
         endpoint = "getLogLastSeenMetrics"
 
         log.warning(

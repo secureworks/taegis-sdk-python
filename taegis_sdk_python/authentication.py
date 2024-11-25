@@ -48,10 +48,10 @@ def check_username(
         JSON response from username check
     """
     logger.debug("Checking login type for username...")
-    username_endpoint = "/auth/username"
+    userlogin_endpoint = "/auth/userLogin"
 
     response = post(
-        f"{request_url}{username_endpoint}", json={"username": username}, timeout=300
+        f"{request_url}{userlogin_endpoint}", json={"username": username}, timeout=300
     )
     logger.debug(response)
 
@@ -118,13 +118,22 @@ def get_token(environment: str, request_url: str) -> str:  # pragma: no cover
                 else:
                     username = input("Username: ")
                     response = check_username(request_url, username)
+                    external_provider = response.get("external_provider")
 
-                    if response.get("login_type") == "username-password":
+                    if (
+                        response.get("login_type") == "username-password"
+                        and external_provider != "COGNITO"
+                    ):
                         access_token = get_token_by_password_grant(
                             request_url, username
                         )
-                    elif response.get("login_type") == "sso":
-                        access_token = get_token_by_sso_device_code(request_url)
+                    elif (
+                        response.get("login_type") == "sso"
+                        or external_provider == "COGNITO"
+                    ):
+                        access_token = get_token_by_device_code_authorization(
+                            request_url, external_provider
+                        )
                     else:
                         raise InvalidAuthenticationMethod(
                             message="No known authentication method for user"
@@ -262,8 +271,9 @@ def get_token_by_password_grant(
     return access_token
 
 
-def get_token_by_sso_device_code(
+def get_token_by_device_code_authorization(
     request_url: str,
+    external_provider: str,
 ) -> Union[str, None]:  # pragma: no cover
     """Get a user token via Device Code authorization.
 
@@ -277,9 +287,13 @@ def get_token_by_sso_device_code(
     Union[str, None]
         Access Token
     """
-    logger.debug("Trying by SSO device code auth url...")
+    logger.debug("Trying by device code auth url...")
     init_endpoint = "/universal-auth/device/code/auth"
     token_endpoint = "/universal-auth/device/code/token"
+
+    if external_provider == "COGNITO":
+        init_endpoint += "?version=2"
+        token_endpoint += "?version=2"
 
     response = post(f"{request_url}{init_endpoint}", timeout=300)
 
