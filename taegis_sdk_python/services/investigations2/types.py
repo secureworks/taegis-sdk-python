@@ -930,6 +930,80 @@ class ExportInvestigationResourcesArgument:
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
+class UpdateInvestigationRuleInput:
+    """UpdateInvestigationRuleInput."""
+
+    id: Optional[str] = field(default=None, metadata=config(field_name="id"))
+    title: Optional[str] = field(default=None, metadata=config(field_name="title"))
+    description: Optional[str] = field(
+        default=None, metadata=config(field_name="description")
+    )
+    tags: Optional[List[str]] = field(default=None, metadata=config(field_name="tags"))
+    order: Optional[int] = field(default=None, metadata=config(field_name="order"))
+    filter: Optional[str] = field(default=None, metadata=config(field_name="filter"))
+    append_filter: Optional[str] = field(
+        default=None, metadata=config(field_name="appendFilter")
+    )
+    append_comment: Optional[str] = field(
+        default=None, metadata=config(field_name="appendComment")
+    )
+    group_by: Optional[List[str]] = field(
+        default=None, metadata=config(field_name="groupBy")
+    )
+    group_count: Optional[int] = field(
+        default=None, metadata=config(field_name="groupCount")
+    )
+    group_duration: Optional[str] = field(
+        default=None, metadata=config(field_name="groupDuration")
+    )
+    group_extend_on_append: Optional[bool] = field(
+        default=None, metadata=config(field_name="groupExtendOnAppend")
+    )
+    search_queries: Optional[List[str]] = field(
+        default=None, metadata=config(field_name="searchQueries")
+    )
+    search_window: Optional[str] = field(
+        default=None, metadata=config(field_name="searchWindow")
+    )
+    tenant_filter: Optional[str] = field(
+        default=None, metadata=config(field_name="tenantFilter")
+    )
+    skip_alert_prioritization: Optional[bool] = field(
+        default=None, metadata=config(field_name="skipAlertPrioritization")
+    )
+    template_id: Optional[str] = field(
+        default=None, metadata=config(field_name="templateId")
+    )
+    response_data: Optional[dict] = field(
+        default=None, metadata=config(field_name="responseData")
+    )
+    state: Optional[Union[InvestigationRuleState, TaegisEnum]] = field(
+        default=None,
+        metadata=config(
+            encoder=encode_enum,
+            decoder=lambda x: decode_enum(InvestigationRuleState, x),
+            field_name="state",
+        ),
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class InvestigationV2StatusesArguments:
+    """InvestigationV2StatusesArguments."""
+
+    current_status: Optional[Union[InvestigationStatus, TaegisEnum]] = field(
+        default=None,
+        metadata=config(
+            encoder=encode_enum,
+            decoder=lambda x: decode_enum(InvestigationStatus, x),
+            field_name="currentStatus",
+        ),
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
 class InvestigationV2Type:
     """InvestigationV2Type."""
 
@@ -942,6 +1016,21 @@ class InvestigationV2Type:
             encoder=encode_enum,
             decoder=lambda x: decode_enum(InvestigationType, x),
             field_name="type",
+        ),
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class InvestigationV2Status:
+    """InvestigationV2Status."""
+
+    status: Optional[Union[InvestigationStatus, TaegisEnum]] = field(
+        default=None,
+        metadata=config(
+            encoder=encode_enum,
+            decoder=lambda x: decode_enum(InvestigationStatus, x),
+            field_name="status",
         ),
     )
 
@@ -1076,73 +1165,6 @@ class CreateInvestigationRuleInput:
     """CreateInvestigationRuleInput."""
 
     name: Optional[str] = field(default=None, metadata=config(field_name="name"))
-    title: Optional[str] = field(default=None, metadata=config(field_name="title"))
-    description: Optional[str] = field(
-        default=None, metadata=config(field_name="description")
-    )
-    tags: Optional[List[str]] = field(default=None, metadata=config(field_name="tags"))
-    order: Optional[int] = field(default=None, metadata=config(field_name="order"))
-    filter: Optional[str] = field(default=None, metadata=config(field_name="filter"))
-    append_filter: Optional[str] = field(
-        default=None, metadata=config(field_name="appendFilter")
-    )
-    append_comment: Optional[str] = field(
-        default=None, metadata=config(field_name="appendComment")
-    )
-    group_by: Optional[List[str]] = field(
-        default=None, metadata=config(field_name="groupBy")
-    )
-    group_count: Optional[int] = field(
-        default=None, metadata=config(field_name="groupCount")
-    )
-    group_duration: Optional[str] = field(
-        default=None, metadata=config(field_name="groupDuration")
-    )
-    group_extend_on_append: Optional[bool] = field(
-        default=None, metadata=config(field_name="groupExtendOnAppend")
-    )
-    search_queries: Optional[List[str]] = field(
-        default=None, metadata=config(field_name="searchQueries")
-    )
-    search_window: Optional[str] = field(
-        default=None, metadata=config(field_name="searchWindow")
-    )
-    tenant_filter: Optional[str] = field(
-        default=None, metadata=config(field_name="tenantFilter")
-    )
-    skip_alert_prioritization: Optional[bool] = field(
-        default=None, metadata=config(field_name="skipAlertPrioritization")
-    )
-    template_id: Optional[str] = field(
-        default=None, metadata=config(field_name="templateId")
-    )
-    response_data: Optional[dict] = field(
-        default=None, metadata=config(field_name="responseData")
-    )
-    type: Optional[Union[InvestigationRuleType, TaegisEnum]] = field(
-        default=None,
-        metadata=config(
-            encoder=encode_enum,
-            decoder=lambda x: decode_enum(InvestigationRuleType, x),
-            field_name="type",
-        ),
-    )
-    state: Optional[Union[InvestigationRuleState, TaegisEnum]] = field(
-        default=None,
-        metadata=config(
-            encoder=encode_enum,
-            decoder=lambda x: decode_enum(InvestigationRuleState, x),
-            field_name="state",
-        ),
-    )
-
-
-@dataclass_json
-@dataclass(order=True, eq=True, frozen=True)
-class UpdateInvestigationRuleInput:
-    """UpdateInvestigationRuleInput."""
-
-    id: Optional[str] = field(default=None, metadata=config(field_name="id"))
     title: Optional[str] = field(default=None, metadata=config(field_name="title"))
     description: Optional[str] = field(
         default=None, metadata=config(field_name="description")

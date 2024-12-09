@@ -1613,6 +1613,9 @@ class ResolutionMetadataInput:
     num_alerts_affected: Optional[int] = field(
         default=None, metadata=config(field_name="num_alerts_affected")
     )
+    uuid_user_id: Optional[str] = field(
+        default=None, metadata=config(field_name="uuid_user_id")
+    )
     timestamp: Optional[TimestampInput] = field(
         default=None, metadata=config(field_name="timestamp")
     )
@@ -1691,6 +1694,9 @@ class ResolutionMetadata:
     reason: Optional[str] = field(default=None, metadata=config(field_name="reason"))
     num_alerts_affected: Optional[int] = field(
         default=None, metadata=config(field_name="num_alerts_affected")
+    )
+    uuid_user_id: Optional[str] = field(
+        default=None, metadata=config(field_name="uuid_user_id")
     )
     timestamp: Optional[Timestamp] = field(
         default=None, metadata=config(field_name="timestamp")
@@ -1945,6 +1951,9 @@ class UpdateInvestigationRequestInput:
     )
     tenant: Optional[str] = field(default=None, metadata=config(field_name="tenant"))
     user_id: Optional[str] = field(default=None, metadata=config(field_name="user_id"))
+    uuid_user_id: Optional[str] = field(
+        default=None, metadata=config(field_name="uuid_user_id")
+    )
     operation: Optional[Union[InvestigationOperation, TaegisEnum]] = field(
         default=None,
         metadata=config(
@@ -1976,6 +1985,9 @@ class UpdateResolutionRequestInput:
     )
     reason: Optional[str] = field(default=None, metadata=config(field_name="reason"))
     user_id: Optional[str] = field(default=None, metadata=config(field_name="user_id"))
+    uuid_user_id: Optional[str] = field(
+        default=None, metadata=config(field_name="uuid_user_id")
+    )
     tenant: Optional[str] = field(default=None, metadata=config(field_name="tenant"))
     resolution_status: Optional[Union[ResolutionStatus, TaegisEnum]] = field(
         default=None,

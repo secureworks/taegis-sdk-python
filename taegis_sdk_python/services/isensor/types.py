@@ -271,6 +271,50 @@ class IsensorReportRule:
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
+class NdrDevicePolicyResult:
+    """NdrDevicePolicyResult."""
+
+    application_name: Optional[str] = field(
+        default=None, metadata=config(field_name="applicationName")
+    )
+    application_component: Optional[str] = field(
+        default=None, metadata=config(field_name="applicationComponent")
+    )
+    item_name: Optional[str] = field(
+        default=None, metadata=config(field_name="itemName")
+    )
+    item_value: Optional[str] = field(
+        default=None, metadata=config(field_name="itemValue")
+    )
+    technical_description: Optional[str] = field(
+        default=None, metadata=config(field_name="technicalDescription")
+    )
+    tenant_description: Optional[str] = field(
+        default=None, metadata=config(field_name="tenantDescription")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class NdrPolicyInput:
+    """NdrPolicyInput."""
+
+    internal_device_name: Optional[str] = field(
+        default=None, metadata=config(field_name="internalDeviceName")
+    )
+    application_name: Optional[str] = field(
+        default=None, metadata=config(field_name="applicationName")
+    )
+    application_component: Optional[str] = field(
+        default=None, metadata=config(field_name="applicationComponent")
+    )
+    item_name: Optional[str] = field(
+        default=None, metadata=config(field_name="itemName")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
 class IsensorJob:
     """IsensorJob."""
 

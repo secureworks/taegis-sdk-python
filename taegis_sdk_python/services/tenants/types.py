@@ -238,6 +238,12 @@ class Service:
     owner_tenant_id: Optional[str] = field(
         default=None, metadata=config(field_name="owner_tenant_id")
     )
+    requires_present_ids: Optional[str] = field(
+        default=None, metadata=config(field_name="requires_present_ids")
+    )
+    requires_absent_ids: Optional[str] = field(
+        default=None, metadata=config(field_name="requires_absent_ids")
+    )
 
 
 @dataclass_json
@@ -470,6 +476,12 @@ class SubscriptionUpdate:
         default=None, metadata=config(field_name="description")
     )
     name: Optional[str] = field(default=None, metadata=config(field_name="name"))
+    requires_present_ids: Optional[List[str]] = field(
+        default=None, metadata=config(field_name="requires_present_ids")
+    )
+    requires_absent_ids: Optional[List[str]] = field(
+        default=None, metadata=config(field_name="requires_absent_ids")
+    )
 
 
 @dataclass_json

@@ -52,6 +52,15 @@ class NGAVProtectionMode(str, Enum):
     PROTECT = "PROTECT"
 
 
+class ShellcodeOption(str, Enum):
+    """ShellcodeOption."""
+
+    DISABLED = "Disabled"
+    REPORT_ONLY = "ReportOnly"
+    BLOCK_MEMORY_BASED = "BlockMemoryBased"
+    BLOCK_ALL = "BlockAll"
+
+
 class AgentSettingsProfile(str, Enum):
     """AgentSettingsProfile."""
 
@@ -237,16 +246,44 @@ class CreateEndpointGroupInput:
     )
     channel: Optional[str] = field(default=None, metadata=config(field_name="channel"))
     archive_endpoint_after_days: Optional[int] = field(
-        default=None, metadata=config(field_name="ArchiveEndpointAfterDays")
+        default=None,
+        metadata=config(
+            metadata={
+                "deprecated": True,
+                "deprecation_reason": "Moved to agent setting",
+            },
+            field_name="ArchiveEndpointAfterDays",
+        ),
     )
     file_analysis_flag: Optional[bool] = field(
-        default=None, metadata=config(field_name="fileAnalysisFlag")
+        default=None,
+        metadata=config(
+            metadata={
+                "deprecated": True,
+                "deprecation_reason": "Moved to agent setting",
+            },
+            field_name="fileAnalysisFlag",
+        ),
     )
     maintenance_window: Optional[str] = field(
-        default=None, metadata=config(field_name="maintenanceWindow")
+        default=None,
+        metadata=config(
+            metadata={
+                "deprecated": True,
+                "deprecation_reason": "Moved to agent setting",
+            },
+            field_name="maintenanceWindow",
+        ),
     )
     advanced_kernel_telemetry_enabled: Optional[bool] = field(
-        default=None, metadata=config(field_name="advancedKernelTelemetryEnabled")
+        default=None,
+        metadata=config(
+            metadata={
+                "deprecated": True,
+                "deprecation_reason": "Moved to agent setting",
+            },
+            field_name="advancedKernelTelemetryEnabled",
+        ),
     )
     setting_id: Optional[str] = field(
         default=None, metadata=config(field_name="settingId")
@@ -254,6 +291,10 @@ class CreateEndpointGroupInput:
     policy_name: Optional[Union[PolicyType, TaegisEnum]] = field(
         default=None,
         metadata=config(
+            metadata={
+                "deprecated": True,
+                "deprecation_reason": "Moved to agent setting",
+            },
             encoder=encode_enum,
             decoder=lambda x: decode_enum(PolicyType, x),
             field_name="policyName",
@@ -279,20 +320,52 @@ class UpdateEndpointGroupInput:
     )
     channel: Optional[str] = field(default=None, metadata=config(field_name="channel"))
     archive_endpoint_after_days: Optional[int] = field(
-        default=None, metadata=config(field_name="ArchiveEndpointAfterDays")
+        default=None,
+        metadata=config(
+            metadata={
+                "deprecated": True,
+                "deprecation_reason": "Moved to agent setting",
+            },
+            field_name="ArchiveEndpointAfterDays",
+        ),
     )
     file_analysis_flag: Optional[bool] = field(
-        default=None, metadata=config(field_name="fileAnalysisFlag")
+        default=None,
+        metadata=config(
+            metadata={
+                "deprecated": True,
+                "deprecation_reason": "Moved to agent setting",
+            },
+            field_name="fileAnalysisFlag",
+        ),
     )
     maintenance_window: Optional[str] = field(
-        default=None, metadata=config(field_name="maintenanceWindow")
+        default=None,
+        metadata=config(
+            metadata={
+                "deprecated": True,
+                "deprecation_reason": "Moved to agent setting",
+            },
+            field_name="maintenanceWindow",
+        ),
     )
     advanced_kernel_telemetry_enabled: Optional[bool] = field(
-        default=None, metadata=config(field_name="advancedKernelTelemetryEnabled")
+        default=None,
+        metadata=config(
+            metadata={
+                "deprecated": True,
+                "deprecation_reason": "Moved to agent setting",
+            },
+            field_name="advancedKernelTelemetryEnabled",
+        ),
     )
     policy_name: Optional[Union[PolicyType, TaegisEnum]] = field(
         default=None,
         metadata=config(
+            metadata={
+                "deprecated": True,
+                "deprecation_reason": "Moved to agent setting",
+            },
             encoder=encode_enum,
             decoder=lambda x: decode_enum(PolicyType, x),
             field_name="policyName",
@@ -334,6 +407,22 @@ class NGAV:
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
+class AdvancedKernelTelemetry:
+    """AdvancedKernelTelemetry."""
+
+    enabled: Optional[bool] = field(default=None, metadata=config(field_name="enabled"))
+    shellcode_option: Optional[Union[ShellcodeOption, TaegisEnum]] = field(
+        default=None,
+        metadata=config(
+            encoder=encode_enum,
+            decoder=lambda x: decode_enum(ShellcodeOption, x),
+            field_name="shellcodeOption",
+        ),
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
 class NGAVInput:
     """NGAVInput."""
 
@@ -344,6 +433,22 @@ class NGAVInput:
             encoder=encode_enum,
             decoder=lambda x: decode_enum(NGAVProtectionMode, x),
             field_name="protectionMode",
+        ),
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class AdvancedKernelTelemetryInput:
+    """AdvancedKernelTelemetryInput."""
+
+    enabled: Optional[bool] = field(default=None, metadata=config(field_name="enabled"))
+    shellcode_option: Optional[Union[ShellcodeOption, TaegisEnum]] = field(
+        default=None,
+        metadata=config(
+            encoder=encode_enum,
+            decoder=lambda x: decode_enum(ShellcodeOption, x),
+            field_name="shellcodeOption",
         ),
     )
 
@@ -469,6 +574,37 @@ class ExperimentalSetting:
     )
     enum_values: Optional[List[EnumValue]] = field(
         default=None, metadata=config(field_name="enumValues")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class AdvancedKernelTelemetryDefaults:
+    """AdvancedKernelTelemetryDefaults."""
+
+    name: Optional[str] = field(default=None, metadata=config(field_name="name"))
+    description: Optional[str] = field(
+        default=None, metadata=config(field_name="description")
+    )
+    enabled: Optional[bool] = field(default=None, metadata=config(field_name="enabled"))
+    platforms: Optional[List[Union[EndpointPlatform, TaegisEnum]]] = field(
+        default=None,
+        metadata=config(
+            encoder=encode_enum,
+            decoder=lambda x: decode_enum(EndpointPlatform, x),
+            field_name="platforms",
+        ),
+    )
+    shellcode_options: Optional[List[EnumValue]] = field(
+        default=None, metadata=config(field_name="shellcodeOptions")
+    )
+    selected_shellcode_option: Optional[Union[ShellcodeOption, TaegisEnum]] = field(
+        default=None,
+        metadata=config(
+            encoder=encode_enum,
+            decoder=lambda x: decode_enum(ShellcodeOption, x),
+            field_name="selectedShellcodeOption",
+        ),
     )
 
 
@@ -622,7 +758,7 @@ class AgentSettingsInput:
             field_name="profileName",
         ),
     )
-    advanced_kernel_telemetry: Optional[BooleanSettingInput] = field(
+    advanced_kernel_telemetry: Optional[AdvancedKernelTelemetryInput] = field(
         default=None, metadata=config(field_name="advancedKernelTelemetry")
     )
     auto_archive: Optional[AutoArchiveInput] = field(
@@ -665,7 +801,7 @@ class AgentSettingsDefaults:
             field_name="profileName",
         ),
     )
-    advanced_kernel_telemetry: Optional[ToggleSettingDefaults] = field(
+    advanced_kernel_telemetry: Optional[AdvancedKernelTelemetryDefaults] = field(
         default=None, metadata=config(field_name="advancedKernelTelemetry")
     )
     auto_archive: Optional[AutoArchiveDefaults] = field(
@@ -727,7 +863,7 @@ class AgentSetting:
             field_name="profileName",
         ),
     )
-    advanced_kernel_telemetry: Optional[ToggleSetting] = field(
+    advanced_kernel_telemetry: Optional[AdvancedKernelTelemetry] = field(
         default=None, metadata=config(field_name="advancedKernelTelemetry")
     )
     auto_archive: Optional[AutoArchive] = field(
@@ -780,7 +916,14 @@ class EndpointGroup:
         default=None, metadata=config(field_name="registrationKeyExpiresAt")
     )
     policy_name: Optional[str] = field(
-        default=None, metadata=config(field_name="policyName")
+        default=None,
+        metadata=config(
+            metadata={
+                "deprecated": True,
+                "deprecation_reason": "Moved to agent setting",
+            },
+            field_name="policyName",
+        ),
     )
     is_system_generated: Optional[bool] = field(
         default=None, metadata=config(field_name="isSystemGenerated")
@@ -802,19 +945,54 @@ class EndpointGroup:
         default=None, metadata=config(field_name="skipUpgrade")
     )
     archive_endpoint_after_days: Optional[int] = field(
-        default=None, metadata=config(field_name="ArchiveEndpointAfterDays")
+        default=None,
+        metadata=config(
+            metadata={
+                "deprecated": True,
+                "deprecation_reason": "Moved to agent setting",
+            },
+            field_name="ArchiveEndpointAfterDays",
+        ),
     )
     is_archive_endpoint_enabled: Optional[bool] = field(
-        default=None, metadata=config(field_name="IsArchiveEndpointEnabled")
+        default=None,
+        metadata=config(
+            metadata={
+                "deprecated": True,
+                "deprecation_reason": "Moved to agent setting",
+            },
+            field_name="IsArchiveEndpointEnabled",
+        ),
     )
     file_analysis_flag: Optional[bool] = field(
-        default=None, metadata=config(field_name="fileAnalysisFlag")
+        default=None,
+        metadata=config(
+            metadata={
+                "deprecated": True,
+                "deprecation_reason": "Moved to agent setting",
+            },
+            field_name="fileAnalysisFlag",
+        ),
     )
     maintenance_window: Optional[str] = field(
-        default=None, metadata=config(field_name="maintenanceWindow")
+        default=None,
+        metadata=config(
+            metadata={
+                "deprecated": True,
+                "deprecation_reason": "Moved to agent setting",
+            },
+            field_name="maintenanceWindow",
+        ),
     )
     advanced_kernel_telemetry_enabled: Optional[bool] = field(
-        default=None, metadata=config(field_name="advancedKernelTelemetryEnabled")
+        default=None,
+        metadata=config(
+            metadata={
+                "deprecated": True,
+                "deprecation_reason": "Moved to agent setting",
+            },
+            field_name="advancedKernelTelemetryEnabled",
+        ),
     )
     setting_id: Optional[str] = field(
         default=None, metadata=config(field_name="settingId")
@@ -823,7 +1001,14 @@ class EndpointGroup:
         default=None, metadata=config(field_name="agentSetting")
     )
     policy_override: Optional[PolicyOverride] = field(
-        default=None, metadata=config(field_name="policyOverride")
+        default=None,
+        metadata=config(
+            metadata={
+                "deprecated": True,
+                "deprecation_reason": "Moved to agent setting",
+            },
+            field_name="policyOverride",
+        ),
     )
 
 

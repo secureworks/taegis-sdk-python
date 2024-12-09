@@ -225,6 +225,21 @@ class TaegisSDKUsersMutation:
             return TDRUser.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for mutation registerPartnerUser")
 
+    def resend_migration_email(self, id_: str) -> TDRUser:
+        """Resends the Cognito migration email to non-SSO users, with a new temporary password. This should be short-lived until the migration is complete."""
+        endpoint = "resendMigrationEmail"
+
+        result = self.service.execute_mutation(
+            endpoint=endpoint,
+            variables={
+                "id": prepare_input(id_),
+            },
+            output=build_output_string(TDRUser),
+        )
+        if result.get(endpoint) is not None:
+            return TDRUser.from_dict(result.get(endpoint))
+        raise GraphQLNoRowsInResultSetError("for mutation resendMigrationEmail")
+
     def forgot_password(
         self, email: str, app: Optional[str] = None
     ) -> ForgotPasswordResponse:

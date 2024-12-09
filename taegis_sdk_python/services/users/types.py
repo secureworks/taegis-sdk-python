@@ -331,6 +331,24 @@ class CognitoAuthEventPageDetails:
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
+class SSOLogEntry:
+    """SSOLogEntry."""
+
+    event_id: Optional[str] = field(default=None, metadata=config(field_name="eventId"))
+    date: Optional[str] = field(default=None, metadata=config(field_name="date"))
+    event_response: Optional[str] = field(
+        default=None, metadata=config(field_name="eventResponse")
+    )
+    event_type: Optional[str] = field(
+        default=None, metadata=config(field_name="eventType")
+    )
+    provider_name: Optional[str] = field(
+        default=None, metadata=config(field_name="providerName")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
 class CognitoAuthChallengeType:
     """CognitoAuthChallengeType."""
 
@@ -583,6 +601,22 @@ class TDRUsersSearchInput:
             decoder=lambda x: decode_enum(TDRUsersSearchSortOrder, x),
             field_name="sortOrder",
         ),
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class CognitoLogEntry:
+    """CognitoLogEntry."""
+
+    next_auth_log_entry_page: Optional[str] = field(
+        default=None, metadata=config(field_name="nextAuthLogEntryPage")
+    )
+    auth_log_entry: Optional[List[CognitoAuthLogEntry]] = field(
+        default=None, metadata=config(field_name="authLogEntry")
+    )
+    sso_log_entry: Optional[List[SSOLogEntry]] = field(
+        default=None, metadata=config(field_name="ssoLogEntry")
     )
 
 
@@ -983,16 +1017,3 @@ class PinValidation:
         default=None, metadata=config(field_name="successful")
     )
     user: Optional[TDRUser] = field(default=None, metadata=config(field_name="user"))
-
-
-@dataclass_json
-@dataclass(order=True, eq=True, frozen=True)
-class CognitoLogEntry:
-    """CognitoLogEntry."""
-
-    next_auth_log_entry_page: Optional[str] = field(
-        default=None, metadata=config(field_name="nextAuthLogEntryPage")
-    )
-    auth_log_entry: Optional[List[CognitoAuthLogEntry]] = field(
-        default=None, metadata=config(field_name="authLogEntry")
-    )

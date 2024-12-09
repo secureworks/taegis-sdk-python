@@ -220,3 +220,42 @@ class TaegisSDKIsensorQuery:
                 [r or {} for r in result.get(endpoint)], many=True
             )
         raise GraphQLNoRowsInResultSetError("for query ndrMaintenanceEventDevices")
+
+    def ndr_device_policy(
+        self, policy_input: NdrPolicyInput
+    ) -> List[NdrDevicePolicyResult]:
+        """Get NDR Policy for Device."""
+        endpoint = "ndrDevicePolicy"
+
+        result = self.service.execute_query(
+            endpoint=endpoint,
+            variables={
+                "policyInput": prepare_input(policy_input),
+            },
+            output=build_output_string(NdrDevicePolicyResult),
+        )
+        if result.get(endpoint) is not None:
+            return NdrDevicePolicyResult.schema().load(
+                [r or {} for r in result.get(endpoint)], many=True
+            )
+        raise GraphQLNoRowsInResultSetError("for query ndrDevicePolicy")
+
+    def ndr_zeek_policy(
+        self, idn: str, item_name: Optional[str] = None
+    ) -> List[NdrDevicePolicyResult]:
+        """Get NDR Zeek Policy for Device."""
+        endpoint = "ndrZeekPolicy"
+
+        result = self.service.execute_query(
+            endpoint=endpoint,
+            variables={
+                "idn": prepare_input(idn),
+                "itemName": prepare_input(item_name),
+            },
+            output=build_output_string(NdrDevicePolicyResult),
+        )
+        if result.get(endpoint) is not None:
+            return NdrDevicePolicyResult.schema().load(
+                [r or {} for r in result.get(endpoint)], many=True
+            )
+        raise GraphQLNoRowsInResultSetError("for query ndrZeekPolicy")

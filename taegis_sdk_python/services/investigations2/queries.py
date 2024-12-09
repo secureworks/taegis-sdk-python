@@ -199,6 +199,25 @@ class TaegisSDKInvestigations2Query:
             )
         raise GraphQLNoRowsInResultSetError("for query investigationV2Types")
 
+    def investigation_v2_statuses(
+        self, arguments: InvestigationV2StatusesArguments
+    ) -> List[InvestigationV2Status]:
+        """investigationStatuses returns the available investigation statuses for a given user and the current tenant's service level."""
+        endpoint = "investigationV2Statuses"
+
+        result = self.service.execute_query(
+            endpoint=endpoint,
+            variables={
+                "arguments": prepare_input(arguments),
+            },
+            output=build_output_string(InvestigationV2Status),
+        )
+        if result.get(endpoint) is not None:
+            return InvestigationV2Status.schema().load(
+                [r or {} for r in result.get(endpoint)], many=True
+            )
+        raise GraphQLNoRowsInResultSetError("for query investigationV2Statuses")
+
     def investigation_file_v2(
         self, arguments: InvestigationFileV2Arguments
     ) -> InvestigationFileV2:
