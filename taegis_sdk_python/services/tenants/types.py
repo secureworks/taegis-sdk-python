@@ -591,6 +591,9 @@ class SAMLSSOConfiguration:
     metadata_url: Optional[str] = field(
         default=None, metadata=config(field_name="metadataURL")
     )
+    metadata_xml: Optional[str] = field(
+        default=None, metadata=config(field_name="metadataXML")
+    )
     signing_cert_name: Optional[str] = field(
         default=None, metadata=config(field_name="signingCertName")
     )

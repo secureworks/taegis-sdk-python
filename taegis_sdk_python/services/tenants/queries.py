@@ -12,17 +12,16 @@ import logging
 from typing import TYPE_CHECKING, Any, Dict, List, Optional, Tuple, Union
 
 from taegis_sdk_python import GraphQLNoRowsInResultSetError
-from taegis_sdk_python._consts import TaegisEnum
-from taegis_sdk_python.services.tenants.types import *
 from taegis_sdk_python.utils import (
     build_output_string,
     parse_union_result,
     prepare_input,
 )
+from taegis_sdk_python._consts import TaegisEnum
+from taegis_sdk_python.services.tenants.types import *
 
 if TYPE_CHECKING:  # pragma: no cover
     from taegis_sdk_python.services.tenants import TenantsService
-
 
 log = logging.getLogger(__name__)
 
@@ -103,15 +102,19 @@ class TaegisSDKTenantsQuery:
         raise GraphQLNoRowsInResultSetError("for query SSOConnections")
 
     def get_sso_connection_config(
-        self, metadata_url: Optional[str] = None, cert: Optional[str] = None
+        self,
+        metadata_url: Optional[str] = None,
+        metadata_xml: Optional[str] = None,
+        cert: Optional[str] = None,
     ) -> SSOConnectionConfigResponse:
-        """Downloads configuration for an SSO connection if metadataURL is provided, or the certificate attributes if that is provided. Currently applicable only to SAML connections."""
+        """Downloads configuration for an SSO connection if metadataURL is provided, or extracts the configuration from the metadataXML string if provided, or the certificate attributes if that is provided. Currently applicable only to SAML connections."""
         endpoint = "getSSOConnectionConfig"
 
         result = self.service.execute_query(
             endpoint=endpoint,
             variables={
                 "metadataURL": prepare_input(metadata_url),
+                "metadataXML": prepare_input(metadata_xml),
                 "cert": prepare_input(cert),
             },
             output=build_output_string(SSOConnectionConfigResponse),

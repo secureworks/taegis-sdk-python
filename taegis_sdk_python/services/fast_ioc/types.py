@@ -7,9 +7,33 @@
 
 from dataclasses import dataclass, field
 
+from enum import Enum
+
 from typing import Any, Dict, List, Optional, Tuple, Union
 
 from dataclasses_json import config, dataclass_json
+
+
+from taegis_sdk_python._consts import TaegisEnum
+from taegis_sdk_python.utils import encode_enum, decode_enum
+
+
+class LogicalType(str, Enum):
+    """LogicalType."""
+
+    DOMAIN = "DOMAIN"
+    HASH = "HASH"
+    HOST = "HOST"
+    IP = "IP"
+    MAC = "MAC"
+    USER = "USER"
+
+
+class Operator(str, Enum):
+    """Operator."""
+
+    EQUALS = "EQUALS"
+    MATCHES_REGEX = "MATCHES_REGEX"
 
 
 @dataclass_json
@@ -27,6 +51,17 @@ class EventWindow:
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
+class DataAvailabilityError:
+    """DataAvailabilityError."""
+
+    message: Optional[str] = field(default=None, metadata=config(field_name="message"))
+    unavailable_dates: Optional[List[str]] = field(
+        default=None, metadata=config(field_name="unavailableDates")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
 class TenantCount:
     """TenantCount."""
 
@@ -38,22 +73,6 @@ class TenantCount:
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
-class LogicalTypeFilter:
-    """LogicalTypeFilter."""
-
-    logical_type: Optional[str] = field(
-        default=None, metadata=config(field_name="logicalType")
-    )
-    values: Optional[List[str]] = field(
-        default=None, metadata=config(field_name="values")
-    )
-    operator: Optional[str] = field(
-        default=None, metadata=config(field_name="operator")
-    )
-
-
-@dataclass_json
-@dataclass(order=True, eq=True, frozen=True)
 class TenantsInput:
     """TenantsInput."""
 
@@ -61,7 +80,11 @@ class TenantsInput:
         default=None, metadata=config(field_name="tenantIds")
     )
     session_key: Optional[str] = field(
-        default=None, metadata=config(field_name="sessionKey")
+        default=None,
+        metadata=config(
+            metadata={"deprecated": True, "deprecation_reason": "no longer supported"},
+            field_name="sessionKey",
+        ),
     )
 
 
@@ -91,6 +114,35 @@ class EventCountResult:
     next: Optional[str] = field(default=None, metadata=config(field_name="next"))
     results: Optional[List[EventCountByLogicalType]] = field(
         default=None, metadata=config(field_name="results")
+    )
+    error: Optional[DataAvailabilityError] = field(
+        default=None, metadata=config(field_name="error")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class LogicalTypeFilter:
+    """LogicalTypeFilter."""
+
+    values: Optional[List[str]] = field(
+        default=None, metadata=config(field_name="values")
+    )
+    logical_type: Optional[Union[LogicalType, TaegisEnum]] = field(
+        default=None,
+        metadata=config(
+            encoder=encode_enum,
+            decoder=lambda x: decode_enum(LogicalType, x),
+            field_name="logicalType",
+        ),
+    )
+    operator: Optional[Union[Operator, TaegisEnum]] = field(
+        default=None,
+        metadata=config(
+            encoder=encode_enum,
+            decoder=lambda x: decode_enum(Operator, x),
+            field_name="operator",
+        ),
     )
 
 

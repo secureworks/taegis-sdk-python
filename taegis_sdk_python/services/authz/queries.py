@@ -12,17 +12,16 @@ import logging
 from typing import TYPE_CHECKING, Any, Dict, List, Optional, Tuple, Union
 
 from taegis_sdk_python import GraphQLNoRowsInResultSetError
-from taegis_sdk_python._consts import TaegisEnum
-from taegis_sdk_python.services.authz.types import *
 from taegis_sdk_python.utils import (
     build_output_string,
     parse_union_result,
     prepare_input,
 )
+from taegis_sdk_python._consts import TaegisEnum
+from taegis_sdk_python.services.authz.types import *
 
 if TYPE_CHECKING:  # pragma: no cover
     from taegis_sdk_python.services.authz import AuthzService
-
 
 log = logging.getLogger(__name__)
 
@@ -291,6 +290,27 @@ class TaegisSDKAuthzQuery:
                 [r or {} for r in result.get(endpoint)], many=True
             )
         raise GraphQLNoRowsInResultSetError("for query authzInternalPermissions")
+
+    def authz_management_permissions_tenant(
+        self, tenant_id: str
+    ) -> List[AuthzPermission]:
+        """Retrieve the full list of subjects tenant management permissions for the provided tenant, including appropriate permissions on a deactivated tenant."""
+        endpoint = "authzManagementPermissionsTenant"
+
+        result = self.service.execute_query(
+            endpoint=endpoint,
+            variables={
+                "tenantID": prepare_input(tenant_id),
+            },
+            output=build_output_string(AuthzPermission),
+        )
+        if result.get(endpoint) is not None:
+            return AuthzPermission.schema().load(
+                [r or {} for r in result.get(endpoint)], many=True
+            )
+        raise GraphQLNoRowsInResultSetError(
+            "for query authzManagementPermissionsTenant"
+        )
 
     def authz_object_action_status(self) -> List[AuthzObjectActionStatusResponse]:
         """Retrieve all object actions with their statuses for the current tenant context."""

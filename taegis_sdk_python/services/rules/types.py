@@ -351,6 +351,25 @@ class PageInfoOffset:
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
+class RuleFacetAggregationsInput:
+    """RuleFacetAggregationsInput."""
+
+    filter_query: Optional[str] = field(
+        default=None, metadata=config(field_name="filterQuery")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class AggregationPair:
+    """AggregationPair."""
+
+    key: Optional[str] = field(default=None, metadata=config(field_name="key"))
+    value: Optional[int] = field(default=None, metadata=config(field_name="value"))
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
 class TDRUser:
     """TDRUser."""
 
@@ -641,6 +660,8 @@ class SearchRulesByFieldInput:
     attack_categories: Optional[List[str]] = field(
         default=None, metadata=config(field_name="attackCategories")
     )
+    cve: Optional[str] = field(default=None, metadata=config(field_name="cve"))
+    vid: Optional[int] = field(default=None, metadata=config(field_name="vid"))
     enabled: Optional[bool] = field(default=None, metadata=config(field_name="enabled"))
     deleted: Optional[bool] = field(default=None, metadata=config(field_name="deleted"))
     updated_at: Optional[str] = field(
@@ -682,6 +703,25 @@ class SearchRulesByFieldInput:
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
+class RuleFacetAggregationsOutput:
+    """RuleFacetAggregationsOutput."""
+
+    vid: Optional[List[AggregationPair]] = field(
+        default=None, metadata=config(field_name="vid")
+    )
+    cve: Optional[List[AggregationPair]] = field(
+        default=None, metadata=config(field_name="cve")
+    )
+    severity: Optional[List[AggregationPair]] = field(
+        default=None, metadata=config(field_name="severity")
+    )
+    mitre_technique: Optional[List[AggregationPair]] = field(
+        default=None, metadata=config(field_name="mitreTechnique")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
 class RuleInput:
     """RuleInput."""
 
@@ -703,6 +743,8 @@ class RuleInput:
         default=None, metadata=config(field_name="createAlert")
     )
     tags: Optional[List[str]] = field(default=None, metadata=config(field_name="tags"))
+    cve: Optional[str] = field(default=None, metadata=config(field_name="cve"))
+    vid: Optional[int] = field(default=None, metadata=config(field_name="vid"))
     destination_topic: Optional[str] = field(
         default=None, metadata=config(field_name="destinationTopic")
     )
@@ -824,6 +866,8 @@ class Rule:
         default=None, metadata=config(field_name="createAlert")
     )
     tags: Optional[List[str]] = field(default=None, metadata=config(field_name="tags"))
+    cve: Optional[str] = field(default=None, metadata=config(field_name="cve"))
+    vid: Optional[int] = field(default=None, metadata=config(field_name="vid"))
     destination_topic: Optional[str] = field(
         default=None, metadata=config(field_name="destinationTopic")
     )

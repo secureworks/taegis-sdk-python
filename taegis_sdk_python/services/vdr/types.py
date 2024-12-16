@@ -55,6 +55,30 @@ class VdrScanSortMode(str, Enum):
     REQUEST_DATE = "REQUEST_DATE"
 
 
+class VdrCounterThreatUnit(str, Enum):
+    """VdrCounterThreatUnit."""
+
+    THREAT_INTEL_MENTIONS = "THREAT_INTEL_MENTIONS"
+    ISENSOR_RULES_TARGET = "ISENSOR_RULES_TARGET"
+    ADVISORIES_MENTIONS = "ADVISORIES_MENTIONS"
+    IDENTIFIED_MALWARE_THREAT_ACTORS = "IDENTIFIED_MALWARE_THREAT_ACTORS"
+
+
+class VdrExploitability(str, Enum):
+    """VdrExploitability."""
+
+    URL_CISA_CATALOG = "URL_CISA_CATALOG"
+    DOS_EXPLOIT_EXIST = "DOS_EXPLOIT_EXIST"
+    REMOTE_EXPLOIT_EXIST = "REMOTE_EXPLOIT_EXIST"
+    WEB_EXPLOIT_EXIST = "WEB_EXPLOIT_EXIST"
+
+
+class VdrAttackClass(str, Enum):
+    """VdrAttackClass."""
+
+    THREAT_PROBABILITY_LOW = "THREAT_PROBABILITY_LOW"
+
+
 class VdrVulnerabilitiesSortMode(str, Enum):
     """VdrVulnerabilitiesSortMode."""
 
@@ -366,6 +390,16 @@ class VdrSeries:
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
+class VdrScorePath:
+    """VdrScorePath."""
+
+    count: Optional[int] = field(default=None, metadata=config(field_name="count"))
+    label: Optional[str] = field(default=None, metadata=config(field_name="label"))
+    value: Optional[str] = field(default=None, metadata=config(field_name="value"))
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
 class VdrAssetsFiltersInputArgs:
     """VdrAssetsFiltersInputArgs."""
 
@@ -467,125 +501,6 @@ class VdrScoreExplanation:
     label: Optional[str] = field(default=None, metadata=config(field_name="label"))
     extra_data: Optional[List[VdrExtraData]] = field(
         default=None, metadata=config(field_name="extraData")
-    )
-
-
-@dataclass_json
-@dataclass(order=True, eq=True, frozen=True)
-class VdrVulnerability:
-    """VdrVulnerability."""
-
-    id: Optional[str] = field(default=None, metadata=config(field_name="id"))
-    affected_tcp_ports: Optional[List[str]] = field(
-        default=None, metadata=config(field_name="affectedTCPPorts")
-    )
-    affected_udp_ports: Optional[List[str]] = field(
-        default=None, metadata=config(field_name="affectedUDPPorts")
-    )
-    aggregate_group: Optional[str] = field(
-        default=None, metadata=config(field_name="aggregateGroup")
-    )
-    assessment_date: Optional[str] = field(
-        default=None, metadata=config(field_name="assessmentDate")
-    )
-    assessment_user_ids: Optional[List[str]] = field(
-        default=None, metadata=config(field_name="assessmentUserIds")
-    )
-    attack_class: Optional[List[str]] = field(
-        default=None, metadata=config(field_name="attackClass")
-    )
-    classification: Optional[str] = field(
-        default=None, metadata=config(field_name="classification")
-    )
-    columns: Optional[List[str]] = field(
-        default=None, metadata=config(field_name="columns")
-    )
-    cve_number: Optional[str] = field(
-        default=None, metadata=config(field_name="cveNumber")
-    )
-    definition_hash: Optional[str] = field(
-        default=None, metadata=config(field_name="definitionHash")
-    )
-    description: Optional[str] = field(
-        default=None, metadata=config(field_name="description")
-    )
-    differentiator: Optional[str] = field(
-        default=None, metadata=config(field_name="differentiator")
-    )
-    first_discovery_date: Optional[str] = field(
-        default=None, metadata=config(field_name="firstDiscoveryDate")
-    )
-    fixed_in_version: Optional[str] = field(
-        default=None, metadata=config(field_name="fixedInVersion")
-    )
-    has_note: Optional[bool] = field(
-        default=None, metadata=config(field_name="hasNote")
-    )
-    has_threat_intel: Optional[bool] = field(
-        default=None, metadata=config(field_name="hasThreatIntel")
-    )
-    has_verified: Optional[bool] = field(
-        default=None, metadata=config(field_name="hasVerified")
-    )
-    host: Optional[str] = field(default=None, metadata=config(field_name="host"))
-    host_ids: Optional[List[str]] = field(
-        default=None, metadata=config(field_name="hostIds")
-    )
-    hostname: Optional[str] = field(
-        default=None, metadata=config(field_name="hostname")
-    )
-    http_code: Optional[int] = field(
-        default=None, metadata=config(field_name="httpCode")
-    )
-    http_method: Optional[str] = field(
-        default=None, metadata=config(field_name="httpMethod")
-    )
-    identity: Optional[str] = field(
-        default=None, metadata=config(field_name="identity")
-    )
-    is_verified: Optional[bool] = field(
-        default=None, metadata=config(field_name="isVerified")
-    )
-    last_seen_date: Optional[str] = field(
-        default=None, metadata=config(field_name="lastSeenDate")
-    )
-    note_date: Optional[str] = field(
-        default=None, metadata=config(field_name="noteDate")
-    )
-    param: Optional[str] = field(default=None, metadata=config(field_name="param"))
-    payload: Optional[str] = field(default=None, metadata=config(field_name="payload"))
-    plan_assign_date: Optional[str] = field(
-        default=None, metadata=config(field_name="planAssignDate")
-    )
-    plan_id: Optional[str] = field(default=None, metadata=config(field_name="planId"))
-    plan_user_ids: Optional[List[str]] = field(
-        default=None, metadata=config(field_name="planUserIds")
-    )
-    port: Optional[int] = field(default=None, metadata=config(field_name="port"))
-    priority: Optional[str] = field(
-        default=None, metadata=config(field_name="priority")
-    )
-    protocol: Optional[str] = field(
-        default=None, metadata=config(field_name="protocol")
-    )
-    related_exploit_urls: Optional[List[str]] = field(
-        default=None, metadata=config(field_name="relatedExploitUrls")
-    )
-    severity: Optional[str] = field(
-        default=None, metadata=config(field_name="severity")
-    )
-    top_cve_numbers: Optional[List[str]] = field(
-        default=None, metadata=config(field_name="topCveNumbers")
-    )
-    url: Optional[str] = field(default=None, metadata=config(field_name="url"))
-    verify_date: Optional[str] = field(
-        default=None, metadata=config(field_name="verifyDate")
-    )
-    verify_user_ids: Optional[List[str]] = field(
-        default=None, metadata=config(field_name="verifyUserIds")
-    )
-    score: Optional[VdrVulnScore] = field(
-        default=None, metadata=config(field_name="score")
     )
 
 
@@ -730,7 +645,7 @@ class VdrVulnerabilityDetail:
     verify_date: Optional[str] = field(
         default=None, metadata=config(field_name="verifyDate")
     )
-    verify_user_id: Optional[str] = field(
+    verify_user_id: Optional[int] = field(
         default=None, metadata=config(field_name="verifyUserId")
     )
     vulnerability_identity: Optional[str] = field(
@@ -765,19 +680,6 @@ class VdrSeriesGroup:
             decoder=lambda x: decode_enum(VdrMetricsPeriod, x),
             field_name="period",
         ),
-    )
-
-
-@dataclass_json
-@dataclass(order=True, eq=True, frozen=True)
-class VdrVulnerabilityMetrics:
-    """VdrVulnerabilityMetrics."""
-
-    first_discovered: Optional[List[VdrSeriesGroup]] = field(
-        default=None, metadata=config(field_name="firstDiscovered")
-    )
-    last_seen: Optional[List[VdrSeriesGroup]] = field(
-        default=None, metadata=config(field_name="lastSeen")
     )
 
 
@@ -841,6 +743,157 @@ class VdrEdgeService:
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
+class VdrVulnerability:
+    """VdrVulnerability."""
+
+    id: Optional[str] = field(default=None, metadata=config(field_name="id"))
+    affected_tcp_ports: Optional[List[str]] = field(
+        default=None, metadata=config(field_name="affectedTCPPorts")
+    )
+    affected_udp_ports: Optional[List[str]] = field(
+        default=None, metadata=config(field_name="affectedUDPPorts")
+    )
+    aggregate_group: Optional[str] = field(
+        default=None, metadata=config(field_name="aggregateGroup")
+    )
+    assessment_date: Optional[str] = field(
+        default=None, metadata=config(field_name="assessmentDate")
+    )
+    assessment_user_ids: Optional[List[str]] = field(
+        default=None, metadata=config(field_name="assessmentUserIds")
+    )
+    attack_class: Optional[List[str]] = field(
+        default=None, metadata=config(field_name="attackClass")
+    )
+    classification: Optional[str] = field(
+        default=None, metadata=config(field_name="classification")
+    )
+    columns: Optional[List[str]] = field(
+        default=None, metadata=config(field_name="columns")
+    )
+    cve_number: Optional[str] = field(
+        default=None, metadata=config(field_name="cveNumber")
+    )
+    definition_hash: Optional[str] = field(
+        default=None, metadata=config(field_name="definitionHash")
+    )
+    description: Optional[str] = field(
+        default=None, metadata=config(field_name="description")
+    )
+    detail: Optional[str] = field(default=None, metadata=config(field_name="detail"))
+    differentiator: Optional[str] = field(
+        default=None, metadata=config(field_name="differentiator")
+    )
+    first_discovery_date: Optional[str] = field(
+        default=None, metadata=config(field_name="firstDiscoveryDate")
+    )
+    fixed_in_version: Optional[str] = field(
+        default=None, metadata=config(field_name="fixedInVersion")
+    )
+    has_note: Optional[bool] = field(
+        default=None, metadata=config(field_name="hasNote")
+    )
+    has_threat_intel: Optional[bool] = field(
+        default=None, metadata=config(field_name="hasThreatIntel")
+    )
+    has_verified: Optional[bool] = field(
+        default=None, metadata=config(field_name="hasVerified")
+    )
+    host: Optional[str] = field(default=None, metadata=config(field_name="host"))
+    host_ids: Optional[List[str]] = field(
+        default=None, metadata=config(field_name="hostIds")
+    )
+    hostname: Optional[str] = field(
+        default=None, metadata=config(field_name="hostname")
+    )
+    http_code: Optional[int] = field(
+        default=None, metadata=config(field_name="httpCode")
+    )
+    http_method: Optional[str] = field(
+        default=None, metadata=config(field_name="httpMethod")
+    )
+    identity: Optional[str] = field(
+        default=None, metadata=config(field_name="identity")
+    )
+    is_verified: Optional[bool] = field(
+        default=None, metadata=config(field_name="isVerified")
+    )
+    last_seen_date: Optional[str] = field(
+        default=None, metadata=config(field_name="lastSeenDate")
+    )
+    note_date: Optional[str] = field(
+        default=None, metadata=config(field_name="noteDate")
+    )
+    param: Optional[str] = field(default=None, metadata=config(field_name="param"))
+    payload: Optional[str] = field(default=None, metadata=config(field_name="payload"))
+    plan_assign_date: Optional[str] = field(
+        default=None, metadata=config(field_name="planAssignDate")
+    )
+    plan_id: Optional[str] = field(default=None, metadata=config(field_name="planId"))
+    plan_user_ids: Optional[List[str]] = field(
+        default=None, metadata=config(field_name="planUserIds")
+    )
+    port: Optional[int] = field(default=None, metadata=config(field_name="port"))
+    priority: Optional[str] = field(
+        default=None, metadata=config(field_name="priority")
+    )
+    protocol: Optional[str] = field(
+        default=None, metadata=config(field_name="protocol")
+    )
+    related_exploit_urls: Optional[List[str]] = field(
+        default=None, metadata=config(field_name="relatedExploitUrls")
+    )
+    score_base: Optional[float] = field(
+        default=None, metadata=config(field_name="scoreBase")
+    )
+    score_final_normalized: Optional[float] = field(
+        default=None, metadata=config(field_name="scoreFinalNormalized")
+    )
+    severity: Optional[str] = field(
+        default=None, metadata=config(field_name="severity")
+    )
+    threat_intel_ids: Optional[List[str]] = field(
+        default=None, metadata=config(field_name="threatIntelIds")
+    )
+    top_cve_numbers: Optional[List[str]] = field(
+        default=None, metadata=config(field_name="topCveNumbers")
+    )
+    url: Optional[str] = field(default=None, metadata=config(field_name="url"))
+    verify_date: Optional[str] = field(
+        default=None, metadata=config(field_name="verifyDate")
+    )
+    verify_user_ids: Optional[List[str]] = field(
+        default=None, metadata=config(field_name="verifyUserIds")
+    )
+    score: Optional[VdrVulnScore] = field(
+        default=None, metadata=config(field_name="score")
+    )
+    score_steps: Optional[List[VdrScoreStep]] = field(
+        default=None, metadata=config(field_name="scoreSteps")
+    )
+    score_explanations: Optional[List[VdrScoreExplanation]] = field(
+        default=None, metadata=config(field_name="scoreExplanations")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class VdrVulnerabilityMetrics:
+    """VdrVulnerabilityMetrics."""
+
+    first_discovered: Optional[List[VdrSeriesGroup]] = field(
+        default=None, metadata=config(field_name="firstDiscovered")
+    )
+    last_seen: Optional[List[VdrSeriesGroup]] = field(
+        default=None, metadata=config(field_name="lastSeen")
+    )
+    score_path40: Optional[List[VdrScorePath]] = field(
+        default=None, metadata=config(field_name="scorePath40")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
 class VdrAssetsInputArgs:
     """VdrAssetsInputArgs."""
 
@@ -867,36 +920,6 @@ class VdrAssetsInputArgs:
     )
     exclude_filters: Optional[VdrAssetsFiltersInputArgs] = field(
         default=None, metadata=config(field_name="excludeFilters")
-    )
-
-
-@dataclass_json
-@dataclass(order=True, eq=True, frozen=True)
-class VdrVulnerabilitiesFiltersInputArgs:
-    """VdrVulnerabilitiesFiltersInputArgs."""
-
-    cve: Optional[List[str]] = field(default=None, metadata=config(field_name="cve"))
-    severity: Optional[List[Union[VdrVulnerabilitySeverity, TaegisEnum]]] = field(
-        default=None,
-        metadata=config(
-            encoder=encode_enum,
-            decoder=lambda x: decode_enum(VdrVulnerabilitySeverity, x),
-            field_name="severity",
-        ),
-    )
-    first_discovery_date: Optional[VdrTimeFilterInputArgs] = field(
-        default=None, metadata=config(field_name="firstDiscoveryDate")
-    )
-    last_seen_date: Optional[VdrTimeFilterInputArgs] = field(
-        default=None, metadata=config(field_name="lastSeenDate")
-    )
-    period: Optional[Union[VdrMetricsPeriod, TaegisEnum]] = field(
-        default=None,
-        metadata=config(
-            encoder=encode_enum,
-            decoder=lambda x: decode_enum(VdrMetricsPeriod, x),
-            field_name="period",
-        ),
     )
 
 
@@ -1009,6 +1032,62 @@ class VdrAsset:
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
+class VdrVulnerabilitiesFiltersInputArgs:
+    """VdrVulnerabilitiesFiltersInputArgs."""
+
+    cve: Optional[List[str]] = field(default=None, metadata=config(field_name="cve"))
+    severity: Optional[List[Union[VdrVulnerabilitySeverity, TaegisEnum]]] = field(
+        default=None,
+        metadata=config(
+            encoder=encode_enum,
+            decoder=lambda x: decode_enum(VdrVulnerabilitySeverity, x),
+            field_name="severity",
+        ),
+    )
+    first_discovery_date: Optional[VdrTimeFilterInputArgs] = field(
+        default=None, metadata=config(field_name="firstDiscoveryDate")
+    )
+    last_seen_date: Optional[VdrTimeFilterInputArgs] = field(
+        default=None, metadata=config(field_name="lastSeenDate")
+    )
+    counter_threat_unit: Optional[List[Union[VdrCounterThreatUnit, TaegisEnum]]] = (
+        field(
+            default=None,
+            metadata=config(
+                encoder=encode_enum,
+                decoder=lambda x: decode_enum(VdrCounterThreatUnit, x),
+                field_name="counterThreatUnit",
+            ),
+        )
+    )
+    attack_class: Optional[List[Union[VdrAttackClass, TaegisEnum]]] = field(
+        default=None,
+        metadata=config(
+            encoder=encode_enum,
+            decoder=lambda x: decode_enum(VdrAttackClass, x),
+            field_name="attackClass",
+        ),
+    )
+    exploitability: Optional[List[Union[VdrExploitability, TaegisEnum]]] = field(
+        default=None,
+        metadata=config(
+            encoder=encode_enum,
+            decoder=lambda x: decode_enum(VdrExploitability, x),
+            field_name="exploitability",
+        ),
+    )
+    period: Optional[Union[VdrMetricsPeriod, TaegisEnum]] = field(
+        default=None,
+        metadata=config(
+            encoder=encode_enum,
+            decoder=lambda x: decode_enum(VdrMetricsPeriod, x),
+            field_name="period",
+        ),
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
 class VdrAssets:
     """VdrAssets."""
 
@@ -1067,8 +1146,8 @@ class VdrVulnerabilityDetails:
     total_count: Optional[int] = field(
         default=None, metadata=config(field_name="totalCount")
     )
-    group_details: Optional[VdrVulnerabilityDetail] = field(
-        default=None, metadata=config(field_name="groupDetails")
+    vulnerability_group_details: Optional[VdrVulnerability] = field(
+        default=None, metadata=config(field_name="vulnerabilityGroupDetails")
     )
     vulnerability_details: Optional[List[VdrVulnerabilityDetail]] = field(
         default=None, metadata=config(field_name="vulnerabilityDetails")

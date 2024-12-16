@@ -12,17 +12,16 @@ import logging
 from typing import TYPE_CHECKING, Any, Dict, List, Optional, Tuple, Union
 
 from taegis_sdk_python import GraphQLNoRowsInResultSetError
-from taegis_sdk_python._consts import TaegisEnum
-from taegis_sdk_python.services.rules.types import *
 from taegis_sdk_python.utils import (
     build_output_string,
     parse_union_result,
     prepare_input,
 )
+from taegis_sdk_python._consts import TaegisEnum
+from taegis_sdk_python.services.rules.types import *
 
 if TYPE_CHECKING:  # pragma: no cover
     from taegis_sdk_python.services.rules import RulesService
-
 
 log = logging.getLogger(__name__)
 
@@ -472,3 +471,20 @@ class TaegisSDKRulesQuery:
         if result.get(endpoint) is not None:
             return SearchRulesOutput.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for query updatedWatchlistRules")
+
+    def rule_facet_aggregations(
+        self, query: Optional[RuleFacetAggregationsInput] = None
+    ) -> RuleFacetAggregationsOutput:
+        """Returns counts for distinct rule facets that meet the criteria of the optional input CQL query."""
+        endpoint = "ruleFacetAggregations"
+
+        result = self.service.execute_query(
+            endpoint=endpoint,
+            variables={
+                "query": prepare_input(query),
+            },
+            output=build_output_string(RuleFacetAggregationsOutput),
+        )
+        if result.get(endpoint) is not None:
+            return RuleFacetAggregationsOutput.from_dict(result.get(endpoint))
+        raise GraphQLNoRowsInResultSetError("for query ruleFacetAggregations")
