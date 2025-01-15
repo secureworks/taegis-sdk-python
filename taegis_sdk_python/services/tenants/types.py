@@ -594,6 +594,9 @@ class SAMLSSOConfiguration:
     metadata_xml: Optional[str] = field(
         default=None, metadata=config(field_name="metadataXML")
     )
+    metadata_file_name: Optional[str] = field(
+        default=None, metadata=config(field_name="metadataFileName")
+    )
     signing_cert_name: Optional[str] = field(
         default=None, metadata=config(field_name="signingCertName")
     )
@@ -1386,6 +1389,9 @@ class SSOConnection:
     )
     created_at: Optional[str] = field(
         default=None, metadata=config(field_name="createdAt")
+    )
+    metadata_file_name: Optional[str] = field(
+        default=None, metadata=config(field_name="metadataFileName")
     )
     cert_name: Optional[str] = field(
         default=None, metadata=config(field_name="certName")

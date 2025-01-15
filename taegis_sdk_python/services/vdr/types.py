@@ -47,6 +47,8 @@ class VdrScanStatus(str, Enum):
     DONE = "DONE"
     CANCEL = "CANCEL"
     PROGRESS = "PROGRESS"
+    PICKED = "PICKED"
+    FAILED = "FAILED"
 
 
 class VdrScanSortMode(str, Enum):
@@ -77,6 +79,7 @@ class VdrAttackClass(str, Enum):
     """VdrAttackClass."""
 
     THREAT_PROBABILITY_LOW = "THREAT_PROBABILITY_LOW"
+    THREAT_PROBABILITY_HIGH = "THREAT_PROBABILITY_HIGH"
 
 
 class VdrVulnerabilitiesSortMode(str, Enum):

@@ -309,6 +309,7 @@ class SearchRulesInput:
     """SearchRulesInput."""
 
     query: Optional[str] = field(default=None, metadata=config(field_name="query"))
+    global_: Optional[bool] = field(default=None, metadata=config(field_name="global"))
 
 
 @dataclass_json
