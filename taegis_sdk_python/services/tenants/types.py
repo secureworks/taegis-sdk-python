@@ -1410,6 +1410,9 @@ class SSOConnection:
     testers: Optional[List[str]] = field(
         default=None, metadata=config(field_name="testers")
     )
+    no_prompt_login_url: Optional[str] = field(
+        default=None, metadata=config(field_name="noPromptLoginURL")
+    )
     type: Optional[Union[SSOConnectionType, TaegisEnum]] = field(
         default=None,
         metadata=config(

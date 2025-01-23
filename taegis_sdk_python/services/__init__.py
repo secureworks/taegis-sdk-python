@@ -19,6 +19,7 @@ from taegis_sdk_python.service_core import ServiceCore
 from taegis_sdk_python.services.access_points import AccessPointsService
 from taegis_sdk_python.services.agent import AgentService
 from taegis_sdk_python.services.alerts import AlertsService
+from taegis_sdk_python.services.alerts_history import AlertsHistoryService
 from taegis_sdk_python.services.assets import AssetsService
 from taegis_sdk_python.services.assets2 import Assets2Service
 from taegis_sdk_python.services.audits import AuditsService
@@ -168,6 +169,7 @@ class GraphQLService:
         self._access_points = None
         self._agent = None
         self._alerts = None
+        self._alerts_history = None
         self._assets = None
         self._assets2 = None
         self._audits = None
@@ -397,6 +399,13 @@ class GraphQLService:
         if not self._alerts:
             self._alerts = AlertsService(self)
         return self._alerts
+
+    @property
+    def alerts_history(self):
+        """AlertsHistory Service Endpoint."""
+        if not self._alerts_history:
+            self._alerts_history = AlertsHistoryService(self)
+        return self._alerts_history
 
     @property
     def assets(self):
