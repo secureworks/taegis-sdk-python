@@ -1094,14 +1094,26 @@ class Creator:
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
-class ResolutionMetadata:
-    """ResolutionMetadata."""
+class ResolutionMetadataHistory:
+    """ResolutionMetadataHistory."""
 
     id: Optional[str] = field(default=None, metadata=config(field_name="id"))
-    user_id: Optional[str] = field(default=None, metadata=config(field_name="user_id"))
+    user_id: Optional[str] = field(
+        default=None,
+        metadata=config(
+            metadata={
+                "deprecated": True,
+                "deprecation_reason": "moving to uuid user id",
+            },
+            field_name="user_id",
+        ),
+    )
     reason: Optional[str] = field(default=None, metadata=config(field_name="reason"))
     num_alerts_affected: Optional[int] = field(
         default=None, metadata=config(field_name="num_alerts_affected")
+    )
+    uuid_user_id: Optional[str] = field(
+        default=None, metadata=config(field_name="uuid_user_id")
     )
     timestamp: Optional[Timestamp] = field(
         default=None, metadata=config(field_name="timestamp")
@@ -1506,7 +1518,7 @@ class AlertSnapshot:
             field_name="status",
         ),
     )
-    resolution_history: Optional[List[ResolutionMetadata]] = field(
+    resolution_history: Optional[List[ResolutionMetadataHistory]] = field(
         default=None, metadata=config(field_name="resolution_history")
     )
     severity_history: Optional[List[SeverityUpdate]] = field(

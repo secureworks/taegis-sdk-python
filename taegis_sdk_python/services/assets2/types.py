@@ -1353,6 +1353,9 @@ class AssetV2:
     agent_policy_version: Optional[str] = field(
         default=None, metadata=config(field_name="agentPolicyVersion")
     )
+    uninstall: Optional[bool] = field(
+        default=None, metadata=config(field_name="uninstall")
+    )
     hostnames: Optional[List[HostnameV2]] = field(
         default=None, metadata=config(field_name="hostnames")
     )

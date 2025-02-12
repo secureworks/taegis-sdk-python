@@ -282,6 +282,19 @@ class UpdateThreatScoreEntry:
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
+class UpdateThreatScoreV2Entry:
+    """UpdateThreatScoreV2Entry."""
+
+    alert_id: Optional[str] = field(
+        default=None, metadata=config(field_name="alert_id")
+    )
+    threat_score_v2: Optional[float] = field(
+        default=None, metadata=config(field_name="threat_score_v2")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
 class AccountCompromiseDetectorDetailInput:
     """AccountCompromiseDetectorDetailInput."""
 
@@ -1765,6 +1778,19 @@ class UpdateThreatScoreRequestInput:
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
+class UpdateThreatScoreV2RequestInput:
+    """UpdateThreatScoreV2RequestInput."""
+
+    threat_score_v2: Optional[float] = field(
+        default=None, metadata=config(field_name="threat_score_v2")
+    )
+    alert_ids: Optional[List[UpdateThreatScoreV2Entry]] = field(
+        default=None, metadata=config(field_name="alert_ids")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
 class PasswordSprayDetailInput:
     """PasswordSprayDetailInput."""
 
@@ -3096,6 +3122,12 @@ class Alert2:
     )
     threat_score: Optional[float] = field(
         default=None, metadata=config(field_name="threat_score")
+    )
+    threat_score_v2: Optional[float] = field(
+        default=None, metadata=config(field_name="threat_score_v2")
+    )
+    observation: Optional[bool] = field(
+        default=None, metadata=config(field_name="observation")
     )
     metadata: Optional[AlertsMetadata] = field(
         default=None, metadata=config(field_name="metadata")

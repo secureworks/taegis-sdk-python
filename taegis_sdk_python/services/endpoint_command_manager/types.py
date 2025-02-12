@@ -247,6 +247,41 @@ class IsolationExclusionRule:
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
+class CommandHistoryInput:
+    """CommandHistoryInput."""
+
+    endpoint_id: Optional[str] = field(
+        default=None, metadata=config(field_name="EndpointID")
+    )
+    request_id: Optional[str] = field(
+        default=None, metadata=config(field_name="RequestID")
+    )
+    command: Optional[str] = field(default=None, metadata=config(field_name="Command"))
+    issued_at: Optional[str] = field(
+        default=None, metadata=config(field_name="IssuedAt")
+    )
+    response_at: Optional[str] = field(
+        default=None, metadata=config(field_name="ResponseAt")
+    )
+    success: Optional[bool] = field(default=None, metadata=config(field_name="Success"))
+    request_reason: Optional[str] = field(
+        default=None, metadata=config(field_name="RequestReason")
+    )
+    failure_reason: Optional[str] = field(
+        default=None, metadata=config(field_name="FailureReason")
+    )
+    status: Optional[Union[StatusEnum, TaegisEnum]] = field(
+        default=None,
+        metadata=config(
+            encoder=encode_enum,
+            decoder=lambda x: decode_enum(StatusEnum, x),
+            field_name="Status",
+        ),
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
 class HistoryEntry:
     """HistoryEntry."""
 

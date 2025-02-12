@@ -451,6 +451,12 @@ class ThreatGroupInput:
     """ThreatGroupInput."""
 
     name: Optional[str] = field(default=None, metadata=config(field_name="name"))
+    is_active: Optional[bool] = field(
+        default=None, metadata=config(field_name="IsActive")
+    )
+    thematic_area: Optional[str] = field(
+        default=None, metadata=config(field_name="ThematicArea")
+    )
     objectives: Optional[List[str]] = field(
         default=None, metadata=config(field_name="Objectives")
     )
@@ -784,6 +790,12 @@ class ThreatReportInput:
     """ThreatReportInput."""
 
     id: Optional[str] = field(default=None, metadata=config(field_name="id"))
+    report_type: Optional[str] = field(
+        default=None, metadata=config(field_name="reportType")
+    )
+    report_id: Optional[str] = field(
+        default=None, metadata=config(field_name="reportID")
+    )
     name: Optional[str] = field(default=None, metadata=config(field_name="name"))
     description: Optional[str] = field(
         default=None, metadata=config(field_name="description")
@@ -866,6 +878,12 @@ class ThreatGroup:
         default=None, metadata=config(field_name="sharing_id")
     )
     name: Optional[str] = field(default=None, metadata=config(field_name="name"))
+    is_active: Optional[bool] = field(
+        default=None, metadata=config(field_name="IsActive")
+    )
+    thematic_area: Optional[str] = field(
+        default=None, metadata=config(field_name="ThematicArea")
+    )
     objectives: Optional[List[str]] = field(
         default=None, metadata=config(field_name="Objectives")
     )
@@ -1274,6 +1292,12 @@ class ThreatReport:
         default=None, metadata=config(field_name="spec_version")
     )
     id: Optional[str] = field(default=None, metadata=config(field_name="id"))
+    report_type: Optional[str] = field(
+        default=None, metadata=config(field_name="reportType")
+    )
+    report_id: Optional[str] = field(
+        default=None, metadata=config(field_name="reportID")
+    )
     name: Optional[str] = field(default=None, metadata=config(field_name="name"))
     description: Optional[str] = field(
         default=None, metadata=config(field_name="description")
@@ -1407,6 +1431,45 @@ class ThreatWhereInput:
     vid: Optional[str] = field(default=None, metadata=config(field_name="vid"))
     vid_contains: Optional[str] = field(
         default=None, metadata=config(field_name="vid_contains")
+    )
+    target_sectors: Optional[str] = field(
+        default=None, metadata=config(field_name="targetSectors")
+    )
+    target_sectors_contains: Optional[str] = field(
+        default=None, metadata=config(field_name="targetSectors_contains")
+    )
+    aliases: Optional[str] = field(default=None, metadata=config(field_name="aliases"))
+    aliases_contains: Optional[str] = field(
+        default=None, metadata=config(field_name="aliases_contains")
+    )
+    thematic_area: Optional[str] = field(
+        default=None, metadata=config(field_name="thematicArea")
+    )
+    thematic_area_contains: Optional[str] = field(
+        default=None, metadata=config(field_name="thematicArea_contains")
+    )
+    status: Optional[str] = field(default=None, metadata=config(field_name="status"))
+    status_contains: Optional[str] = field(
+        default=None, metadata=config(field_name="status_contains")
+    )
+    objectives: Optional[str] = field(
+        default=None, metadata=config(field_name="objectives")
+    )
+    objectives_contains: Optional[str] = field(
+        default=None, metadata=config(field_name="objectives_contains")
+    )
+    tools: Optional[str] = field(default=None, metadata=config(field_name="tools"))
+    tools_contains: Optional[str] = field(
+        default=None, metadata=config(field_name="tools_contains")
+    )
+    report_type: Optional[str] = field(
+        default=None, metadata=config(field_name="reportType")
+    )
+    report_id: Optional[str] = field(
+        default=None, metadata=config(field_name="reportID")
+    )
+    report_id_contains: Optional[str] = field(
+        default=None, metadata=config(field_name="reportID_contains")
     )
     and_: Optional[List["ThreatWhereInput"]] = field(
         default=None, metadata=config(field_name="and")
@@ -2106,9 +2169,6 @@ class ThreatIntelligence:
     )
     intel: Optional[ThreatObjectIntelligence] = field(
         default=None, metadata=config(field_name="intel")
-    )
-    facets: Optional[List[Facet]] = field(
-        default=None, metadata=config(field_name="facets")
     )
     threat_object_type: Optional[Union[ThreatFacetObject, TaegisEnum]] = field(
         default=None,

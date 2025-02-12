@@ -1039,6 +1039,9 @@ class VdrVulnerabilitiesFiltersInputArgs:
     """VdrVulnerabilitiesFiltersInputArgs."""
 
     cve: Optional[List[str]] = field(default=None, metadata=config(field_name="cve"))
+    vulnerability_group_ids: Optional[List[str]] = field(
+        default=None, metadata=config(field_name="vulnerabilityGroupIds")
+    )
     severity: Optional[List[Union[VdrVulnerabilitySeverity, TaegisEnum]]] = field(
         default=None,
         metadata=config(

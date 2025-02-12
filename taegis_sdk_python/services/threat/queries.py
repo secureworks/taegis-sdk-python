@@ -342,9 +342,9 @@ class TaegisSDKThreatQuery:
 
     def threat_intelligence(
         self,
-        threat_object_type: Union[ThreatFacetObject, TaegisEnum],
+        object_type: Union[ThreatFacetObject, TaegisEnum],
+        filters: Optional[ThreatFilter] = None,
         page: Optional[ThreatPageInput] = None,
-        filter_: Optional[ThreatFilter] = None,
     ) -> ThreatIntelligence:
         """Retrieves all intelligence based on input threat object type and filters."""
         endpoint = "threatIntelligence"
@@ -352,9 +352,9 @@ class TaegisSDKThreatQuery:
         result = self.service.execute_query(
             endpoint=endpoint,
             variables={
+                "objectType": prepare_input(object_type),
+                "filters": prepare_input(filters),
                 "page": prepare_input(page),
-                "threatObjectType": prepare_input(threat_object_type),
-                "filter": prepare_input(filter_),
             },
             output=build_output_string(ThreatIntelligence),
         )
@@ -365,8 +365,9 @@ class TaegisSDKThreatQuery:
     def threat_facet_info(
         self,
         object_type: Union[ThreatFacetObject, TaegisEnum],
-        facets: Optional[List[str]] = None,
         filters: Optional[ThreatFilter] = None,
+        facets: Optional[List[str]] = None,
+        facet_objs: Optional[List[str]] = None,
     ) -> List[FacetInfo]:
         """Retrieves facet count based on object type and filters."""
         endpoint = "threatFacetInfo"
@@ -375,8 +376,9 @@ class TaegisSDKThreatQuery:
             endpoint=endpoint,
             variables={
                 "objectType": prepare_input(object_type),
-                "facets": prepare_input(facets),
                 "filters": prepare_input(filters),
+                "facets": prepare_input(facets),
+                "facetObjs": prepare_input(facet_objs),
             },
             output=build_output_string(FacetInfo),
         )

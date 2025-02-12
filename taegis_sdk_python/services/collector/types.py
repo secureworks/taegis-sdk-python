@@ -1153,7 +1153,9 @@ class DataCollector:
     )
     is_ha: Optional[bool] = field(default=None, metadata=config(field_name="isHa"))
     tenant: Optional[str] = field(default=None, metadata=config(field_name="tenant"))
-    nodes: Optional[NodeInfo] = field(default=None, metadata=config(field_name="nodes"))
+    nodes: Optional[List[NodeInfo]] = field(
+        default=None, metadata=config(field_name="nodes")
+    )
     applications: Optional[List[Deployment]] = field(
         default=None, metadata=config(field_name="applications")
     )

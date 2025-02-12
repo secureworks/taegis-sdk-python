@@ -273,36 +273,6 @@ class TaegisSDKUsersMutation:
             return ForgotPasswordResponse.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for mutation resetPassword")
 
-    def need_mfa_reset(self, email: str) -> ForgotPasswordResponse:
-        """Initiate the MFA reset workflow requested by a user."""
-        endpoint = "needMFAReset"
-
-        result = self.service.execute_mutation(
-            endpoint=endpoint,
-            variables={
-                "email": prepare_input(email),
-            },
-            output=build_output_string(ForgotPasswordResponse),
-        )
-        if result.get(endpoint) is not None:
-            return ForgotPasswordResponse.from_dict(result.get(endpoint))
-        raise GraphQLNoRowsInResultSetError("for mutation needMFAReset")
-
-    def reset_mfa(self, mfa_input: MFAResetInput) -> MFAResetResponse:
-        """Set/reset the password for the specified user."""
-        endpoint = "resetMFA"
-
-        result = self.service.execute_mutation(
-            endpoint=endpoint,
-            variables={
-                "mfaInput": prepare_input(mfa_input),
-            },
-            output=build_output_string(MFAResetResponse),
-        )
-        if result.get(endpoint) is not None:
-            return MFAResetResponse.from_dict(result.get(endpoint))
-        raise GraphQLNoRowsInResultSetError("for mutation resetMFA")
-
     def register_tdruser(
         self, registration_input: UserRegistrationInput
     ) -> MFAResetResponse:

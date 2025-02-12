@@ -463,7 +463,14 @@ class TDRUserTrialInviteInput:
 
     email: Optional[str] = field(default=None, metadata=config(field_name="email"))
     tenant_id: Optional[str] = field(
-        default=None, metadata=config(field_name="tenant_id")
+        default=None,
+        metadata=config(
+            metadata={
+                "deprecated": True,
+                "deprecation_reason": "deprecated since we dont create demo tenant any more",
+            },
+            field_name="tenant_id",
+        ),
     )
     language: Optional[Union[TDRUsersLanguage, TaegisEnum]] = field(
         default=None,
@@ -897,7 +904,14 @@ class TDRUser:
         default=None, metadata=config(field_name="secondary_phone_extension")
     )
     roles: Optional[List[str]] = field(
-        default=None, metadata=config(field_name="roles")
+        default=None,
+        metadata=config(
+            metadata={
+                "deprecated": True,
+                "deprecation_reason": "superseded by `role_assignments`",
+            },
+            field_name="roles",
+        ),
     )
     environments: Optional[List[str]] = field(
         default=None, metadata=config(field_name="environments")
@@ -929,10 +943,24 @@ class TDRUser:
         default=None, metadata=config(field_name="pre_verified")
     )
     tenants: Optional[List[TDRUserTenant]] = field(
-        default=None, metadata=config(field_name="tenants")
+        default=None,
+        metadata=config(
+            metadata={
+                "deprecated": True,
+                "deprecation_reason": "superseded by `role_assignments`",
+            },
+            field_name="tenants",
+        ),
     )
     tenants_v2: Optional[List[TDRUserTenantV2]] = field(
-        default=None, metadata=config(field_name="tenants_v2")
+        default=None,
+        metadata=config(
+            metadata={
+                "deprecated": True,
+                "deprecation_reason": "superseded by `role_assignments`",
+            },
+            field_name="tenants_v2",
+        ),
     )
     accessible_tenants: Optional[List[TDRUserAccessibleTenant]] = field(
         default=None, metadata=config(field_name="accessible_tenants")

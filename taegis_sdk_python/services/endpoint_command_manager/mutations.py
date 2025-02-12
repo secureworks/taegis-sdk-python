@@ -218,3 +218,18 @@ class TaegisSDKEndpointCommandManagerMutation:
         if result.get(endpoint) is not None:
             return Result.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for mutation deleteFile")
+
+    def insert_command_history(self, arguments: CommandHistoryInput) -> Result:
+        """insert command history."""
+        endpoint = "insertCommandHistory"
+
+        result = self.service.execute_mutation(
+            endpoint=endpoint,
+            variables={
+                "arguments": prepare_input(arguments),
+            },
+            output=build_output_string(Result),
+        )
+        if result.get(endpoint) is not None:
+            return Result.from_dict(result.get(endpoint))
+        raise GraphQLNoRowsInResultSetError("for mutation insertCommandHistory")
