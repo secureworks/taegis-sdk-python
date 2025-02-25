@@ -147,6 +147,10 @@ class TaegisSDKEndpointManagementServiceMutation:
         """update agent settings item."""
         endpoint = "updateAgentSetting"
 
+        log.warning(
+            f"GraphQL Mutation `{endpoint}` is deprecated: 'Use V2 api for update functionality'"
+        )
+
         result = self.service.execute_mutation(
             endpoint=endpoint,
             variables={
@@ -159,9 +163,31 @@ class TaegisSDKEndpointManagementServiceMutation:
             return AgentSetting.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for mutation updateAgentSetting")
 
+    def update_agent_setting_v2(
+        self, id_: str, input_: UpdateAgentSettingsInput
+    ) -> AgentSetting:
+        """update the default agent settings item."""
+        endpoint = "updateAgentSettingV2"
+
+        result = self.service.execute_mutation(
+            endpoint=endpoint,
+            variables={
+                "id": prepare_input(id_),
+                "input": prepare_input(input_),
+            },
+            output=build_output_string(AgentSetting),
+        )
+        if result.get(endpoint) is not None:
+            return AgentSetting.from_dict(result.get(endpoint))
+        raise GraphQLNoRowsInResultSetError("for mutation updateAgentSettingV2")
+
     def update_default_agent_setting(self, input_: AgentSettingsInput) -> AgentSetting:
         """update the default agent settings item."""
         endpoint = "updateDefaultAgentSetting"
+
+        log.warning(
+            f"GraphQL Mutation `{endpoint}` is deprecated: 'Use V2 api for update functionality'"
+        )
 
         result = self.service.execute_mutation(
             endpoint=endpoint,
@@ -173,6 +199,23 @@ class TaegisSDKEndpointManagementServiceMutation:
         if result.get(endpoint) is not None:
             return AgentSetting.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for mutation updateDefaultAgentSetting")
+
+    def update_default_agent_setting_v2(
+        self, input_: UpdateAgentSettingsInput
+    ) -> AgentSetting:
+        """delete agent settings item."""
+        endpoint = "updateDefaultAgentSettingV2"
+
+        result = self.service.execute_mutation(
+            endpoint=endpoint,
+            variables={
+                "input": prepare_input(input_),
+            },
+            output=build_output_string(AgentSetting),
+        )
+        if result.get(endpoint) is not None:
+            return AgentSetting.from_dict(result.get(endpoint))
+        raise GraphQLNoRowsInResultSetError("for mutation updateDefaultAgentSettingV2")
 
     def delete_agent_setting(self, id_: str) -> bool:
         """delete agent settings item."""

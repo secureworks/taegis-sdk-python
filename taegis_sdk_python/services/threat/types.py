@@ -469,6 +469,10 @@ class ThreatGroupInput:
     motivation: Optional[List[str]] = field(
         default=None, metadata=config(field_name="Motivation")
     )
+    region: Optional[str] = field(default=None, metadata=config(field_name="Region"))
+    target_geography: Optional[List[str]] = field(
+        default=None, metadata=config(field_name="TargetGeography")
+    )
     intended_effect: Optional[List[str]] = field(
         default=None, metadata=config(field_name="IntendedEffect")
     )
@@ -796,6 +800,21 @@ class ThreatReportInput:
     report_id: Optional[str] = field(
         default=None, metadata=config(field_name="reportID")
     )
+    category: Optional[str] = field(
+        default=None, metadata=config(field_name="category")
+    )
+    threat_type: Optional[str] = field(
+        default=None, metadata=config(field_name="threatType")
+    )
+    threat_actor_type: Optional[List[str]] = field(
+        default=None, metadata=config(field_name="threatActorType")
+    )
+    target_geography: Optional[List[str]] = field(
+        default=None, metadata=config(field_name="targetGeography")
+    )
+    target_sectors: Optional[List[str]] = field(
+        default=None, metadata=config(field_name="targetSectors")
+    )
     name: Optional[str] = field(default=None, metadata=config(field_name="name"))
     description: Optional[str] = field(
         default=None, metadata=config(field_name="description")
@@ -883,6 +902,10 @@ class ThreatGroup:
     )
     thematic_area: Optional[str] = field(
         default=None, metadata=config(field_name="ThematicArea")
+    )
+    region: Optional[str] = field(default=None, metadata=config(field_name="Region"))
+    target_geography: Optional[List[str]] = field(
+        default=None, metadata=config(field_name="TargetGeography")
     )
     objectives: Optional[List[str]] = field(
         default=None, metadata=config(field_name="Objectives")
@@ -1309,6 +1332,21 @@ class ThreatReport:
     published: Optional[str] = field(
         default=None, metadata=config(field_name="published")
     )
+    category: Optional[str] = field(
+        default=None, metadata=config(field_name="category")
+    )
+    threat_type: Optional[str] = field(
+        default=None, metadata=config(field_name="threatType")
+    )
+    threat_actor_type: Optional[List[str]] = field(
+        default=None, metadata=config(field_name="threatActorType")
+    )
+    target_geography: Optional[List[str]] = field(
+        default=None, metadata=config(field_name="targetGeography")
+    )
+    target_sectors: Optional[List[str]] = field(
+        default=None, metadata=config(field_name="targetSectors")
+    )
     object_refs: Optional[List[str]] = field(
         default=None, metadata=config(field_name="object_refs")
     )
@@ -1408,35 +1446,83 @@ class ThreatWhereInput:
     malware_contains: Optional[str] = field(
         default=None, metadata=config(field_name="malware_contains")
     )
-    tips: Optional[str] = field(default=None, metadata=config(field_name="tips"))
-    tips_contains: Optional[str] = field(
-        default=None, metadata=config(field_name="tips_contains")
+    cve: Optional[str] = field(default=None, metadata=config(field_name="cve"))
+    cve_contains: Optional[str] = field(
+        default=None, metadata=config(field_name="cve_contains")
     )
-    ta: Optional[str] = field(default=None, metadata=config(field_name="ta"))
-    ta_contains: Optional[str] = field(
-        default=None, metadata=config(field_name="ta_contains")
+    target_sectors_group: Optional[str] = field(
+        default=None, metadata=config(field_name="targetSectorsGroup")
     )
-    ca: Optional[str] = field(default=None, metadata=config(field_name="ca"))
-    ca_contains: Optional[str] = field(
-        default=None, metadata=config(field_name="ca_contains")
+    target_sectors_group_contains: Optional[str] = field(
+        default=None, metadata=config(field_name="targetSectorsGroup_contains")
+    )
+    target_sectors_report: Optional[str] = field(
+        default=None, metadata=config(field_name="targetSectorsReport")
+    )
+    target_sectors_report_contains: Optional[str] = field(
+        default=None, metadata=config(field_name="targetSectorsReport_contains")
+    )
+    motivation: Optional[str] = field(
+        default=None, metadata=config(field_name="motivation")
+    )
+    motivation_contains: Optional[str] = field(
+        default=None, metadata=config(field_name="motivation_contains")
+    )
+    region: Optional[str] = field(default=None, metadata=config(field_name="region"))
+    region_contains: Optional[str] = field(
+        default=None, metadata=config(field_name="region_contains")
+    )
+    target_geography_group: Optional[str] = field(
+        default=None, metadata=config(field_name="targetGeographyGroup")
+    )
+    target_geography_group_contains: Optional[str] = field(
+        default=None, metadata=config(field_name="targetGeographyGroup_contains")
+    )
+    target_geography_report: Optional[str] = field(
+        default=None, metadata=config(field_name="targetGeographyReport")
+    )
+    target_geography_report_contains: Optional[str] = field(
+        default=None, metadata=config(field_name="targetGeographyReport_contains")
+    )
+    type: Optional[str] = field(default=None, metadata=config(field_name="type"))
+    type_contains: Optional[str] = field(
+        default=None, metadata=config(field_name="type_contains")
+    )
+    category: Optional[str] = field(
+        default=None, metadata=config(field_name="category")
+    )
+    category_contains: Optional[str] = field(
+        default=None, metadata=config(field_name="category_contains")
+    )
+    threat_type: Optional[str] = field(
+        default=None, metadata=config(field_name="threatType")
+    )
+    threat_type_contains: Optional[str] = field(
+        default=None, metadata=config(field_name="threatType_contains")
+    )
+    threat_actor_type: Optional[str] = field(
+        default=None, metadata=config(field_name="threatActorType")
+    )
+    threat_actor_type_contains: Optional[str] = field(
+        default=None, metadata=config(field_name="threatActorType_contains")
+    )
+    status: Optional[str] = field(default=None, metadata=config(field_name="status"))
+    status_contains: Optional[str] = field(
+        default=None, metadata=config(field_name="status_contains")
+    )
+    objectives: Optional[str] = field(
+        default=None, metadata=config(field_name="objectives")
+    )
+    objectives_contains: Optional[str] = field(
+        default=None, metadata=config(field_name="objectives_contains")
     )
     country: Optional[str] = field(default=None, metadata=config(field_name="country"))
     country_contains: Optional[str] = field(
         default=None, metadata=config(field_name="country_contains")
     )
-    cve: Optional[str] = field(default=None, metadata=config(field_name="cve"))
-    cve_contains: Optional[str] = field(
-        default=None, metadata=config(field_name="cve_contains")
-    )
     vid: Optional[str] = field(default=None, metadata=config(field_name="vid"))
     vid_contains: Optional[str] = field(
         default=None, metadata=config(field_name="vid_contains")
-    )
-    target_sectors: Optional[str] = field(
-        default=None, metadata=config(field_name="targetSectors")
-    )
-    target_sectors_contains: Optional[str] = field(
-        default=None, metadata=config(field_name="targetSectors_contains")
     )
     aliases: Optional[str] = field(default=None, metadata=config(field_name="aliases"))
     aliases_contains: Optional[str] = field(
@@ -1448,15 +1534,17 @@ class ThreatWhereInput:
     thematic_area_contains: Optional[str] = field(
         default=None, metadata=config(field_name="thematicArea_contains")
     )
-    status: Optional[str] = field(default=None, metadata=config(field_name="status"))
-    status_contains: Optional[str] = field(
-        default=None, metadata=config(field_name="status_contains")
+    tips: Optional[str] = field(default=None, metadata=config(field_name="tips"))
+    tips_contains: Optional[str] = field(
+        default=None, metadata=config(field_name="tips_contains")
     )
-    objectives: Optional[str] = field(
-        default=None, metadata=config(field_name="objectives")
+    ta: Optional[str] = field(default=None, metadata=config(field_name="ta"))
+    ta_contains: Optional[str] = field(
+        default=None, metadata=config(field_name="ta_contains")
     )
-    objectives_contains: Optional[str] = field(
-        default=None, metadata=config(field_name="objectives_contains")
+    ca: Optional[str] = field(default=None, metadata=config(field_name="ca"))
+    ca_contains: Optional[str] = field(
+        default=None, metadata=config(field_name="ca_contains")
     )
     tools: Optional[str] = field(default=None, metadata=config(field_name="tools"))
     tools_contains: Optional[str] = field(

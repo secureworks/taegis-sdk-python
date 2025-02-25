@@ -65,6 +65,7 @@ class AgentSettingsProfile(str, Enum):
     """AgentSettingsProfile."""
 
     DEFAULT = "DEFAULT"
+    EARLY_ACCESS = "EARLY_ACCESS"
 
 
 @dataclass_json
@@ -737,6 +738,45 @@ class MaintenanceWindowDefaults:
     )
     windows: Optional[DailyWindows] = field(
         default=None, metadata=config(field_name="windows")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class UpdateAgentSettingsInput:
+    """UpdateAgentSettingsInput."""
+
+    name: Optional[str] = field(default=None, metadata=config(field_name="name"))
+    description: Optional[str] = field(
+        default=None, metadata=config(field_name="description")
+    )
+    channel: Optional[str] = field(default=None, metadata=config(field_name="channel"))
+    advanced_kernel_telemetry: Optional[AdvancedKernelTelemetryInput] = field(
+        default=None, metadata=config(field_name="advancedKernelTelemetry")
+    )
+    auto_archive: Optional[AutoArchiveInput] = field(
+        default=None, metadata=config(field_name="autoArchive")
+    )
+    file_analysis: Optional[BooleanSettingInput] = field(
+        default=None, metadata=config(field_name="fileAnalysis")
+    )
+    tamper_protection: Optional[BooleanSettingInput] = field(
+        default=None, metadata=config(field_name="tamperProtection")
+    )
+    ngav: Optional[NGAVInput] = field(default=None, metadata=config(field_name="ngav"))
+    policy_type: Optional[Union[PolicyType, TaegisEnum]] = field(
+        default=None,
+        metadata=config(
+            encoder=encode_enum,
+            decoder=lambda x: decode_enum(PolicyType, x),
+            field_name="policyType",
+        ),
+    )
+    maintenance_window: Optional[MaintenanceWindowInput] = field(
+        default=None, metadata=config(field_name="maintenanceWindow")
+    )
+    experimental_settings: Optional[List[ExperimentalSettingsInput]] = field(
+        default=None, metadata=config(field_name="experimentalSettings")
     )
 
 

@@ -598,13 +598,25 @@ class SAMLSSOConfiguration:
         default=None, metadata=config(field_name="metadataFileName")
     )
     signing_cert_name: Optional[str] = field(
-        default=None, metadata=config(field_name="signingCertName")
+        default=None,
+        metadata=config(
+            metadata={"deprecated": True, "deprecation_reason": "No longer supported"},
+            field_name="signingCertName",
+        ),
     )
     signing_cert: Optional[str] = field(
-        default=None, metadata=config(field_name="signingCert")
+        default=None,
+        metadata=config(
+            metadata={"deprecated": True, "deprecation_reason": "No longer supported"},
+            field_name="signingCert",
+        ),
     )
     sign_in_endpoint: Optional[str] = field(
-        default=None, metadata=config(field_name="signInEndpoint")
+        default=None,
+        metadata=config(
+            metadata={"deprecated": True, "deprecation_reason": "No longer supported"},
+            field_name="signInEndpoint",
+        ),
     )
 
 
@@ -930,6 +942,7 @@ class InternalSearchInputs:
     environment: Optional[Union[SSOEnvironment, TaegisEnum]] = field(
         default=None,
         metadata=config(
+            metadata={"deprecated": True, "deprecation_reason": "No longer supported"},
             encoder=encode_enum,
             decoder=lambda x: decode_enum(SSOEnvironment, x),
             field_name="environment",
@@ -938,6 +951,7 @@ class InternalSearchInputs:
     with_auth0_domain_type: Optional[Union[Auth0DomainType, TaegisEnum]] = field(
         default=None,
         metadata=config(
+            metadata={"deprecated": True, "deprecation_reason": "No longer supported"},
             encoder=encode_enum,
             decoder=lambda x: decode_enum(Auth0DomainType, x),
             field_name="withAuth0DomainType",
@@ -1134,6 +1148,7 @@ class UpdateSSOConnectionInput:
     auth0_domain_type: Optional[Union[Auth0DomainType, TaegisEnum]] = field(
         default=None,
         metadata=config(
+            metadata={"deprecated": True, "deprecation_reason": "No longer supported"},
             encoder=encode_enum,
             decoder=lambda x: decode_enum(Auth0DomainType, x),
             field_name="auth0DomainType",
@@ -1200,6 +1215,7 @@ class TenantSSOConnectionQueryInput:
     environment: Optional[Union[SSOEnvironment, TaegisEnum]] = field(
         default=None,
         metadata=config(
+            metadata={"deprecated": True, "deprecation_reason": "No longer supported"},
             encoder=encode_enum,
             decoder=lambda x: decode_enum(SSOEnvironment, x),
             field_name="environment",
@@ -1224,6 +1240,7 @@ class TenantSSOConnectionQueryInput:
     with_auth0_domain_type: Optional[Union[Auth0DomainType, TaegisEnum]] = field(
         default=None,
         metadata=config(
+            metadata={"deprecated": True, "deprecation_reason": "No longer supported"},
             encoder=encode_enum,
             decoder=lambda x: decode_enum(Auth0DomainType, x),
             field_name="withAuth0DomainType",
@@ -1265,6 +1282,7 @@ class NewSSOConnectionInput:
     auth0_domain_type: Optional[Union[Auth0DomainType, TaegisEnum]] = field(
         default=None,
         metadata=config(
+            metadata={"deprecated": True, "deprecation_reason": "No longer supported"},
             encoder=encode_enum,
             decoder=lambda x: decode_enum(Auth0DomainType, x),
             field_name="auth0DomainType",
@@ -1454,6 +1472,7 @@ class SSOConnection:
     auth0_domain_type: Optional[Union[Auth0DomainType, TaegisEnum]] = field(
         default=None,
         metadata=config(
+            metadata={"deprecated": True, "deprecation_reason": "No longer supported"},
             encoder=encode_enum,
             decoder=lambda x: decode_enum(Auth0DomainType, x),
             field_name="auth0DomainType",
