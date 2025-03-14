@@ -25,6 +25,7 @@ class AssetState(str, Enum):
     ARCHIVED = "Archived"
     ACTIVE = "Active"
     UNHEALTHY = "Unhealthy"
+    HEALTHY = "Healthy"
 
 
 class EndpointTypeV2(str, Enum):
@@ -1266,14 +1267,7 @@ class AssetV2:
         default=None, metadata=config(field_name="deletedAt")
     )
     last_seen_at: Optional[str] = field(
-        default=None,
-        metadata=config(
-            metadata={
-                "deprecated": True,
-                "deprecation_reason": "use connectionDetails.LastSeenAt",
-            },
-            field_name="lastSeenAt",
-        ),
+        default=None, metadata=config(field_name="lastSeenAt")
     )
     bios_serial: Optional[str] = field(
         default=None, metadata=config(field_name="biosSerial")

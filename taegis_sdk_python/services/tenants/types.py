@@ -45,6 +45,7 @@ class AuthzAction(str, Enum):
     DELETE = "Delete"
     APPROVE = "Approve"
     EXECUTE = "Execute"
+    REGISTER_DOMAIN = "RegisterDomain"
 
 
 class TenantType(str, Enum):
@@ -443,6 +444,36 @@ class TenantDecommissionAgentSummary:
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
+class RegisteredDomain:
+    """RegisteredDomain."""
+
+    id: Optional[str] = field(default=None, metadata=config(field_name="id"))
+    tenant_id: Optional[str] = field(
+        default=None, metadata=config(field_name="tenantID")
+    )
+    domain: Optional[str] = field(default=None, metadata=config(field_name="domain"))
+    verified: Optional[bool] = field(
+        default=None, metadata=config(field_name="verified")
+    )
+    verification_txt: Optional[str] = field(
+        default=None, metadata=config(field_name="verificationTxt")
+    )
+    created_at: Optional[str] = field(
+        default=None, metadata=config(field_name="createdAt")
+    )
+    updated_at: Optional[str] = field(
+        default=None, metadata=config(field_name="updatedAt")
+    )
+    created_by: Optional[str] = field(
+        default=None, metadata=config(field_name="createdBy")
+    )
+    updated_by: Optional[str] = field(
+        default=None, metadata=config(field_name="updatedBy")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
 class NewService:
     """NewService."""
 
@@ -692,6 +723,14 @@ class TenantDecommissionTaskDeferInput:
     defer_days: Optional[int] = field(
         default=None, metadata=config(field_name="deferDays")
     )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class RegisterDomainInput:
+    """RegisterDomainInput."""
+
+    domain: Optional[str] = field(default=None, metadata=config(field_name="domain"))
 
 
 @dataclass_json

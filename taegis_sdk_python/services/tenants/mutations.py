@@ -454,3 +454,18 @@ class TaegisSDKTenantsMutation:
         raise GraphQLNoRowsInResultSetError(
             "for mutation cancelTenantDecommissionRequest"
         )
+
+    def register_domain(self, input_: RegisterDomainInput) -> RegisteredDomain:
+        """Register a domain to the tenant."""
+        endpoint = "registerDomain"
+
+        result = self.service.execute_mutation(
+            endpoint=endpoint,
+            variables={
+                "input": prepare_input(input_),
+            },
+            output=build_output_string(RegisteredDomain),
+        )
+        if result.get(endpoint) is not None:
+            return RegisteredDomain.from_dict(result.get(endpoint))
+        raise GraphQLNoRowsInResultSetError("for mutation registerDomain")
