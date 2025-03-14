@@ -201,3 +201,18 @@ class TaegisSDKTenantsQuery:
                 [r or {} for r in result.get(endpoint)], many=True
             )
         raise GraphQLNoRowsInResultSetError("for query tenantDecommissionRequests")
+
+    def registered_domains(self) -> List[RegisteredDomain]:
+        """Return the list of registered domains for the tenant in context."""
+        endpoint = "registeredDomains"
+
+        result = self.service.execute_query(
+            endpoint=endpoint,
+            variables={},
+            output=build_output_string(RegisteredDomain),
+        )
+        if result.get(endpoint) is not None:
+            return RegisteredDomain.schema().load(
+                [r or {} for r in result.get(endpoint)], many=True
+            )
+        raise GraphQLNoRowsInResultSetError("for query registeredDomains")

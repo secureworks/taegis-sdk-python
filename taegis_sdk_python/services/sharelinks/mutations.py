@@ -46,3 +46,20 @@ class TaegisSDKSharelinksMutation:
         if result.get(endpoint) is not None:
             return ShareLink.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for mutation createShareLink")
+
+    def create_share_links(self, input_: List[ShareLinkCreateInput]) -> List[ShareLink]:
+        """Create multiple ShareLinks."""
+        endpoint = "createShareLinks"
+
+        result = self.service.execute_mutation(
+            endpoint=endpoint,
+            variables={
+                "input": prepare_input(input_),
+            },
+            output=build_output_string(ShareLink),
+        )
+        if result.get(endpoint) is not None:
+            return ShareLink.schema().load(
+                [r or {} for r in result.get(endpoint)], many=True
+            )
+        raise GraphQLNoRowsInResultSetError("for mutation createShareLinks")

@@ -403,6 +403,16 @@ class VdrScorePath:
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
+class VdrVulnerabilityAggregate:
+    """VdrVulnerabilityAggregate."""
+
+    count: Optional[int] = field(default=None, metadata=config(field_name="count"))
+    label: Optional[str] = field(default=None, metadata=config(field_name="label"))
+    value: Optional[str] = field(default=None, metadata=config(field_name="value"))
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
 class VdrAssetsFiltersInputArgs:
     """VdrAssetsFiltersInputArgs."""
 
@@ -881,22 +891,6 @@ class VdrVulnerability:
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
-class VdrVulnerabilityMetrics:
-    """VdrVulnerabilityMetrics."""
-
-    first_discovered: Optional[List[VdrSeriesGroup]] = field(
-        default=None, metadata=config(field_name="firstDiscovered")
-    )
-    last_seen: Optional[List[VdrSeriesGroup]] = field(
-        default=None, metadata=config(field_name="lastSeen")
-    )
-    score_path40: Optional[List[VdrScorePath]] = field(
-        default=None, metadata=config(field_name="scorePath40")
-    )
-
-
-@dataclass_json
-@dataclass(order=True, eq=True, frozen=True)
 class VdrAssetsInputArgs:
     """VdrAssetsInputArgs."""
 
@@ -1089,6 +1083,34 @@ class VdrVulnerabilitiesFiltersInputArgs:
             decoder=lambda x: decode_enum(VdrMetricsPeriod, x),
             field_name="period",
         ),
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class VdrVulnerabilityMetrics:
+    """VdrVulnerabilityMetrics."""
+
+    attack_class: Optional[List[VdrVulnerabilityAggregate]] = field(
+        default=None, metadata=config(field_name="attackClass")
+    )
+    exploitability: Optional[List[VdrVulnerabilityAggregate]] = field(
+        default=None, metadata=config(field_name="exploitability")
+    )
+    first_discovered: Optional[List[VdrSeriesGroup]] = field(
+        default=None, metadata=config(field_name="firstDiscovered")
+    )
+    last_seen: Optional[List[VdrSeriesGroup]] = field(
+        default=None, metadata=config(field_name="lastSeen")
+    )
+    score_path40: Optional[List[VdrScorePath]] = field(
+        default=None, metadata=config(field_name="scorePath40")
+    )
+    severity: Optional[List[VdrVulnerabilityAggregate]] = field(
+        default=None, metadata=config(field_name="severity")
+    )
+    threat_intel: Optional[List[VdrVulnerabilityAggregate]] = field(
+        default=None, metadata=config(field_name="threatIntel")
     )
 
 

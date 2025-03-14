@@ -35,7 +35,7 @@ class TaegisSDKAgentQuery:
     def agent_packages(
         self, args: Optional[PackageSearchInput] = None
     ) -> List[Package]:
-        """None."""
+        """search for agent packages ."""
         endpoint = "agentPackages"
 
         result = self.service.execute_query(
@@ -54,7 +54,7 @@ class TaegisSDKAgentQuery:
     def agent_package_signed_url(
         self, args: Optional[PackageDownloadInput] = None
     ) -> PackageSignedUrl:
-        """None."""
+        """get agent package via signed url ."""
         endpoint = "agentPackageSignedUrl"
 
         result = self.service.execute_query(
@@ -69,7 +69,7 @@ class TaegisSDKAgentQuery:
         raise GraphQLNoRowsInResultSetError("for query agentPackageSignedUrl")
 
     def agent_package_signed_url_by_id(self, id_: str) -> PackageSignedUrl:
-        """None."""
+        """get agent package by id via signed url ."""
         endpoint = "agentPackageSignedUrlByID"
 
         result = self.service.execute_query(
@@ -84,7 +84,7 @@ class TaegisSDKAgentQuery:
         raise GraphQLNoRowsInResultSetError("for query agentPackageSignedUrlByID")
 
     def available_channels(self) -> List[ReleaseChannelsConfig]:
-        """None."""
+        """get all available channels ."""
         endpoint = "availableChannels"
 
         result = self.service.execute_query(
