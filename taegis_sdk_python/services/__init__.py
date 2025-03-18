@@ -5,7 +5,7 @@ This needs to be a generated file.  Need to make jinja template.
 import logging
 import threading
 from ssl import SSLContext
-from typing import Any, Dict, Optional, Union, Literal
+from typing import Any, Dict, Literal, Optional, Union
 
 import aiohttp
 from aiohttp.client_reqrep import Fingerprint
@@ -53,6 +53,7 @@ from taegis_sdk_python.services.nl_search import NlSearchService
 from taegis_sdk_python.services.notebooks import NotebooksService
 from taegis_sdk_python.services.notifications import NotificationsService
 from taegis_sdk_python.services.preferences import PreferencesService
+from taegis_sdk_python.services.process_trees import ProcessTreesService
 from taegis_sdk_python.services.queries import QueriesService
 from taegis_sdk_python.services.roadrunner import RoadrunnerService
 from taegis_sdk_python.services.rules import RulesService
@@ -199,6 +200,7 @@ class GraphQLService:
         self._notebooks = None
         self._notifications = None
         self._preferences = None
+        self._process_trees = None
         self._queries = None
         self._roadrunner = None
         self._rules = None
@@ -609,6 +611,13 @@ class GraphQLService:
         if not self._preferences:
             self._preferences = PreferencesService(self)
         return self._preferences
+
+    @property
+    def process_tress(self):
+        """Preferences Service Endpoint."""
+        if not self._process_trees:
+            self._process_trees = ProcessTreesService(self)
+        return self._process_trees
 
     @property
     def queries(self):
