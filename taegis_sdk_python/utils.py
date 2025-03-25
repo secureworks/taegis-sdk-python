@@ -5,10 +5,11 @@ Taegis SDK Python General Utilities"""
 import asyncio
 import concurrent
 import logging
+from dataclasses import Field
 from dataclasses import fields as dc_fields
 from dataclasses import is_dataclass
 from enum import Enum, EnumMeta
-from typing import Any, Callable, Dict, Optional, Union
+from typing import Any, Callable, Dict, List, Optional, Union
 
 from graphql.language.ast import FieldNode
 from graphql.language.location import SourceLocation
@@ -16,9 +17,106 @@ from graphql.type import is_object_type, is_scalar_type
 from graphql.type import is_union_type as is_gql_union_type
 from graphql.type import is_wrapping_type
 from typing_inspect import get_args, is_union_type
+
 from taegis_sdk_python._consts import TaegisEnum
 
 log = logging.getLogger(__name__)
+
+
+def unwrap(t: Field) -> Any:
+    """Unwarp the provided fields
+
+        Example conversions:
+            Optional[str] -> str,
+            Optional[List[str]] -> str,
+            Optional[TDRUser] -> TDRUser,
+            Optional[SubjectIdentity] -> (TDRUser, Client),
+            Optional[List[List[Union[SubjectIdentity, str]]]] -> (TDRUser, Client, str)
+
+    Parameters
+    ----------
+    t : Field
+        DataClass Field
+
+    Returns
+    -------
+    Any
+    """
+
+    log.debug(f"Unwrapping {t=}")
+
+    # NoneType are added to Optional types
+    # TaegisEnum are SDK specific types to handle
+    # unknown Enum values returned from the API
+    #
+    # Neither of these need to be included to
+    # generate GraphQL strings sent to the server
+    args = [arg for arg in get_args(
+        t) if arg != type(None) and arg != TaegisEnum]
+
+    # Unwrap List[type]
+    if hasattr(t, "_name") and t._name == "List":  # pylint: disable=protected-access
+        log.debug(f"{t} is List...")
+        return unwrap(args[0])
+
+    if is_union_type(t):
+        log.debug(f"{t} is Union...")
+
+        # Unwrap Optional Type
+        if len(args) == 1:
+            return unwrap(args[0])
+
+        # Unwrap Full Union Type
+        return tuple(unwrap(a) for a in args)
+
+    log.debug(f"{t} is unwrapped...")
+    return t
+
+
+def build_output_dataclass(cls: Any) -> Any:
+    """Build Output String from Dataclass
+
+    Parameters
+    ----------
+    cls : Any
+        Python Class
+
+    Returns
+    -------
+    Any
+    """
+    output_fields = []
+    for field in dc_fields(cls):
+        log.debug(f"{field=}")
+        letter_case = field.metadata.get(
+            "dataclasses_json", {}).get("letter_case")
+        if letter_case:
+            field_name = letter_case(...)
+        else:
+            field_name = field.name
+
+        if field.metadata.get("deprecated"):
+            log.warning(
+                f"Output field `{field_name}` is deprecated: "
+                f"'{field.metadata.get('deprecation_reason')}', "
+                "removing from default output..."
+            )
+            continue
+
+        output_fields.append(field_name)
+
+        type_ = unwrap(field.type)
+        log.debug(f"{type_=}")
+
+        if is_dataclass(type_):
+            log.debug("Dataclass type detected, generating output string...")
+            output_fields.append(f"{{ {build_output_string(type_)} }}")
+            log.debug("Generating output string.  Done...")
+
+        else:
+            output_fields.append(build_output_string(type_))
+
+    return output_fields
 
 
 def build_output_string(cls) -> str:
@@ -35,48 +133,48 @@ def build_output_string(cls) -> str:
     str
         GraphQL Output
     """
-    if is_union_type(cls):
-        fragments = ["__typename"]
-        for item in get_args(cls):
-            output_string = _build_dataclass_string(item)
-            fragments.append(f"... on {item.__name__} {{{output_string}}}")
-        return "\n".join(fragments)
-
-    return _build_dataclass_string(cls)
-
-
-def _build_dataclass_string(cls) -> str:
-    """Build output string from a Dataclass."""
-
     output_fields = []
-    for field in dc_fields(cls):
-        letter_case = field.metadata.get("dataclasses_json", {}).get("letter_case")
-        if letter_case:
-            field_name = letter_case(...)
-        else:
-            field_name = field.name
 
-        if field.metadata.get("deprecated"):
-            log.warning(
-                f"Output field `{field_name}` is deprecated: "
-                f"'{field.metadata.get('deprecation_reason')}', "
-                "removing from default output..."
-            )
-            continue
+    if is_dataclass(cls):
+        log.debug(f"{cls} is dataclass...")
+        output_fields.extend(build_output_dataclass(cls))
 
-        output_fields.append(field_name)
+    elif is_union_type(cls):
+        log.debug(f"{cls} is union...")
+        output_fields.append("__typename")
+        for item in get_args(cls):
+            if item == type(None):
+                continue
+            output_string = build_output_string(item)
+            output_fields.append(
+                f"... on {item.__name__} {{ {output_string} }}")
 
-        # unwrap the field type
-        # example: Optional[List[List[Event]]]
-        # should submit Event for recursive iteration
-        type_ = field.type
-        while args := get_args(type_):
-            type_ = args[0]
+    elif isinstance(cls, (list, tuple)):
+        if len(cls) == 1:
+            return ""
 
-        if is_dataclass(type_):
-            output_fields.append(f"{{ {_build_dataclass_string(type_)} }}")
+        log.debug("List or Tuple type detected, generating output string...")
+        output_fields.append("{")
+        output_fields.append("__typename")
+        for item in cls:
+            if item == type(None):
+                continue
+            output_string = build_output_string(item)
+            output_fields.append(
+                f"... on {item.__name__} {{ {output_string} }}")
+        output_fields.append("}")
+        log.debug("Generating output string.  Done...")
 
-    return " ".join(output_fields)
+    else:
+        log.debug(f"{cls} is scalar...")
+
+        return ""
+
+    log.debug(f"{output_fields=}...")
+
+    output = " ".join(output_fields)
+
+    return " ".join(output.split())
 
 
 def graphql_unwrap_field(field: Any) -> Any:
@@ -137,7 +235,8 @@ def build_output_string_from_introspection(field: Any) -> str:
         fields.append(name)
         scalar = graphql_unwrap_field(gql_type)
         if is_object_type(scalar):
-            fields.append(f"{{ {build_output_string_from_introspection(scalar)} }}")
+            fields.append(
+                f"{{ {build_output_string_from_introspection(scalar)} }}")
     return " ".join(fields)
 
 
@@ -176,7 +275,8 @@ def prepare_input(value: Any) -> Any:
     """
     if is_dataclass(value):
         for field in dc_fields(value):
-            letter_case = field.metadata.get("dataclasses_json", {}).get("letter_case")
+            letter_case = field.metadata.get(
+                "dataclasses_json", {}).get("letter_case")
             if letter_case:
                 field_name = letter_case(...)
             else:
@@ -248,7 +348,7 @@ def prepare_variables(
     return {key: value for key, value in variables.items() if value is not None}
 
 
-def parse_union_result(union, result: Dict[str, Any]) -> Any:
+def parse_union_result(union, result: Union[List[Dict[str, Any]], Dict[str, Any]]) -> Any:
     """
     Coerse result into a type from union.
 
@@ -264,6 +364,8 @@ def parse_union_result(union, result: Dict[str, Any]) -> Any:
     Any
         Union of union types or result object
     """
+    if isinstance(result, list):
+        return [parse_union_result(union, item) for item in result]
     for item in get_args(union):
         if result.get("__typename") == item.__name__:
             return item.from_dict(result)

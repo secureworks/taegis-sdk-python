@@ -15,7 +15,7 @@ from dataclasses_json import config, dataclass_json
 
 
 from taegis_sdk_python._consts import TaegisEnum
-from taegis_sdk_python.utils import encode_enum, decode_enum
+from taegis_sdk_python.utils import encode_enum, decode_enum, parse_union_result
 
 
 class Effect(str, Enum):

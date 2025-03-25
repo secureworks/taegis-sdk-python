@@ -15,7 +15,7 @@ from dataclasses_json import config, dataclass_json
 
 
 from taegis_sdk_python._consts import TaegisEnum
-from taegis_sdk_python.utils import encode_enum, decode_enum
+from taegis_sdk_python.utils import encode_enum, decode_enum, parse_union_result
 
 
 class CheckAlias(str, Enum):
@@ -172,6 +172,13 @@ class TenantDecommissionTaskStatus(str, Enum):
     SCHEDULED = "SCHEDULED"
     ERROR = "ERROR"
     COMPLETED = "COMPLETED"
+
+
+class DomainVerificationMethod(str, Enum):
+    """DomainVerificationMethod."""
+
+    TXT_RECORD = "TXT_RECORD"
+    MANUAL_APPROVAL = "MANUAL_APPROVAL"
 
 
 @dataclass_json
@@ -930,6 +937,22 @@ class TenantUpdateInput:
     )
     environments: Optional[List[TenantEnvironmentUpdateInput]] = field(
         default=None, metadata=config(field_name="environments")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class VerifyRegisteredDomainInput:
+    """VerifyRegisteredDomainInput."""
+
+    domain: Optional[str] = field(default=None, metadata=config(field_name="domain"))
+    method: Optional[Union[DomainVerificationMethod, TaegisEnum]] = field(
+        default=None,
+        metadata=config(
+            encoder=encode_enum,
+            decoder=lambda x: decode_enum(DomainVerificationMethod, x),
+            field_name="method",
+        ),
     )
 
 

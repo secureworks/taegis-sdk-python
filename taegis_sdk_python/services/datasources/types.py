@@ -15,7 +15,7 @@ from dataclasses_json import config, dataclass_json
 
 
 from taegis_sdk_python._consts import TaegisEnum
-from taegis_sdk_python.utils import encode_enum, decode_enum
+from taegis_sdk_python.utils import encode_enum, decode_enum, parse_union_result
 
 
 class AuthzObject(str, Enum):
@@ -191,21 +191,6 @@ class ClusterIdentity:
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
-class FilterValues:
-    """FilterValues."""
-
-    filter: Optional[Union[FilterCriteria, TaegisEnum]] = field(
-        default=None,
-        metadata=config(
-            encoder=encode_enum,
-            decoder=lambda x: decode_enum(FilterCriteria, x),
-            field_name="filter",
-        ),
-    )
-
-
-@dataclass_json
-@dataclass(order=True, eq=True, frozen=True)
 class LastSeenAsset:
     """LastSeenAsset."""
 
@@ -292,3 +277,25 @@ FilterValueResponse = Union[
     FilterValue,
     ClusterIdentity,
 ]
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class FilterValues:
+    """FilterValues."""
+
+    filter: Optional[Union[FilterCriteria, TaegisEnum]] = field(
+        default=None,
+        metadata=config(
+            encoder=encode_enum,
+            decoder=lambda x: decode_enum(FilterCriteria, x),
+            field_name="filter",
+        ),
+    )
+    values: Optional[List[FilterValueResponse]] = field(
+        default=None,
+        metadata=config(
+            decoder=lambda x: parse_union_result(FilterValueResponse, x),
+            field_name="values",
+        ),
+    )

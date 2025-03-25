@@ -15,7 +15,7 @@ from dataclasses_json import config, dataclass_json
 
 
 from taegis_sdk_python._consts import TaegisEnum
-from taegis_sdk_python.utils import encode_enum, decode_enum
+from taegis_sdk_python.utils import encode_enum, decode_enum, parse_union_result
 
 
 class SubjectType(str, Enum):
@@ -23,6 +23,43 @@ class SubjectType(str, Enum):
 
     CLIENT_SUBJECT = "CLIENT_SUBJECT"
     USER_SUBJECT = "USER_SUBJECT"
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class TDRUser:
+    """TDRUser."""
+
+    id: Optional[str] = field(default=None, metadata=config(field_name="id"))
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class Client:
+    """Client."""
+
+    id: Optional[str] = field(default=None, metadata=config(field_name="id"))
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class SubjectSelector:
+    """SubjectSelector."""
+
+    with_types: Optional[List[Union[SubjectType, TaegisEnum]]] = field(
+        default=None,
+        metadata=config(
+            encoder=encode_enum,
+            decoder=lambda x: decode_enum(SubjectType, x),
+            field_name="withTypes",
+        ),
+    )
+
+
+SubjectIdentity = Union[
+    TDRUser,
+    Client,
+]
 
 
 @dataclass_json
@@ -55,22 +92,20 @@ class SubjectRoleAssignment:
     is_parent_role_assignment: Optional[bool] = field(
         default=None, metadata=config(field_name="isParentRoleAssignment")
     )
-
-
-@dataclass_json
-@dataclass(order=True, eq=True, frozen=True)
-class TDRUser:
-    """TDRUser."""
-
-    id: Optional[str] = field(default=None, metadata=config(field_name="id"))
-
-
-@dataclass_json
-@dataclass(order=True, eq=True, frozen=True)
-class Client:
-    """Client."""
-
-    id: Optional[str] = field(default=None, metadata=config(field_name="id"))
+    created_by: Optional[SubjectIdentity] = field(
+        default=None,
+        metadata=config(
+            decoder=lambda x: parse_union_result(SubjectIdentity, x),
+            field_name="createdBy",
+        ),
+    )
+    updated_by: Optional[SubjectIdentity] = field(
+        default=None,
+        metadata=config(
+            decoder=lambda x: parse_union_result(SubjectIdentity, x),
+            field_name="updatedBy",
+        ),
+    )
 
 
 @dataclass_json
@@ -111,24 +146,10 @@ class Subject:
     role_assignment_data: Optional[SubjectRoleAssignmentData] = field(
         default=None, metadata=config(field_name="roleAssignmentData")
     )
-
-
-@dataclass_json
-@dataclass(order=True, eq=True, frozen=True)
-class SubjectSelector:
-    """SubjectSelector."""
-
-    with_types: Optional[List[Union[SubjectType, TaegisEnum]]] = field(
+    identity: Optional[SubjectIdentity] = field(
         default=None,
         metadata=config(
-            encoder=encode_enum,
-            decoder=lambda x: decode_enum(SubjectType, x),
-            field_name="withTypes",
+            decoder=lambda x: parse_union_result(SubjectIdentity, x),
+            field_name="identity",
         ),
     )
-
-
-SubjectIdentity = Union[
-    TDRUser,
-    Client,
-]

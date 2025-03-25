@@ -15,7 +15,7 @@ from dataclasses_json import config, dataclass_json
 
 
 from taegis_sdk_python._consts import TaegisEnum
-from taegis_sdk_python.utils import encode_enum, decode_enum
+from taegis_sdk_python.utils import encode_enum, decode_enum, parse_union_result
 
 
 class AlertResolutionStatus(str, Enum):
@@ -1962,6 +1962,12 @@ class InvestigationV2:
     )
 
 
+InvestigationResource = Union[
+    InvestigationTemplate,
+    InvestigationRule,
+]
+
+
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
 class InvestigationTemplates:
@@ -2067,9 +2073,3 @@ class InvestigationsV2:
     metrics: Optional[Metrics] = field(
         default=None, metadata=config(field_name="metrics")
     )
-
-
-InvestigationResource = Union[
-    InvestigationTemplate,
-    InvestigationRule,
-]

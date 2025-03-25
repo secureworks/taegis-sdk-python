@@ -15,7 +15,7 @@ from dataclasses_json import config, dataclass_json
 
 
 from taegis_sdk_python._consts import TaegisEnum
-from taegis_sdk_python.utils import encode_enum, decode_enum
+from taegis_sdk_python.utils import encode_enum, decode_enum, parse_union_result
 
 
 class VdrSortOrder(str, Enum):
@@ -1187,6 +1187,10 @@ class VdrVulnerabilityDetails:
 class VdrVulnerabilityMetricsInputArgs:
     """VdrVulnerabilityMetricsInputArgs."""
 
+    host_id: Optional[str] = field(default=None, metadata=config(field_name="hostId"))
+    host_ids: Optional[List[str]] = field(
+        default=None, metadata=config(field_name="hostIds")
+    )
     filters: Optional[VdrVulnerabilitiesFiltersInputArgs] = field(
         default=None, metadata=config(field_name="filters")
     )

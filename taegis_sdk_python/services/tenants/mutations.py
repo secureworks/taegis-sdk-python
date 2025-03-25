@@ -469,3 +469,20 @@ class TaegisSDKTenantsMutation:
         if result.get(endpoint) is not None:
             return RegisteredDomain.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for mutation registerDomain")
+
+    def verify_registered_domain(
+        self, input_: VerifyRegisteredDomainInput
+    ) -> RegisteredDomain:
+        """Verify a registered domain for the tenant."""
+        endpoint = "verifyRegisteredDomain"
+
+        result = self.service.execute_mutation(
+            endpoint=endpoint,
+            variables={
+                "input": prepare_input(input_),
+            },
+            output=build_output_string(RegisteredDomain),
+        )
+        if result.get(endpoint) is not None:
+            return RegisteredDomain.from_dict(result.get(endpoint))
+        raise GraphQLNoRowsInResultSetError("for mutation verifyRegisteredDomain")

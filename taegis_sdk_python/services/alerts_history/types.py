@@ -15,7 +15,7 @@ from dataclasses_json import config, dataclass_json
 
 
 from taegis_sdk_python._consts import TaegisEnum
-from taegis_sdk_python.utils import encode_enum, decode_enum
+from taegis_sdk_python.utils import encode_enum, decode_enum, parse_union_result
 
 
 class AlertOperationType(str, Enum):
@@ -64,6 +64,16 @@ class ImprobableLogonDetail_FeatureName(str, Enum):
     COUNTRY = "COUNTRY"
     CITY = "CITY"
     ASN = "ASN"
+
+
+class EntityPerspective(str, Enum):
+    """EntityPerspective."""
+
+    UNKNOWN = "UNKNOWN"
+    SOURCE = "SOURCE"
+    TARGET = "TARGET"
+    BOUNDARY = "BOUNDARY"
+    BOTH = "BOTH"
 
 
 @dataclass_json
@@ -640,6 +650,585 @@ class Collection:
     """Collection."""
 
     id: Optional[str] = field(default=None, metadata=config(field_name="id"))
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class EntityAuthDomain:
+    """EntityAuthDomain."""
+
+    property_type: Optional[str] = field(
+        default=None, metadata=config(field_name="property_type")
+    )
+    auth_domain: Optional[str] = field(
+        default=None, metadata=config(field_name="auth_domain")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class EntityCertificate:
+    """EntityCertificate."""
+
+    property_type: Optional[str] = field(
+        default=None, metadata=config(field_name="property_type")
+    )
+    cert_issuer: Optional[str] = field(
+        default=None, metadata=config(field_name="cert_issuer")
+    )
+    cert_serial_number: Optional[str] = field(
+        default=None, metadata=config(field_name="cert_serial_number")
+    )
+    cert_issuer_c: Optional[str] = field(
+        default=None, metadata=config(field_name="cert_issuer_c")
+    )
+    cert_issuer_cn: Optional[str] = field(
+        default=None, metadata=config(field_name="cert_issuer_cn")
+    )
+    cert_issuer_e: Optional[str] = field(
+        default=None, metadata=config(field_name="cert_issuer_e")
+    )
+    cert_issuer_l: Optional[str] = field(
+        default=None, metadata=config(field_name="cert_issuer_l")
+    )
+    cert_issuer_o: Optional[str] = field(
+        default=None, metadata=config(field_name="cert_issuer_o")
+    )
+    cert_issuer_order: Optional[str] = field(
+        default=None, metadata=config(field_name="cert_issuer_order")
+    )
+    cert_issuer_ou: Optional[str] = field(
+        default=None, metadata=config(field_name="cert_issuer_ou")
+    )
+    cert_issuer_s: Optional[str] = field(
+        default=None, metadata=config(field_name="cert_issuer_s")
+    )
+    cert_ja3: Optional[str] = field(
+        default=None, metadata=config(field_name="cert_ja3")
+    )
+    cert_ja3s: Optional[str] = field(
+        default=None, metadata=config(field_name="cert_ja3s")
+    )
+    cert_subject: Optional[str] = field(
+        default=None, metadata=config(field_name="cert_subject")
+    )
+    cert_subject_c: Optional[str] = field(
+        default=None, metadata=config(field_name="cert_subject_c")
+    )
+    cert_subject_cn: Optional[str] = field(
+        default=None, metadata=config(field_name="cert_subject_cn")
+    )
+    cert_subject_e: Optional[str] = field(
+        default=None, metadata=config(field_name="cert_subject_e")
+    )
+    cert_subject_l: Optional[str] = field(
+        default=None, metadata=config(field_name="cert_subject_l")
+    )
+    cert_subject_o: Optional[str] = field(
+        default=None, metadata=config(field_name="cert_subject_o")
+    )
+    cert_subject_order: Optional[str] = field(
+        default=None, metadata=config(field_name="cert_subject_order")
+    )
+    cert_subject_ou: Optional[str] = field(
+        default=None, metadata=config(field_name="cert_subject_ou")
+    )
+    cert_subject_s: Optional[str] = field(
+        default=None, metadata=config(field_name="cert_subject_s")
+    )
+    cert_valid_from: Optional[str] = field(
+        default=None, metadata=config(field_name="cert_valid_from")
+    )
+    cert_valid_through: Optional[str] = field(
+        default=None, metadata=config(field_name="cert_valid_through")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class EntityCloudObject:
+    """EntityCloudObject."""
+
+    property_type: Optional[str] = field(
+        default=None, metadata=config(field_name="property_type")
+    )
+    cloud_object_bucket: Optional[str] = field(
+        default=None, metadata=config(field_name="cloud_object_bucket")
+    )
+    cloud_object_key: Optional[str] = field(
+        default=None, metadata=config(field_name="cloud_object_key")
+    )
+    cloud_object_prefix: Optional[str] = field(
+        default=None, metadata=config(field_name="cloud_object_prefix")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class EntityCloudResource:
+    """EntityCloudResource."""
+
+    property_type: Optional[str] = field(
+        default=None, metadata=config(field_name="property_type")
+    )
+    cloud_resource_account_id: Optional[str] = field(
+        default=None, metadata=config(field_name="cloud_resource_account_id")
+    )
+    cloud_resource_id: Optional[str] = field(
+        default=None, metadata=config(field_name="cloud_resource_id")
+    )
+    cloud_resource_type: Optional[str] = field(
+        default=None, metadata=config(field_name="cloud_resource_type")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class EntityCloudUser:
+    """EntityCloudUser."""
+
+    property_type: Optional[str] = field(
+        default=None, metadata=config(field_name="property_type")
+    )
+    cloud_user_id: Optional[str] = field(
+        default=None, metadata=config(field_name="cloud_user_id")
+    )
+    cloud_user_name: Optional[str] = field(
+        default=None, metadata=config(field_name="cloud_user_name")
+    )
+    cloud_user_type: Optional[str] = field(
+        default=None, metadata=config(field_name="cloud_user_type")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class EntityDnsServer:
+    """EntityDnsServer."""
+
+    property_type: Optional[str] = field(
+        default=None, metadata=config(field_name="property_type")
+    )
+    host_id: Optional[str] = field(default=None, metadata=config(field_name="host_id"))
+    ip_address: Optional[str] = field(
+        default=None, metadata=config(field_name="ip_address")
+    )
+    ip_address_type: Optional[str] = field(
+        default=None, metadata=config(field_name="ip_address_type")
+    )
+    ip_classification: Optional[str] = field(
+        default=None, metadata=config(field_name="ip_classification")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class EntityDomainName:
+    """EntityDomainName."""
+
+    property_type: Optional[str] = field(
+        default=None, metadata=config(field_name="property_type")
+    )
+    domain_name: Optional[str] = field(
+        default=None, metadata=config(field_name="domain_name")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class EntityEmail:
+    """EntityEmail."""
+
+    property_type: Optional[str] = field(
+        default=None, metadata=config(field_name="property_type")
+    )
+    email_message_id: Optional[str] = field(
+        default=None, metadata=config(field_name="email_message_id")
+    )
+    email_message_size: Optional[int] = field(
+        default=None, metadata=config(field_name="email_message_size")
+    )
+    email_quarantine_reason: Optional[str] = field(
+        default=None, metadata=config(field_name="email_quarantine_reason")
+    )
+    reply_to_email_address: Optional[str] = field(
+        default=None, metadata=config(field_name="reply_to_email_address")
+    )
+    vendor_alert_url: Optional[str] = field(
+        default=None, metadata=config(field_name="vendor_alert_url")
+    )
+    vendor_email_spam_score: Optional[int] = field(
+        default=None, metadata=config(field_name="vendor_email_spam_score")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class EntityEmailAddress:
+    """EntityEmailAddress."""
+
+    property_type: Optional[str] = field(
+        default=None, metadata=config(field_name="property_type")
+    )
+    email_address: Optional[str] = field(
+        default=None, metadata=config(field_name="email_address")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class EntityFile:
+    """EntityFile."""
+
+    property_type: Optional[str] = field(
+        default=None, metadata=config(field_name="property_type")
+    )
+    file_name: Optional[str] = field(
+        default=None, metadata=config(field_name="file_name")
+    )
+    file_path: Optional[str] = field(
+        default=None, metadata=config(field_name="file_path")
+    )
+    host_id: Optional[str] = field(default=None, metadata=config(field_name="host_id"))
+    email_attachment_sandbox_status: Optional[str] = field(
+        default=None, metadata=config(field_name="email_attachment_sandbox_status")
+    )
+    file_create_time: Optional[int] = field(
+        default=None, metadata=config(field_name="file_create_time")
+    )
+    file_group_owner: Optional[str] = field(
+        default=None, metadata=config(field_name="file_group_owner")
+    )
+    file_modified_time: Optional[int] = field(
+        default=None, metadata=config(field_name="file_modified_time")
+    )
+    file_owner: Optional[str] = field(
+        default=None, metadata=config(field_name="file_owner")
+    )
+    file_size: Optional[int] = field(
+        default=None, metadata=config(field_name="file_size")
+    )
+    file_type: Optional[str] = field(
+        default=None, metadata=config(field_name="file_type")
+    )
+    file_type_detected: Optional[str] = field(
+        default=None, metadata=config(field_name="file_type_detected")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class EntityFileHash:
+    """EntityFileHash."""
+
+    property_type: Optional[str] = field(
+        default=None, metadata=config(field_name="property_type")
+    )
+    hash_type: Optional[str] = field(
+        default=None, metadata=config(field_name="hash_type")
+    )
+    hash_value: Optional[str] = field(
+        default=None, metadata=config(field_name="hash_value")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class EntityFunction:
+    """EntityFunction."""
+
+    property_type: Optional[str] = field(
+        default=None, metadata=config(field_name="property_type")
+    )
+    function_name: Optional[str] = field(
+        default=None, metadata=config(field_name="function_name")
+    )
+    host_id: Optional[str] = field(default=None, metadata=config(field_name="host_id"))
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class EntityHost:
+    """EntityHost."""
+
+    property_type: Optional[str] = field(
+        default=None, metadata=config(field_name="property_type")
+    )
+    computer_name: Optional[str] = field(
+        default=None, metadata=config(field_name="computer_name")
+    )
+    host_id: Optional[str] = field(default=None, metadata=config(field_name="host_id"))
+    hostname: Optional[str] = field(
+        default=None, metadata=config(field_name="hostname")
+    )
+    hostname_fqdn: Optional[str] = field(
+        default=None, metadata=config(field_name="hostname_fqdn")
+    )
+    mac_address: Optional[str] = field(
+        default=None, metadata=config(field_name="mac_address")
+    )
+    os: Optional[str] = field(default=None, metadata=config(field_name="os"))
+    os_arch: Optional[str] = field(default=None, metadata=config(field_name="os_arch"))
+    vendor_agent_device_id: Optional[str] = field(
+        default=None, metadata=config(field_name="vendor_agent_device_id")
+    )
+    vendor_agent_device_score: Optional[int] = field(
+        default=None, metadata=config(field_name="vendor_agent_device_score")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class EntityIpAddress:
+    """EntityIpAddress."""
+
+    property_type: Optional[str] = field(
+        default=None, metadata=config(field_name="property_type")
+    )
+    host_id: Optional[str] = field(default=None, metadata=config(field_name="host_id"))
+    ip_address: Optional[str] = field(
+        default=None, metadata=config(field_name="ip_address")
+    )
+    asn: Optional[int] = field(default=None, metadata=config(field_name="asn"))
+    hostname: Optional[str] = field(
+        default=None, metadata=config(field_name="hostname")
+    )
+    ip_address_type: Optional[str] = field(
+        default=None, metadata=config(field_name="ip_address_type")
+    )
+    ip_classification: Optional[str] = field(
+        default=None, metadata=config(field_name="ip_classification")
+    )
+    is_nat_ip: Optional[bool] = field(
+        default=None, metadata=config(field_name="is_nat_ip")
+    )
+    ip_geo_auto_system_org: Optional[str] = field(
+        default=None, metadata=config(field_name="ip_geo_auto_system_org")
+    )
+    ip_geo_city_name: Optional[str] = field(
+        default=None, metadata=config(field_name="ip_geo_city_name")
+    )
+    ip_geo_continent_code: Optional[str] = field(
+        default=None, metadata=config(field_name="ip_geo_continent_code")
+    )
+    ip_geo_country_code: Optional[str] = field(
+        default=None, metadata=config(field_name="ip_geo_country_code")
+    )
+    ip_geo_country_geoname_id: Optional[int] = field(
+        default=None, metadata=config(field_name="ip_geo_country_geoname_id")
+    )
+    ip_geo_latitude: Optional[float] = field(
+        default=None, metadata=config(field_name="ip_geo_latitude")
+    )
+    ip_geo_longitude: Optional[float] = field(
+        default=None, metadata=config(field_name="ip_geo_longitude")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class EntityProcess:
+    """EntityProcess."""
+
+    property_type: Optional[str] = field(
+        default=None, metadata=config(field_name="property_type")
+    )
+    process_correlation_id: Optional[str] = field(
+        default=None, metadata=config(field_name="process_correlation_id")
+    )
+    process_id: Optional[str] = field(
+        default=None, metadata=config(field_name="process_id")
+    )
+    process_name: Optional[str] = field(
+        default=None, metadata=config(field_name="process_name")
+    )
+    process_uuid: Optional[str] = field(
+        default=None, metadata=config(field_name="process_uuid")
+    )
+    host_id: Optional[str] = field(default=None, metadata=config(field_name="host_id"))
+    process_create_time: Optional[int] = field(
+        default=None, metadata=config(field_name="process_create_time")
+    )
+    process_image_path: Optional[str] = field(
+        default=None, metadata=config(field_name="process_image_path")
+    )
+    process_is_admin: Optional[bool] = field(
+        default=None, metadata=config(field_name="process_is_admin")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class EntityRegistryKey:
+    """EntityRegistryKey."""
+
+    property_type: Optional[str] = field(
+        default=None, metadata=config(field_name="property_type")
+    )
+    host_id: Optional[str] = field(default=None, metadata=config(field_name="host_id"))
+    registry_path: Optional[str] = field(
+        default=None, metadata=config(field_name="registry_path")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class EntityScheduledTask:
+    """EntityScheduledTask."""
+
+    property_type: Optional[str] = field(
+        default=None, metadata=config(field_name="property_type")
+    )
+    host_id: Optional[str] = field(default=None, metadata=config(field_name="host_id"))
+    task_name: Optional[str] = field(
+        default=None, metadata=config(field_name="task_name")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class EntityScript:
+    """EntityScript."""
+
+    property_type: Optional[str] = field(
+        default=None, metadata=config(field_name="property_type")
+    )
+    hash_value: Optional[str] = field(
+        default=None, metadata=config(field_name="hash_value")
+    )
+    host_id: Optional[str] = field(default=None, metadata=config(field_name="host_id"))
+    script_name: Optional[str] = field(
+        default=None, metadata=config(field_name="script_name")
+    )
+    interpreter: Optional[str] = field(
+        default=None, metadata=config(field_name="interpreter")
+    )
+    is_truncated: Optional[bool] = field(
+        default=None, metadata=config(field_name="is_truncated")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class EntityService:
+    """EntityService."""
+
+    property_type: Optional[str] = field(
+        default=None, metadata=config(field_name="property_type")
+    )
+    host_id: Optional[str] = field(default=None, metadata=config(field_name="host_id"))
+    service_dll: Optional[str] = field(
+        default=None, metadata=config(field_name="service_dll")
+    )
+    service_main: Optional[str] = field(
+        default=None, metadata=config(field_name="service_main")
+    )
+    service_name: Optional[str] = field(
+        default=None, metadata=config(field_name="service_name")
+    )
+    service_start_type: Optional[int] = field(
+        default=None, metadata=config(field_name="service_start_type")
+    )
+    service_type: Optional[int] = field(
+        default=None, metadata=config(field_name="service_type")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class EntityTaskAction:
+    """EntityTaskAction."""
+
+    property_type: Optional[str] = field(
+        default=None, metadata=config(field_name="property_type")
+    )
+    host_id: Optional[str] = field(default=None, metadata=config(field_name="host_id"))
+    task_action_id: Optional[str] = field(
+        default=None, metadata=config(field_name="task_action_id")
+    )
+    task_action_path: Optional[str] = field(
+        default=None, metadata=config(field_name="task_action_path")
+    )
+    task_action_args: Optional[str] = field(
+        default=None, metadata=config(field_name="task_action_args")
+    )
+    task_action_class_id: Optional[str] = field(
+        default=None, metadata=config(field_name="task_action_class_id")
+    )
+    task_action_type: Optional[str] = field(
+        default=None, metadata=config(field_name="task_action_type")
+    )
+    task_action_working_directory: Optional[str] = field(
+        default=None, metadata=config(field_name="task_action_working_directory")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class EntityUser:
+    """EntityUser."""
+
+    property_type: Optional[str] = field(
+        default=None, metadata=config(field_name="property_type")
+    )
+    auth_domain: Optional[str] = field(
+        default=None, metadata=config(field_name="auth_domain")
+    )
+    computer_name: Optional[str] = field(
+        default=None, metadata=config(field_name="computer_name")
+    )
+    domain_name: Optional[str] = field(
+        default=None, metadata=config(field_name="domain_name")
+    )
+    group: Optional[str] = field(default=None, metadata=config(field_name="group"))
+    host_id: Optional[str] = field(default=None, metadata=config(field_name="host_id"))
+    user_id: Optional[str] = field(default=None, metadata=config(field_name="user_id"))
+    user_name: Optional[str] = field(
+        default=None, metadata=config(field_name="user_name")
+    )
+    cloud_user_type: Optional[str] = field(
+        default=None, metadata=config(field_name="cloud_user_type")
+    )
+    original_user_name: Optional[str] = field(
+        default=None, metadata=config(field_name="original_user_name")
+    )
+    user_is_admin: Optional[bool] = field(
+        default=None, metadata=config(field_name="user_is_admin")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class EntityUrl:
+    """EntityUrl."""
+
+    property_type: Optional[str] = field(
+        default=None, metadata=config(field_name="property_type")
+    )
+    full_url: Optional[str] = field(
+        default=None, metadata=config(field_name="full_url")
+    )
+    uri_scheme: Optional[str] = field(
+        default=None, metadata=config(field_name="uri_scheme")
+    )
+    uri_host: Optional[str] = field(
+        default=None, metadata=config(field_name="uri_host")
+    )
+    uri_path: Optional[str] = field(
+        default=None, metadata=config(field_name="uri_path")
+    )
+    uri_query: Optional[str] = field(
+        default=None, metadata=config(field_name="uri_query")
+    )
+    uri_fragment: Optional[str] = field(
+        default=None, metadata=config(field_name="uri_fragment")
+    )
+    uri_port: Optional[str] = field(
+        default=None, metadata=config(field_name="uri_port")
+    )
+    uri_userinfo: Optional[str] = field(
+        default=None, metadata=config(field_name="uri_userinfo")
+    )
 
 
 @dataclass_json
@@ -1267,6 +1856,32 @@ class AlertSnapshotMetadata:
     )
 
 
+Properties = Union[
+    EntityAuthDomain,
+    EntityCertificate,
+    EntityCloudObject,
+    EntityCloudResource,
+    EntityCloudUser,
+    EntityDnsServer,
+    EntityDomainName,
+    EntityEmail,
+    EntityEmailAddress,
+    EntityFile,
+    EntityFileHash,
+    EntityFunction,
+    EntityHost,
+    EntityIpAddress,
+    EntityProcess,
+    EntityRegistryKey,
+    EntityScheduledTask,
+    EntityScript,
+    EntityService,
+    EntityTaskAction,
+    EntityUser,
+    EntityUrl,
+]
+
+
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
 class GenericDetail:
@@ -1338,6 +1953,31 @@ class ThirdPartyDetail:
 
     generic: Optional[GenericDetail] = field(
         default=None, metadata=config(field_name="generic")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class StructuredEntity:
+    """StructuredEntity."""
+
+    id: Optional[str] = field(default=None, metadata=config(field_name="id"))
+    identifiers: Optional[List[str]] = field(
+        default=None, metadata=config(field_name="identifiers")
+    )
+    perspective: Optional[Union[EntityPerspective, TaegisEnum]] = field(
+        default=None,
+        metadata=config(
+            encoder=encode_enum,
+            decoder=lambda x: decode_enum(EntityPerspective, x),
+            field_name="perspective",
+        ),
+    )
+    properties: Optional[Properties] = field(
+        default=None,
+        metadata=config(
+            decoder=lambda x: parse_union_result(Properties, x), field_name="properties"
+        ),
     )
 
 
@@ -1490,6 +2130,12 @@ class AlertSnapshot:
     threat_score: Optional[float] = field(
         default=None, metadata=config(field_name="threat_score")
     )
+    threat_score_v2: Optional[float] = field(
+        default=None, metadata=config(field_name="threat_score_v2")
+    )
+    observation: Optional[bool] = field(
+        default=None, metadata=config(field_name="observation")
+    )
     metadata: Optional[AlertSnapshotMetadata] = field(
         default=None, metadata=config(field_name="metadata")
     )
@@ -1532,6 +2178,12 @@ class AlertSnapshot:
     )
     key_entities: Optional[List[EntityMetadata]] = field(
         default=None, metadata=config(field_name="key_entities")
+    )
+    source_entities: Optional[List[StructuredEntity]] = field(
+        default=None, metadata=config(field_name="source_entities")
+    )
+    target_entities: Optional[List[StructuredEntity]] = field(
+        default=None, metadata=config(field_name="target_entities")
     )
     event_ids: Optional[List[AuxiliaryEvent]] = field(
         default=None, metadata=config(field_name="event_ids")

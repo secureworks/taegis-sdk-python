@@ -15,7 +15,7 @@ from dataclasses_json import config, dataclass_json
 
 
 from taegis_sdk_python._consts import TaegisEnum
-from taegis_sdk_python.utils import encode_enum, decode_enum
+from taegis_sdk_python.utils import encode_enum, decode_enum, parse_union_result
 
 
 class ThreatFacetObject(str, Enum):
@@ -2114,6 +2114,14 @@ class ThreatIndicator:
     )
 
 
+ThreatResult = Union[
+    ThreatIdentity,
+    ThreatIndicator,
+    ThreatMalware,
+    ThreatRelationship,
+]
+
+
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
 class ThreatFilter:
@@ -2266,11 +2274,3 @@ class ThreatIntelligence:
             field_name="threatObjectType",
         ),
     )
-
-
-ThreatResult = Union[
-    ThreatIdentity,
-    ThreatIndicator,
-    ThreatMalware,
-    ThreatRelationship,
-]

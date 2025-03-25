@@ -15,7 +15,7 @@ from dataclasses_json import config, dataclass_json
 
 
 from taegis_sdk_python._consts import TaegisEnum
-from taegis_sdk_python.utils import encode_enum, decode_enum
+from taegis_sdk_python.utils import encode_enum, decode_enum, parse_union_result
 
 
 class AggregateAlertsBySeverityInput_GroupBy(str, Enum):
@@ -1983,25 +1983,6 @@ class DeleteAlertsResponse:
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
-class StructuredEntity:
-    """StructuredEntity."""
-
-    id: Optional[str] = field(default=None, metadata=config(field_name="id"))
-    identifiers: Optional[List[str]] = field(
-        default=None, metadata=config(field_name="identifiers")
-    )
-    perspective: Optional[Union[EntityPerspective, TaegisEnum]] = field(
-        default=None,
-        metadata=config(
-            encoder=encode_enum,
-            decoder=lambda x: decode_enum(EntityPerspective, x),
-            field_name="perspective",
-        ),
-    )
-
-
-@dataclass_json
-@dataclass(order=True, eq=True, frozen=True)
 class EvictResponse:
     """EvictResponse."""
 
@@ -2825,6 +2806,32 @@ class AlertsMetadata:
     )
 
 
+Properties = Union[
+    EntityAuthDomain,
+    EntityCertificate,
+    EntityCloudObject,
+    EntityCloudResource,
+    EntityCloudUser,
+    EntityDnsServer,
+    EntityDomainName,
+    EntityEmail,
+    EntityEmailAddress,
+    EntityFile,
+    EntityFileHash,
+    EntityFunction,
+    EntityHost,
+    EntityIpAddress,
+    EntityProcess,
+    EntityRegistryKey,
+    EntityScheduledTask,
+    EntityScript,
+    EntityService,
+    EntityTaskAction,
+    EntityUser,
+    EntityUrl,
+]
+
+
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
 class GeoSummary_City:
@@ -2937,6 +2944,31 @@ class BulkInvestigationsResponse:
                 "deprecation_reason": "data no longer exists",
             },
             field_name="access_vector_info",
+        ),
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class StructuredEntity:
+    """StructuredEntity."""
+
+    id: Optional[str] = field(default=None, metadata=config(field_name="id"))
+    identifiers: Optional[List[str]] = field(
+        default=None, metadata=config(field_name="identifiers")
+    )
+    perspective: Optional[Union[EntityPerspective, TaegisEnum]] = field(
+        default=None,
+        metadata=config(
+            encoder=encode_enum,
+            decoder=lambda x: decode_enum(EntityPerspective, x),
+            field_name="perspective",
+        ),
+    )
+    properties: Optional[Properties] = field(
+        default=None,
+        metadata=config(
+            decoder=lambda x: parse_union_result(Properties, x), field_name="properties"
         ),
     )
 
@@ -3260,29 +3292,3 @@ class AlertsResponse:
     alerts: Optional[AlertsList] = field(
         default=None, metadata=config(field_name="alerts")
     )
-
-
-Properties = Union[
-    EntityAuthDomain,
-    EntityCertificate,
-    EntityCloudObject,
-    EntityCloudResource,
-    EntityCloudUser,
-    EntityDnsServer,
-    EntityDomainName,
-    EntityEmail,
-    EntityEmailAddress,
-    EntityFile,
-    EntityFileHash,
-    EntityFunction,
-    EntityHost,
-    EntityIpAddress,
-    EntityProcess,
-    EntityRegistryKey,
-    EntityScheduledTask,
-    EntityScript,
-    EntityService,
-    EntityTaskAction,
-    EntityUser,
-    EntityUrl,
-]
