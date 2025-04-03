@@ -3159,7 +3159,14 @@ class Alert2:
         default=None, metadata=config(field_name="threat_score_v2")
     )
     observation: Optional[bool] = field(
-        default=None, metadata=config(field_name="observation")
+        default=None,
+        metadata=config(
+            metadata={
+                "deprecated": True,
+                "deprecation_reason": "use threat_score_v2 value instead",
+            },
+            field_name="observation",
+        ),
     )
     metadata: Optional[AlertsMetadata] = field(
         default=None, metadata=config(field_name="metadata")

@@ -838,6 +838,9 @@ class ThreatReportInput:
 class FacetInfo:
     """FacetInfo."""
 
+    display_name: Optional[str] = field(
+        default=None, metadata=config(field_name="displayName")
+    )
     facet: Optional[str] = field(default=None, metadata=config(field_name="facet"))
     fields: Optional[List[FacetFieldInfo]] = field(
         default=None, metadata=config(field_name="fields")
