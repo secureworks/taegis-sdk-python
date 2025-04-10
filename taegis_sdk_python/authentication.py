@@ -5,19 +5,16 @@ Authenication implementations for Taegis.
 
 import logging
 import os
-from getpass import getpass
-from time import time
-from typing import Any, Dict, Tuple, Union, Optional
 import threading
+from time import time
+from typing import Optional, Tuple, Union
 
 from oauthlib.oauth2 import BackendApplicationClient
 from requests import HTTPError, post
 from requests_oauthlib import OAuth2Session
+
 from taegis_sdk_python.config import get_config, write_to_config
-from taegis_sdk_python.errors import (
-    InvalidAuthenticationMethod,
-    MissingAccessTokenError,
-)
+from taegis_sdk_python.errors import MissingAccessTokenError
 from taegis_sdk_python.tokens import get_token_exp
 
 try:
@@ -28,34 +25,6 @@ except ImportError:  # pragma: no cover
 logger = logging.getLogger(__name__)
 
 LOCK = threading.RLock()
-
-
-def check_username(
-    request_url: str, username: str
-) -> Dict[str, Any]:  # pragma: no cover
-    """Check if the user needs to login via password or sso.
-
-    Parameters
-    ----------
-    request_url : str
-        Taegis Environment URL
-    username : str
-        Username
-
-    Returns
-    -------
-    Dict[str, Any]
-        JSON response from username check
-    """
-    logger.debug("Checking login type for username...")
-    userlogin_endpoint = "/auth/userLogin"
-
-    response = post(
-        f"{request_url}{userlogin_endpoint}", json={"username": username}, timeout=300
-    )
-    logger.debug(response)
-
-    return response.json()
 
 
 def get_oauth_from_env(environment: str) -> Tuple[Optional[str], Optional[str]]:
@@ -116,28 +85,10 @@ def get_token(environment: str, request_url: str) -> str:  # pragma: no cover
                         request_url, client_id, client_secret
                     )
                 else:
-                    username = input("Username: ")
-                    response = check_username(request_url, username)
-                    external_provider = response.get("external_provider")
+                    access_token = get_token_by_device_code_authorization(request_url)
 
-                    if (
-                        response.get("login_type") == "username-password"
-                        and external_provider != "COGNITO"
-                    ):
-                        access_token = get_token_by_password_grant(
-                            request_url, username
-                        )
-                    elif (
-                        response.get("login_type") == "sso"
-                        or external_provider == "COGNITO"
-                    ):
-                        access_token = get_token_by_device_code_authorization(
-                            request_url, external_provider
-                        )
-                    else:
-                        raise InvalidAuthenticationMethod(
-                            message="No known authentication method for user"
-                        )
+                if not access_token:
+                    raise MissingAccessTokenError(message="Access token ")
 
                 write_to_config(environment, "access_token", access_token)
 
@@ -148,11 +99,14 @@ def get_cached_token(env: str) -> Union[str, None]:  # pragma: no cover
     """Get cached token from config file."""
     config = get_config()
 
+    logger.debug(f"Checking for cached token in config for {env}...")
     # check for token and expiry in config
     token = str(config.get(env, "access_token", fallback=""))
     if token and get_token_exp(token) >= int(time()) + 15:
+        logger.debug(f"Token found in config and not expired for {env}...")
         return token
 
+    logger.debug(f"Token not found in config or expired for {env}...")
     return None
 
 
@@ -198,82 +152,8 @@ def get_token_by_oauth(
     return access_token
 
 
-def get_token_by_password_grant(
-    request_url: str,
-    username: str,
-    password: Optional[str] = None,
-) -> str:  # pragma: no cover
-    """Get an access token by username/password with mfa.
-
-    Parameters
-    ----------
-    request_url : str
-        Endpoint URL for Taegis environment
-    username : str
-        User to authenticate
-
-    Returns
-    -------
-    str
-        Access token
-
-    Raises
-    ------
-    requests.HTTPError
-        Any issue with retrieving token via HTTP
-    """
-    auth_uri = "/universal-auth/token"
-
-    if not password:
-        password = getpass("Password: ")
-
-    response = post(
-        f"{request_url}{auth_uri}",
-        json={"username": username, "password": password, "grant_type": "password"},
-        timeout=300,
-    )
-
-    if access_token := response.json().get("access_token"):
-        return access_token
-
-    try:
-        mfa_token = response.json().get("mfa_token")
-    except JSONDecodeError as exc:
-        raise HTTPError(response.text, response=response) from exc
-
-    if not mfa_token:
-        raise HTTPError(response.text, response=response)
-
-    mfa_input = input("MFA Token: ")
-
-    response = post(
-        f"{request_url}{auth_uri}",
-        json={
-            "mfa_token": mfa_token,
-            "otp": mfa_input,
-            "grant_type": "http://ctpx.secureworks.com/grant-type/mfa-otp",
-        },
-        timeout=300,
-    )
-    response.raise_for_status()
-    try:
-        access_token = response.json().get("access_token")
-    except JSONDecodeError as exc:
-        raise HTTPError(response.text, response=response) from exc
-
-    if not access_token:
-        raise MissingAccessTokenError(
-            message="Access token not found",
-            comments=["Check credentials and MFA input."],
-            nested_exception=HTTPError(response.text, response=response),
-        )
-
-    return access_token
-
-
 def get_token_by_device_code_authorization(
     request_url: str,
-    external_provider: str,
 ) -> Union[str, None]:  # pragma: no cover
     """Get a user token via Device Code authorization.
 
@@ -291,14 +171,14 @@ def get_token_by_device_code_authorization(
     init_endpoint = "/universal-auth/device/code/auth"
     token_endpoint = "/universal-auth/device/code/token"
 
-    if external_provider == "COGNITO":
-        init_endpoint += "?version=2"
-        token_endpoint += "?version=2"
-
-    response = post(f"{request_url}{init_endpoint}", timeout=300)
+    init_url = f"{request_url}{init_endpoint}"
+    logger.debug(f"Init URL: {init_url}")
+    response = post(init_url, timeout=300)
+    logger.debug(f"Response: {response.text}")
 
     try:
         device_code_flow = response.json()
+
     except JSONDecodeError as exc:
         raise HTTPError(response.text, response=response) from exc
 

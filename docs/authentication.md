@@ -53,9 +53,26 @@ service = GraphQLService()
 CHARLIE_CLIENT_ID=<client_id> CHARLIE_CLIENT_SECRET=<client_secret> python script.py
 ```
 
-### Username
+### User
 
-If you don't provide OAuth tokens in the environment, you will be prompted for a username.  If your organization has enabled single sign-on, then you will prompted with a link.  Otherwise you will be asked for a password and MFA token.
+User logins are handled by device code authorization.  A link into the Taegis portal will be presented to the user where their organizational settings will be applied for authentication.
+
+### Universal Authentication
+
+Users and clients with access to multiple environments can reduce logins with the `use_universal_authentication` configuration value.  This is set to `False` by default.
+
+For all API calls:
+
+```python
+service = GraphQLService(use_universal_authentication=True)
+```
+
+Per API call:
+
+```python
+with service(use_universal_authentication=True):
+    ...
+```
 
 ### Clearing authorization tokens
 

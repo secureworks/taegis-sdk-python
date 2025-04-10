@@ -11,7 +11,11 @@ import aiohttp
 from aiohttp.client_reqrep import Fingerprint
 from aiohttp.typedefs import LooseHeaders
 
-from taegis_sdk_python._consts import TAEGIS_ENVIRONMENT_URLS
+from taegis_sdk_python._consts import (
+    TAEGIS_ENVIRONMENT_URLS,
+    UNIVERSAL_AUTHENTICATION_URL,
+    UNIVERSAL_ENVIRONMENT,
+)
 from taegis_sdk_python._version import __version__
 from taegis_sdk_python.authentication import get_token
 from taegis_sdk_python.config import write_to_config
@@ -93,6 +97,7 @@ class GraphQLService:
         ssl: Optional[Union[SSLContext, Literal[False], Fingerprint]] = None,
         execute_timeout: Optional[Union[int, float]] = 300,
         max_message_size: int = 0,
+        use_universal_authentication: bool = False,
     ):  # pylint: disable=too-many-statements
         """
         GraphQLService
@@ -137,6 +142,7 @@ class GraphQLService:
         """
         self._environments = environments or TAEGIS_ENVIRONMENT_URLS
         self._environment = environment or list(self._environments)[0]
+        self._use_universal_authentication = use_universal_authentication
 
         if self._environment not in self._environments:
             raise ValueError(f"environment must be in {self._environments.keys()}")
@@ -254,9 +260,40 @@ class GraphQLService:
         return self._context_manager.get("environment", self._environment)
 
     @property
+    def authentication_environment(self):
+        """Taegis Authentication Environment."""
+        return self._context_manager.get(
+            "authentication_environment",
+            (
+                UNIVERSAL_ENVIRONMENT
+                if self.use_universal_authentication
+                else self.environment
+            ),
+        )
+
+    @property
     def url(self):
         """Taegis Environment URL."""
         return self._context_manager.get("url")
+
+    @property
+    def authentication_url(self):
+        """Taegis Authentication URL."""
+        return self._context_manager.get(
+            "authentication_url",
+            (
+                UNIVERSAL_AUTHENTICATION_URL
+                if self.use_universal_authentication
+                else self._environments[self.environment]
+            ),
+        )
+
+    @property
+    def use_universal_authentication(self):
+        """Use Universal Authentication."""
+        return self._context_manager.get(
+            "use_universal_authentication", self._use_universal_authentication
+        )
 
     @property
     def gateway(self):
@@ -276,14 +313,14 @@ class GraphQLService:
         )
         if not access_token:
             access_token = get_token(
-                environment=self.environment,
-                request_url=self._environments.get(self.environment),
+                environment=self.authentication_environment,
+                request_url=self.authentication_url,
             )
         return access_token
 
     def clear_access_token(self):
         """Clear the current access token."""
-        write_to_config(self.environment, "access_token", "")
+        write_to_config(self.authentication_environment, "access_token", "")
 
     @property
     def output(self):

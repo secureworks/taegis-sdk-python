@@ -51,8 +51,7 @@ def unwrap(t: Field) -> Any:
     #
     # Neither of these need to be included to
     # generate GraphQL strings sent to the server
-    args = [arg for arg in get_args(
-        t) if arg != type(None) and arg != TaegisEnum]
+    args = [arg for arg in get_args(t) if arg != type(None) and arg != TaegisEnum]
 
     # Unwrap List[type]
     if hasattr(t, "_name") and t._name == "List":  # pylint: disable=protected-access
@@ -88,8 +87,7 @@ def build_output_dataclass(cls: Any) -> Any:
     output_fields = []
     for field in dc_fields(cls):
         log.debug(f"{field=}")
-        letter_case = field.metadata.get(
-            "dataclasses_json", {}).get("letter_case")
+        letter_case = field.metadata.get("dataclasses_json", {}).get("letter_case")
         if letter_case:
             field_name = letter_case(...)
         else:
@@ -146,8 +144,7 @@ def build_output_string(cls) -> str:
             if item == type(None):
                 continue
             output_string = build_output_string(item)
-            output_fields.append(
-                f"... on {item.__name__} {{ {output_string} }}")
+            output_fields.append(f"... on {item.__name__} {{ {output_string} }}")
 
     elif isinstance(cls, (list, tuple)):
         if len(cls) == 1:
@@ -160,8 +157,7 @@ def build_output_string(cls) -> str:
             if item == type(None):
                 continue
             output_string = build_output_string(item)
-            output_fields.append(
-                f"... on {item.__name__} {{ {output_string} }}")
+            output_fields.append(f"... on {item.__name__} {{ {output_string} }}")
         output_fields.append("}")
         log.debug("Generating output string.  Done...")
 
@@ -235,8 +231,7 @@ def build_output_string_from_introspection(field: Any) -> str:
         fields.append(name)
         scalar = graphql_unwrap_field(gql_type)
         if is_object_type(scalar):
-            fields.append(
-                f"{{ {build_output_string_from_introspection(scalar)} }}")
+            fields.append(f"{{ {build_output_string_from_introspection(scalar)} }}")
     return " ".join(fields)
 
 
@@ -275,8 +270,7 @@ def prepare_input(value: Any) -> Any:
     """
     if is_dataclass(value):
         for field in dc_fields(value):
-            letter_case = field.metadata.get(
-                "dataclasses_json", {}).get("letter_case")
+            letter_case = field.metadata.get("dataclasses_json", {}).get("letter_case")
             if letter_case:
                 field_name = letter_case(...)
             else:
@@ -348,7 +342,9 @@ def prepare_variables(
     return {key: value for key, value in variables.items() if value is not None}
 
 
-def parse_union_result(union, result: Union[List[Dict[str, Any]], Dict[str, Any]]) -> Any:
+def parse_union_result(
+    union, result: Union[List[Dict[str, Any]], Dict[str, Any]]
+) -> Any:
     """
     Coerse result into a type from union.
 

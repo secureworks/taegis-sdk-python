@@ -27,6 +27,9 @@ TAEGIS_TENANTS_URLS = {
     "US3": "https://api-tenants.foxtrot.taegis.secureworks.com",
 }
 
+UNIVERSAL_ENVIRONMENT = "universal"
+UNIVERSAL_AUTHENTICATION_URL = "https://api.taegis.secureworks.com"
+
 
 class TaegisEnum(str, Enum):
     """Handler for Unknown Enums."""
