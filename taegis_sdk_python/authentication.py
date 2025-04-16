@@ -6,8 +6,9 @@ Authenication implementations for Taegis.
 import logging
 import os
 import threading
+import warnings
 from time import time
-from typing import Optional, Tuple, Union
+from typing import Any, Dict, Optional, Tuple, Union
 
 from oauthlib.oauth2 import BackendApplicationClient
 from requests import HTTPError, post
@@ -25,6 +26,39 @@ except ImportError:  # pragma: no cover
 logger = logging.getLogger(__name__)
 
 LOCK = threading.RLock()
+
+
+def check_username(
+    request_url: str, username: str
+) -> Dict[str, Any]:  # pragma: no cover
+    """Check if the user needs to login via password or sso.
+
+    Parameters
+    ----------
+    request_url : str
+        Taegis Environment URL
+    username : str
+        Username
+
+    Returns
+    -------
+    Dict[str, Any]
+        JSON response from username check
+    """
+    warnings.warn(
+        "check_username function is deprecated and will be removed in a future release.",
+        DeprecationWarning,
+    )
+
+    logger.debug("Checking login type for username...")
+    userlogin_endpoint = "/auth/userLogin"
+
+    response = post(
+        f"{request_url}{userlogin_endpoint}", json={"username": username}, timeout=300
+    )
+    logger.debug(response)
+
+    return response.json()
 
 
 def get_oauth_from_env(environment: str) -> Tuple[Optional[str], Optional[str]]:
