@@ -654,8 +654,8 @@ class Collection:
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
-class EntityAuthDomain:
-    """EntityAuthDomain."""
+class EntityAuthDomainSnapshot:
+    """EntityAuthDomainSnapshot."""
 
     property_type: Optional[str] = field(
         default=None, metadata=config(field_name="property_type")
@@ -667,8 +667,8 @@ class EntityAuthDomain:
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
-class EntityCertificate:
-    """EntityCertificate."""
+class EntityCertificateSnapshot:
+    """EntityCertificateSnapshot."""
 
     property_type: Optional[str] = field(
         default=None, metadata=config(field_name="property_type")
@@ -746,8 +746,8 @@ class EntityCertificate:
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
-class EntityCloudObject:
-    """EntityCloudObject."""
+class EntityCloudObjectSnapshot:
+    """EntityCloudObjectSnapshot."""
 
     property_type: Optional[str] = field(
         default=None, metadata=config(field_name="property_type")
@@ -765,8 +765,8 @@ class EntityCloudObject:
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
-class EntityCloudResource:
-    """EntityCloudResource."""
+class EntityCloudResourceSnapshot:
+    """EntityCloudResourceSnapshot."""
 
     property_type: Optional[str] = field(
         default=None, metadata=config(field_name="property_type")
@@ -784,8 +784,8 @@ class EntityCloudResource:
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
-class EntityCloudUser:
-    """EntityCloudUser."""
+class EntityCloudUserSnapshot:
+    """EntityCloudUserSnapshot."""
 
     property_type: Optional[str] = field(
         default=None, metadata=config(field_name="property_type")
@@ -803,8 +803,8 @@ class EntityCloudUser:
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
-class EntityDnsServer:
-    """EntityDnsServer."""
+class EntityDnsServerSnapshot:
+    """EntityDnsServerSnapshot."""
 
     property_type: Optional[str] = field(
         default=None, metadata=config(field_name="property_type")
@@ -823,8 +823,8 @@ class EntityDnsServer:
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
-class EntityDomainName:
-    """EntityDomainName."""
+class EntityDomainNameSnapshot:
+    """EntityDomainNameSnapshot."""
 
     property_type: Optional[str] = field(
         default=None, metadata=config(field_name="property_type")
@@ -836,8 +836,8 @@ class EntityDomainName:
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
-class EntityEmail:
-    """EntityEmail."""
+class EntityEmailSnapshot:
+    """EntityEmailSnapshot."""
 
     property_type: Optional[str] = field(
         default=None, metadata=config(field_name="property_type")
@@ -864,8 +864,8 @@ class EntityEmail:
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
-class EntityEmailAddress:
-    """EntityEmailAddress."""
+class EntityEmailAddressSnapshot:
+    """EntityEmailAddressSnapshot."""
 
     property_type: Optional[str] = field(
         default=None, metadata=config(field_name="property_type")
@@ -877,8 +877,8 @@ class EntityEmailAddress:
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
-class EntityFile:
-    """EntityFile."""
+class EntityFileSnapshot:
+    """EntityFileSnapshot."""
 
     property_type: Optional[str] = field(
         default=None, metadata=config(field_name="property_type")
@@ -918,8 +918,8 @@ class EntityFile:
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
-class EntityFileHash:
-    """EntityFileHash."""
+class EntityFileHashSnapshot:
+    """EntityFileHashSnapshot."""
 
     property_type: Optional[str] = field(
         default=None, metadata=config(field_name="property_type")
@@ -934,8 +934,8 @@ class EntityFileHash:
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
-class EntityFunction:
-    """EntityFunction."""
+class EntityFunctionSnapshot:
+    """EntityFunctionSnapshot."""
 
     property_type: Optional[str] = field(
         default=None, metadata=config(field_name="property_type")
@@ -948,8 +948,8 @@ class EntityFunction:
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
-class EntityHost:
-    """EntityHost."""
+class EntityHostSnapshot:
+    """EntityHostSnapshot."""
 
     property_type: Optional[str] = field(
         default=None, metadata=config(field_name="property_type")
@@ -969,6 +969,12 @@ class EntityHost:
     )
     os: Optional[str] = field(default=None, metadata=config(field_name="os"))
     os_arch: Optional[str] = field(default=None, metadata=config(field_name="os_arch"))
+    sensor_id: Optional[str] = field(
+        default=None, metadata=config(field_name="sensor_id")
+    )
+    sensor_type: Optional[str] = field(
+        default=None, metadata=config(field_name="sensor_type")
+    )
     vendor_agent_device_id: Optional[str] = field(
         default=None, metadata=config(field_name="vendor_agent_device_id")
     )
@@ -979,8 +985,8 @@ class EntityHost:
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
-class EntityIpAddress:
-    """EntityIpAddress."""
+class EntityIpAddressSnapshot:
+    """EntityIpAddressSnapshot."""
 
     property_type: Optional[str] = field(
         default=None, metadata=config(field_name="property_type")
@@ -1027,8 +1033,8 @@ class EntityIpAddress:
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
-class EntityProcess:
-    """EntityProcess."""
+class EntityProcessSnapshot:
+    """EntityProcessSnapshot."""
 
     property_type: Optional[str] = field(
         default=None, metadata=config(field_name="property_type")
@@ -1059,8 +1065,8 @@ class EntityProcess:
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
-class EntityRegistryKey:
-    """EntityRegistryKey."""
+class EntityRegistryKeySnapshot:
+    """EntityRegistryKeySnapshot."""
 
     property_type: Optional[str] = field(
         default=None, metadata=config(field_name="property_type")
@@ -1073,8 +1079,8 @@ class EntityRegistryKey:
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
-class EntityScheduledTask:
-    """EntityScheduledTask."""
+class EntityScheduledTaskSnapshot:
+    """EntityScheduledTaskSnapshot."""
 
     property_type: Optional[str] = field(
         default=None, metadata=config(field_name="property_type")
@@ -1087,8 +1093,8 @@ class EntityScheduledTask:
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
-class EntityScript:
-    """EntityScript."""
+class EntityScriptSnapshot:
+    """EntityScriptSnapshot."""
 
     property_type: Optional[str] = field(
         default=None, metadata=config(field_name="property_type")
@@ -1110,8 +1116,8 @@ class EntityScript:
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
-class EntityService:
-    """EntityService."""
+class EntityServiceSnapshot:
+    """EntityServiceSnapshot."""
 
     property_type: Optional[str] = field(
         default=None, metadata=config(field_name="property_type")
@@ -1136,8 +1142,8 @@ class EntityService:
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
-class EntityTaskAction:
-    """EntityTaskAction."""
+class EntityTaskActionSnapshot:
+    """EntityTaskActionSnapshot."""
 
     property_type: Optional[str] = field(
         default=None, metadata=config(field_name="property_type")
@@ -1165,8 +1171,8 @@ class EntityTaskAction:
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
-class EntityUser:
-    """EntityUser."""
+class EntityUserSnapshot:
+    """EntityUserSnapshot."""
 
     property_type: Optional[str] = field(
         default=None, metadata=config(field_name="property_type")
@@ -1199,8 +1205,8 @@ class EntityUser:
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
-class EntityUrl:
-    """EntityUrl."""
+class EntityUrlSnapshot:
+    """EntityUrlSnapshot."""
 
     property_type: Optional[str] = field(
         default=None, metadata=config(field_name="property_type")
@@ -1856,29 +1862,29 @@ class AlertSnapshotMetadata:
     )
 
 
-Properties = Union[
-    EntityAuthDomain,
-    EntityCertificate,
-    EntityCloudObject,
-    EntityCloudResource,
-    EntityCloudUser,
-    EntityDnsServer,
-    EntityDomainName,
-    EntityEmail,
-    EntityEmailAddress,
-    EntityFile,
-    EntityFileHash,
-    EntityFunction,
-    EntityHost,
-    EntityIpAddress,
-    EntityProcess,
-    EntityRegistryKey,
-    EntityScheduledTask,
-    EntityScript,
-    EntityService,
-    EntityTaskAction,
-    EntityUser,
-    EntityUrl,
+PropertiesSnapshot = Union[
+    EntityAuthDomainSnapshot,
+    EntityCertificateSnapshot,
+    EntityCloudObjectSnapshot,
+    EntityCloudResourceSnapshot,
+    EntityCloudUserSnapshot,
+    EntityDnsServerSnapshot,
+    EntityDomainNameSnapshot,
+    EntityEmailSnapshot,
+    EntityEmailAddressSnapshot,
+    EntityFileSnapshot,
+    EntityFileHashSnapshot,
+    EntityFunctionSnapshot,
+    EntityHostSnapshot,
+    EntityIpAddressSnapshot,
+    EntityProcessSnapshot,
+    EntityRegistryKeySnapshot,
+    EntityScheduledTaskSnapshot,
+    EntityScriptSnapshot,
+    EntityServiceSnapshot,
+    EntityTaskActionSnapshot,
+    EntityUserSnapshot,
+    EntityUrlSnapshot,
 ]
 
 
@@ -1958,8 +1964,8 @@ class ThirdPartyDetail:
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
-class StructuredEntity:
-    """StructuredEntity."""
+class StructuredEntitySnapshot:
+    """StructuredEntitySnapshot."""
 
     id: Optional[str] = field(default=None, metadata=config(field_name="id"))
     identifiers: Optional[List[str]] = field(
@@ -1973,10 +1979,11 @@ class StructuredEntity:
             field_name="perspective",
         ),
     )
-    properties: Optional[Properties] = field(
+    properties: Optional[PropertiesSnapshot] = field(
         default=None,
         metadata=config(
-            decoder=lambda x: parse_union_result(Properties, x), field_name="properties"
+            decoder=lambda x: parse_union_result(PropertiesSnapshot, x),
+            field_name="properties",
         ),
     )
 
@@ -2179,10 +2186,10 @@ class AlertSnapshot:
     key_entities: Optional[List[EntityMetadata]] = field(
         default=None, metadata=config(field_name="key_entities")
     )
-    source_entities: Optional[List[StructuredEntity]] = field(
+    source_entities: Optional[List[StructuredEntitySnapshot]] = field(
         default=None, metadata=config(field_name="source_entities")
     )
-    target_entities: Optional[List[StructuredEntity]] = field(
+    target_entities: Optional[List[StructuredEntitySnapshot]] = field(
         default=None, metadata=config(field_name="target_entities")
     )
     event_ids: Optional[List[AuxiliaryEvent]] = field(

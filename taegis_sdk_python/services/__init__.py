@@ -1,6 +1,7 @@
 """
-This needs to be a generated file.  Need to make jinja template.
+Taegis SDK Python GraphQL Service manager.
 """
+
 
 import logging
 import threading
@@ -33,6 +34,7 @@ from taegis_sdk_python.services.clients import ClientsService
 from taegis_sdk_python.services.collector import CollectorService
 from taegis_sdk_python.services.comments import CommentsService
 from taegis_sdk_python.services.contracted_endpoint import ContractedEndpointService
+from taegis_sdk_python.services.cql_metadata import CqlMetadataService
 from taegis_sdk_python.services.datasources import DatasourcesService
 from taegis_sdk_python.services.detector_registry import DetectorRegistryService
 from taegis_sdk_python.services.endpoint_command_manager import (
@@ -145,7 +147,8 @@ class GraphQLService:
         self._use_universal_authentication = use_universal_authentication
 
         if self._environment not in self._environments:
-            raise ValueError(f"environment must be in {self._environments.keys()}")
+            raise ValueError(
+                f"environment must be in {self._environments.keys()}")
 
         self._tenant_id = tenant_id
         self._gateway = gateway or "/graphql"
@@ -186,6 +189,7 @@ class GraphQLService:
         self._collector = None
         self._comments = None
         self._contracted_endpoint = None
+        self._cql_metadata = None
         self._datasources = None
         self._detector_registry = None
         self._endpoint_command_manager = None
@@ -510,6 +514,13 @@ class GraphQLService:
         return self._contracted_endpoint
 
     @property
+    def cql_metadata(self):
+        """CqlMetadata Service Endpoint."""
+        if not self._cql_metadata:
+            self._cql_metadata = CqlMetadataService(self)
+        return self._cql_metadata
+
+    @property
     def datasources(self):
         """Datasources Service Endpoint."""
         if not self._datasources:
@@ -527,14 +538,16 @@ class GraphQLService:
     def endpoint_command_manager(self):
         """Endpoint Command Manager Service Endpoint."""
         if not self._endpoint_command_manager:
-            self._endpoint_command_manager = EndpointCommandManagerService(self)
+            self._endpoint_command_manager = EndpointCommandManagerService(
+                self)
         return self._endpoint_command_manager
 
     @property
     def endpoint_management_service(self):
         """Endpoint Management Service Endpoint."""
         if not self._endpoint_management_service:
-            self._endpoint_management_service = EndpointManagementServiceService(self)
+            self._endpoint_management_service = EndpointManagementServiceService(
+                self)
         return self._endpoint_management_service
 
     @property

@@ -373,6 +373,9 @@ class AuthzRole:
         default=None, metadata=config(field_name="updatedBy")
     )
     deleted: Optional[bool] = field(default=None, metadata=config(field_name="deleted"))
+    central_role: Optional[str] = field(
+        default=None, metadata=config(field_name="centralRole")
+    )
     policies: Optional[List[AuthzPolicy]] = field(
         default=None, metadata=config(field_name="policies")
     )
