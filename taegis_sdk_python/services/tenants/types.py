@@ -46,6 +46,7 @@ class AuthzAction(str, Enum):
     APPROVE = "Approve"
     EXECUTE = "Execute"
     REGISTER_DOMAIN = "RegisterDomain"
+    DELETE_REGISTERED_DOMAIN = "DeleteRegisteredDomain"
 
 
 class TenantType(str, Enum):
@@ -150,6 +151,9 @@ class AuditAction(str, Enum):
     CREATE_SERVICE = "create_service"
     DELETE_SERVICE = "delete_service"
     UPDATE_SERVICE = "update_service"
+    ADD_REGISTERED_DOMAIN = "add_registered_domain"
+    VERIFY_REGISTERED_DOMAIN = "verify_registered_domain"
+    DELETE_REGISTERED_DOMAIN = "delete_registered_domain"
 
 
 class TenantDecommissionRequestStatus(str, Enum):

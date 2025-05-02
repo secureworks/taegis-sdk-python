@@ -69,6 +69,9 @@ class ProcessEvent:
     user_is_admin: Optional[bool] = field(
         default=None, metadata=config(field_name="userIsAdmin")
     )
+    was_blocked: Optional[bool] = field(
+        default=None, metadata=config(field_name="wasBlocked")
+    )
     normalizer: Optional[str] = field(
         default=None, metadata=config(field_name="normalizer")
     )

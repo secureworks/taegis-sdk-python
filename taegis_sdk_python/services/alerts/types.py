@@ -905,6 +905,12 @@ class EntityHost:
     )
     os: Optional[str] = field(default=None, metadata=config(field_name="os"))
     os_arch: Optional[str] = field(default=None, metadata=config(field_name="os_arch"))
+    sensor_id: Optional[str] = field(
+        default=None, metadata=config(field_name="sensor_id")
+    )
+    sensor_type: Optional[str] = field(
+        default=None, metadata=config(field_name="sensor_type")
+    )
     vendor_agent_device_id: Optional[str] = field(
         default=None, metadata=config(field_name="vendor_agent_device_id")
     )

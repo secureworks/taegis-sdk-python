@@ -2,7 +2,6 @@
 Taegis SDK Python GraphQL Service manager.
 """
 
-
 import logging
 import threading
 from ssl import SSLContext
@@ -147,8 +146,7 @@ class GraphQLService:
         self._use_universal_authentication = use_universal_authentication
 
         if self._environment not in self._environments:
-            raise ValueError(
-                f"environment must be in {self._environments.keys()}")
+            raise ValueError(f"environment must be in {self._environments.keys()}")
 
         self._tenant_id = tenant_id
         self._gateway = gateway or "/graphql"
@@ -538,16 +536,14 @@ class GraphQLService:
     def endpoint_command_manager(self):
         """Endpoint Command Manager Service Endpoint."""
         if not self._endpoint_command_manager:
-            self._endpoint_command_manager = EndpointCommandManagerService(
-                self)
+            self._endpoint_command_manager = EndpointCommandManagerService(self)
         return self._endpoint_command_manager
 
     @property
     def endpoint_management_service(self):
         """Endpoint Management Service Endpoint."""
         if not self._endpoint_management_service:
-            self._endpoint_management_service = EndpointManagementServiceService(
-                self)
+            self._endpoint_management_service = EndpointManagementServiceService(self)
         return self._endpoint_management_service
 
     @property

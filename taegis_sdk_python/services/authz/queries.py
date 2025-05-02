@@ -342,6 +342,17 @@ class TaegisSDKAuthzQuery:
             )
         raise GraphQLNoRowsInResultSetError("for query authzSupportedFeatures")
 
+    def authz_subject_central_role(self) -> AuthzRole:
+        """Identify the equivalent central role for the requesting subject in the current tenant context."""
+        endpoint = "authzSubjectCentralRole"
+
+        result = self.service.execute_query(
+            endpoint=endpoint, variables={}, output=build_output_string(AuthzRole)
+        )
+        if result.get(endpoint) is not None:
+            return AuthzRole.from_dict(result.get(endpoint))
+        raise GraphQLNoRowsInResultSetError("for query authzSubjectCentralRole")
+
     def authz_can_user_assume_tenant(self) -> bool:
         """DEPRECATED: Please use authzCanSubjectAssumeTenant."""
         endpoint = "authzCanUserAssumeTenant"

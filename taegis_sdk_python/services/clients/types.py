@@ -95,6 +95,26 @@ class ClientRoleAssignmentInput:
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
+class CreateClientInput:
+    """CreateClientInput."""
+
+    owner_tenant_id: Optional[str] = field(
+        default=None, metadata=config(field_name="ownerTenantID")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class CreateClientInternalInput:
+    """CreateClientInternalInput."""
+
+    owner_tenant_id: Optional[str] = field(
+        default=None, metadata=config(field_name="ownerTenantID")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
 class CredentialValidationResult:
     """CredentialValidationResult."""
 
@@ -133,6 +153,9 @@ class Client:
     )
     tenant_id: Optional[str] = field(
         default=None, metadata=config(field_name="tenantID")
+    )
+    owner_tenant_id: Optional[str] = field(
+        default=None, metadata=config(field_name="ownerTenantID")
     )
     created_at: Optional[str] = field(
         default=None,

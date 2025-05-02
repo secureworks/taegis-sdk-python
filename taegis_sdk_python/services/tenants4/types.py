@@ -53,6 +53,36 @@ class OrderDir(str, Enum):
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
+class MappedTenant:
+    """MappedTenant."""
+
+    id: Optional[str] = field(default=None, metadata=config(field_name="id"))
+    endpoint: Optional[str] = field(
+        default=None, metadata=config(field_name="endpoint")
+    )
+    region: Optional[str] = field(default=None, metadata=config(field_name="region"))
+    data_region: Optional[str] = field(
+        default=None, metadata=config(field_name="dataRegion")
+    )
+    account_type: Optional[str] = field(
+        default=None, metadata=config(field_name="accountType")
+    )
+    account_origin: Optional[str] = field(
+        default=None, metadata=config(field_name="accountOrigin")
+    )
+    authz_ownership: Optional[str] = field(
+        default=None, metadata=config(field_name="authzOwnership")
+    )
+    xdr_ownership: Optional[str] = field(
+        default=None, metadata=config(field_name="xdrOwnership")
+    )
+    last_refresh: Optional[str] = field(
+        default=None, metadata=config(field_name="lastRefresh")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
 class TenantLabel:
     """TenantLabel."""
 
@@ -135,6 +165,72 @@ class TenantSubscriptions:
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
+class TenantV4:
+    """TenantV4."""
+
+    id: Optional[str] = field(default=None, metadata=config(field_name="id"))
+    parent_tenant_id: Optional[str] = field(
+        default=None, metadata=config(field_name="parentTenantID")
+    )
+    partner_tenant_id: Optional[str] = field(
+        default=None, metadata=config(field_name="partnerTenantID")
+    )
+    partner_name: Optional[str] = field(
+        default=None, metadata=config(field_name="partnerName")
+    )
+    organization_tenant_id: Optional[str] = field(
+        default=None, metadata=config(field_name="organizationTenantID")
+    )
+    organization_name: Optional[str] = field(
+        default=None, metadata=config(field_name="organizationName")
+    )
+    name: Optional[str] = field(default=None, metadata=config(field_name="name"))
+    enabled: Optional[bool] = field(default=None, metadata=config(field_name="enabled"))
+    hierarchy_path: Optional[str] = field(
+        default=None, metadata=config(field_name="hierarchyPath")
+    )
+    is_organization: Optional[bool] = field(
+        default=None, metadata=config(field_name="isOrganization")
+    )
+    is_partner: Optional[bool] = field(
+        default=None, metadata=config(field_name="isPartner")
+    )
+    has_support_enabled: Optional[bool] = field(
+        default=None, metadata=config(field_name="hasSupportEnabled")
+    )
+    support_inherited: Optional[bool] = field(
+        default=None, metadata=config(field_name="supportInherited")
+    )
+    expires_at: Optional[str] = field(
+        default=None, metadata=config(field_name="expiresAt")
+    )
+    created_at: Optional[str] = field(
+        default=None, metadata=config(field_name="createdAt")
+    )
+    updated_at: Optional[str] = field(
+        default=None, metadata=config(field_name="updatedAt")
+    )
+    enabled_at_regions: Optional[List[Union[TenantRegion, TaegisEnum]]] = field(
+        default=None,
+        metadata=config(
+            encoder=encode_enum,
+            decoder=lambda x: decode_enum(TenantRegion, x),
+            field_name="enabledAtRegions",
+        ),
+    )
+    labels: Optional[List[TenantLabel]] = field(
+        default=None, metadata=config(field_name="labels")
+    )
+    subscriptions: Optional[TenantSubscriptions] = field(
+        default=None, metadata=config(field_name="subscriptions")
+    )
+    central_tenant: Optional[MappedTenant] = field(
+        default=None, metadata=config(field_name="centralTenant")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
 class TenantsQuery:
     """TenantsQuery."""
 
@@ -204,69 +300,6 @@ class TenantsQuery:
             decoder=lambda x: decode_enum(OrderDir, x),
             field_name="orderDir",
         ),
-    )
-
-
-@dataclass_json
-@dataclass(order=True, eq=True, frozen=True)
-class TenantV4:
-    """TenantV4."""
-
-    id: Optional[str] = field(default=None, metadata=config(field_name="id"))
-    parent_tenant_id: Optional[str] = field(
-        default=None, metadata=config(field_name="parentTenantID")
-    )
-    partner_tenant_id: Optional[str] = field(
-        default=None, metadata=config(field_name="partnerTenantID")
-    )
-    partner_name: Optional[str] = field(
-        default=None, metadata=config(field_name="partnerName")
-    )
-    organization_tenant_id: Optional[str] = field(
-        default=None, metadata=config(field_name="organizationTenantID")
-    )
-    organization_name: Optional[str] = field(
-        default=None, metadata=config(field_name="organizationName")
-    )
-    name: Optional[str] = field(default=None, metadata=config(field_name="name"))
-    enabled: Optional[bool] = field(default=None, metadata=config(field_name="enabled"))
-    hierarchy_path: Optional[str] = field(
-        default=None, metadata=config(field_name="hierarchyPath")
-    )
-    is_organization: Optional[bool] = field(
-        default=None, metadata=config(field_name="isOrganization")
-    )
-    is_partner: Optional[bool] = field(
-        default=None, metadata=config(field_name="isPartner")
-    )
-    has_support_enabled: Optional[bool] = field(
-        default=None, metadata=config(field_name="hasSupportEnabled")
-    )
-    support_inherited: Optional[bool] = field(
-        default=None, metadata=config(field_name="supportInherited")
-    )
-    expires_at: Optional[str] = field(
-        default=None, metadata=config(field_name="expiresAt")
-    )
-    created_at: Optional[str] = field(
-        default=None, metadata=config(field_name="createdAt")
-    )
-    updated_at: Optional[str] = field(
-        default=None, metadata=config(field_name="updatedAt")
-    )
-    enabled_at_regions: Optional[List[Union[TenantRegion, TaegisEnum]]] = field(
-        default=None,
-        metadata=config(
-            encoder=encode_enum,
-            decoder=lambda x: decode_enum(TenantRegion, x),
-            field_name="enabledAtRegions",
-        ),
-    )
-    labels: Optional[List[TenantLabel]] = field(
-        default=None, metadata=config(field_name="labels")
-    )
-    subscriptions: Optional[TenantSubscriptions] = field(
-        default=None, metadata=config(field_name="subscriptions")
     )
 
 

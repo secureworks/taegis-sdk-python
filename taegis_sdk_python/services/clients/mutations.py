@@ -32,7 +32,12 @@ class TaegisSDKClientsMutation:
     def __init__(self, service: ClientsService):
         self.service = service
 
-    def create_client(self, name: str, roles: Optional[List[str]] = None) -> NewClient:
+    def create_client(
+        self,
+        name: str,
+        roles: Optional[List[str]] = None,
+        input_: Optional[CreateClientInput] = None,
+    ) -> NewClient:
         """Create a new client (SCWX (tenant 5000) clients are disallowed). The new client will be assigned the TenantAnalyst role if the `roles` parameter is omitted."""
         endpoint = "createClient"
 
@@ -41,6 +46,7 @@ class TaegisSDKClientsMutation:
             variables={
                 "name": prepare_input(name),
                 "roles": prepare_input(roles),
+                "input": prepare_input(input_),
             },
             output=build_output_string(NewClient),
         )
