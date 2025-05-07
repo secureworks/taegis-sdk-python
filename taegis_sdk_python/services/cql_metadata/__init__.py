@@ -1,5 +1,9 @@
 """"CqlMetadata Service."""
 
+from __future__ import annotations
+
+from typing import TYPE_CHECKING
+
 from taegis_sdk_python.service_core import ServiceCore
 from taegis_sdk_python.services.cql_metadata.mutations import (
     TaegisSDKCqlMetadataMutation,
@@ -9,9 +13,18 @@ from taegis_sdk_python.services.cql_metadata.subscriptions import (
     TaegisSDKCqlMetadataSubscription,
 )
 
+if TYPE_CHECKING:  # pragma: no cover
+    from taegis_sdk_python.services import GraphQLService
+
 
 class CqlMetadataService(ServiceCore):
     """Taegis CqlMetadata Service."""
+
+    def __init__(self, service: GraphQLService):
+        """Initialize the CqlMetadata Service."""
+        super().__init__(service)
+        self._gateway = "/cql-metadata/query"
+        self._input_value_deprecation = False
 
     @property
     def query(self):

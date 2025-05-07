@@ -366,7 +366,6 @@ class TaegisSDKThreatQuery:
         self,
         object_type: Union[ThreatFacetObject, TaegisEnum],
         filters: Optional[ThreatFilter] = None,
-        facets: Optional[List[str]] = None,
         facet_objs: Optional[List[str]] = None,
     ) -> List[FacetInfo]:
         """Retrieves facet count based on object type and filters."""
@@ -377,7 +376,6 @@ class TaegisSDKThreatQuery:
             variables={
                 "objectType": prepare_input(object_type),
                 "filters": prepare_input(filters),
-                "facets": prepare_input(facets),
                 "facetObjs": prepare_input(facet_objs),
             },
             output=build_output_string(FacetInfo),
