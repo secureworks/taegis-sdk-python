@@ -30,6 +30,13 @@ class AlertResolutionStatus(str, Enum):
     SUPPRESSED = "SUPPRESSED"
 
 
+class TemplateUsage(str, Enum):
+    """TemplateUsage."""
+
+    MANUAL = "MANUAL"
+    AUTO_INVESTIGATION = "AUTO_INVESTIGATION"
+
+
 class InvestigationRuleState(str, Enum):
     """InvestigationRuleState."""
 
@@ -366,80 +373,6 @@ class RemoveEvidenceFromInvestigationResult:
     )
     search_queries: Optional[List[str]] = field(
         default=None, metadata=config(field_name="searchQueries")
-    )
-
-
-@dataclass_json
-@dataclass(order=True, eq=True, frozen=True)
-class CreateInvestigationTemplateInput:
-    """CreateInvestigationTemplateInput."""
-
-    name: Optional[str] = field(default=None, metadata=config(field_name="name"))
-    title: Optional[str] = field(default=None, metadata=config(field_name="title"))
-    description: Optional[str] = field(
-        default=None, metadata=config(field_name="description")
-    )
-    tags: Optional[List[str]] = field(default=None, metadata=config(field_name="tags"))
-    investigation_type: Optional[str] = field(
-        default=None, metadata=config(field_name="investigationType")
-    )
-    investigation_priority: Optional[str] = field(
-        default=None, metadata=config(field_name="investigationPriority")
-    )
-    investigation_title: Optional[str] = field(
-        default=None, metadata=config(field_name="investigationTitle")
-    )
-    investigation_tags: Optional[List[str]] = field(
-        default=None, metadata=config(field_name="investigationTags")
-    )
-    investigation_key_findings: Optional[str] = field(
-        default=None, metadata=config(field_name="investigationKeyFindings")
-    )
-    investigation_key_findings_prompts: Optional[List[str]] = field(
-        default=None, metadata=config(field_name="investigationKeyFindingsPrompts")
-    )
-    investigation_assignee: Optional[str] = field(
-        default=None, metadata=config(field_name="investigationAssignee")
-    )
-    investigation_status: Optional[str] = field(
-        default=None, metadata=config(field_name="investigationStatus")
-    )
-
-
-@dataclass_json
-@dataclass(order=True, eq=True, frozen=True)
-class UpdateInvestigationTemplateInput:
-    """UpdateInvestigationTemplateInput."""
-
-    id: Optional[str] = field(default=None, metadata=config(field_name="id"))
-    title: Optional[str] = field(default=None, metadata=config(field_name="title"))
-    description: Optional[str] = field(
-        default=None, metadata=config(field_name="description")
-    )
-    tags: Optional[List[str]] = field(default=None, metadata=config(field_name="tags"))
-    investigation_type: Optional[str] = field(
-        default=None, metadata=config(field_name="investigationType")
-    )
-    investigation_priority: Optional[str] = field(
-        default=None, metadata=config(field_name="investigationPriority")
-    )
-    investigation_title: Optional[str] = field(
-        default=None, metadata=config(field_name="investigationTitle")
-    )
-    investigation_tags: Optional[List[str]] = field(
-        default=None, metadata=config(field_name="investigationTags")
-    )
-    investigation_key_findings: Optional[str] = field(
-        default=None, metadata=config(field_name="investigationKeyFindings")
-    )
-    investigation_key_findings_prompts: Optional[List[str]] = field(
-        default=None, metadata=config(field_name="investigationKeyFindingsPrompts")
-    )
-    investigation_assignee: Optional[str] = field(
-        default=None, metadata=config(field_name="investigationAssignee")
-    )
-    investigation_status: Optional[str] = field(
-        default=None, metadata=config(field_name="investigationStatus")
     )
 
 
@@ -873,6 +806,96 @@ class InvestigationAssigneeCount:
     count: Optional[int] = field(default=None, metadata=config(field_name="count"))
     subject: Optional[Subject] = field(
         default=None, metadata=config(field_name="subject")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class CreateInvestigationTemplateInput:
+    """CreateInvestigationTemplateInput."""
+
+    name: Optional[str] = field(default=None, metadata=config(field_name="name"))
+    title: Optional[str] = field(default=None, metadata=config(field_name="title"))
+    description: Optional[str] = field(
+        default=None, metadata=config(field_name="description")
+    )
+    tags: Optional[List[str]] = field(default=None, metadata=config(field_name="tags"))
+    investigation_type: Optional[str] = field(
+        default=None, metadata=config(field_name="investigationType")
+    )
+    investigation_priority: Optional[str] = field(
+        default=None, metadata=config(field_name="investigationPriority")
+    )
+    investigation_title: Optional[str] = field(
+        default=None, metadata=config(field_name="investigationTitle")
+    )
+    investigation_tags: Optional[List[str]] = field(
+        default=None, metadata=config(field_name="investigationTags")
+    )
+    investigation_key_findings: Optional[str] = field(
+        default=None, metadata=config(field_name="investigationKeyFindings")
+    )
+    investigation_key_findings_prompts: Optional[List[str]] = field(
+        default=None, metadata=config(field_name="investigationKeyFindingsPrompts")
+    )
+    investigation_assignee: Optional[str] = field(
+        default=None, metadata=config(field_name="investigationAssignee")
+    )
+    investigation_status: Optional[str] = field(
+        default=None, metadata=config(field_name="investigationStatus")
+    )
+    usages: Optional[List[Union[TemplateUsage, TaegisEnum]]] = field(
+        default=None,
+        metadata=config(
+            encoder=encode_enum,
+            decoder=lambda x: decode_enum(TemplateUsage, x),
+            field_name="usages",
+        ),
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class UpdateInvestigationTemplateInput:
+    """UpdateInvestigationTemplateInput."""
+
+    id: Optional[str] = field(default=None, metadata=config(field_name="id"))
+    title: Optional[str] = field(default=None, metadata=config(field_name="title"))
+    description: Optional[str] = field(
+        default=None, metadata=config(field_name="description")
+    )
+    tags: Optional[List[str]] = field(default=None, metadata=config(field_name="tags"))
+    investigation_type: Optional[str] = field(
+        default=None, metadata=config(field_name="investigationType")
+    )
+    investigation_priority: Optional[str] = field(
+        default=None, metadata=config(field_name="investigationPriority")
+    )
+    investigation_title: Optional[str] = field(
+        default=None, metadata=config(field_name="investigationTitle")
+    )
+    investigation_tags: Optional[List[str]] = field(
+        default=None, metadata=config(field_name="investigationTags")
+    )
+    investigation_key_findings: Optional[str] = field(
+        default=None, metadata=config(field_name="investigationKeyFindings")
+    )
+    investigation_key_findings_prompts: Optional[List[str]] = field(
+        default=None, metadata=config(field_name="investigationKeyFindingsPrompts")
+    )
+    investigation_assignee: Optional[str] = field(
+        default=None, metadata=config(field_name="investigationAssignee")
+    )
+    investigation_status: Optional[str] = field(
+        default=None, metadata=config(field_name="investigationStatus")
+    )
+    usages: Optional[List[Union[TemplateUsage, TaegisEnum]]] = field(
+        default=None,
+        metadata=config(
+            encoder=encode_enum,
+            decoder=lambda x: decode_enum(TemplateUsage, x),
+            field_name="usages",
+        ),
     )
 
 
@@ -1490,6 +1513,69 @@ class AggregatedCounts:
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
+class CommentV2:
+    """CommentV2."""
+
+    id: Optional[str] = field(default=None, metadata=config(field_name="id"))
+    author_id: Optional[str] = field(
+        default=None, metadata=config(field_name="authorId")
+    )
+    created_at: Optional[str] = field(
+        default=None, metadata=config(field_name="createdAt")
+    )
+    updated_at: Optional[str] = field(
+        default=None, metadata=config(field_name="updatedAt")
+    )
+    comment: Optional[str] = field(default=None, metadata=config(field_name="comment"))
+    investigation_id: Optional[str] = field(
+        default=None, metadata=config(field_name="investigationId")
+    )
+    tenant_id: Optional[str] = field(
+        default=None, metadata=config(field_name="tenantId")
+    )
+    mentions_ids: Optional[List[str]] = field(
+        default=None, metadata=config(field_name="mentionsIds")
+    )
+    read_by_ids: Optional[List[str]] = field(
+        default=None, metadata=config(field_name="readByIds")
+    )
+    is_internal: Optional[bool] = field(
+        default=None, metadata=config(field_name="isInternal")
+    )
+    author_subject: Optional[Subject] = field(
+        default=None, metadata=config(field_name="authorSubject")
+    )
+    mentions_subjects: Optional[List[Subject]] = field(
+        default=None, metadata=config(field_name="mentionsSubjects")
+    )
+    read_by_subjects: Optional[List[Subject]] = field(
+        default=None, metadata=config(field_name="readBySubjects")
+    )
+    author: Optional[TDRUser] = field(
+        default=None,
+        metadata=config(
+            metadata={"deprecated": True, "deprecation_reason": "use authorSubject"},
+            field_name="author",
+        ),
+    )
+    mentions_users: Optional[List[TDRUser]] = field(
+        default=None,
+        metadata=config(
+            metadata={"deprecated": True, "deprecation_reason": "use mentionsSubjects"},
+            field_name="mentionsUsers",
+        ),
+    )
+    read_by: Optional[List[TDRUser]] = field(
+        default=None,
+        metadata=config(
+            metadata={"deprecated": True, "deprecation_reason": "use readBySubjects"},
+            field_name="readBy",
+        ),
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
 class InvestigationTemplate:
     """InvestigationTemplate."""
 
@@ -1548,6 +1634,14 @@ class InvestigationTemplate:
     investigation_assignee_subject: Optional[Subject] = field(
         default=None, metadata=config(field_name="investigationAssigneeSubject")
     )
+    usages: Optional[List[Union[TemplateUsage, TaegisEnum]]] = field(
+        default=None,
+        metadata=config(
+            encoder=encode_enum,
+            decoder=lambda x: decode_enum(TemplateUsage, x),
+            field_name="usages",
+        ),
+    )
     created_by: Optional[TDRUser] = field(
         default=None,
         metadata=config(
@@ -1570,69 +1664,6 @@ class InvestigationTemplate:
                 "deprecation_reason": "use investigationAssignee",
             },
             field_name="investigationAssigneeUser",
-        ),
-    )
-
-
-@dataclass_json
-@dataclass(order=True, eq=True, frozen=True)
-class CommentV2:
-    """CommentV2."""
-
-    id: Optional[str] = field(default=None, metadata=config(field_name="id"))
-    author_id: Optional[str] = field(
-        default=None, metadata=config(field_name="authorId")
-    )
-    created_at: Optional[str] = field(
-        default=None, metadata=config(field_name="createdAt")
-    )
-    updated_at: Optional[str] = field(
-        default=None, metadata=config(field_name="updatedAt")
-    )
-    comment: Optional[str] = field(default=None, metadata=config(field_name="comment"))
-    investigation_id: Optional[str] = field(
-        default=None, metadata=config(field_name="investigationId")
-    )
-    tenant_id: Optional[str] = field(
-        default=None, metadata=config(field_name="tenantId")
-    )
-    mentions_ids: Optional[List[str]] = field(
-        default=None, metadata=config(field_name="mentionsIds")
-    )
-    read_by_ids: Optional[List[str]] = field(
-        default=None, metadata=config(field_name="readByIds")
-    )
-    is_internal: Optional[bool] = field(
-        default=None, metadata=config(field_name="isInternal")
-    )
-    author_subject: Optional[Subject] = field(
-        default=None, metadata=config(field_name="authorSubject")
-    )
-    mentions_subjects: Optional[List[Subject]] = field(
-        default=None, metadata=config(field_name="mentionsSubjects")
-    )
-    read_by_subjects: Optional[List[Subject]] = field(
-        default=None, metadata=config(field_name="readBySubjects")
-    )
-    author: Optional[TDRUser] = field(
-        default=None,
-        metadata=config(
-            metadata={"deprecated": True, "deprecation_reason": "use authorSubject"},
-            field_name="author",
-        ),
-    )
-    mentions_users: Optional[List[TDRUser]] = field(
-        default=None,
-        metadata=config(
-            metadata={"deprecated": True, "deprecation_reason": "use mentionsSubjects"},
-            field_name="mentionsUsers",
-        ),
-    )
-    read_by: Optional[List[TDRUser]] = field(
-        default=None,
-        metadata=config(
-            metadata={"deprecated": True, "deprecation_reason": "use readBySubjects"},
-            field_name="readBy",
         ),
     )
 

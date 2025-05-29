@@ -355,11 +355,9 @@ class AIOHTTPWebsocketsTransport(AsyncTransport):
                 answer_id = int(str(answer.get("id")))
 
                 if answer_type in ["next", "error"]:
-
                     payload = answer.get("payload")
 
                     if answer_type == "next":
-
                         if not isinstance(payload, dict):
                             raise ValueError("payload is not a dict")
 
@@ -378,7 +376,6 @@ class AIOHTTPWebsocketsTransport(AsyncTransport):
                         answer_type = "data"
 
                     elif answer_type == "error":
-
                         if not isinstance(payload, list):
                             raise ValueError("payload is not a list")
 
@@ -426,14 +423,12 @@ class AIOHTTPWebsocketsTransport(AsyncTransport):
                 answer_id = int(str(answer.get("id")))
 
                 if answer_type in ["data", "error"]:
-
                     payload = answer.get("payload")
 
                     if not isinstance(payload, dict):
                         raise ValueError("payload is not a dict")
 
                     if answer_type == "data":
-
                         if "errors" not in payload and "data" not in payload:
                             raise ValueError(
                                 "payload does not contain 'data' or 'errors' fields"
@@ -446,7 +441,6 @@ class AIOHTTPWebsocketsTransport(AsyncTransport):
                         )
 
                     elif answer_type == "error":
-
                         raise TransportQueryError(
                             str(payload), query_id=answer_id, errors=[payload]
                         )
@@ -634,7 +628,6 @@ class AIOHTTPWebsocketsTransport(AsyncTransport):
             self.subprotocol == self.GRAPHQLWS_SUBPROTOCOL
             and self.ping_interval is not None
         ):
-
             self.send_ping_task = asyncio.ensure_future(self._send_ping_coro())
 
     async def _close_hook(self):
@@ -795,7 +788,6 @@ class AIOHTTPWebsocketsTransport(AsyncTransport):
         answer_id: Optional[int],
         execution_result: Optional[ExecutionResult],
     ) -> None:
-
         try:
             # Put the answer in the queue
             if answer_id is not None:
@@ -820,7 +812,6 @@ class AIOHTTPWebsocketsTransport(AsyncTransport):
 
         try:
             while True:
-
                 # Wait the next answer from the websocket server
                 try:
                     answer = await self._receive()
@@ -995,7 +986,6 @@ class AIOHTTPWebsocketsTransport(AsyncTransport):
         log.debug("_close_coro: starting")
 
         try:
-
             try:
                 # Properly shut down liveness checker if enabled
                 if self.check_keep_alive_task is not None:
@@ -1053,7 +1043,6 @@ class AIOHTTPWebsocketsTransport(AsyncTransport):
                 self.client_session_args
                 and self.client_session_args.get("connector_owner") is False
             ):
-
                 log.debug("connector_owner is False -> not closing connector")
 
             else:
@@ -1098,7 +1087,6 @@ class AIOHTTPWebsocketsTransport(AsyncTransport):
             log.warning(f"Exception catched in _close_coro: {repr(exc)}")
 
         finally:
-
             log.debug("_close_coro: final cleanup")
 
             self.websocket = None
@@ -1113,7 +1101,6 @@ class AIOHTTPWebsocketsTransport(AsyncTransport):
         log.debug(f"_fail: starting with exception: {repr(e)}")
 
         if self.close_task is None:
-
             if self._wait_closed.is_set():
                 log.debug("_fail started but transport is already closed")
             else:
@@ -1209,7 +1196,6 @@ class AIOHTTPWebsocketsTransport(AsyncTransport):
         try:
             # Loop over the received answers
             while True:
-
                 # Wait for the answer from the queue of this query_id
                 # This can raise a TransportError or ConnectionClosed exception.
                 answer_type, execution_result = await listener.get()

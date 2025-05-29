@@ -36,17 +36,11 @@ class Operator(str, Enum):
     MATCHES_REGEX = "MATCHES_REGEX"
 
 
-@dataclass_json
-@dataclass(order=True, eq=True, frozen=True)
-class EventWindow:
-    """EventWindow."""
+class BackendStrategy(str, Enum):
+    """BackendStrategy."""
 
-    earliest_event: Optional[str] = field(
-        default=None, metadata=config(field_name="earliestEvent")
-    )
-    latest_event: Optional[str] = field(
-        default=None, metadata=config(field_name="latestEvent")
-    )
+    ATHENA = "ATHENA"
+    TRINO = "TRINO"
 
 
 @dataclass_json
@@ -90,6 +84,27 @@ class TenantsInput:
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
+class EventWindow:
+    """EventWindow."""
+
+    earliest_event: Optional[str] = field(
+        default=None, metadata=config(field_name="earliestEvent")
+    )
+    latest_event: Optional[str] = field(
+        default=None, metadata=config(field_name="latestEvent")
+    )
+    backend_strategy: Optional[Union[BackendStrategy, TaegisEnum]] = field(
+        default=None,
+        metadata=config(
+            encoder=encode_enum,
+            decoder=lambda x: decode_enum(BackendStrategy, x),
+            field_name="backendStrategy",
+        ),
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
 class EventCountByLogicalType:
     """EventCountByLogicalType."""
 
@@ -103,20 +118,6 @@ class EventCountByLogicalType:
     count: Optional[int] = field(default=None, metadata=config(field_name="count"))
     counts_by_tenant: Optional[List[TenantCount]] = field(
         default=None, metadata=config(field_name="countsByTenant")
-    )
-
-
-@dataclass_json
-@dataclass(order=True, eq=True, frozen=True)
-class EventCountResult:
-    """EventCountResult."""
-
-    next: Optional[str] = field(default=None, metadata=config(field_name="next"))
-    results: Optional[List[EventCountByLogicalType]] = field(
-        default=None, metadata=config(field_name="results")
-    )
-    error: Optional[DataAvailabilityError] = field(
-        default=None, metadata=config(field_name="error")
     )
 
 
@@ -148,6 +149,28 @@ class LogicalTypeFilter:
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
+class EventCountResult:
+    """EventCountResult."""
+
+    next: Optional[str] = field(default=None, metadata=config(field_name="next"))
+    results: Optional[List[EventCountByLogicalType]] = field(
+        default=None, metadata=config(field_name="results")
+    )
+    backend_strategy: Optional[Union[BackendStrategy, TaegisEnum]] = field(
+        default=None,
+        metadata=config(
+            encoder=encode_enum,
+            decoder=lambda x: decode_enum(BackendStrategy, x),
+            field_name="backendStrategy",
+        ),
+    )
+    error: Optional[DataAvailabilityError] = field(
+        default=None, metadata=config(field_name="error")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
 class EventAggregationArguments:
     """EventAggregationArguments."""
 
@@ -164,4 +187,12 @@ class EventAggregationArguments:
     )
     tenants_context: Optional[TenantsInput] = field(
         default=None, metadata=config(field_name="tenantsContext")
+    )
+    backend_strategy: Optional[Union[BackendStrategy, TaegisEnum]] = field(
+        default=None,
+        metadata=config(
+            encoder=encode_enum,
+            decoder=lambda x: decode_enum(BackendStrategy, x),
+            field_name="backendStrategy",
+        ),
     )
