@@ -35,7 +35,7 @@ class TaegisSDKDatasourcesMutation:
     def delete_data_source_assets(
         self, delete_asset_input: List[DeleteAssetInput]
     ) -> List[DeletedAsset]:
-        """Executes a delete operation on all included data sources for a specified tenant. Returns an array of all
+        """Executes a delete operation on all included data sources for a specified tenant. Returns an array of
         deleted assets with metadata. Authorization permission is required with delete access to the collector
         object.."""
         endpoint = "deleteDataSourceAssets"

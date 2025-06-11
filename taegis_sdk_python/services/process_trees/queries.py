@@ -32,15 +32,17 @@ class TaegisSDKProcessTreesQuery:
     def __init__(self, service: ProcessTreesService):
         self.service = service
 
-    def get_process_children(
+    def process_children(
         self,
         tenant_id: str,
         host_id: str,
         process_correlation_id: str,
         resource_id: Optional[str] = None,
+        order_by_input: Optional[List[OrderByInput]] = None,
+        next_token: Optional[str] = None,
     ) -> Children:
         """None."""
-        endpoint = "GetProcessChildren"
+        endpoint = "processChildren"
 
         result = self.service.execute_query(
             endpoint=endpoint,
@@ -49,6 +51,90 @@ class TaegisSDKProcessTreesQuery:
                 "hostID": prepare_input(host_id),
                 "processCorrelationID": prepare_input(process_correlation_id),
                 "resourceID": prepare_input(resource_id),
+                "orderByInput": prepare_input(order_by_input),
+                "nextToken": prepare_input(next_token),
+            },
+            output=build_output_string(Children),
+        )
+        if result.get(endpoint) is not None:
+            return Children.from_dict(result.get(endpoint))
+        raise GraphQLNoRowsInResultSetError("for query processChildren")
+
+    def process_parent(
+        self,
+        tenant_id: str,
+        host_id: str,
+        parent_process_correlation_id: str,
+        resource_id: Optional[str] = None,
+    ) -> ProcessEvent:
+        """None."""
+        endpoint = "processParent"
+
+        result = self.service.execute_query(
+            endpoint=endpoint,
+            variables={
+                "tenantID": prepare_input(tenant_id),
+                "hostID": prepare_input(host_id),
+                "parentProcessCorrelationID": prepare_input(
+                    parent_process_correlation_id
+                ),
+                "resourceID": prepare_input(resource_id),
+            },
+            output=build_output_string(ProcessEvent),
+        )
+        if result.get(endpoint) is not None:
+            return ProcessEvent.from_dict(result.get(endpoint))
+        raise GraphQLNoRowsInResultSetError("for query processParent")
+
+    def process_lineage(
+        self,
+        tenant_id: str,
+        host_id: str,
+        process_correlation_id: str,
+        resource_id: str,
+    ) -> ProcessLineage:
+        """None."""
+        endpoint = "processLineage"
+
+        result = self.service.execute_query(
+            endpoint=endpoint,
+            variables={
+                "tenantID": prepare_input(tenant_id),
+                "hostID": prepare_input(host_id),
+                "processCorrelationID": prepare_input(process_correlation_id),
+                "resourceID": prepare_input(resource_id),
+            },
+            output=build_output_string(ProcessLineage),
+        )
+        if result.get(endpoint) is not None:
+            return ProcessLineage.from_dict(result.get(endpoint))
+        raise GraphQLNoRowsInResultSetError("for query processLineage")
+
+    def get_process_children(
+        self,
+        tenant_id: str,
+        host_id: str,
+        process_correlation_id: str,
+        resource_id: Optional[str] = None,
+        order_by_input: Optional[List[OrderByInput]] = None,
+        next_token: Optional[str] = None,
+    ) -> Children:
+        """None."""
+        endpoint = "GetProcessChildren"
+
+        log.warning(
+            f"GraphQL Query `{endpoint}` is deprecated: 'Use processChildren instead'"
+        )
+
+        result = self.service.execute_query(
+            endpoint=endpoint,
+            variables={
+                "tenantID": prepare_input(tenant_id),
+                "hostID": prepare_input(host_id),
+                "processCorrelationID": prepare_input(process_correlation_id),
+                "resourceID": prepare_input(resource_id),
+                "orderByInput": prepare_input(order_by_input),
+                "nextToken": prepare_input(next_token),
             },
             output=build_output_string(Children),
         )
@@ -65,6 +151,10 @@ class TaegisSDKProcessTreesQuery:
     ) -> ProcessEvent:
         """None."""
         endpoint = "GetProcessParent"
+
+        log.warning(
+            f"GraphQL Query `{endpoint}` is deprecated: 'Use processParent instead'"
+        )
 
         result = self.service.execute_query(
             endpoint=endpoint,

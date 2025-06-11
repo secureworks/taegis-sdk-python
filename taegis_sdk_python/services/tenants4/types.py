@@ -57,9 +57,6 @@ class MappedTenant:
     """MappedTenant."""
 
     id: Optional[str] = field(default=None, metadata=config(field_name="id"))
-    endpoint: Optional[str] = field(
-        default=None, metadata=config(field_name="endpoint")
-    )
     region: Optional[str] = field(default=None, metadata=config(field_name="region"))
     data_region: Optional[str] = field(
         default=None, metadata=config(field_name="dataRegion")

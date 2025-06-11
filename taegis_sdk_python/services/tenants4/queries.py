@@ -48,7 +48,7 @@ class TaegisSDKTenants4Query:
         raise GraphQLNoRowsInResultSetError("for query tenants")
 
     def tenant(self, id_: str) -> TenantV4:
-        """Retrieves a single tenant, tenant won't be returned if the subject does not have access to it (and requesting on an endpoint with authorization enabled)."""
+        """Retrieves a single tenant. Accepts a Taegis ID (numeric) or a Sophos ID (uuid). Tenant won't be returned if the subject does not have access to it (and requesting on an endpoint with authorization enabled)."""
         endpoint = "tenant"
 
         result = self.service.execute_query(

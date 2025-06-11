@@ -60,6 +60,10 @@ class TaegisSDKClientsQuery:
         """Search Clients."""
         endpoint = "clients"
 
+        log.warning(
+            f"GraphQL Query `{endpoint}` is deprecated: 'Use clientsSearchResults instead, which includes totalCount and totalUnfilteredCount'"
+        )
+
         result = self.service.execute_query(
             endpoint=endpoint,
             variables={
@@ -78,3 +82,20 @@ class TaegisSDKClientsQuery:
                 [r or {} for r in result.get(endpoint)], many=True
             )
         raise GraphQLNoRowsInResultSetError("for query clients")
+
+    def clients_search(
+        self, filters: Optional[ClientsSearchInput] = None
+    ) -> ClientSearchResults:
+        """Returns clients matching the search criteria along with totalCount and totalUnfilteredCount."""
+        endpoint = "clientsSearch"
+
+        result = self.service.execute_query(
+            endpoint=endpoint,
+            variables={
+                "filters": prepare_input(filters),
+            },
+            output=build_output_string(ClientSearchResults),
+        )
+        if result.get(endpoint) is not None:
+            return ClientSearchResults.from_dict(result.get(endpoint))
+        raise GraphQLNoRowsInResultSetError("for query clientsSearch")

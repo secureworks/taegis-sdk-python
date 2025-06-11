@@ -729,7 +729,9 @@ class TaegisSDKCollectorQuery:
             return result.get(endpoint)
         raise GraphQLNoRowsInResultSetError("for query getClustersPasswordHash")
 
-    def get_data_collectors(self, input_: QlQueryInput) -> DataCollectorResult:
+    def get_data_collectors(
+        self, input_: CollectorsQlQueryInput
+    ) -> DataCollectorResult:
         """Searches and/or aggregates on Data collectors cql schema."""
         endpoint = "getDataCollectors"
 

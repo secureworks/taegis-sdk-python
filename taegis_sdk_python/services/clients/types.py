@@ -95,6 +95,30 @@ class ClientRoleAssignmentInput:
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
+class ClientsSearchInput:
+    """ClientsSearchInput."""
+
+    name: Optional[str] = field(default=None, metadata=config(field_name="name"))
+    client_ids: Optional[List[str]] = field(
+        default=None, metadata=config(field_name="clientIDs")
+    )
+    tenant_id: Optional[str] = field(
+        default=None, metadata=config(field_name="tenantID")
+    )
+    role_ids: Optional[List[str]] = field(
+        default=None, metadata=config(field_name="roleIDs")
+    )
+    tenant_ids: Optional[List[str]] = field(
+        default=None, metadata=config(field_name="tenantIDs")
+    )
+    page_offset: Optional[int] = field(
+        default=None, metadata=config(field_name="pageOffset")
+    )
+    per_page: Optional[int] = field(default=None, metadata=config(field_name="perPage"))
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
 class CreateClientInput:
     """CreateClientInput."""
 
@@ -233,6 +257,25 @@ class Client:
     )
     role_assignments: Optional[List[ClientRoleAssignment]] = field(
         default=None, metadata=config(field_name="roleAssignments")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class ClientSearchResults:
+    """ClientSearchResults."""
+
+    result_count: Optional[int] = field(
+        default=None, metadata=config(field_name="result_count")
+    )
+    total_count: Optional[int] = field(
+        default=None, metadata=config(field_name="totalCount")
+    )
+    total_unfiltered_count: Optional[int] = field(
+        default=None, metadata=config(field_name="totalUnfilteredCount")
+    )
+    results: Optional[List[Client]] = field(
+        default=None, metadata=config(field_name="results")
     )
 
 

@@ -7,9 +7,28 @@
 
 from dataclasses import dataclass, field
 
+from enum import Enum
+
 from typing import Any, Dict, List, Optional, Tuple, Union
 
 from dataclasses_json import config, dataclass_json
+
+
+from taegis_sdk_python._consts import TaegisEnum
+from taegis_sdk_python.utils import encode_enum, decode_enum, parse_union_result
+
+
+class OrderByDirectionInput(str, Enum):
+    """OrderByDirectionInput."""
+
+    ASC = "asc"
+    DESC = "desc"
+
+
+class OrderByFieldInput(str, Enum):
+    """OrderByFieldInput."""
+
+    PROCESS_CREATION_TIME = "processCreationTime"
 
 
 @dataclass_json
@@ -78,8 +97,14 @@ class ProcessEvent:
     sensor_type: Optional[str] = field(
         default=None, metadata=config(field_name="sensorType")
     )
+    event_time_usec: Optional[int] = field(
+        default=None, metadata=config(field_name="eventTimeUsec")
+    )
     children_count: Optional[int] = field(
         default=None, metadata=config(field_name="childrenCount")
+    )
+    alerts: Optional[List[str]] = field(
+        default=None, metadata=config(field_name="alerts")
     )
     program_hash: Optional[ProgramHash] = field(
         default=None, metadata=config(field_name="programHash")
@@ -94,6 +119,43 @@ class Children:
     children_count: Optional[int] = field(
         default=None, metadata=config(field_name="childrenCount")
     )
+    next_token: Optional[str] = field(
+        default=None, metadata=config(field_name="nextToken")
+    )
     process_list: Optional[List[ProcessEvent]] = field(
         default=None, metadata=config(field_name="processList")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class ProcessLineage:
+    """ProcessLineage."""
+
+    depth: Optional[int] = field(default=None, metadata=config(field_name="depth"))
+    lineage: Optional[List[ProcessEvent]] = field(
+        default=None, metadata=config(field_name="lineage")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class OrderByInput:
+    """OrderByInput."""
+
+    field_: Optional[Union[OrderByFieldInput, TaegisEnum]] = field(
+        default=None,
+        metadata=config(
+            encoder=encode_enum,
+            decoder=lambda x: decode_enum(OrderByFieldInput, x),
+            field_name="field",
+        ),
+    )
+    direction: Optional[Union[OrderByDirectionInput, TaegisEnum]] = field(
+        default=None,
+        metadata=config(
+            encoder=encode_enum,
+            decoder=lambda x: decode_enum(OrderByDirectionInput, x),
+            field_name="direction",
+        ),
     )

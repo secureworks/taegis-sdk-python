@@ -1218,6 +1218,9 @@ class AssetWhereInputV2:
     vulnerability_status_autocomplete: Optional[str] = field(
         default=None, metadata=config(field_name="vulnerabilityStatus_autocomplete")
     )
+    is_archived: Optional[str] = field(
+        default=None, metadata=config(field_name="isArchived")
+    )
     and_: Optional[List["AssetWhereInputV2"]] = field(
         default=None, metadata=config(field_name="and")
     )

@@ -713,8 +713,8 @@ class SyslogMessageCountV2Arguments:
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
-class QlQueryInput:
-    """QlQueryInput."""
+class CollectorsQlQueryInput:
+    """CollectorsQlQueryInput."""
 
     cql_query: Optional[str] = field(
         default=None, metadata=config(field_name="cqlQuery")
@@ -725,8 +725,8 @@ class QlQueryInput:
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
-class QLPageCursor:
-    """QLPageCursor."""
+class CollectorsPageCursor:
+    """CollectorsPageCursor."""
 
     next_cursor: Optional[str] = field(
         default=None, metadata=config(field_name="nextCursor")
@@ -1172,7 +1172,7 @@ class DataCollectorResult:
     data_collectors: Optional[List[DataCollector]] = field(
         default=None, metadata=config(field_name="dataCollectors")
     )
-    pagination: Optional[QLPageCursor] = field(
+    pagination: Optional[CollectorsPageCursor] = field(
         default=None, metadata=config(field_name="pagination")
     )
 

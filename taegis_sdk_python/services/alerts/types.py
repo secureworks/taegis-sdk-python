@@ -2987,6 +2987,9 @@ class StructuredEntity:
     identifiers: Optional[List[str]] = field(
         default=None, metadata=config(field_name="identifiers")
     )
+    display_name: Optional[str] = field(
+        default=None, metadata=config(field_name="display_name")
+    )
     perspective: Optional[Union[EntityPerspective, TaegisEnum]] = field(
         default=None,
         metadata=config(
