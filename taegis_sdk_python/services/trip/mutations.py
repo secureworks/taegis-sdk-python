@@ -119,3 +119,22 @@ class TaegisSDKTripMutation:
         if result.get(endpoint) is not None:
             return ApiIntegrationUpdateResponse.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for mutation resumeApiIntegration")
+
+    def retry_api_integration_provisioning(
+        self, id_: int
+    ) -> ApiIntegrationUpdateResponse:
+        """Given a parent integration id, this will retry provisioning all child integrations if they are in a failed state."""
+        endpoint = "retryApiIntegrationProvisioning"
+
+        result = self.service.execute_mutation(
+            endpoint=endpoint,
+            variables={
+                "id": prepare_input(id_),
+            },
+            output=build_output_string(ApiIntegrationUpdateResponse),
+        )
+        if result.get(endpoint) is not None:
+            return ApiIntegrationUpdateResponse.from_dict(result.get(endpoint))
+        raise GraphQLNoRowsInResultSetError(
+            "for mutation retryApiIntegrationProvisioning"
+        )

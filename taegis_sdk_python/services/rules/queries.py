@@ -488,3 +488,39 @@ class TaegisSDKRulesQuery:
         if result.get(endpoint) is not None:
             return RuleFacetAggregationsOutput.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for query ruleFacetAggregations")
+
+    def ql_rules_tenants_details(
+        self, event_type: Union[RuleEventType, TaegisEnum]
+    ) -> List[QLTenants]:
+        """Returns a list of tenants, parents, and organizations with QL rules for the specified event type."""
+        endpoint = "qlRulesTenantsDetails"
+
+        result = self.service.execute_query(
+            endpoint=endpoint,
+            variables={
+                "eventType": prepare_input(event_type),
+            },
+            output=build_output_string(QLTenants),
+        )
+        if result.get(endpoint) is not None:
+            return QLTenants.schema().load(
+                [r or {} for r in result.get(endpoint)], many=True
+            )
+        raise GraphQLNoRowsInResultSetError("for query qlRulesTenantsDetails")
+
+    def ql_rules_tenants(
+        self, event_type: Union[RuleEventType, TaegisEnum]
+    ) -> List[str]:
+        """Returns a list of tenant IDs with QL rules for the specified event type."""
+        endpoint = "qlRulesTenants"
+
+        result = self.service.execute_query(
+            endpoint=endpoint,
+            variables={
+                "eventType": prepare_input(event_type),
+            },
+            output="",
+        )
+        if result.get(endpoint) is not None:
+            return result.get(endpoint)
+        raise GraphQLNoRowsInResultSetError("for query qlRulesTenants")

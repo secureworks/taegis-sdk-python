@@ -535,6 +535,29 @@ class PartnerRegistrationInput:
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
+class UserIDExchangeDataResponse:
+    """UserIDExchangeDataResponse."""
+
+    id: Optional[str] = field(default=None, metadata=config(field_name="id"))
+    email: Optional[str] = field(default=None, metadata=config(field_name="email"))
+    given_name: Optional[str] = field(
+        default=None, metadata=config(field_name="given_name")
+    )
+    family_name: Optional[str] = field(
+        default=None, metadata=config(field_name="family_name")
+    )
+    preferred_language: Optional[Union[TDRUsersLanguage, TaegisEnum]] = field(
+        default=None,
+        metadata=config(
+            encoder=encode_enum,
+            decoder=lambda x: decode_enum(TDRUsersLanguage, x),
+            field_name="preferred_language",
+        ),
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
 class MigrateSSOUsersInput:
     """MigrateSSOUsersInput."""
 

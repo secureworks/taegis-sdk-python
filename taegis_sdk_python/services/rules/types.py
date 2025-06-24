@@ -134,6 +134,15 @@ class RuleDay(str, Enum):
     SUNDAY = "Sunday"
 
 
+class QLTenantType(str, Enum):
+    """QLTenantType."""
+
+    QL_TENANT = "QLTenant"
+    QL_PARTNER = "QLPartner"
+    QL_ORGANIZATION = "QLOrganization"
+    QL_UNKNOWN = "QLUnknown"
+
+
 class RuleResolutionStatus(str, Enum):
     """RuleResolutionStatus."""
 
@@ -371,6 +380,15 @@ class AggregationPair:
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
+class QLTenantIDs:
+    """QLTenantIDs."""
+
+    id: Optional[str] = field(default=None, metadata=config(field_name="id"))
+    type: Optional[int] = field(default=None, metadata=config(field_name="type"))
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
 class TDRUser:
     """TDRUser."""
 
@@ -495,6 +513,22 @@ class RuleMetrics:
     )
     daily_counts: Optional[List[RuleDailyCount]] = field(
         default=None, metadata=config(field_name="dailyCounts")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class QLTenants:
+    """QLTenants."""
+
+    tenant: Optional[str] = field(default=None, metadata=config(field_name="tenant"))
+    tenant_type: Optional[Union[QLTenantType, TaegisEnum]] = field(
+        default=None,
+        metadata=config(
+            encoder=encode_enum,
+            decoder=lambda x: decode_enum(QLTenantType, x),
+            field_name="tenantType",
+        ),
     )
 
 
@@ -663,6 +697,9 @@ class SearchRulesByFieldInput:
     )
     cve: Optional[str] = field(default=None, metadata=config(field_name="cve"))
     vid: Optional[int] = field(default=None, metadata=config(field_name="vid"))
+    aggressive_threat_detection: Optional[bool] = field(
+        default=None, metadata=config(field_name="aggressiveThreatDetection")
+    )
     enabled: Optional[bool] = field(default=None, metadata=config(field_name="enabled"))
     deleted: Optional[bool] = field(default=None, metadata=config(field_name="deleted"))
     updated_at: Optional[str] = field(
@@ -753,6 +790,9 @@ class RuleInput:
         default=None, metadata=config(field_name="attackCategories")
     )
     enabled: Optional[bool] = field(default=None, metadata=config(field_name="enabled"))
+    aggressive_threat_detection: Optional[bool] = field(
+        default=None, metadata=config(field_name="aggressiveThreatDetection")
+    )
     event_type: Optional[Union[RuleEventType, TaegisEnum]] = field(
         default=None,
         metadata=config(
@@ -863,6 +903,9 @@ class Rule:
         default=None, metadata=config(field_name="confidence")
     )
     enabled: Optional[bool] = field(default=None, metadata=config(field_name="enabled"))
+    aggressive_threat_detection: Optional[bool] = field(
+        default=None, metadata=config(field_name="aggressiveThreatDetection")
+    )
     create_alert: Optional[bool] = field(
         default=None, metadata=config(field_name="createAlert")
     )

@@ -40,7 +40,7 @@ class EndpointTypeV2(str, Enum):
     ENDPOINT_SENTINELONE = "ENDPOINT_SENTINELONE"
     ENDPOINT_HARFANG_LAB = "ENDPOINT_HARFANG_LAB"
     ENDPOINT_SOPHOS_CIXA = "ENDPOINT_SOPHOS_CIXA"
-    ENDPOINT_SOPHOS_XDR = "ENDPOINT_SOPHOS_XDR"
+    ENDPOINT_SOPHOS = "ENDPOINT_SOPHOS"
 
 
 class FacetInfoOrderByInputV2(str, Enum):
@@ -1068,7 +1068,11 @@ class AssetWhereInputV2:
         default=None, metadata=config(field_name="cloudInstanceId_autocomplete")
     )
     connection_status: Optional[str] = field(
-        default=None, metadata=config(field_name="connectionStatus")
+        default=None,
+        metadata=config(
+            metadata={"deprecated": True, "deprecation_reason": "No longer supported"},
+            field_name="connectionStatus",
+        ),
     )
     created_at: Optional[str] = field(
         default=None, metadata=config(field_name="createdAt")
@@ -1221,6 +1225,9 @@ class AssetWhereInputV2:
     is_archived: Optional[str] = field(
         default=None, metadata=config(field_name="isArchived")
     )
+    reboot_required: Optional[bool] = field(
+        default=None, metadata=config(field_name="rebootRequired")
+    )
     and_: Optional[List["AssetWhereInputV2"]] = field(
         default=None, metadata=config(field_name="and")
     )
@@ -1354,6 +1361,9 @@ class AssetV2:
     uninstall: Optional[bool] = field(
         default=None, metadata=config(field_name="uninstall")
     )
+    reboot_required: Optional[bool] = field(
+        default=None, metadata=config(field_name="rebootRequired")
+    )
     hostnames: Optional[List[HostnameV2]] = field(
         default=None, metadata=config(field_name="hostnames")
     )
@@ -1483,6 +1493,7 @@ class AssetFilter:
     asset_state: Optional[List[Union[AssetState, TaegisEnum]]] = field(
         default=None,
         metadata=config(
+            metadata={"deprecated": True, "deprecation_reason": "No longer supported"},
             encoder=encode_enum,
             decoder=lambda x: decode_enum(AssetState, x),
             field_name="assetState",
