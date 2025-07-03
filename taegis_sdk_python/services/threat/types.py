@@ -18,6 +18,26 @@ from taegis_sdk_python._consts import TaegisEnum
 from taegis_sdk_python.utils import encode_enum, decode_enum, parse_union_result
 
 
+class SortByDirectionInput(str, Enum):
+    """SortByDirectionInput."""
+
+    ASC = "asc"
+    DESC = "desc"
+
+
+class SortByFieldInput(str, Enum):
+    """SortByFieldInput."""
+
+    MALWARE_FAMILY = "malware_family"
+    MALWARE_LAST_SEEN = "malware_last_seen"
+    MALWARE_TYPE = "malware_type"
+    THREAT_GROUP_NAME = "threat_group_name"
+    THREAT_GROUP_THEMATIC_AREA = "threat_group_thematic_area"
+    THREAT_GROUP_STATUS = "threat_group_status"
+    REPORT_NAME = "report_name"
+    REPORT_PUBLISHED = "report_published"
+
+
 class ThreatFacetObject(str, Enum):
     """ThreatFacetObject."""
 
@@ -1388,6 +1408,29 @@ class ThreatReport:
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
+class SortByInput:
+    """SortByInput."""
+
+    field_: Optional[Union[SortByFieldInput, TaegisEnum]] = field(
+        default=None,
+        metadata=config(
+            encoder=encode_enum,
+            decoder=lambda x: decode_enum(SortByFieldInput, x),
+            field_name="field",
+        ),
+    )
+    direction: Optional[Union[SortByDirectionInput, TaegisEnum]] = field(
+        default=None,
+        metadata=config(
+            encoder=encode_enum,
+            decoder=lambda x: decode_enum(SortByDirectionInput, x),
+            field_name="direction",
+        ),
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
 class ThreatIdentityInput:
     """ThreatIdentityInput."""
 
@@ -1561,6 +1604,13 @@ class ThreatWhereInput:
     )
     report_id_contains: Optional[str] = field(
         default=None, metadata=config(field_name="reportID_contains")
+    )
+    report: Optional[str] = field(default=None, metadata=config(field_name="report"))
+    report_contains: Optional[str] = field(
+        default=None, metadata=config(field_name="report_contains")
+    )
+    text_search: Optional[str] = field(
+        default=None, metadata=config(field_name="textSearch")
     )
     and_: Optional[List["ThreatWhereInput"]] = field(
         default=None, metadata=config(field_name="and")
@@ -1930,6 +1980,9 @@ class ThreatMalware:
     created: Optional[str] = field(default=None, metadata=config(field_name="created"))
     modified: Optional[str] = field(
         default=None, metadata=config(field_name="modified")
+    )
+    is_priority_threat: Optional[bool] = field(
+        default=None, metadata=config(field_name="is_priority_threat")
     )
     family: Optional[str] = field(default=None, metadata=config(field_name="family"))
     aliases: Optional[List[str]] = field(

@@ -44,6 +44,8 @@ class RuleEventType(str, Enum):
     THREAD_INJECTION = "thread_injection"
     PROCESS_MODULE = "process_module"
     TAEGIS_AGENT_DETECTION = "taegis_agent_detection"
+    DETECTION_FINDING = "detection_finding"
+    TECHNIQUE_FINDING = "technique_finding"
 
 
 class RuleEndpointPlatform(str, Enum):

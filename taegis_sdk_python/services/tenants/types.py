@@ -455,36 +455,6 @@ class TenantDecommissionAgentSummary:
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
-class RegisteredDomain:
-    """RegisteredDomain."""
-
-    id: Optional[str] = field(default=None, metadata=config(field_name="id"))
-    tenant_id: Optional[str] = field(
-        default=None, metadata=config(field_name="tenantID")
-    )
-    domain: Optional[str] = field(default=None, metadata=config(field_name="domain"))
-    verified: Optional[bool] = field(
-        default=None, metadata=config(field_name="verified")
-    )
-    verification_txt: Optional[str] = field(
-        default=None, metadata=config(field_name="verificationTxt")
-    )
-    created_at: Optional[str] = field(
-        default=None, metadata=config(field_name="createdAt")
-    )
-    updated_at: Optional[str] = field(
-        default=None, metadata=config(field_name="updatedAt")
-    )
-    created_by: Optional[str] = field(
-        default=None, metadata=config(field_name="createdBy")
-    )
-    updated_by: Optional[str] = field(
-        default=None, metadata=config(field_name="updatedBy")
-    )
-
-
-@dataclass_json
-@dataclass(order=True, eq=True, frozen=True)
 class NewService:
     """NewService."""
 
@@ -1667,4 +1637,37 @@ class SSOConnectionConfigResponse:
     subject: Optional[str] = field(default=None, metadata=config(field_name="subject"))
     sso_connection_configuration: Optional[SSOConnectionConfiguration] = field(
         default=None, metadata=config(field_name="ssoConnectionConfiguration")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class RegisteredDomain:
+    """RegisteredDomain."""
+
+    id: Optional[str] = field(default=None, metadata=config(field_name="id"))
+    tenant_id: Optional[str] = field(
+        default=None, metadata=config(field_name="tenantID")
+    )
+    domain: Optional[str] = field(default=None, metadata=config(field_name="domain"))
+    verified: Optional[bool] = field(
+        default=None, metadata=config(field_name="verified")
+    )
+    verification_txt: Optional[str] = field(
+        default=None, metadata=config(field_name="verificationTxt")
+    )
+    created_at: Optional[str] = field(
+        default=None, metadata=config(field_name="createdAt")
+    )
+    updated_at: Optional[str] = field(
+        default=None, metadata=config(field_name="updatedAt")
+    )
+    created_by: Optional[str] = field(
+        default=None, metadata=config(field_name="createdBy")
+    )
+    updated_by: Optional[str] = field(
+        default=None, metadata=config(field_name="updatedBy")
+    )
+    sso_connections: Optional[List[SSOConnection]] = field(
+        default=None, metadata=config(field_name="ssoConnections")
     )

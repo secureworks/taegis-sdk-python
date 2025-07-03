@@ -86,6 +86,7 @@ class ImageType(str, Enum):
     OVA = "OVA"
     AZURE = "AZURE"
     GCP = "GCP"
+    QCOW2 = "QCOW2"
 
 
 @dataclass_json

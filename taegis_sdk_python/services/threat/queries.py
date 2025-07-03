@@ -345,6 +345,7 @@ class TaegisSDKThreatQuery:
         object_type: Union[ThreatFacetObject, TaegisEnum],
         filters: Optional[ThreatFilter] = None,
         page: Optional[ThreatPageInput] = None,
+        sort_by: Optional[List[SortByInput]] = None,
     ) -> ThreatIntelligence:
         """Retrieves all intelligence based on input threat object type and filters."""
         endpoint = "threatIntelligence"
@@ -355,6 +356,7 @@ class TaegisSDKThreatQuery:
                 "objectType": prepare_input(object_type),
                 "filters": prepare_input(filters),
                 "page": prepare_input(page),
+                "sortBy": prepare_input(sort_by),
             },
             output=build_output_string(ThreatIntelligence),
         )

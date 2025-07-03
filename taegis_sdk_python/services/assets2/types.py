@@ -18,6 +18,13 @@ from taegis_sdk_python._consts import TaegisEnum
 from taegis_sdk_python.utils import encode_enum, decode_enum, parse_union_result
 
 
+class ArchiveStatus(str, Enum):
+    """ArchiveStatus."""
+
+    ARCHIVED = "ARCHIVED"
+    NOT_ARCHIVED = "NOT_ARCHIVED"
+
+
 class AssetState(str, Enum):
     """AssetState."""
 
@@ -26,6 +33,15 @@ class AssetState(str, Enum):
     ACTIVE = "Active"
     UNHEALTHY = "Unhealthy"
     HEALTHY = "Healthy"
+
+
+class VendorHealthState(str, Enum):
+    """VendorHealthState."""
+
+    UNKNOWN_HEALTH = "UNKNOWN_HEALTH"
+    GOOD = "GOOD"
+    NEEDS_ATTENTION = "NEEDS_ATTENTION"
+    CRITICAL = "CRITICAL"
 
 
 class EndpointTypeV2(str, Enum):
@@ -93,6 +109,18 @@ class AssetSearchOrderByInputV2(str, Enum):
     TAG_DESC = "tag_desc"
     VULNERABILITY_STATUS_ASC = "vulnerability_status_asc"
     VULNERABILITY_STATUS_DESC = "vulnerability_status_desc"
+    VENDOR_PROVIDED_HEALTH_ASC = "vendor_provided_health_asc"
+    VENDOR_PROVIDED_HEALTH_DESC = "vendor_provided_health_desc"
+    USERNAME_ASC = "username_asc"
+    USERNAME_DESC = "username_desc"
+    REBOOT_REQUIRED_ASC = "reboot_required_asc"
+    REBOOT_REQUIRED_DESC = "reboot_required_desc"
+    SYSTEM_VOLUME_SERIAL_ASC = "system_volume_serial_asc"
+    SYSTEM_VOLUME_SERIAL_DESC = "system_volume_serial_desc"
+    BIOS_SERIAL_ASC = "bios_serial_asc"
+    BIOS_SERIAL_DESC = "bios_serial_desc"
+    FIRST_DISK_SERIAL_ASC = "first_disk_serial_asc"
+    FIRST_DISK_SERIAL_DESC = "first_disk_serial_desc"
 
 
 class AssetHostnameSearchOrderByInput(str, Enum):
@@ -1222,9 +1250,6 @@ class AssetWhereInputV2:
     vulnerability_status_autocomplete: Optional[str] = field(
         default=None, metadata=config(field_name="vulnerabilityStatus_autocomplete")
     )
-    is_archived: Optional[str] = field(
-        default=None, metadata=config(field_name="isArchived")
-    )
     reboot_required: Optional[bool] = field(
         default=None, metadata=config(field_name="rebootRequired")
     )
@@ -1237,6 +1262,14 @@ class AssetWhereInputV2:
     not_: Optional["AssetWhereInputV2"] = field(
         default=None, metadata=config(field_name="not")
     )
+    vendor_provided_health: Optional[Union[VendorHealthState, TaegisEnum]] = field(
+        default=None,
+        metadata=config(
+            encoder=encode_enum,
+            decoder=lambda x: decode_enum(VendorHealthState, x),
+            field_name="vendorProvidedHealth",
+        ),
+    )
     tags: Optional[TagWhereInputV2] = field(
         default=None, metadata=config(field_name="tags")
     )
@@ -1245,6 +1278,14 @@ class AssetWhereInputV2:
     )
     tags_autocomplete: Optional[TagWhereInputV2] = field(
         default=None, metadata=config(field_name="tags_autocomplete")
+    )
+    archived_status: Optional[Union[ArchiveStatus, TaegisEnum]] = field(
+        default=None,
+        metadata=config(
+            encoder=encode_enum,
+            decoder=lambda x: decode_enum(ArchiveStatus, x),
+            field_name="archivedStatus",
+        ),
     )
 
 
@@ -1351,7 +1392,16 @@ class AssetV2:
     cloud_instance_id: Optional[str] = field(
         default=None, metadata=config(field_name="cloudInstanceId")
     )
-    status: Optional[str] = field(default=None, metadata=config(field_name="status"))
+    status: Optional[str] = field(
+        default=None,
+        metadata=config(
+            metadata={
+                "deprecated": True,
+                "deprecation_reason": "use field vendorProvidedHealth",
+            },
+            field_name="status",
+        ),
+    )
     un_installable: Optional[bool] = field(
         default=None, metadata=config(field_name="unInstallable")
     )
@@ -1393,6 +1443,22 @@ class AssetV2:
     )
     connection_details: Optional[ConnectionDetails] = field(
         default=None, metadata=config(field_name="connectionDetails")
+    )
+    vendor_provided_health: Optional[Union[VendorHealthState, TaegisEnum]] = field(
+        default=None,
+        metadata=config(
+            encoder=encode_enum,
+            decoder=lambda x: decode_enum(VendorHealthState, x),
+            field_name="vendorProvidedHealth",
+        ),
+    )
+    archived_status: Optional[Union[ArchiveStatus, TaegisEnum]] = field(
+        default=None,
+        metadata=config(
+            encoder=encode_enum,
+            decoder=lambda x: decode_enum(ArchiveStatus, x),
+            field_name="archivedStatus",
+        ),
     )
 
 
