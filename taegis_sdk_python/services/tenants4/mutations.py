@@ -31,3 +31,20 @@ class TaegisSDKTenants4Mutation:
 
     def __init__(self, service: Tenants4Service):
         self.service = service
+
+    def delete_cached_entries(
+        self, input_: DeleteCachedEntriesInput
+    ) -> DeleteCachedEntriesOutput:
+        """Delete entries from cache. Non-atomic transaction."""
+        endpoint = "deleteCachedEntries"
+
+        result = self.service.execute_mutation(
+            endpoint=endpoint,
+            variables={
+                "input": prepare_input(input_),
+            },
+            output=build_output_string(DeleteCachedEntriesOutput),
+        )
+        if result.get(endpoint) is not None:
+            return DeleteCachedEntriesOutput.from_dict(result.get(endpoint))
+        raise GraphQLNoRowsInResultSetError("for mutation deleteCachedEntries")

@@ -188,24 +188,38 @@ class ThreatMalwareType(str, Enum):
 
     ADWARE = "adware"
     BACKDOOR = "backdoor"
-    BOT = "bot"
+    BANKING_TROJAN = "banking_trojan"
     BOOTKIT = "bootkit"
+    BOT = "bot"
+    C2_FRAMEWORK = "c2_framework"
+    CRYPTER = "crypter"
+    CRYPTOCURRENCY_MINER = "cryptocurrency_miner"
     DDOS = "ddos"
     DOWNLOADER = "downloader"
     DROPPER = "dropper"
     EXPLOIT_KIT = "exploit_kit"
     IRC_BOTNET = "irc_botnet"
+    INFOSTEALER = "infostealer"
     KEYLOGGER = "keylogger"
+    LOADER = "loader"
+    LOLBIN = "lolbin"
+    MALICIOUS_DOCUMENT = "malicious_document"
+    PACKER = "packer"
+    POST_COMPROMISE_TOOL = "post_compromise_tool"
+    POST_EXPLOITATION = "post_exploitation"
+    PRIVILEGE_ESCALATION_TOOL = "privilege_escalation_tool"
     RANSOMWARE = "ransomware"
     REMOTE_ACCESS_TROJAN = "remote_access_trojan"
     RESOURCE_EXPLOITATION = "resource_exploitation"
     ROGUE_SECURITY_SOFTWARE = "rogue_security_software"
     ROOTKIT = "rootkit"
     SCREEN_CAPTURE = "screen_capture"
+    SPAMBOT = "spambot"
     SPYWARE = "spyware"
     TROJAN = "trojan"
     UNKNOWN = "unknown"
     VIRUS = "virus"
+    WEAPONIZED_DOCUMENT = "weaponized_document"
     WEBSHELL = "webshell"
     WIPER = "wiper"
     WORM = "worm"
@@ -824,7 +838,17 @@ class ThreatReportInput:
         default=None, metadata=config(field_name="category")
     )
     threat_type: Optional[str] = field(
-        default=None, metadata=config(field_name="threatType")
+        default=None,
+        metadata=config(
+            metadata={
+                "deprecated": True,
+                "deprecation_reason": "Use threatTypes instead",
+            },
+            field_name="threatType",
+        ),
+    )
+    threat_types: Optional[List[str]] = field(
+        default=None, metadata=config(field_name="threatTypes")
     )
     threat_actor_type: Optional[List[str]] = field(
         default=None, metadata=config(field_name="threatActorType")
@@ -862,6 +886,7 @@ class FacetInfo:
         default=None, metadata=config(field_name="displayName")
     )
     facet: Optional[str] = field(default=None, metadata=config(field_name="facet"))
+    tooltip: Optional[str] = field(default=None, metadata=config(field_name="tooltip"))
     fields: Optional[List[FacetFieldInfo]] = field(
         default=None, metadata=config(field_name="fields")
     )
@@ -1359,7 +1384,17 @@ class ThreatReport:
         default=None, metadata=config(field_name="category")
     )
     threat_type: Optional[str] = field(
-        default=None, metadata=config(field_name="threatType")
+        default=None,
+        metadata=config(
+            metadata={
+                "deprecated": True,
+                "deprecation_reason": "Use threatTypes instead",
+            },
+            field_name="threatType",
+        ),
+    )
+    threat_types: Optional[List[str]] = field(
+        default=None, metadata=config(field_name="threatTypes")
     )
     threat_actor_type: Optional[List[str]] = field(
         default=None, metadata=config(field_name="threatActorType")
@@ -1981,6 +2016,7 @@ class ThreatMalware:
     modified: Optional[str] = field(
         default=None, metadata=config(field_name="modified")
     )
+    vid: Optional[str] = field(default=None, metadata=config(field_name="vid"))
     is_priority_threat: Optional[bool] = field(
         default=None, metadata=config(field_name="is_priority_threat")
     )
@@ -2003,7 +2039,14 @@ class ThreatMalware:
     label: Optional[str] = field(default=None, metadata=config(field_name="label"))
     tags: Optional[List[str]] = field(default=None, metadata=config(field_name="tags"))
     public_summary: Optional[str] = field(
-        default=None, metadata=config(field_name="public_summary")
+        default=None,
+        metadata=config(
+            metadata={
+                "deprecated": True,
+                "deprecation_reason": "This field has been removed.",
+            },
+            field_name="public_summary",
+        ),
     )
     solution: Optional[str] = field(
         default=None, metadata=config(field_name="solution")

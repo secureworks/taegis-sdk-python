@@ -7,9 +7,32 @@
 
 from dataclasses import dataclass, field
 
+from enum import Enum
+
 from typing import Any, Dict, List, Optional, Tuple, Union
 
 from dataclasses_json import config, dataclass_json
+
+
+from taegis_sdk_python._consts import TaegisEnum
+from taegis_sdk_python.utils import encode_enum, decode_enum, parse_union_result
+
+
+class ClientsSearchSortBy(str, Enum):
+    """ClientsSearchSortBy."""
+
+    NAME = "NAME"
+    CLIENT_ID = "CLIENT_ID"
+    ROLE_ASSIGNMENT_NAME = "ROLE_ASSIGNMENT_NAME"
+    TOKEN_REQUEST_COUNT = "TOKEN_REQUEST_COUNT"
+    TOKEN_REQUEST_TIME = "TOKEN_REQUEST_TIME"
+
+
+class ClientsSearchSortOrder(str, Enum):
+    """ClientsSearchSortOrder."""
+
+    ASC = "ASC"
+    DESC = "DESC"
 
 
 @dataclass_json
@@ -91,30 +114,6 @@ class ClientRoleAssignmentInput:
     expires_at: Optional[str] = field(
         default=None, metadata=config(field_name="expiresAt")
     )
-
-
-@dataclass_json
-@dataclass(order=True, eq=True, frozen=True)
-class ClientsSearchInput:
-    """ClientsSearchInput."""
-
-    name: Optional[str] = field(default=None, metadata=config(field_name="name"))
-    client_ids: Optional[List[str]] = field(
-        default=None, metadata=config(field_name="clientIDs")
-    )
-    tenant_id: Optional[str] = field(
-        default=None, metadata=config(field_name="tenantID")
-    )
-    role_ids: Optional[List[str]] = field(
-        default=None, metadata=config(field_name="roleIDs")
-    )
-    tenant_ids: Optional[List[str]] = field(
-        default=None, metadata=config(field_name="tenantIDs")
-    )
-    page_offset: Optional[int] = field(
-        default=None, metadata=config(field_name="pageOffset")
-    )
-    per_page: Optional[int] = field(default=None, metadata=config(field_name="perPage"))
 
 
 @dataclass_json
@@ -257,6 +256,46 @@ class Client:
     )
     role_assignments: Optional[List[ClientRoleAssignment]] = field(
         default=None, metadata=config(field_name="roleAssignments")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class ClientsSearchInput:
+    """ClientsSearchInput."""
+
+    name: Optional[str] = field(default=None, metadata=config(field_name="name"))
+    client_ids: Optional[List[str]] = field(
+        default=None, metadata=config(field_name="clientIDs")
+    )
+    tenant_id: Optional[str] = field(
+        default=None, metadata=config(field_name="tenantID")
+    )
+    role_ids: Optional[List[str]] = field(
+        default=None, metadata=config(field_name="roleIDs")
+    )
+    tenant_ids: Optional[List[str]] = field(
+        default=None, metadata=config(field_name="tenantIDs")
+    )
+    page_offset: Optional[int] = field(
+        default=None, metadata=config(field_name="pageOffset")
+    )
+    per_page: Optional[int] = field(default=None, metadata=config(field_name="perPage"))
+    sort_by: Optional[Union[ClientsSearchSortBy, TaegisEnum]] = field(
+        default=None,
+        metadata=config(
+            encoder=encode_enum,
+            decoder=lambda x: decode_enum(ClientsSearchSortBy, x),
+            field_name="sortBy",
+        ),
+    )
+    sort_order: Optional[Union[ClientsSearchSortOrder, TaegisEnum]] = field(
+        default=None,
+        metadata=config(
+            encoder=encode_enum,
+            decoder=lambda x: decode_enum(ClientsSearchSortOrder, x),
+            field_name="sortOrder",
+        ),
     )
 
 

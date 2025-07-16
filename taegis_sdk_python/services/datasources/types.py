@@ -153,6 +153,9 @@ class DataSourcesWhereInput:
     source_id: Optional[List[str]] = field(
         default=None, metadata=config(field_name="sourceId")
     )
+    source_id_search: Optional[List[str]] = field(
+        default=None, metadata=config(field_name="sourceIdSearch")
+    )
     type: Optional[List[str]] = field(default=None, metadata=config(field_name="type"))
     sensor_type: Optional[List[str]] = field(
         default=None, metadata=config(field_name="sensorType")

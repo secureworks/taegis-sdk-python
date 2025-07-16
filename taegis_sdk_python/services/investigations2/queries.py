@@ -32,6 +32,263 @@ class TaegisSDKInvestigations2Query:
     def __init__(self, service: Investigations2Service):
         self.service = service
 
+    def case(self, arguments: CaseArguments) -> Case:
+        """case gets a single case.."""
+        endpoint = "case"
+
+        result = self.service.execute_query(
+            endpoint=endpoint,
+            variables={
+                "arguments": prepare_input(arguments),
+            },
+            output=build_output_string(Case),
+        )
+        if result.get(endpoint) is not None:
+            return Case.from_dict(result.get(endpoint))
+        raise GraphQLNoRowsInResultSetError("for query case")
+
+    def cases(self, arguments: CasesArguments) -> Cases:
+        """cases returns a list of cases matching the provided arguments.."""
+        endpoint = "cases"
+
+        result = self.service.execute_query(
+            endpoint=endpoint,
+            variables={
+                "arguments": prepare_input(arguments),
+            },
+            output=build_output_string(Cases),
+        )
+        if result.get(endpoint) is not None:
+            return Cases.from_dict(result.get(endpoint))
+        raise GraphQLNoRowsInResultSetError("for query cases")
+
+    def case_evidence(self, arguments: CaseEvidenceArguments) -> CaseEvidence:
+        """caseEvidence returns the attached evidence for a case.."""
+        endpoint = "caseEvidence"
+
+        result = self.service.execute_query(
+            endpoint=endpoint,
+            variables={
+                "arguments": prepare_input(arguments),
+            },
+            output=build_output_string(CaseEvidence),
+        )
+        if result.get(endpoint) is not None:
+            return CaseEvidence.from_dict(result.get(endpoint))
+        raise GraphQLNoRowsInResultSetError("for query caseEvidence")
+
+    def case_rule(self, arguments: CaseRuleArguments) -> CaseRule:
+        """caseRule gets an auto-case rule."""
+        endpoint = "caseRule"
+
+        result = self.service.execute_query(
+            endpoint=endpoint,
+            variables={
+                "arguments": prepare_input(arguments),
+            },
+            output=build_output_string(CaseRule),
+        )
+        if result.get(endpoint) is not None:
+            return CaseRule.from_dict(result.get(endpoint))
+        raise GraphQLNoRowsInResultSetError("for query caseRule")
+
+    def case_rules(self, arguments: CaseRulesArguments) -> CaseRules:
+        """caseRules returns a list of case rules matching the provided arguments.."""
+        endpoint = "caseRules"
+
+        result = self.service.execute_query(
+            endpoint=endpoint,
+            variables={
+                "arguments": prepare_input(arguments),
+            },
+            output=build_output_string(CaseRules),
+        )
+        if result.get(endpoint) is not None:
+            return CaseRules.from_dict(result.get(endpoint))
+        raise GraphQLNoRowsInResultSetError("for query caseRules")
+
+    def case_template(self, arguments: CaseTemplateArguments) -> CaseTemplate:
+        """caseTemplate gets an auto-case template."""
+        endpoint = "caseTemplate"
+
+        result = self.service.execute_query(
+            endpoint=endpoint,
+            variables={
+                "arguments": prepare_input(arguments),
+            },
+            output=build_output_string(CaseTemplate),
+        )
+        if result.get(endpoint) is not None:
+            return CaseTemplate.from_dict(result.get(endpoint))
+        raise GraphQLNoRowsInResultSetError("for query caseTemplate")
+
+    def case_templates(self, arguments: CaseTemplatesArguments) -> CaseTemplates:
+        """caseTemplates returns a list of case templates matching the provided arguments.."""
+        endpoint = "caseTemplates"
+
+        result = self.service.execute_query(
+            endpoint=endpoint,
+            variables={
+                "arguments": prepare_input(arguments),
+            },
+            output=build_output_string(CaseTemplates),
+        )
+        if result.get(endpoint) is not None:
+            return CaseTemplates.from_dict(result.get(endpoint))
+        raise GraphQLNoRowsInResultSetError("for query caseTemplates")
+
+    def export_case_resources(
+        self, arguments: ExportCaseResourcesArguments
+    ) -> CaseResourceExport:
+        """exportCaseResources returns a YAML string representation for auto-case resources (rules & templates).
+        The returned string can be saved into a file and imported back into the system using importCaseResources..
+        """
+        endpoint = "exportCaseResources"
+
+        result = self.service.execute_query(
+            endpoint=endpoint,
+            variables={
+                "arguments": prepare_input(arguments),
+            },
+            output=build_output_string(CaseResourceExport),
+        )
+        if result.get(endpoint) is not None:
+            return CaseResourceExport.from_dict(result.get(endpoint))
+        raise GraphQLNoRowsInResultSetError("for query exportCaseResources")
+
+    def case_timeline(self, arguments: CaseTimelineArguments) -> CaseTimeline:
+        """caseTimeline returns a case timeline detailing the order of alerts, events and other actions taken in relation to a case.."""
+        endpoint = "caseTimeline"
+
+        result = self.service.execute_query(
+            endpoint=endpoint,
+            variables={
+                "arguments": prepare_input(arguments),
+            },
+            output=build_output_string(CaseTimeline),
+        )
+        if result.get(endpoint) is not None:
+            return CaseTimeline.from_dict(result.get(endpoint))
+        raise GraphQLNoRowsInResultSetError("for query caseTimeline")
+
+    def case_comments(self, arguments: CaseCommentsArguments) -> CaseComments:
+        """comments returns all the comments for a case."""
+        endpoint = "caseComments"
+
+        result = self.service.execute_query(
+            endpoint=endpoint,
+            variables={
+                "arguments": prepare_input(arguments),
+            },
+            output=build_output_string(CaseComments),
+        )
+        if result.get(endpoint) is not None:
+            return CaseComments.from_dict(result.get(endpoint))
+        raise GraphQLNoRowsInResultSetError("for query caseComments")
+
+    def case_types(self, arguments: CaseTypesArguments) -> CaseTypes:
+        """caseTypes returns the available case types for a given user and the current tenant's service level."""
+        endpoint = "caseTypes"
+
+        result = self.service.execute_query(
+            endpoint=endpoint,
+            variables={
+                "arguments": prepare_input(arguments),
+            },
+            output=build_output_string(CaseTypes),
+        )
+        if result.get(endpoint) is not None:
+            return CaseTypes.from_dict(result.get(endpoint))
+        raise GraphQLNoRowsInResultSetError("for query caseTypes")
+
+    def case_secondary_statuses(
+        self, arguments: CaseSecondaryStatusesArguments
+    ) -> CaseSecondaryStatuses:
+        """CaseSecondaryStatuses returns the available case statuses for a given user and the current tenant's service level."""
+        endpoint = "CaseSecondaryStatuses"
+
+        result = self.service.execute_query(
+            endpoint=endpoint,
+            variables={
+                "arguments": prepare_input(arguments),
+            },
+            output=build_output_string(CaseSecondaryStatuses),
+        )
+        if result.get(endpoint) is not None:
+            return CaseSecondaryStatuses.from_dict(result.get(endpoint))
+        raise GraphQLNoRowsInResultSetError("for query CaseSecondaryStatuses")
+
+    def case_primary_statuses(
+        self, arguments: CasePrimaryStatusesArguments
+    ) -> CasePrimaryStatuses:
+        """casePrimaryStatuses returns the available case primary statuses for a given user and the current tenant's service level."""
+        endpoint = "casePrimaryStatuses"
+
+        result = self.service.execute_query(
+            endpoint=endpoint,
+            variables={
+                "arguments": prepare_input(arguments),
+            },
+            output=build_output_string(CasePrimaryStatuses),
+        )
+        if result.get(endpoint) is not None:
+            return CasePrimaryStatuses.from_dict(result.get(endpoint))
+        raise GraphQLNoRowsInResultSetError("for query casePrimaryStatuses")
+
+    def case_file(self, arguments: CaseFileArguments) -> CaseFile:
+        """caseFile returns file details for a single file attached to a case based on the arguments provided.
+        The result will also include a pre-signed download url.."""
+        endpoint = "caseFile"
+
+        result = self.service.execute_query(
+            endpoint=endpoint,
+            variables={
+                "arguments": prepare_input(arguments),
+            },
+            output=build_output_string(CaseFile),
+        )
+        if result.get(endpoint) is not None:
+            return CaseFile.from_dict(result.get(endpoint))
+        raise GraphQLNoRowsInResultSetError("for query caseFile")
+
+    def case_files(self, arguments: CaseFilesArguments) -> CaseFiles:
+        """caseFiles returns file details for all files matching the arguments provided.
+        The results will not include pre-signed download urls for each file metadata returned..
+        """
+        endpoint = "caseFiles"
+
+        result = self.service.execute_query(
+            endpoint=endpoint,
+            variables={
+                "arguments": prepare_input(arguments),
+            },
+            output=build_output_string(CaseFiles),
+        )
+        if result.get(endpoint) is not None:
+            return CaseFiles.from_dict(result.get(endpoint))
+        raise GraphQLNoRowsInResultSetError("for query caseFiles")
+
+    def cases_aggregation(
+        self, arguments: CasesAggregationArguments
+    ) -> CasesAggregation:
+        """casesAggregation allows aggregating data for cases.
+        It cannot be used to fetch individual cases or lists of cases, only aggregate data.
+        It should not be used by external clients and should only be called from the Taegis UI.
+        Use of this endpoint is discouraged as it may be changed at any time without notice..
+        """
+        endpoint = "casesAggregation"
+
+        result = self.service.execute_query(
+            endpoint=endpoint,
+            variables={
+                "arguments": prepare_input(arguments),
+            },
+            output=build_output_string(CasesAggregation),
+        )
+        if result.get(endpoint) is not None:
+            return CasesAggregation.from_dict(result.get(endpoint))
+        raise GraphQLNoRowsInResultSetError("for query casesAggregation")
+
     def investigation_v2(self, arguments: InvestigationV2Arguments) -> InvestigationV2:
         """investigationV2 gets a single Investigation.."""
         endpoint = "investigationV2"

@@ -32,6 +32,381 @@ class TaegisSDKInvestigations2Mutation:
     def __init__(self, service: Investigations2Service):
         self.service = service
 
+    def create_case(self, input_: CreateCaseInput) -> Case:
+        """createCase creates new case with the provided arguments.."""
+        endpoint = "createCase"
+
+        result = self.service.execute_mutation(
+            endpoint=endpoint,
+            variables={
+                "input": prepare_input(input_),
+            },
+            output=build_output_string(Case),
+        )
+        if result.get(endpoint) is not None:
+            return Case.from_dict(result.get(endpoint))
+        raise GraphQLNoRowsInResultSetError("for mutation createCase")
+
+    def update_case(self, input_: UpdateCaseInput) -> Case:
+        """updateCase updates an existing case.
+        This is a PATCH style mutation, only fields that are send in the input will be updated..
+        """
+        endpoint = "updateCase"
+
+        result = self.service.execute_mutation(
+            endpoint=endpoint,
+            variables={
+                "input": prepare_input(input_),
+            },
+            output=build_output_string(Case),
+        )
+        if result.get(endpoint) is not None:
+            return Case.from_dict(result.get(endpoint))
+        raise GraphQLNoRowsInResultSetError("for mutation updateCase")
+
+    def add_evidence_to_case(
+        self, input_: AddEvidenceToCaseInput
+    ) -> AddEvidenceToCaseResult:
+        """addEvidenceToCase will add more evidence to an existing case.
+        Evidence added through this mutation will not be considered genesis evidence.
+        The response will include the evidence that the service will attempt to add to the case.
+
+        Adding evidence to cases is an asynchronous operation.
+        It will typically finish pretty quickly, but added alerts/events will may not show up in the returned case until the async job is fully complete.
+        The processing status, that is found on the case type will reflect the state of the processing job.
+        Once the status is set to 'SUCCESS' the background job is complete and requesting the case will return the related evidence.
+
+        Adding, removing or updating evidence (closing a case) while other jobs are processing for a given case will cause the jobs to queue.
+        Jobs will be worked through in the order they were received.."""
+        endpoint = "addEvidenceToCase"
+
+        result = self.service.execute_mutation(
+            endpoint=endpoint,
+            variables={
+                "input": prepare_input(input_),
+            },
+            output=build_output_string(AddEvidenceToCaseResult),
+        )
+        if result.get(endpoint) is not None:
+            return AddEvidenceToCaseResult.from_dict(result.get(endpoint))
+        raise GraphQLNoRowsInResultSetError("for mutation addEvidenceToCase")
+
+    def remove_evidence_from_case(
+        self, input_: RemoveEvidenceFromCaseInput
+    ) -> RemoveEvidenceFromCaseResult:
+        """removeEvidenceFromCase will remove evidence from an existing case.
+        The response will include the evidence that the service will attempt to remove from the case.
+
+        Removing evidence from cases is an asynchronous operation.
+        It will typically finish pretty quickly, but removed alerts/events will can remain attached to the case until the async job is fully complete.
+        The processing status, that is found on the case type will reflect the state of the processing job.
+        Once the status is set to 'SUCCESS' the background job is complete and requesting the case will only return evidence that was not removed.
+
+        Adding, removing or updating evidence (closing a case) while other jobs are processing for a given case will cause the jobs to queue.
+        Jobs will be worked through in the order they were received.."""
+        endpoint = "removeEvidenceFromCase"
+
+        result = self.service.execute_mutation(
+            endpoint=endpoint,
+            variables={
+                "input": prepare_input(input_),
+            },
+            output=build_output_string(RemoveEvidenceFromCaseResult),
+        )
+        if result.get(endpoint) is not None:
+            return RemoveEvidenceFromCaseResult.from_dict(result.get(endpoint))
+        raise GraphQLNoRowsInResultSetError("for mutation removeEvidenceFromCase")
+
+    def close_case(self, input_: CloseCaseInput) -> Case:
+        """closeCase will close an existing case.
+        If the case has alerts attached to it, the alertsResolutionStatus field is required and alerts will be resolved based on the provided status.
+        Once a case is closed, it can no longer be edited or have evidence added to it while in the closed state, it can only be archived.
+        A closed case can be reopened if changes are needed after closing.
+
+        Resolving evidence in a case is an asynchronous operation.
+        It will typically finish pretty quickly, but resolving alerts will may not reflect the updated status until the async job is fully complete.
+        The processing status, that is found on the case type will reflect the state of the processing job.
+        Once the status is set to 'SUCCESS' the background job is complete and the alerts will have been updated.
+
+        Adding, removing or updating evidence (closing a case) while other jobs are processing for a given case will cause the jobs to queue.
+        Jobs will be worked through in the order they were received.."""
+        endpoint = "closeCase"
+
+        result = self.service.execute_mutation(
+            endpoint=endpoint,
+            variables={
+                "input": prepare_input(input_),
+            },
+            output=build_output_string(Case),
+        )
+        if result.get(endpoint) is not None:
+            return Case.from_dict(result.get(endpoint))
+        raise GraphQLNoRowsInResultSetError("for mutation closeCase")
+
+    def create_case_rule(self, input_: CreateCaseRuleInput) -> CaseRule:
+        """createCaseRule accepts input to create a new auto-case rule.."""
+        endpoint = "createCaseRule"
+
+        result = self.service.execute_mutation(
+            endpoint=endpoint,
+            variables={
+                "input": prepare_input(input_),
+            },
+            output=build_output_string(CaseRule),
+        )
+        if result.get(endpoint) is not None:
+            return CaseRule.from_dict(result.get(endpoint))
+        raise GraphQLNoRowsInResultSetError("for mutation createCaseRule")
+
+    def update_case_rule(self, input_: UpdateCaseRuleInput) -> CaseRule:
+        """updateCaseRule accepts input to update an existing auto-case rule.."""
+        endpoint = "updateCaseRule"
+
+        result = self.service.execute_mutation(
+            endpoint=endpoint,
+            variables={
+                "input": prepare_input(input_),
+            },
+            output=build_output_string(CaseRule),
+        )
+        if result.get(endpoint) is not None:
+            return CaseRule.from_dict(result.get(endpoint))
+        raise GraphQLNoRowsInResultSetError("for mutation updateCaseRule")
+
+    def delete_case_rule(self, input_: DeleteCaseRuleInput) -> CaseRule:
+        """deleteCaseRule removes an existing case rule.
+        This is a hard delete. Data will not be recoverable.."""
+        endpoint = "deleteCaseRule"
+
+        result = self.service.execute_mutation(
+            endpoint=endpoint,
+            variables={
+                "input": prepare_input(input_),
+            },
+            output=build_output_string(CaseRule),
+        )
+        if result.get(endpoint) is not None:
+            return CaseRule.from_dict(result.get(endpoint))
+        raise GraphQLNoRowsInResultSetError("for mutation deleteCaseRule")
+
+    def create_case_template(self, input_: CreateCaseTemplateInput) -> CaseTemplate:
+        """createCaseTemplate accepts input to create a new auto-case template.."""
+        endpoint = "createCaseTemplate"
+
+        result = self.service.execute_mutation(
+            endpoint=endpoint,
+            variables={
+                "input": prepare_input(input_),
+            },
+            output=build_output_string(CaseTemplate),
+        )
+        if result.get(endpoint) is not None:
+            return CaseTemplate.from_dict(result.get(endpoint))
+        raise GraphQLNoRowsInResultSetError("for mutation createCaseTemplate")
+
+    def update_case_template(self, input_: UpdateCaseTemplateInput) -> CaseTemplate:
+        """updateCaseTemplate accepts input to update an existing auto-case template.."""
+        endpoint = "updateCaseTemplate"
+
+        result = self.service.execute_mutation(
+            endpoint=endpoint,
+            variables={
+                "input": prepare_input(input_),
+            },
+            output=build_output_string(CaseTemplate),
+        )
+        if result.get(endpoint) is not None:
+            return CaseTemplate.from_dict(result.get(endpoint))
+        raise GraphQLNoRowsInResultSetError("for mutation updateCaseTemplate")
+
+    def delete_case_template(self, input_: DeleteCaseTemplateInput) -> CaseTemplate:
+        """deleteCaseTemplate removes an existing case template.
+        This is a hard delete. Data will not be recoverable.."""
+        endpoint = "deleteCaseTemplate"
+
+        result = self.service.execute_mutation(
+            endpoint=endpoint,
+            variables={
+                "input": prepare_input(input_),
+            },
+            output=build_output_string(CaseTemplate),
+        )
+        if result.get(endpoint) is not None:
+            return CaseTemplate.from_dict(result.get(endpoint))
+        raise GraphQLNoRowsInResultSetError("for mutation deleteCaseTemplate")
+
+    def import_case_resources(
+        self, input_: ImportCaseResourcesInput
+    ) -> List[CaseResource]:
+        """importCaseResources will import case resources (rules & templates) from a YAML file.
+        The input YAML structure can be retrieved from a YAML string exported from the exportCaseResources query..
+        """
+        endpoint = "importCaseResources"
+
+        result = self.service.execute_mutation(
+            endpoint=endpoint,
+            variables={
+                "input": prepare_input(input_),
+            },
+            output=build_output_string(CaseResource),
+        )
+        if result.get(endpoint) is not None:
+            return [parse_union_result(CaseResource, r) for r in result.get(endpoint)]
+        raise GraphQLNoRowsInResultSetError("for mutation importCaseResources")
+
+    def add_case_comment(self, input_: AddCaseComment) -> CaseComment:
+        """addCaseComment adds a comment to an existing case.."""
+        endpoint = "addCaseComment"
+
+        result = self.service.execute_mutation(
+            endpoint=endpoint,
+            variables={
+                "input": prepare_input(input_),
+            },
+            output=build_output_string(CaseComment),
+        )
+        if result.get(endpoint) is not None:
+            return CaseComment.from_dict(result.get(endpoint))
+        raise GraphQLNoRowsInResultSetError("for mutation addCaseComment")
+
+    def update_case_comment(self, input_: UpdateCaseCommentInput) -> CaseComment:
+        """updateCaseComment updates an existing comment on a case.
+        This is a PATCH style mutation, only fields that are send in the input will be updated.
+        Only the user who created the comment can update it.
+        Updating a comment and adding new @mentions will trigger new notifications but will not send notifications to @mentions that are already present in the comment..
+        """
+        endpoint = "updateCaseComment"
+
+        result = self.service.execute_mutation(
+            endpoint=endpoint,
+            variables={
+                "input": prepare_input(input_),
+            },
+            output=build_output_string(CaseComment),
+        )
+        if result.get(endpoint) is not None:
+            return CaseComment.from_dict(result.get(endpoint))
+        raise GraphQLNoRowsInResultSetError("for mutation updateCaseComment")
+
+    def delete_case_comment(self, input_: DeleteCaseCommentInput) -> CaseComment:
+        """deleteCaseComment removes an existing comment from a case.
+        This is a hard delete. Data will not be recoverable.."""
+        endpoint = "deleteCaseComment"
+
+        result = self.service.execute_mutation(
+            endpoint=endpoint,
+            variables={
+                "input": prepare_input(input_),
+            },
+            output=build_output_string(CaseComment),
+        )
+        if result.get(endpoint) is not None:
+            return CaseComment.from_dict(result.get(endpoint))
+        raise GraphQLNoRowsInResultSetError("for mutation deleteCaseComment")
+
+    def archive_case(self, input_: ArchiveCaseInput) -> Case:
+        """archiveCase archives an existing case.
+        Only cases that are closed can be archived.
+        There may be some cases that are archived but not in closed states, these are legacy cases that were archived before the closed requirement was introduced..
+        """
+        endpoint = "archiveCase"
+
+        result = self.service.execute_mutation(
+            endpoint=endpoint,
+            variables={
+                "input": prepare_input(input_),
+            },
+            output=build_output_string(Case),
+        )
+        if result.get(endpoint) is not None:
+            return Case.from_dict(result.get(endpoint))
+        raise GraphQLNoRowsInResultSetError("for mutation archiveCase")
+
+    def unarchive_case(self, input_: UnarchiveCaseInput) -> Case:
+        """unarchiveCase unarchives an archived case.."""
+        endpoint = "unarchiveCase"
+
+        result = self.service.execute_mutation(
+            endpoint=endpoint,
+            variables={
+                "input": prepare_input(input_),
+            },
+            output=build_output_string(Case),
+        )
+        if result.get(endpoint) is not None:
+            return Case.from_dict(result.get(endpoint))
+        raise GraphQLNoRowsInResultSetError("for mutation unarchiveCase")
+
+    def archive_cases(self, input_: ArchiveCasesInput) -> ArchivedCases:
+        """archiveCases archives a set of existing cases.
+        Only cases that are closed can be archived.
+        The response will include the ids of the cases that were successfully archived and will not return errors for cases that could not be archived..
+        """
+        endpoint = "archiveCases"
+
+        result = self.service.execute_mutation(
+            endpoint=endpoint,
+            variables={
+                "input": prepare_input(input_),
+            },
+            output=build_output_string(ArchivedCases),
+        )
+        if result.get(endpoint) is not None:
+            return ArchivedCases.from_dict(result.get(endpoint))
+        raise GraphQLNoRowsInResultSetError("for mutation archiveCases")
+
+    def unarchive_cases(self, input_: UnarchiveCasesInput) -> UnarchivedCases:
+        """unarchiveCases unarchives a set of archived cases.
+        The response will include the ids of the cases that were successfully unarchived and will not return errors for cases that could not be unarchived..
+        """
+        endpoint = "unarchiveCases"
+
+        result = self.service.execute_mutation(
+            endpoint=endpoint,
+            variables={
+                "input": prepare_input(input_),
+            },
+            output=build_output_string(UnarchivedCases),
+        )
+        if result.get(endpoint) is not None:
+            return UnarchivedCases.from_dict(result.get(endpoint))
+        raise GraphQLNoRowsInResultSetError("for mutation unarchiveCases")
+
+    def start_case_file_upload(
+        self, input_: StartCaseFileUploadInput
+    ) -> CaseFileUpload:
+        """startCaseFileUpload initializes a file upload for a case.
+        The response will include a pre-signed URL that can be used to upload a file to the case..
+        """
+        endpoint = "startCaseFileUpload"
+
+        result = self.service.execute_mutation(
+            endpoint=endpoint,
+            variables={
+                "input": prepare_input(input_),
+            },
+            output=build_output_string(CaseFileUpload),
+        )
+        if result.get(endpoint) is not None:
+            return CaseFileUpload.from_dict(result.get(endpoint))
+        raise GraphQLNoRowsInResultSetError("for mutation startCaseFileUpload")
+
+    def delete_case_file(self, input_: DeleteCaseFileInput) -> CaseFile:
+        """deleteCaseFile removes an existing file from a case.
+        This is a hard delete. Data will not be recoverable.."""
+        endpoint = "deleteCaseFile"
+
+        result = self.service.execute_mutation(
+            endpoint=endpoint,
+            variables={
+                "input": prepare_input(input_),
+            },
+            output=build_output_string(CaseFile),
+        )
+        if result.get(endpoint) is not None:
+            return CaseFile.from_dict(result.get(endpoint))
+        raise GraphQLNoRowsInResultSetError("for mutation deleteCaseFile")
+
     def create_investigation_v2(
         self, input_: CreateInvestigationInput
     ) -> InvestigationV2:
@@ -148,6 +523,37 @@ class TaegisSDKInvestigations2Mutation:
         if result.get(endpoint) is not None:
             return InvestigationV2.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for mutation closeInvestigation")
+
+    def bulk_set_investigation_status(
+        self, input_: BulkSetInvestigationStatusInput
+    ) -> BulkSetInvestigationStatusResult:
+        """bulkSetInvestigationStatus will change the status of a set of investigations.
+
+        The response will include the ids of the investigations that were successfully updated and errors for investigations that could not be updated.
+        (partial success is possible and clients will need to appropriately handle the errors returned for investigations that could not be updated)
+        Investigations that are already in the requested status will not be updated and will not return an error.
+
+        If the status is a close status, the alertsResolutionStatus and reason fields are required otherwise they must not be sent.
+        Closing the investigations will resolve the alerts based on the provided status. While the closing of the investigation is a synchronous operation, the alerts may not be updated immediately as that is asynchronous.
+
+        Metrics will be produced for the investigations that were successfully updated as would be the case for a single investigation close or status transition.
+
+        Statuses such as AWAITING_ACTION and DRAFT may not be used when setting the status of investigations in bulk.
+
+        Investigations currently in the DRAFT state may be bulk updated to a non-DRAFT state, but investigations that are not in the DRAFT state may not be bulk updated to the DRAFT state..
+        """
+        endpoint = "bulkSetInvestigationStatus"
+
+        result = self.service.execute_mutation(
+            endpoint=endpoint,
+            variables={
+                "input": prepare_input(input_),
+            },
+            output=build_output_string(BulkSetInvestigationStatusResult),
+        )
+        if result.get(endpoint) is not None:
+            return BulkSetInvestigationStatusResult.from_dict(result.get(endpoint))
+        raise GraphQLNoRowsInResultSetError("for mutation bulkSetInvestigationStatus")
 
     def create_investigation_rule(
         self, input_: CreateInvestigationRuleInput
@@ -336,7 +742,7 @@ class TaegisSDKInvestigations2Mutation:
     ) -> InvestigationV2:
         """archiveInvestigationV2 archives an existing investigation.
         Only investigations that are closed can be archived.
-        There may be some investigations that are archived but not in closed states, these are legacy investigations that were archived before the "closed" requirement was introduced..
+        There may be some investigations that are archived but not in closed states, these are legacy investigations that were archived before the closed requirement was introduced..
         """
         endpoint = "archiveInvestigationV2"
 

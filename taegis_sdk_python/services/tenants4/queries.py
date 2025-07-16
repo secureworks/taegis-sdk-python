@@ -70,3 +70,37 @@ class TaegisSDKTenants4Query:
         if result.get(endpoint) is not None:
             return [TenantRegion(r) for r in result.get(endpoint)]
         raise GraphQLNoRowsInResultSetError("for query availableRegions")
+
+    def tenant_licenses(
+        self, tenant_licenses: TenantLicensesInput
+    ) -> TenantLicenseResponse:
+        """Retrieval of a tenant's currently active licenses.."""
+        endpoint = "tenantLicenses"
+
+        result = self.service.execute_query(
+            endpoint=endpoint,
+            variables={
+                "tenantLicenses": prepare_input(tenant_licenses),
+            },
+            output=build_output_string(TenantLicenseResponse),
+        )
+        if result.get(endpoint) is not None:
+            return TenantLicenseResponse.from_dict(result.get(endpoint))
+        raise GraphQLNoRowsInResultSetError("for query tenantLicenses")
+
+    def product_catalog(
+        self, product_catalog: ProductCatalogInput
+    ) -> ProductCatalogResponse:
+        """Retrieval of the product catalog available for licensing by tenants.."""
+        endpoint = "productCatalog"
+
+        result = self.service.execute_query(
+            endpoint=endpoint,
+            variables={
+                "productCatalog": prepare_input(product_catalog),
+            },
+            output=build_output_string(ProductCatalogResponse),
+        )
+        if result.get(endpoint) is not None:
+            return ProductCatalogResponse.from_dict(result.get(endpoint))
+        raise GraphQLNoRowsInResultSetError("for query productCatalog")

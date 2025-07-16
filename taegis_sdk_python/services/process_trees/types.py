@@ -104,7 +104,14 @@ class ProcessEvent:
         default=None, metadata=config(field_name="childrenCount")
     )
     alerts: Optional[List[str]] = field(
-        default=None, metadata=config(field_name="alerts")
+        default=None,
+        metadata=config(
+            metadata={
+                "deprecated": True,
+                "deprecation_reason": "Use 'alertsV2' or `events-search` instead",
+            },
+            field_name="alerts",
+        ),
     )
     program_hash: Optional[ProgramHash] = field(
         default=None, metadata=config(field_name="programHash")

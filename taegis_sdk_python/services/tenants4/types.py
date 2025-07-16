@@ -51,6 +51,50 @@ class OrderDir(str, Enum):
     DESC = "DESC"
 
 
+class ProductFamilyInput(str, Enum):
+    """ProductFamilyInput."""
+
+    ENDPOINT = "ENDPOINT"
+    SERVER = "SERVER"
+    WIRELESS = "WIRELESS"
+    FIREWALL = "FIREWALL"
+    MOBILE = "MOBILE"
+    EMAIL = "EMAIL"
+    PHISH_THREAT = "PHISH_THREAT"
+    REPORTING = "REPORTING"
+    PUBLIC_CLOUD_SECURITY = "PUBLIC_CLOUD_SECURITY"
+    XDR = "XDR"
+    SASE = "SASE"
+    ENCRYPTION = "ENCRYPTION"
+    PROFESSIONAL_SERVICES = "PROFESSIONAL_SERVICES"
+    OTHER = "OTHER"
+
+
+class ProductFamily(str, Enum):
+    """ProductFamily."""
+
+    ENDPOINT = "ENDPOINT"
+    SERVER = "SERVER"
+    WIRELESS = "WIRELESS"
+    FIREWALL = "FIREWALL"
+    MOBILE = "MOBILE"
+    EMAIL = "EMAIL"
+    PHISH_THREAT = "PHISH_THREAT"
+    REPORTING = "REPORTING"
+    PUBLIC_CLOUD_SECURITY = "PUBLIC_CLOUD_SECURITY"
+    XDR = "XDR"
+    SASE = "SASE"
+    ENCRYPTION = "ENCRYPTION"
+    PROFESSIONAL_SERVICES = "PROFESSIONAL_SERVICES"
+    OTHER = "OTHER"
+
+
+class CachedEntryType(str, Enum):
+    """CachedEntryType."""
+
+    MAPPED_TENANT = "MAPPED_TENANT"
+
+
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
 class MappedTenant:
@@ -141,6 +185,144 @@ class SubscriptionMatcher:
     id: Optional[str] = field(default=None, metadata=config(field_name="id"))
     is_requested: Optional[bool] = field(
         default=None, metadata=config(field_name="isRequested")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class TenantLicensesInput:
+    """TenantLicensesInput."""
+
+    license_codes: Optional[List[str]] = field(
+        default=None, metadata=config(field_name="licenseCodes")
+    )
+    product_codes: Optional[List[str]] = field(
+        default=None, metadata=config(field_name="productCodes")
+    )
+    feature_codes: Optional[List[str]] = field(
+        default=None, metadata=config(field_name="featureCodes")
+    )
+    page: Optional[int] = field(default=None, metadata=config(field_name="page"))
+    page_size: Optional[int] = field(
+        default=None, metadata=config(field_name="pageSize")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class LicenseProduct:
+    """LicenseProduct."""
+
+    code: Optional[str] = field(default=None, metadata=config(field_name="code"))
+    generic_code: Optional[str] = field(
+        default=None, metadata=config(field_name="genericCode")
+    )
+    name: Optional[str] = field(default=None, metadata=config(field_name="name"))
+    license_code: Optional[str] = field(
+        default=None, metadata=config(field_name="licenseCode")
+    )
+    features: Optional[List[str]] = field(
+        default=None, metadata=config(field_name="features")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class ProductAttribute:
+    """ProductAttribute."""
+
+    name: Optional[str] = field(default=None, metadata=config(field_name="name"))
+    value: Optional[str] = field(default=None, metadata=config(field_name="value"))
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class DeleteCachedEntriesOutput:
+    """DeleteCachedEntriesOutput."""
+
+    success: Optional[bool] = field(default=None, metadata=config(field_name="success"))
+    message: Optional[str] = field(default=None, metadata=config(field_name="message"))
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class ProductCatalogInput:
+    """ProductCatalogInput."""
+
+    codes: Optional[List[str]] = field(
+        default=None, metadata=config(field_name="codes")
+    )
+    page: Optional[int] = field(default=None, metadata=config(field_name="page"))
+    page_size: Optional[int] = field(
+        default=None, metadata=config(field_name="pageSize")
+    )
+    families: Optional[List[Union[ProductFamilyInput, TaegisEnum]]] = field(
+        default=None,
+        metadata=config(
+            encoder=encode_enum,
+            decoder=lambda x: decode_enum(ProductFamilyInput, x),
+            field_name="families",
+        ),
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class TenantLicense:
+    """TenantLicense."""
+
+    id: Optional[str] = field(default=None, metadata=config(field_name="id"))
+    license_identifier: Optional[str] = field(
+        default=None, metadata=config(field_name="licenseIdentifier")
+    )
+    type: Optional[str] = field(default=None, metadata=config(field_name="type"))
+    product: Optional[LicenseProduct] = field(
+        default=None, metadata=config(field_name="product")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class DeleteCachedEntriesInput:
+    """DeleteCachedEntriesInput."""
+
+    ids: Optional[List[str]] = field(default=None, metadata=config(field_name="ids"))
+    type: Optional[Union[CachedEntryType, TaegisEnum]] = field(
+        default=None,
+        metadata=config(
+            encoder=encode_enum,
+            decoder=lambda x: decode_enum(CachedEntryType, x),
+            field_name="type",
+        ),
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class Product:
+    """Product."""
+
+    code: Optional[str] = field(default=None, metadata=config(field_name="code"))
+    generic_code: Optional[str] = field(
+        default=None, metadata=config(field_name="genericCode")
+    )
+    name: Optional[str] = field(default=None, metadata=config(field_name="name"))
+    description: Optional[str] = field(
+        default=None, metadata=config(field_name="description")
+    )
+    features: Optional[List[str]] = field(
+        default=None, metadata=config(field_name="features")
+    )
+    family: Optional[Union[ProductFamily, TaegisEnum]] = field(
+        default=None,
+        metadata=config(
+            encoder=encode_enum,
+            decoder=lambda x: decode_enum(ProductFamily, x),
+            field_name="family",
+        ),
+    )
+    attributes: Optional[List[ProductAttribute]] = field(
+        default=None, metadata=config(field_name="attributes")
     )
 
 
@@ -323,4 +505,32 @@ class TenantResults:
     )
     tenants: Optional[List[TenantV4]] = field(
         default=None, metadata=config(field_name="tenants")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class TenantLicenseResponse:
+    """TenantLicenseResponse."""
+
+    count: Optional[int] = field(default=None, metadata=config(field_name="count"))
+    total_count: Optional[int] = field(
+        default=None, metadata=config(field_name="totalCount")
+    )
+    licenses: Optional[List[TenantLicense]] = field(
+        default=None, metadata=config(field_name="licenses")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class ProductCatalogResponse:
+    """ProductCatalogResponse."""
+
+    count: Optional[int] = field(default=None, metadata=config(field_name="count"))
+    total_count: Optional[int] = field(
+        default=None, metadata=config(field_name="totalCount")
+    )
+    products: Optional[List[Product]] = field(
+        default=None, metadata=config(field_name="products")
     )
