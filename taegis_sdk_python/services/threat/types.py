@@ -18,6 +18,15 @@ from taegis_sdk_python._consts import TaegisEnum
 from taegis_sdk_python.utils import encode_enum, decode_enum, parse_union_result
 
 
+class ContentFormat(str, Enum):
+    """ContentFormat."""
+
+    MD = "MD"
+    HTML = "HTML"
+    TEXT = "TEXT"
+    PDF = "PDF"
+
+
 class SortByDirectionInput(str, Enum):
     """SortByDirectionInput."""
 

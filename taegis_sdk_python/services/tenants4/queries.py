@@ -63,13 +63,26 @@ class TaegisSDKTenants4Query:
         raise GraphQLNoRowsInResultSetError("for query tenant")
 
     def available_regions(self) -> List[TenantRegion]:
-        """Returns the regions where the tenant in XTC can be enabled at (excluding any regions currently enabled at), If a partner tenant id is provided in XTC, this returns the regions where the partner can enable children at. If more than one tenant is provided in XTC, then only the first one will be provided. If no XTC is provided, error will be returned."""
+        """@deprecated — use availableEnvironments instead."""
         endpoint = "availableRegions"
+
+        log.warning(
+            f"GraphQL Query `{endpoint}` is deprecated: 'Use 'availableEnvironments' with TenantEnvironment instead'"
+        )
 
         result = self.service.execute_query(endpoint=endpoint, variables={}, output="")
         if result.get(endpoint) is not None:
             return [TenantRegion(r) for r in result.get(endpoint)]
         raise GraphQLNoRowsInResultSetError("for query availableRegions")
+
+    def available_environments(self) -> List[TenantEnvironment]:
+        """Returns the environments where the tenant in XTC can be enabled at (excluding any environments currently enabled at). If a partner tenant ID is provided, this returns the environments where the partner can enable children at. If multiple tenants are provided in XTC, only the first is used. If none provided, an error is returned."""
+        endpoint = "availableEnvironments"
+
+        result = self.service.execute_query(endpoint=endpoint, variables={}, output="")
+        if result.get(endpoint) is not None:
+            return [TenantEnvironment(r) for r in result.get(endpoint)]
+        raise GraphQLNoRowsInResultSetError("for query availableEnvironments")
 
     def tenant_licenses(
         self, tenant_licenses: TenantLicensesInput

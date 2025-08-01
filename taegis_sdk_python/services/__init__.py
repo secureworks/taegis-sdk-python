@@ -45,6 +45,7 @@ from taegis_sdk_python.services.endpoint_management_service import (
 from taegis_sdk_python.services.event_search import EventSearchService
 from taegis_sdk_python.services.events import EventsService
 from taegis_sdk_python.services.exports import ExportsService
+from taegis_sdk_python.services.entity_context import EntityContextService
 from taegis_sdk_python.services.fast_ioc import FastIocService
 from taegis_sdk_python.services.file_info import FileInfoService
 from taegis_sdk_python.services.ingest_stats import IngestStatsService
@@ -73,6 +74,7 @@ from taegis_sdk_python.services.trigger_action import TriggerActionService
 from taegis_sdk_python.services.trip import TripService
 from taegis_sdk_python.services.users import UsersService
 from taegis_sdk_python.services.vdr import VDRService
+from taegis_sdk_python.services.xdr_central_connector import XdrCentralConnectorService
 
 __all__ = ["GraphQLService"]
 
@@ -192,6 +194,7 @@ class GraphQLService:
         self._detector_registry = None
         self._endpoint_command_manager = None
         self._endpoint_management_service = None
+        self._entity_context = None
         self._event_search = None
         self._events = None
         self._exports = None
@@ -224,6 +227,7 @@ class GraphQLService:
         self._trip = None
         self._users = None
         self._vdr = None
+        self._xdr_central_connector = None
 
     def __call__(self, **kwargs):
         if threading.get_ident() not in self._context_kwargs:
@@ -547,6 +551,13 @@ class GraphQLService:
         return self._endpoint_management_service
 
     @property
+    def entity_context(self):
+        """Entity Context Service Endpoint."""
+        if not self._entity_context:
+            self._entity_context = EntityContextService(self)
+        return self._entity_context
+
+    @property
     def event_search(self):
         """Events Search Service Endpoint."""
         if not self._event_search:
@@ -769,3 +780,10 @@ class GraphQLService:
         if not self._vdr:
             self._vdr = VDRService(self)
         return self._vdr
+
+    @property
+    def xdr_central_connector(self):
+        """XDR Central Connector Service Endpoint."""
+        if not self._xdr_central_connector:
+            self._xdr_central_connector = XdrCentralConnectorService(self)
+        return self._xdr_central_connector

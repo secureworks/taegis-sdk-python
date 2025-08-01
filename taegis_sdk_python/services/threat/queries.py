@@ -32,7 +32,11 @@ class TaegisSDKThreatQuery:
     def __init__(self, service: ThreatService):
         self.service = service
 
-    def threat_publication(self, id_: str) -> ThreatPublication:
+    def threat_publication(
+        self,
+        id_: str,
+        content_format: Optional[Union[ContentFormat, TaegisEnum]] = None,
+    ) -> ThreatPublication:
         """Retreives a publication by ID.."""
         endpoint = "threatPublication"
 
@@ -40,6 +44,7 @@ class TaegisSDKThreatQuery:
             endpoint=endpoint,
             variables={
                 "ID": prepare_input(id_),
+                "contentFormat": prepare_input(content_format),
             },
             output=build_output_string(ThreatPublication),
         )
@@ -47,7 +52,11 @@ class TaegisSDKThreatQuery:
             return ThreatPublication.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for query threatPublication")
 
-    def threat_publications(self, text: str) -> List[ThreatPublication]:
+    def threat_publications(
+        self,
+        text: str,
+        content_format: Optional[Union[ContentFormat, TaegisEnum]] = None,
+    ) -> List[ThreatPublication]:
         """Searches publications for text.."""
         endpoint = "threatPublications"
 
@@ -55,6 +64,7 @@ class TaegisSDKThreatQuery:
             endpoint=endpoint,
             variables={
                 "text": prepare_input(text),
+                "contentFormat": prepare_input(content_format),
             },
             output=build_output_string(ThreatPublication),
         )
@@ -64,7 +74,11 @@ class TaegisSDKThreatQuery:
             )
         raise GraphQLNoRowsInResultSetError("for query threatPublications")
 
-    def threat_publications_search(self, text: List[str]) -> List[ThreatPublication]:
+    def threat_publications_search(
+        self,
+        text: List[str],
+        content_format: Optional[Union[ContentFormat, TaegisEnum]] = None,
+    ) -> List[ThreatPublication]:
         """Gets publications for multiple indicators.."""
         endpoint = "threatPublicationsSearch"
 
@@ -72,6 +86,7 @@ class TaegisSDKThreatQuery:
             endpoint=endpoint,
             variables={
                 "text": prepare_input(text),
+                "contentFormat": prepare_input(content_format),
             },
             output=build_output_string(ThreatPublication),
         )
@@ -82,7 +97,10 @@ class TaegisSDKThreatQuery:
         raise GraphQLNoRowsInResultSetError("for query threatPublicationsSearch")
 
     def threat_latest_publications(
-        self, from_: int, size: int
+        self,
+        from_: int,
+        size: int,
+        content_format: Optional[Union[ContentFormat, TaegisEnum]] = None,
     ) -> List[ThreatPublication]:
         """Gets the latest publications from an offset with a size.."""
         endpoint = "threatLatestPublications"
@@ -92,6 +110,7 @@ class TaegisSDKThreatQuery:
             variables={
                 "from": prepare_input(from_),
                 "size": prepare_input(size),
+                "contentFormat": prepare_input(content_format),
             },
             output=build_output_string(ThreatPublication),
         )

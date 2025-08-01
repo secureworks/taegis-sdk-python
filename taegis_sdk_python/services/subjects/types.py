@@ -43,6 +43,14 @@ class Client:
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
+class CentralUser:
+    """CentralUser."""
+
+    id: Optional[str] = field(default=None, metadata=config(field_name="id"))
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
 class SubjectSelector:
     """SubjectSelector."""
 
@@ -59,6 +67,7 @@ class SubjectSelector:
 SubjectIdentity = Union[
     TDRUser,
     Client,
+    CentralUser,
 ]
 
 
@@ -144,7 +153,14 @@ class Subject:
         default=None, metadata=config(field_name="displayName")
     )
     role_assignment_data: Optional[SubjectRoleAssignmentData] = field(
-        default=None, metadata=config(field_name="roleAssignmentData")
+        default=None,
+        metadata=config(
+            metadata={
+                "deprecated": True,
+                "deprecation_reason": "Use permission-based authorization checks instead of role assignments",
+            },
+            field_name="roleAssignmentData",
+        ),
     )
     identity: Optional[SubjectIdentity] = field(
         default=None,

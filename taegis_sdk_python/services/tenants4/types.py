@@ -32,6 +32,20 @@ class TenantRegion(str, Enum):
     PILOT_FOXTROT = "PILOT_FOXTROT"
 
 
+class TenantEnvironment(str, Enum):
+    """TenantEnvironment."""
+
+    CHARLIE = "CHARLIE"
+    DELTA = "DELTA"
+    ECHO = "ECHO"
+    FOXTROT = "FOXTROT"
+    PILOT = "PILOT"
+    PILOT_CHARLIE = "PILOT_CHARLIE"
+    PILOT_DELTA = "PILOT_DELTA"
+    PILOT_ECHO = "PILOT_ECHO"
+    PILOT_FOXTROT = "PILOT_FOXTROT"
+
+
 class TenantResultOrder(str, Enum):
     """TenantResultOrder."""
 
@@ -93,6 +107,7 @@ class CachedEntryType(str, Enum):
     """CachedEntryType."""
 
     MAPPED_TENANT = "MAPPED_TENANT"
+    ALL_LICENSES_FOR_TENANT = "ALL_LICENSES_FOR_TENANT"
 
 
 @dataclass_json
@@ -392,10 +407,24 @@ class TenantV4:
     enabled_at_regions: Optional[List[Union[TenantRegion, TaegisEnum]]] = field(
         default=None,
         metadata=config(
+            metadata={
+                "deprecated": True,
+                "deprecation_reason": "Use 'enabledAtEnvironments' with TenantEnvironment instead",
+            },
             encoder=encode_enum,
             decoder=lambda x: decode_enum(TenantRegion, x),
             field_name="enabledAtRegions",
         ),
+    )
+    enabled_at_environments: Optional[List[Union[TenantEnvironment, TaegisEnum]]] = (
+        field(
+            default=None,
+            metadata=config(
+                encoder=encode_enum,
+                decoder=lambda x: decode_enum(TenantEnvironment, x),
+                field_name="enabledAtEnvironments",
+            ),
+        )
     )
     labels: Optional[List[TenantLabel]] = field(
         default=None, metadata=config(field_name="labels")
@@ -453,10 +482,24 @@ class TenantsQuery:
     enabled_in: Optional[List[Union[TenantRegion, TaegisEnum]]] = field(
         default=None,
         metadata=config(
+            metadata={
+                "deprecated": True,
+                "deprecation_reason": "Use enabledInEnvironments instead",
+            },
             encoder=encode_enum,
             decoder=lambda x: decode_enum(TenantRegion, x),
             field_name="enabledIn",
         ),
+    )
+    enabled_in_environments: Optional[List[Union[TenantEnvironment, TaegisEnum]]] = (
+        field(
+            default=None,
+            metadata=config(
+                encoder=encode_enum,
+                decoder=lambda x: decode_enum(TenantEnvironment, x),
+                field_name="enabledInEnvironments",
+            ),
+        )
     )
     labels_match: Optional[List[TenantLabelMatcher]] = field(
         default=None, metadata=config(field_name="labelsMatch")
