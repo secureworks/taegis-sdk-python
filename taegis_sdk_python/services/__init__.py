@@ -671,7 +671,19 @@ class GraphQLService:
 
     @property
     def process_tress(self):
-        """Preferences Service Endpoint."""
+        """Process Trees Service Endpoint."""
+
+        log.warning(
+            "Please use service.process_trees instead of service.process_tress."
+        )
+
+        if not self._process_trees:
+            self._process_trees = ProcessTreesService(self)
+        return self._process_trees
+
+    @property
+    def process_trees(self):
+        """Process Trees Service Endpoint."""
         if not self._process_trees:
             self._process_trees = ProcessTreesService(self)
         return self._process_trees

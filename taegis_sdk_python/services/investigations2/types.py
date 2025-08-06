@@ -2151,6 +2151,9 @@ class CreateInvestigationInput:
     assignee_id: Optional[str] = field(
         default=None, metadata=config(field_name="assigneeId")
     )
+    risk_score: Optional[float] = field(
+        default=None, metadata=config(field_name="riskScore")
+    )
     alerts: Optional[List[str]] = field(
         default=None, metadata=config(field_name="alerts")
     )
@@ -2207,6 +2210,9 @@ class UpdateInvestigationV2Input:
     )
     assignee_id: Optional[str] = field(
         default=None, metadata=config(field_name="assigneeId")
+    )
+    risk_score: Optional[float] = field(
+        default=None, metadata=config(field_name="riskScore")
     )
     service_desk_id: Optional[str] = field(
         default=None, metadata=config(field_name="serviceDeskId")
@@ -3289,6 +3295,9 @@ class InvestigationV2:
     )
     service_desk_type: Optional[str] = field(
         default=None, metadata=config(field_name="serviceDeskType")
+    )
+    risk_score: Optional[float] = field(
+        default=None, metadata=config(field_name="riskScore")
     )
     is_created_by_partner: Optional[bool] = field(
         default=None, metadata=config(field_name="isCreatedByPartner")

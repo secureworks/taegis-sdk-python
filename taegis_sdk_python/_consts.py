@@ -12,6 +12,8 @@ TAEGIS_ENVIRONMENT_URLS = {
     "EU": "https://api.echo.taegis.secureworks.com",
     "foxtrot": "https://api.foxtrot.taegis.secureworks.com",
     "US3": "https://api.foxtrot.taegis.secureworks.com",
+    "golf": "https://api.golf.taegis.secureworks.com",
+    "EUW1": "https://api.golf.taegis.secureworks.com",
 }
 
 
@@ -25,6 +27,8 @@ TAEGIS_TENANTS_URLS = {
     "EU": "https://api-tenants.echo.taegis.secureworks.com",
     "foxtrot": "https://api-tenants.foxtrot.taegis.secureworks.com",
     "US3": "https://api-tenants.foxtrot.taegis.secureworks.com",
+    "golf": "https://api-tenants.golf.taegis.secureworks.com",
+    "EUW1": "https://api-tenants.golf.taegis.secureworks.com",
 }
 
 UNIVERSAL_ENVIRONMENT = "universal"

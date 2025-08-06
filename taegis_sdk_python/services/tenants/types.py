@@ -1070,6 +1070,9 @@ class TenantCreateInput:
     expires_at: Optional[str] = field(
         default=None, metadata=config(field_name="expiresAt")
     )
+    sophos_account_id: Optional[str] = field(
+        default=None, metadata=config(field_name="sophosAccountID")
+    )
     environments: Optional[List[Union[TenantEnvironment, TaegisEnum]]] = field(
         default=None,
         metadata=config(
