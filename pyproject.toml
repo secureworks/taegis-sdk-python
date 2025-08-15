@@ -1,0 +1,66 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "taegis-sdk-python"
+dynamic = ["version"]
+description = "Taegis Python SDK"
+readme = "README.md"
+license = { file = "LICENSE" }
+requires-python = ">=3.9"
+authors = [{ name = "Micah Pegman", email = "sdks@secureworks.com" }]
+classifiers = [
+    "License :: OSI Approved :: Apache Software License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+]
+dependencies = [
+    "aiohttp",
+    "dataclasses-json",
+    "filelock>=3.12.4",
+    "gql>=3.5.0",
+    "graphql-core",
+    "oauthlib",
+    "pyjwt>=2.8.0",
+    "python-dateutil",
+    "requests",
+    "requests-oauthlib",
+    "requests-toolbelt",
+    "websockets",
+]
+
+[project.optional-dependencies]
+test = [
+    "pytest",
+    "pytest-cov",
+    "pytest-mock",
+    "coverage",
+]
+dev = [
+    "pylint==3.2.3",
+    "black",
+]
+
+[project.urls]
+"Homepage" = "https://github.com/secureworks/taegis-sdk-python"
+"Bug Reports" = "https://github.com/secureworks/taegis-sdk-python/issues"
+"Source" = "https://github.com/secureworks/taegis-sdk-python"
+"Package" = "https://pypi.org/project/taegis-sdk-python/"
+
+[tool.hatch.version]
+path = "taegis_sdk_python/_version.py"
+
+[tool.hatch.build.targets.sdist]
+include = [
+    "/taegis_sdk_python",
+]
+
+[tool.hatch.envs.venv]
+type = "virtual"
+installer = "uv"

@@ -25,11 +25,13 @@ class TenantRegion(str, Enum):
     DELTA = "DELTA"
     ECHO = "ECHO"
     FOXTROT = "FOXTROT"
+    GOLF = "GOLF"
     PILOT = "PILOT"
     PILOT_CHARLIE = "PILOT_CHARLIE"
     PILOT_DELTA = "PILOT_DELTA"
     PILOT_ECHO = "PILOT_ECHO"
     PILOT_FOXTROT = "PILOT_FOXTROT"
+    PILOT_GOLF = "PILOT_GOLF"
 
 
 class TenantEnvironment(str, Enum):
@@ -39,11 +41,13 @@ class TenantEnvironment(str, Enum):
     DELTA = "DELTA"
     ECHO = "ECHO"
     FOXTROT = "FOXTROT"
+    GOLF = "GOLF"
     PILOT = "PILOT"
     PILOT_CHARLIE = "PILOT_CHARLIE"
     PILOT_DELTA = "PILOT_DELTA"
     PILOT_ECHO = "PILOT_ECHO"
     PILOT_FOXTROT = "PILOT_FOXTROT"
+    PILOT_GOLF = "PILOT_GOLF"
 
 
 class TenantResultOrder(str, Enum):
