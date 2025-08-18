@@ -1,4 +1,4 @@
-gql>=3.5.0
+gql>=3.5.0,<4
 graphql-core
 python-dateutil
 oauthlib
