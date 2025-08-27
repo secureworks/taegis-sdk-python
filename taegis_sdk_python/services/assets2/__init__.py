@@ -1,4 +1,4 @@
-""""Assets2 Service."""
+"""Assets2 Service."""
 
 from taegis_sdk_python.service_core import ServiceCore
 from taegis_sdk_python.services.assets2.mutations import TaegisSDKAssets2Mutation

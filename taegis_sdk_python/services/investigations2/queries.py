@@ -204,8 +204,8 @@ class TaegisSDKInvestigations2Query:
     def case_secondary_statuses(
         self, arguments: CaseSecondaryStatusesArguments
     ) -> CaseSecondaryStatuses:
-        """CaseSecondaryStatuses returns the available case statuses for a given user and the current tenant's service level."""
-        endpoint = "CaseSecondaryStatuses"
+        """caseSecondaryStatuses returns the available case statuses for a given user and the current tenant's service level."""
+        endpoint = "caseSecondaryStatuses"
 
         result = self.service.execute_query(
             endpoint=endpoint,
@@ -216,7 +216,7 @@ class TaegisSDKInvestigations2Query:
         )
         if result.get(endpoint) is not None:
             return CaseSecondaryStatuses.from_dict(result.get(endpoint))
-        raise GraphQLNoRowsInResultSetError("for query CaseSecondaryStatuses")
+        raise GraphQLNoRowsInResultSetError("for query caseSecondaryStatuses")
 
     def case_primary_statuses(
         self, arguments: CasePrimaryStatusesArguments

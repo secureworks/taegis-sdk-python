@@ -1,4 +1,4 @@
-""""TriggerAction Service."""
+"""TriggerAction Service."""
 
 from taegis_sdk_python.service_core import ServiceCore
 from taegis_sdk_python.services.trigger_action.mutations import (

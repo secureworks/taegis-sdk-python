@@ -2025,6 +2025,15 @@ class ThreatMalware:
     modified: Optional[str] = field(
         default=None, metadata=config(field_name="modified")
     )
+    added_date: Optional[str] = field(
+        default=None, metadata=config(field_name="added_date")
+    )
+    last_updated: Optional[str] = field(
+        default=None, metadata=config(field_name="last_updated")
+    )
+    first_discovered: Optional[str] = field(
+        default=None, metadata=config(field_name="first_discovered")
+    )
     vid: Optional[str] = field(default=None, metadata=config(field_name="vid"))
     is_priority_threat: Optional[bool] = field(
         default=None, metadata=config(field_name="is_priority_threat")
@@ -2034,10 +2043,24 @@ class ThreatMalware:
         default=None, metadata=config(field_name="aliases")
     )
     first_seen: Optional[str] = field(
-        default=None, metadata=config(field_name="first_seen")
+        default=None,
+        metadata=config(
+            metadata={
+                "deprecated": True,
+                "deprecation_reason": "Use `first_discovered` instead.",
+            },
+            field_name="first_seen",
+        ),
     )
     last_seen: Optional[str] = field(
-        default=None, metadata=config(field_name="last_seen")
+        default=None,
+        metadata=config(
+            metadata={
+                "deprecated": True,
+                "deprecation_reason": "Use `last_updated` instead.",
+            },
+            field_name="last_seen",
+        ),
     )
     operating_system_refs: Optional[List[str]] = field(
         default=None, metadata=config(field_name="operating_system_refs")

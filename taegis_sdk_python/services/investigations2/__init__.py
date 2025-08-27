@@ -1,4 +1,4 @@
-""""Investigations2 Service."""
+"""Investigations2 Service."""
 
 from taegis_sdk_python.service_core import ServiceCore
 from taegis_sdk_python.services.investigations2.mutations import (

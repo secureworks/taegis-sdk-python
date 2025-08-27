@@ -1,4 +1,4 @@
-""""Events Service."""
+"""Events Service."""
 
 from __future__ import annotations
 

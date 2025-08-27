@@ -31,3 +31,18 @@ class TaegisSDKSubjectsMutation:
 
     def __init__(self, service: SubjectsService):
         self.service = service
+
+    def invalidate_subject_cache(self, input_: CacheInvalidateInput) -> bool:
+        """Invalidates the cache for the given input."""
+        endpoint = "invalidateSubjectCache"
+
+        result = self.service.execute_mutation(
+            endpoint=endpoint,
+            variables={
+                "input": prepare_input(input_),
+            },
+            output="",
+        )
+        if result.get(endpoint) is not None:
+            return result.get(endpoint)
+        raise GraphQLNoRowsInResultSetError("for mutation invalidateSubjectCache")

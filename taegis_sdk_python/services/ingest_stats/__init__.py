@@ -1,4 +1,4 @@
-""""IngestStats Service."""
+"""IngestStats Service."""
 
 from taegis_sdk_python.service_core import ServiceCore
 from taegis_sdk_python.services.ingest_stats.mutations import (

@@ -1,4 +1,4 @@
-""""CqlMetadata Service."""
+"""CqlMetadata Service."""
 
 from __future__ import annotations
 

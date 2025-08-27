@@ -184,7 +184,6 @@ class DomainVerificationMethod(str, Enum):
     """DomainVerificationMethod."""
 
     TXT_RECORD = "TXT_RECORD"
-    MANUAL_APPROVAL = "MANUAL_APPROVAL"
 
 
 @dataclass_json
@@ -1252,6 +1251,9 @@ class TenantSSOConnectionQueryInput:
     )
     include_expired: Optional[bool] = field(
         default=None, metadata=config(field_name="includeExpired")
+    )
+    include_all_tenants: Optional[bool] = field(
+        default=None, metadata=config(field_name="includeAllTenants")
     )
     environment: Optional[Union[SSOEnvironment, TaegisEnum]] = field(
         default=None,

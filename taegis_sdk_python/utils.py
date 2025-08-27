@@ -313,7 +313,7 @@ def prepare_input(value: Any) -> Any:
 
 
 def prepare_variables(
-    variables: Optional[Dict[str, Any]] = None
+    variables: Optional[Dict[str, Any]] = None,
 ) -> Union[None, Dict[str, Any]]:
     """
     Remove None values from a dictionary.

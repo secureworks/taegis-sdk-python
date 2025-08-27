@@ -1,4 +1,4 @@
-""""Byoti Service."""
+"""Byoti Service."""
 
 from taegis_sdk_python.service_core import ServiceCore
 from taegis_sdk_python.services.byoti.mutations import TaegisSDKByotiMutation

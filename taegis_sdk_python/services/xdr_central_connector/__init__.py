@@ -1,4 +1,4 @@
-""""XdrCentralConnector Service."""
+"""XdrCentralConnector Service."""
 
 from taegis_sdk_python.service_core import ServiceCore
 from taegis_sdk_python.services.xdr_central_connector.mutations import (

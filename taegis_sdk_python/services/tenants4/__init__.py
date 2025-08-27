@@ -1,4 +1,4 @@
-""""TenantsV4 Service."""
+"""TenantsV4 Service."""
 
 from __future__ import annotations
 

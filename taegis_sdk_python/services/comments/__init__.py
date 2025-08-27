@@ -1,4 +1,4 @@
-""""Comments Service."""
+"""Comments Service."""
 
 from taegis_sdk_python.service_core import ServiceCore
 from taegis_sdk_python.services.comments.mutations import TaegisSDKCommentsMutation

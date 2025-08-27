@@ -1,4 +1,4 @@
-""""EndpointCommandManager Service."""
+"""EndpointCommandManager Service."""
 
 from __future__ import annotations
 

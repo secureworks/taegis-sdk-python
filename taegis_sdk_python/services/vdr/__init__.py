@@ -1,4 +1,4 @@
-""""VDR Service."""
+"""VDR Service."""
 
 from taegis_sdk_python.service_core import ServiceCore
 from taegis_sdk_python.services.vdr.mutations import TaegisSDKVdrMutation

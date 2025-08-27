@@ -1,4 +1,4 @@
-""""ContractedEndpoint Service."""
+"""ContractedEndpoint Service."""
 
 from taegis_sdk_python.service_core import ServiceCore
 from taegis_sdk_python.services.contracted_endpoint.mutations import (

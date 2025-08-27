@@ -1,4 +1,4 @@
-""""Roadrunner Service."""
+"""Roadrunner Service."""
 
 from taegis_sdk_python.service_core import ServiceCore
 from taegis_sdk_python.services.roadrunner.mutations import TaegisSDKRoadrunnerMutation

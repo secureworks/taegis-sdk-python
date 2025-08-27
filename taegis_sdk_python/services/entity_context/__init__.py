@@ -1,4 +1,4 @@
-""""EntityContext Service."""
+"""EntityContext Service."""
 
 from taegis_sdk_python.service_core import ServiceCore
 from taegis_sdk_python.services.entity_context.mutations import (

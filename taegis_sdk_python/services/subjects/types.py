@@ -18,6 +18,18 @@ from taegis_sdk_python._consts import TaegisEnum
 from taegis_sdk_python.utils import encode_enum, decode_enum, parse_union_result
 
 
+class SubjectsAuthzObject(str, Enum):
+    """SubjectsAuthzObject."""
+
+    SUBJECTS = "Subjects"
+
+
+class SubjectsAuthzAction(str, Enum):
+    """SubjectsAuthzAction."""
+
+    INVALIDATE_CACHE = "invalidateCache"
+
+
 class SubjectType(str, Enum):
     """SubjectType."""
 
@@ -47,6 +59,16 @@ class CentralUser:
     """CentralUser."""
 
     id: Optional[str] = field(default=None, metadata=config(field_name="id"))
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class CacheInvalidateInput:
+    """CacheInvalidateInput."""
+
+    central_user_principal_id: Optional[str] = field(
+        default=None, metadata=config(field_name="centralUserPrincipalId")
+    )
 
 
 @dataclass_json

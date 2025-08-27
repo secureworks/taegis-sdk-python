@@ -1,4 +1,4 @@
-""""Trip Service."""
+"""Trip Service."""
 
 from taegis_sdk_python.service_core import ServiceCore
 from taegis_sdk_python.services.trip.mutations import TaegisSDKTripMutation
