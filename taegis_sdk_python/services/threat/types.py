@@ -39,6 +39,9 @@ class SortByFieldInput(str, Enum):
 
     MALWARE_FAMILY = "malware_family"
     MALWARE_LAST_SEEN = "malware_last_seen"
+    MALWARE_ADDED_DATE = "malware_added_date"
+    MALWARE_LAST_UPDATED = "malware_last_updated"
+    MALWARE_FIRST_DISCOVERED = "malware_first_discovered"
     MALWARE_TYPE = "malware_type"
     THREAT_GROUP_NAME = "threat_group_name"
     THREAT_GROUP_THEMATIC_AREA = "threat_group_thematic_area"

@@ -914,6 +914,18 @@ class EntityFileSnapshot:
     file_type_detected: Optional[str] = field(
         default=None, metadata=config(field_name="file_type_detected")
     )
+    hash_md5: Optional[str] = field(
+        default=None, metadata=config(field_name="hash_md5")
+    )
+    hash_sha1: Optional[str] = field(
+        default=None, metadata=config(field_name="hash_sha1")
+    )
+    hash_sha256: Optional[str] = field(
+        default=None, metadata=config(field_name="hash_sha256")
+    )
+    hash_sha512: Optional[str] = field(
+        default=None, metadata=config(field_name="hash_sha512")
+    )
 
 
 @dataclass_json
@@ -1060,6 +1072,18 @@ class EntityProcessSnapshot:
     )
     process_is_admin: Optional[bool] = field(
         default=None, metadata=config(field_name="process_is_admin")
+    )
+    hash_md5: Optional[str] = field(
+        default=None, metadata=config(field_name="hash_md5")
+    )
+    hash_sha1: Optional[str] = field(
+        default=None, metadata=config(field_name="hash_sha1")
+    )
+    hash_sha256: Optional[str] = field(
+        default=None, metadata=config(field_name="hash_sha256")
+    )
+    hash_sha512: Optional[str] = field(
+        default=None, metadata=config(field_name="hash_sha512")
     )
 
 

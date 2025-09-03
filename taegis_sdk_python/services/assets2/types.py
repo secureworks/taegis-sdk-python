@@ -1253,9 +1253,6 @@ class AssetWhereInputV2:
     reboot_required: Optional[bool] = field(
         default=None, metadata=config(field_name="rebootRequired")
     )
-    agent_mode: Optional[str] = field(
-        default=None, metadata=config(field_name="agentMode")
-    )
     and_: Optional[List["AssetWhereInputV2"]] = field(
         default=None, metadata=config(field_name="and")
     )
@@ -1416,9 +1413,6 @@ class AssetV2:
     )
     reboot_required: Optional[bool] = field(
         default=None, metadata=config(field_name="rebootRequired")
-    )
-    agent_mode: Optional[str] = field(
-        default=None, metadata=config(field_name="agentMode")
     )
     hostnames: Optional[List[HostnameV2]] = field(
         default=None, metadata=config(field_name="hostnames")

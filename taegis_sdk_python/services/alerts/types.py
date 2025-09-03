@@ -862,6 +862,9 @@ class EntityFile:
     hash_sha512: Optional[str] = field(
         default=None, metadata=config(field_name="hash_sha512")
     )
+    email_message_id: Optional[str] = field(
+        default=None, metadata=config(field_name="email_message_id")
+    )
 
 
 @dataclass_json
