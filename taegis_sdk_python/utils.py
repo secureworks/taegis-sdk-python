@@ -255,7 +255,7 @@ def async_block(coro: Callable):
     return wrapper
 
 
-def prepare_input(value: Any) -> Any:
+def prepare_input(value: Any) -> Any: # pylint: disable=too-many-return-statements
     """Prepare input objects for submitting to GraphQL.
 
     Parameters
@@ -269,6 +269,7 @@ def prepare_input(value: Any) -> Any:
         _description_
     """
     if is_dataclass(value):
+        log.debug("Value is dataclass...")
         for field in dc_fields(value):
             letter_case = field.metadata.get("dataclasses_json", {}).get("letter_case")
             if letter_case:
@@ -284,12 +285,13 @@ def prepare_input(value: Any) -> Any:
 
         # return Dict[str. Any] where Any is not None
         return {
-            key: value
-            for key, value in value.to_dict(encode_json=True).items()
-            if value is not None and not value == TaegisEnum.UNKNOWN.value
+            key: prepare_input(val)
+            for key, val in value.to_dict(encode_json=True).items()
+            if val is not None and not val == TaegisEnum.UNKNOWN.value
         }
     # return value of Enum instead of the object
     if isinstance(value, Enum):
+        log.debug("Value is Enum...")
         if value is TaegisEnum.UNKNOWN:
             log.error(
                 "Input is of value TaegisEnum.UNKNOWN, "
@@ -298,8 +300,19 @@ def prepare_input(value: Any) -> Any:
             )
             return None
         return value.value
+
     if isinstance(value, list):
+        log.debug("Value is List...")
         return [prepare_input(item) for item in value]
+
+    if isinstance(value, dict):
+        log.debug("Value is Dict...")
+        # return Dict[str. Any] where Any is not None
+        return {
+            key: prepare_input(val)
+            for key, val in value.items()
+            if val is not None and not val == TaegisEnum.UNKNOWN.value
+        }
 
     if value == TaegisEnum.UNKNOWN.value:
         log.error(
@@ -309,6 +322,7 @@ def prepare_input(value: Any) -> Any:
         )
         return None
 
+    log.debug(f"Value is other type({type(value)})...")
     return value
 
 

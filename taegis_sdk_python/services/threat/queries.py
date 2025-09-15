@@ -408,7 +408,10 @@ class TaegisSDKThreatQuery:
         raise GraphQLNoRowsInResultSetError("for query threatFacetInfo")
 
     def threat_associated_indicators(
-        self, id_: str, page: Optional[ThreatPageInput] = None
+        self,
+        id_: str,
+        filters: Optional[IndicatorFilter] = None,
+        page: Optional[ThreatPageInput] = None,
     ) -> List[ThreatIndicator]:
         """Retrives all associated indicators to a malware or threat_group."""
         endpoint = "threatAssociatedIndicators"
@@ -417,6 +420,7 @@ class TaegisSDKThreatQuery:
             endpoint=endpoint,
             variables={
                 "ID": prepare_input(id_),
+                "filters": prepare_input(filters),
                 "page": prepare_input(page),
             },
             output=build_output_string(ThreatIndicator),

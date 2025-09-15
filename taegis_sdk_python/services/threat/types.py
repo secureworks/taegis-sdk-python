@@ -1455,6 +1455,24 @@ class ThreatReport:
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
+class IndicatorWhereInput:
+    """IndicatorWhereInput."""
+
+    or_: Optional[List["IndicatorWhereInput"]] = field(
+        default=None, metadata=config(field_name="or")
+    )
+    indicator_type: Optional[Union[ThreatIndicatorClass, TaegisEnum]] = field(
+        default=None,
+        metadata=config(
+            encoder=encode_enum,
+            decoder=lambda x: decode_enum(ThreatIndicatorClass, x),
+            field_name="indicatorType",
+        ),
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
 class SortByInput:
     """SortByInput."""
 
@@ -2262,6 +2280,16 @@ class ThreatFilter:
     """ThreatFilter."""
 
     where: Optional[ThreatWhereInput] = field(
+        default=None, metadata=config(field_name="where")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class IndicatorFilter:
+    """IndicatorFilter."""
+
+    where: Optional[IndicatorWhereInput] = field(
         default=None, metadata=config(field_name="where")
     )
 
