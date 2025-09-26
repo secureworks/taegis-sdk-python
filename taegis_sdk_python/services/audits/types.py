@@ -6,16 +6,13 @@
 # DO NOT MODIFY
 
 from dataclasses import dataclass, field
-
 from enum import Enum
-
 from typing import Any, Dict, List, Optional, Tuple, Union
 
 from dataclasses_json import config, dataclass_json
 
-
 from taegis_sdk_python._consts import TaegisEnum
-from taegis_sdk_python.utils import encode_enum, decode_enum, parse_union_result
+from taegis_sdk_python.utils import decode_enum, encode_enum, parse_union_result
 
 
 class IntervalType(str, Enum):
@@ -198,6 +195,12 @@ class Audit:
     )
     partner_internal_log: Optional[bool] = field(
         default=None, metadata=config(field_name="partnerInternalLog")
+    )
+    sophos_account_id: Optional[str] = field(
+        default=None, metadata=config(field_name="sophosAccountId")
+    )
+    sophos_account_type: Optional[str] = field(
+        default=None, metadata=config(field_name="sophosAccountType")
     )
     subject: Optional[Subject] = field(
         default=None, metadata=config(field_name="subject")

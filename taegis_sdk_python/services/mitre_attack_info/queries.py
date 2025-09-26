@@ -12,13 +12,13 @@ import logging
 from typing import TYPE_CHECKING, Any, Dict, List, Optional, Tuple, Union
 
 from taegis_sdk_python import GraphQLNoRowsInResultSetError
+from taegis_sdk_python._consts import TaegisEnum
+from taegis_sdk_python.services.mitre_attack_info.types import *
 from taegis_sdk_python.utils import (
     build_output_string,
     parse_union_result,
     prepare_input,
 )
-from taegis_sdk_python._consts import TaegisEnum
-from taegis_sdk_python.services.mitre_attack_info.types import *
 
 if TYPE_CHECKING:  # pragma: no cover
     from taegis_sdk_python.services.mitre_attack_info import MitreAttackInfoService

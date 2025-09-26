@@ -10,11 +10,11 @@ import threading
 from datetime import datetime, timedelta
 from typing import TYPE_CHECKING, Any, Dict, List, Optional, Union
 
-from graphql import GraphQLError, GraphQLField, GraphQLSchema
-
 from gql import Client, gql
 from gql.transport import Transport
 from gql.transport.aiohttp import AIOHTTPTransport
+from graphql import GraphQLError, GraphQLField, GraphQLSchema
+
 from taegis_sdk_python._version import __version__
 from taegis_sdk_python.errors import InvalidGraphQLEndpoint
 from taegis_sdk_python.transport.aiohttp_websockets import AIOHTTPWebsocketsTransport

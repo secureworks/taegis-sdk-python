@@ -6,7 +6,6 @@
 # DO NOT MODIFY
 
 from dataclasses import dataclass, field
-
 from typing import Any, Dict, List, Optional, Tuple, Union
 
 from dataclasses_json import config, dataclass_json

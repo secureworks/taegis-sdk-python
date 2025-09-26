@@ -1,9 +1,7 @@
 """Isensor Service."""
 
 from taegis_sdk_python.service_core import ServiceCore
-from taegis_sdk_python.services.isensor.mutations import (
-    TaegisSDKIsensorMutation,
-)
+from taegis_sdk_python.services.isensor.mutations import TaegisSDKIsensorMutation
 from taegis_sdk_python.services.isensor.queries import TaegisSDKIsensorQuery
 from taegis_sdk_python.services.isensor.subscriptions import (
     TaegisSDKIsensorSubscription,

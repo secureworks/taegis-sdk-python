@@ -33,6 +33,7 @@ dependencies = [
     "requests-oauthlib",
     "requests-toolbelt",
     "websockets",
+    "jinja2",
 ]
 
 [project.optional-dependencies]

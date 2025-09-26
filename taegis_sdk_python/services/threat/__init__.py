@@ -3,9 +3,7 @@
 from taegis_sdk_python.service_core import ServiceCore
 from taegis_sdk_python.services.threat.mutations import TaegisSDKThreatMutation
 from taegis_sdk_python.services.threat.queries import TaegisSDKThreatQuery
-from taegis_sdk_python.services.threat.subscriptions import (
-    TaegisSDKThreatSubscription,
-)
+from taegis_sdk_python.services.threat.subscriptions import TaegisSDKThreatSubscription
 
 
 class ThreatService(ServiceCore):

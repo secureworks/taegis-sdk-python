@@ -42,10 +42,10 @@ from taegis_sdk_python.services.endpoint_command_manager import (
 from taegis_sdk_python.services.endpoint_management_service import (
     EndpointManagementServiceService,
 )
+from taegis_sdk_python.services.entity_context import EntityContextService
 from taegis_sdk_python.services.event_search import EventSearchService
 from taegis_sdk_python.services.events import EventsService
 from taegis_sdk_python.services.exports import ExportsService
-from taegis_sdk_python.services.entity_context import EntityContextService
 from taegis_sdk_python.services.fast_ioc import FastIocService
 from taegis_sdk_python.services.file_info import FileInfoService
 from taegis_sdk_python.services.ingest_stats import IngestStatsService

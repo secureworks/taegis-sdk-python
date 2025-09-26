@@ -3,9 +3,7 @@
 from taegis_sdk_python.service_core import ServiceCore
 from taegis_sdk_python.services.users.mutations import TaegisSDKUsersMutation
 from taegis_sdk_python.services.users.queries import TaegisSDKUsersQuery
-from taegis_sdk_python.services.users.subscriptions import (
-    TaegisSDKUsersSubscription,
-)
+from taegis_sdk_python.services.users.subscriptions import TaegisSDKUsersSubscription
 
 
 class UsersService(ServiceCore):

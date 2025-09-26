@@ -6,16 +6,13 @@
 # DO NOT MODIFY
 
 from dataclasses import dataclass, field
-
 from enum import Enum
-
 from typing import Any, Dict, List, Optional, Tuple, Union
 
 from dataclasses_json import config, dataclass_json
 
-
 from taegis_sdk_python._consts import TaegisEnum
-from taegis_sdk_python.utils import encode_enum, decode_enum
+from taegis_sdk_python.utils import decode_enum, encode_enum
 
 
 class NLSearchStatus(str, Enum):

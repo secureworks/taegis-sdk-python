@@ -3,9 +3,7 @@
 from taegis_sdk_python.service_core import ServiceCore
 from taegis_sdk_python.services.vdr.mutations import TaegisSDKVdrMutation
 from taegis_sdk_python.services.vdr.queries import TaegisSDKVdrQuery
-from taegis_sdk_python.services.vdr.subscriptions import (
-    TaegisSDKVdrSubscription,
-)
+from taegis_sdk_python.services.vdr.subscriptions import TaegisSDKVdrSubscription
 
 
 class VDRService(ServiceCore):

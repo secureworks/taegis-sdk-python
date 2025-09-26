@@ -6,16 +6,13 @@
 # DO NOT MODIFY
 
 from dataclasses import dataclass, field
-
 from enum import Enum
-
 from typing import Any, Dict, List, Optional, Tuple, Union
 
 from dataclasses_json import config, dataclass_json
 
-
 from taegis_sdk_python._consts import TaegisEnum
-from taegis_sdk_python.utils import encode_enum, decode_enum, parse_union_result
+from taegis_sdk_python.utils import decode_enum, encode_enum, parse_union_result
 
 
 class AggregateAlertsBySeverityInput_GroupBy(str, Enum):
@@ -113,6 +110,21 @@ class Visibility(str, Enum):
 
     DEPLOYED = "DEPLOYED"
     RESEARCH = "RESEARCH"
+
+
+class Locale(str, Enum):
+    """Locale."""
+
+    EN = "en"
+    FR = "fr"
+    DE = "de"
+    PT = "pt"
+    KO = "ko"
+    JA = "ja"
+    IT = "it"
+    ES = "es"
+    ZH_CN = "zh_CN"
+    ZH_TW = "zh_TW"
 
 
 @dataclass_json
@@ -231,27 +243,6 @@ class AlertsCountByTenantInput:
 
     ql_query: Optional[str] = field(
         default=None, metadata=config(field_name="ql_query")
-    )
-    tenant_service_filters: Optional[List[str]] = field(
-        default=None, metadata=config(field_name="tenant_service_filters")
-    )
-
-
-@dataclass_json
-@dataclass(order=True, eq=True, frozen=True)
-class SearchRequestInput:
-    """SearchRequestInput."""
-
-    cql_query: Optional[str] = field(
-        default=None, metadata=config(field_name="cql_query")
-    )
-    offset: Optional[int] = field(default=None, metadata=config(field_name="offset"))
-    limit: Optional[int] = field(default=None, metadata=config(field_name="limit"))
-    search_id: Optional[str] = field(
-        default=None, metadata=config(field_name="search_id")
-    )
-    metadata: Optional[dict] = field(
-        default=None, metadata=config(field_name="metadata")
     )
     tenant_service_filters: Optional[List[str]] = field(
         default=None, metadata=config(field_name="tenant_service_filters")
@@ -1784,6 +1775,35 @@ class AlertPriorityInput:
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
+class SearchRequestInput:
+    """SearchRequestInput."""
+
+    cql_query: Optional[str] = field(
+        default=None, metadata=config(field_name="cql_query")
+    )
+    offset: Optional[int] = field(default=None, metadata=config(field_name="offset"))
+    limit: Optional[int] = field(default=None, metadata=config(field_name="limit"))
+    search_id: Optional[str] = field(
+        default=None, metadata=config(field_name="search_id")
+    )
+    metadata: Optional[dict] = field(
+        default=None, metadata=config(field_name="metadata")
+    )
+    tenant_service_filters: Optional[List[str]] = field(
+        default=None, metadata=config(field_name="tenant_service_filters")
+    )
+    locale: Optional[Union[Locale, TaegisEnum]] = field(
+        default=None,
+        metadata=config(
+            encoder=encode_enum,
+            decoder=lambda x: decode_enum(Locale, x),
+            field_name="locale",
+        ),
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
 class SeverityUpdateInput:
     """SeverityUpdateInput."""
 
@@ -1929,6 +1949,24 @@ class AlertsAggregateResponse_AlertsAggregation:
     count: Optional[int] = field(default=None, metadata=config(field_name="count"))
     severities: Optional[AlertsAggregateResponse_AlertsAggregation_Severity] = field(
         default=None, metadata=config(field_name="severities")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class Description:
+    """Description."""
+
+    description: Optional[str] = field(
+        default=None, metadata=config(field_name="description")
+    )
+    locale: Optional[Union[Locale, TaegisEnum]] = field(
+        default=None,
+        metadata=config(
+            encoder=encode_enum,
+            decoder=lambda x: decode_enum(Locale, x),
+            field_name="locale",
+        ),
     )
 
 
@@ -2804,6 +2842,9 @@ class AlertsMetadata:
     engine: Optional[Engine] = field(default=None, metadata=config(field_name="engine"))
     severity_updated_at: Optional[Timestamp] = field(
         default=None, metadata=config(field_name="severity_updated_at")
+    )
+    descriptions: Optional[List[Description]] = field(
+        default=None, metadata=config(field_name="descriptions")
     )
     began_at: Optional[Timestamp] = field(
         default=None, metadata=config(field_name="began_at")

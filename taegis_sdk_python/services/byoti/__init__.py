@@ -3,9 +3,7 @@
 from taegis_sdk_python.service_core import ServiceCore
 from taegis_sdk_python.services.byoti.mutations import TaegisSDKByotiMutation
 from taegis_sdk_python.services.byoti.queries import TaegisSDKByotiQuery
-from taegis_sdk_python.services.byoti.subscriptions import (
-    TaegisSDKByotiSubscription,
-)
+from taegis_sdk_python.services.byoti.subscriptions import TaegisSDKByotiSubscription
 
 
 class ByotiService(ServiceCore):

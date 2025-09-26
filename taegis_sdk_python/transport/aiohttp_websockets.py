@@ -21,9 +21,6 @@ from typing import (
 import aiohttp
 from aiohttp import BasicAuth, Fingerprint, WSMsgType
 from aiohttp.typedefs import LooseHeaders, StrOrURL
-from graphql import DocumentNode, ExecutionResult, print_ast
-from multidict import CIMultiDictProxy
-
 from gql.transport.aiohttp import AIOHTTPTransport
 from gql.transport.async_transport import AsyncTransport
 from gql.transport.exceptions import (
@@ -33,7 +30,8 @@ from gql.transport.exceptions import (
     TransportQueryError,
     TransportServerError,
 )
-
+from graphql import DocumentNode, ExecutionResult, print_ast
+from multidict import CIMultiDictProxy
 
 # Load the appropriate instance of the Literal type
 # Note: we cannot use try: except ImportError because of the following mypy issue:
@@ -856,6 +854,7 @@ class AIOHTTPWebsocketsTransport(AsyncTransport):
             log.debug("Exiting _receive_data_loop()")
 
     async def connect(self) -> None:
+        """Connect to session."""
         log.debug("connect: starting")
 
         if self.session is None:
@@ -1116,6 +1115,7 @@ class AIOHTTPWebsocketsTransport(AsyncTransport):
             )
 
     async def close(self) -> None:
+        """Close transport."""
         log.debug("close: starting")
 
         await self._fail(TransportClosed("Websocket GraphQL transport closed by user"))

@@ -7,9 +7,7 @@ from typing import TYPE_CHECKING
 from taegis_sdk_python.service_core import ServiceCore
 from taegis_sdk_python.services.agent.mutations import TaegisSDKAgentMutation
 from taegis_sdk_python.services.agent.queries import TaegisSDKAgentQuery
-from taegis_sdk_python.services.agent.subscriptions import (
-    TaegisSDKAgentSubscription,
-)
+from taegis_sdk_python.services.agent.subscriptions import TaegisSDKAgentSubscription
 
 if TYPE_CHECKING:
     from taegis_sdk_python.services import GraphQLService

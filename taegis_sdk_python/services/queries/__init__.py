@@ -1,9 +1,7 @@
 """Queries Service."""
 
 from taegis_sdk_python.service_core import ServiceCore
-from taegis_sdk_python.services.queries.mutations import (
-    TaegisSDKQueriesMutation,
-)
+from taegis_sdk_python.services.queries.mutations import TaegisSDKQueriesMutation
 from taegis_sdk_python.services.queries.queries import TaegisSDKQueriesQuery
 from taegis_sdk_python.services.queries.subscriptions import (
     TaegisSDKQueriesSubscription,

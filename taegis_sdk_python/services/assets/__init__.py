@@ -3,9 +3,7 @@
 from taegis_sdk_python.service_core import ServiceCore
 from taegis_sdk_python.services.assets.mutations import TaegisSDKAssetsMutation
 from taegis_sdk_python.services.assets.queries import TaegisSDKAssetsQuery
-from taegis_sdk_python.services.assets.subscriptions import (
-    TaegisSDKAssetsSubscription,
-)
+from taegis_sdk_python.services.assets.subscriptions import TaegisSDKAssetsSubscription
 
 
 class AssetsService(ServiceCore):

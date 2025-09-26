@@ -3,9 +3,7 @@
 from taegis_sdk_python.service_core import ServiceCore
 from taegis_sdk_python.services.rules.mutations import TaegisSDKRulesMutation
 from taegis_sdk_python.services.rules.queries import TaegisSDKRulesQuery
-from taegis_sdk_python.services.rules.subscriptions import (
-    TaegisSDKRulesSubscription,
-)
+from taegis_sdk_python.services.rules.subscriptions import TaegisSDKRulesSubscription
 
 
 class RulesService(ServiceCore):

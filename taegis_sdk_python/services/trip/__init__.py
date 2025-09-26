@@ -3,9 +3,7 @@
 from taegis_sdk_python.service_core import ServiceCore
 from taegis_sdk_python.services.trip.mutations import TaegisSDKTripMutation
 from taegis_sdk_python.services.trip.queries import TaegisSDKTripQuery
-from taegis_sdk_python.services.trip.subscriptions import (
-    TaegisSDKTripSubscription,
-)
+from taegis_sdk_python.services.trip.subscriptions import TaegisSDKTripSubscription
 
 
 class TripService(ServiceCore):

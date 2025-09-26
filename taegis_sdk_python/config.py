@@ -3,9 +3,10 @@
 Taegis SDK Configuration management.
 """
 
+import threading
 from configparser import ConfigParser
 from pathlib import Path
-import threading
+
 from filelock import FileLock
 
 LOCK = threading.RLock()
