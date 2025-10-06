@@ -84,7 +84,7 @@ log = logging.getLogger(__name__)
 class GraphQLService:
     """Taegis GraphQL Service manager."""
 
-    def __init__(
+    def __init__(  # pylint: disable=too-many-locals
         self,
         *,
         environment: Optional[str] = None,
@@ -101,6 +101,7 @@ class GraphQLService:
         execute_timeout: Optional[Union[int, float]] = 300,
         max_message_size: int = 0,
         use_universal_authentication: bool = False,
+        middlewares=None,
     ):  # pylint: disable=too-many-statements
         """
         GraphQLService
@@ -175,6 +176,7 @@ class GraphQLService:
 
         self._execute_timeout = execute_timeout
         self._max_message_size = max_message_size
+        self._middlewares = middlewares or ()
 
         self._access_points = None
         self._agent = None
@@ -423,6 +425,11 @@ class GraphQLService:
     def execute_timeout(self):
         """GraphQL Execute Timeout."""
         return self._context_manager.get("execute_timeout", self._execute_timeout)
+
+    @property
+    def middlewares(self):
+        """Transport Middleware handlers."""
+        return self._context_manager.get("middlewares", self._middlewares)
 
     @property
     def access_points(self):

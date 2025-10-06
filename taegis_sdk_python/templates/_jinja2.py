@@ -24,13 +24,16 @@ def escape_value(value):
 # Filters
 
 
-def filter_or(value: List[str], field_name: str, operator: str = "="):
+def filter_or(value: List[str], field_name: str = None, operator: str = "="):
     """Format values for Taegis QL OR statement."""
     if not isinstance(value, list):
         raise ValueError("Input is not list.")
 
     return " OR ".join(
-        [f"{field_name} {operator} {escape_value(item)}" for item in value]
+        [
+            f"{field_name} {operator} {escape_value(item)}" if field_name else value
+            for item in value
+        ]
     )
 
 

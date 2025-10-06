@@ -11,3 +11,4 @@ websockets
 filelock>=3.12.4
 aiohttp
 jinja2
+backoff

@@ -209,7 +209,10 @@ class ServiceCore:
     @property
     def sync_client(self) -> Client:
         """GraphQL Synchronous Transport with Client."""
-        client_session_args = {"trust_env": self.service.trust_env}
+        client_session_args = {
+            "trust_env": self.service.trust_env,
+            "middlewares": self.service.middlewares,
+        }
 
         transport = AIOHTTPTransport(
             f"{self.sync_url}{self.gateway}",
@@ -246,7 +249,10 @@ class ServiceCore:
         if self.service.tenant_id:
             subprotocols.append(f"x-tenant-context-{self.service.tenant_id}")
 
-        client_session_args = {"trust_env": self.service.trust_env}
+        client_session_args = {
+            "trust_env": self.service.trust_env,
+            "middlewares": self.service.middlewares,
+        }
 
         transport = AIOHTTPWebsocketsTransport(
             f"{self.wss_url}{self.gateway}",
@@ -483,11 +489,13 @@ class ServiceCore:
         """
         extra_args = {}
         if self.service.proxy:
-            extra_args = {
-                "proxy": self.service.proxy,
-                "proxy_auth": self.service.proxy_auth,
-                "proxy_headers": self.service.proxy_headers,
-            }
+            extra_args.update(
+                {
+                    "proxy": self.service.proxy,
+                    "proxy_auth": self.service.proxy_auth,
+                    "proxy_headers": self.service.proxy_headers,
+                }
+            )
 
         query = gql(query_string)
         return await self.sync_client.execute_async(
