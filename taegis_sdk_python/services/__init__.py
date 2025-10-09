@@ -4,12 +4,14 @@ Taegis SDK Python GraphQL Service manager.
 
 import logging
 import threading
+from collections.abc import Mapping
 from ssl import SSLContext
 from typing import Any, Dict, Literal, Optional, Union
 
 import aiohttp
 from aiohttp.client_reqrep import Fingerprint
 from aiohttp.typedefs import LooseHeaders
+from multidict import CIMultiDict, CIMultiDictProxy
 
 from taegis_sdk_python._consts import (
     TAEGIS_ENVIRONMENT_URLS,
@@ -102,6 +104,7 @@ class GraphQLService:
         max_message_size: int = 0,
         use_universal_authentication: bool = False,
         middlewares=None,
+        reuse_request_id=False,
     ):  # pylint: disable=too-many-statements
         """
         GraphQLService
@@ -144,6 +147,8 @@ class GraphQLService:
         ValueError
             environment must be charlie, delta, echo, or foxtrot (or equivalent)
         """
+        self.response_headers: CIMultiDictProxy[str] = CIMultiDictProxy(CIMultiDict())
+
         self._environments = environments or TAEGIS_ENVIRONMENT_URLS
         self._environment = environment or list(self._environments)[0]
         self._use_universal_authentication = use_universal_authentication
@@ -177,6 +182,7 @@ class GraphQLService:
         self._execute_timeout = execute_timeout
         self._max_message_size = max_message_size
         self._middlewares = middlewares or ()
+        self._reuse_request_id = reuse_request_id
 
         self._access_points = None
         self._agent = None
@@ -230,6 +236,37 @@ class GraphQLService:
         self._users = None
         self._vdr = None
         self._xdr_central_connector = None
+
+    def __eq__(self, other):
+        """Compare equality of a GraphQLService.
+
+        As the GraphQService is a network service, equality is limited to the
+        context in which a request will be made.
+        """
+        if isinstance(other, GraphQLService):
+            return (
+                self.tenant_id == other.tenant_id
+                and self._environments[self.environment]
+                == other._environments[other.environment]
+                and self.url == other.url
+                and self.gateway == other.gateway
+            )
+        return NotImplemented
+
+    def __hash__(self):
+        """Hash of a GraphQLService.
+
+        As the GraphQService is a network service, hash values are limited to the
+        context in which a request will be made.
+        """
+        return hash(
+            (
+                self.tenant_id,
+                self._environments[self.environment],
+                self.url,
+                self.gateway,
+            )
+        )
 
     def __call__(self, **kwargs):
         if threading.get_ident() not in self._context_kwargs:
@@ -314,6 +351,11 @@ class GraphQLService:
         return self._context_manager.get("tenant_id", self._tenant_id)
 
     @property
+    def reuse_request_id(self):
+        """Reuse Previous Taegis X-Request-Id in response_headers."""
+        return self._context_manager.get("reuse_request_id", self._reuse_request_id)
+
+    @property
     def access_token(self):
         """Taegis Access Token."""
         access_token = self._context_manager.get(
@@ -356,6 +398,13 @@ class GraphQLService:
 
         if self.tenant_id:
             headers["X-Tenant-Context"] = self.tenant_id
+
+        if (
+            self.reuse_request_id
+            and isinstance(self.response_headers, Mapping)
+            and (x_request_id := self.response_headers.get("X-Request-Id"))
+        ):
+            headers["X-Amzn-Trace-Id"] = x_request_id
 
         headers.update(self.extra_headers)
 

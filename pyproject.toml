@@ -24,7 +24,7 @@ dependencies = [
     "aiohttp",
     "dataclasses-json",
     "filelock>=3.12.4",
-    "gql>=3.5.0,<4",
+    "gql>=4",
     "graphql-core",
     "oauthlib",
     "pyjwt>=2.8.0",

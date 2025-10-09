@@ -108,6 +108,8 @@ class AssetSearchOrderByInputV2(str, Enum):
     VULNERABILITY_STATUS_DESC = "vulnerability_status_desc"
     VENDOR_PROVIDED_HEALTH_ASC = "vendor_provided_health_asc"
     VENDOR_PROVIDED_HEALTH_DESC = "vendor_provided_health_desc"
+    VENDOR_PROVIDED_HEALTH_RAW_ASC = "vendor_provided_health_raw_asc"
+    VENDOR_PROVIDED_HEALTH_RAW_DESC = "vendor_provided_health_raw_desc"
     USERNAME_ASC = "username_asc"
     USERNAME_DESC = "username_desc"
     REBOOT_REQUIRED_ASC = "reboot_required_asc"
@@ -118,6 +120,8 @@ class AssetSearchOrderByInputV2(str, Enum):
     BIOS_SERIAL_DESC = "bios_serial_desc"
     FIRST_DISK_SERIAL_ASC = "first_disk_serial_asc"
     FIRST_DISK_SERIAL_DESC = "first_disk_serial_desc"
+    PENDING_UNINSTALL_ASC = "pending_uninstall_asc"
+    PENDING_UNINSTALL_DESC = "pending_uninstall_desc"
 
 
 class AssetHostnameSearchOrderByInput(str, Enum):
@@ -1208,6 +1212,9 @@ class AssetWhereInputV2:
     sensor_version: Optional[str] = field(
         default=None, metadata=config(field_name="sensorVersion")
     )
+    vendor_provided_health_raw: Optional[str] = field(
+        default=None, metadata=config(field_name="vendorProvidedHealthRaw")
+    )
     system_type: Optional[str] = field(
         default=None, metadata=config(field_name="systemType")
     )
@@ -1249,6 +1256,12 @@ class AssetWhereInputV2:
     )
     reboot_required: Optional[bool] = field(
         default=None, metadata=config(field_name="rebootRequired")
+    )
+    agent_mode: Optional[str] = field(
+        default=None, metadata=config(field_name="agentMode")
+    )
+    pending_uninstall: Optional[bool] = field(
+        default=None, metadata=config(field_name="pendingUninstall")
     )
     and_: Optional[List["AssetWhereInputV2"]] = field(
         default=None, metadata=config(field_name="and")
@@ -1408,8 +1421,17 @@ class AssetV2:
     uninstall: Optional[bool] = field(
         default=None, metadata=config(field_name="uninstall")
     )
+    vendor_provided_health_raw: Optional[str] = field(
+        default=None, metadata=config(field_name="vendorProvidedHealthRaw")
+    )
     reboot_required: Optional[bool] = field(
         default=None, metadata=config(field_name="rebootRequired")
+    )
+    agent_mode: Optional[str] = field(
+        default=None, metadata=config(field_name="agentMode")
+    )
+    pending_uninstall: Optional[bool] = field(
+        default=None, metadata=config(field_name="pendingUninstall")
     )
     hostnames: Optional[List[HostnameV2]] = field(
         default=None, metadata=config(field_name="hostnames")

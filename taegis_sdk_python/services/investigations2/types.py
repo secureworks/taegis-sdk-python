@@ -2433,68 +2433,6 @@ class CommentsV2Arguments:
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
-class CaseTemplate:
-    """CaseTemplate."""
-
-    id: Optional[str] = field(default=None, metadata=config(field_name="id"))
-    created_by_id: Optional[str] = field(
-        default=None, metadata=config(field_name="createdById")
-    )
-    created_at: Optional[str] = field(
-        default=None, metadata=config(field_name="createdAt")
-    )
-    updated_by_id: Optional[str] = field(
-        default=None, metadata=config(field_name="updatedById")
-    )
-    updated_at: Optional[str] = field(
-        default=None, metadata=config(field_name="updatedAt")
-    )
-    tenant_id: Optional[str] = field(
-        default=None, metadata=config(field_name="tenantId")
-    )
-    name: Optional[str] = field(default=None, metadata=config(field_name="name"))
-    title: Optional[str] = field(default=None, metadata=config(field_name="title"))
-    description: Optional[str] = field(
-        default=None, metadata=config(field_name="description")
-    )
-    tags: Optional[List[str]] = field(default=None, metadata=config(field_name="tags"))
-    case_type: Optional[str] = field(
-        default=None, metadata=config(field_name="caseType")
-    )
-    case_priority: Optional[str] = field(
-        default=None, metadata=config(field_name="casePriority")
-    )
-    case_title: Optional[str] = field(
-        default=None, metadata=config(field_name="caseTitle")
-    )
-    case_tags: Optional[List[str]] = field(
-        default=None, metadata=config(field_name="caseTags")
-    )
-    case_key_findings: Optional[str] = field(
-        default=None, metadata=config(field_name="caseKeyFindings")
-    )
-    case_key_findings_prompts: Optional[List[str]] = field(
-        default=None, metadata=config(field_name="caseKeyFindingsPrompts")
-    )
-    case_assignee: Optional[str] = field(
-        default=None, metadata=config(field_name="caseAssignee")
-    )
-    case_secondary_status: Optional[str] = field(
-        default=None, metadata=config(field_name="caseSecondaryStatus")
-    )
-    created_by_subject: Optional[Subject] = field(
-        default=None, metadata=config(field_name="createdBySubject")
-    )
-    updated_by_subject: Optional[Subject] = field(
-        default=None, metadata=config(field_name="updatedBySubject")
-    )
-    case_assignee_subject: Optional[Subject] = field(
-        default=None, metadata=config(field_name="caseAssigneeSubject")
-    )
-
-
-@dataclass_json
-@dataclass(order=True, eq=True, frozen=True)
 class CaseProcessingStatus:
     """CaseProcessingStatus."""
 
@@ -2790,6 +2728,79 @@ class CaseEvidence:
     )
     search_queries_evidence: Optional[List[CaseSearchQueryEvidence]] = field(
         default=None, metadata=config(field_name="searchQueriesEvidence")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class CaseTemplate:
+    """CaseTemplate."""
+
+    id: Optional[str] = field(default=None, metadata=config(field_name="id"))
+    created_by_id: Optional[str] = field(
+        default=None, metadata=config(field_name="createdById")
+    )
+    created_at: Optional[str] = field(
+        default=None, metadata=config(field_name="createdAt")
+    )
+    updated_by_id: Optional[str] = field(
+        default=None, metadata=config(field_name="updatedById")
+    )
+    updated_at: Optional[str] = field(
+        default=None, metadata=config(field_name="updatedAt")
+    )
+    tenant_id: Optional[str] = field(
+        default=None, metadata=config(field_name="tenantId")
+    )
+    name: Optional[str] = field(default=None, metadata=config(field_name="name"))
+    title: Optional[str] = field(default=None, metadata=config(field_name="title"))
+    description: Optional[str] = field(
+        default=None, metadata=config(field_name="description")
+    )
+    tags: Optional[List[str]] = field(default=None, metadata=config(field_name="tags"))
+    case_type: Optional[str] = field(
+        default=None, metadata=config(field_name="caseType")
+    )
+    case_priority: Optional[str] = field(
+        default=None, metadata=config(field_name="casePriority")
+    )
+    case_title: Optional[str] = field(
+        default=None, metadata=config(field_name="caseTitle")
+    )
+    case_tags: Optional[List[str]] = field(
+        default=None, metadata=config(field_name="caseTags")
+    )
+    case_key_findings: Optional[str] = field(
+        default=None, metadata=config(field_name="caseKeyFindings")
+    )
+    case_key_findings_prompts: Optional[List[str]] = field(
+        default=None, metadata=config(field_name="caseKeyFindingsPrompts")
+    )
+    case_assignee: Optional[str] = field(
+        default=None, metadata=config(field_name="caseAssignee")
+    )
+    case_secondary_status: Optional[str] = field(
+        default=None, metadata=config(field_name="caseSecondaryStatus")
+    )
+    is_shared_with_child_tenants: Optional[bool] = field(
+        default=None, metadata=config(field_name="isSharedWithChildTenants")
+    )
+    created_by_subject: Optional[Subject] = field(
+        default=None, metadata=config(field_name="createdBySubject")
+    )
+    updated_by_subject: Optional[Subject] = field(
+        default=None, metadata=config(field_name="updatedBySubject")
+    )
+    case_assignee_subject: Optional[Subject] = field(
+        default=None, metadata=config(field_name="caseAssigneeSubject")
+    )
+    usages: Optional[List[Union[TemplateUsage, TaegisEnum]]] = field(
+        default=None,
+        metadata=config(
+            encoder=encode_enum,
+            decoder=lambda x: decode_enum(TemplateUsage, x),
+            field_name="usages",
+        ),
     )
 
 

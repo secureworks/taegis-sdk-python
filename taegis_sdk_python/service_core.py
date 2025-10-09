@@ -10,14 +10,14 @@ import threading
 from datetime import datetime, timedelta
 from typing import TYPE_CHECKING, Any, Dict, List, Optional, Union
 
-from gql import Client, gql
+from gql import Client, GraphQLRequest
 from gql.transport import Transport
 from gql.transport.aiohttp import AIOHTTPTransport
+from gql.transport.aiohttp_websockets import AIOHTTPWebsocketsTransport
 from graphql import GraphQLError, GraphQLField, GraphQLSchema
 
 from taegis_sdk_python._version import __version__
 from taegis_sdk_python.errors import InvalidGraphQLEndpoint
-from taegis_sdk_python.transport.aiohttp_websockets import AIOHTTPWebsocketsTransport
 from taegis_sdk_python.utils import async_block, prepare_variables, remove_node
 
 if TYPE_CHECKING:  # pragma: no cover
@@ -497,12 +497,21 @@ class ServiceCore:
                 }
             )
 
-        query = gql(query_string)
-        return await self.sync_client.execute_async(
-            query,
+        graphql_request = GraphQLRequest(
+            request=query_string,
             variable_values=prepare_variables(variables),
+        )
+
+        client = self.sync_client
+
+        response = await client.execute_async(
+            graphql_request,
             extra_args=extra_args,
         )
+
+        self.service.response_headers = client.transport.response_headers
+
+        return response
 
     @async_block
     async def subscribe(
@@ -522,14 +531,20 @@ class ServiceCore:
         List[Any]
             List of subscription results
         """
-        query = gql(query_string)
+        graphql_request = GraphQLRequest(
+            request=query_string,
+            variable_values=prepare_variables(variables),
+        )
+
         results = []
-        async with self.ws_client as session:
-            async for result in session.subscribe(
-                query,
-                variable_values=prepare_variables(variables),
-            ):
+
+        client = self.ws_client
+
+        async with client as session:
+            async for result in session.subscribe(graphql_request):
                 results.append(result)
+
+        self.service.response_headers = client.transport.response_headers
 
         return results[:-1]
 
@@ -576,7 +591,7 @@ class ServiceCore:
             # output string is valid
             for _ in range(10000):
                 try:
-                    session.client.validate(gql(query_string))
+                    session.client.validate(GraphQLRequest(request=query_string))
                     break
 
                 except GraphQLError as exc:

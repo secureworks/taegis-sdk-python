@@ -133,6 +133,9 @@ class MappedTenant:
     xdr_ownership: Optional[str] = field(
         default=None, metadata=config(field_name="xdrOwnership")
     )
+    hydrate_to: Optional[str] = field(
+        default=None, metadata=config(field_name="hydrateTo")
+    )
     last_refresh: Optional[str] = field(
         default=None, metadata=config(field_name="lastRefresh")
     )

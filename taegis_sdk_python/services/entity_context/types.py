@@ -955,6 +955,7 @@ class EntityContextEntity:
 
     id: Optional[str] = field(default=None, metadata=config(field_name="id"))
     type: Optional[str] = field(default=None, metadata=config(field_name="type"))
+    subtype: Optional[str] = field(default=None, metadata=config(field_name="subtype"))
     first_seen: Optional[str] = field(
         default=None, metadata=config(field_name="firstSeen")
     )

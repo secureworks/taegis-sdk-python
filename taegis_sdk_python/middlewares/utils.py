@@ -23,7 +23,7 @@ def scrub_dict(d: Mapping):
     access_tokens = get_access_tokens()
 
     if "authorization" in d:
-        token = d["Authorization"].replace("Bearer ")
+        token = d["Authorization"].replace("Bearer ", "")
         access_tokens.append(token)
 
     scrubbed = d.copy()

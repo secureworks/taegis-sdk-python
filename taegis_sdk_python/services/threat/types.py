@@ -53,6 +53,7 @@ class ThreatFacetObject(str, Enum):
     THREAT_GROUP = "threat_group"
     MALWARE = "malware"
     REPORT = "report"
+    ALL = "all"
 
 
 class ThreatParentType(str, Enum):
