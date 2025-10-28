@@ -77,6 +77,8 @@ class RuleAction(str, Enum):
     SUPPRESS = "SUPPRESS"
     TUNE = "TUNE"
     TAG_EVENT = "TAG_EVENT"
+    ESCALATE = "ESCALATE"
+    CORRELATE = "CORRELATE"
     NONE = "NONE"
 
 

@@ -962,6 +962,9 @@ class TDRUser:
     pre_verified: Optional[bool] = field(
         default=None, metadata=config(field_name="pre_verified")
     )
+    managed_by_central: Optional[bool] = field(
+        default=None, metadata=config(field_name="managed_by_central")
+    )
     tenants: Optional[List[TDRUserTenant]] = field(
         default=None,
         metadata=config(

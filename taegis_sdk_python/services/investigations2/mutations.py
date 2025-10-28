@@ -72,7 +72,7 @@ class TaegisSDKInvestigations2Mutation:
         The response will include the evidence that the service will attempt to add to the case.
 
         Adding evidence to cases is an asynchronous operation.
-        It will typically finish pretty quickly, but added alerts/events will may not show up in the returned case until the async job is fully complete.
+        It will typically finish pretty quickly, but added detections/events will may not show up in the returned case until the async job is fully complete.
         The processing status, that is found on the case type will reflect the state of the processing job.
         Once the status is set to 'SUCCESS' the background job is complete and requesting the case will return the related evidence.
 
@@ -98,7 +98,7 @@ class TaegisSDKInvestigations2Mutation:
         The response will include the evidence that the service will attempt to remove from the case.
 
         Removing evidence from cases is an asynchronous operation.
-        It will typically finish pretty quickly, but removed alerts/events will can remain attached to the case until the async job is fully complete.
+        It will typically finish pretty quickly, but removed detections/events will can remain attached to the case until the async job is fully complete.
         The processing status, that is found on the case type will reflect the state of the processing job.
         Once the status is set to 'SUCCESS' the background job is complete and requesting the case will only return evidence that was not removed.
 
@@ -119,14 +119,14 @@ class TaegisSDKInvestigations2Mutation:
 
     def close_case(self, input_: CloseCaseInput) -> Case:
         """closeCase will close an existing case.
-        If the case has alerts attached to it, the alertsResolutionStatus field is required and alerts will be resolved based on the provided status.
+        If the case has detections attached to it, the detectionsResolutionStatus field is required and detections will be resolved based on the provided status.
         Once a case is closed, it can no longer be edited or have evidence added to it while in the closed state, it can only be archived.
         A closed case can be reopened if changes are needed after closing.
 
         Resolving evidence in a case is an asynchronous operation.
-        It will typically finish pretty quickly, but resolving alerts will may not reflect the updated status until the async job is fully complete.
+        It will typically finish pretty quickly, but resolving detections will may not reflect the updated status until the async job is fully complete.
         The processing status, that is found on the case type will reflect the state of the processing job.
-        Once the status is set to 'SUCCESS' the background job is complete and the alerts will have been updated.
+        Once the status is set to 'SUCCESS' the background job is complete and the detections will have been updated.
 
         Adding, removing or updating evidence (closing a case) while other jobs are processing for a given case will cause the jobs to queue.
         Jobs will be worked through in the order they were received.."""

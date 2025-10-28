@@ -404,6 +404,9 @@ class AuthzCanSubjectAssignRoleResponse:
     subject_can_assign: Optional[bool] = field(
         default=None, metadata=config(field_name="subjectCanAssign")
     )
+    subject_can_deactivate: Optional[bool] = field(
+        default=None, metadata=config(field_name="subjectCanDeactivate")
+    )
     role: Optional[AuthzRole] = field(default=None, metadata=config(field_name="role"))
     absent_permissions: Optional[List[AuthzPermission]] = field(
         default=None, metadata=config(field_name="absentPermissions")

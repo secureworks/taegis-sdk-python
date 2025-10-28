@@ -91,7 +91,8 @@ class TaegisSDKProcessTreesQuery:
         tenant_id: str,
         host_id: str,
         process_correlation_id: str,
-        resource_id: str,
+        resource_id: Optional[str] = None,
+        process_create_time: Optional[int] = None,
     ) -> ProcessLineage:
         """None."""
         endpoint = "processLineage"
@@ -103,6 +104,7 @@ class TaegisSDKProcessTreesQuery:
                 "hostID": prepare_input(host_id),
                 "processCorrelationID": prepare_input(process_correlation_id),
                 "resourceID": prepare_input(resource_id),
+                "processCreateTime": prepare_input(process_create_time),
             },
             output=build_output_string(ProcessLineage),
         )

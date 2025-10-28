@@ -101,7 +101,6 @@ class SSOConnectionType(str, Enum):
 
     UNKNOWN = "unknown"
     SAML = "saml"
-    AZURE_AD = "azure_ad"
 
 
 class SSOConnectionStatus(str, Enum):
@@ -428,20 +427,6 @@ class SAMLConnectionParameters:
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
-class AzureADConnectionParameters:
-    """AzureADConnectionParameters."""
-
-    client_id: Optional[str] = field(
-        default=None, metadata=config(field_name="clientID")
-    )
-    client_secret: Optional[str] = field(
-        default=None, metadata=config(field_name="clientSecret")
-    )
-    domain: Optional[str] = field(default=None, metadata=config(field_name="domain"))
-
-
-@dataclass_json
-@dataclass(order=True, eq=True, frozen=True)
 class TenantDecommissionAgentSummary:
     """TenantDecommissionAgentSummary."""
 
@@ -632,20 +617,6 @@ class SAMLSSOConfiguration:
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
-class AzureSSOConfiguration:
-    """AzureSSOConfiguration."""
-
-    client_id: Optional[str] = field(
-        default=None, metadata=config(field_name="clientID")
-    )
-    client_secret: Optional[str] = field(
-        default=None, metadata=config(field_name="clientSecret")
-    )
-    domain: Optional[str] = field(default=None, metadata=config(field_name="domain"))
-
-
-@dataclass_json
-@dataclass(order=True, eq=True, frozen=True)
 class TenantServiceInput:
     """TenantServiceInput."""
 
@@ -759,6 +730,34 @@ class Partnership:
     )
     subscriptions: Optional[List[PartnerSubscription]] = field(
         default=None, metadata=config(field_name="subscriptions")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class SSOConnectionConfiguration:
+    """SSOConnectionConfiguration."""
+
+    saml_connection_configuration: Optional[SAMLConnectionParameters] = field(
+        default=None, metadata=config(field_name="samlConnectionConfiguration")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class SSOConnectionConfigResponse:
+    """SSOConnectionConfigResponse."""
+
+    expires_at: Optional[str] = field(
+        default=None, metadata=config(field_name="expiresAt")
+    )
+    not_before: Optional[str] = field(
+        default=None, metadata=config(field_name="notBefore")
+    )
+    issuer: Optional[str] = field(default=None, metadata=config(field_name="issuer"))
+    subject: Optional[str] = field(default=None, metadata=config(field_name="subject"))
+    sso_connection_configuration: Optional[SSOConnectionConfiguration] = field(
+        default=None, metadata=config(field_name="ssoConnectionConfiguration")
     )
 
 
@@ -893,6 +892,16 @@ class TenantEnvironmentUpdateInput:
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
+class ConnectionConfiguration:
+    """ConnectionConfiguration."""
+
+    saml_configuration: Optional[SAMLSSOConfiguration] = field(
+        default=None, metadata=config(field_name="samlConfiguration")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
 class TenantUpdateInput:
     """TenantUpdateInput."""
 
@@ -930,19 +939,6 @@ class VerifyRegisteredDomainInput:
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
-class SSOConnectionConfiguration:
-    """SSOConnectionConfiguration."""
-
-    saml_connection_configuration: Optional[SAMLConnectionParameters] = field(
-        default=None, metadata=config(field_name="samlConnectionConfiguration")
-    )
-    azure_ad_connection_configuration: Optional[AzureADConnectionParameters] = field(
-        default=None, metadata=config(field_name="azureADConnectionConfiguration")
-    )
-
-
-@dataclass_json
-@dataclass(order=True, eq=True, frozen=True)
 class UpdateTenant:
     """UpdateTenant."""
 
@@ -973,6 +969,9 @@ class InternalSearchInputs:
     with_domains: Optional[List[str]] = field(
         default=None, metadata=config(field_name="withDomains")
     )
+    with_tenant_hierarchy: Optional[List[str]] = field(
+        default=None, metadata=config(field_name="withTenantHierarchy")
+    )
     environment: Optional[Union[SSOEnvironment, TaegisEnum]] = field(
         default=None,
         metadata=config(
@@ -990,19 +989,6 @@ class InternalSearchInputs:
             decoder=lambda x: decode_enum(Auth0DomainType, x),
             field_name="withAuth0DomainType",
         ),
-    )
-
-
-@dataclass_json
-@dataclass(order=True, eq=True, frozen=True)
-class ConnectionConfiguration:
-    """ConnectionConfiguration."""
-
-    saml_configuration: Optional[SAMLSSOConfiguration] = field(
-        default=None, metadata=config(field_name="samlConfiguration")
-    )
-    azure_ad_configuration: Optional[AzureSSOConfiguration] = field(
-        default=None, metadata=config(field_name="azureAdConfiguration")
     )
 
 
@@ -1251,6 +1237,9 @@ class TenantSSOConnectionQueryInput:
     )
     include_all_tenants: Optional[bool] = field(
         default=None, metadata=config(field_name="includeAllTenants")
+    )
+    with_tenant_hierarchy: Optional[List[str]] = field(
+        default=None, metadata=config(field_name="withTenantHierarchy")
     )
     environment: Optional[Union[SSOEnvironment, TaegisEnum]] = field(
         default=None,
@@ -1623,24 +1612,6 @@ class TenantResults:
     )
     results: Optional[List[Tenant]] = field(
         default=None, metadata=config(field_name="results")
-    )
-
-
-@dataclass_json
-@dataclass(order=True, eq=True, frozen=True)
-class SSOConnectionConfigResponse:
-    """SSOConnectionConfigResponse."""
-
-    expires_at: Optional[str] = field(
-        default=None, metadata=config(field_name="expiresAt")
-    )
-    not_before: Optional[str] = field(
-        default=None, metadata=config(field_name="notBefore")
-    )
-    issuer: Optional[str] = field(default=None, metadata=config(field_name="issuer"))
-    subject: Optional[str] = field(default=None, metadata=config(field_name="subject"))
-    sso_connection_configuration: Optional[SSOConnectionConfiguration] = field(
-        default=None, metadata=config(field_name="ssoConnectionConfiguration")
     )
 
 

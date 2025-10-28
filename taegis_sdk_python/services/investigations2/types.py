@@ -15,8 +15,8 @@ from taegis_sdk_python._consts import TaegisEnum
 from taegis_sdk_python.utils import decode_enum, encode_enum, parse_union_result
 
 
-class AlertResolutionStatus(str, Enum):
-    """AlertResolutionStatus."""
+class DetectionResolutionStatus(str, Enum):
+    """DetectionResolutionStatus."""
 
     OPEN = "OPEN"
     TRUE_POSITIVE_BENIGN = "TRUE_POSITIVE_BENIGN"
@@ -61,7 +61,7 @@ class PaginationOrder(str, Enum):
 class CaseTimelinePointType(str, Enum):
     """CaseTimelinePointType."""
 
-    ALERT = "ALERT"
+    DETECTION = "DETECTION"
     EVENT = "EVENT"
     AUDIT = "AUDIT"
 
@@ -70,7 +70,7 @@ class CaseRuleType(str, Enum):
     """CaseRuleType."""
 
     STATIC = "STATIC"
-    ALERT_THREAD = "ALERT_THREAD"
+    DETECTION_THREAD = "DETECTION_THREAD"
 
 
 class CaseCommentVisibilityFilter(str, Enum):
@@ -94,6 +94,18 @@ class CaseStatusAction(str, Enum):
 
     CLOSE = "CLOSE"
     HANDOFF = "HANDOFF"
+
+
+class AlertResolutionStatus(str, Enum):
+    """AlertResolutionStatus."""
+
+    OPEN = "OPEN"
+    TRUE_POSITIVE_BENIGN = "TRUE_POSITIVE_BENIGN"
+    TRUE_POSITIVE_MALICIOUS = "TRUE_POSITIVE_MALICIOUS"
+    FALSE_POSITIVE = "FALSE_POSITIVE"
+    NOT_ACTIONABLE = "NOT_ACTIONABLE"
+    OTHER = "OTHER"
+    SUPPRESSED = "SUPPRESSED"
 
 
 class TemplateUsage(str, Enum):
@@ -256,11 +268,11 @@ class AddEvidenceToCaseResult:
     """AddEvidenceToCaseResult."""
 
     case_id: Optional[str] = field(default=None, metadata=config(field_name="caseId"))
-    alert_ids: Optional[List[str]] = field(
-        default=None, metadata=config(field_name="alertIds")
+    detection_ids: Optional[List[str]] = field(
+        default=None, metadata=config(field_name="detectionIds")
     )
-    alerts_search_query: Optional[str] = field(
-        default=None, metadata=config(field_name="alertsSearchQuery")
+    detections_search_query: Optional[str] = field(
+        default=None, metadata=config(field_name="detectionsSearchQuery")
     )
     event_ids: Optional[List[str]] = field(
         default=None, metadata=config(field_name="eventIds")
@@ -276,8 +288,8 @@ class RemoveEvidenceFromCaseResult:
     """RemoveEvidenceFromCaseResult."""
 
     case_id: Optional[str] = field(default=None, metadata=config(field_name="caseId"))
-    alert_ids: Optional[List[str]] = field(
-        default=None, metadata=config(field_name="alertIds")
+    detection_ids: Optional[List[str]] = field(
+        default=None, metadata=config(field_name="detectionIds")
     )
     event_ids: Optional[List[str]] = field(
         default=None, metadata=config(field_name="eventIds")
@@ -309,8 +321,8 @@ class CaseCommentsCount:
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
-class CaseAlertEvidence:
-    """CaseAlertEvidence."""
+class CaseDetectionEvidence:
+    """CaseDetectionEvidence."""
 
     id: Optional[str] = field(default=None, metadata=config(field_name="id"))
     case_id: Optional[str] = field(default=None, metadata=config(field_name="caseId"))
@@ -323,7 +335,9 @@ class CaseAlertEvidence:
     created_by: Optional[str] = field(
         default=None, metadata=config(field_name="createdBy")
     )
-    alert_id: Optional[str] = field(default=None, metadata=config(field_name="alertId"))
+    detection_id: Optional[str] = field(
+        default=None, metadata=config(field_name="detectionId")
+    )
     is_genesis: Optional[bool] = field(
         default=None, metadata=config(field_name="isGenesis")
     )
@@ -386,8 +400,8 @@ class CaseSearchQueryEvidence:
     created_by: Optional[str] = field(
         default=None, metadata=config(field_name="createdBy")
     )
-    search_query: Optional[str] = field(
-        default=None, metadata=config(field_name="searchQuery")
+    search_query_id: Optional[str] = field(
+        default=None, metadata=config(field_name="searchQueryId")
     )
     is_genesis: Optional[bool] = field(
         default=None, metadata=config(field_name="isGenesis")
@@ -749,11 +763,11 @@ class AddEvidenceToCaseInput:
     """AddEvidenceToCaseInput."""
 
     case_id: Optional[str] = field(default=None, metadata=config(field_name="caseId"))
-    alert_ids: Optional[List[str]] = field(
-        default=None, metadata=config(field_name="alertIds")
+    detection_ids: Optional[List[str]] = field(
+        default=None, metadata=config(field_name="detectionIds")
     )
-    alerts_search_query: Optional[str] = field(
-        default=None, metadata=config(field_name="alertsSearchQuery")
+    detections_search_query: Optional[str] = field(
+        default=None, metadata=config(field_name="detectionsSearchQuery")
     )
     event_ids: Optional[List[str]] = field(
         default=None, metadata=config(field_name="eventIds")
@@ -769,8 +783,8 @@ class RemoveEvidenceFromCaseInput:
     """RemoveEvidenceFromCaseInput."""
 
     case_id: Optional[str] = field(default=None, metadata=config(field_name="caseId"))
-    alert_ids: Optional[List[str]] = field(
-        default=None, metadata=config(field_name="alertIds")
+    detection_ids: Optional[List[str]] = field(
+        default=None, metadata=config(field_name="detectionIds")
     )
     event_ids: Optional[List[str]] = field(
         default=None, metadata=config(field_name="eventIds")
@@ -886,8 +900,8 @@ class UpdateCaseTemplateInput:
     case_key_findings_prompts: Optional[List[str]] = field(
         default=None, metadata=config(field_name="caseKeyFindingsPrompts")
     )
-    case_assignee: Optional[str] = field(
-        default=None, metadata=config(field_name="caseAssignee")
+    case_external_assignee: Optional[str] = field(
+        default=None, metadata=config(field_name="caseExternalAssignee")
     )
     case_secondary_status: Optional[str] = field(
         default=None, metadata=config(field_name="caseSecondaryStatus")
@@ -1573,14 +1587,14 @@ class CreateCaseInput:
     secondary_status_id: Optional[str] = field(
         default=None, metadata=config(field_name="secondaryStatusId")
     )
-    assignee_id: Optional[str] = field(
-        default=None, metadata=config(field_name="assigneeId")
+    external_assignee_id: Optional[str] = field(
+        default=None, metadata=config(field_name="externalAssigneeId")
     )
-    alert_ids: Optional[List[str]] = field(
-        default=None, metadata=config(field_name="alertIds")
+    detection_ids: Optional[List[str]] = field(
+        default=None, metadata=config(field_name="detectionIds")
     )
-    alerts_search_query: Optional[str] = field(
-        default=None, metadata=config(field_name="alertsSearchQuery")
+    detections_search_query: Optional[str] = field(
+        default=None, metadata=config(field_name="detectionsSearchQuery")
     )
     event_ids: Optional[List[str]] = field(
         default=None, metadata=config(field_name="eventIds")
@@ -1615,8 +1629,8 @@ class UpdateCaseInput:
     secondary_status_id: Optional[str] = field(
         default=None, metadata=config(field_name="secondaryStatusId")
     )
-    assignee_id: Optional[str] = field(
-        default=None, metadata=config(field_name="assigneeId")
+    external_assignee_id: Optional[str] = field(
+        default=None, metadata=config(field_name="externalAssigneeId")
     )
     links: Optional[List[UpdateCaseLinkInput]] = field(
         default=None, metadata=config(field_name="links")
@@ -1633,15 +1647,15 @@ class CloseCaseInput:
         default=None, metadata=config(field_name="statusId")
     )
     reason: Optional[str] = field(default=None, metadata=config(field_name="reason"))
-    alerts_resolution_status: Optional[Union[AlertResolutionStatus, TaegisEnum]] = (
-        field(
-            default=None,
-            metadata=config(
-                encoder=encode_enum,
-                decoder=lambda x: decode_enum(AlertResolutionStatus, x),
-                field_name="alertsResolutionStatus",
-            ),
-        )
+    detections_resolution_status: Optional[
+        Union[DetectionResolutionStatus, TaegisEnum]
+    ] = field(
+        default=None,
+        metadata=config(
+            encoder=encode_enum,
+            decoder=lambda x: decode_enum(DetectionResolutionStatus, x),
+            field_name="detectionsResolutionStatus",
+        ),
     )
 
 
@@ -1674,8 +1688,8 @@ class CreateCaseTemplateInput:
     case_key_findings_prompts: Optional[List[str]] = field(
         default=None, metadata=config(field_name="caseKeyFindingsPrompts")
     )
-    case_assignee: Optional[str] = field(
-        default=None, metadata=config(field_name="caseAssignee")
+    case_external_assignee: Optional[str] = field(
+        default=None, metadata=config(field_name="caseExternalAssignee")
     )
     case_secondary_status: Optional[str] = field(
         default=None, metadata=config(field_name="caseSecondaryStatus")
@@ -1750,8 +1764,8 @@ class UpdateCaseRuleInput:
     tenant_filter: Optional[str] = field(
         default=None, metadata=config(field_name="tenantFilter")
     )
-    skip_alert_prioritization: Optional[bool] = field(
-        default=None, metadata=config(field_name="skipAlertPrioritization")
+    skip_detection_prioritization: Optional[bool] = field(
+        default=None, metadata=config(field_name="skipDetectionPrioritization")
     )
     template_id: Optional[str] = field(
         default=None, metadata=config(field_name="templateId")
@@ -2058,8 +2072,8 @@ class CreateCaseRuleInput:
     tenant_filter: Optional[str] = field(
         default=None, metadata=config(field_name="tenantFilter")
     )
-    skip_alert_prioritization: Optional[bool] = field(
-        default=None, metadata=config(field_name="skipAlertPrioritization")
+    skip_detection_prioritization: Optional[bool] = field(
+        default=None, metadata=config(field_name="skipDetectionPrioritization")
     )
     template_id: Optional[str] = field(
         default=None, metadata=config(field_name="templateId")
@@ -2452,12 +2466,12 @@ class CaseProcessingStatus:
             field_name="events",
         ),
     )
-    alerts: Optional[Union[CaseProcessingState, TaegisEnum]] = field(
+    detections: Optional[Union[CaseProcessingState, TaegisEnum]] = field(
         default=None,
         metadata=config(
             encoder=encode_enum,
             decoder=lambda x: decode_enum(CaseProcessingState, x),
-            field_name="alerts",
+            field_name="detections",
         ),
     )
 
@@ -2705,8 +2719,8 @@ class CaseEvidence:
     """CaseEvidence."""
 
     id: Optional[str] = field(default=None, metadata=config(field_name="id"))
-    alerts_evidence_count: Optional[int] = field(
-        default=None, metadata=config(field_name="alertsEvidenceCount")
+    detections_evidence_count: Optional[int] = field(
+        default=None, metadata=config(field_name="detectionsEvidenceCount")
     )
     assets_evidence_count: Optional[int] = field(
         default=None, metadata=config(field_name="assetsEvidenceCount")
@@ -2717,8 +2731,8 @@ class CaseEvidence:
     search_queries_evidence_count: Optional[int] = field(
         default=None, metadata=config(field_name="searchQueriesEvidenceCount")
     )
-    alerts_evidence: Optional[List[CaseAlertEvidence]] = field(
-        default=None, metadata=config(field_name="alertsEvidence")
+    detections_evidence: Optional[List[CaseDetectionEvidence]] = field(
+        default=None, metadata=config(field_name="detectionsEvidence")
     )
     assets_evidence: Optional[List[CaseAssetEvidence]] = field(
         default=None, metadata=config(field_name="assetsEvidence")
@@ -2776,8 +2790,8 @@ class CaseTemplate:
     case_key_findings_prompts: Optional[List[str]] = field(
         default=None, metadata=config(field_name="caseKeyFindingsPrompts")
     )
-    case_assignee: Optional[str] = field(
-        default=None, metadata=config(field_name="caseAssignee")
+    case_external_assignee: Optional[str] = field(
+        default=None, metadata=config(field_name="caseExternalAssignee")
     )
     case_secondary_status: Optional[str] = field(
         default=None, metadata=config(field_name="caseSecondaryStatus")
@@ -2791,8 +2805,8 @@ class CaseTemplate:
     updated_by_subject: Optional[Subject] = field(
         default=None, metadata=config(field_name="updatedBySubject")
     )
-    case_assignee_subject: Optional[Subject] = field(
-        default=None, metadata=config(field_name="caseAssigneeSubject")
+    case_external_assignee_subject: Optional[Subject] = field(
+        default=None, metadata=config(field_name="caseExternalAssigneeSubject")
     )
     usages: Optional[List[Union[TemplateUsage, TaegisEnum]]] = field(
         default=None,
@@ -2860,8 +2874,8 @@ class CaseRule:
     tenant_filter: Optional[str] = field(
         default=None, metadata=config(field_name="tenantFilter")
     )
-    skip_alert_prioritization: Optional[bool] = field(
-        default=None, metadata=config(field_name="skipAlertPrioritization")
+    skip_detection_prioritization: Optional[bool] = field(
+        default=None, metadata=config(field_name="skipDetectionPrioritization")
     )
     created_by_subject: Optional[Subject] = field(
         default=None, metadata=config(field_name="createdBySubject")
@@ -3745,8 +3759,8 @@ class Case:
     contributor_ids: Optional[List[str]] = field(
         default=None, metadata=config(field_name="contributorIds")
     )
-    assignee_id: Optional[str] = field(
-        default=None, metadata=config(field_name="assigneeId")
+    external_assignee_id: Optional[str] = field(
+        default=None, metadata=config(field_name="externalAssigneeId")
     )
     tenant_id: Optional[str] = field(
         default=None, metadata=config(field_name="tenantId")
@@ -3783,8 +3797,8 @@ class Case:
     contributor_subjects: Optional[List[Subject]] = field(
         default=None, metadata=config(field_name="contributorSubjects")
     )
-    assignee_subject: Optional[Subject] = field(
-        default=None, metadata=config(field_name="assigneeSubject")
+    external_assignee_subject: Optional[Subject] = field(
+        default=None, metadata=config(field_name="externalAssigneeSubject")
     )
     tenant: Optional[TenantV4] = field(
         default=None, metadata=config(field_name="tenant")
@@ -3842,8 +3856,8 @@ class AggregatedCaseCounts:
     tenant: Optional[List[CaseTenantCount]] = field(
         default=None, metadata=config(field_name="tenant")
     )
-    assignee: Optional[List[CaseAssigneeCount]] = field(
-        default=None, metadata=config(field_name="assignee")
+    external_assignee: Optional[List[CaseAssigneeCount]] = field(
+        default=None, metadata=config(field_name="externalAssignee")
     )
     creator: Optional[List[CaseCreatorCount]] = field(
         default=None, metadata=config(field_name="creator")

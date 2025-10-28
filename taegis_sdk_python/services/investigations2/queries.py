@@ -157,7 +157,7 @@ class TaegisSDKInvestigations2Query:
         raise GraphQLNoRowsInResultSetError("for query exportCaseResources")
 
     def case_timeline(self, arguments: CaseTimelineArguments) -> CaseTimeline:
-        """caseTimeline returns a case timeline detailing the order of alerts, events and other actions taken in relation to a case.."""
+        """caseTimeline returns a case timeline detailing the order of detections, events and other actions taken in relation to a case.."""
         endpoint = "caseTimeline"
 
         result = self.service.execute_query(

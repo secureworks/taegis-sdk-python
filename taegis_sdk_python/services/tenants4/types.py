@@ -385,7 +385,14 @@ class TenantV4:
     name: Optional[str] = field(default=None, metadata=config(field_name="name"))
     enabled: Optional[bool] = field(default=None, metadata=config(field_name="enabled"))
     hierarchy_path: Optional[str] = field(
-        default=None, metadata=config(field_name="hierarchyPath")
+        default=None,
+        metadata=config(
+            metadata={
+                "deprecated": True,
+                "deprecation_reason": "Use partnerTenantID, organizationTenantID, and id instead",
+            },
+            field_name="hierarchyPath",
+        ),
     )
     is_organization: Optional[bool] = field(
         default=None, metadata=config(field_name="isOrganization")
@@ -457,7 +464,17 @@ class TenantsQuery:
         default=None, metadata=config(field_name="isOrganization")
     )
     hierarchy_paths: Optional[List[str]] = field(
-        default=None, metadata=config(field_name="hierarchyPaths")
+        default=None,
+        metadata=config(
+            metadata={
+                "deprecated": True,
+                "deprecation_reason": "Use hierarchies, partners, or organizations instead",
+            },
+            field_name="hierarchyPaths",
+        ),
+    )
+    hierarchies: Optional[List[str]] = field(
+        default=None, metadata=config(field_name="hierarchies")
     )
     partners: Optional[List[str]] = field(
         default=None, metadata=config(field_name="partners")

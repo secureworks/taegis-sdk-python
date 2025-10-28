@@ -262,7 +262,7 @@ class TaegisSDKAuthzQuery:
         raise GraphQLNoRowsInResultSetError("for query authzCanSubjectAssumeAllTenants")
 
     def authz_can_subject_assign_role(
-        self, id_: str
+        self, id_: str, target_subject_id: Optional[str] = None
     ) -> AuthzCanSubjectAssignRoleResponse:
         """Check if the subject can assign the input role."""
         endpoint = "authzCanSubjectAssignRole"
@@ -271,6 +271,7 @@ class TaegisSDKAuthzQuery:
             endpoint=endpoint,
             variables={
                 "id": prepare_input(id_),
+                "targetSubjectID": prepare_input(target_subject_id),
             },
             output=build_output_string(AuthzCanSubjectAssignRoleResponse),
         )
