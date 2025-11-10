@@ -420,3 +420,72 @@ class TaegisSDKAssets2Query:
         if result.get(endpoint) is not None:
             return AssetsMacAddress.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for query assetsMacAddress")
+
+    def network_info_by_host_id(self, host_id: str) -> List[NetworkInfo]:
+        """ "Retrieve network information for a host based on a provided host_id."""
+        endpoint = "networkInfoByHostID"
+
+        result = self.service.execute_query(
+            endpoint=endpoint,
+            variables={
+                "hostId": prepare_input(host_id),
+            },
+            output=build_output_string(NetworkInfo),
+        )
+        if result.get(endpoint) is not None:
+            return NetworkInfo.schema().load(
+                [r or {} for r in result.get(endpoint)], many=True
+            )
+        raise GraphQLNoRowsInResultSetError("for query networkInfoByHostID")
+
+    def network_info_by_hostname(
+        self,
+        event_time: str,
+        host_name: str,
+        exact_match_count: int,
+        endpoint_types: Union[EndpointTypeV2, TaegisEnum],
+    ) -> List[NetworkInfo]:
+        """ "Retrieve network information for a host based on a provided hostname."""
+        endpoint = "networkInfoByHostname"
+
+        result = self.service.execute_query(
+            endpoint=endpoint,
+            variables={
+                "eventTime": prepare_input(event_time),
+                "hostName": prepare_input(host_name),
+                "exactMatchCount": prepare_input(exact_match_count),
+                "endpointTypes": prepare_input(endpoint_types),
+            },
+            output=build_output_string(NetworkInfo),
+        )
+        if result.get(endpoint) is not None:
+            return NetworkInfo.schema().load(
+                [r or {} for r in result.get(endpoint)], many=True
+            )
+        raise GraphQLNoRowsInResultSetError("for query networkInfoByHostname")
+
+    def network_info_by_ip_address(
+        self,
+        event_time: str,
+        ip_address: str,
+        exact_match_count: int,
+        endpoint_types: Union[EndpointTypeV2, TaegisEnum],
+    ) -> List[NetworkInfo]:
+        """ "Retrieve network information for a host based on a provided ip address."""
+        endpoint = "networkInfoByIpAddress"
+
+        result = self.service.execute_query(
+            endpoint=endpoint,
+            variables={
+                "eventTime": prepare_input(event_time),
+                "ipAddress": prepare_input(ip_address),
+                "exactMatchCount": prepare_input(exact_match_count),
+                "endpointTypes": prepare_input(endpoint_types),
+            },
+            output=build_output_string(NetworkInfo),
+        )
+        if result.get(endpoint) is not None:
+            return NetworkInfo.schema().load(
+                [r or {} for r in result.get(endpoint)], many=True
+            )
+        raise GraphQLNoRowsInResultSetError("for query networkInfoByIpAddress")

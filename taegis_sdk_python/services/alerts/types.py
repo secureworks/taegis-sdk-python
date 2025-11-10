@@ -25,16 +25,6 @@ class AggregateAlertsBySeverityInput_GroupBy(str, Enum):
     USER = "USER"
 
 
-class AlertsSeverity(str, Enum):
-    """AlertsSeverity."""
-
-    INFO = "INFO"
-    LOW = "LOW"
-    MEDIUM = "MEDIUM"
-    HIGH = "HIGH"
-    CRITICAL = "CRITICAL"
-
-
 class CallerInformation(str, Enum):
     """CallerInformation."""
 
@@ -50,6 +40,31 @@ class InvestigationOperation(str, Enum):
     DELETE = "DELETE"
 
 
+class ResponseStatus(str, Enum):
+    """ResponseStatus."""
+
+    SUCCESS = "SUCCESS"
+    FAILED = "FAILED"
+
+
+class RPCResponseStatus(str, Enum):
+    """RPCResponseStatus."""
+
+    OK = "OK"
+    INVALID_REQUEST = "INVALID_REQUEST"
+    TRANSACTION_ERROR = "TRANSACTION_ERROR"
+
+
+class AlertsSeverity(str, Enum):
+    """AlertsSeverity."""
+
+    INFO = "INFO"
+    LOW = "LOW"
+    MEDIUM = "MEDIUM"
+    HIGH = "HIGH"
+    CRITICAL = "CRITICAL"
+
+
 class ResolutionStatus(str, Enum):
     """ResolutionStatus."""
 
@@ -60,22 +75,6 @@ class ResolutionStatus(str, Enum):
     NOT_ACTIONABLE = "NOT_ACTIONABLE"
     OTHER = "OTHER"
     SUPPRESSED = "SUPPRESSED"
-
-
-class ResponseStatus(str, Enum):
-    """ResponseStatus."""
-
-    SUCCESS = "SUCCESS"
-    FAILED = "FAILED"
-
-
-class ImprobableLogonDetail_FeatureName(str, Enum):
-    """ImprobableLogonDetail_FeatureName."""
-
-    UNKNOWN = "UNKNOWN"
-    COUNTRY = "COUNTRY"
-    CITY = "CITY"
-    ASN = "ASN"
 
 
 class Origin(str, Enum):
@@ -97,19 +96,20 @@ class EntityPerspective(str, Enum):
     BOTH = "BOTH"
 
 
-class RPCResponseStatus(str, Enum):
-    """RPCResponseStatus."""
-
-    OK = "OK"
-    INVALID_REQUEST = "INVALID_REQUEST"
-    TRANSACTION_ERROR = "TRANSACTION_ERROR"
-
-
 class Visibility(str, Enum):
     """Visibility."""
 
     DEPLOYED = "DEPLOYED"
     RESEARCH = "RESEARCH"
+
+
+class ImprobableLogonDetail_FeatureName(str, Enum):
+    """ImprobableLogonDetail_FeatureName."""
+
+    UNKNOWN = "UNKNOWN"
+    COUNTRY = "COUNTRY"
+    CITY = "CITY"
+    ASN = "ASN"
 
 
 class Locale(str, Enum):
@@ -445,115 +445,11 @@ class UserLogonBaselineInput:
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
-class GeoSummary_ASN:
-    """GeoSummary_ASN."""
-
-    autonomous_system_no: Optional[int] = field(
-        default=None, metadata=config(field_name="autonomous_system_no")
-    )
-    autonomous_system_org: Optional[str] = field(
-        default=None, metadata=config(field_name="autonomous_system_org")
-    )
-
-
-@dataclass_json
-@dataclass(order=True, eq=True, frozen=True)
-class GeoSummary_Continent:
-    """GeoSummary_Continent."""
-
-    geoname_id: Optional[int] = field(
-        default=None, metadata=config(field_name="geoname_id")
-    )
-    code: Optional[str] = field(default=None, metadata=config(field_name="code"))
-
-
-@dataclass_json
-@dataclass(order=True, eq=True, frozen=True)
-class GeoSummary_Country:
-    """GeoSummary_Country."""
-
-    geoname_id: Optional[int] = field(
-        default=None, metadata=config(field_name="geoname_id")
-    )
-    iso_code: Optional[str] = field(
-        default=None, metadata=config(field_name="iso_code")
-    )
-    code: Optional[str] = field(default=None, metadata=config(field_name="code"))
-    confidence: Optional[int] = field(
-        default=None, metadata=config(field_name="confidence")
-    )
-
-
-@dataclass_json
-@dataclass(order=True, eq=True, frozen=True)
-class GeoSummary_Location:
-    """GeoSummary_Location."""
-
-    radius: Optional[int] = field(default=None, metadata=config(field_name="radius"))
-    latitude: Optional[float] = field(
-        default=None, metadata=config(field_name="latitude")
-    )
-    longitude: Optional[float] = field(
-        default=None, metadata=config(field_name="longitude")
-    )
-    us_metro_code: Optional[int] = field(
-        default=None, metadata=config(field_name="us_metro_code")
-    )
-    timezone: Optional[str] = field(
-        default=None, metadata=config(field_name="timezone")
-    )
-    gmt_offset: Optional[int] = field(
-        default=None, metadata=config(field_name="gmt_offset")
-    )
-    metro_code: Optional[int] = field(
-        default=None, metadata=config(field_name="metro_code")
-    )
-
-
-@dataclass_json
-@dataclass(order=True, eq=True, frozen=True)
-class KeyAndValues:
-    """KeyAndValues."""
-
-    key: Optional[str] = field(default=None, metadata=config(field_name="key"))
-    values: Optional[List[str]] = field(
-        default=None, metadata=config(field_name="values")
-    )
-
-
-@dataclass_json
-@dataclass(order=True, eq=True, frozen=True)
-class KeyValueRecordIndexed:
-    """KeyValueRecordIndexed."""
-
-    key: Optional[str] = field(default=None, metadata=config(field_name="key"))
-    value: Optional[str] = field(default=None, metadata=config(field_name="value"))
-
-
-@dataclass_json
-@dataclass(order=True, eq=True, frozen=True)
 class AggregationKeys:
     """AggregationKeys."""
 
     key: Optional[str] = field(default=None, metadata=config(field_name="key"))
     value: Optional[str] = field(default=None, metadata=config(field_name="value"))
-
-
-@dataclass_json
-@dataclass(order=True, eq=True, frozen=True)
-class TenantV4:
-    """TenantV4."""
-
-    id: Optional[str] = field(default=None, metadata=config(field_name="id"))
-
-
-@dataclass_json
-@dataclass(order=True, eq=True, frozen=True)
-class AlertRuleReference:
-    """AlertRuleReference."""
-
-    id: Optional[str] = field(default=None, metadata=config(field_name="id"))
-    version: Optional[str] = field(default=None, metadata=config(field_name="version"))
 
 
 @dataclass_json
@@ -572,11 +468,69 @@ class AlertsAggregateResponse_AlertsAggregation_Severity:
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
+class TenantV4:
+    """TenantV4."""
+
+    id: Optional[str] = field(default=None, metadata=config(field_name="id"))
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class Timestamp:
+    """Timestamp."""
+
+    seconds: Optional[int] = field(default=None, metadata=config(field_name="seconds"))
+    nanos: Optional[int] = field(default=None, metadata=config(field_name="nanos"))
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class AlertRuleReference:
+    """AlertRuleReference."""
+
+    id: Optional[str] = field(default=None, metadata=config(field_name="id"))
+    version: Optional[str] = field(default=None, metadata=config(field_name="version"))
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
 class EntityMetadata:
     """EntityMetadata."""
 
     entity: Optional[str] = field(default=None, metadata=config(field_name="entity"))
     label: Optional[str] = field(default=None, metadata=config(field_name="label"))
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class CreationRule:
+    """CreationRule."""
+
+    rule_id: Optional[str] = field(default=None, metadata=config(field_name="rule_id"))
+    version: Optional[str] = field(default=None, metadata=config(field_name="version"))
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class Detector:
+    """Detector."""
+
+    detector_id: Optional[str] = field(
+        default=None, metadata=config(field_name="detector_id")
+    )
+    detector_name: Optional[str] = field(
+        default=None, metadata=config(field_name="detector_name")
+    )
+    version: Optional[str] = field(default=None, metadata=config(field_name="version"))
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class Engine:
+    """Engine."""
+
+    name: Optional[str] = field(default=None, metadata=config(field_name="name"))
+    version: Optional[str] = field(default=None, metadata=config(field_name="version"))
 
 
 @dataclass_json
@@ -1193,118 +1147,40 @@ class EntityUrl:
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
-class Timestamp:
-    """Timestamp."""
+class Relationship:
+    """Relationship."""
 
-    seconds: Optional[int] = field(default=None, metadata=config(field_name="seconds"))
-    nanos: Optional[int] = field(default=None, metadata=config(field_name="nanos"))
+    from_entity: Optional[str] = field(
+        default=None, metadata=config(field_name="from_entity")
+    )
+    to_entity: Optional[str] = field(
+        default=None, metadata=config(field_name="to_entity")
+    )
+    relationship: Optional[str] = field(
+        default=None, metadata=config(field_name="relationship")
+    )
+    type: Optional[str] = field(default=None, metadata=config(field_name="type"))
 
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
-class AccountCompromiseDetectorDetail:
-    """AccountCompromiseDetectorDetail."""
+class KeyValueRecordIndexed:
+    """KeyValueRecordIndexed."""
 
-    user_name: Optional[str] = field(
-        default=None, metadata=config(field_name="user_name")
-    )
-
-
-@dataclass_json
-@dataclass(order=True, eq=True, frozen=True)
-class AuthScanLogonAttempt:
-    """AuthScanLogonAttempt."""
-
-    target_user_name: Optional[str] = field(
-        default=None, metadata=config(field_name="target_user_name")
-    )
-    has_logon_success: Optional[bool] = field(
-        default=None,
-        metadata=config(
-            metadata={
-                "deprecated": True,
-                "deprecation_reason": "see list in successful_logon_attempts",
-            },
-            field_name="has_logon_success",
-        ),
-    )
-    num_attempts: Optional[int] = field(
-        default=None, metadata=config(field_name="num_attempts")
-    )
+    key: Optional[str] = field(default=None, metadata=config(field_name="key"))
+    value: Optional[str] = field(default=None, metadata=config(field_name="value"))
 
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
-class BruteForceAuth:
-    """BruteForceAuth."""
+class Reference:
+    """Reference."""
 
-    win_event_id: Optional[str] = field(
-        default=None, metadata=config(field_name="win_event_id")
+    type: Optional[str] = field(default=None, metadata=config(field_name="type"))
+    url: Optional[str] = field(default=None, metadata=config(field_name="url"))
+    description: Optional[str] = field(
+        default=None, metadata=config(field_name="description")
     )
-    action: Optional[str] = field(default=None, metadata=config(field_name="action"))
-    domain: Optional[str] = field(default=None, metadata=config(field_name="domain"))
-    target_username: Optional[str] = field(
-        default=None, metadata=config(field_name="target_username")
-    )
-    event_timestamp: Optional[int] = field(
-        default=None, metadata=config(field_name="event_timestamp")
-    )
-    resource_record_identifier: Optional[str] = field(
-        default=None, metadata=config(field_name="resource_record_identifier")
-    )
-
-
-@dataclass_json
-@dataclass(order=True, eq=True, frozen=True)
-class CreationRule:
-    """CreationRule."""
-
-    rule_id: Optional[str] = field(default=None, metadata=config(field_name="rule_id"))
-    version: Optional[str] = field(default=None, metadata=config(field_name="version"))
-
-
-@dataclass_json
-@dataclass(order=True, eq=True, frozen=True)
-class DDosIpAddressOccurrenceCount:
-    """DDosIpAddressOccurrenceCount."""
-
-    ip_address: Optional[str] = field(
-        default=None, metadata=config(field_name="ip_address")
-    )
-    count: Optional[int] = field(default=None, metadata=config(field_name="count"))
-
-
-@dataclass_json
-@dataclass(order=True, eq=True, frozen=True)
-class Detector:
-    """Detector."""
-
-    detector_id: Optional[str] = field(
-        default=None, metadata=config(field_name="detector_id")
-    )
-    detector_name: Optional[str] = field(
-        default=None, metadata=config(field_name="detector_name")
-    )
-    version: Optional[str] = field(default=None, metadata=config(field_name="version"))
-
-
-@dataclass_json
-@dataclass(order=True, eq=True, frozen=True)
-class DnsExfilEnrichment:
-    """DnsExfilEnrichment."""
-
-    num_queries: Optional[int] = field(
-        default=None, metadata=config(field_name="num_queries")
-    )
-
-
-@dataclass_json
-@dataclass(order=True, eq=True, frozen=True)
-class Engine:
-    """Engine."""
-
-    name: Optional[str] = field(default=None, metadata=config(field_name="name"))
-    version: Optional[str] = field(default=None, metadata=config(field_name="version"))
 
 
 @dataclass_json
@@ -1327,244 +1203,6 @@ class GeographicIp:
         default=None, metadata=config(field_name="country_code_iso")
     )
     asn: Optional[int] = field(default=None, metadata=config(field_name="asn"))
-
-
-@dataclass_json
-@dataclass(order=True, eq=True, frozen=True)
-class HandsOnKeyboardDetails_Commandline:
-    """HandsOnKeyboardDetails_Commandline."""
-
-    commandline: Optional[str] = field(
-        default=None, metadata=config(field_name="commandline")
-    )
-    matched_features: Optional[List[str]] = field(
-        default=None, metadata=config(field_name="matched_features")
-    )
-
-
-@dataclass_json
-@dataclass(order=True, eq=True, frozen=True)
-class HandsOnKeyboardDetails_Image:
-    """HandsOnKeyboardDetails_Image."""
-
-    image_path: Optional[str] = field(
-        default=None, metadata=config(field_name="image_path")
-    )
-    matched_features: Optional[List[str]] = field(
-        default=None, metadata=config(field_name="matched_features")
-    )
-
-
-@dataclass_json
-@dataclass(order=True, eq=True, frozen=True)
-class Kerberoasting:
-    """Kerberoasting."""
-
-    user: Optional[str] = field(default=None, metadata=config(field_name="user"))
-    user_baseline: Optional[int] = field(
-        default=None, metadata=config(field_name="user_baseline")
-    )
-    user_avg_requests: Optional[float] = field(
-        default=None, metadata=config(field_name="user_avg_requests")
-    )
-    user_max_requests: Optional[int] = field(
-        default=None, metadata=config(field_name="user_max_requests")
-    )
-    total_spns: Optional[int] = field(
-        default=None, metadata=config(field_name="total_spns")
-    )
-    suspicious_num_requests: Optional[int] = field(
-        default=None, metadata=config(field_name="suspicious_num_requests")
-    )
-    percentage_accessed: Optional[float] = field(
-        default=None, metadata=config(field_name="percentage_accessed")
-    )
-    spns_accessed: Optional[List[str]] = field(
-        default=None, metadata=config(field_name="spns_accessed")
-    )
-    source_address: Optional[str] = field(
-        default=None, metadata=config(field_name="source_address")
-    )
-    hostname: Optional[str] = field(
-        default=None, metadata=config(field_name="hostname")
-    )
-
-
-@dataclass_json
-@dataclass(order=True, eq=True, frozen=True)
-class LoginFailureDetail:
-    """LoginFailureDetail."""
-
-    host: Optional[str] = field(default=None, metadata=config(field_name="host"))
-    user: Optional[str] = field(default=None, metadata=config(field_name="user"))
-    source_address: Optional[str] = field(
-        default=None, metadata=config(field_name="source_address")
-    )
-    target_address: Optional[str] = field(
-        default=None, metadata=config(field_name="target_address")
-    )
-    successful_auth_event: Optional[str] = field(
-        default=None, metadata=config(field_name="successful_auth_event")
-    )
-    failed_auth_event: Optional[str] = field(
-        default=None, metadata=config(field_name="failed_auth_event")
-    )
-
-
-@dataclass_json
-@dataclass(order=True, eq=True, frozen=True)
-class LogonAnomaly:
-    """LogonAnomaly."""
-
-    feature_value: Optional[str] = field(
-        default=None, metadata=config(field_name="feature_value")
-    )
-    feature_frequency_in_org: Optional[float] = field(
-        default=None, metadata=config(field_name="feature_frequency_in_org")
-    )
-    feature_frequency_in_user: Optional[float] = field(
-        default=None, metadata=config(field_name="feature_frequency_in_user")
-    )
-    approximate_count_in_user: Optional[int] = field(
-        default=None, metadata=config(field_name="approximate_count_in_user")
-    )
-    min_allowed_user_percentage: Optional[float] = field(
-        default=None, metadata=config(field_name="min_allowed_user_percentage")
-    )
-    min_allowed_org_percentage: Optional[float] = field(
-        default=None, metadata=config(field_name="min_allowed_org_percentage")
-    )
-
-
-@dataclass_json
-@dataclass(order=True, eq=True, frozen=True)
-class MatchDetails:
-    """MatchDetails."""
-
-    list_name: Optional[str] = field(
-        default=None, metadata=config(field_name="list_name")
-    )
-    reason: Optional[str] = field(default=None, metadata=config(field_name="reason"))
-    attacks: Optional[List[str]] = field(
-        default=None, metadata=config(field_name="attacks")
-    )
-
-
-@dataclass_json
-@dataclass(order=True, eq=True, frozen=True)
-class MitreAttackDetails:
-    """MitreAttackDetails."""
-
-    technique_id: Optional[str] = field(
-        default=None, metadata=config(field_name="technique_id")
-    )
-    technique: Optional[str] = field(
-        default=None, metadata=config(field_name="technique")
-    )
-    tactics: Optional[List[str]] = field(
-        default=None, metadata=config(field_name="tactics")
-    )
-    type: Optional[str] = field(default=None, metadata=config(field_name="type"))
-    description: Optional[str] = field(
-        default=None, metadata=config(field_name="description")
-    )
-    platform: Optional[List[str]] = field(
-        default=None, metadata=config(field_name="platform")
-    )
-    system_requirements: Optional[List[str]] = field(
-        default=None, metadata=config(field_name="system_requirements")
-    )
-    url: Optional[str] = field(default=None, metadata=config(field_name="url"))
-    data_sources: Optional[List[str]] = field(
-        default=None, metadata=config(field_name="data_sources")
-    )
-    defence_bypassed: Optional[List[str]] = field(
-        default=None, metadata=config(field_name="defence_bypassed")
-    )
-    contributors: Optional[List[str]] = field(
-        default=None, metadata=config(field_name="contributors")
-    )
-    version: Optional[str] = field(default=None, metadata=config(field_name="version"))
-
-
-@dataclass_json
-@dataclass(order=True, eq=True, frozen=True)
-class NetworkConnection:
-    """NetworkConnection."""
-
-    source_ip: Optional[str] = field(
-        default=None, metadata=config(field_name="source_ip")
-    )
-    destination_ip: Optional[str] = field(
-        default=None, metadata=config(field_name="destination_ip")
-    )
-
-
-@dataclass_json
-@dataclass(order=True, eq=True, frozen=True)
-class PasswordSprayAffectedUser:
-    """PasswordSprayAffectedUser."""
-
-    target_user_name: Optional[str] = field(
-        default=None, metadata=config(field_name="target_user_name")
-    )
-    target_domain_name: Optional[str] = field(
-        default=None, metadata=config(field_name="target_domain_name")
-    )
-    user_had_auth_success: Optional[bool] = field(
-        default=None, metadata=config(field_name="user_had_auth_success")
-    )
-
-
-@dataclass_json
-@dataclass(order=True, eq=True, frozen=True)
-class Reference:
-    """Reference."""
-
-    type: Optional[str] = field(default=None, metadata=config(field_name="type"))
-    url: Optional[str] = field(default=None, metadata=config(field_name="url"))
-    description: Optional[str] = field(
-        default=None, metadata=config(field_name="description")
-    )
-
-
-@dataclass_json
-@dataclass(order=True, eq=True, frozen=True)
-class Relationship:
-    """Relationship."""
-
-    from_entity: Optional[str] = field(
-        default=None, metadata=config(field_name="from_entity")
-    )
-    to_entity: Optional[str] = field(
-        default=None, metadata=config(field_name="to_entity")
-    )
-    relationship: Optional[str] = field(
-        default=None, metadata=config(field_name="relationship")
-    )
-    type: Optional[str] = field(default=None, metadata=config(field_name="type"))
-
-
-@dataclass_json
-@dataclass(order=True, eq=True, frozen=True)
-class UserLogonBaseline:
-    """UserLogonBaseline."""
-
-    feature_value: Optional[str] = field(
-        default=None, metadata=config(field_name="feature_value")
-    )
-    feature_frequency_in_org: Optional[float] = field(
-        default=None, metadata=config(field_name="feature_frequency_in_org")
-    )
-    feature_frequency_in_user: Optional[float] = field(
-        default=None, metadata=config(field_name="feature_frequency_in_user")
-    )
-    approximate_count_in_user: Optional[int] = field(
-        default=None, metadata=config(field_name="approximate_count_in_user")
-    )
-    days_in_baseline: Optional[int] = field(
-        default=None, metadata=config(field_name="days_in_baseline")
-    )
 
 
 @dataclass_json
@@ -1707,6 +1345,368 @@ class WhoisSimple:
     )
     reg_expires_date_usec: Optional[int] = field(
         default=None, metadata=config(field_name="reg_expires_date_usec")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class DnsExfilEnrichment:
+    """DnsExfilEnrichment."""
+
+    num_queries: Optional[int] = field(
+        default=None, metadata=config(field_name="num_queries")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class DDosIpAddressOccurrenceCount:
+    """DDosIpAddressOccurrenceCount."""
+
+    ip_address: Optional[str] = field(
+        default=None, metadata=config(field_name="ip_address")
+    )
+    count: Optional[int] = field(default=None, metadata=config(field_name="count"))
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class LoginFailureDetail:
+    """LoginFailureDetail."""
+
+    host: Optional[str] = field(default=None, metadata=config(field_name="host"))
+    user: Optional[str] = field(default=None, metadata=config(field_name="user"))
+    source_address: Optional[str] = field(
+        default=None, metadata=config(field_name="source_address")
+    )
+    target_address: Optional[str] = field(
+        default=None, metadata=config(field_name="target_address")
+    )
+    successful_auth_event: Optional[str] = field(
+        default=None, metadata=config(field_name="successful_auth_event")
+    )
+    failed_auth_event: Optional[str] = field(
+        default=None, metadata=config(field_name="failed_auth_event")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class NetworkConnection:
+    """NetworkConnection."""
+
+    source_ip: Optional[str] = field(
+        default=None, metadata=config(field_name="source_ip")
+    )
+    destination_ip: Optional[str] = field(
+        default=None, metadata=config(field_name="destination_ip")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class MitreAttackDetails:
+    """MitreAttackDetails."""
+
+    technique_id: Optional[str] = field(
+        default=None, metadata=config(field_name="technique_id")
+    )
+    technique: Optional[str] = field(
+        default=None, metadata=config(field_name="technique")
+    )
+    tactics: Optional[List[str]] = field(
+        default=None, metadata=config(field_name="tactics")
+    )
+    type: Optional[str] = field(default=None, metadata=config(field_name="type"))
+    description: Optional[str] = field(
+        default=None, metadata=config(field_name="description")
+    )
+    platform: Optional[List[str]] = field(
+        default=None, metadata=config(field_name="platform")
+    )
+    system_requirements: Optional[List[str]] = field(
+        default=None, metadata=config(field_name="system_requirements")
+    )
+    url: Optional[str] = field(default=None, metadata=config(field_name="url"))
+    data_sources: Optional[List[str]] = field(
+        default=None, metadata=config(field_name="data_sources")
+    )
+    defence_bypassed: Optional[List[str]] = field(
+        default=None, metadata=config(field_name="defence_bypassed")
+    )
+    contributors: Optional[List[str]] = field(
+        default=None, metadata=config(field_name="contributors")
+    )
+    version: Optional[str] = field(default=None, metadata=config(field_name="version"))
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class MatchDetails:
+    """MatchDetails."""
+
+    list_name: Optional[str] = field(
+        default=None, metadata=config(field_name="list_name")
+    )
+    reason: Optional[str] = field(default=None, metadata=config(field_name="reason"))
+    attacks: Optional[List[str]] = field(
+        default=None, metadata=config(field_name="attacks")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class Kerberoasting:
+    """Kerberoasting."""
+
+    user: Optional[str] = field(default=None, metadata=config(field_name="user"))
+    user_baseline: Optional[int] = field(
+        default=None, metadata=config(field_name="user_baseline")
+    )
+    user_avg_requests: Optional[float] = field(
+        default=None, metadata=config(field_name="user_avg_requests")
+    )
+    user_max_requests: Optional[int] = field(
+        default=None, metadata=config(field_name="user_max_requests")
+    )
+    total_spns: Optional[int] = field(
+        default=None, metadata=config(field_name="total_spns")
+    )
+    suspicious_num_requests: Optional[int] = field(
+        default=None, metadata=config(field_name="suspicious_num_requests")
+    )
+    percentage_accessed: Optional[float] = field(
+        default=None, metadata=config(field_name="percentage_accessed")
+    )
+    spns_accessed: Optional[List[str]] = field(
+        default=None, metadata=config(field_name="spns_accessed")
+    )
+    source_address: Optional[str] = field(
+        default=None, metadata=config(field_name="source_address")
+    )
+    hostname: Optional[str] = field(
+        default=None, metadata=config(field_name="hostname")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class BruteForceAuth:
+    """BruteForceAuth."""
+
+    win_event_id: Optional[str] = field(
+        default=None, metadata=config(field_name="win_event_id")
+    )
+    action: Optional[str] = field(default=None, metadata=config(field_name="action"))
+    domain: Optional[str] = field(default=None, metadata=config(field_name="domain"))
+    target_username: Optional[str] = field(
+        default=None, metadata=config(field_name="target_username")
+    )
+    event_timestamp: Optional[int] = field(
+        default=None, metadata=config(field_name="event_timestamp")
+    )
+    resource_record_identifier: Optional[str] = field(
+        default=None, metadata=config(field_name="resource_record_identifier")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class PasswordSprayAffectedUser:
+    """PasswordSprayAffectedUser."""
+
+    target_user_name: Optional[str] = field(
+        default=None, metadata=config(field_name="target_user_name")
+    )
+    target_domain_name: Optional[str] = field(
+        default=None, metadata=config(field_name="target_domain_name")
+    )
+    user_had_auth_success: Optional[bool] = field(
+        default=None, metadata=config(field_name="user_had_auth_success")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class LogonAnomaly:
+    """LogonAnomaly."""
+
+    feature_value: Optional[str] = field(
+        default=None, metadata=config(field_name="feature_value")
+    )
+    feature_frequency_in_org: Optional[float] = field(
+        default=None, metadata=config(field_name="feature_frequency_in_org")
+    )
+    feature_frequency_in_user: Optional[float] = field(
+        default=None, metadata=config(field_name="feature_frequency_in_user")
+    )
+    approximate_count_in_user: Optional[int] = field(
+        default=None, metadata=config(field_name="approximate_count_in_user")
+    )
+    min_allowed_user_percentage: Optional[float] = field(
+        default=None, metadata=config(field_name="min_allowed_user_percentage")
+    )
+    min_allowed_org_percentage: Optional[float] = field(
+        default=None, metadata=config(field_name="min_allowed_org_percentage")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class UserLogonBaseline:
+    """UserLogonBaseline."""
+
+    feature_value: Optional[str] = field(
+        default=None, metadata=config(field_name="feature_value")
+    )
+    feature_frequency_in_org: Optional[float] = field(
+        default=None, metadata=config(field_name="feature_frequency_in_org")
+    )
+    feature_frequency_in_user: Optional[float] = field(
+        default=None, metadata=config(field_name="feature_frequency_in_user")
+    )
+    approximate_count_in_user: Optional[int] = field(
+        default=None, metadata=config(field_name="approximate_count_in_user")
+    )
+    days_in_baseline: Optional[int] = field(
+        default=None, metadata=config(field_name="days_in_baseline")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class AuthScanLogonAttempt:
+    """AuthScanLogonAttempt."""
+
+    target_user_name: Optional[str] = field(
+        default=None, metadata=config(field_name="target_user_name")
+    )
+    has_logon_success: Optional[bool] = field(
+        default=None,
+        metadata=config(
+            metadata={
+                "deprecated": True,
+                "deprecation_reason": "see list in successful_logon_attempts",
+            },
+            field_name="has_logon_success",
+        ),
+    )
+    num_attempts: Optional[int] = field(
+        default=None, metadata=config(field_name="num_attempts")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class HandsOnKeyboardDetails_Image:
+    """HandsOnKeyboardDetails_Image."""
+
+    image_path: Optional[str] = field(
+        default=None, metadata=config(field_name="image_path")
+    )
+    matched_features: Optional[List[str]] = field(
+        default=None, metadata=config(field_name="matched_features")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class HandsOnKeyboardDetails_Commandline:
+    """HandsOnKeyboardDetails_Commandline."""
+
+    commandline: Optional[str] = field(
+        default=None, metadata=config(field_name="commandline")
+    )
+    matched_features: Optional[List[str]] = field(
+        default=None, metadata=config(field_name="matched_features")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class GeoSummary_ASN:
+    """GeoSummary_ASN."""
+
+    autonomous_system_no: Optional[int] = field(
+        default=None, metadata=config(field_name="autonomous_system_no")
+    )
+    autonomous_system_org: Optional[str] = field(
+        default=None, metadata=config(field_name="autonomous_system_org")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class GeoSummary_Continent:
+    """GeoSummary_Continent."""
+
+    geoname_id: Optional[int] = field(
+        default=None, metadata=config(field_name="geoname_id")
+    )
+    code: Optional[str] = field(default=None, metadata=config(field_name="code"))
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class GeoSummary_Country:
+    """GeoSummary_Country."""
+
+    geoname_id: Optional[int] = field(
+        default=None, metadata=config(field_name="geoname_id")
+    )
+    iso_code: Optional[str] = field(
+        default=None, metadata=config(field_name="iso_code")
+    )
+    code: Optional[str] = field(default=None, metadata=config(field_name="code"))
+    confidence: Optional[int] = field(
+        default=None, metadata=config(field_name="confidence")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class GeoSummary_Location:
+    """GeoSummary_Location."""
+
+    radius: Optional[int] = field(default=None, metadata=config(field_name="radius"))
+    latitude: Optional[float] = field(
+        default=None, metadata=config(field_name="latitude")
+    )
+    longitude: Optional[float] = field(
+        default=None, metadata=config(field_name="longitude")
+    )
+    us_metro_code: Optional[int] = field(
+        default=None, metadata=config(field_name="us_metro_code")
+    )
+    timezone: Optional[str] = field(
+        default=None, metadata=config(field_name="timezone")
+    )
+    gmt_offset: Optional[int] = field(
+        default=None, metadata=config(field_name="gmt_offset")
+    )
+    metro_code: Optional[int] = field(
+        default=None, metadata=config(field_name="metro_code")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class AccountCompromiseDetectorDetail:
+    """AccountCompromiseDetectorDetail."""
+
+    user_name: Optional[str] = field(
+        default=None, metadata=config(field_name="user_name")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class KeyAndValues:
+    """KeyAndValues."""
+
+    key: Optional[str] = field(default=None, metadata=config(field_name="key"))
+    values: Optional[List[str]] = field(
+        default=None, metadata=config(field_name="values")
     )
 
 
@@ -1887,16 +1887,6 @@ class WatchlistMatchesInput:
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
-class KeyValuePairsIndexed:
-    """KeyValuePairsIndexed."""
-
-    record: Optional[List[KeyValueRecordIndexed]] = field(
-        default=None, metadata=config(field_name="record")
-    )
-
-
-@dataclass_json
-@dataclass(order=True, eq=True, frozen=True)
 class AggregationResponse:
     """AggregationResponse."""
 
@@ -1918,30 +1908,6 @@ class AggregationResponse:
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
-class AlertPriority:
-    """AlertPriority."""
-
-    value: Optional[float] = field(default=None, metadata=config(field_name="value"))
-    prioritizer: Optional[str] = field(
-        default=None, metadata=config(field_name="prioritizer")
-    )
-    version: Optional[str] = field(default=None, metadata=config(field_name="version"))
-    model_name: Optional[str] = field(
-        default=None, metadata=config(field_name="model_name")
-    )
-    model_version: Optional[str] = field(
-        default=None, metadata=config(field_name="model_version")
-    )
-    evidence: Optional[List[str]] = field(
-        default=None, metadata=config(field_name="evidence")
-    )
-    applied_time: Optional[Timestamp] = field(
-        default=None, metadata=config(field_name="applied_time")
-    )
-
-
-@dataclass_json
-@dataclass(order=True, eq=True, frozen=True)
 class AlertsAggregateResponse_AlertsAggregation:
     """AlertsAggregateResponse_AlertsAggregation."""
 
@@ -1949,24 +1915,6 @@ class AlertsAggregateResponse_AlertsAggregation:
     count: Optional[int] = field(default=None, metadata=config(field_name="count"))
     severities: Optional[AlertsAggregateResponse_AlertsAggregation_Severity] = field(
         default=None, metadata=config(field_name="severities")
-    )
-
-
-@dataclass_json
-@dataclass(order=True, eq=True, frozen=True)
-class Description:
-    """Description."""
-
-    description: Optional[str] = field(
-        default=None, metadata=config(field_name="description")
-    )
-    locale: Optional[Union[Locale, TaegisEnum]] = field(
-        default=None,
-        metadata=config(
-            encoder=encode_enum,
-            decoder=lambda x: decode_enum(Locale, x),
-            field_name="locale",
-        ),
     )
 
 
@@ -2069,20 +2017,6 @@ class EvictResponse:
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
-class SeverityUpdate:
-    """SeverityUpdate."""
-
-    id: Optional[str] = field(default=None, metadata=config(field_name="id"))
-    severity: Optional[float] = field(
-        default=None, metadata=config(field_name="severity")
-    )
-    changed_at: Optional[Timestamp] = field(
-        default=None, metadata=config(field_name="changed_at")
-    )
-
-
-@dataclass_json
-@dataclass(order=True, eq=True, frozen=True)
 class UpdateResolutionResponse:
     """UpdateResolutionResponse."""
 
@@ -2114,40 +2048,58 @@ class UpdateThreatScoreResponse:
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
-class MatchedYaraRule:
-    """MatchedYaraRule."""
+class SeverityUpdate:
+    """SeverityUpdate."""
 
-    rule_name: Optional[str] = field(
-        default=None, metadata=config(field_name="rule_name")
-    )
-    rule_description: Optional[str] = field(
-        default=None, metadata=config(field_name="rule_description")
-    )
-    classification: Optional[str] = field(
-        default=None, metadata=config(field_name="classification")
-    )
-    confidence: Optional[float] = field(
-        default=None, metadata=config(field_name="confidence")
-    )
+    id: Optional[str] = field(default=None, metadata=config(field_name="id"))
     severity: Optional[float] = field(
         default=None, metadata=config(field_name="severity")
     )
-    attack_technique_ids: Optional[List[str]] = field(
-        default=None, metadata=config(field_name="attack_technique_ids")
-    )
-    vid: Optional[str] = field(default=None, metadata=config(field_name="vid"))
-    rule_created_date: Optional[Timestamp] = field(
-        default=None, metadata=config(field_name="rule_created_date")
+    changed_at: Optional[Timestamp] = field(
+        default=None, metadata=config(field_name="changed_at")
     )
 
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
-class DDosIpCount:
-    """DDosIpCount."""
+class AlertPriority:
+    """AlertPriority."""
 
-    count: Optional[int] = field(default=None, metadata=config(field_name="count"))
-    date: Optional[Timestamp] = field(default=None, metadata=config(field_name="date"))
+    value: Optional[float] = field(default=None, metadata=config(field_name="value"))
+    prioritizer: Optional[str] = field(
+        default=None, metadata=config(field_name="prioritizer")
+    )
+    version: Optional[str] = field(default=None, metadata=config(field_name="version"))
+    model_name: Optional[str] = field(
+        default=None, metadata=config(field_name="model_name")
+    )
+    model_version: Optional[str] = field(
+        default=None, metadata=config(field_name="model_version")
+    )
+    evidence: Optional[List[str]] = field(
+        default=None, metadata=config(field_name="evidence")
+    )
+    applied_time: Optional[Timestamp] = field(
+        default=None, metadata=config(field_name="applied_time")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class Description:
+    """Description."""
+
+    description: Optional[str] = field(
+        default=None, metadata=config(field_name="description")
+    )
+    locale: Optional[Union[Locale, TaegisEnum]] = field(
+        default=None,
+        metadata=config(
+            encoder=encode_enum,
+            decoder=lambda x: decode_enum(Locale, x),
+            field_name="locale",
+        ),
+    )
 
 
 @dataclass_json
@@ -2165,32 +2117,31 @@ class EntityRelationships:
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
-class GenericDetail:
-    """GenericDetail."""
+class KeyValuePairsIndexed:
+    """KeyValuePairsIndexed."""
 
-    name: Optional[str] = field(default=None, metadata=config(field_name="name"))
-    generic: Optional[KeyValuePairsIndexed] = field(
-        default=None, metadata=config(field_name="generic")
+    record: Optional[List[KeyValueRecordIndexed]] = field(
+        default=None, metadata=config(field_name="record")
     )
 
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
-class PasswordSprayDetail:
-    """PasswordSprayDetail."""
+class ReferenceDetail:
+    """ReferenceDetail."""
 
-    source_address: Optional[str] = field(
-        default=None, metadata=config(field_name="source_address")
+    reference: Optional[Reference] = field(
+        default=None, metadata=config(field_name="reference")
     )
-    num_auth_failures: Optional[int] = field(
-        default=None, metadata=config(field_name="num_auth_failures")
-    )
-    num_auth_successes: Optional[int] = field(
-        default=None, metadata=config(field_name="num_auth_successes")
-    )
-    all_affected_users: Optional[List[PasswordSprayAffectedUser]] = field(
-        default=None, metadata=config(field_name="all_affected_users")
-    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class DDosIpCount:
+    """DDosIpCount."""
+
+    count: Optional[int] = field(default=None, metadata=config(field_name="count"))
+    date: Optional[Timestamp] = field(default=None, metadata=config(field_name="date"))
 
 
 @dataclass_json
@@ -2204,16 +2155,6 @@ class RareProgramRareIpDetail:
     )
     connections: Optional[List[NetworkConnection]] = field(
         default=None, metadata=config(field_name="connections")
-    )
-
-
-@dataclass_json
-@dataclass(order=True, eq=True, frozen=True)
-class ReferenceDetail:
-    """ReferenceDetail."""
-
-    reference: Optional[Reference] = field(
-        default=None, metadata=config(field_name="reference")
     )
 
 
@@ -2256,6 +2197,82 @@ class StolenCredsTrustFeatures:
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
+class WatchlistMatches:
+    """WatchlistMatches."""
+
+    entity: Optional[str] = field(default=None, metadata=config(field_name="entity"))
+    details: Optional[List[MatchDetails]] = field(
+        default=None, metadata=config(field_name="details")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class PasswordSprayDetail:
+    """PasswordSprayDetail."""
+
+    source_address: Optional[str] = field(
+        default=None, metadata=config(field_name="source_address")
+    )
+    num_auth_failures: Optional[int] = field(
+        default=None, metadata=config(field_name="num_auth_failures")
+    )
+    num_auth_successes: Optional[int] = field(
+        default=None, metadata=config(field_name="num_auth_successes")
+    )
+    all_affected_users: Optional[List[PasswordSprayAffectedUser]] = field(
+        default=None, metadata=config(field_name="all_affected_users")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class GeoSummary_City:
+    """GeoSummary_City."""
+
+    geoname_id: Optional[int] = field(
+        default=None, metadata=config(field_name="geoname_id")
+    )
+    name: Optional[str] = field(default=None, metadata=config(field_name="name"))
+    confidence: Optional[int] = field(
+        default=None, metadata=config(field_name="confidence")
+    )
+    locale_names: Optional[KeyValuePairsIndexed] = field(
+        default=None, metadata=config(field_name="locale_names")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class MatchedYaraRule:
+    """MatchedYaraRule."""
+
+    rule_name: Optional[str] = field(
+        default=None, metadata=config(field_name="rule_name")
+    )
+    rule_description: Optional[str] = field(
+        default=None, metadata=config(field_name="rule_description")
+    )
+    classification: Optional[str] = field(
+        default=None, metadata=config(field_name="classification")
+    )
+    confidence: Optional[float] = field(
+        default=None, metadata=config(field_name="confidence")
+    )
+    severity: Optional[float] = field(
+        default=None, metadata=config(field_name="severity")
+    )
+    attack_technique_ids: Optional[List[str]] = field(
+        default=None, metadata=config(field_name="attack_technique_ids")
+    )
+    vid: Optional[str] = field(default=None, metadata=config(field_name="vid"))
+    rule_created_date: Optional[Timestamp] = field(
+        default=None, metadata=config(field_name="rule_created_date")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
 class TacticGraphDetail:
     """TacticGraphDetail."""
 
@@ -2264,27 +2281,6 @@ class TacticGraphDetail:
     )
     events: Optional[List[KeyAndValues]] = field(
         default=None, metadata=config(field_name="events")
-    )
-
-
-@dataclass_json
-@dataclass(order=True, eq=True, frozen=True)
-class ThirdPartyDetail:
-    """ThirdPartyDetail."""
-
-    generic: Optional[GenericDetail] = field(
-        default=None, metadata=config(field_name="generic")
-    )
-
-
-@dataclass_json
-@dataclass(order=True, eq=True, frozen=True)
-class WatchlistMatches:
-    """WatchlistMatches."""
-
-    entity: Optional[str] = field(default=None, metadata=config(field_name="entity"))
-    details: Optional[List[MatchDetails]] = field(
-        default=None, metadata=config(field_name="details")
     )
 
 
@@ -2427,41 +2423,6 @@ class TuningUpdate:
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
-class AuthScanDetail:
-    """AuthScanDetail."""
-
-    total_attempts: Optional[int] = field(
-        default=None, metadata=config(field_name="total_attempts")
-    )
-    successful_logon_attempts: Optional[List[AuthScanLogonAttempt]] = field(
-        default=None, metadata=config(field_name="successful_logon_attempts")
-    )
-    failed_logon_attempts: Optional[List[AuthScanLogonAttempt]] = field(
-        default=None, metadata=config(field_name="failed_logon_attempts")
-    )
-
-
-@dataclass_json
-@dataclass(order=True, eq=True, frozen=True)
-class BruteForceDetails:
-    """BruteForceDetails."""
-
-    num_auth_failures: Optional[int] = field(
-        default=None, metadata=config(field_name="num_auth_failures")
-    )
-    num_auth_successes: Optional[int] = field(
-        default=None, metadata=config(field_name="num_auth_successes")
-    )
-    last_successful_auth: Optional[BruteForceAuth] = field(
-        default=None, metadata=config(field_name="last_successful_auth")
-    )
-    most_recent_auths_failures: Optional[List[BruteForceAuth]] = field(
-        default=None, metadata=config(field_name="most_recent_auths_failures")
-    )
-
-
-@dataclass_json
-@dataclass(order=True, eq=True, frozen=True)
 class Creator:
     """Creator."""
 
@@ -2523,32 +2484,6 @@ class DDosSourceIpCountDetail:
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
-class HandsOnKeyboardDetails_MatchedProcess:
-    """HandsOnKeyboardDetails_MatchedProcess."""
-
-    process_resource_id: Optional[str] = field(
-        default=None, metadata=config(field_name="process_resource_id")
-    )
-    num_matched_features: Optional[int] = field(
-        default=None, metadata=config(field_name="num_matched_features")
-    )
-    event_time_sec: Optional[int] = field(
-        default=None, metadata=config(field_name="event_time_sec")
-    )
-    score: Optional[float] = field(default=None, metadata=config(field_name="score"))
-    severity: Optional[str] = field(
-        default=None, metadata=config(field_name="severity")
-    )
-    image: Optional[HandsOnKeyboardDetails_Image] = field(
-        default=None, metadata=config(field_name="image")
-    )
-    commandline: Optional[HandsOnKeyboardDetails_Commandline] = field(
-        default=None, metadata=config(field_name="commandline")
-    )
-
-
-@dataclass_json
-@dataclass(order=True, eq=True, frozen=True)
 class StolenCredsTravelFeatures:
     """StolenCredsTravelFeatures."""
 
@@ -2581,6 +2516,67 @@ class StolenCredsTravelFeatures:
     )
     prior_location: Optional[GeographicIp] = field(
         default=None, metadata=config(field_name="prior_location")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class BruteForceDetails:
+    """BruteForceDetails."""
+
+    num_auth_failures: Optional[int] = field(
+        default=None, metadata=config(field_name="num_auth_failures")
+    )
+    num_auth_successes: Optional[int] = field(
+        default=None, metadata=config(field_name="num_auth_successes")
+    )
+    last_successful_auth: Optional[BruteForceAuth] = field(
+        default=None, metadata=config(field_name="last_successful_auth")
+    )
+    most_recent_auths_failures: Optional[List[BruteForceAuth]] = field(
+        default=None, metadata=config(field_name="most_recent_auths_failures")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class AuthScanDetail:
+    """AuthScanDetail."""
+
+    total_attempts: Optional[int] = field(
+        default=None, metadata=config(field_name="total_attempts")
+    )
+    successful_logon_attempts: Optional[List[AuthScanLogonAttempt]] = field(
+        default=None, metadata=config(field_name="successful_logon_attempts")
+    )
+    failed_logon_attempts: Optional[List[AuthScanLogonAttempt]] = field(
+        default=None, metadata=config(field_name="failed_logon_attempts")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class HandsOnKeyboardDetails_MatchedProcess:
+    """HandsOnKeyboardDetails_MatchedProcess."""
+
+    process_resource_id: Optional[str] = field(
+        default=None, metadata=config(field_name="process_resource_id")
+    )
+    num_matched_features: Optional[int] = field(
+        default=None, metadata=config(field_name="num_matched_features")
+    )
+    event_time_sec: Optional[int] = field(
+        default=None, metadata=config(field_name="event_time_sec")
+    )
+    score: Optional[float] = field(default=None, metadata=config(field_name="score"))
+    severity: Optional[str] = field(
+        default=None, metadata=config(field_name="severity")
+    )
+    image: Optional[HandsOnKeyboardDetails_Image] = field(
+        default=None, metadata=config(field_name="image")
+    )
+    commandline: Optional[HandsOnKeyboardDetails_Commandline] = field(
+        default=None, metadata=config(field_name="commandline")
     )
 
 
@@ -2817,6 +2813,28 @@ class AggregateAlertsBySeverityInputInput:
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
+class GeoSummary:
+    """GeoSummary."""
+
+    location: Optional[GeoSummary_Location] = field(
+        default=None, metadata=config(field_name="location")
+    )
+    city: Optional[GeoSummary_City] = field(
+        default=None, metadata=config(field_name="city")
+    )
+    continent: Optional[GeoSummary_Continent] = field(
+        default=None, metadata=config(field_name="continent")
+    )
+    country: Optional[GeoSummary_Country] = field(
+        default=None, metadata=config(field_name="country")
+    )
+    asn: Optional[GeoSummary_ASN] = field(
+        default=None, metadata=config(field_name="asn")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
 class AlertsMetadata:
     """AlertsMetadata."""
 
@@ -2908,23 +2926,6 @@ Properties = Union[
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
-class GeoSummary_City:
-    """GeoSummary_City."""
-
-    geoname_id: Optional[int] = field(
-        default=None, metadata=config(field_name="geoname_id")
-    )
-    name: Optional[str] = field(default=None, metadata=config(field_name="name"))
-    confidence: Optional[int] = field(
-        default=None, metadata=config(field_name="confidence")
-    )
-    locale_names: Optional[KeyValuePairsIndexed] = field(
-        default=None, metadata=config(field_name="locale_names")
-    )
-
-
-@dataclass_json
-@dataclass(order=True, eq=True, frozen=True)
 class AlertsAggregateResponse:
     """AlertsAggregateResponse."""
 
@@ -2955,11 +2956,22 @@ class AlertsInvestigationInfo:
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
-class FileAnalysisDetail:
-    """FileAnalysisDetail."""
+class GenericDetail:
+    """GenericDetail."""
 
-    matched_yara_rule: Optional[List[MatchedYaraRule]] = field(
-        default=None, metadata=config(field_name="matched_yara_rule")
+    name: Optional[str] = field(default=None, metadata=config(field_name="name"))
+    generic: Optional[KeyValuePairsIndexed] = field(
+        default=None, metadata=config(field_name="generic")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class ThirdPartyDetail:
+    """ThirdPartyDetail."""
+
+    generic: Optional[GenericDetail] = field(
+        default=None, metadata=config(field_name="generic")
     )
 
 
@@ -2991,8 +3003,67 @@ class HandsOnKeyboardDetails:
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
+class BusinessEmailCompromiseDetail:
+    """BusinessEmailCompromiseDetail."""
+
+    source_address: Optional[str] = field(
+        default=None, metadata=config(field_name="source_address")
+    )
+    user_name: Optional[str] = field(
+        default=None, metadata=config(field_name="user_name")
+    )
+    source_address_geo_summary: Optional[GeoSummary] = field(
+        default=None, metadata=config(field_name="source_address_geo_summary")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class FileAnalysisDetail:
+    """FileAnalysisDetail."""
+
+    matched_yara_rule: Optional[List[MatchedYaraRule]] = field(
+        default=None, metadata=config(field_name="matched_yara_rule")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
 class BulkInvestigationsResponse:
     """BulkInvestigationsResponse."""
+
+    id: Optional[str] = field(default=None, metadata=config(field_name="id"))
+    reason: Optional[str] = field(default=None, metadata=config(field_name="reason"))
+    events: Optional[List[str]] = field(
+        default=None, metadata=config(field_name="events")
+    )
+    assets: Optional[List[str]] = field(
+        default=None, metadata=config(field_name="assets")
+    )
+    status: Optional[Union[ResponseStatus, TaegisEnum]] = field(
+        default=None,
+        metadata=config(
+            encoder=encode_enum,
+            decoder=lambda x: decode_enum(ResponseStatus, x),
+            field_name="status",
+        ),
+    )
+    access_vector_info: Optional[List[AlertsInvestigationInfo]] = field(
+        default=None,
+        metadata=config(
+            metadata={
+                "deprecated": True,
+                "deprecation_reason": "data no longer exists",
+            },
+            field_name="access_vector_info",
+        ),
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class UpdateInvestigationResponse:
+    """UpdateInvestigationResponse."""
 
     id: Optional[str] = field(default=None, metadata=config(field_name="id"))
     reason: Optional[str] = field(default=None, metadata=config(field_name="reason"))
@@ -3047,77 +3118,6 @@ class StructuredEntity:
         metadata=config(
             decoder=lambda x: parse_union_result(Properties, x), field_name="properties"
         ),
-    )
-
-
-@dataclass_json
-@dataclass(order=True, eq=True, frozen=True)
-class UpdateInvestigationResponse:
-    """UpdateInvestigationResponse."""
-
-    id: Optional[str] = field(default=None, metadata=config(field_name="id"))
-    reason: Optional[str] = field(default=None, metadata=config(field_name="reason"))
-    events: Optional[List[str]] = field(
-        default=None, metadata=config(field_name="events")
-    )
-    assets: Optional[List[str]] = field(
-        default=None, metadata=config(field_name="assets")
-    )
-    status: Optional[Union[ResponseStatus, TaegisEnum]] = field(
-        default=None,
-        metadata=config(
-            encoder=encode_enum,
-            decoder=lambda x: decode_enum(ResponseStatus, x),
-            field_name="status",
-        ),
-    )
-    access_vector_info: Optional[List[AlertsInvestigationInfo]] = field(
-        default=None,
-        metadata=config(
-            metadata={
-                "deprecated": True,
-                "deprecation_reason": "data no longer exists",
-            },
-            field_name="access_vector_info",
-        ),
-    )
-
-
-@dataclass_json
-@dataclass(order=True, eq=True, frozen=True)
-class GeoSummary:
-    """GeoSummary."""
-
-    location: Optional[GeoSummary_Location] = field(
-        default=None, metadata=config(field_name="location")
-    )
-    city: Optional[GeoSummary_City] = field(
-        default=None, metadata=config(field_name="city")
-    )
-    continent: Optional[GeoSummary_Continent] = field(
-        default=None, metadata=config(field_name="continent")
-    )
-    country: Optional[GeoSummary_Country] = field(
-        default=None, metadata=config(field_name="country")
-    )
-    asn: Optional[GeoSummary_ASN] = field(
-        default=None, metadata=config(field_name="asn")
-    )
-
-
-@dataclass_json
-@dataclass(order=True, eq=True, frozen=True)
-class BusinessEmailCompromiseDetail:
-    """BusinessEmailCompromiseDetail."""
-
-    source_address: Optional[str] = field(
-        default=None, metadata=config(field_name="source_address")
-    )
-    user_name: Optional[str] = field(
-        default=None, metadata=config(field_name="user_name")
-    )
-    source_address_geo_summary: Optional[GeoSummary] = field(
-        default=None, metadata=config(field_name="source_address_geo_summary")
     )
 
 

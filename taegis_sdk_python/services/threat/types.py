@@ -348,6 +348,15 @@ class ThreatPageInput:
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
+class PageInput:
+    """PageInput."""
+
+    limit: Optional[int] = field(default=None, metadata=config(field_name="limit"))
+    offset: Optional[int] = field(default=None, metadata=config(field_name="offset"))
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
 class Facet:
     """Facet."""
 
@@ -885,6 +894,38 @@ class ThreatReportInput:
     )
     content: Optional[str] = field(default=None, metadata=config(field_name="content"))
     tags: Optional[List[str]] = field(default=None, metadata=config(field_name="tags"))
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class MalwareFileWhereInput:
+    """MalwareFileWhereInput."""
+
+    threat_description: Optional[str] = field(
+        default=None, metadata=config(field_name="threatDescription")
+    )
+    or_: Optional[List["MalwareFileWhereInput"]] = field(
+        default=None, metadata=config(field_name="or")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class WatchlistWhereInput:
+    """WatchlistWhereInput."""
+
+    target_ref: Optional[str] = field(
+        default=None, metadata=config(field_name="targetRef")
+    )
+    confidence_gte: Optional[int] = field(
+        default=None, metadata=config(field_name="confidence_gte")
+    )
+    confidence_lte: Optional[int] = field(
+        default=None, metadata=config(field_name="confidence_lte")
+    )
+    or_: Optional[List["WatchlistWhereInput"]] = field(
+        default=None, metadata=config(field_name="or")
+    )
 
 
 @dataclass_json
@@ -2288,6 +2329,26 @@ class IndicatorFilter:
     """IndicatorFilter."""
 
     where: Optional[IndicatorWhereInput] = field(
+        default=None, metadata=config(field_name="where")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class MalwareFileFilter:
+    """MalwareFileFilter."""
+
+    where: Optional[MalwareFileWhereInput] = field(
+        default=None, metadata=config(field_name="where")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class WatchlistFilter:
+    """WatchlistFilter."""
+
+    where: Optional[WatchlistWhereInput] = field(
         default=None, metadata=config(field_name="where")
     )
 

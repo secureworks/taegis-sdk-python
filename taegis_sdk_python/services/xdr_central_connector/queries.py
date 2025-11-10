@@ -98,3 +98,16 @@ class TaegisSDKXdrCentralConnectorQuery:
         if result.get(endpoint) is not None:
             return LiveTerminalCheckPayload.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for query launchLiveTerminalCheck")
+
+    def central_access_tokens(self) -> CentralAccessTokens:
+        """Get all access tokens for a tenant.."""
+        endpoint = "centralAccessTokens"
+
+        result = self.service.execute_query(
+            endpoint=endpoint,
+            variables={},
+            output=build_output_string(CentralAccessTokens),
+        )
+        if result.get(endpoint) is not None:
+            return CentralAccessTokens.from_dict(result.get(endpoint))
+        raise GraphQLNoRowsInResultSetError("for query centralAccessTokens")

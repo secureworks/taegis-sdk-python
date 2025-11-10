@@ -124,3 +124,31 @@ class TaegisSDKDatasourcesQuery:
         if result.get(endpoint) is not None:
             return LastSeenAssetsQueryResult.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for query dataSourceLastSeenAssetsQuery")
+
+    def get_data_source_tags(self) -> List[DataSourceTag]:
+        """Fetches all tags associated with a given tenant.."""
+        endpoint = "getDataSourceTags"
+
+        result = self.service.execute_query(
+            endpoint=endpoint, variables={}, output=build_output_string(DataSourceTag)
+        )
+        if result.get(endpoint) is not None:
+            return DataSourceTag.schema().load(
+                [r or {} for r in result.get(endpoint)], many=True
+            )
+        raise GraphQLNoRowsInResultSetError("for query getDataSourceTags")
+
+    def get_data_source_tag(self, tag_id: str) -> DataSourceTag:
+        """Fetches a specific tag by its ID.."""
+        endpoint = "getDataSourceTag"
+
+        result = self.service.execute_query(
+            endpoint=endpoint,
+            variables={
+                "tagId": prepare_input(tag_id),
+            },
+            output=build_output_string(DataSourceTag),
+        )
+        if result.get(endpoint) is not None:
+            return DataSourceTag.from_dict(result.get(endpoint))
+        raise GraphQLNoRowsInResultSetError("for query getDataSourceTag")

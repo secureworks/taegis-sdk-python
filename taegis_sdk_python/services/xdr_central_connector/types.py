@@ -130,6 +130,7 @@ class AccountType(str, Enum):
     PARTNER = "PARTNER"
     TENANT = "TENANT"
     ORGANIZATION = "ORGANIZATION"
+    DISTRIBUTOR = "DISTRIBUTOR"
 
 
 class ForensicLogMode(str, Enum):
@@ -158,6 +159,19 @@ class LiveTerminalDisabledReason(str, Enum):
     DEVICE_EXCLUDED = "DEVICE_EXCLUDED"
     XDR_UNASSIGNED = "XDR_UNASSIGNED"
     NOT_ENABLED_IN_POLICY = "NOT_ENABLED_IN_POLICY"
+
+
+class CentralAccessTokenType(str, Enum):
+    """CentralAccessTokenType."""
+
+    SOPHOS_LINUX_SENSOR = "SOPHOS_LINUX_SENSOR"
+
+
+class CentralAccessTokenCreatedByPrincipal(str, Enum):
+    """CentralAccessTokenCreatedByPrincipal."""
+
+    USER = "USER"
+    SERVICE = "SERVICE"
 
 
 @dataclass_json
@@ -258,6 +272,17 @@ class EndLiveResponseInput:
     )
     session_id: Optional[str] = field(
         default=None, metadata=config(field_name="sessionId")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class UpdateCreateCentralAccessTokenInput:
+    """UpdateCreateCentralAccessTokenInput."""
+
+    id: Optional[str] = field(default=None, metadata=config(field_name="ID"))
+    expires_at: Optional[str] = field(
+        default=None, metadata=config(field_name="expiresAt")
     )
 
 
@@ -446,6 +471,24 @@ class ForensicLogsInput:
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
+class CreateCentralAccessTokenInput:
+    """CreateCentralAccessTokenInput."""
+
+    expires_at: Optional[str] = field(
+        default=None, metadata=config(field_name="expiresAt")
+    )
+    type: Optional[Union[CentralAccessTokenType, TaegisEnum]] = field(
+        default=None,
+        metadata=config(
+            encoder=encode_enum,
+            decoder=lambda x: decode_enum(CentralAccessTokenType, x),
+            field_name="type",
+        ),
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
 class EndpointServices:
     """EndpointServices."""
 
@@ -560,6 +603,62 @@ class ForensicLogsPayload:
     )
     forensic_log_file: Optional[ForensicLogFile] = field(
         default=None, metadata=config(field_name="forensicLogFile")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class CentralAccessTokenCreatedBy:
+    """CentralAccessTokenCreatedBy."""
+
+    id: Optional[str] = field(default=None, metadata=config(field_name="id"))
+    name: Optional[str] = field(default=None, metadata=config(field_name="name"))
+    account_id: Optional[str] = field(
+        default=None, metadata=config(field_name="accountID")
+    )
+    type: Optional[Union[CentralAccessTokenCreatedByPrincipal, TaegisEnum]] = field(
+        default=None,
+        metadata=config(
+            encoder=encode_enum,
+            decoder=lambda x: decode_enum(CentralAccessTokenCreatedByPrincipal, x),
+            field_name="type",
+        ),
+    )
+    account_type: Optional[Union[AccountType, TaegisEnum]] = field(
+        default=None,
+        metadata=config(
+            encoder=encode_enum,
+            decoder=lambda x: decode_enum(AccountType, x),
+            field_name="accountType",
+        ),
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class CentralAccessToken:
+    """CentralAccessToken."""
+
+    id: Optional[str] = field(default=None, metadata=config(field_name="id"))
+    token: Optional[str] = field(default=None, metadata=config(field_name="token"))
+    label: Optional[str] = field(default=None, metadata=config(field_name="label"))
+    created_at: Optional[str] = field(
+        default=None, metadata=config(field_name="createdAt")
+    )
+    expires_at: Optional[str] = field(
+        default=None, metadata=config(field_name="expiresAt")
+    )
+    url: Optional[str] = field(default=None, metadata=config(field_name="url"))
+    type: Optional[Union[CentralAccessTokenType, TaegisEnum]] = field(
+        default=None,
+        metadata=config(
+            encoder=encode_enum,
+            decoder=lambda x: decode_enum(CentralAccessTokenType, x),
+            field_name="type",
+        ),
+    )
+    created_by: Optional[CentralAccessTokenCreatedBy] = field(
+        default=None, metadata=config(field_name="createdBy")
     )
 
 
@@ -746,4 +845,14 @@ class EndpointInstallers:
     )
     installers: Optional[List[EndpointInstaller]] = field(
         default=None, metadata=config(field_name="installers")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class CentralAccessTokens:
+    """CentralAccessTokens."""
+
+    items: Optional[List[CentralAccessToken]] = field(
+        default=None, metadata=config(field_name="items")
     )

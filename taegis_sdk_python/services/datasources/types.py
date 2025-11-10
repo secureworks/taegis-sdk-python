@@ -26,6 +26,7 @@ class AuthzAction(str, Enum):
 
     READ = "READ"
     DELETE = "DELETE"
+    CREATE = "CREATE"
 
 
 class HealthState(str, Enum):
@@ -160,6 +161,9 @@ class DataSourcesWhereInput:
     collector_id: Optional[List[str]] = field(
         default=None, metadata=config(field_name="collectorId")
     )
+    tag_id: Optional[List[str]] = field(
+        default=None, metadata=config(field_name="tagId")
+    )
 
 
 @dataclass_json
@@ -191,9 +195,59 @@ class ClusterIdentity:
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
+class DataSourceTag:
+    """DataSourceTag."""
+
+    id: Optional[str] = field(default=None, metadata=config(field_name="id"))
+    tenant: Optional[str] = field(default=None, metadata=config(field_name="tenant"))
+    key: Optional[str] = field(default=None, metadata=config(field_name="key"))
+    value: Optional[str] = field(default=None, metadata=config(field_name="value"))
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class CreateDataSourceTagInput:
+    """CreateDataSourceTagInput."""
+
+    key: Optional[str] = field(default=None, metadata=config(field_name="key"))
+    value: Optional[str] = field(default=None, metadata=config(field_name="value"))
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class DataSourceTagOperationInput:
+    """DataSourceTagOperationInput."""
+
+    tag_id: Optional[str] = field(default=None, metadata=config(field_name="tagId"))
+    asset_ids: Optional[List[str]] = field(
+        default=None, metadata=config(field_name="assetIds")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class DataSourceAssetsFilter:
+    """DataSourceAssetsFilter."""
+
+    status: Optional[List[Union[HealthState, TaegisEnum]]] = field(
+        default=None,
+        metadata=config(
+            encoder=encode_enum,
+            decoder=lambda x: decode_enum(HealthState, x),
+            field_name="status",
+        ),
+    )
+    where: Optional[DataSourcesWhereInput] = field(
+        default=None, metadata=config(field_name="where")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
 class LastSeenAsset:
     """LastSeenAsset."""
 
+    asset_id: Optional[str] = field(default=None, metadata=config(field_name="assetId"))
     source_id: Optional[str] = field(
         default=None, metadata=config(field_name="sourceId")
     )
@@ -221,24 +275,15 @@ class LastSeenAsset:
     collector: Optional[ClusterIdentity] = field(
         default=None, metadata=config(field_name="collector")
     )
-
-
-@dataclass_json
-@dataclass(order=True, eq=True, frozen=True)
-class DataSourceAssetsFilter:
-    """DataSourceAssetsFilter."""
-
-    status: Optional[List[Union[HealthState, TaegisEnum]]] = field(
-        default=None,
-        metadata=config(
-            encoder=encode_enum,
-            decoder=lambda x: decode_enum(HealthState, x),
-            field_name="status",
-        ),
+    tags: Optional[List[DataSourceTag]] = field(
+        default=None, metadata=config(field_name="tags")
     )
-    where: Optional[DataSourcesWhereInput] = field(
-        default=None, metadata=config(field_name="where")
-    )
+
+
+FilterValueResponse = Union[
+    FilterValue,
+    ClusterIdentity,
+]
 
 
 @dataclass_json
@@ -271,12 +316,6 @@ class LastSeenAssetsQueryResult:
     pagination: Optional[QLPageCursor] = field(
         default=None, metadata=config(field_name="pagination")
     )
-
-
-FilterValueResponse = Union[
-    FilterValue,
-    ClusterIdentity,
-]
 
 
 @dataclass_json

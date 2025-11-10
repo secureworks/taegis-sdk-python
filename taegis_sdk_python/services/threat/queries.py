@@ -136,17 +136,45 @@ class TaegisSDKThreatQuery:
         raise GraphQLNoRowsInResultSetError("for query threatIdentitiesByConfidence")
 
     def threat_watchlist(
-        self, type_: Union[ThreatParentType, TaegisEnum]
+        self,
+        type_: Union[ThreatParentType, TaegisEnum],
+        added_after: Optional[str] = None,
+        added_before: Optional[str] = None,
+        page: Optional[PageInput] = None,
+        filters: Optional[WatchlistFilter] = None,
     ) -> List[ThreatRelationship]:
         """Gets a watchlist by type. All results are considered **high confidence**.
         Only IP and DOMAIN types are supported. FILE type has been removed from this endpoint.
-        Instead, use the paged endpoint threatTimsMalwareFiles for FILE types.."""
+        Instead, use the paged endpoint threatTimsMalwareFiles for FILE types.
+
+        Results are sorted by the 'created' field in descending order (newest first).
+
+        Additional filtering options:
+        - addedAfter: input timestamp to filter records created after this time
+        - addedBefore: input timestamp to filter records created before this time
+        - page: Optional pagination controls (offset/limit). If not provided, returns ALL results.
+          When paginating, clients must detect the last page by checking if the number of returned
+          results is less than the requested limit, or if an empty array is returned.
+        - filters: Supports targetRef and confidence filtering
+          Examples:
+            Confidence Range: filters: { where: { confidence_gte: 70, confidence_lte: 90 } }
+            Confidence Minimum: filters: { where: { confidence_gte: 80 } }
+            Confidence Maximum: filters: { where: { confidence_lte: 50 } }
+            Target Filter: filters: { where: { or: [{ targetRef: "malware_name" }] } }
+          Note: Each filter should use either confidence fields OR targetRef, not both in the same where clause
+
+        Time range examples:
+          - addedAfter: "2024-01-01T00:00:00Z", addedBefore: "2024-01-31T23:59:59Z"."""
         endpoint = "threatWatchlist"
 
         result = self.service.execute_query(
             endpoint=endpoint,
             variables={
                 "type": prepare_input(type_),
+                "addedAfter": prepare_input(added_after),
+                "addedBefore": prepare_input(added_before),
+                "page": prepare_input(page),
+                "filters": prepare_input(filters),
             },
             output=build_output_string(ThreatRelationship),
         )
@@ -157,22 +185,42 @@ class TaegisSDKThreatQuery:
         raise GraphQLNoRowsInResultSetError("for query threatWatchlist")
 
     def threat_tims_malware_files(
-        self, last_created: Optional[str] = None
+        self,
+        last_created: Optional[str] = None,
+        added_after: Optional[str] = None,
+        added_before: Optional[str] = None,
+        filters: Optional[MalwareFileFilter] = None,
     ) -> PagedMalwareFiles:
         """Get all TIMS 2.0 Malware file hashes. All results are considered **high confidence**.
-        This is a paged service, requiring repeated queries. Total number of results can number over 750k.
+        This is a cursor-based paged service, requiring repeated queries. Total number of results can number over 750k.
         For the initial query, do not provide any search parameters or set 'last_created' to null.
         Subsequent queries should include the previous query's 'last_created' result from 'PagedMalwareFiles.last_created'
         as the input parameter. Returns pages of 10,000 at a time, sorted by the indicators field 'created' in desc order.
         The returned field 'has_more' will be false when the last page is returned.
         * Note: 'created' refers to an internal field associated with the indicator, not the time the indicator was first found.
-        It is only used for sorting.."""
+        It is only used for sorting.
+
+        Additional filtering options:
+        - addedAfter: input timestamp to filter records created after this time
+        - addedBefore: input timestamp to filter records created before this time
+        - filters: Supports threat description filtering via OR array format only
+          Example: filters: { where: { or: [{ threatDescription: "malware_name" }] } }
+
+        Time range examples:
+          - addedAfter: "2024-01-01T00:00:00Z", addedBefore: "2024-01-31T23:59:59Z"
+
+        Pagination: Uses cursor-based pagination with 'last_created' parameter. For small time ranges
+        (results < 10k), all data is returned in one response. For larger datasets, use 'last_created'
+        to paginate through results.."""
         endpoint = "threatTimsMalwareFiles"
 
         result = self.service.execute_query(
             endpoint=endpoint,
             variables={
                 "last_created": prepare_input(last_created),
+                "addedAfter": prepare_input(added_after),
+                "addedBefore": prepare_input(added_before),
+                "filters": prepare_input(filters),
             },
             output=build_output_string(PagedMalwareFiles),
         )

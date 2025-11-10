@@ -199,6 +199,15 @@ class EntityContextPageInput:
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
+class EntityContextTypeCounts:
+    """EntityContextTypeCounts."""
+
+    type: Optional[str] = field(default=None, metadata=config(field_name="type"))
+    count: Optional[int] = field(default=None, metadata=config(field_name="count"))
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
 class EntityContextPageInfo:
     """EntityContextPageInfo."""
 
@@ -394,6 +403,22 @@ class EntityContextWhoIsContact:
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
+class EntityContextSingleEntryPoint:
+    """EntityContextSingleEntryPoint."""
+
+    id: Optional[str] = field(default=None, metadata=config(field_name="id"))
+    type: Optional[Union[EntityContextEntryPointType, TaegisEnum]] = field(
+        default=None,
+        metadata=config(
+            encoder=encode_enum,
+            decoder=lambda x: decode_enum(EntityContextEntryPointType, x),
+            field_name="type",
+        ),
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
 class EntityContextOrigin:
     """EntityContextOrigin."""
 
@@ -458,6 +483,20 @@ class EntityContextRelatedResources:
     )
     page_info: Optional[EntityContextPageInfo] = field(
         default=None, metadata=config(field_name="pageInfo")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class EntityContextAssociatedEntityTypesResponse:
+    """EntityContextAssociatedEntityTypesResponse."""
+
+    total_count: Optional[int] = field(
+        default=None, metadata=config(field_name="totalCount")
+    )
+    error: Optional[str] = field(default=None, metadata=config(field_name="error"))
+    types: Optional[List[EntityContextTypeCounts]] = field(
+        default=None, metadata=config(field_name="types")
     )
 
 

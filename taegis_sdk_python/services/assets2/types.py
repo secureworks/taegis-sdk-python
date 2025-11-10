@@ -483,6 +483,23 @@ class PageInfoV2:
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
+class NetworkInfo:
+    """NetworkInfo."""
+
+    host_id: Optional[str] = field(default=None, metadata=config(field_name="hostId"))
+    host_name: Optional[str] = field(
+        default=None, metadata=config(field_name="hostName")
+    )
+    ip_addresses: Optional[List[str]] = field(
+        default=None, metadata=config(field_name="ipAddresses")
+    )
+    ethernet_addresses: Optional[List[str]] = field(
+        default=None, metadata=config(field_name="ethernetAddresses")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
 class AssetHostname:
     """AssetHostname."""
 

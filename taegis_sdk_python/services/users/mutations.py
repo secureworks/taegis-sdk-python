@@ -98,7 +98,7 @@ class TaegisSDKUsersMutation:
         raise GraphQLNoRowsInResultSetError("for mutation updateTDRUser")
 
     def change_tdruser_email(self, id_: str, new_email_address: str) -> TDRUser:
-        """Change user email address."""
+        """Deprecated: Use currentUserChangeEmailAddress(). Change user email address."""
         endpoint = "changeTDRUserEmail"
 
         result = self.service.execute_mutation(
@@ -112,6 +112,23 @@ class TaegisSDKUsersMutation:
         if result.get(endpoint) is not None:
             return TDRUser.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for mutation changeTDRUserEmail")
+
+    def current_tdruser_change_email_address(self, new_email_address: str) -> TDRUser:
+        """Account owner-initiated email address change."""
+        endpoint = "currentTDRUserChangeEmailAddress"
+
+        result = self.service.execute_mutation(
+            endpoint=endpoint,
+            variables={
+                "newEmailAddress": prepare_input(new_email_address),
+            },
+            output=build_output_string(TDRUser),
+        )
+        if result.get(endpoint) is not None:
+            return TDRUser.from_dict(result.get(endpoint))
+        raise GraphQLNoRowsInResultSetError(
+            "for mutation currentTDRUserChangeEmailAddress"
+        )
 
     def remove_tdruser_roles(self, id_: str, roles: List[str]) -> TDRUser:
         """Remove roles from a user. Roles can either contain the role ID or role assignment ID."""

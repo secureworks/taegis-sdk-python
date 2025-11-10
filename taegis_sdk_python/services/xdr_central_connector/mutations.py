@@ -154,3 +154,37 @@ class TaegisSDKXdrCentralConnectorMutation:
         raise GraphQLNoRowsInResultSetError(
             "for mutation endLiveTerminalSessionEndpoint"
         )
+
+    def create_central_access_token(
+        self, input_: Optional[CreateCentralAccessTokenInput] = None
+    ) -> CentralAccessToken:
+        """create an access token."""
+        endpoint = "createCentralAccessToken"
+
+        result = self.service.execute_mutation(
+            endpoint=endpoint,
+            variables={
+                "input": prepare_input(input_),
+            },
+            output=build_output_string(CentralAccessToken),
+        )
+        if result.get(endpoint) is not None:
+            return CentralAccessToken.from_dict(result.get(endpoint))
+        raise GraphQLNoRowsInResultSetError("for mutation createCentralAccessToken")
+
+    def update_central_access_token(
+        self, input_: UpdateCreateCentralAccessTokenInput
+    ) -> CentralAccessToken:
+        """create an access token."""
+        endpoint = "updateCentralAccessToken"
+
+        result = self.service.execute_mutation(
+            endpoint=endpoint,
+            variables={
+                "input": prepare_input(input_),
+            },
+            output=build_output_string(CentralAccessToken),
+        )
+        if result.get(endpoint) is not None:
+            return CentralAccessToken.from_dict(result.get(endpoint))
+        raise GraphQLNoRowsInResultSetError("for mutation updateCentralAccessToken")

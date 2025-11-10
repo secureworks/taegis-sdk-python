@@ -204,6 +204,30 @@ class TaegisSDKEntityContextQuery:
             )
         raise GraphQLNoRowsInResultSetError("for query entityContextAssociatedEntities")
 
+    def entity_context_associated_entity_types(
+        self,
+        entry_point: EntityContextSingleEntryPoint,
+        source: Optional[EntityContextSourceInput] = None,
+    ) -> EntityContextAssociatedEntityTypesResponse:
+        """None."""
+        endpoint = "entityContextAssociatedEntityTypes"
+
+        result = self.service.execute_query(
+            endpoint=endpoint,
+            variables={
+                "entryPoint": prepare_input(entry_point),
+                "source": prepare_input(source),
+            },
+            output=build_output_string(EntityContextAssociatedEntityTypesResponse),
+        )
+        if result.get(endpoint) is not None:
+            return EntityContextAssociatedEntityTypesResponse.from_dict(
+                result.get(endpoint)
+            )
+        raise GraphQLNoRowsInResultSetError(
+            "for query entityContextAssociatedEntityTypes"
+        )
+
     def entity_context_pivot_ql(
         self,
         entry_point: EntityContextEntryPoint,
