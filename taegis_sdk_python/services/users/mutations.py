@@ -130,6 +130,25 @@ class TaegisSDKUsersMutation:
             "for mutation currentTDRUserChangeEmailAddress"
         )
 
+    def current_tdruser_change_email_validate(
+        self, change_email_input: ChangeEmailAddressValidationInput
+    ) -> TDRUser:
+        """Validate the account owner initiated email address change."""
+        endpoint = "currentTDRUserChangeEmailValidate"
+
+        result = self.service.execute_mutation(
+            endpoint=endpoint,
+            variables={
+                "changeEmailInput": prepare_input(change_email_input),
+            },
+            output=build_output_string(TDRUser),
+        )
+        if result.get(endpoint) is not None:
+            return TDRUser.from_dict(result.get(endpoint))
+        raise GraphQLNoRowsInResultSetError(
+            "for mutation currentTDRUserChangeEmailValidate"
+        )
+
     def remove_tdruser_roles(self, id_: str, roles: List[str]) -> TDRUser:
         """Remove roles from a user. Roles can either contain the role ID or role assignment ID."""
         endpoint = "removeTDRUserRoles"

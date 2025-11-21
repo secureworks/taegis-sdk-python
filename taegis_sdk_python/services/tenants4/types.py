@@ -111,6 +111,21 @@ class CachedEntryType(str, Enum):
     ALL_LICENSES_FOR_TENANT = "ALL_LICENSES_FOR_TENANT"
 
 
+class RetentionMonths(str, Enum):
+    """RetentionMonths."""
+
+    UNKNOWN_MONTHS = "UNKNOWN_MONTHS"
+    ZERO_MONTHS = "ZERO_MONTHS"
+    ONE_MONTH = "ONE_MONTH"
+    THREE_MONTHS = "THREE_MONTHS"
+    TWELVE_MONTHS = "TWELVE_MONTHS"
+    THIRTEEN_MONTHS = "THIRTEEN_MONTHS"
+    EIGHTEEN_MONTHS = "EIGHTEEN_MONTHS"
+    TWENTY_FOUR_MONTHS = "TWENTY_FOUR_MONTHS"
+    THIRTY_SIX_MONTHS = "THIRTY_SIX_MONTHS"
+    SIXTY_MONTHS = "SIXTY_MONTHS"
+
+
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
 class MappedTenant:
@@ -265,6 +280,22 @@ class DeleteCachedEntriesOutput:
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
+class RetentionPolicy:
+    """RetentionPolicy."""
+
+    months: Optional[int] = field(default=None, metadata=config(field_name="months"))
+    period: Optional[Union[RetentionMonths, TaegisEnum]] = field(
+        default=None,
+        metadata=config(
+            encoder=encode_enum,
+            decoder=lambda x: decode_enum(RetentionMonths, x),
+            field_name="period",
+        ),
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
 class ProductCatalogInput:
     """ProductCatalogInput."""
 
@@ -406,6 +437,12 @@ class TenantV4:
     support_inherited: Optional[bool] = field(
         default=None, metadata=config(field_name="supportInherited")
     )
+    allow_response_actions: Optional[bool] = field(
+        default=None, metadata=config(field_name="allowResponseActions")
+    )
+    actions_approver: Optional[str] = field(
+        default=None, metadata=config(field_name="actionsApprover")
+    )
     expires_at: Optional[str] = field(
         default=None, metadata=config(field_name="expiresAt")
     )
@@ -445,6 +482,9 @@ class TenantV4:
     )
     central_tenant: Optional[MappedTenant] = field(
         default=None, metadata=config(field_name="centralTenant")
+    )
+    data_retention_policy: Optional[RetentionPolicy] = field(
+        default=None, metadata=config(field_name="dataRetentionPolicy")
     )
 
 

@@ -289,6 +289,21 @@ class TaegisSDKInvestigations2Query:
             return CasesAggregation.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for query casesAggregation")
 
+    def cases_is_key_findings_rich_text(self, id_: str) -> bool:
+        """DO NOT USE: casesIsKeyFindingsRichText is meant for the Taegis/Central UIs only. It may be removed at any time without notice."""
+        endpoint = "casesIsKeyFindingsRichText"
+
+        result = self.service.execute_query(
+            endpoint=endpoint,
+            variables={
+                "id": prepare_input(id_),
+            },
+            output="",
+        )
+        if result.get(endpoint) is not None:
+            return result.get(endpoint)
+        raise GraphQLNoRowsInResultSetError("for query casesIsKeyFindingsRichText")
+
     def investigation_v2(self, arguments: InvestigationV2Arguments) -> InvestigationV2:
         """investigationV2 gets a single Investigation.."""
         endpoint = "investigationV2"

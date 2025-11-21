@@ -357,6 +357,15 @@ class PageInput:
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
+class ThreatTimeRangeInput:
+    """ThreatTimeRangeInput."""
+
+    start: Optional[str] = field(default=None, metadata=config(field_name="start"))
+    end: Optional[str] = field(default=None, metadata=config(field_name="end"))
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
 class Facet:
     """Facet."""
 
@@ -1512,6 +1521,32 @@ class IndicatorWhereInput:
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
+class MalwareFileFilter:
+    """MalwareFileFilter."""
+
+    where: Optional[MalwareFileWhereInput] = field(
+        default=None, metadata=config(field_name="where")
+    )
+    time_range: Optional[ThreatTimeRangeInput] = field(
+        default=None, metadata=config(field_name="timeRange")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class WatchlistFilter:
+    """WatchlistFilter."""
+
+    where: Optional[WatchlistWhereInput] = field(
+        default=None, metadata=config(field_name="where")
+    )
+    time_range: Optional[ThreatTimeRangeInput] = field(
+        default=None, metadata=config(field_name="timeRange")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
 class SortByInput:
     """SortByInput."""
 
@@ -2335,26 +2370,6 @@ class IndicatorFilter:
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
-class MalwareFileFilter:
-    """MalwareFileFilter."""
-
-    where: Optional[MalwareFileWhereInput] = field(
-        default=None, metadata=config(field_name="where")
-    )
-
-
-@dataclass_json
-@dataclass(order=True, eq=True, frozen=True)
-class WatchlistFilter:
-    """WatchlistFilter."""
-
-    where: Optional[WatchlistWhereInput] = field(
-        default=None, metadata=config(field_name="where")
-    )
-
-
-@dataclass_json
-@dataclass(order=True, eq=True, frozen=True)
 class ThreatIdentityRelationship:
     """ThreatIdentityRelationship."""
 
@@ -2473,6 +2488,9 @@ class ThreatIndicatorIntelligence:
     )
     groups: Optional[List[ThreatGroupRelationship]] = field(
         default=None, metadata=config(field_name="groups")
+    )
+    watchlists: Optional[List[ThreatRelationship]] = field(
+        default=None, metadata=config(field_name="watchlists")
     )
 
 

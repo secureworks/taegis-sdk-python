@@ -434,6 +434,22 @@ class SetLastLoginInput:
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
+class ChangeEmailAddressValidationInput:
+    """ChangeEmailAddressValidationInput."""
+
+    ticket_id: Optional[str] = field(
+        default=None, metadata=config(field_name="ticket_id")
+    )
+    email_address: Optional[str] = field(
+        default=None, metadata=config(field_name="email_address")
+    )
+    new_email_address: Optional[str] = field(
+        default=None, metadata=config(field_name="new_email_address")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
 class TDRUserInviteInput:
     """TDRUserInviteInput."""
 

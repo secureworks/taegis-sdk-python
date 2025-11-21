@@ -60,6 +60,14 @@ class CentralUser:
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
+class CentralClient:
+    """CentralClient."""
+
+    id: Optional[str] = field(default=None, metadata=config(field_name="id"))
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
 class CacheInvalidateInput:
     """CacheInvalidateInput."""
 
@@ -87,6 +95,7 @@ SubjectIdentity = Union[
     TDRUser,
     Client,
     CentralUser,
+    CentralClient,
 ]
 
 

@@ -138,8 +138,6 @@ class TaegisSDKThreatQuery:
     def threat_watchlist(
         self,
         type_: Union[ThreatParentType, TaegisEnum],
-        added_after: Optional[str] = None,
-        added_before: Optional[str] = None,
         page: Optional[PageInput] = None,
         filters: Optional[WatchlistFilter] = None,
     ) -> List[ThreatRelationship]:
@@ -150,29 +148,30 @@ class TaegisSDKThreatQuery:
         Results are sorted by the 'created' field in descending order (newest first).
 
         Additional filtering options:
-        - addedAfter: input timestamp to filter records created after this time
-        - addedBefore: input timestamp to filter records created before this time
-        - page: Optional pagination controls (offset/limit). If not provided, returns ALL results.
-          When paginating, clients must detect the last page by checking if the number of returned
-          results is less than the requested limit, or if an empty array is returned.
-        - filters: Supports targetRef and confidence filtering
+        - filters.timeRange: Optional time range filter. If not provided, returns all records.
+          Usage scenarios:
+            - Only start provided: Returns all records from the specified start time to now (no upper bound)
+            - Only end provided: Returns all records from the beginning up to the specified end time (no lower bound)
+            - Both provided: Returns records within the specified time range
+            - Neither provided: Returns all records (no time filtering)
+          Example: filters: { timeRange: { start: "2024-01-01T00:00:00Z", end: "2024-01-31T23:59:59Z" } }
+        - filters.where: Field-specific filtering (targetRef and confidence)
           Examples:
             Confidence Range: filters: { where: { confidence_gte: 70, confidence_lte: 90 } }
             Confidence Minimum: filters: { where: { confidence_gte: 80 } }
             Confidence Maximum: filters: { where: { confidence_lte: 50 } }
             Target Filter: filters: { where: { or: [{ targetRef: "malware_name" }] } }
           Note: Each filter should use either confidence fields OR targetRef, not both in the same where clause
-
-        Time range examples:
-          - addedAfter: "2024-01-01T00:00:00Z", addedBefore: "2024-01-31T23:59:59Z"."""
+        - page: Optional pagination controls (offset/limit). If not provided, returns ALL results.
+          When paginating, clients must detect the last page by checking if the number of returned
+          results is less than the requested limit, or if an empty array is returned..
+        """
         endpoint = "threatWatchlist"
 
         result = self.service.execute_query(
             endpoint=endpoint,
             variables={
                 "type": prepare_input(type_),
-                "addedAfter": prepare_input(added_after),
-                "addedBefore": prepare_input(added_before),
                 "page": prepare_input(page),
                 "filters": prepare_input(filters),
             },
@@ -187,8 +186,6 @@ class TaegisSDKThreatQuery:
     def threat_tims_malware_files(
         self,
         last_created: Optional[str] = None,
-        added_after: Optional[str] = None,
-        added_before: Optional[str] = None,
         filters: Optional[MalwareFileFilter] = None,
     ) -> PagedMalwareFiles:
         """Get all TIMS 2.0 Malware file hashes. All results are considered **high confidence**.
@@ -201,13 +198,15 @@ class TaegisSDKThreatQuery:
         It is only used for sorting.
 
         Additional filtering options:
-        - addedAfter: input timestamp to filter records created after this time
-        - addedBefore: input timestamp to filter records created before this time
-        - filters: Supports threat description filtering via OR array format only
+        - filters.timeRange: Optional time range filter. If not provided, returns all records.
+          Usage scenarios:
+            - Only start provided: Returns all records from the specified start time to now (no upper bound)
+            - Only end provided: Returns all records from the beginning up to the specified end time (no lower bound)
+            - Both provided: Returns records within the specified time range
+            - Neither provided: Returns all records (no time filtering)
+          Example: filters: { timeRange: { start: "2024-01-01T00:00:00Z", end: "2024-01-31T23:59:59Z" } }
+        - filters.where: Threat description filtering via OR array format only
           Example: filters: { where: { or: [{ threatDescription: "malware_name" }] } }
-
-        Time range examples:
-          - addedAfter: "2024-01-01T00:00:00Z", addedBefore: "2024-01-31T23:59:59Z"
 
         Pagination: Uses cursor-based pagination with 'last_created' parameter. For small time ranges
         (results < 10k), all data is returned in one response. For larger datasets, use 'last_created'
@@ -218,8 +217,6 @@ class TaegisSDKThreatQuery:
             endpoint=endpoint,
             variables={
                 "last_created": prepare_input(last_created),
-                "addedAfter": prepare_input(added_after),
-                "addedBefore": prepare_input(added_before),
                 "filters": prepare_input(filters),
             },
             output=build_output_string(PagedMalwareFiles),

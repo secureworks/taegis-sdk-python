@@ -130,3 +130,16 @@ class TaegisSDKTripQuery:
                 [r or {} for r in result.get(endpoint)], many=True
             )
         raise GraphQLNoRowsInResultSetError("for query getEnvConfig")
+
+    def list_allowed_products_for_tenant(self) -> List[ApiProduct]:
+        """None."""
+        endpoint = "listAllowedProductsForTenant"
+
+        result = self.service.execute_query(
+            endpoint=endpoint, variables={}, output=build_output_string(ApiProduct)
+        )
+        if result.get(endpoint) is not None:
+            return ApiProduct.schema().load(
+                [r or {} for r in result.get(endpoint)], many=True
+            )
+        raise GraphQLNoRowsInResultSetError("for query listAllowedProductsForTenant")
