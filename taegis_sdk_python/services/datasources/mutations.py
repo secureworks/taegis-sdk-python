@@ -45,7 +45,10 @@ class TaegisSDKDatasourcesMutation:
             variables={
                 "deleteAssetInput": prepare_input(delete_asset_input),
             },
-            output=build_output_string(DeletedAsset),
+            output=build_output_string(
+                DeletedAsset,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return DeletedAsset.schema().load(
@@ -93,7 +96,10 @@ class TaegisSDKDatasourcesMutation:
             variables={
                 "input": prepare_input(input_),
             },
-            output=build_output_string(DataSourceTag),
+            output=build_output_string(
+                DataSourceTag,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return DataSourceTag.from_dict(result.get(endpoint))

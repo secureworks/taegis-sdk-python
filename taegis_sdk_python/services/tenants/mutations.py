@@ -41,7 +41,10 @@ class TaegisSDKTenantsMutation:
             variables={
                 "input": prepare_input(input_),
             },
-            output=build_output_string(Service),
+            output=build_output_string(
+                Service,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return Service.from_dict(result.get(endpoint))
@@ -56,7 +59,10 @@ class TaegisSDKTenantsMutation:
             variables={
                 "input": prepare_input(input_),
             },
-            output=build_output_string(Service),
+            output=build_output_string(
+                Service,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return Service.from_dict(result.get(endpoint))
@@ -71,7 +77,10 @@ class TaegisSDKTenantsMutation:
             variables={
                 "id": prepare_input(id_),
             },
-            output=build_output_string(Service),
+            output=build_output_string(
+                Service,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return Service.from_dict(result.get(endpoint))
@@ -87,7 +96,9 @@ class TaegisSDKTenantsMutation:
                 "tenant_id": prepare_input(tenant_id),
                 "subscription_id": prepare_input(subscription_id),
             },
-            output=build_output_string(Tenant),
+            output=build_output_string(
+                Tenant, exclude_deprecated_output=self.service.exclude_deprecated_output
+            ),
         )
         if result.get(endpoint) is not None:
             return Tenant.from_dict(result.get(endpoint))
@@ -103,7 +114,9 @@ class TaegisSDKTenantsMutation:
                 "tenant_id": prepare_input(tenant_id),
                 "subscription_id": prepare_input(subscription_id),
             },
-            output=build_output_string(Tenant),
+            output=build_output_string(
+                Tenant, exclude_deprecated_output=self.service.exclude_deprecated_output
+            ),
         )
         if result.get(endpoint) is not None:
             return Tenant.from_dict(result.get(endpoint))
@@ -121,7 +134,10 @@ class TaegisSDKTenantsMutation:
                 "tenant_id": prepare_input(tenant_id),
                 "label_input": prepare_input(label_input),
             },
-            output=build_output_string(TenantLabel),
+            output=build_output_string(
+                TenantLabel,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return TenantLabel.from_dict(result.get(endpoint))
@@ -140,7 +156,10 @@ class TaegisSDKTenantsMutation:
                 "tenant_id": prepare_input(tenant_id),
                 "label_input": prepare_input(label_input),
             },
-            output=build_output_string(TenantLabel),
+            output=build_output_string(
+                TenantLabel,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return TenantLabel.from_dict(result.get(endpoint))
@@ -156,7 +175,10 @@ class TaegisSDKTenantsMutation:
                 "label_id": prepare_input(label_id),
                 "tenant_id": prepare_input(tenant_id),
             },
-            output=build_output_string(TenantLabel),
+            output=build_output_string(
+                TenantLabel,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return TenantLabel.from_dict(result.get(endpoint))
@@ -171,7 +193,9 @@ class TaegisSDKTenantsMutation:
             variables={
                 "newTenant": prepare_input(new_tenant),
             },
-            output=build_output_string(Tenant),
+            output=build_output_string(
+                Tenant, exclude_deprecated_output=self.service.exclude_deprecated_output
+            ),
         )
         if result.get(endpoint) is not None:
             return Tenant.from_dict(result.get(endpoint))
@@ -187,7 +211,9 @@ class TaegisSDKTenantsMutation:
                 "tenantID": prepare_input(tenant_id),
                 "tenantUpdate": prepare_input(tenant_update),
             },
-            output=build_output_string(Tenant),
+            output=build_output_string(
+                Tenant, exclude_deprecated_output=self.service.exclude_deprecated_output
+            ),
         )
         if result.get(endpoint) is not None:
             return Tenant.from_dict(result.get(endpoint))
@@ -204,7 +230,10 @@ class TaegisSDKTenantsMutation:
             variables={
                 "newConnection": prepare_input(new_connection),
             },
-            output=build_output_string(SSOConnection),
+            output=build_output_string(
+                SSOConnection,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return SSOConnection.from_dict(result.get(endpoint))
@@ -221,7 +250,10 @@ class TaegisSDKTenantsMutation:
             variables={
                 "updatedConnection": prepare_input(updated_connection),
             },
-            output=build_output_string(SSOConnection),
+            output=build_output_string(
+                SSOConnection,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return SSOConnection.from_dict(result.get(endpoint))
@@ -236,7 +268,10 @@ class TaegisSDKTenantsMutation:
             variables={
                 "connectionID": prepare_input(connection_id),
             },
-            output=build_output_string(SSOConnection),
+            output=build_output_string(
+                SSOConnection,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return SSOConnection.from_dict(result.get(endpoint))
@@ -252,7 +287,9 @@ class TaegisSDKTenantsMutation:
                 "tenant_id": prepare_input(tenant_id),
                 "allowed": prepare_input(allowed),
             },
-            output=build_output_string(Tenant),
+            output=build_output_string(
+                Tenant, exclude_deprecated_output=self.service.exclude_deprecated_output
+            ),
         )
         if result.get(endpoint) is not None:
             return Tenant.from_dict(result.get(endpoint))
@@ -267,7 +304,9 @@ class TaegisSDKTenantsMutation:
             variables={
                 "tenantID": prepare_input(tenant_id),
             },
-            output=build_output_string(Tenant),
+            output=build_output_string(
+                Tenant, exclude_deprecated_output=self.service.exclude_deprecated_output
+            ),
         )
         if result.get(endpoint) is not None:
             return Tenant.from_dict(result.get(endpoint))
@@ -282,7 +321,9 @@ class TaegisSDKTenantsMutation:
             variables={
                 "tenantID": prepare_input(tenant_id),
             },
-            output=build_output_string(Tenant),
+            output=build_output_string(
+                Tenant, exclude_deprecated_output=self.service.exclude_deprecated_output
+            ),
         )
         if result.get(endpoint) is not None:
             return Tenant.from_dict(result.get(endpoint))
@@ -300,7 +341,9 @@ class TaegisSDKTenantsMutation:
                 "tenantID": prepare_input(tenant_id),
                 "newPartnerTenantID": prepare_input(new_partner_tenant_id),
             },
-            output=build_output_string(Tenant),
+            output=build_output_string(
+                Tenant, exclude_deprecated_output=self.service.exclude_deprecated_output
+            ),
         )
         if result.get(endpoint) is not None:
             return Tenant.from_dict(result.get(endpoint))
@@ -317,7 +360,10 @@ class TaegisSDKTenantsMutation:
             variables={
                 "tenantServiceInput": prepare_input(tenant_service_input),
             },
-            output=build_output_string(TenantService),
+            output=build_output_string(
+                TenantService,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return TenantService.from_dict(result.get(endpoint))
@@ -334,7 +380,10 @@ class TaegisSDKTenantsMutation:
             variables={
                 "input": prepare_input(input_),
             },
-            output=build_output_string(TenantDecommissionRequest),
+            output=build_output_string(
+                TenantDecommissionRequest,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return TenantDecommissionRequest.from_dict(result.get(endpoint))
@@ -353,7 +402,10 @@ class TaegisSDKTenantsMutation:
             variables={
                 "updateRequest": prepare_input(update_request),
             },
-            output=build_output_string(TenantDecommissionRequest),
+            output=build_output_string(
+                TenantDecommissionRequest,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return TenantDecommissionRequest.from_dict(result.get(endpoint))
@@ -372,7 +424,10 @@ class TaegisSDKTenantsMutation:
             variables={
                 "taskID": prepare_input(task_id),
             },
-            output=build_output_string(TenantDecommissionRequest),
+            output=build_output_string(
+                TenantDecommissionRequest,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return TenantDecommissionRequest.from_dict(result.get(endpoint))
@@ -389,7 +444,10 @@ class TaegisSDKTenantsMutation:
             variables={
                 "requestID": prepare_input(request_id),
             },
-            output=build_output_string(TenantDecommissionRequest),
+            output=build_output_string(
+                TenantDecommissionRequest,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return TenantDecommissionRequest.from_dict(result.get(endpoint))
@@ -408,7 +466,10 @@ class TaegisSDKTenantsMutation:
             variables={
                 "requestID": prepare_input(request_id),
             },
-            output=build_output_string(TenantDecommissionRequest),
+            output=build_output_string(
+                TenantDecommissionRequest,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return TenantDecommissionRequest.from_dict(result.get(endpoint))
@@ -427,7 +488,10 @@ class TaegisSDKTenantsMutation:
             variables={
                 "requestID": prepare_input(request_id),
             },
-            output=build_output_string(TenantDecommissionRequest),
+            output=build_output_string(
+                TenantDecommissionRequest,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return TenantDecommissionRequest.from_dict(result.get(endpoint))
@@ -447,7 +511,10 @@ class TaegisSDKTenantsMutation:
                 "requestID": prepare_input(request_id),
                 "reason": prepare_input(reason),
             },
-            output=build_output_string(TenantDecommissionRequest),
+            output=build_output_string(
+                TenantDecommissionRequest,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return TenantDecommissionRequest.from_dict(result.get(endpoint))
@@ -464,7 +531,10 @@ class TaegisSDKTenantsMutation:
             variables={
                 "input": prepare_input(input_),
             },
-            output=build_output_string(RegisteredDomain),
+            output=build_output_string(
+                RegisteredDomain,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return RegisteredDomain.from_dict(result.get(endpoint))
@@ -481,7 +551,10 @@ class TaegisSDKTenantsMutation:
             variables={
                 "input": prepare_input(input_),
             },
-            output=build_output_string(RegisteredDomain),
+            output=build_output_string(
+                RegisteredDomain,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return RegisteredDomain.from_dict(result.get(endpoint))
@@ -496,7 +569,10 @@ class TaegisSDKTenantsMutation:
             variables={
                 "domain": prepare_input(domain),
             },
-            output=build_output_string(RegisteredDomain),
+            output=build_output_string(
+                RegisteredDomain,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return RegisteredDomain.from_dict(result.get(endpoint))

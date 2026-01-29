@@ -43,7 +43,10 @@ class TaegisSDKInvestigationsQuery:
         result = self.service.execute_query(
             endpoint=endpoint,
             variables={},
-            output=build_output_string(InvestigationSummary),
+            output=build_output_string(
+                InvestigationSummary,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return InvestigationSummary.schema().load(
@@ -64,7 +67,10 @@ class TaegisSDKInvestigationsQuery:
             variables={
                 "investigation_id": prepare_input(investigation_id),
             },
-            output=build_output_string(Investigation),
+            output=build_output_string(
+                Investigation,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return Investigation.from_dict(result.get(endpoint))
@@ -85,7 +91,10 @@ class TaegisSDKInvestigationsQuery:
             variables={
                 "investigation_ids": prepare_input(investigation_ids),
             },
-            output=build_output_string(Investigation),
+            output=build_output_string(
+                Investigation,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return Investigation.schema().load(
@@ -134,7 +143,10 @@ class TaegisSDKInvestigationsQuery:
                     hide_threat_hunting_investigations
                 ),
             },
-            output=build_output_string(Investigation),
+            output=build_output_string(
+                Investigation,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return Investigation.schema().load(
@@ -162,7 +174,9 @@ class TaegisSDKInvestigationsQuery:
                 "after": prepare_input(after),
                 "before": prepare_input(before),
             },
-            output=build_output_string(Count),
+            output=build_output_string(
+                Count, exclude_deprecated_output=self.service.exclude_deprecated_output
+            ),
         )
         if result.get(endpoint) is not None:
             return Count.from_dict(result.get(endpoint))
@@ -188,7 +202,10 @@ class TaegisSDKInvestigationsQuery:
                 "before": prepare_input(before),
                 "includeThreatHuntTypes": prepare_input(include_threat_hunt_types),
             },
-            output=build_output_string(TimeSummaryForGroup),
+            output=build_output_string(
+                TimeSummaryForGroup,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return TimeSummaryForGroup.from_dict(result.get(endpoint))
@@ -214,7 +231,10 @@ class TaegisSDKInvestigationsQuery:
                 "page": prepare_input(page),
                 "perPage": prepare_input(per_page),
             },
-            output=build_output_string(InvestigationAssetOutput),
+            output=build_output_string(
+                InvestigationAssetOutput,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return InvestigationAssetOutput.from_dict(result.get(endpoint))
@@ -240,7 +260,10 @@ class TaegisSDKInvestigationsQuery:
                 "page": prepare_input(page),
                 "perPage": prepare_input(per_page),
             },
-            output=build_output_string(InvestigationEventOutput),
+            output=build_output_string(
+                InvestigationEventOutput,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return InvestigationEventOutput.from_dict(result.get(endpoint))
@@ -274,7 +297,10 @@ class TaegisSDKInvestigationsQuery:
                 "orderByField": prepare_input(order_by_field),
                 "orderDirection": prepare_input(order_direction),
             },
-            output=build_output_string(InvestigationAlertOutput),
+            output=build_output_string(
+                InvestigationAlertOutput,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return InvestigationAlertOutput.from_dict(result.get(endpoint))
@@ -293,7 +319,9 @@ class TaegisSDKInvestigationsQuery:
             variables={
                 "investigation_id": prepare_input(investigation_id),
             },
-            output=build_output_string(Event),
+            output=build_output_string(
+                Event, exclude_deprecated_output=self.service.exclude_deprecated_output
+            ),
         )
         if result.get(endpoint) is not None:
             return Event.schema().load(
@@ -314,7 +342,9 @@ class TaegisSDKInvestigationsQuery:
             variables={
                 "investigation_id": prepare_input(investigation_id),
             },
-            output=build_output_string(Alert),
+            output=build_output_string(
+                Alert, exclude_deprecated_output=self.service.exclude_deprecated_output
+            ),
         )
         if result.get(endpoint) is not None:
             return Alert.schema().load(
@@ -354,7 +384,10 @@ class TaegisSDKInvestigationsQuery:
             variables={
                 "investigation_id": prepare_input(investigation_id),
             },
-            output=build_output_string(SearchQuery),
+            output=build_output_string(
+                SearchQuery,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return SearchQuery.schema().load(
@@ -377,7 +410,10 @@ class TaegisSDKInvestigationsQuery:
             variables={
                 "queryStrings": prepare_input(query_strings),
             },
-            output=build_output_string(InvestigationBulkResponse),
+            output=build_output_string(
+                InvestigationBulkResponse,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return InvestigationBulkResponse.schema().load(
@@ -414,7 +450,10 @@ class TaegisSDKInvestigationsQuery:
                 "updatedAfter": prepare_input(updated_after),
                 "updatedBefore": prepare_input(updated_before),
             },
-            output=build_output_string(SummaryGroup),
+            output=build_output_string(
+                SummaryGroup,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return SummaryGroup.schema().load(
@@ -451,7 +490,10 @@ class TaegisSDKInvestigationsQuery:
                 "orderByField": prepare_input(order_by_field),
                 "orderDirection": prepare_input(order_direction),
             },
-            output=build_output_string(InvestigationsOutput),
+            output=build_output_string(
+                InvestigationsOutput,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return InvestigationsOutput.from_dict(result.get(endpoint))
@@ -491,7 +533,10 @@ class TaegisSDKInvestigationsQuery:
             variables={
                 "investigation_id": prepare_input(investigation_id),
             },
-            output=build_output_string(InvestigationProcessingResponse),
+            output=build_output_string(
+                InvestigationProcessingResponse,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return InvestigationProcessingResponse.from_dict(result.get(endpoint))
@@ -547,7 +592,10 @@ class TaegisSDKInvestigationsQuery:
         result = self.service.execute_query(
             endpoint=endpoint,
             variables={},
-            output=build_output_string(InvestigationStatusCountResponse),
+            output=build_output_string(
+                InvestigationStatusCountResponse,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return InvestigationStatusCountResponse.from_dict(result.get(endpoint))
@@ -581,7 +629,10 @@ class TaegisSDKInvestigationsQuery:
                 "orderByField": prepare_input(order_by_field),
                 "orderDirection": prepare_input(order_direction),
             },
-            output=build_output_string(InvestigationsExportOutput),
+            output=build_output_string(
+                InvestigationsExportOutput,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return InvestigationsExportOutput.from_dict(result.get(endpoint))
@@ -600,7 +651,10 @@ class TaegisSDKInvestigationsQuery:
             variables={
                 "file_id": prepare_input(file_id),
             },
-            output=build_output_string(InvestigationFile),
+            output=build_output_string(
+                InvestigationFile,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return InvestigationFile.from_dict(result.get(endpoint))
@@ -619,7 +673,10 @@ class TaegisSDKInvestigationsQuery:
             variables={
                 "investigation_id": prepare_input(investigation_id),
             },
-            output=build_output_string(InvestigationFile),
+            output=build_output_string(
+                InvestigationFile,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return InvestigationFile.schema().load(
@@ -670,7 +727,10 @@ class TaegisSDKInvestigationsQuery:
                 "page": prepare_input(page),
                 "perPage": prepare_input(per_page),
             },
-            output=build_output_string(Investigation),
+            output=build_output_string(
+                Investigation,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return Investigation.schema().load(
@@ -708,7 +768,10 @@ class TaegisSDKInvestigationsQuery:
                 ),
                 "excludeThreatHuntTypes": prepare_input(exclude_threat_hunt_types),
             },
-            output=build_output_string(InvestigationsOutput),
+            output=build_output_string(
+                InvestigationsOutput,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return InvestigationsOutput.from_dict(result.get(endpoint))
@@ -725,7 +788,10 @@ class TaegisSDKInvestigationsQuery:
         result = self.service.execute_query(
             endpoint=endpoint,
             variables={},
-            output=build_output_string(InvestigationKeyValuePair),
+            output=build_output_string(
+                InvestigationKeyValuePair,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return InvestigationKeyValuePair.schema().load(
@@ -744,7 +810,10 @@ class TaegisSDKInvestigationsQuery:
         result = self.service.execute_query(
             endpoint=endpoint,
             variables={},
-            output=build_output_string(InvestigationKeyValuePair),
+            output=build_output_string(
+                InvestigationKeyValuePair,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return InvestigationKeyValuePair.schema().load(
@@ -763,7 +832,10 @@ class TaegisSDKInvestigationsQuery:
         result = self.service.execute_query(
             endpoint=endpoint,
             variables={},
-            output=build_output_string(InvestigationKeyValuePair),
+            output=build_output_string(
+                InvestigationKeyValuePair,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return InvestigationKeyValuePair.schema().load(
@@ -786,7 +858,10 @@ class TaegisSDKInvestigationsQuery:
             variables={
                 "arguments": prepare_input(arguments),
             },
-            output=build_output_string(InvestigationTimeline),
+            output=build_output_string(
+                InvestigationTimeline,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return InvestigationTimeline.from_dict(result.get(endpoint))
@@ -805,7 +880,10 @@ class TaegisSDKInvestigationsQuery:
             variables={
                 "arguments": prepare_input(arguments),
             },
-            output=build_output_string(InvestigationEntities),
+            output=build_output_string(
+                InvestigationEntities,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return InvestigationEntities.from_dict(result.get(endpoint))

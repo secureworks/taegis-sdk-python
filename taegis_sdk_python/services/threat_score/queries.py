@@ -41,7 +41,10 @@ class TaegisSDKThreatScoreQuery:
             variables={
                 "id": prepare_input(id_),
             },
-            output=build_output_string(AlertPrioritization),
+            output=build_output_string(
+                AlertPrioritization,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return AlertPrioritization.from_dict(result.get(endpoint))
@@ -58,7 +61,10 @@ class TaegisSDKThreatScoreQuery:
             variables={
                 "ids": prepare_input(ids),
             },
-            output=build_output_string(AlertPrioritization),
+            output=build_output_string(
+                AlertPrioritization,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return AlertPrioritization.schema().load(

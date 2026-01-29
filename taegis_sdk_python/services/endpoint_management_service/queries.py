@@ -39,7 +39,12 @@ class TaegisSDKEndpointManagementServiceQuery:
         endpoint = "allEndpointGroups"
 
         result = self.service.execute_query(
-            endpoint=endpoint, variables={}, output=build_output_string(EndpointGroup)
+            endpoint=endpoint,
+            variables={},
+            output=build_output_string(
+                EndpointGroup,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return EndpointGroup.schema().load(
@@ -59,7 +64,10 @@ class TaegisSDKEndpointManagementServiceQuery:
                 "first": prepare_input(first),
                 "after": prepare_input(after),
             },
-            output=build_output_string(EndpointGroupsPagedOutput),
+            output=build_output_string(
+                EndpointGroupsPagedOutput,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return EndpointGroupsPagedOutput.from_dict(result.get(endpoint))
@@ -74,7 +82,10 @@ class TaegisSDKEndpointManagementServiceQuery:
             variables={
                 "arguments": prepare_input(arguments),
             },
-            output=build_output_string(EndpointGroup),
+            output=build_output_string(
+                EndpointGroup,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return EndpointGroup.from_dict(result.get(endpoint))
@@ -91,7 +102,10 @@ class TaegisSDKEndpointManagementServiceQuery:
             variables={
                 "registrationKey": prepare_input(registration_key),
             },
-            output=build_output_string(EndpointGroup),
+            output=build_output_string(
+                EndpointGroup,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return EndpointGroup.from_dict(result.get(endpoint))
@@ -106,7 +120,9 @@ class TaegisSDKEndpointManagementServiceQuery:
             variables={
                 "arguments": prepare_input(arguments),
             },
-            output=build_output_string(Policy),
+            output=build_output_string(
+                Policy, exclude_deprecated_output=self.service.exclude_deprecated_output
+            ),
         )
         if result.get(endpoint) is not None:
             return Policy.schema().load(
@@ -125,7 +141,10 @@ class TaegisSDKEndpointManagementServiceQuery:
             variables={
                 "requestId": prepare_input(request_id),
             },
-            output=build_output_string(BulkAssignRequestOutput),
+            output=build_output_string(
+                BulkAssignRequestOutput,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return BulkAssignRequestOutput.from_dict(result.get(endpoint))
@@ -140,7 +159,10 @@ class TaegisSDKEndpointManagementServiceQuery:
             variables={
                 "id": prepare_input(id_),
             },
-            output=build_output_string(BulkAssignRequestOutput),
+            output=build_output_string(
+                BulkAssignRequestOutput,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return BulkAssignRequestOutput.from_dict(result.get(endpoint))
@@ -151,7 +173,12 @@ class TaegisSDKEndpointManagementServiceQuery:
         endpoint = "defaultAgentSetting"
 
         result = self.service.execute_query(
-            endpoint=endpoint, variables={}, output=build_output_string(AgentSetting)
+            endpoint=endpoint,
+            variables={},
+            output=build_output_string(
+                AgentSetting,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return AgentSetting.from_dict(result.get(endpoint))
@@ -166,7 +193,10 @@ class TaegisSDKEndpointManagementServiceQuery:
             variables={
                 "id": prepare_input(id_),
             },
-            output=build_output_string(AgentSetting),
+            output=build_output_string(
+                AgentSetting,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return AgentSetting.from_dict(result.get(endpoint))
@@ -184,7 +214,10 @@ class TaegisSDKEndpointManagementServiceQuery:
                 "first": prepare_input(first),
                 "after": prepare_input(after),
             },
-            output=build_output_string(AgentSettings),
+            output=build_output_string(
+                AgentSettings,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return AgentSettings.from_dict(result.get(endpoint))
@@ -201,7 +234,10 @@ class TaegisSDKEndpointManagementServiceQuery:
             variables={
                 "profileName": prepare_input(profile_name),
             },
-            output=build_output_string(AgentSettingsDefaults),
+            output=build_output_string(
+                AgentSettingsDefaults,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return AgentSettingsDefaults.from_dict(result.get(endpoint))

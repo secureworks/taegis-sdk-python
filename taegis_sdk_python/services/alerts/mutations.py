@@ -43,7 +43,10 @@ class TaegisSDKAlertsMutation:
             variables={
                 "in": prepare_input(in_),
             },
-            output=build_output_string(UpdateInvestigationResponse),
+            output=build_output_string(
+                UpdateInvestigationResponse,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return UpdateInvestigationResponse.from_dict(result.get(endpoint))
@@ -62,7 +65,10 @@ class TaegisSDKAlertsMutation:
             variables={
                 "in": prepare_input(in_),
             },
-            output=build_output_string(UpdateResolutionResponse),
+            output=build_output_string(
+                UpdateResolutionResponse,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return UpdateResolutionResponse.from_dict(result.get(endpoint))
@@ -81,7 +87,10 @@ class TaegisSDKAlertsMutation:
             variables={
                 "in": prepare_input(in_),
             },
-            output=build_output_string(BulkInvestigationsResponse),
+            output=build_output_string(
+                BulkInvestigationsResponse,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return BulkInvestigationsResponse.from_dict(result.get(endpoint))
@@ -104,7 +113,10 @@ class TaegisSDKAlertsMutation:
             variables={
                 "in": prepare_input(in_),
             },
-            output=build_output_string(EvictResponse),
+            output=build_output_string(
+                EvictResponse,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return EvictResponse.from_dict(result.get(endpoint))
@@ -121,7 +133,10 @@ class TaegisSDKAlertsMutation:
             variables={
                 "in": prepare_input(in_),
             },
-            output=build_output_string(UpdateThreatScoreResponse),
+            output=build_output_string(
+                UpdateThreatScoreResponse,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return UpdateThreatScoreResponse.from_dict(result.get(endpoint))
@@ -140,7 +155,10 @@ class TaegisSDKAlertsMutation:
             variables={
                 "in": prepare_input(in_),
             },
-            output=build_output_string(UpdateThreatScoreResponse),
+            output=build_output_string(
+                UpdateThreatScoreResponse,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return UpdateThreatScoreResponse.from_dict(result.get(endpoint))

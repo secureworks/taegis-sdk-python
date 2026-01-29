@@ -72,7 +72,7 @@ def unwrap(t: Field) -> Any:
     return t
 
 
-def build_output_dataclass(cls: Any) -> Any:
+def build_output_dataclass(cls: Any, exclude_deprecated_output: bool = True) -> Any:
     """Build Output String from Dataclass
 
     Parameters
@@ -99,7 +99,9 @@ def build_output_dataclass(cls: Any) -> Any:
                 f"'{field.metadata.get('deprecation_reason')}', "
                 "removing from default output..."
             )
-            continue
+
+            if exclude_deprecated_output:
+                continue
 
         output_fields.append(field_name)
 
@@ -108,16 +110,18 @@ def build_output_dataclass(cls: Any) -> Any:
 
         if is_dataclass(type_):
             log.debug("Dataclass type detected, generating output string...")
-            output_fields.append(f"{{ {build_output_string(type_)} }}")
+            output_fields.append(
+                f"{{ {build_output_string(type_, exclude_deprecated_output)} }}"
+            )
             log.debug("Generating output string.  Done...")
 
         else:
-            output_fields.append(build_output_string(type_))
+            output_fields.append(build_output_string(type_, exclude_deprecated_output))
 
     return output_fields
 
 
-def build_output_string(cls) -> str:
+def build_output_string(cls, exclude_deprecated_output: bool = True) -> str:
     """
     Generate GraphQL output string from defined Dataclass.
 
@@ -135,7 +139,7 @@ def build_output_string(cls) -> str:
 
     if is_dataclass(cls):
         log.debug(f"{cls} is dataclass...")
-        output_fields.extend(build_output_dataclass(cls))
+        output_fields.extend(build_output_dataclass(cls, exclude_deprecated_output))
 
     elif is_union_type(cls):
         log.debug(f"{cls} is union...")
@@ -143,7 +147,7 @@ def build_output_string(cls) -> str:
         for item in get_args(cls):
             if item == type(None):
                 continue
-            output_string = build_output_string(item)
+            output_string = build_output_string(item, exclude_deprecated_output)
             output_fields.append(f"... on {item.__name__} {{ {output_string} }}")
 
     elif isinstance(cls, (list, tuple)):
@@ -156,7 +160,7 @@ def build_output_string(cls) -> str:
         for item in cls:
             if item == type(None):
                 continue
-            output_string = build_output_string(item)
+            output_string = build_output_string(item, exclude_deprecated_output)
             output_fields.append(f"... on {item.__name__} {{ {output_string} }}")
         output_fields.append("}")
         log.debug("Generating output string.  Done...")
@@ -199,7 +203,9 @@ def graphql_unwrap_field(field: Any) -> Any:
     return field_type
 
 
-def build_output_string_from_introspection(field: Any) -> str:
+def build_output_string_from_introspection(
+    field: Any, exclude_deprecated_output: bool = True
+) -> str:
     """
     Generate the fields string representation from a schema field.
 
@@ -228,6 +234,16 @@ def build_output_string_from_introspection(field: Any) -> str:
         return "\n".join(fragments)
 
     for name, gql_type in field.fields.items():
+        if gql_type.deprecation_reason is not None:
+            log.warning(
+                f"Output field `{name}` is deprecated: "
+                f"'{gql_type.metadata.get('deprecation_reason')}', "
+                "removing from default output..."
+            )
+
+            if exclude_deprecated_output:
+                continue
+
         fields.append(name)
         scalar = graphql_unwrap_field(gql_type)
         if is_object_type(scalar):

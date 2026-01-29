@@ -41,7 +41,10 @@ class TaegisSDKThreatMutation:
             variables={
                 "id": prepare_input(id_),
             },
-            output=build_output_string(ThreatIndicator),
+            output=build_output_string(
+                ThreatIndicator,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return ThreatIndicator.from_dict(result.get(endpoint))

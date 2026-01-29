@@ -48,7 +48,10 @@ class TaegisSDKClientsMutation:
                 "roles": prepare_input(roles),
                 "input": prepare_input(input_),
             },
-            output=build_output_string(NewClient),
+            output=build_output_string(
+                NewClient,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return NewClient.from_dict(result.get(endpoint))
@@ -64,7 +67,10 @@ class TaegisSDKClientsMutation:
                 "id": prepare_input(id_),
                 "secret": prepare_input(secret),
             },
-            output=build_output_string(NewClient),
+            output=build_output_string(
+                NewClient,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return NewClient.from_dict(result.get(endpoint))
@@ -79,7 +85,10 @@ class TaegisSDKClientsMutation:
             variables={
                 "id": prepare_input(id_),
             },
-            output=build_output_string(NewClient),
+            output=build_output_string(
+                NewClient,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return NewClient.from_dict(result.get(endpoint))
@@ -97,7 +106,9 @@ class TaegisSDKClientsMutation:
                 "id": prepare_input(id_),
                 "roles": prepare_input(roles),
             },
-            output=build_output_string(Client),
+            output=build_output_string(
+                Client, exclude_deprecated_output=self.service.exclude_deprecated_output
+            ),
         )
         if result.get(endpoint) is not None:
             return Client.from_dict(result.get(endpoint))
@@ -113,7 +124,9 @@ class TaegisSDKClientsMutation:
                 "id": prepare_input(id_),
                 "roles": prepare_input(roles),
             },
-            output=build_output_string(Client),
+            output=build_output_string(
+                Client, exclude_deprecated_output=self.service.exclude_deprecated_output
+            ),
         )
         if result.get(endpoint) is not None:
             return Client.from_dict(result.get(endpoint))
@@ -128,7 +141,9 @@ class TaegisSDKClientsMutation:
             variables={
                 "id": prepare_input(id_),
             },
-            output=build_output_string(Client),
+            output=build_output_string(
+                Client, exclude_deprecated_output=self.service.exclude_deprecated_output
+            ),
         )
         if result.get(endpoint) is not None:
             return Client.from_dict(result.get(endpoint))

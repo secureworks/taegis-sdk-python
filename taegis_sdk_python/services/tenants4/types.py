@@ -23,12 +23,16 @@ class TenantRegion(str, Enum):
     ECHO = "ECHO"
     FOXTROT = "FOXTROT"
     GOLF = "GOLF"
+    HOTEL = "HOTEL"
+    JULIET = "JULIET"
     PILOT = "PILOT"
     PILOT_CHARLIE = "PILOT_CHARLIE"
     PILOT_DELTA = "PILOT_DELTA"
     PILOT_ECHO = "PILOT_ECHO"
     PILOT_FOXTROT = "PILOT_FOXTROT"
     PILOT_GOLF = "PILOT_GOLF"
+    PILOT_HOTEL = "PILOT_HOTEL"
+    PILOT_JULIET = "PILOT_JULIET"
 
 
 class TenantEnvironment(str, Enum):
@@ -39,12 +43,16 @@ class TenantEnvironment(str, Enum):
     ECHO = "ECHO"
     FOXTROT = "FOXTROT"
     GOLF = "GOLF"
+    HOTEL = "HOTEL"
+    JULIET = "JULIET"
     PILOT = "PILOT"
     PILOT_CHARLIE = "PILOT_CHARLIE"
     PILOT_DELTA = "PILOT_DELTA"
     PILOT_ECHO = "PILOT_ECHO"
     PILOT_FOXTROT = "PILOT_FOXTROT"
     PILOT_GOLF = "PILOT_GOLF"
+    PILOT_HOTEL = "PILOT_HOTEL"
+    PILOT_JULIET = "PILOT_JULIET"
 
 
 class TenantResultOrder(str, Enum):
@@ -302,6 +310,9 @@ class ProductCatalogInput:
     codes: Optional[List[str]] = field(
         default=None, metadata=config(field_name="codes")
     )
+    features: Optional[List[str]] = field(
+        default=None, metadata=config(field_name="features")
+    )
     page: Optional[int] = field(default=None, metadata=config(field_name="page"))
     page_size: Optional[int] = field(
         default=None, metadata=config(field_name="pageSize")
@@ -413,6 +424,9 @@ class TenantV4:
     organization_name: Optional[str] = field(
         default=None, metadata=config(field_name="organizationName")
     )
+    mdr_provider_id: Optional[str] = field(
+        default=None, metadata=config(field_name="mdrProviderID")
+    )
     name: Optional[str] = field(default=None, metadata=config(field_name="name"))
     enabled: Optional[bool] = field(default=None, metadata=config(field_name="enabled"))
     hierarchy_path: Optional[str] = field(
@@ -457,7 +471,7 @@ class TenantV4:
         metadata=config(
             metadata={
                 "deprecated": True,
-                "deprecation_reason": "Use 'enabledAtEnvironments' with TenantEnvironment instead",
+                "deprecation_reason": "Use enabledAtEnvironments with TenantEnvironment instead",
             },
             encoder=encode_enum,
             decoder=lambda x: decode_enum(TenantRegion, x),
@@ -527,7 +541,14 @@ class TenantsQuery:
         default=None, metadata=config(field_name="supportEnabled")
     )
     cursor_pos: Optional[str] = field(
-        default=None, metadata=config(field_name="cursorPos")
+        default=None,
+        metadata=config(
+            metadata={
+                "deprecated": True,
+                "deprecation_reason": "Use afterCursor and beforeCursor instead",
+            },
+            field_name="cursorPos",
+        ),
     )
     after_cursor: Optional[str] = field(
         default=None, metadata=config(field_name="afterCursor")
@@ -614,6 +635,20 @@ class TenantResults:
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
+class ProductCatalogResponse:
+    """ProductCatalogResponse."""
+
+    count: Optional[int] = field(default=None, metadata=config(field_name="count"))
+    total_count: Optional[int] = field(
+        default=None, metadata=config(field_name="totalCount")
+    )
+    products: Optional[List[Product]] = field(
+        default=None, metadata=config(field_name="products")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
 class TenantLicenseResponse:
     """TenantLicenseResponse."""
 
@@ -624,17 +659,6 @@ class TenantLicenseResponse:
     licenses: Optional[List[TenantLicense]] = field(
         default=None, metadata=config(field_name="licenses")
     )
-
-
-@dataclass_json
-@dataclass(order=True, eq=True, frozen=True)
-class ProductCatalogResponse:
-    """ProductCatalogResponse."""
-
-    count: Optional[int] = field(default=None, metadata=config(field_name="count"))
-    total_count: Optional[int] = field(
-        default=None, metadata=config(field_name="totalCount")
-    )
-    products: Optional[List[Product]] = field(
-        default=None, metadata=config(field_name="products")
+    subscriptions: Optional[TenantSubscriptions] = field(
+        default=None, metadata=config(field_name="subscriptions")
     )

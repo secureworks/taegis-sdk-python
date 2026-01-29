@@ -43,7 +43,10 @@ class TaegisSDKEventSearchQuery:
             variables={
                 "in": prepare_input(in_),
             },
-            output=build_output_string(AuxiliaryEventsSearchResponse),
+            output=build_output_string(
+                AuxiliaryEventsSearchResponse,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return AuxiliaryEventsSearchResponse.from_dict(result.get(endpoint))
@@ -60,7 +63,10 @@ class TaegisSDKEventSearchQuery:
             variables={
                 "in": prepare_input(in_),
             },
-            output=build_output_string(AuxiliaryEventsSearchResponse),
+            output=build_output_string(
+                AuxiliaryEventsSearchResponse,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return AuxiliaryEventsSearchResponse.from_dict(result.get(endpoint))

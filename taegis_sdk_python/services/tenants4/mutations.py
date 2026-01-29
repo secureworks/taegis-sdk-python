@@ -43,7 +43,10 @@ class TaegisSDKTenants4Mutation:
             variables={
                 "input": prepare_input(input_),
             },
-            output=build_output_string(DeleteCachedEntriesOutput),
+            output=build_output_string(
+                DeleteCachedEntriesOutput,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return DeleteCachedEntriesOutput.from_dict(result.get(endpoint))

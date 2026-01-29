@@ -41,7 +41,9 @@ class TaegisSDKAuditsQuery:
             variables={
                 "AuditID": prepare_input(audit_id),
             },
-            output=build_output_string(Audit),
+            output=build_output_string(
+                Audit, exclude_deprecated_output=self.service.exclude_deprecated_output
+            ),
         )
         if result.get(endpoint) is not None:
             return Audit.from_dict(result.get(endpoint))
@@ -58,7 +60,10 @@ class TaegisSDKAuditsQuery:
             variables={
                 "allAuditsInput": prepare_input(all_audits_input),
             },
-            output=build_output_string(AuditResult),
+            output=build_output_string(
+                AuditResult,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return AuditResult.from_dict(result.get(endpoint))
@@ -73,7 +78,10 @@ class TaegisSDKAuditsQuery:
             variables={
                 "auditSearchInput": prepare_input(audit_search_input),
             },
-            output=build_output_string(AuditResult),
+            output=build_output_string(
+                AuditResult,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return AuditResult.from_dict(result.get(endpoint))
@@ -90,7 +98,10 @@ class TaegisSDKAuditsQuery:
             variables={
                 "application": prepare_input(application),
             },
-            output=build_output_string(AuditEventResult),
+            output=build_output_string(
+                AuditEventResult,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return AuditEventResult.from_dict(result.get(endpoint))
@@ -110,7 +121,10 @@ class TaegisSDKAuditsQuery:
                 "aggregationInput": prepare_input(aggregation_input),
                 "auditSearchInput": prepare_input(audit_search_input),
             },
-            output=build_output_string(ApplicationAggregationResult),
+            output=build_output_string(
+                ApplicationAggregationResult,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return ApplicationAggregationResult.from_dict(result.get(endpoint))

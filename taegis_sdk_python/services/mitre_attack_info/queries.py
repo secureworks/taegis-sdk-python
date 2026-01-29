@@ -43,7 +43,10 @@ class TaegisSDKMitreAttackInfoQuery:
             variables={
                 "in": prepare_input(in_),
             },
-            output=build_output_string(MitreAttackInformation),
+            output=build_output_string(
+                MitreAttackInformation,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return MitreAttackInformation.schema().load(
@@ -64,7 +67,10 @@ class TaegisSDKMitreAttackInfoQuery:
             variables={
                 "in": prepare_input(in_),
             },
-            output=build_output_string(MitreAttackInformation),
+            output=build_output_string(
+                MitreAttackInformation,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return MitreAttackInformation.schema().load(
@@ -85,7 +91,10 @@ class TaegisSDKMitreAttackInfoQuery:
             variables={
                 "in": prepare_input(in_),
             },
-            output=build_output_string(MitreAttackInformation),
+            output=build_output_string(
+                MitreAttackInformation,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return MitreAttackInformation.schema().load(
@@ -104,7 +113,10 @@ class TaegisSDKMitreAttackInfoQuery:
             variables={
                 "in": prepare_input(in_),
             },
-            output=build_output_string(MitreAttackInformation),
+            output=build_output_string(
+                MitreAttackInformation,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return MitreAttackInformation.schema().load(
@@ -125,7 +137,10 @@ class TaegisSDKMitreAttackInfoQuery:
             variables={
                 "in": prepare_input(in_),
             },
-            output=build_output_string(MitreAttackInformation),
+            output=build_output_string(
+                MitreAttackInformation,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return MitreAttackInformation.schema().load(
@@ -144,7 +159,10 @@ class TaegisSDKMitreAttackInfoQuery:
             variables={
                 "in": prepare_input(in_),
             },
-            output=build_output_string(MitreAttackInformation),
+            output=build_output_string(
+                MitreAttackInformation,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return MitreAttackInformation.schema().load(
@@ -163,7 +181,10 @@ class TaegisSDKMitreAttackInfoQuery:
             variables={
                 "in": prepare_input(in_),
             },
-            output=build_output_string(MitreAttackInformation),
+            output=build_output_string(
+                MitreAttackInformation,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return MitreAttackInformation.schema().load(
@@ -182,7 +203,10 @@ class TaegisSDKMitreAttackInfoQuery:
             variables={
                 "in": prepare_input(in_),
             },
-            output=build_output_string(MitreAttackInformation),
+            output=build_output_string(
+                MitreAttackInformation,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return MitreAttackInformation.schema().load(
@@ -201,7 +225,10 @@ class TaegisSDKMitreAttackInfoQuery:
             variables={
                 "in": prepare_input(in_),
             },
-            output=build_output_string(MitreAttackInformation),
+            output=build_output_string(
+                MitreAttackInformation,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return MitreAttackInformation.schema().load(
@@ -220,7 +247,10 @@ class TaegisSDKMitreAttackInfoQuery:
             variables={
                 "in": prepare_input(in_),
             },
-            output=build_output_string(MitreAttackInformation),
+            output=build_output_string(
+                MitreAttackInformation,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return MitreAttackInformation.schema().load(
@@ -237,7 +267,10 @@ class TaegisSDKMitreAttackInfoQuery:
         result = self.service.execute_query(
             endpoint=endpoint,
             variables={},
-            output=build_output_string(MitreAttackInformation),
+            output=build_output_string(
+                MitreAttackInformation,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return MitreAttackInformation.schema().load(
@@ -256,7 +289,10 @@ class TaegisSDKMitreAttackInfoQuery:
             variables={
                 "in": prepare_input(in_),
             },
-            output=build_output_string(MitreAttackInformation),
+            output=build_output_string(
+                MitreAttackInformation,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return MitreAttackInformation.schema().load(

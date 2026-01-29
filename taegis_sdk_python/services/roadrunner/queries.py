@@ -41,7 +41,10 @@ class TaegisSDKRoadrunnerQuery:
             variables={
                 "filter": prepare_input(filter_),
             },
-            output=build_output_string(SyslogSample),
+            output=build_output_string(
+                SyslogSample,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return SyslogSample.schema().load(
@@ -54,7 +57,11 @@ class TaegisSDKRoadrunnerQuery:
         endpoint = "allParsers"
 
         result = self.service.execute_query(
-            endpoint=endpoint, variables={}, output=build_output_string(Parser)
+            endpoint=endpoint,
+            variables={},
+            output=build_output_string(
+                Parser, exclude_deprecated_output=self.service.exclude_deprecated_output
+            ),
         )
         if result.get(endpoint) is not None:
             return Parser.schema().load(
@@ -71,7 +78,9 @@ class TaegisSDKRoadrunnerQuery:
             variables={
                 "filter": prepare_input(filter_),
             },
-            output=build_output_string(Parser),
+            output=build_output_string(
+                Parser, exclude_deprecated_output=self.service.exclude_deprecated_output
+            ),
         )
         if result.get(endpoint) is not None:
             return Parser.from_dict(result.get(endpoint))
@@ -97,7 +106,10 @@ class TaegisSDKRoadrunnerQuery:
             variables={
                 "unvalidatedParser": prepare_input(unvalidated_parser),
             },
-            output=build_output_string(ValidateResult),
+            output=build_output_string(
+                ValidateResult,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return ValidateResult.from_dict(result.get(endpoint))
@@ -121,7 +133,10 @@ class TaegisSDKRoadrunnerQuery:
                 "runIsolated": prepare_input(run_isolated),
                 "runDisabled": prepare_input(run_disabled),
             },
-            output=build_output_string(SampleResult),
+            output=build_output_string(
+                SampleResult,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return SampleResult.schema().load(
@@ -153,7 +168,10 @@ class TaegisSDKRoadrunnerQuery:
             variables={
                 "filter": prepare_input(filter_),
             },
-            output=build_output_string(Directory),
+            output=build_output_string(
+                Directory,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return Directory.schema().load(
@@ -166,7 +184,11 @@ class TaegisSDKRoadrunnerQuery:
         endpoint = "allSamples"
 
         result = self.service.execute_query(
-            endpoint=endpoint, variables={}, output=build_output_string(Sample)
+            endpoint=endpoint,
+            variables={},
+            output=build_output_string(
+                Sample, exclude_deprecated_output=self.service.exclude_deprecated_output
+            ),
         )
         if result.get(endpoint) is not None:
             return Sample.schema().load(
@@ -183,7 +205,9 @@ class TaegisSDKRoadrunnerQuery:
             variables={
                 "filter": prepare_input(filter_),
             },
-            output=build_output_string(Sample),
+            output=build_output_string(
+                Sample, exclude_deprecated_output=self.service.exclude_deprecated_output
+            ),
         )
         if result.get(endpoint) is not None:
             return Sample.from_dict(result.get(endpoint))

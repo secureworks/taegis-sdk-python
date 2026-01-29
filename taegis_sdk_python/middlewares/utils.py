@@ -22,7 +22,7 @@ def scrub_dict(d: Mapping):
     """Remove sensitive data from dictionary keys and values."""
     access_tokens = get_access_tokens()
 
-    if "authorization" in d:
+    if "Authorization" in d:
         token = d["Authorization"].replace("Bearer ", "")
         access_tokens.append(token)
 

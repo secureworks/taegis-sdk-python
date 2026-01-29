@@ -34,6 +34,8 @@ TAEGIS_TENANTS_URLS = {
 UNIVERSAL_ENVIRONMENT = "universal"
 UNIVERSAL_AUTHENTICATION_URL = "https://api.taegis.secureworks.com"
 
+DEFAULT_GATEWAY = "/graphql"
+
 
 class TaegisEnum(str, Enum):
     """Handler for Unknown Enums."""

@@ -45,6 +45,13 @@ class AuthzSupportedFeatureTarget(str, Enum):
     PARTNER_TENANTS = "PARTNER_TENANTS"
 
 
+class AuthzSubjectIDType(str, Enum):
+    """AuthzSubjectIDType."""
+
+    TAEGIS = "TAEGIS"
+    CENTRAL = "CENTRAL"
+
+
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
 class Subject:

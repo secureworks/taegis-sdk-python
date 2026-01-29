@@ -44,7 +44,9 @@ class TaegisSDKFileInfoQuery:
                 "fileHash": prepare_input(file_hash),
                 "includeAllRules": prepare_input(include_all_rules),
             },
-            output=build_output_string(File),
+            output=build_output_string(
+                File, exclude_deprecated_output=self.service.exclude_deprecated_output
+            ),
         )
         if result.get(endpoint) is not None:
             return File.from_dict(result.get(endpoint))
@@ -59,7 +61,10 @@ class TaegisSDKFileInfoQuery:
             variables={
                 "fileHash": prepare_input(file_hash),
             },
-            output=build_output_string(FileCounts),
+            output=build_output_string(
+                FileCounts,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return FileCounts.from_dict(result.get(endpoint))
@@ -77,7 +82,9 @@ class TaegisSDKFileInfoQuery:
                 "query": prepare_input(query),
                 "includeAllRules": prepare_input(include_all_rules),
             },
-            output=build_output_string(File),
+            output=build_output_string(
+                File, exclude_deprecated_output=self.service.exclude_deprecated_output
+            ),
         )
         if result.get(endpoint) is not None:
             return File.schema().load(
@@ -96,7 +103,10 @@ class TaegisSDKFileInfoQuery:
             variables={
                 "eventID": prepare_input(event_id),
             },
-            output=build_output_string(FetchableFileAppearancesResponse),
+            output=build_output_string(
+                FetchableFileAppearancesResponse,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return FetchableFileAppearancesResponse.from_dict(result.get(endpoint))
@@ -131,7 +141,10 @@ class TaegisSDKFileInfoQuery:
                 "fileHash": prepare_input(file_hash),
                 "fileMetadataId": prepare_input(file_metadata_id),
             },
-            output=build_output_string(FileMarkingStatus),
+            output=build_output_string(
+                FileMarkingStatus,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return FileMarkingStatus.from_dict(result.get(endpoint))

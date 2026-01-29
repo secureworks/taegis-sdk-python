@@ -41,7 +41,10 @@ class TaegisSDKAuthzQuery:
             variables={
                 "id": prepare_input(id_),
             },
-            output=build_output_string(AuthzRole),
+            output=build_output_string(
+                AuthzRole,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return AuthzRole.from_dict(result.get(endpoint))
@@ -52,7 +55,12 @@ class TaegisSDKAuthzQuery:
         endpoint = "authzAssignableRoles"
 
         result = self.service.execute_query(
-            endpoint=endpoint, variables={}, output=build_output_string(AuthzRole)
+            endpoint=endpoint,
+            variables={},
+            output=build_output_string(
+                AuthzRole,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return AuthzRole.schema().load(
@@ -65,7 +73,12 @@ class TaegisSDKAuthzQuery:
         endpoint = "authzSubjectAssignableRoles"
 
         result = self.service.execute_query(
-            endpoint=endpoint, variables={}, output=build_output_string(AuthzRole)
+            endpoint=endpoint,
+            variables={},
+            output=build_output_string(
+                AuthzRole,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return AuthzRole.schema().load(
@@ -78,7 +91,12 @@ class TaegisSDKAuthzQuery:
         endpoint = "authzAssignableInternalRoles"
 
         result = self.service.execute_query(
-            endpoint=endpoint, variables={}, output=build_output_string(AuthzRole)
+            endpoint=endpoint,
+            variables={},
+            output=build_output_string(
+                AuthzRole,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return AuthzRole.schema().load(
@@ -93,7 +111,10 @@ class TaegisSDKAuthzQuery:
         result = self.service.execute_query(
             endpoint=endpoint,
             variables={},
-            output=build_output_string(AuthzObjectAction),
+            output=build_output_string(
+                AuthzObjectAction,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return AuthzObjectAction.schema().load(
@@ -110,7 +131,10 @@ class TaegisSDKAuthzQuery:
             variables={
                 "id": prepare_input(id_),
             },
-            output=build_output_string(AuthzPolicy),
+            output=build_output_string(
+                AuthzPolicy,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return AuthzPolicy.from_dict(result.get(endpoint))
@@ -121,7 +145,12 @@ class TaegisSDKAuthzQuery:
         endpoint = "authzPolicies"
 
         result = self.service.execute_query(
-            endpoint=endpoint, variables={}, output=build_output_string(AuthzPolicy)
+            endpoint=endpoint,
+            variables={},
+            output=build_output_string(
+                AuthzPolicy,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return AuthzPolicy.schema().load(
@@ -138,7 +167,10 @@ class TaegisSDKAuthzQuery:
             variables={
                 "input": prepare_input(input_),
             },
-            output=build_output_string(AuthzPolicy),
+            output=build_output_string(
+                AuthzPolicy,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return AuthzPolicy.from_dict(result.get(endpoint))
@@ -155,7 +187,10 @@ class TaegisSDKAuthzQuery:
             variables={
                 "input": prepare_input(input_),
             },
-            output=build_output_string(AuthzCheckPermissionsResponse),
+            output=build_output_string(
+                AuthzCheckPermissionsResponse,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return AuthzCheckPermissionsResponse.schema().load(
@@ -186,7 +221,12 @@ class TaegisSDKAuthzQuery:
         endpoint = "authzPermissions"
 
         result = self.service.execute_query(
-            endpoint=endpoint, variables={}, output=build_output_string(AuthzPermission)
+            endpoint=endpoint,
+            variables={},
+            output=build_output_string(
+                AuthzPermission,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return AuthzPermission.schema().load(
@@ -212,7 +252,10 @@ class TaegisSDKAuthzQuery:
         result = self.service.execute_query(
             endpoint=endpoint,
             variables={},
-            output=build_output_string(AuthzCanSubjectAssumeTenantDetailedResponse),
+            output=build_output_string(
+                AuthzCanSubjectAssumeTenantDetailedResponse,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return AuthzCanSubjectAssumeTenantDetailedResponse.from_dict(
@@ -222,7 +265,11 @@ class TaegisSDKAuthzQuery:
             "for query authzCanSubjectAssumeTenantDetailed"
         )
 
-    def authz_can_subject_idassume_tenant(self, subject_id: str) -> bool:
+    def authz_can_subject_idassume_tenant(
+        self,
+        subject_id: str,
+        subject_type: Optional[Union[AuthzSubjectIDType, TaegisEnum]] = None,
+    ) -> bool:
         """Indicates if the input subject can assume the target tenant."""
         endpoint = "authzCanSubjectIDAssumeTenant"
 
@@ -230,6 +277,7 @@ class TaegisSDKAuthzQuery:
             endpoint=endpoint,
             variables={
                 "subjectID": prepare_input(subject_id),
+                "subjectType": prepare_input(subject_type),
             },
             output="",
         )
@@ -273,7 +321,10 @@ class TaegisSDKAuthzQuery:
                 "id": prepare_input(id_),
                 "targetSubjectID": prepare_input(target_subject_id),
             },
-            output=build_output_string(AuthzCanSubjectAssignRoleResponse),
+            output=build_output_string(
+                AuthzCanSubjectAssignRoleResponse,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return AuthzCanSubjectAssignRoleResponse.from_dict(result.get(endpoint))
@@ -284,7 +335,12 @@ class TaegisSDKAuthzQuery:
         endpoint = "authzInternalPermissions"
 
         result = self.service.execute_query(
-            endpoint=endpoint, variables={}, output=build_output_string(AuthzPermission)
+            endpoint=endpoint,
+            variables={},
+            output=build_output_string(
+                AuthzPermission,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return AuthzPermission.schema().load(
@@ -303,7 +359,10 @@ class TaegisSDKAuthzQuery:
             variables={
                 "tenantID": prepare_input(tenant_id),
             },
-            output=build_output_string(AuthzPermission),
+            output=build_output_string(
+                AuthzPermission,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return AuthzPermission.schema().load(
@@ -320,7 +379,10 @@ class TaegisSDKAuthzQuery:
         result = self.service.execute_query(
             endpoint=endpoint,
             variables={},
-            output=build_output_string(AuthzObjectActionStatusResponse),
+            output=build_output_string(
+                AuthzObjectActionStatusResponse,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return AuthzObjectActionStatusResponse.schema().load(
@@ -335,7 +397,10 @@ class TaegisSDKAuthzQuery:
         result = self.service.execute_query(
             endpoint=endpoint,
             variables={},
-            output=build_output_string(AuthzSupportedFeatureResponse),
+            output=build_output_string(
+                AuthzSupportedFeatureResponse,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return AuthzSupportedFeatureResponse.schema().load(
@@ -348,7 +413,12 @@ class TaegisSDKAuthzQuery:
         endpoint = "authzSubjectCentralRole"
 
         result = self.service.execute_query(
-            endpoint=endpoint, variables={}, output=build_output_string(AuthzRole)
+            endpoint=endpoint,
+            variables={},
+            output=build_output_string(
+                AuthzRole,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return AuthzRole.from_dict(result.get(endpoint))
@@ -372,7 +442,10 @@ class TaegisSDKAuthzQuery:
             variables={
                 "roleIDs": prepare_input(role_ids),
             },
-            output=build_output_string(AuthzRole),
+            output=build_output_string(
+                AuthzRole,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return AuthzRole.schema().load(

@@ -45,7 +45,10 @@ class TaegisSDKCommentsQuery:
             variables={
                 "comment_id": prepare_input(comment_id),
             },
-            output=build_output_string(Comment),
+            output=build_output_string(
+                Comment,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return Comment.from_dict(result.get(endpoint))
@@ -65,7 +68,10 @@ class TaegisSDKCommentsQuery:
                 "parent_type": prepare_input(parent_type),
                 "parent_id": prepare_input(parent_id),
             },
-            output=build_output_string(Comment),
+            output=build_output_string(
+                Comment,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return Comment.schema().load(
@@ -91,7 +97,10 @@ class TaegisSDKCommentsQuery:
                 "section_type": prepare_input(section_type),
                 "section_id": prepare_input(section_id),
             },
-            output=build_output_string(Comment),
+            output=build_output_string(
+                Comment,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return Comment.schema().load(
@@ -113,7 +122,10 @@ class TaegisSDKCommentsQuery:
                 "parent_type": prepare_input(parent_type),
                 "parent_id": prepare_input(parent_id),
             },
-            output=build_output_string(ParentCount),
+            output=build_output_string(
+                ParentCount,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return ParentCount.from_dict(result.get(endpoint))
@@ -132,7 +144,10 @@ class TaegisSDKCommentsQuery:
             variables={
                 "parent_type": prepare_input(parent_type),
             },
-            output=build_output_string(ParentCount),
+            output=build_output_string(
+                ParentCount,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return ParentCount.schema().load(
@@ -153,7 +168,10 @@ class TaegisSDKCommentsQuery:
             variables={
                 "parents": prepare_input(parents),
             },
-            output=build_output_string(Comment),
+            output=build_output_string(
+                Comment,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return Comment.schema().load(
@@ -177,7 +195,10 @@ class TaegisSDKCommentsQuery:
                 "parent_type": prepare_input(parent_type),
                 "parent_ids": prepare_input(parent_ids),
             },
-            output=build_output_string(LatestComment),
+            output=build_output_string(
+                LatestComment,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return LatestComment.schema().load(
@@ -201,7 +222,10 @@ class TaegisSDKCommentsQuery:
                 "parent_type": prepare_input(parent_type),
                 "parent_ids": prepare_input(parent_ids),
             },
-            output=build_output_string(ParentCount),
+            output=build_output_string(
+                ParentCount,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return ParentCount.schema().load(

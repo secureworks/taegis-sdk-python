@@ -39,7 +39,10 @@ class TaegisSDKTenantProfilesQuery:
         result = self.service.execute_query(
             endpoint=endpoint,
             variables={},
-            output=build_output_string(ManagedTenantProfile),
+            output=build_output_string(
+                ManagedTenantProfile,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return ManagedTenantProfile.from_dict(result.get(endpoint))
@@ -52,7 +55,10 @@ class TaegisSDKTenantProfilesQuery:
         result = self.service.execute_query(
             endpoint=endpoint,
             variables={},
-            output=build_output_string(CseCustomerContacts),
+            output=build_output_string(
+                CseCustomerContacts,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return CseCustomerContacts.from_dict(result.get(endpoint))
@@ -63,7 +69,12 @@ class TaegisSDKTenantProfilesQuery:
         endpoint = "versionMtp"
 
         result = self.service.execute_query(
-            endpoint=endpoint, variables={}, output=build_output_string(VersionMtp)
+            endpoint=endpoint,
+            variables={},
+            output=build_output_string(
+                VersionMtp,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return VersionMtp.from_dict(result.get(endpoint))
@@ -74,7 +85,12 @@ class TaegisSDKTenantProfilesQuery:
         endpoint = "networkRangesMtp"
 
         result = self.service.execute_query(
-            endpoint=endpoint, variables={}, output=build_output_string(NetworkRangeMtp)
+            endpoint=endpoint,
+            variables={},
+            output=build_output_string(
+                NetworkRangeMtp,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return NetworkRangeMtp.schema().load(
@@ -91,7 +107,10 @@ class TaegisSDKTenantProfilesQuery:
             variables={
                 "ipAddress": prepare_input(ip_address),
             },
-            output=build_output_string(NetworkRangeMtp),
+            output=build_output_string(
+                NetworkRangeMtp,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return NetworkRangeMtp.schema().load(
@@ -108,7 +127,10 @@ class TaegisSDKTenantProfilesQuery:
             variables={
                 "cidr": prepare_input(cidr),
             },
-            output=build_output_string(NetworkRangeMtp),
+            output=build_output_string(
+                NetworkRangeMtp,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return NetworkRangeMtp.schema().load(
@@ -121,7 +143,12 @@ class TaegisSDKTenantProfilesQuery:
         endpoint = "noteMtp"
 
         result = self.service.execute_query(
-            endpoint=endpoint, variables={}, output=build_output_string(NoteMtp)
+            endpoint=endpoint,
+            variables={},
+            output=build_output_string(
+                NoteMtp,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return NoteMtp.from_dict(result.get(endpoint))
@@ -134,7 +161,10 @@ class TaegisSDKTenantProfilesQuery:
         result = self.service.execute_query(
             endpoint=endpoint,
             variables={},
-            output=build_output_string(SecurityControlMtp),
+            output=build_output_string(
+                SecurityControlMtp,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return SecurityControlMtp.schema().load(
@@ -147,7 +177,12 @@ class TaegisSDKTenantProfilesQuery:
         endpoint = "mfaAccessesMtp"
 
         result = self.service.execute_query(
-            endpoint=endpoint, variables={}, output=build_output_string(MfaAccessMtp)
+            endpoint=endpoint,
+            variables={},
+            output=build_output_string(
+                MfaAccessMtp,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return MfaAccessMtp.schema().load(
@@ -166,7 +201,10 @@ class TaegisSDKTenantProfilesQuery:
             variables={
                 "includeAllVersions": prepare_input(include_all_versions),
             },
-            output=build_output_string(FileAttachmentMtp),
+            output=build_output_string(
+                FileAttachmentMtp,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return FileAttachmentMtp.schema().load(
@@ -183,7 +221,10 @@ class TaegisSDKTenantProfilesQuery:
             variables={
                 "id": prepare_input(id_),
             },
-            output=build_output_string(FileAttachmentMtp),
+            output=build_output_string(
+                FileAttachmentMtp,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return FileAttachmentMtp.from_dict(result.get(endpoint))
@@ -201,7 +242,10 @@ class TaegisSDKTenantProfilesQuery:
                 "filename": prepare_input(filename),
                 "version": prepare_input(version),
             },
-            output=build_output_string(FileAttachmentMtp),
+            output=build_output_string(
+                FileAttachmentMtp,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return FileAttachmentMtp.from_dict(result.get(endpoint))
@@ -216,7 +260,10 @@ class TaegisSDKTenantProfilesQuery:
             variables={
                 "filename": prepare_input(filename),
             },
-            output=build_output_string(FileAttachmentMtp),
+            output=build_output_string(
+                FileAttachmentMtp,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return FileAttachmentMtp.schema().load(
@@ -233,7 +280,10 @@ class TaegisSDKTenantProfilesQuery:
             variables={
                 "ids": prepare_input(ids),
             },
-            output=build_output_string(FileDownloadMtp),
+            output=build_output_string(
+                FileDownloadMtp,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return FileDownloadMtp.schema().load(
@@ -250,7 +300,10 @@ class TaegisSDKTenantProfilesQuery:
             variables={
                 "id": prepare_input(id_),
             },
-            output=build_output_string(EntityOfInterestMtp),
+            output=build_output_string(
+                EntityOfInterestMtp,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return EntityOfInterestMtp.from_dict(result.get(endpoint))
@@ -263,7 +316,10 @@ class TaegisSDKTenantProfilesQuery:
         result = self.service.execute_query(
             endpoint=endpoint,
             variables={},
-            output=build_output_string(EntityOfInterestMtp),
+            output=build_output_string(
+                EntityOfInterestMtp,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return EntityOfInterestMtp.schema().load(
@@ -282,7 +338,10 @@ class TaegisSDKTenantProfilesQuery:
             variables={
                 "input": prepare_input(input_),
             },
-            output=build_output_string(EntityOfInterestMtps),
+            output=build_output_string(
+                EntityOfInterestMtps,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return EntityOfInterestMtps.from_dict(result.get(endpoint))

@@ -37,7 +37,12 @@ class TaegisSDKNotebooksQuery:
         endpoint = "notebook"
 
         result = self.service.execute_query(
-            endpoint=endpoint, variables={}, output=build_output_string(Notebook)
+            endpoint=endpoint,
+            variables={},
+            output=build_output_string(
+                Notebook,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return Notebook.from_dict(result.get(endpoint))

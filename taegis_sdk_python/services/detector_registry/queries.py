@@ -41,7 +41,10 @@ class TaegisSDKDetectorRegistryQuery:
             variables={
                 "id": prepare_input(id_),
             },
-            output=build_output_string(RegisteredDetector),
+            output=build_output_string(
+                RegisteredDetector,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return RegisteredDetector.from_dict(result.get(endpoint))
@@ -54,7 +57,10 @@ class TaegisSDKDetectorRegistryQuery:
         result = self.service.execute_query(
             endpoint=endpoint,
             variables={},
-            output=build_output_string(RegisteredDetector),
+            output=build_output_string(
+                RegisteredDetector,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return RegisteredDetector.schema().load(
@@ -71,7 +77,10 @@ class TaegisSDKDetectorRegistryQuery:
             variables={
                 "input": prepare_input(input_),
             },
-            output=build_output_string(RegisteredDetector),
+            output=build_output_string(
+                RegisteredDetector,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return RegisteredDetector.schema().load(

@@ -41,7 +41,10 @@ class TaegisSDKUsersMutation:
             variables={
                 "invite": prepare_input(invite),
             },
-            output=build_output_string(TDRUser),
+            output=build_output_string(
+                TDRUser,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return TDRUser.from_dict(result.get(endpoint))
@@ -58,7 +61,10 @@ class TaegisSDKUsersMutation:
             variables={
                 "invites": prepare_input(invites),
             },
-            output=build_output_string(InviteUsersResponse),
+            output=build_output_string(
+                InviteUsersResponse,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return InviteUsersResponse.schema().load(
@@ -75,7 +81,10 @@ class TaegisSDKUsersMutation:
             variables={
                 "invite": prepare_input(invite),
             },
-            output=build_output_string(TDRUser),
+            output=build_output_string(
+                TDRUser,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return TDRUser.from_dict(result.get(endpoint))
@@ -91,7 +100,10 @@ class TaegisSDKUsersMutation:
                 "id": prepare_input(id_),
                 "patch": prepare_input(patch),
             },
-            output=build_output_string(TDRUser),
+            output=build_output_string(
+                TDRUser,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return TDRUser.from_dict(result.get(endpoint))
@@ -107,7 +119,10 @@ class TaegisSDKUsersMutation:
                 "id": prepare_input(id_),
                 "newEmailAddress": prepare_input(new_email_address),
             },
-            output=build_output_string(TDRUser),
+            output=build_output_string(
+                TDRUser,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return TDRUser.from_dict(result.get(endpoint))
@@ -122,7 +137,10 @@ class TaegisSDKUsersMutation:
             variables={
                 "newEmailAddress": prepare_input(new_email_address),
             },
-            output=build_output_string(TDRUser),
+            output=build_output_string(
+                TDRUser,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return TDRUser.from_dict(result.get(endpoint))
@@ -141,7 +159,10 @@ class TaegisSDKUsersMutation:
             variables={
                 "changeEmailInput": prepare_input(change_email_input),
             },
-            output=build_output_string(TDRUser),
+            output=build_output_string(
+                TDRUser,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return TDRUser.from_dict(result.get(endpoint))
@@ -159,7 +180,10 @@ class TaegisSDKUsersMutation:
                 "id": prepare_input(id_),
                 "roles": prepare_input(roles),
             },
-            output=build_output_string(TDRUser),
+            output=build_output_string(
+                TDRUser,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return TDRUser.from_dict(result.get(endpoint))
@@ -178,7 +202,10 @@ class TaegisSDKUsersMutation:
                 "roles": prepare_input(roles),
                 "expires_at": prepare_input(expires_at),
             },
-            output=build_output_string(TDRUser),
+            output=build_output_string(
+                TDRUser,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return TDRUser.from_dict(result.get(endpoint))
@@ -194,7 +221,10 @@ class TaegisSDKUsersMutation:
                 "id": prepare_input(id_),
                 "roles": prepare_input(roles),
             },
-            output=build_output_string(TDRUser),
+            output=build_output_string(
+                TDRUser,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return TDRUser.from_dict(result.get(endpoint))
@@ -210,7 +240,10 @@ class TaegisSDKUsersMutation:
                 "email": prepare_input(email),
                 "supportPin": prepare_input(support_pin),
             },
-            output=build_output_string(PinValidation),
+            output=build_output_string(
+                PinValidation,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return PinValidation.from_dict(result.get(endpoint))
@@ -225,7 +258,10 @@ class TaegisSDKUsersMutation:
             variables={
                 "userInfo": prepare_input(user_info),
             },
-            output=build_output_string(TDRUser),
+            output=build_output_string(
+                TDRUser,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return TDRUser.from_dict(result.get(endpoint))
@@ -238,7 +274,10 @@ class TaegisSDKUsersMutation:
         result = self.service.execute_mutation(
             endpoint=endpoint,
             variables={},
-            output=build_output_string(MFAResetResponse),
+            output=build_output_string(
+                MFAResetResponse,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return MFAResetResponse.from_dict(result.get(endpoint))
@@ -255,7 +294,10 @@ class TaegisSDKUsersMutation:
             variables={
                 "registrationInput": prepare_input(registration_input),
             },
-            output=build_output_string(TDRUser),
+            output=build_output_string(
+                TDRUser,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return TDRUser.from_dict(result.get(endpoint))
@@ -270,7 +312,10 @@ class TaegisSDKUsersMutation:
             variables={
                 "id": prepare_input(id_),
             },
-            output=build_output_string(TDRUser),
+            output=build_output_string(
+                TDRUser,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return TDRUser.from_dict(result.get(endpoint))
@@ -288,7 +333,10 @@ class TaegisSDKUsersMutation:
                 "email": prepare_input(email),
                 "app": prepare_input(app),
             },
-            output=build_output_string(ForgotPasswordResponse),
+            output=build_output_string(
+                ForgotPasswordResponse,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return ForgotPasswordResponse.from_dict(result.get(endpoint))
@@ -303,7 +351,10 @@ class TaegisSDKUsersMutation:
             variables={
                 "resetInput": prepare_input(reset_input),
             },
-            output=build_output_string(ForgotPasswordResponse),
+            output=build_output_string(
+                ForgotPasswordResponse,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return ForgotPasswordResponse.from_dict(result.get(endpoint))
@@ -320,7 +371,10 @@ class TaegisSDKUsersMutation:
             variables={
                 "registrationInput": prepare_input(registration_input),
             },
-            output=build_output_string(MFAResetResponse),
+            output=build_output_string(
+                MFAResetResponse,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return MFAResetResponse.from_dict(result.get(endpoint))
@@ -337,7 +391,10 @@ class TaegisSDKUsersMutation:
             variables={
                 "verifyMFAInput": prepare_input(verify_mfa_input),
             },
-            output=build_output_string(VerifyMFARegistrationResponse),
+            output=build_output_string(
+                VerifyMFARegistrationResponse,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return VerifyMFARegistrationResponse.from_dict(result.get(endpoint))

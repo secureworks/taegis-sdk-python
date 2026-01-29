@@ -44,7 +44,9 @@ class TaegisSDKRulesMutation:
                 "input": prepare_input(input_),
                 "qlFilter": prepare_input(ql_filter),
             },
-            output=build_output_string(Rule),
+            output=build_output_string(
+                Rule, exclude_deprecated_output=self.service.exclude_deprecated_output
+            ),
         )
         if result.get(endpoint) is not None:
             return Rule.from_dict(result.get(endpoint))
@@ -62,7 +64,9 @@ class TaegisSDKRulesMutation:
                 "input": prepare_input(input_),
                 "filters": prepare_input(filters),
             },
-            output=build_output_string(Rule),
+            output=build_output_string(
+                Rule, exclude_deprecated_output=self.service.exclude_deprecated_output
+            ),
         )
         if result.get(endpoint) is not None:
             return Rule.from_dict(result.get(endpoint))
@@ -80,7 +84,9 @@ class TaegisSDKRulesMutation:
                 "input": prepare_input(input_),
                 "filters": prepare_input(filters),
             },
-            output=build_output_string(Rule),
+            output=build_output_string(
+                Rule, exclude_deprecated_output=self.service.exclude_deprecated_output
+            ),
         )
         if result.get(endpoint) is not None:
             return Rule.from_dict(result.get(endpoint))
@@ -98,7 +104,9 @@ class TaegisSDKRulesMutation:
                 "input": prepare_input(input_),
                 "filters": prepare_input(filters),
             },
-            output=build_output_string(Rule),
+            output=build_output_string(
+                Rule, exclude_deprecated_output=self.service.exclude_deprecated_output
+            ),
         )
         if result.get(endpoint) is not None:
             return Rule.from_dict(result.get(endpoint))
@@ -116,7 +124,9 @@ class TaegisSDKRulesMutation:
                 "input": prepare_input(input_),
                 "filters": prepare_input(filters),
             },
-            output=build_output_string(Rule),
+            output=build_output_string(
+                Rule, exclude_deprecated_output=self.service.exclude_deprecated_output
+            ),
         )
         if result.get(endpoint) is not None:
             return Rule.from_dict(result.get(endpoint))
@@ -134,7 +144,9 @@ class TaegisSDKRulesMutation:
                 "input": prepare_input(input_),
                 "qlFilter": prepare_input(ql_filter),
             },
-            output=build_output_string(Rule),
+            output=build_output_string(
+                Rule, exclude_deprecated_output=self.service.exclude_deprecated_output
+            ),
         )
         if result.get(endpoint) is not None:
             return Rule.from_dict(result.get(endpoint))
@@ -150,7 +162,10 @@ class TaegisSDKRulesMutation:
                 "ruleID": prepare_input(rule_id),
                 "filter": prepare_input(filter_),
             },
-            output=build_output_string(RuleFilter),
+            output=build_output_string(
+                RuleFilter,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return RuleFilter.from_dict(result.get(endpoint))
@@ -166,7 +181,9 @@ class TaegisSDKRulesMutation:
                 "ruleID": prepare_input(rule_id),
                 "rule": prepare_input(rule),
             },
-            output=build_output_string(Rule),
+            output=build_output_string(
+                Rule, exclude_deprecated_output=self.service.exclude_deprecated_output
+            ),
         )
         if result.get(endpoint) is not None:
             return Rule.from_dict(result.get(endpoint))
@@ -188,7 +205,9 @@ class TaegisSDKRulesMutation:
                 "ruleID": prepare_input(rule_id),
                 "hard": prepare_input(hard),
             },
-            output=build_output_string(Rule),
+            output=build_output_string(
+                Rule, exclude_deprecated_output=self.service.exclude_deprecated_output
+            ),
         )
         if result.get(endpoint) is not None:
             return Rule.from_dict(result.get(endpoint))
@@ -206,7 +225,9 @@ class TaegisSDKRulesMutation:
             variables={
                 "ruleID": prepare_input(rule_id),
             },
-            output=build_output_string(Rule),
+            output=build_output_string(
+                Rule, exclude_deprecated_output=self.service.exclude_deprecated_output
+            ),
         )
         if result.get(endpoint) is not None:
             return Rule.from_dict(result.get(endpoint))
@@ -222,7 +243,10 @@ class TaegisSDKRulesMutation:
                 "filterID": prepare_input(filter_id),
                 "filter": prepare_input(filter_),
             },
-            output=build_output_string(RuleFilter),
+            output=build_output_string(
+                RuleFilter,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return RuleFilter.from_dict(result.get(endpoint))
@@ -251,7 +275,10 @@ class TaegisSDKRulesMutation:
                 "filters": prepare_input(filters),
                 "replace": prepare_input(replace),
             },
-            output=build_output_string(RuleFilter),
+            output=build_output_string(
+                RuleFilter,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return RuleFilter.schema().load(
@@ -268,7 +295,10 @@ class TaegisSDKRulesMutation:
             variables={
                 "filterID": prepare_input(filter_id),
             },
-            output=build_output_string(RuleFilter),
+            output=build_output_string(
+                RuleFilter,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return RuleFilter.from_dict(result.get(endpoint))
@@ -284,11 +314,30 @@ class TaegisSDKRulesMutation:
                 "input": prepare_input(input_),
                 "qlFilter": prepare_input(ql_filter),
             },
-            output=build_output_string(Rule),
+            output=build_output_string(
+                Rule, exclude_deprecated_output=self.service.exclude_deprecated_output
+            ),
         )
         if result.get(endpoint) is not None:
             return Rule.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for mutation createQLRule")
+
+    def create_dwl_rule(self, input_: RuleInput) -> Rule:
+        """Create the given new Dynamic Window Language rule."""
+        endpoint = "createDWLRule"
+
+        result = self.service.execute_mutation(
+            endpoint=endpoint,
+            variables={
+                "input": prepare_input(input_),
+            },
+            output=build_output_string(
+                Rule, exclude_deprecated_output=self.service.exclude_deprecated_output
+            ),
+        )
+        if result.get(endpoint) is not None:
+            return Rule.from_dict(result.get(endpoint))
+        raise GraphQLNoRowsInResultSetError("for mutation createDWLRule")
 
     def update_ql_filter(
         self, filter_id: str, ql_filter: RuleQLFilterInput
@@ -302,7 +351,10 @@ class TaegisSDKRulesMutation:
                 "filterID": prepare_input(filter_id),
                 "qlFilter": prepare_input(ql_filter),
             },
-            output=build_output_string(RuleQLFilter),
+            output=build_output_string(
+                RuleQLFilter,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return RuleQLFilter.from_dict(result.get(endpoint))
@@ -317,7 +369,9 @@ class TaegisSDKRulesMutation:
             variables={
                 "id": prepare_input(id_),
             },
-            output=build_output_string(Rule),
+            output=build_output_string(
+                Rule, exclude_deprecated_output=self.service.exclude_deprecated_output
+            ),
         )
         if result.get(endpoint) is not None:
             return Rule.from_dict(result.get(endpoint))
@@ -332,7 +386,9 @@ class TaegisSDKRulesMutation:
             variables={
                 "id": prepare_input(id_),
             },
-            output=build_output_string(Rule),
+            output=build_output_string(
+                Rule, exclude_deprecated_output=self.service.exclude_deprecated_output
+            ),
         )
         if result.get(endpoint) is not None:
             return Rule.from_dict(result.get(endpoint))
@@ -354,7 +410,9 @@ class TaegisSDKRulesMutation:
                 "input": prepare_input(input_),
                 "redQLFilter": prepare_input(red_ql_filter),
             },
-            output=build_output_string(Rule),
+            output=build_output_string(
+                Rule, exclude_deprecated_output=self.service.exclude_deprecated_output
+            ),
         )
         if result.get(endpoint) is not None:
             return Rule.from_dict(result.get(endpoint))
@@ -376,7 +434,10 @@ class TaegisSDKRulesMutation:
                 "filterID": prepare_input(filter_id),
                 "redQLFilter": prepare_input(red_ql_filter),
             },
-            output=build_output_string(RuleRedQLFilter),
+            output=build_output_string(
+                RuleRedQLFilter,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return RuleRedQLFilter.from_dict(result.get(endpoint))

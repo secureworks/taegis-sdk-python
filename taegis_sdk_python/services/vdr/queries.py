@@ -41,7 +41,10 @@ class TaegisSDKVdrQuery:
             variables={
                 "arguments": prepare_input(arguments),
             },
-            output=build_output_string(VdrAsset),
+            output=build_output_string(
+                VdrAsset,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return VdrAsset.from_dict(result.get(endpoint))
@@ -56,7 +59,10 @@ class TaegisSDKVdrQuery:
             variables={
                 "arguments": prepare_input(arguments),
             },
-            output=build_output_string(VdrAssets),
+            output=build_output_string(
+                VdrAssets,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return VdrAssets.from_dict(result.get(endpoint))
@@ -73,7 +79,10 @@ class TaegisSDKVdrQuery:
             variables={
                 "arguments": prepare_input(arguments),
             },
-            output=build_output_string(VdrVulnerabilities),
+            output=build_output_string(
+                VdrVulnerabilities,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return VdrVulnerabilities.from_dict(result.get(endpoint))
@@ -90,7 +99,10 @@ class TaegisSDKVdrQuery:
             variables={
                 "arguments": prepare_input(arguments),
             },
-            output=build_output_string(VdrVulnerabilityDetails),
+            output=build_output_string(
+                VdrVulnerabilityDetails,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return VdrVulnerabilityDetails.from_dict(result.get(endpoint))
@@ -101,7 +113,12 @@ class TaegisSDKVdrQuery:
         endpoint = "vdrTenant"
 
         result = self.service.execute_query(
-            endpoint=endpoint, variables={}, output=build_output_string(VdrTenant)
+            endpoint=endpoint,
+            variables={},
+            output=build_output_string(
+                VdrTenant,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return VdrTenant.from_dict(result.get(endpoint))
@@ -116,7 +133,10 @@ class TaegisSDKVdrQuery:
             variables={
                 "arguments": prepare_input(arguments),
             },
-            output=build_output_string(VdrInspectHost),
+            output=build_output_string(
+                VdrInspectHost,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return VdrInspectHost.from_dict(result.get(endpoint))
@@ -127,7 +147,12 @@ class TaegisSDKVdrQuery:
         endpoint = "vdrEdgeServices"
 
         result = self.service.execute_query(
-            endpoint=endpoint, variables={}, output=build_output_string(VdrEdgeServices)
+            endpoint=endpoint,
+            variables={},
+            output=build_output_string(
+                VdrEdgeServices,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return VdrEdgeServices.from_dict(result.get(endpoint))
@@ -144,7 +169,10 @@ class TaegisSDKVdrQuery:
             variables={
                 "arguments": prepare_input(arguments),
             },
-            output=build_output_string(VdrVulnerabilityMetrics),
+            output=build_output_string(
+                VdrVulnerabilityMetrics,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return VdrVulnerabilityMetrics.from_dict(result.get(endpoint))
@@ -159,7 +187,10 @@ class TaegisSDKVdrQuery:
             variables={
                 "arguments": prepare_input(arguments),
             },
-            output=build_output_string(VdrScans),
+            output=build_output_string(
+                VdrScans,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return VdrScans.from_dict(result.get(endpoint))
@@ -176,7 +207,10 @@ class TaegisSDKVdrQuery:
             variables={
                 "definitionHash": prepare_input(definition_hash),
             },
-            output=build_output_string(VdrVulnerabilityDefinition),
+            output=build_output_string(
+                VdrVulnerabilityDefinition,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return VdrVulnerabilityDefinition.from_dict(result.get(endpoint))
@@ -191,7 +225,10 @@ class TaegisSDKVdrQuery:
             variables={
                 "threatIntelIds": prepare_input(threat_intel_ids),
             },
-            output=build_output_string(VdrThreatIntel),
+            output=build_output_string(
+                VdrThreatIntel,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return VdrThreatIntel.schema().load(

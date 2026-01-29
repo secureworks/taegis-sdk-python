@@ -42,7 +42,9 @@ class TaegisSDKAssetsMutation:
                 "id": prepare_input(id_),
                 "reason": prepare_input(reason),
             },
-            output=build_output_string(Asset),
+            output=build_output_string(
+                Asset, exclude_deprecated_output=self.service.exclude_deprecated_output
+            ),
         )
         if result.get(endpoint) is not None:
             return Asset.from_dict(result.get(endpoint))
@@ -58,7 +60,9 @@ class TaegisSDKAssetsMutation:
                 "id": prepare_input(id_),
                 "reason": prepare_input(reason),
             },
-            output=build_output_string(Asset),
+            output=build_output_string(
+                Asset, exclude_deprecated_output=self.service.exclude_deprecated_output
+            ),
         )
         if result.get(endpoint) is not None:
             return Asset.from_dict(result.get(endpoint))
@@ -98,7 +102,9 @@ class TaegisSDKAssetsMutation:
                 "hostId": prepare_input(host_id),
                 "tag": prepare_input(tag),
             },
-            output=build_output_string(Tag),
+            output=build_output_string(
+                Tag, exclude_deprecated_output=self.service.exclude_deprecated_output
+            ),
         )
         if result.get(endpoint) is not None:
             return Tag.from_dict(result.get(endpoint))
@@ -118,7 +124,9 @@ class TaegisSDKAssetsMutation:
                 "id": prepare_input(id_),
                 "tag": prepare_input(tag),
             },
-            output=build_output_string(Tag),
+            output=build_output_string(
+                Tag, exclude_deprecated_output=self.service.exclude_deprecated_output
+            ),
         )
         if result.get(endpoint) is not None:
             return Tag.from_dict(result.get(endpoint))
@@ -137,7 +145,9 @@ class TaegisSDKAssetsMutation:
             variables={
                 "id": prepare_input(id_),
             },
-            output=build_output_string(Tag),
+            output=build_output_string(
+                Tag, exclude_deprecated_output=self.service.exclude_deprecated_output
+            ),
         )
         if result.get(endpoint) is not None:
             return Tag.from_dict(result.get(endpoint))
@@ -156,7 +166,9 @@ class TaegisSDKAssetsMutation:
             variables={
                 "assetInput": prepare_input(asset_input),
             },
-            output=build_output_string(Asset),
+            output=build_output_string(
+                Asset, exclude_deprecated_output=self.service.exclude_deprecated_output
+            ),
         )
         if result.get(endpoint) is not None:
             return Asset.from_dict(result.get(endpoint))
@@ -182,7 +194,9 @@ class TaegisSDKAssetsMutation:
                 "assetIds": prepare_input(asset_ids),
                 "investigationId": prepare_input(investigation_id),
             },
-            output=build_output_string(Asset),
+            output=build_output_string(
+                Asset, exclude_deprecated_output=self.service.exclude_deprecated_output
+            ),
         )
         if result.get(endpoint) is not None:
             return Asset.schema().load(

@@ -41,7 +41,10 @@ class TaegisSDKMultiTenantIocQuery:
             variables={
                 "arguments": prepare_input(arguments),
             },
-            output=build_output_string(EventWindow),
+            output=build_output_string(
+                EventWindow,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return EventWindow.from_dict(result.get(endpoint))
@@ -60,7 +63,10 @@ class TaegisSDKMultiTenantIocQuery:
             variables={
                 "arguments": prepare_input(arguments),
             },
-            output=build_output_string(EventCountResult),
+            output=build_output_string(
+                EventCountResult,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return EventCountResult.from_dict(result.get(endpoint))
@@ -84,7 +90,10 @@ class TaegisSDKMultiTenantIocQuery:
                 "sessionKey": prepare_input(session_key),
                 "limit": prepare_input(limit),
             },
-            output=build_output_string(EventCountResult),
+            output=build_output_string(
+                EventCountResult,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return EventCountResult.from_dict(result.get(endpoint))

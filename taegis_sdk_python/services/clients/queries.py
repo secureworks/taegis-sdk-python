@@ -41,7 +41,9 @@ class TaegisSDKClientsQuery:
             variables={
                 "id": prepare_input(id_),
             },
-            output=build_output_string(Client),
+            output=build_output_string(
+                Client, exclude_deprecated_output=self.service.exclude_deprecated_output
+            ),
         )
         if result.get(endpoint) is not None:
             return Client.from_dict(result.get(endpoint))
@@ -75,7 +77,9 @@ class TaegisSDKClientsQuery:
                 "page": prepare_input(page),
                 "perPage": prepare_input(per_page),
             },
-            output=build_output_string(Client),
+            output=build_output_string(
+                Client, exclude_deprecated_output=self.service.exclude_deprecated_output
+            ),
         )
         if result.get(endpoint) is not None:
             return Client.schema().load(
@@ -94,7 +98,10 @@ class TaegisSDKClientsQuery:
             variables={
                 "filters": prepare_input(filters),
             },
-            output=build_output_string(ClientSearchResults),
+            output=build_output_string(
+                ClientSearchResults,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return ClientSearchResults.from_dict(result.get(endpoint))

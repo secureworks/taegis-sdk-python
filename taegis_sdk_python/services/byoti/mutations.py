@@ -43,7 +43,10 @@ class TaegisSDKByotiMutation:
             variables={
                 "input": prepare_input(input_),
             },
-            output=build_output_string(UpsertIndicatorsResponse),
+            output=build_output_string(
+                UpsertIndicatorsResponse,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return UpsertIndicatorsResponse.from_dict(result.get(endpoint))
@@ -60,7 +63,10 @@ class TaegisSDKByotiMutation:
             variables={
                 "input": prepare_input(input_),
             },
-            output=build_output_string(UpsertIndicatorsResponse),
+            output=build_output_string(
+                UpsertIndicatorsResponse,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return UpsertIndicatorsResponse.from_dict(result.get(endpoint))
@@ -75,7 +81,10 @@ class TaegisSDKByotiMutation:
             variables={
                 "query": prepare_input(query),
             },
-            output=build_output_string(DeleteIndicatorResponse),
+            output=build_output_string(
+                DeleteIndicatorResponse,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return DeleteIndicatorResponse.from_dict(result.get(endpoint))

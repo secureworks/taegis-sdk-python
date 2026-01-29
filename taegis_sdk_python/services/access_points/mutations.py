@@ -41,7 +41,10 @@ class TaegisSDKAccessPointsMutation:
             variables={
                 "principal": prepare_input(principal),
             },
-            output=build_output_string(AccessPoint),
+            output=build_output_string(
+                AccessPoint,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return AccessPoint.from_dict(result.get(endpoint))
@@ -56,7 +59,10 @@ class TaegisSDKAccessPointsMutation:
             variables={
                 "principal": prepare_input(principal),
             },
-            output=build_output_string(AccessPoint),
+            output=build_output_string(
+                AccessPoint,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return AccessPoint.from_dict(result.get(endpoint))
@@ -67,7 +73,12 @@ class TaegisSDKAccessPointsMutation:
         endpoint = "deleteAccessPoint"
 
         result = self.service.execute_mutation(
-            endpoint=endpoint, variables={}, output=build_output_string(AccessPoint)
+            endpoint=endpoint,
+            variables={},
+            output=build_output_string(
+                AccessPoint,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return AccessPoint.from_dict(result.get(endpoint))

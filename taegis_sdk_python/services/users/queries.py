@@ -52,7 +52,10 @@ class TaegisSDKUsersQuery:
                     include_masked_related_users
                 ),
             },
-            output=build_output_string(TDRUser),
+            output=build_output_string(
+                TDRUser,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return TDRUser.from_dict(result.get(endpoint))
@@ -84,7 +87,10 @@ class TaegisSDKUsersQuery:
                 "page": prepare_input(page),
                 "perPage": prepare_input(per_page),
             },
-            output=build_output_string(TDRUser),
+            output=build_output_string(
+                TDRUser,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return TDRUser.schema().load(
@@ -101,7 +107,10 @@ class TaegisSDKUsersQuery:
             variables={
                 "userIDs": prepare_input(user_ids),
             },
-            output=build_output_string(TDRUser),
+            output=build_output_string(
+                TDRUser,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return TDRUser.schema().load(
@@ -129,7 +138,10 @@ class TaegisSDKUsersQuery:
                     include_masked_related_users
                 ),
             },
-            output=build_output_string(SearchByIDsResponse),
+            output=build_output_string(
+                SearchByIDsResponse,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return SearchByIDsResponse.schema().load(
@@ -144,7 +156,10 @@ class TaegisSDKUsersQuery:
         result = self.service.execute_query(
             endpoint=endpoint,
             variables={},
-            output=build_output_string(TDRUserSupportPin),
+            output=build_output_string(
+                TDRUserSupportPin,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return TDRUserSupportPin.from_dict(result.get(endpoint))
@@ -159,7 +174,10 @@ class TaegisSDKUsersQuery:
             variables={
                 "supportPin": prepare_input(support_pin),
             },
-            output=build_output_string(SupportPinDetails),
+            output=build_output_string(
+                SupportPinDetails,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return SupportPinDetails.schema().load(
@@ -178,7 +196,10 @@ class TaegisSDKUsersQuery:
             variables={
                 "filters": prepare_input(filters),
             },
-            output=build_output_string(TDRUsersSearchResults),
+            output=build_output_string(
+                TDRUsersSearchResults,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return TDRUsersSearchResults.from_dict(result.get(endpoint))
@@ -189,7 +210,12 @@ class TaegisSDKUsersQuery:
         endpoint = "currentTDRUser"
 
         result = self.service.execute_query(
-            endpoint=endpoint, variables={}, output=build_output_string(TDRUser)
+            endpoint=endpoint,
+            variables={},
+            output=build_output_string(
+                TDRUser,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return TDRUser.from_dict(result.get(endpoint))

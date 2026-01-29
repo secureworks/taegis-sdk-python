@@ -37,7 +37,12 @@ class TaegisSDKAccessPointsQuery:
         endpoint = "getAccessPoint"
 
         result = self.service.execute_query(
-            endpoint=endpoint, variables={}, output=build_output_string(AccessPoint)
+            endpoint=endpoint,
+            variables={},
+            output=build_output_string(
+                AccessPoint,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return AccessPoint.from_dict(result.get(endpoint))
@@ -50,7 +55,10 @@ class TaegisSDKAccessPointsQuery:
         result = self.service.execute_query(
             endpoint=endpoint,
             variables={},
-            output=build_output_string(AccessPointCloudFormation),
+            output=build_output_string(
+                AccessPointCloudFormation,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return AccessPointCloudFormation.from_dict(result.get(endpoint))
@@ -63,7 +71,10 @@ class TaegisSDKAccessPointsQuery:
         result = self.service.execute_query(
             endpoint=endpoint,
             variables={},
-            output=build_output_string(AccessPointPrefixes),
+            output=build_output_string(
+                AccessPointPrefixes,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return AccessPointPrefixes.from_dict(result.get(endpoint))

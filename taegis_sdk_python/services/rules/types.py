@@ -43,6 +43,7 @@ class RuleEventType(str, Enum):
     TAEGIS_AGENT_DETECTION = "taegis_agent_detection"
     DETECTION_FINDING = "detection_finding"
     TECHNIQUE_FINDING = "technique_finding"
+    MULTI_EVENT = "multi_event"
 
 
 class RuleEndpointPlatform(str, Enum):
@@ -68,6 +69,7 @@ class RuleType(str, Enum):
     REGEX = "REGEX"
     REDQL = "REDQL"
     QL = "QL"
+    DWL = "DWL"
 
 
 class RuleAction(str, Enum):
@@ -95,6 +97,7 @@ class RuleSource(str, Enum):
     WATCHLIST = "WATCHLIST"
     DETECTOR = "DETECTOR"
     CUSTOM = "CUSTOM"
+    DWL = "DWL"
 
 
 class AlertOrigin(str, Enum):
@@ -381,6 +384,16 @@ class AggregationPair:
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
+class MitreTechnique:
+    """MitreTechnique."""
+
+    id: Optional[str] = field(default=None, metadata=config(field_name="id"))
+    name: Optional[str] = field(default=None, metadata=config(field_name="name"))
+    count: Optional[int] = field(default=None, metadata=config(field_name="count"))
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
 class QLTenantIDs:
     """QLTenantIDs."""
 
@@ -514,6 +527,18 @@ class RuleMetrics:
     )
     daily_counts: Optional[List[RuleDailyCount]] = field(
         default=None, metadata=config(field_name="dailyCounts")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class MitreTactic:
+    """MitreTactic."""
+
+    name: Optional[str] = field(default=None, metadata=config(field_name="name"))
+    count: Optional[int] = field(default=None, metadata=config(field_name="count"))
+    techniques: Optional[List[MitreTechnique]] = field(
+        default=None, metadata=config(field_name="techniques")
     )
 
 
@@ -756,6 +781,12 @@ class RuleFacetAggregationsOutput:
     )
     mitre_technique: Optional[List[AggregationPair]] = field(
         default=None, metadata=config(field_name="mitreTechnique")
+    )
+    mitre_attack: Optional[List[MitreTactic]] = field(
+        default=None, metadata=config(field_name="mitreAttack")
+    )
+    rule_type: Optional[List[AggregationPair]] = field(
+        default=None, metadata=config(field_name="ruleType")
     )
 
 

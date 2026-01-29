@@ -41,7 +41,10 @@ class TaegisSDKTenants4Query:
             variables={
                 "tenantsQuery": prepare_input(tenants_query),
             },
-            output=build_output_string(TenantResults),
+            output=build_output_string(
+                TenantResults,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return TenantResults.from_dict(result.get(endpoint))
@@ -56,18 +59,21 @@ class TaegisSDKTenants4Query:
             variables={
                 "id": prepare_input(id_),
             },
-            output=build_output_string(TenantV4),
+            output=build_output_string(
+                TenantV4,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return TenantV4.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for query tenant")
 
     def available_regions(self) -> List[TenantRegion]:
-        """@deprecated — use availableEnvironments instead."""
+        """Returns the regions where the tenant in XTC can be enabled at (excluding any regions currently enabled at). If a partner tenant ID is provided, this returns the regions where the partner can enable children at. If multiple tenants are provided in XTC, only the first is used. If none provided, an error is returned."""
         endpoint = "availableRegions"
 
         log.warning(
-            f"GraphQL Query `{endpoint}` is deprecated: 'Use 'availableEnvironments' with TenantEnvironment instead'"
+            f"GraphQL Query `{endpoint}` is deprecated: 'Use availableEnvironmentsV2 with TenantEnvironment instead'"
         )
 
         result = self.service.execute_query(endpoint=endpoint, variables={}, output="")
@@ -79,10 +85,29 @@ class TaegisSDKTenants4Query:
         """Returns the environments where the tenant in XTC can be enabled at (excluding any environments currently enabled at). If a partner tenant ID is provided, this returns the environments where the partner can enable children at. If multiple tenants are provided in XTC, only the first is used. If none provided, an error is returned."""
         endpoint = "availableEnvironments"
 
+        log.warning(
+            f"GraphQL Query `{endpoint}` is deprecated: 'Use availableEnvironmentsV2 instead to handle disabled tenants'"
+        )
+
         result = self.service.execute_query(endpoint=endpoint, variables={}, output="")
         if result.get(endpoint) is not None:
             return [TenantEnvironment(r) for r in result.get(endpoint)]
         raise GraphQLNoRowsInResultSetError("for query availableEnvironments")
+
+    def available_environments_v2(self, tenant_id: str) -> List[TenantEnvironment]:
+        """Returns the environments where the tenant can be enabled at (excluding any environments currently enabled at). If a partner tenant ID is provided, this returns the environments where the partner can enable children at. Works for disabled tenants."""
+        endpoint = "availableEnvironmentsV2"
+
+        result = self.service.execute_query(
+            endpoint=endpoint,
+            variables={
+                "tenantID": prepare_input(tenant_id),
+            },
+            output="",
+        )
+        if result.get(endpoint) is not None:
+            return [TenantEnvironment(r) for r in result.get(endpoint)]
+        raise GraphQLNoRowsInResultSetError("for query availableEnvironmentsV2")
 
     def tenant_licenses(
         self, tenant_licenses: TenantLicensesInput
@@ -95,7 +120,10 @@ class TaegisSDKTenants4Query:
             variables={
                 "tenantLicenses": prepare_input(tenant_licenses),
             },
-            output=build_output_string(TenantLicenseResponse),
+            output=build_output_string(
+                TenantLicenseResponse,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return TenantLicenseResponse.from_dict(result.get(endpoint))
@@ -112,7 +140,10 @@ class TaegisSDKTenants4Query:
             variables={
                 "productCatalog": prepare_input(product_catalog),
             },
-            output=build_output_string(ProductCatalogResponse),
+            output=build_output_string(
+                ProductCatalogResponse,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return ProductCatalogResponse.from_dict(result.get(endpoint))

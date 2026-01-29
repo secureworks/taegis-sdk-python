@@ -43,7 +43,10 @@ class TaegisSDKAlertsSubscription:
             variables={
                 "in": prepare_input(in_),
             },
-            output=build_output_string(BulkResolutionResponse),
+            output=build_output_string(
+                BulkResolutionResponse,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if any(r.get(endpoint) for r in result):
             return BulkResolutionResponse.schema().load(

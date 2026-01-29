@@ -871,6 +871,9 @@ class EntityHost:
     sensor_type: Optional[str] = field(
         default=None, metadata=config(field_name="sensor_type")
     )
+    system_type: Optional[str] = field(
+        default=None, metadata=config(field_name="system_type")
+    )
     vendor_agent_device_id: Optional[str] = field(
         default=None, metadata=config(field_name="vendor_agent_device_id")
     )
@@ -918,6 +921,9 @@ class EntityIpAddress:
     )
     ip_geo_country_geoname_id: Optional[int] = field(
         default=None, metadata=config(field_name="ip_geo_country_geoname_id")
+    )
+    ip_geo_hash: Optional[str] = field(
+        default=None, metadata=config(field_name="ip_geo_hash")
     )
     ip_geo_latitude: Optional[float] = field(
         default=None, metadata=config(field_name="ip_geo_latitude")
@@ -1108,6 +1114,9 @@ class EntityUser:
     )
     user_is_admin: Optional[bool] = field(
         default=None, metadata=config(field_name="user_is_admin")
+    )
+    identity_types_csv: Optional[str] = field(
+        default=None, metadata=config(field_name="identity_types_csv")
     )
 
 
@@ -3105,6 +3114,7 @@ class StructuredEntity:
     display_name: Optional[str] = field(
         default=None, metadata=config(field_name="display_name")
     )
+    subtype: Optional[str] = field(default=None, metadata=config(field_name="subtype"))
     perspective: Optional[Union[EntityPerspective, TaegisEnum]] = field(
         default=None,
         metadata=config(

@@ -41,7 +41,10 @@ class TaegisSDKAlertsHistoryQuery:
             variables={
                 "id": prepare_input(id_),
             },
-            output=build_output_string(AlertChangeRecord),
+            output=build_output_string(
+                AlertChangeRecord,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return AlertChangeRecord.schema().load(

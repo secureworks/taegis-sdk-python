@@ -60,7 +60,10 @@ class TaegisSDKEndpointCommandManagerQuery:
             variables={
                 "arguments": prepare_input(arguments),
             },
-            output=build_output_string(HistoryEntry),
+            output=build_output_string(
+                HistoryEntry,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return HistoryEntry.schema().load(
@@ -79,7 +82,10 @@ class TaegisSDKEndpointCommandManagerQuery:
             variables={
                 "arguments": prepare_input(arguments),
             },
-            output=build_output_string(HistoryPagedOutput),
+            output=build_output_string(
+                HistoryPagedOutput,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return HistoryPagedOutput.from_dict(result.get(endpoint))
@@ -92,7 +98,10 @@ class TaegisSDKEndpointCommandManagerQuery:
         result = self.service.execute_query(
             endpoint=endpoint,
             variables={},
-            output=build_output_string(IsolationExclusionRule),
+            output=build_output_string(
+                IsolationExclusionRule,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return IsolationExclusionRule.schema().load(

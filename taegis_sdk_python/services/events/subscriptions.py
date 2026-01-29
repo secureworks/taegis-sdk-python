@@ -49,7 +49,10 @@ class TaegisSDKEventsSubscription:
                 "metadata": prepare_input(metadata),
                 "options": prepare_input(options),
             },
-            output=build_output_string(EventQueryResults),
+            output=build_output_string(
+                EventQueryResults,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if any(r.get(endpoint) for r in result):
             return EventQueryResults.schema().load(
@@ -67,7 +70,10 @@ class TaegisSDKEventsSubscription:
             variables={
                 "id": prepare_input(id_),
             },
-            output=build_output_string(EventQueryResults),
+            output=build_output_string(
+                EventQueryResults,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if any(r.get(endpoint) for r in result):
             return EventQueryResults.schema().load(

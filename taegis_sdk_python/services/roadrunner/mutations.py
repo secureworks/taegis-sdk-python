@@ -41,7 +41,9 @@ class TaegisSDKRoadrunnerMutation:
             variables={
                 "parser": prepare_input(parser),
             },
-            output=build_output_string(Parser),
+            output=build_output_string(
+                Parser, exclude_deprecated_output=self.service.exclude_deprecated_output
+            ),
         )
         if result.get(endpoint) is not None:
             return Parser.from_dict(result.get(endpoint))
@@ -57,7 +59,9 @@ class TaegisSDKRoadrunnerMutation:
                 "id": prepare_input(id_),
                 "updatedParser": prepare_input(updated_parser),
             },
-            output=build_output_string(Parser),
+            output=build_output_string(
+                Parser, exclude_deprecated_output=self.service.exclude_deprecated_output
+            ),
         )
         if result.get(endpoint) is not None:
             return Parser.from_dict(result.get(endpoint))
@@ -72,7 +76,9 @@ class TaegisSDKRoadrunnerMutation:
             variables={
                 "id": prepare_input(id_),
             },
-            output=build_output_string(Parser),
+            output=build_output_string(
+                Parser, exclude_deprecated_output=self.service.exclude_deprecated_output
+            ),
         )
         if result.get(endpoint) is not None:
             return Parser.from_dict(result.get(endpoint))
@@ -91,7 +97,10 @@ class TaegisSDKRoadrunnerMutation:
             variables={
                 "directory": prepare_input(directory),
             },
-            output=build_output_string(Directory),
+            output=build_output_string(
+                Directory,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return Directory.from_dict(result.get(endpoint))
@@ -113,7 +122,10 @@ class TaegisSDKRoadrunnerMutation:
                 "id": prepare_input(id_),
                 "updatedDirectory": prepare_input(updated_directory),
             },
-            output=build_output_string(Directory),
+            output=build_output_string(
+                Directory,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return Directory.from_dict(result.get(endpoint))
@@ -132,7 +144,10 @@ class TaegisSDKRoadrunnerMutation:
             variables={
                 "id": prepare_input(id_),
             },
-            output=build_output_string(Directory),
+            output=build_output_string(
+                Directory,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return Directory.from_dict(result.get(endpoint))
@@ -147,7 +162,9 @@ class TaegisSDKRoadrunnerMutation:
             variables={
                 "sample": prepare_input(sample),
             },
-            output=build_output_string(Sample),
+            output=build_output_string(
+                Sample, exclude_deprecated_output=self.service.exclude_deprecated_output
+            ),
         )
         if result.get(endpoint) is not None:
             return Sample.from_dict(result.get(endpoint))
@@ -163,7 +180,9 @@ class TaegisSDKRoadrunnerMutation:
                 "id": prepare_input(id_),
                 "updatedSample": prepare_input(updated_sample),
             },
-            output=build_output_string(Sample),
+            output=build_output_string(
+                Sample, exclude_deprecated_output=self.service.exclude_deprecated_output
+            ),
         )
         if result.get(endpoint) is not None:
             return Sample.from_dict(result.get(endpoint))
@@ -178,7 +197,9 @@ class TaegisSDKRoadrunnerMutation:
             variables={
                 "id": prepare_input(id_),
             },
-            output=build_output_string(Sample),
+            output=build_output_string(
+                Sample, exclude_deprecated_output=self.service.exclude_deprecated_output
+            ),
         )
         if result.get(endpoint) is not None:
             return Sample.from_dict(result.get(endpoint))

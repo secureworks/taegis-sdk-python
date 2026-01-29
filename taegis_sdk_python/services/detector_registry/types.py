@@ -93,6 +93,11 @@ class RegisteredDetector:
     updated_at: Optional[str] = field(
         default=None, metadata=config(field_name="updatedAt")
     )
+    attack_categories: Optional[List[str]] = field(
+        default=None, metadata=config(field_name="attackCategories")
+    )
+    cve: Optional[str] = field(default=None, metadata=config(field_name="cve"))
+    vid: Optional[int] = field(default=None, metadata=config(field_name="vid"))
     state: Optional[Union[STATE, TaegisEnum]] = field(
         default=None,
         metadata=config(

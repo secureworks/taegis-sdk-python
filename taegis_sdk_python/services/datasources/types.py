@@ -40,6 +40,7 @@ class HealthState(str, Enum):
 class FilterCriteria(str, Enum):
     """FilterCriteria."""
 
+    ASSET_ID = "ASSET_ID"
     SOURCE_ID = "SOURCE_ID"
     STATUS = "STATUS"
     TYPE = "TYPE"
@@ -148,6 +149,9 @@ class QLPageCursor:
 class DataSourcesWhereInput:
     """DataSourcesWhereInput."""
 
+    asset_id: Optional[List[str]] = field(
+        default=None, metadata=config(field_name="assetId")
+    )
     source_id: Optional[List[str]] = field(
         default=None, metadata=config(field_name="sourceId")
     )
@@ -188,6 +192,15 @@ class FilterValue:
 @dataclass(order=True, eq=True, frozen=True)
 class ClusterIdentity:
     """ClusterIdentity."""
+
+    id: Optional[str] = field(default=None, metadata=config(field_name="id"))
+    name: Optional[str] = field(default=None, metadata=config(field_name="name"))
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class SourceIdentity:
+    """SourceIdentity."""
 
     id: Optional[str] = field(default=None, metadata=config(field_name="id"))
     name: Optional[str] = field(default=None, metadata=config(field_name="name"))
@@ -275,6 +288,9 @@ class LastSeenAsset:
     collector: Optional[ClusterIdentity] = field(
         default=None, metadata=config(field_name="collector")
     )
+    source: Optional[SourceIdentity] = field(
+        default=None, metadata=config(field_name="source")
+    )
     tags: Optional[List[DataSourceTag]] = field(
         default=None, metadata=config(field_name="tags")
     )
@@ -283,6 +299,7 @@ class LastSeenAsset:
 FilterValueResponse = Union[
     FilterValue,
     ClusterIdentity,
+    SourceIdentity,
 ]
 
 

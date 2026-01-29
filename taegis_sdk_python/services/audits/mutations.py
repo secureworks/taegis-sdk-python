@@ -41,7 +41,9 @@ class TaegisSDKAuditsMutation:
             variables={
                 "audit": prepare_input(audit),
             },
-            output=build_output_string(Audit),
+            output=build_output_string(
+                Audit, exclude_deprecated_output=self.service.exclude_deprecated_output
+            ),
         )
         if result.get(endpoint) is not None:
             return Audit.from_dict(result.get(endpoint))

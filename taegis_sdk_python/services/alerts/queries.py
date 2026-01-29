@@ -43,7 +43,10 @@ class TaegisSDKAlertsQuery:
             variables={
                 "in": prepare_input(in_),
             },
-            output=build_output_string(AlertsResponse),
+            output=build_output_string(
+                AlertsResponse,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return AlertsResponse.from_dict(result.get(endpoint))
@@ -60,7 +63,10 @@ class TaegisSDKAlertsQuery:
             variables={
                 "in": prepare_input(in_),
             },
-            output=build_output_string(AlertsResponse),
+            output=build_output_string(
+                AlertsResponse,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return AlertsResponse.from_dict(result.get(endpoint))
@@ -79,7 +85,10 @@ class TaegisSDKAlertsQuery:
             variables={
                 "in": prepare_input(in_),
             },
-            output=build_output_string(AlertsResponse),
+            output=build_output_string(
+                AlertsResponse,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return AlertsResponse.from_dict(result.get(endpoint))
@@ -98,7 +107,10 @@ class TaegisSDKAlertsQuery:
             variables={
                 "in": prepare_input(in_),
             },
-            output=build_output_string(AlertsResponse),
+            output=build_output_string(
+                AlertsResponse,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return AlertsResponse.from_dict(result.get(endpoint))
@@ -117,7 +129,10 @@ class TaegisSDKAlertsQuery:
             variables={
                 "in": prepare_input(in_),
             },
-            output=build_output_string(AlertsCountByTenantResponse),
+            output=build_output_string(
+                AlertsCountByTenantResponse,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return AlertsCountByTenantResponse.from_dict(result.get(endpoint))
@@ -134,7 +149,10 @@ class TaegisSDKAlertsQuery:
             variables={
                 "in": prepare_input(in_),
             },
-            output=build_output_string(AlertsResponse),
+            output=build_output_string(
+                AlertsResponse,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return AlertsResponse.from_dict(result.get(endpoint))
@@ -151,7 +169,10 @@ class TaegisSDKAlertsQuery:
             variables={
                 "in": prepare_input(in_),
             },
-            output=build_output_string(AlertsResponse),
+            output=build_output_string(
+                AlertsResponse,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return AlertsResponse.from_dict(result.get(endpoint))
@@ -168,7 +189,10 @@ class TaegisSDKAlertsQuery:
             variables={
                 "in": prepare_input(in_),
             },
-            output=build_output_string(AlertsAggregateResponse),
+            output=build_output_string(
+                AlertsAggregateResponse,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return AlertsAggregateResponse.from_dict(result.get(endpoint))

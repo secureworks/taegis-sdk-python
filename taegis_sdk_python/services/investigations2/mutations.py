@@ -41,7 +41,9 @@ class TaegisSDKInvestigations2Mutation:
             variables={
                 "input": prepare_input(input_),
             },
-            output=build_output_string(Case),
+            output=build_output_string(
+                Case, exclude_deprecated_output=self.service.exclude_deprecated_output
+            ),
         )
         if result.get(endpoint) is not None:
             return Case.from_dict(result.get(endpoint))
@@ -58,7 +60,9 @@ class TaegisSDKInvestigations2Mutation:
             variables={
                 "input": prepare_input(input_),
             },
-            output=build_output_string(Case),
+            output=build_output_string(
+                Case, exclude_deprecated_output=self.service.exclude_deprecated_output
+            ),
         )
         if result.get(endpoint) is not None:
             return Case.from_dict(result.get(endpoint))
@@ -85,7 +89,10 @@ class TaegisSDKInvestigations2Mutation:
             variables={
                 "input": prepare_input(input_),
             },
-            output=build_output_string(AddEvidenceToCaseResult),
+            output=build_output_string(
+                AddEvidenceToCaseResult,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return AddEvidenceToCaseResult.from_dict(result.get(endpoint))
@@ -111,7 +118,10 @@ class TaegisSDKInvestigations2Mutation:
             variables={
                 "input": prepare_input(input_),
             },
-            output=build_output_string(RemoveEvidenceFromCaseResult),
+            output=build_output_string(
+                RemoveEvidenceFromCaseResult,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return RemoveEvidenceFromCaseResult.from_dict(result.get(endpoint))
@@ -137,7 +147,9 @@ class TaegisSDKInvestigations2Mutation:
             variables={
                 "input": prepare_input(input_),
             },
-            output=build_output_string(Case),
+            output=build_output_string(
+                Case, exclude_deprecated_output=self.service.exclude_deprecated_output
+            ),
         )
         if result.get(endpoint) is not None:
             return Case.from_dict(result.get(endpoint))
@@ -152,7 +164,10 @@ class TaegisSDKInvestigations2Mutation:
             variables={
                 "input": prepare_input(input_),
             },
-            output=build_output_string(CaseRule),
+            output=build_output_string(
+                CaseRule,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return CaseRule.from_dict(result.get(endpoint))
@@ -167,7 +182,10 @@ class TaegisSDKInvestigations2Mutation:
             variables={
                 "input": prepare_input(input_),
             },
-            output=build_output_string(CaseRule),
+            output=build_output_string(
+                CaseRule,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return CaseRule.from_dict(result.get(endpoint))
@@ -183,7 +201,10 @@ class TaegisSDKInvestigations2Mutation:
             variables={
                 "input": prepare_input(input_),
             },
-            output=build_output_string(CaseRule),
+            output=build_output_string(
+                CaseRule,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return CaseRule.from_dict(result.get(endpoint))
@@ -198,7 +219,10 @@ class TaegisSDKInvestigations2Mutation:
             variables={
                 "input": prepare_input(input_),
             },
-            output=build_output_string(CaseTemplate),
+            output=build_output_string(
+                CaseTemplate,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return CaseTemplate.from_dict(result.get(endpoint))
@@ -213,7 +237,10 @@ class TaegisSDKInvestigations2Mutation:
             variables={
                 "input": prepare_input(input_),
             },
-            output=build_output_string(CaseTemplate),
+            output=build_output_string(
+                CaseTemplate,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return CaseTemplate.from_dict(result.get(endpoint))
@@ -229,7 +256,10 @@ class TaegisSDKInvestigations2Mutation:
             variables={
                 "input": prepare_input(input_),
             },
-            output=build_output_string(CaseTemplate),
+            output=build_output_string(
+                CaseTemplate,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return CaseTemplate.from_dict(result.get(endpoint))
@@ -248,7 +278,10 @@ class TaegisSDKInvestigations2Mutation:
             variables={
                 "input": prepare_input(input_),
             },
-            output=build_output_string(CaseResource),
+            output=build_output_string(
+                CaseResource,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return [parse_union_result(CaseResource, r) for r in result.get(endpoint)]
@@ -263,7 +296,10 @@ class TaegisSDKInvestigations2Mutation:
             variables={
                 "input": prepare_input(input_),
             },
-            output=build_output_string(CaseComment),
+            output=build_output_string(
+                CaseComment,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return CaseComment.from_dict(result.get(endpoint))
@@ -282,7 +318,10 @@ class TaegisSDKInvestigations2Mutation:
             variables={
                 "input": prepare_input(input_),
             },
-            output=build_output_string(CaseComment),
+            output=build_output_string(
+                CaseComment,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return CaseComment.from_dict(result.get(endpoint))
@@ -298,7 +337,10 @@ class TaegisSDKInvestigations2Mutation:
             variables={
                 "input": prepare_input(input_),
             },
-            output=build_output_string(CaseComment),
+            output=build_output_string(
+                CaseComment,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return CaseComment.from_dict(result.get(endpoint))
@@ -316,7 +358,9 @@ class TaegisSDKInvestigations2Mutation:
             variables={
                 "input": prepare_input(input_),
             },
-            output=build_output_string(Case),
+            output=build_output_string(
+                Case, exclude_deprecated_output=self.service.exclude_deprecated_output
+            ),
         )
         if result.get(endpoint) is not None:
             return Case.from_dict(result.get(endpoint))
@@ -331,7 +375,9 @@ class TaegisSDKInvestigations2Mutation:
             variables={
                 "input": prepare_input(input_),
             },
-            output=build_output_string(Case),
+            output=build_output_string(
+                Case, exclude_deprecated_output=self.service.exclude_deprecated_output
+            ),
         )
         if result.get(endpoint) is not None:
             return Case.from_dict(result.get(endpoint))
@@ -349,7 +395,10 @@ class TaegisSDKInvestigations2Mutation:
             variables={
                 "input": prepare_input(input_),
             },
-            output=build_output_string(ArchivedCases),
+            output=build_output_string(
+                ArchivedCases,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return ArchivedCases.from_dict(result.get(endpoint))
@@ -366,7 +415,10 @@ class TaegisSDKInvestigations2Mutation:
             variables={
                 "input": prepare_input(input_),
             },
-            output=build_output_string(UnarchivedCases),
+            output=build_output_string(
+                UnarchivedCases,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return UnarchivedCases.from_dict(result.get(endpoint))
@@ -385,7 +437,10 @@ class TaegisSDKInvestigations2Mutation:
             variables={
                 "input": prepare_input(input_),
             },
-            output=build_output_string(CaseFileUpload),
+            output=build_output_string(
+                CaseFileUpload,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return CaseFileUpload.from_dict(result.get(endpoint))
@@ -401,11 +456,68 @@ class TaegisSDKInvestigations2Mutation:
             variables={
                 "input": prepare_input(input_),
             },
-            output=build_output_string(CaseFile),
+            output=build_output_string(
+                CaseFile,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return CaseFile.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for mutation deleteCaseFile")
+
+    def create_case_link(self, input_: CreateCaseLinkInput) -> CaseLink:
+        """createCaseLink creates a new link on an existing case.."""
+        endpoint = "createCaseLink"
+
+        result = self.service.execute_mutation(
+            endpoint=endpoint,
+            variables={
+                "input": prepare_input(input_),
+            },
+            output=build_output_string(
+                CaseLink,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
+        )
+        if result.get(endpoint) is not None:
+            return CaseLink.from_dict(result.get(endpoint))
+        raise GraphQLNoRowsInResultSetError("for mutation createCaseLink")
+
+    def update_case_link(self, input_: UpdateCaseLinkInput) -> CaseLink:
+        """updateCaseLink updates an existing link on a case.."""
+        endpoint = "updateCaseLink"
+
+        result = self.service.execute_mutation(
+            endpoint=endpoint,
+            variables={
+                "input": prepare_input(input_),
+            },
+            output=build_output_string(
+                CaseLink,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
+        )
+        if result.get(endpoint) is not None:
+            return CaseLink.from_dict(result.get(endpoint))
+        raise GraphQLNoRowsInResultSetError("for mutation updateCaseLink")
+
+    def delete_case_link(self, input_: DeleteCaseLinkInput) -> CaseLink:
+        """deleteCaseLink deletes an existing link from a case.."""
+        endpoint = "deleteCaseLink"
+
+        result = self.service.execute_mutation(
+            endpoint=endpoint,
+            variables={
+                "input": prepare_input(input_),
+            },
+            output=build_output_string(
+                CaseLink,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
+        )
+        if result.get(endpoint) is not None:
+            return CaseLink.from_dict(result.get(endpoint))
+        raise GraphQLNoRowsInResultSetError("for mutation deleteCaseLink")
 
     def create_investigation_v2(
         self, input_: CreateInvestigationInput
@@ -418,7 +530,10 @@ class TaegisSDKInvestigations2Mutation:
             variables={
                 "input": prepare_input(input_),
             },
-            output=build_output_string(InvestigationV2),
+            output=build_output_string(
+                InvestigationV2,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return InvestigationV2.from_dict(result.get(endpoint))
@@ -437,7 +552,10 @@ class TaegisSDKInvestigations2Mutation:
             variables={
                 "input": prepare_input(input_),
             },
-            output=build_output_string(InvestigationV2),
+            output=build_output_string(
+                InvestigationV2,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return InvestigationV2.from_dict(result.get(endpoint))
@@ -464,7 +582,10 @@ class TaegisSDKInvestigations2Mutation:
             variables={
                 "input": prepare_input(input_),
             },
-            output=build_output_string(AddEvidenceToInvestigationResult),
+            output=build_output_string(
+                AddEvidenceToInvestigationResult,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return AddEvidenceToInvestigationResult.from_dict(result.get(endpoint))
@@ -490,7 +611,10 @@ class TaegisSDKInvestigations2Mutation:
             variables={
                 "input": prepare_input(input_),
             },
-            output=build_output_string(RemoveEvidenceFromInvestigationResult),
+            output=build_output_string(
+                RemoveEvidenceFromInvestigationResult,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return RemoveEvidenceFromInvestigationResult.from_dict(result.get(endpoint))
@@ -518,7 +642,10 @@ class TaegisSDKInvestigations2Mutation:
             variables={
                 "input": prepare_input(input_),
             },
-            output=build_output_string(InvestigationV2),
+            output=build_output_string(
+                InvestigationV2,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return InvestigationV2.from_dict(result.get(endpoint))
@@ -549,7 +676,10 @@ class TaegisSDKInvestigations2Mutation:
             variables={
                 "input": prepare_input(input_),
             },
-            output=build_output_string(BulkSetInvestigationStatusResult),
+            output=build_output_string(
+                BulkSetInvestigationStatusResult,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return BulkSetInvestigationStatusResult.from_dict(result.get(endpoint))
@@ -566,7 +696,10 @@ class TaegisSDKInvestigations2Mutation:
             variables={
                 "input": prepare_input(input_),
             },
-            output=build_output_string(InvestigationRule),
+            output=build_output_string(
+                InvestigationRule,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return InvestigationRule.from_dict(result.get(endpoint))
@@ -583,7 +716,10 @@ class TaegisSDKInvestigations2Mutation:
             variables={
                 "input": prepare_input(input_),
             },
-            output=build_output_string(InvestigationRule),
+            output=build_output_string(
+                InvestigationRule,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return InvestigationRule.from_dict(result.get(endpoint))
@@ -601,7 +737,10 @@ class TaegisSDKInvestigations2Mutation:
             variables={
                 "input": prepare_input(input_),
             },
-            output=build_output_string(InvestigationRule),
+            output=build_output_string(
+                InvestigationRule,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return InvestigationRule.from_dict(result.get(endpoint))
@@ -618,7 +757,10 @@ class TaegisSDKInvestigations2Mutation:
             variables={
                 "input": prepare_input(input_),
             },
-            output=build_output_string(InvestigationTemplate),
+            output=build_output_string(
+                InvestigationTemplate,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return InvestigationTemplate.from_dict(result.get(endpoint))
@@ -635,7 +777,10 @@ class TaegisSDKInvestigations2Mutation:
             variables={
                 "input": prepare_input(input_),
             },
-            output=build_output_string(InvestigationTemplate),
+            output=build_output_string(
+                InvestigationTemplate,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return InvestigationTemplate.from_dict(result.get(endpoint))
@@ -653,7 +798,10 @@ class TaegisSDKInvestigations2Mutation:
             variables={
                 "input": prepare_input(input_),
             },
-            output=build_output_string(InvestigationTemplate),
+            output=build_output_string(
+                InvestigationTemplate,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return InvestigationTemplate.from_dict(result.get(endpoint))
@@ -672,7 +820,10 @@ class TaegisSDKInvestigations2Mutation:
             variables={
                 "input": prepare_input(input_),
             },
-            output=build_output_string(InvestigationResource),
+            output=build_output_string(
+                InvestigationResource,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return [
@@ -692,7 +843,10 @@ class TaegisSDKInvestigations2Mutation:
             variables={
                 "input": prepare_input(input_),
             },
-            output=build_output_string(CommentV2),
+            output=build_output_string(
+                CommentV2,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return CommentV2.from_dict(result.get(endpoint))
@@ -713,7 +867,10 @@ class TaegisSDKInvestigations2Mutation:
             variables={
                 "input": prepare_input(input_),
             },
-            output=build_output_string(CommentV2),
+            output=build_output_string(
+                CommentV2,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return CommentV2.from_dict(result.get(endpoint))
@@ -731,7 +888,10 @@ class TaegisSDKInvestigations2Mutation:
             variables={
                 "input": prepare_input(input_),
             },
-            output=build_output_string(CommentV2),
+            output=build_output_string(
+                CommentV2,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return CommentV2.from_dict(result.get(endpoint))
@@ -751,7 +911,10 @@ class TaegisSDKInvestigations2Mutation:
             variables={
                 "input": prepare_input(input_),
             },
-            output=build_output_string(InvestigationV2),
+            output=build_output_string(
+                InvestigationV2,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return InvestigationV2.from_dict(result.get(endpoint))
@@ -768,7 +931,10 @@ class TaegisSDKInvestigations2Mutation:
             variables={
                 "input": prepare_input(input_),
             },
-            output=build_output_string(InvestigationV2),
+            output=build_output_string(
+                InvestigationV2,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return InvestigationV2.from_dict(result.get(endpoint))
@@ -788,7 +954,10 @@ class TaegisSDKInvestigations2Mutation:
             variables={
                 "input": prepare_input(input_),
             },
-            output=build_output_string(ArchivedInvestigations),
+            output=build_output_string(
+                ArchivedInvestigations,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return ArchivedInvestigations.from_dict(result.get(endpoint))
@@ -807,7 +976,10 @@ class TaegisSDKInvestigations2Mutation:
             variables={
                 "input": prepare_input(input_),
             },
-            output=build_output_string(UnarchivedInvestigations),
+            output=build_output_string(
+                UnarchivedInvestigations,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return UnarchivedInvestigations.from_dict(result.get(endpoint))
@@ -826,7 +998,10 @@ class TaegisSDKInvestigations2Mutation:
             variables={
                 "input": prepare_input(input_),
             },
-            output=build_output_string(InvestigationFileUpload),
+            output=build_output_string(
+                InvestigationFileUpload,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return InvestigationFileUpload.from_dict(result.get(endpoint))
@@ -844,7 +1019,10 @@ class TaegisSDKInvestigations2Mutation:
             variables={
                 "input": prepare_input(input_),
             },
-            output=build_output_string(InvestigationFileV2),
+            output=build_output_string(
+                InvestigationFileV2,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return InvestigationFileV2.from_dict(result.get(endpoint))

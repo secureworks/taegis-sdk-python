@@ -51,7 +51,10 @@ class TaegisSDKAssets2Mutation:
             variables={
                 "input": prepare_input(input_),
             },
-            output=build_output_string(BulkOpPayloadV2),
+            output=build_output_string(
+                BulkOpPayloadV2,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return BulkOpPayloadV2.from_dict(result.get(endpoint))
@@ -73,7 +76,10 @@ class TaegisSDKAssets2Mutation:
             variables={
                 "input": prepare_input(input_),
             },
-            output=build_output_string(BulkOpPayloadV2),
+            output=build_output_string(
+                BulkOpPayloadV2,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return BulkOpPayloadV2.from_dict(result.get(endpoint))
@@ -90,7 +96,10 @@ class TaegisSDKAssets2Mutation:
             variables={
                 "input": prepare_input(input_),
             },
-            output=build_output_string(BulkOpPayloadV2),
+            output=build_output_string(
+                BulkOpPayloadV2,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return BulkOpPayloadV2.from_dict(result.get(endpoint))
@@ -107,7 +116,10 @@ class TaegisSDKAssets2Mutation:
             variables={
                 "input": prepare_input(input_),
             },
-            output=build_output_string(BulkOpPayloadV2),
+            output=build_output_string(
+                BulkOpPayloadV2,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return BulkOpPayloadV2.from_dict(result.get(endpoint))
@@ -126,7 +138,10 @@ class TaegisSDKAssets2Mutation:
             variables={
                 "input": prepare_input(input_),
             },
-            output=build_output_string(BulkOpPayloadV2),
+            output=build_output_string(
+                BulkOpPayloadV2,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return BulkOpPayloadV2.from_dict(result.get(endpoint))
@@ -146,55 +161,14 @@ class TaegisSDKAssets2Mutation:
             variables={
                 "input": prepare_input(input_),
             },
-            output=build_output_string(BulkOpPayloadV2),
+            output=build_output_string(
+                BulkOpPayloadV2,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return BulkOpPayloadV2.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for mutation bulkDeleteTagsForEndpointsV2")
-
-    def assign_bulk_assets_to_investigation(
-        self, input_: AssignBulkAssetsToInvestigationInput
-    ) -> BulkOpPayloadV2:
-        """Start a job to assign the endpoints matching the filter criteria to the
-        investigation in the input. Use the task ID in the response to poll the
-        assignBulkAssetsToInvestigationStatus query to determine if the job succeeded..
-        """
-        endpoint = "assignBulkAssetsToInvestigation"
-
-        result = self.service.execute_mutation(
-            endpoint=endpoint,
-            variables={
-                "input": prepare_input(input_),
-            },
-            output=build_output_string(BulkOpPayloadV2),
-        )
-        if result.get(endpoint) is not None:
-            return BulkOpPayloadV2.from_dict(result.get(endpoint))
-        raise GraphQLNoRowsInResultSetError(
-            "for mutation assignBulkAssetsToInvestigation"
-        )
-
-    def bulk_delete_investigation_for_endpoints(
-        self, input_: BulkDeleteInvestigationForEndpointsInput
-    ) -> BulkOpPayloadV2:
-        """Start a job to delete the provided investigation from the endpoints matching
-        the filter criteria in the input. Use the task ID in the response to poll the
-        bulkDeleteInvestigationForEndpointsStatus query to determine if the job succeeded..
-        """
-        endpoint = "bulkDeleteInvestigationForEndpoints"
-
-        result = self.service.execute_mutation(
-            endpoint=endpoint,
-            variables={
-                "input": prepare_input(input_),
-            },
-            output=build_output_string(BulkOpPayloadV2),
-        )
-        if result.get(endpoint) is not None:
-            return BulkOpPayloadV2.from_dict(result.get(endpoint))
-        raise GraphQLNoRowsInResultSetError(
-            "for mutation bulkDeleteInvestigationForEndpoints"
-        )
 
     def bulk_reconnect_native_assets(
         self, input_: BulkReconnectNativeAssetsInput
@@ -207,7 +181,10 @@ class TaegisSDKAssets2Mutation:
             variables={
                 "input": prepare_input(input_),
             },
-            output=build_output_string(BulkOpPayloadV2),
+            output=build_output_string(
+                BulkOpPayloadV2,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return BulkOpPayloadV2.from_dict(result.get(endpoint))
@@ -224,7 +201,10 @@ class TaegisSDKAssets2Mutation:
             variables={
                 "input": prepare_input(input_),
             },
-            output=build_output_string(BulkOpPayloadV2),
+            output=build_output_string(
+                BulkOpPayloadV2,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return BulkOpPayloadV2.from_dict(result.get(endpoint))

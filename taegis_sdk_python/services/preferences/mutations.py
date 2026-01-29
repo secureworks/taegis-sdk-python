@@ -43,7 +43,10 @@ class TaegisSDKPreferencesMutation:
             variables={
                 "newUserPreference": prepare_input(new_user_preference),
             },
-            output=build_output_string(UserPreference),
+            output=build_output_string(
+                UserPreference,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return UserPreference.from_dict(result.get(endpoint))
@@ -60,7 +63,10 @@ class TaegisSDKPreferencesMutation:
             variables={
                 "updatedUserPreference": prepare_input(updated_user_preference),
             },
-            output=build_output_string(UserPreference),
+            output=build_output_string(
+                UserPreference,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return UserPreference.from_dict(result.get(endpoint))
@@ -71,7 +77,12 @@ class TaegisSDKPreferencesMutation:
         endpoint = "resetUserPreferences"
 
         result = self.service.execute_mutation(
-            endpoint=endpoint, variables={}, output=build_output_string(UserPreference)
+            endpoint=endpoint,
+            variables={},
+            output=build_output_string(
+                UserPreference,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return UserPreference.schema().load(
@@ -90,7 +101,10 @@ class TaegisSDKPreferencesMutation:
             variables={
                 "newTenantPreference": prepare_input(new_tenant_preference),
             },
-            output=build_output_string(TenantPreference),
+            output=build_output_string(
+                TenantPreference,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return TenantPreference.from_dict(result.get(endpoint))
@@ -107,7 +121,10 @@ class TaegisSDKPreferencesMutation:
             variables={
                 "updatedTenantPreference": prepare_input(updated_tenant_preference),
             },
-            output=build_output_string(TenantPreference),
+            output=build_output_string(
+                TenantPreference,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return TenantPreference.from_dict(result.get(endpoint))
@@ -122,7 +139,10 @@ class TaegisSDKPreferencesMutation:
             variables={
                 "key": prepare_input(key),
             },
-            output=build_output_string(TenantPreference),
+            output=build_output_string(
+                TenantPreference,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return TenantPreference.from_dict(result.get(endpoint))
@@ -139,7 +159,10 @@ class TaegisSDKPreferencesMutation:
             variables={
                 "ticketingSettingsInput": prepare_input(ticketing_settings_input),
             },
-            output=build_output_string(TicketingSettings),
+            output=build_output_string(
+                TicketingSettings,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return TicketingSettings.from_dict(result.get(endpoint))
@@ -156,7 +179,10 @@ class TaegisSDKPreferencesMutation:
             variables={
                 "partnerPreferenceInput": prepare_input(partner_preference_input),
             },
-            output=build_output_string(PartnerPreference),
+            output=build_output_string(
+                PartnerPreference,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return PartnerPreference.from_dict(result.get(endpoint))
@@ -173,7 +199,10 @@ class TaegisSDKPreferencesMutation:
             variables={
                 "userPreferenceInput": prepare_input(user_preference_input),
             },
-            output=build_output_string(UserPreferenceDictionary),
+            output=build_output_string(
+                UserPreferenceDictionary,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return UserPreferenceDictionary.from_dict(result.get(endpoint))
@@ -190,7 +219,10 @@ class TaegisSDKPreferencesMutation:
             variables={
                 "unsetPreferenceSelector": prepare_input(unset_preference_selector),
             },
-            output=build_output_string(UserPreferenceDictionary),
+            output=build_output_string(
+                UserPreferenceDictionary,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return UserPreferenceDictionary.from_dict(result.get(endpoint))
@@ -210,7 +242,10 @@ class TaegisSDKPreferencesMutation:
                     update_user_notification_preference_input
                 ),
             },
-            output=build_output_string(UserNotificationPreferencesResponse),
+            output=build_output_string(
+                UserNotificationPreferencesResponse,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return UserNotificationPreferencesResponse.from_dict(result.get(endpoint))

@@ -43,7 +43,10 @@ class TaegisSDKMultiTenantContextQuery:
             variables={
                 "keys": prepare_input(keys),
             },
-            output=build_output_string(Session),
+            output=build_output_string(
+                Session,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return Session.schema().load(
@@ -60,7 +63,10 @@ class TaegisSDKMultiTenantContextQuery:
             variables={
                 "key": prepare_input(key),
             },
-            output=build_output_string(History),
+            output=build_output_string(
+                History,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return History.schema().load(
@@ -77,7 +83,10 @@ class TaegisSDKMultiTenantContextQuery:
             variables={
                 "tenantID": prepare_input(tenant_id),
             },
-            output=build_output_string(TenantClaim),
+            output=build_output_string(
+                TenantClaim,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return TenantClaim.schema().load(
@@ -94,7 +103,10 @@ class TaegisSDKMultiTenantContextQuery:
             variables={
                 "tenantIDs": prepare_input(tenant_ids),
             },
-            output=build_output_string(TenantsClaim),
+            output=build_output_string(
+                TenantsClaim,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return TenantsClaim.schema().load(
@@ -107,7 +119,12 @@ class TaegisSDKMultiTenantContextQuery:
         endpoint = "getClaimedTenants"
 
         result = self.service.execute_query(
-            endpoint=endpoint, variables={}, output=build_output_string(TenantClaim)
+            endpoint=endpoint,
+            variables={},
+            output=build_output_string(
+                TenantClaim,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return TenantClaim.schema().load(

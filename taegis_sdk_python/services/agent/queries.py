@@ -43,7 +43,10 @@ class TaegisSDKAgentQuery:
             variables={
                 "args": prepare_input(args),
             },
-            output=build_output_string(Package),
+            output=build_output_string(
+                Package,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return Package.schema().load(
@@ -62,7 +65,10 @@ class TaegisSDKAgentQuery:
             variables={
                 "args": prepare_input(args),
             },
-            output=build_output_string(PackageSignedUrl),
+            output=build_output_string(
+                PackageSignedUrl,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return PackageSignedUrl.from_dict(result.get(endpoint))
@@ -77,7 +83,10 @@ class TaegisSDKAgentQuery:
             variables={
                 "id": prepare_input(id_),
             },
-            output=build_output_string(PackageSignedUrl),
+            output=build_output_string(
+                PackageSignedUrl,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return PackageSignedUrl.from_dict(result.get(endpoint))
@@ -90,7 +99,10 @@ class TaegisSDKAgentQuery:
         result = self.service.execute_query(
             endpoint=endpoint,
             variables={},
-            output=build_output_string(ReleaseChannelsConfig),
+            output=build_output_string(
+                ReleaseChannelsConfig,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return ReleaseChannelsConfig.schema().load(

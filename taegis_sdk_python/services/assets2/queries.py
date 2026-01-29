@@ -43,7 +43,10 @@ class TaegisSDKAssets2Query:
             variables={
                 "endpointType": prepare_input(endpoint_type),
             },
-            output=build_output_string(FacetV2),
+            output=build_output_string(
+                FacetV2,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return FacetV2.schema().load(
@@ -67,7 +70,10 @@ class TaegisSDKAssets2Query:
                 "orderBy": prepare_input(order_by),
                 "filter": prepare_input(filter_),
             },
-            output=build_output_string(FacetInfoV2),
+            output=build_output_string(
+                FacetInfoV2,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return FacetInfoV2.schema().load(
@@ -97,7 +103,10 @@ class TaegisSDKAssets2Query:
                 "filter": prepare_input(filter_),
                 "orderBy": prepare_input(order_by),
             },
-            output=build_output_string(AssetsV2),
+            output=build_output_string(
+                AssetsV2,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return AssetsV2.from_dict(result.get(endpoint))
@@ -121,7 +130,10 @@ class TaegisSDKAssets2Query:
                 "filter": prepare_input(filter_),
                 "orderBy": prepare_input(order_by),
             },
-            output=build_output_string(AssetsExportOutputV2),
+            output=build_output_string(
+                AssetsExportOutputV2,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return AssetsExportOutputV2.from_dict(result.get(endpoint))
@@ -166,7 +178,10 @@ class TaegisSDKAssets2Query:
             variables={
                 "id": prepare_input(id_),
             },
-            output=build_output_string(TaskInfoPayload),
+            output=build_output_string(
+                TaskInfoPayload,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return TaskInfoPayload.from_dict(result.get(endpoint))
@@ -181,7 +196,10 @@ class TaegisSDKAssets2Query:
             variables={
                 "id": prepare_input(id_),
             },
-            output=build_output_string(TaskInfoPayload),
+            output=build_output_string(
+                TaskInfoPayload,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return TaskInfoPayload.from_dict(result.get(endpoint))
@@ -196,7 +214,10 @@ class TaegisSDKAssets2Query:
             variables={
                 "id": prepare_input(id_),
             },
-            output=build_output_string(TaskInfoPayload),
+            output=build_output_string(
+                TaskInfoPayload,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return TaskInfoPayload.from_dict(result.get(endpoint))
@@ -211,7 +232,10 @@ class TaegisSDKAssets2Query:
             variables={
                 "id": prepare_input(id_),
             },
-            output=build_output_string(TaskInfoPayload),
+            output=build_output_string(
+                TaskInfoPayload,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return TaskInfoPayload.from_dict(result.get(endpoint))
@@ -226,7 +250,10 @@ class TaegisSDKAssets2Query:
             variables={
                 "id": prepare_input(id_),
             },
-            output=build_output_string(TaskInfoPayload),
+            output=build_output_string(
+                TaskInfoPayload,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return TaskInfoPayload.from_dict(result.get(endpoint))
@@ -243,48 +270,15 @@ class TaegisSDKAssets2Query:
             variables={
                 "id": prepare_input(id_),
             },
-            output=build_output_string(TaskInfoPayload),
+            output=build_output_string(
+                TaskInfoPayload,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return TaskInfoPayload.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError(
             "for query bulkDeleteTagsForEndpointsStatusV2"
-        )
-
-    def assign_bulk_assets_to_investigation_status(self, id_: str) -> TaskInfoPayload:
-        """Return the status of the assignBulkAssetsToInvestigation operation.."""
-        endpoint = "assignBulkAssetsToInvestigationStatus"
-
-        result = self.service.execute_query(
-            endpoint=endpoint,
-            variables={
-                "id": prepare_input(id_),
-            },
-            output=build_output_string(TaskInfoPayload),
-        )
-        if result.get(endpoint) is not None:
-            return TaskInfoPayload.from_dict(result.get(endpoint))
-        raise GraphQLNoRowsInResultSetError(
-            "for query assignBulkAssetsToInvestigationStatus"
-        )
-
-    def bulk_delete_investigation_for_endpoints_status(
-        self, id_: str
-    ) -> TaskInfoPayload:
-        """Return the status of the bulkDeleteInvestigationForEndpoints operation.."""
-        endpoint = "bulkDeleteInvestigationForEndpointsStatus"
-
-        result = self.service.execute_query(
-            endpoint=endpoint,
-            variables={
-                "id": prepare_input(id_),
-            },
-            output=build_output_string(TaskInfoPayload),
-        )
-        if result.get(endpoint) is not None:
-            return TaskInfoPayload.from_dict(result.get(endpoint))
-        raise GraphQLNoRowsInResultSetError(
-            "for query bulkDeleteInvestigationForEndpointsStatus"
         )
 
     def bulk_reconnect_native_assets_status(self, id_: str) -> TaskInfoPayload:
@@ -296,7 +290,10 @@ class TaegisSDKAssets2Query:
             variables={
                 "id": prepare_input(id_),
             },
-            output=build_output_string(TaskInfoPayload),
+            output=build_output_string(
+                TaskInfoPayload,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return TaskInfoPayload.from_dict(result.get(endpoint))
@@ -311,7 +308,10 @@ class TaegisSDKAssets2Query:
             variables={
                 "id": prepare_input(id_),
             },
-            output=build_output_string(TaskInfoPayload),
+            output=build_output_string(
+                TaskInfoPayload,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return TaskInfoPayload.from_dict(result.get(endpoint))
@@ -359,7 +359,10 @@ class TaegisSDKAssets2Query:
                 "filter": prepare_input(filter_),
                 "orderBy": prepare_input(order_by),
             },
-            output=build_output_string(AssetsHostname),
+            output=build_output_string(
+                AssetsHostname,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return AssetsHostname.from_dict(result.get(endpoint))
@@ -387,7 +390,10 @@ class TaegisSDKAssets2Query:
                 "filter": prepare_input(filter_),
                 "orderBy": prepare_input(order_by),
             },
-            output=build_output_string(AssetsIPAddress),
+            output=build_output_string(
+                AssetsIPAddress,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return AssetsIPAddress.from_dict(result.get(endpoint))
@@ -415,7 +421,10 @@ class TaegisSDKAssets2Query:
                 "filter": prepare_input(filter_),
                 "orderBy": prepare_input(order_by),
             },
-            output=build_output_string(AssetsMacAddress),
+            output=build_output_string(
+                AssetsMacAddress,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return AssetsMacAddress.from_dict(result.get(endpoint))
@@ -430,7 +439,10 @@ class TaegisSDKAssets2Query:
             variables={
                 "hostId": prepare_input(host_id),
             },
-            output=build_output_string(NetworkInfo),
+            output=build_output_string(
+                NetworkInfo,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return NetworkInfo.schema().load(
@@ -456,7 +468,10 @@ class TaegisSDKAssets2Query:
                 "exactMatchCount": prepare_input(exact_match_count),
                 "endpointTypes": prepare_input(endpoint_types),
             },
-            output=build_output_string(NetworkInfo),
+            output=build_output_string(
+                NetworkInfo,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return NetworkInfo.schema().load(
@@ -482,7 +497,10 @@ class TaegisSDKAssets2Query:
                 "exactMatchCount": prepare_input(exact_match_count),
                 "endpointTypes": prepare_input(endpoint_types),
             },
-            output=build_output_string(NetworkInfo),
+            output=build_output_string(
+                NetworkInfo,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return NetworkInfo.schema().load(

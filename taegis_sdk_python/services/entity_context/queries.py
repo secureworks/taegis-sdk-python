@@ -44,7 +44,10 @@ class TaegisSDKEntityContextQuery:
                 "entityID": prepare_input(entity_id),
                 "origin": prepare_input(origin),
             },
-            output=build_output_string(EntityContextEntity),
+            output=build_output_string(
+                EntityContextEntity,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return EntityContextEntity.from_dict(result.get(endpoint))
@@ -66,7 +69,10 @@ class TaegisSDKEntityContextQuery:
                 "identifiers": prepare_input(identifiers),
                 "origin": prepare_input(origin),
             },
-            output=build_output_string(EntityContextEntity),
+            output=build_output_string(
+                EntityContextEntity,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return EntityContextEntity.from_dict(result.get(endpoint))
@@ -86,7 +92,10 @@ class TaegisSDKEntityContextQuery:
                 "arguments": prepare_input(arguments),
                 "page": prepare_input(page),
             },
-            output=build_output_string(EntityContexts),
+            output=build_output_string(
+                EntityContexts,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return EntityContexts.from_dict(result.get(endpoint))
@@ -104,7 +113,10 @@ class TaegisSDKEntityContextQuery:
                 "edgeId": prepare_input(edge_id),
                 "origin": prepare_input(origin),
             },
-            output=build_output_string(EntityContextEdge),
+            output=build_output_string(
+                EntityContextEdge,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return EntityContextEdge.from_dict(result.get(endpoint))
@@ -133,7 +145,10 @@ class TaegisSDKEntityContextQuery:
                 "source": prepare_input(source),
                 "options": prepare_input(options),
             },
-            output=build_output_string(EntityContextGroupedSubgraphForResponse),
+            output=build_output_string(
+                EntityContextGroupedSubgraphForResponse,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return EntityContextGroupedSubgraphForResponse.from_dict(
@@ -162,7 +177,10 @@ class TaegisSDKEntityContextQuery:
                 "timeFilter": prepare_input(time_filter),
                 "page": prepare_input(page),
             },
-            output=build_output_string(EntityContextRelatedResources),
+            output=build_output_string(
+                EntityContextRelatedResources,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return EntityContextRelatedResources.from_dict(result.get(endpoint))
@@ -196,7 +214,10 @@ class TaegisSDKEntityContextQuery:
                 "page": prepare_input(page),
                 "source": prepare_input(source),
             },
-            output=build_output_string(EntityContextAssociatedEntitiesResponse),
+            output=build_output_string(
+                EntityContextAssociatedEntitiesResponse,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return EntityContextAssociatedEntitiesResponse.from_dict(
@@ -218,7 +239,10 @@ class TaegisSDKEntityContextQuery:
                 "entryPoint": prepare_input(entry_point),
                 "source": prepare_input(source),
             },
-            output=build_output_string(EntityContextAssociatedEntityTypesResponse),
+            output=build_output_string(
+                EntityContextAssociatedEntityTypesResponse,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return EntityContextAssociatedEntityTypesResponse.from_dict(
@@ -252,7 +276,10 @@ class TaegisSDKEntityContextQuery:
                 "options": prepare_input(options),
                 "source": prepare_input(source),
             },
-            output=build_output_string(EntityContextPivotQLQuery),
+            output=build_output_string(
+                EntityContextPivotQLQuery,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return EntityContextPivotQLQuery.schema().load(

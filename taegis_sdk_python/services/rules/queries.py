@@ -48,7 +48,9 @@ class TaegisSDKRulesQuery:
                 "count": prepare_input(count),
                 "ruleType": prepare_input(rule_type),
             },
-            output=build_output_string(Rule),
+            output=build_output_string(
+                Rule, exclude_deprecated_output=self.service.exclude_deprecated_output
+            ),
         )
         if result.get(endpoint) is not None:
             return Rule.schema().load(
@@ -68,7 +70,9 @@ class TaegisSDKRulesQuery:
                 "page": prepare_input(page),
                 "count": prepare_input(count),
             },
-            output=build_output_string(Rule),
+            output=build_output_string(
+                Rule, exclude_deprecated_output=self.service.exclude_deprecated_output
+            ),
         )
         if result.get(endpoint) is not None:
             return Rule.schema().load(
@@ -99,7 +103,9 @@ class TaegisSDKRulesQuery:
                 "kind": prepare_input(kind),
                 "ruleType": prepare_input(rule_type),
             },
-            output=build_output_string(Rule),
+            output=build_output_string(
+                Rule, exclude_deprecated_output=self.service.exclude_deprecated_output
+            ),
         )
         if result.get(endpoint) is not None:
             return Rule.schema().load(
@@ -124,7 +130,9 @@ class TaegisSDKRulesQuery:
             variables={
                 "input": prepare_input(input_),
             },
-            output=build_output_string(Rule),
+            output=build_output_string(
+                Rule, exclude_deprecated_output=self.service.exclude_deprecated_output
+            ),
         )
         if result.get(endpoint) is not None:
             return Rule.schema().load(
@@ -148,7 +156,9 @@ class TaegisSDKRulesQuery:
                 "count": prepare_input(count),
                 "ruleType": prepare_input(rule_type),
             },
-            output=build_output_string(Rule),
+            output=build_output_string(
+                Rule, exclude_deprecated_output=self.service.exclude_deprecated_output
+            ),
         )
         if result.get(endpoint) is not None:
             return Rule.schema().load(
@@ -217,7 +227,10 @@ class TaegisSDKRulesQuery:
         result = self.service.execute_query(
             endpoint=endpoint,
             variables={},
-            output=build_output_string(RuleCountResponse),
+            output=build_output_string(
+                RuleCountResponse,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return RuleCountResponse.from_dict(result.get(endpoint))
@@ -241,7 +254,9 @@ class TaegisSDKRulesQuery:
                 "count": prepare_input(count),
                 "ruleType": prepare_input(rule_type),
             },
-            output=build_output_string(Rule),
+            output=build_output_string(
+                Rule, exclude_deprecated_output=self.service.exclude_deprecated_output
+            ),
         )
         if result.get(endpoint) is not None:
             return Rule.schema().load(
@@ -278,7 +293,9 @@ class TaegisSDKRulesQuery:
             variables={
                 "id": prepare_input(id_),
             },
-            output=build_output_string(Rule),
+            output=build_output_string(
+                Rule, exclude_deprecated_output=self.service.exclude_deprecated_output
+            ),
         )
         if result.get(endpoint) is not None:
             return Rule.from_dict(result.get(endpoint))
@@ -330,7 +347,9 @@ class TaegisSDKRulesQuery:
                 "eventType": prepare_input(event_type),
                 "ruleType": prepare_input(rule_type),
             },
-            output=build_output_string(Rule),
+            output=build_output_string(
+                Rule, exclude_deprecated_output=self.service.exclude_deprecated_output
+            ),
         )
         if result.get(endpoint) is not None:
             return Rule.schema().load(
@@ -354,7 +373,10 @@ class TaegisSDKRulesQuery:
                 "filters": prepare_input(filters),
                 "sampleCount": prepare_input(sample_count),
             },
-            output=build_output_string(RuleTestMatchStep),
+            output=build_output_string(
+                RuleTestMatchStep,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return RuleTestMatchStep.schema().load(
@@ -371,7 +393,10 @@ class TaegisSDKRulesQuery:
             variables={
                 "id": prepare_input(id_),
             },
-            output=build_output_string(RuleMetrics),
+            output=build_output_string(
+                RuleMetrics,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return RuleMetrics.from_dict(result.get(endpoint))
@@ -400,7 +425,10 @@ class TaegisSDKRulesQuery:
                 "qlFilter": prepare_input(ql_filter),
                 "optionalEventType": prepare_input(optional_event_type),
             },
-            output=build_output_string(ValidateQLFilter),
+            output=build_output_string(
+                ValidateQLFilter,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return ValidateQLFilter.from_dict(result.get(endpoint))
@@ -422,7 +450,10 @@ class TaegisSDKRulesQuery:
                 "page": prepare_input(page),
                 "count": prepare_input(count),
             },
-            output=build_output_string(SearchRulesOutput),
+            output=build_output_string(
+                SearchRulesOutput,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return SearchRulesOutput.from_dict(result.get(endpoint))
@@ -444,7 +475,10 @@ class TaegisSDKRulesQuery:
                 "page": prepare_input(page),
                 "count": prepare_input(count),
             },
-            output=build_output_string(SearchRulesOutput),
+            output=build_output_string(
+                SearchRulesOutput,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return SearchRulesOutput.from_dict(result.get(endpoint))
@@ -466,7 +500,10 @@ class TaegisSDKRulesQuery:
                 "page": prepare_input(page),
                 "count": prepare_input(count),
             },
-            output=build_output_string(SearchRulesOutput),
+            output=build_output_string(
+                SearchRulesOutput,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return SearchRulesOutput.from_dict(result.get(endpoint))
@@ -483,7 +520,10 @@ class TaegisSDKRulesQuery:
             variables={
                 "query": prepare_input(query),
             },
-            output=build_output_string(RuleFacetAggregationsOutput),
+            output=build_output_string(
+                RuleFacetAggregationsOutput,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return RuleFacetAggregationsOutput.from_dict(result.get(endpoint))
@@ -500,7 +540,10 @@ class TaegisSDKRulesQuery:
             variables={
                 "eventType": prepare_input(event_type),
             },
-            output=build_output_string(QLTenants),
+            output=build_output_string(
+                QLTenants,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return QLTenants.schema().load(

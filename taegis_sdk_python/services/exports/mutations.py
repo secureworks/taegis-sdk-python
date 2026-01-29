@@ -45,7 +45,9 @@ class TaegisSDKExportsMutation:
             variables={
                 "input": prepare_input(input_),
             },
-            output=build_output_string(Export),
+            output=build_output_string(
+                Export, exclude_deprecated_output=self.service.exclude_deprecated_output
+            ),
         )
         if result.get(endpoint) is not None:
             return Export.from_dict(result.get(endpoint))
@@ -64,7 +66,9 @@ class TaegisSDKExportsMutation:
             variables={
                 "input": prepare_input(input_),
             },
-            output=build_output_string(Export),
+            output=build_output_string(
+                Export, exclude_deprecated_output=self.service.exclude_deprecated_output
+            ),
         )
         if result.get(endpoint) is not None:
             return Export.from_dict(result.get(endpoint))
@@ -83,7 +87,9 @@ class TaegisSDKExportsMutation:
             variables={
                 "id": prepare_input(id_),
             },
-            output=build_output_string(Export),
+            output=build_output_string(
+                Export, exclude_deprecated_output=self.service.exclude_deprecated_output
+            ),
         )
         if result.get(endpoint) is not None:
             return Export.from_dict(result.get(endpoint))
@@ -102,7 +108,9 @@ class TaegisSDKExportsMutation:
             variables={
                 "id": prepare_input(id_),
             },
-            output=build_output_string(Export),
+            output=build_output_string(
+                Export, exclude_deprecated_output=self.service.exclude_deprecated_output
+            ),
         )
         if result.get(endpoint) is not None:
             return Export.from_dict(result.get(endpoint))
@@ -117,7 +125,10 @@ class TaegisSDKExportsMutation:
             variables={
                 "input": prepare_input(input_),
             },
-            output=build_output_string(Schedule),
+            output=build_output_string(
+                Schedule,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return Schedule.from_dict(result.get(endpoint))
@@ -132,7 +143,10 @@ class TaegisSDKExportsMutation:
             variables={
                 "id": prepare_input(id_),
             },
-            output=build_output_string(Schedule),
+            output=build_output_string(
+                Schedule,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return Schedule.from_dict(result.get(endpoint))
@@ -147,7 +161,10 @@ class TaegisSDKExportsMutation:
             variables={
                 "edits": prepare_input(edits),
             },
-            output=build_output_string(Schedule),
+            output=build_output_string(
+                Schedule,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return Schedule.from_dict(result.get(endpoint))
@@ -171,7 +188,9 @@ class TaegisSDKExportsMutation:
                 "manualRun": prepare_input(manual_run),
                 "timeframe": prepare_input(timeframe),
             },
-            output=build_output_string(Report),
+            output=build_output_string(
+                Report, exclude_deprecated_output=self.service.exclude_deprecated_output
+            ),
         )
         if result.get(endpoint) is not None:
             return Report.from_dict(result.get(endpoint))
@@ -187,7 +206,9 @@ class TaegisSDKExportsMutation:
                 "id": prepare_input(id_),
                 "exportID": prepare_input(export_id),
             },
-            output=build_output_string(Report),
+            output=build_output_string(
+                Report, exclude_deprecated_output=self.service.exclude_deprecated_output
+            ),
         )
         if result.get(endpoint) is not None:
             return Report.from_dict(result.get(endpoint))
@@ -202,7 +223,9 @@ class TaegisSDKExportsMutation:
             variables={
                 "id": prepare_input(id_),
             },
-            output=build_output_string(Report),
+            output=build_output_string(
+                Report, exclude_deprecated_output=self.service.exclude_deprecated_output
+            ),
         )
         if result.get(endpoint) is not None:
             return Report.from_dict(result.get(endpoint))
@@ -217,7 +240,9 @@ class TaegisSDKExportsMutation:
             variables={
                 "id": prepare_input(id_),
             },
-            output=build_output_string(Report),
+            output=build_output_string(
+                Report, exclude_deprecated_output=self.service.exclude_deprecated_output
+            ),
         )
         if result.get(endpoint) is not None:
             return Report.from_dict(result.get(endpoint))
@@ -232,7 +257,9 @@ class TaegisSDKExportsMutation:
             variables={
                 "id": prepare_input(id_),
             },
-            output=build_output_string(Report),
+            output=build_output_string(
+                Report, exclude_deprecated_output=self.service.exclude_deprecated_output
+            ),
         )
         if result.get(endpoint) is not None:
             return Report.from_dict(result.get(endpoint))
@@ -247,7 +274,9 @@ class TaegisSDKExportsMutation:
             variables={
                 "id": prepare_input(id_),
             },
-            output=build_output_string(Report),
+            output=build_output_string(
+                Report, exclude_deprecated_output=self.service.exclude_deprecated_output
+            ),
         )
         if result.get(endpoint) is not None:
             return Report.from_dict(result.get(endpoint))
@@ -262,7 +291,9 @@ class TaegisSDKExportsMutation:
             variables={
                 "reportIDs": prepare_input(report_ids),
             },
-            output=build_output_string(Report),
+            output=build_output_string(
+                Report, exclude_deprecated_output=self.service.exclude_deprecated_output
+            ),
         )
         if result.get(endpoint) is not None:
             return Report.schema().load(
@@ -279,7 +310,10 @@ class TaegisSDKExportsMutation:
             variables={
                 "scheduleID": prepare_input(schedule_id),
             },
-            output=build_output_string(Schedule),
+            output=build_output_string(
+                Schedule,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return Schedule.from_dict(result.get(endpoint))
@@ -294,7 +328,10 @@ class TaegisSDKExportsMutation:
             variables={
                 "scheduleID": prepare_input(schedule_id),
             },
-            output=build_output_string(Schedule),
+            output=build_output_string(
+                Schedule,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return Schedule.from_dict(result.get(endpoint))
@@ -312,7 +349,9 @@ class TaegisSDKExportsMutation:
                 "name": prepare_input(name),
                 "exportsInput": prepare_input(exports_input),
             },
-            output=build_output_string(Export),
+            output=build_output_string(
+                Export, exclude_deprecated_output=self.service.exclude_deprecated_output
+            ),
         )
         if result.get(endpoint) is not None:
             return Export.from_dict(result.get(endpoint))
@@ -329,7 +368,9 @@ class TaegisSDKExportsMutation:
             variables={
                 "input": prepare_input(input_),
             },
-            output=build_output_string(Report),
+            output=build_output_string(
+                Report, exclude_deprecated_output=self.service.exclude_deprecated_output
+            ),
         )
         if result.get(endpoint) is not None:
             return Report.from_dict(result.get(endpoint))
@@ -346,7 +387,9 @@ class TaegisSDKExportsMutation:
             variables={
                 "input": prepare_input(input_),
             },
-            output=build_output_string(Report),
+            output=build_output_string(
+                Report, exclude_deprecated_output=self.service.exclude_deprecated_output
+            ),
         )
         if result.get(endpoint) is not None:
             return Report.from_dict(result.get(endpoint))
@@ -361,7 +404,10 @@ class TaegisSDKExportsMutation:
             variables={
                 "scheduleID": prepare_input(schedule_id),
             },
-            output=build_output_string(Unsubscription),
+            output=build_output_string(
+                Unsubscription,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return Unsubscription.from_dict(result.get(endpoint))
@@ -376,7 +422,10 @@ class TaegisSDKExportsMutation:
             variables={
                 "scheduleID": prepare_input(schedule_id),
             },
-            output=build_output_string(Schedule),
+            output=build_output_string(
+                Schedule,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return Schedule.from_dict(result.get(endpoint))
@@ -392,7 +441,10 @@ class TaegisSDKExportsMutation:
                 "scheduleID": prepare_input(schedule_id),
                 "userIDs": prepare_input(user_ids),
             },
-            output=build_output_string(Schedule),
+            output=build_output_string(
+                Schedule,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return Schedule.from_dict(result.get(endpoint))
@@ -408,7 +460,10 @@ class TaegisSDKExportsMutation:
                 "scheduleID": prepare_input(schedule_id),
                 "userIDs": prepare_input(user_ids),
             },
-            output=build_output_string(Schedule),
+            output=build_output_string(
+                Schedule,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return Schedule.from_dict(result.get(endpoint))

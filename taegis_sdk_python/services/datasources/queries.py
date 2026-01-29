@@ -40,12 +40,19 @@ class TaegisSDKDatasourcesQuery:
         required with read access to the collector object.."""
         endpoint = "getDataSourceLastSeenAsset"
 
+        log.warning(
+            f"GraphQL Query `{endpoint}` is deprecated: 'Please, use getDataSourceLastSeenAssetsV2. It provides pagination support and better filtering capabilities.'"
+        )
+
         result = self.service.execute_query(
             endpoint=endpoint,
             variables={
                 "input": prepare_input(input_),
             },
-            output=build_output_string(LastSeenAsset),
+            output=build_output_string(
+                LastSeenAsset,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return LastSeenAsset.schema().load(
@@ -79,7 +86,10 @@ class TaegisSDKDatasourcesQuery:
                 "filter": prepare_input(filter_),
                 "sort": prepare_input(sort),
             },
-            output=build_output_string(LastSeenAssets),
+            output=build_output_string(
+                LastSeenAssets,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return LastSeenAssets.from_dict(result.get(endpoint))
@@ -98,7 +108,10 @@ class TaegisSDKDatasourcesQuery:
             variables={
                 "input": prepare_input(input_),
             },
-            output=build_output_string(FilterValues),
+            output=build_output_string(
+                FilterValues,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return FilterValues.schema().load(
@@ -119,7 +132,10 @@ class TaegisSDKDatasourcesQuery:
             variables={
                 "input": prepare_input(input_),
             },
-            output=build_output_string(LastSeenAssetsQueryResult),
+            output=build_output_string(
+                LastSeenAssetsQueryResult,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return LastSeenAssetsQueryResult.from_dict(result.get(endpoint))
@@ -130,7 +146,12 @@ class TaegisSDKDatasourcesQuery:
         endpoint = "getDataSourceTags"
 
         result = self.service.execute_query(
-            endpoint=endpoint, variables={}, output=build_output_string(DataSourceTag)
+            endpoint=endpoint,
+            variables={},
+            output=build_output_string(
+                DataSourceTag,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return DataSourceTag.schema().load(
@@ -147,7 +168,10 @@ class TaegisSDKDatasourcesQuery:
             variables={
                 "tagId": prepare_input(tag_id),
             },
-            output=build_output_string(DataSourceTag),
+            output=build_output_string(
+                DataSourceTag,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return DataSourceTag.from_dict(result.get(endpoint))

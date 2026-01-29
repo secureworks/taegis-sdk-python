@@ -41,7 +41,9 @@ class TaegisSDKFileInfoMutation:
             variables={
                 "file": prepare_input(file),
             },
-            output=build_output_string(File),
+            output=build_output_string(
+                File, exclude_deprecated_output=self.service.exclude_deprecated_output
+            ),
         )
         if result.get(endpoint) is not None:
             return File.from_dict(result.get(endpoint))
@@ -78,7 +80,9 @@ class TaegisSDKFileInfoMutation:
                 "fileHash": prepare_input(file_hash),
                 "malicious": prepare_input(malicious),
             },
-            output=build_output_string(File),
+            output=build_output_string(
+                File, exclude_deprecated_output=self.service.exclude_deprecated_output
+            ),
         )
         if result.get(endpoint) is not None:
             return File.from_dict(result.get(endpoint))
@@ -95,7 +99,10 @@ class TaegisSDKFileInfoMutation:
             variables={
                 "appearances": prepare_input(appearances),
             },
-            output=build_output_string(Appearance),
+            output=build_output_string(
+                Appearance,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return Appearance.schema().load(
@@ -114,7 +121,10 @@ class TaegisSDKFileInfoMutation:
             variables={
                 "metadata": prepare_input(metadata),
             },
-            output=build_output_string(YaraMetadata),
+            output=build_output_string(
+                YaraMetadata,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return YaraMetadata.schema().load(
@@ -161,7 +171,10 @@ class TaegisSDKFileInfoMutation:
             variables={
                 "input": prepare_input(input_),
             },
-            output=build_output_string(FileMarking),
+            output=build_output_string(
+                FileMarking,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return FileMarking.from_dict(result.get(endpoint))

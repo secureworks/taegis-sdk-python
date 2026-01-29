@@ -54,7 +54,10 @@ class TaegisSDKProcessTreesQuery:
                 "orderByInput": prepare_input(order_by_input),
                 "nextToken": prepare_input(next_token),
             },
-            output=build_output_string(Children),
+            output=build_output_string(
+                Children,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return Children.from_dict(result.get(endpoint))
@@ -80,7 +83,10 @@ class TaegisSDKProcessTreesQuery:
                 ),
                 "resourceID": prepare_input(resource_id),
             },
-            output=build_output_string(ProcessEvent),
+            output=build_output_string(
+                ProcessEvent,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return ProcessEvent.from_dict(result.get(endpoint))
@@ -106,7 +112,10 @@ class TaegisSDKProcessTreesQuery:
                 "resourceID": prepare_input(resource_id),
                 "processCreateTime": prepare_input(process_create_time),
             },
-            output=build_output_string(ProcessLineage),
+            output=build_output_string(
+                ProcessLineage,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return ProcessLineage.from_dict(result.get(endpoint))
@@ -138,7 +147,10 @@ class TaegisSDKProcessTreesQuery:
                 "orderByInput": prepare_input(order_by_input),
                 "nextToken": prepare_input(next_token),
             },
-            output=build_output_string(Children),
+            output=build_output_string(
+                Children,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return Children.from_dict(result.get(endpoint))
@@ -168,7 +180,10 @@ class TaegisSDKProcessTreesQuery:
                 ),
                 "resourceID": prepare_input(resource_id),
             },
-            output=build_output_string(ProcessEvent),
+            output=build_output_string(
+                ProcessEvent,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return ProcessEvent.from_dict(result.get(endpoint))

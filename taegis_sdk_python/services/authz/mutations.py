@@ -41,7 +41,10 @@ class TaegisSDKAuthzMutation:
             variables={
                 "input": prepare_input(input_),
             },
-            output=build_output_string(AuthzRole),
+            output=build_output_string(
+                AuthzRole,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return AuthzRole.from_dict(result.get(endpoint))
@@ -56,7 +59,10 @@ class TaegisSDKAuthzMutation:
             variables={
                 "input": prepare_input(input_),
             },
-            output=build_output_string(AuthzRole),
+            output=build_output_string(
+                AuthzRole,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return AuthzRole.from_dict(result.get(endpoint))
@@ -71,7 +77,10 @@ class TaegisSDKAuthzMutation:
             variables={
                 "id": prepare_input(id_),
             },
-            output=build_output_string(AuthzCustomRoleDeleteResponse),
+            output=build_output_string(
+                AuthzCustomRoleDeleteResponse,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return AuthzCustomRoleDeleteResponse.from_dict(result.get(endpoint))
@@ -88,7 +97,10 @@ class TaegisSDKAuthzMutation:
             variables={
                 "input": prepare_input(input_),
             },
-            output=build_output_string(AuthzSupportedFeatureResponse),
+            output=build_output_string(
+                AuthzSupportedFeatureResponse,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return AuthzSupportedFeatureResponse.from_dict(result.get(endpoint))

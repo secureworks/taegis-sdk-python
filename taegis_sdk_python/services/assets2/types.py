@@ -1235,6 +1235,9 @@ class AssetWhereInputV2:
     system_type: Optional[str] = field(
         default=None, metadata=config(field_name="systemType")
     )
+    tags_contains: Optional[str] = field(
+        default=None, metadata=config(field_name="tags_contains")
+    )
     un_installable: Optional[bool] = field(
         default=None, metadata=config(field_name="unInstallable")
     )
@@ -1299,9 +1302,6 @@ class AssetWhereInputV2:
     )
     tags: Optional[TagWhereInputV2] = field(
         default=None, metadata=config(field_name="tags")
-    )
-    tags_contains: Optional[TagWhereInputV2] = field(
-        default=None, metadata=config(field_name="tags_contains")
     )
     tags_autocomplete: Optional[TagWhereInputV2] = field(
         default=None, metadata=config(field_name="tags_autocomplete")
@@ -1645,32 +1645,6 @@ class AssignBulkAssetsToGroupInput:
     """AssignBulkAssetsToGroupInput."""
 
     group_id: Optional[str] = field(default=None, metadata=config(field_name="groupId"))
-    filter: Optional[AssetFilter] = field(
-        default=None, metadata=config(field_name="filter")
-    )
-
-
-@dataclass_json
-@dataclass(order=True, eq=True, frozen=True)
-class AssignBulkAssetsToInvestigationInput:
-    """AssignBulkAssetsToInvestigationInput."""
-
-    investigation_id: Optional[str] = field(
-        default=None, metadata=config(field_name="investigationId")
-    )
-    filter: Optional[AssetFilter] = field(
-        default=None, metadata=config(field_name="filter")
-    )
-
-
-@dataclass_json
-@dataclass(order=True, eq=True, frozen=True)
-class BulkDeleteInvestigationForEndpointsInput:
-    """BulkDeleteInvestigationForEndpointsInput."""
-
-    investigation_id: Optional[str] = field(
-        default=None, metadata=config(field_name="investigationId")
-    )
     filter: Optional[AssetFilter] = field(
         default=None, metadata=config(field_name="filter")
     )

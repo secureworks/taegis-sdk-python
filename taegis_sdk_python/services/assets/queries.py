@@ -43,7 +43,9 @@ class TaegisSDKAssetsQuery:
             variables={
                 "id": prepare_input(id_),
             },
-            output=build_output_string(Tag),
+            output=build_output_string(
+                Tag, exclude_deprecated_output=self.service.exclude_deprecated_output
+            ),
         )
         if result.get(endpoint) is not None:
             return Tag.from_dict(result.get(endpoint))
@@ -60,7 +62,9 @@ class TaegisSDKAssetsQuery:
             variables={
                 "id": prepare_input(id_),
             },
-            output=build_output_string(Asset),
+            output=build_output_string(
+                Asset, exclude_deprecated_output=self.service.exclude_deprecated_output
+            ),
         )
         if result.get(endpoint) is not None:
             return Asset.from_dict(result.get(endpoint))
@@ -77,7 +81,9 @@ class TaegisSDKAssetsQuery:
             variables={
                 "tags": prepare_input(tags),
             },
-            output=build_output_string(Asset),
+            output=build_output_string(
+                Asset, exclude_deprecated_output=self.service.exclude_deprecated_output
+            ),
         )
         if result.get(endpoint) is not None:
             return Asset.schema().load(
@@ -105,7 +111,10 @@ class TaegisSDKAssetsQuery:
             variables={
                 "id": prepare_input(id_),
             },
-            output=build_output_string(EndpointInfo),
+            output=build_output_string(
+                EndpointInfo,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return EndpointInfo.from_dict(result.get(endpoint))
@@ -135,7 +144,10 @@ class TaegisSDKAssetsQuery:
                 "filter_asset_state": prepare_input(filter_asset_state),
                 "only_most_recent": prepare_input(only_most_recent),
             },
-            output=build_output_string(AssetsResult),
+            output=build_output_string(
+                AssetsResult,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return AssetsResult.from_dict(result.get(endpoint))
@@ -155,7 +167,10 @@ class TaegisSDKAssetsQuery:
                 "offset": prepare_input(offset),
                 "limit": prepare_input(limit),
             },
-            output=build_output_string(AssetsResult),
+            output=build_output_string(
+                AssetsResult,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return AssetsResult.from_dict(result.get(endpoint))
@@ -174,7 +189,10 @@ class TaegisSDKAssetsQuery:
             variables={
                 "endpoint_type": prepare_input(endpoint_type),
             },
-            output=build_output_string(AssetCounts),
+            output=build_output_string(
+                AssetCounts,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return AssetCounts.from_dict(result.get(endpoint))
@@ -189,7 +207,10 @@ class TaegisSDKAssetsQuery:
         result = self.service.execute_query(
             endpoint=endpoint,
             variables={},
-            output=build_output_string(AssetCountsByEndpointType),
+            output=build_output_string(
+                AssetCountsByEndpointType,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return AssetCountsByEndpointType.schema().load(
@@ -204,7 +225,12 @@ class TaegisSDKAssetsQuery:
         log.warning(f"GraphQL Query `{endpoint}` is deprecated: 'No longer supported'")
 
         result = self.service.execute_query(
-            endpoint=endpoint, variables={}, output=build_output_string(AssetCounts)
+            endpoint=endpoint,
+            variables={},
+            output=build_output_string(
+                AssetCounts,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return AssetCounts.from_dict(result.get(endpoint))
@@ -221,7 +247,9 @@ class TaegisSDKAssetsQuery:
             variables={
                 "ids": prepare_input(ids),
             },
-            output=build_output_string(Asset),
+            output=build_output_string(
+                Asset, exclude_deprecated_output=self.service.exclude_deprecated_output
+            ),
         )
         if result.get(endpoint) is not None:
             return Asset.schema().load(
@@ -240,7 +268,9 @@ class TaegisSDKAssetsQuery:
             variables={
                 "hostIds": prepare_input(host_ids),
             },
-            output=build_output_string(Asset),
+            output=build_output_string(
+                Asset, exclude_deprecated_output=self.service.exclude_deprecated_output
+            ),
         )
         if result.get(endpoint) is not None:
             return Asset.schema().load(
@@ -261,7 +291,9 @@ class TaegisSDKAssetsQuery:
             variables={
                 "ipAddresses": prepare_input(ip_addresses),
             },
-            output=build_output_string(Asset),
+            output=build_output_string(
+                Asset, exclude_deprecated_output=self.service.exclude_deprecated_output
+            ),
         )
         if result.get(endpoint) is not None:
             return Asset.schema().load(
@@ -281,7 +313,10 @@ class TaegisSDKAssetsQuery:
                 "offset": prepare_input(offset),
                 "limit": prepare_input(limit),
             },
-            output=build_output_string(AssetHistory),
+            output=build_output_string(
+                AssetHistory,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return AssetHistory.schema().load(
@@ -302,7 +337,10 @@ class TaegisSDKAssetsQuery:
                 "offset": prepare_input(offset),
                 "limit": prepare_input(limit),
             },
-            output=build_output_string(AssetRedCloakHistory),
+            output=build_output_string(
+                AssetRedCloakHistory,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return AssetRedCloakHistory.schema().load(
@@ -360,7 +398,10 @@ class TaegisSDKAssetsQuery:
                 "or_search": prepare_input(or_search),
                 "filter_asset_state": prepare_input(filter_asset_state),
             },
-            output=build_output_string(AssetsResult),
+            output=build_output_string(
+                AssetsResult,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return AssetsResult.from_dict(result.get(endpoint))
@@ -382,7 +423,10 @@ class TaegisSDKAssetsQuery:
                 "input": prepare_input(input_),
                 "paginationInput": prepare_input(pagination_input),
             },
-            output=build_output_string(AssetsResult),
+            output=build_output_string(
+                AssetsResult,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return AssetsResult.from_dict(result.get(endpoint))
@@ -406,7 +450,10 @@ class TaegisSDKAssetsQuery:
                 "paginationInput": prepare_input(pagination_input),
                 "legacy": prepare_input(legacy),
             },
-            output=build_output_string(AssetsExportOutput),
+            output=build_output_string(
+                AssetsExportOutput,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return AssetsExportOutput.from_dict(result.get(endpoint))
@@ -421,7 +468,9 @@ class TaegisSDKAssetsQuery:
             variables={
                 "arguments": prepare_input(arguments),
             },
-            output=build_output_string(Asset),
+            output=build_output_string(
+                Asset, exclude_deprecated_output=self.service.exclude_deprecated_output
+            ),
         )
         if result.get(endpoint) is not None:
             return Asset.schema().load(

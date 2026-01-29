@@ -32,94 +32,6 @@ class TaegisSDKThreatQuery:
     def __init__(self, service: ThreatService):
         self.service = service
 
-    def threat_publication(
-        self,
-        id_: str,
-        content_format: Optional[Union[ContentFormat, TaegisEnum]] = None,
-    ) -> ThreatPublication:
-        """Retreives a publication by ID.."""
-        endpoint = "threatPublication"
-
-        result = self.service.execute_query(
-            endpoint=endpoint,
-            variables={
-                "ID": prepare_input(id_),
-                "contentFormat": prepare_input(content_format),
-            },
-            output=build_output_string(ThreatPublication),
-        )
-        if result.get(endpoint) is not None:
-            return ThreatPublication.from_dict(result.get(endpoint))
-        raise GraphQLNoRowsInResultSetError("for query threatPublication")
-
-    def threat_publications(
-        self,
-        text: str,
-        content_format: Optional[Union[ContentFormat, TaegisEnum]] = None,
-    ) -> List[ThreatPublication]:
-        """Searches publications for text.."""
-        endpoint = "threatPublications"
-
-        result = self.service.execute_query(
-            endpoint=endpoint,
-            variables={
-                "text": prepare_input(text),
-                "contentFormat": prepare_input(content_format),
-            },
-            output=build_output_string(ThreatPublication),
-        )
-        if result.get(endpoint) is not None:
-            return ThreatPublication.schema().load(
-                [r or {} for r in result.get(endpoint)], many=True
-            )
-        raise GraphQLNoRowsInResultSetError("for query threatPublications")
-
-    def threat_publications_search(
-        self,
-        text: List[str],
-        content_format: Optional[Union[ContentFormat, TaegisEnum]] = None,
-    ) -> List[ThreatPublication]:
-        """Gets publications for multiple indicators.."""
-        endpoint = "threatPublicationsSearch"
-
-        result = self.service.execute_query(
-            endpoint=endpoint,
-            variables={
-                "text": prepare_input(text),
-                "contentFormat": prepare_input(content_format),
-            },
-            output=build_output_string(ThreatPublication),
-        )
-        if result.get(endpoint) is not None:
-            return ThreatPublication.schema().load(
-                [r or {} for r in result.get(endpoint)], many=True
-            )
-        raise GraphQLNoRowsInResultSetError("for query threatPublicationsSearch")
-
-    def threat_latest_publications(
-        self,
-        from_: int,
-        size: int,
-        content_format: Optional[Union[ContentFormat, TaegisEnum]] = None,
-    ) -> List[ThreatPublication]:
-        """Gets the latest publications from an offset with a size.."""
-        endpoint = "threatLatestPublications"
-
-        result = self.service.execute_query(
-            endpoint=endpoint,
-            variables={
-                "from": prepare_input(from_),
-                "size": prepare_input(size),
-                "contentFormat": prepare_input(content_format),
-            },
-            output=build_output_string(ThreatPublication),
-        )
-        if result.get(endpoint) is not None:
-            return ThreatPublication.schema().load(
-                [r or {} for r in result.get(endpoint)], many=True
-            )
-        raise GraphQLNoRowsInResultSetError("for query threatLatestPublications")
-
     def threat_identities_by_confidence(self, confidence: int) -> List[ThreatResult]:
         """Gets identities by confidence score.."""
         endpoint = "threatIdentitiesByConfidence"
@@ -129,7 +41,10 @@ class TaegisSDKThreatQuery:
             variables={
                 "confidence": prepare_input(confidence),
             },
-            output=build_output_string(ThreatResult),
+            output=build_output_string(
+                ThreatResult,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return [parse_union_result(ThreatResult, r) for r in result.get(endpoint)]
@@ -175,7 +90,10 @@ class TaegisSDKThreatQuery:
                 "page": prepare_input(page),
                 "filters": prepare_input(filters),
             },
-            output=build_output_string(ThreatRelationship),
+            output=build_output_string(
+                ThreatRelationship,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return ThreatRelationship.schema().load(
@@ -219,11 +137,36 @@ class TaegisSDKThreatQuery:
                 "last_created": prepare_input(last_created),
                 "filters": prepare_input(filters),
             },
-            output=build_output_string(PagedMalwareFiles),
+            output=build_output_string(
+                PagedMalwareFiles,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return PagedMalwareFiles.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for query threatTimsMalwareFiles")
+
+    def threat_indicators(self, ids: List[str]) -> List[ThreatIndicator]:
+        """Get indicator info by indicator ID.
+        Returns a deduped list of all found indicators.
+        If an indicator is not found, there will be no result for that indicator.."""
+        endpoint = "threatIndicators"
+
+        result = self.service.execute_query(
+            endpoint=endpoint,
+            variables={
+                "ids": prepare_input(ids),
+            },
+            output=build_output_string(
+                ThreatIndicator,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
+        )
+        if result.get(endpoint) is not None:
+            return ThreatIndicator.schema().load(
+                [r or {} for r in result.get(endpoint)], many=True
+            )
+        raise GraphQLNoRowsInResultSetError("for query threatIndicators")
 
     def threat_indicator_publications(self, id_: str) -> List[ThreatReport]:
         """Gets publications related to indicators.."""
@@ -234,7 +177,10 @@ class TaegisSDKThreatQuery:
             variables={
                 "ID": prepare_input(id_),
             },
-            output=build_output_string(ThreatReport),
+            output=build_output_string(
+                ThreatReport,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return ThreatReport.schema().load(
@@ -251,7 +197,10 @@ class TaegisSDKThreatQuery:
             variables={
                 "ID": prepare_input(id_),
             },
-            output=build_output_string(ThreatIndicator),
+            output=build_output_string(
+                ThreatIndicator,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return ThreatIndicator.schema().load(
@@ -268,7 +217,10 @@ class TaegisSDKThreatQuery:
             variables={
                 "ID": prepare_input(id_),
             },
-            output=build_output_string(ThreatIndicatorIntelligence),
+            output=build_output_string(
+                ThreatIndicatorIntelligence,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return ThreatIndicatorIntelligence.from_dict(result.get(endpoint))
@@ -283,7 +235,10 @@ class TaegisSDKThreatQuery:
             variables={
                 "ID": prepare_input(id_),
             },
-            output=build_output_string(ThreatRelationship),
+            output=build_output_string(
+                ThreatRelationship,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return ThreatRelationship.from_dict(result.get(endpoint))
@@ -298,7 +253,10 @@ class TaegisSDKThreatQuery:
             variables={
                 "ID": prepare_input(id_),
             },
-            output=build_output_string(ThreatIdentity),
+            output=build_output_string(
+                ThreatIdentity,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return ThreatIdentity.from_dict(result.get(endpoint))
@@ -313,7 +271,10 @@ class TaegisSDKThreatQuery:
             variables={
                 "ID": prepare_input(id_),
             },
-            output=build_output_string(ThreatMalware),
+            output=build_output_string(
+                ThreatMalware,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return ThreatMalware.from_dict(result.get(endpoint))
@@ -330,7 +291,10 @@ class TaegisSDKThreatQuery:
             variables={
                 "confidence": prepare_input(confidence),
             },
-            output=build_output_string(ThreatIdentity),
+            output=build_output_string(
+                ThreatIdentity,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return ThreatIdentity.schema().load(
@@ -347,7 +311,10 @@ class TaegisSDKThreatQuery:
             variables={
                 "vid": prepare_input(vid),
             },
-            output=build_output_string(ThreatVidIntelligence),
+            output=build_output_string(
+                ThreatVidIntelligence,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return ThreatVidIntelligence.from_dict(result.get(endpoint))
@@ -364,7 +331,10 @@ class TaegisSDKThreatQuery:
             variables={
                 "ID": prepare_input(id_),
             },
-            output=build_output_string(ThreatIndicatorIntelligence),
+            output=build_output_string(
+                ThreatIndicatorIntelligence,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return ThreatIndicatorIntelligence.schema().load(
@@ -381,7 +351,10 @@ class TaegisSDKThreatQuery:
             variables={
                 "ruleID": prepare_input(rule_id),
             },
-            output=build_output_string(ThreatVidIntelligence),
+            output=build_output_string(
+                ThreatVidIntelligence,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return ThreatVidIntelligence.schema().load(
@@ -398,7 +371,10 @@ class TaegisSDKThreatQuery:
             variables={
                 "ID": prepare_input(id_),
             },
-            output=build_output_string(ThreatMalwareIntelligence),
+            output=build_output_string(
+                ThreatMalwareIntelligence,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return ThreatMalwareIntelligence.from_dict(result.get(endpoint))
@@ -422,7 +398,10 @@ class TaegisSDKThreatQuery:
                 "page": prepare_input(page),
                 "sortBy": prepare_input(sort_by),
             },
-            output=build_output_string(ThreatIntelligence),
+            output=build_output_string(
+                ThreatIntelligence,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return ThreatIntelligence.from_dict(result.get(endpoint))
@@ -444,7 +423,10 @@ class TaegisSDKThreatQuery:
                 "filters": prepare_input(filters),
                 "facetObjs": prepare_input(facet_objs),
             },
-            output=build_output_string(FacetInfo),
+            output=build_output_string(
+                FacetInfo,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return FacetInfo.schema().load(
@@ -468,7 +450,10 @@ class TaegisSDKThreatQuery:
                 "filters": prepare_input(filters),
                 "page": prepare_input(page),
             },
-            output=build_output_string(ThreatIndicator),
+            output=build_output_string(
+                ThreatIndicator,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return ThreatIndicator.schema().load(

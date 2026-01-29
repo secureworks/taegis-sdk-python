@@ -39,7 +39,10 @@ class TaegisSDKTenantProfilesMutation:
         result = self.service.execute_mutation(
             endpoint=endpoint,
             variables={},
-            output=build_output_string(ManagedTenantProfile),
+            output=build_output_string(
+                ManagedTenantProfile,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return ManagedTenantProfile.from_dict(result.get(endpoint))
@@ -56,7 +59,10 @@ class TaegisSDKTenantProfilesMutation:
             variables={
                 "input": prepare_input(input_),
             },
-            output=build_output_string(CustomerContactMtp),
+            output=build_output_string(
+                CustomerContactMtp,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return CustomerContactMtp.from_dict(result.get(endpoint))
@@ -73,7 +79,10 @@ class TaegisSDKTenantProfilesMutation:
             variables={
                 "input": prepare_input(input_),
             },
-            output=build_output_string(CustomerContactMtp),
+            output=build_output_string(
+                CustomerContactMtp,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return CustomerContactMtp.from_dict(result.get(endpoint))
@@ -93,7 +102,10 @@ class TaegisSDKTenantProfilesMutation:
                 "id": prepare_input(id_),
                 "input": prepare_input(input_),
             },
-            output=build_output_string(CustomerContactMtp),
+            output=build_output_string(
+                CustomerContactMtp,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return CustomerContactMtp.from_dict(result.get(endpoint))
@@ -111,7 +123,10 @@ class TaegisSDKTenantProfilesMutation:
                 "id": prepare_input(id_),
                 "input": prepare_input(input_),
             },
-            output=build_output_string(CustomerContactMtp),
+            output=build_output_string(
+                CustomerContactMtp,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return CustomerContactMtp.from_dict(result.get(endpoint))
@@ -128,7 +143,10 @@ class TaegisSDKTenantProfilesMutation:
             variables={
                 "id": prepare_input(id_),
             },
-            output=build_output_string(CustomerContactMtp),
+            output=build_output_string(
+                CustomerContactMtp,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return CustomerContactMtp.from_dict(result.get(endpoint))
@@ -145,7 +163,10 @@ class TaegisSDKTenantProfilesMutation:
             variables={
                 "ids": prepare_input(ids),
             },
-            output=build_output_string(CustomerContactMtp),
+            output=build_output_string(
+                CustomerContactMtp,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return CustomerContactMtp.schema().load(
@@ -165,7 +186,10 @@ class TaegisSDKTenantProfilesMutation:
                 "id": prepare_input(id_),
                 "message": prepare_input(message),
             },
-            output=build_output_string(CustomerContactMtp),
+            output=build_output_string(
+                CustomerContactMtp,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return CustomerContactMtp.from_dict(result.get(endpoint))
@@ -184,7 +208,10 @@ class TaegisSDKTenantProfilesMutation:
             variables={
                 "input": prepare_input(input_),
             },
-            output=build_output_string(NetworkRangeMtp),
+            output=build_output_string(
+                NetworkRangeMtp,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return NetworkRangeMtp.from_dict(result.get(endpoint))
@@ -202,7 +229,10 @@ class TaegisSDKTenantProfilesMutation:
                 "id": prepare_input(id_),
                 "network": prepare_input(network),
             },
-            output=build_output_string(NetworkRangeMtp),
+            output=build_output_string(
+                NetworkRangeMtp,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return NetworkRangeMtp.from_dict(result.get(endpoint))
@@ -217,7 +247,10 @@ class TaegisSDKTenantProfilesMutation:
             variables={
                 "id": prepare_input(id_),
             },
-            output=build_output_string(NetworkRangeMtp),
+            output=build_output_string(
+                NetworkRangeMtp,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return NetworkRangeMtp.from_dict(result.get(endpoint))
@@ -232,7 +265,10 @@ class TaegisSDKTenantProfilesMutation:
             variables={
                 "ids": prepare_input(ids),
             },
-            output=build_output_string(NetworkRangeMtp),
+            output=build_output_string(
+                NetworkRangeMtp,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return NetworkRangeMtp.schema().load(
@@ -249,7 +285,10 @@ class TaegisSDKTenantProfilesMutation:
             variables={
                 "contents": prepare_input(contents),
             },
-            output=build_output_string(NoteMtp),
+            output=build_output_string(
+                NoteMtp,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return NoteMtp.from_dict(result.get(endpoint))
@@ -266,7 +305,10 @@ class TaegisSDKTenantProfilesMutation:
             variables={
                 "input": prepare_input(input_),
             },
-            output=build_output_string(SecurityControlMtp),
+            output=build_output_string(
+                SecurityControlMtp,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return SecurityControlMtp.from_dict(result.get(endpoint))
@@ -284,7 +326,10 @@ class TaegisSDKTenantProfilesMutation:
                 "id": prepare_input(id_),
                 "input": prepare_input(input_),
             },
-            output=build_output_string(SecurityControlMtp),
+            output=build_output_string(
+                SecurityControlMtp,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return SecurityControlMtp.from_dict(result.get(endpoint))
@@ -299,7 +344,10 @@ class TaegisSDKTenantProfilesMutation:
             variables={
                 "id": prepare_input(id_),
             },
-            output=build_output_string(SecurityControlMtp),
+            output=build_output_string(
+                SecurityControlMtp,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return SecurityControlMtp.from_dict(result.get(endpoint))
@@ -316,7 +364,10 @@ class TaegisSDKTenantProfilesMutation:
             variables={
                 "ids": prepare_input(ids),
             },
-            output=build_output_string(SecurityControlMtp),
+            output=build_output_string(
+                SecurityControlMtp,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return SecurityControlMtp.schema().load(
@@ -333,7 +384,10 @@ class TaegisSDKTenantProfilesMutation:
             variables={
                 "input": prepare_input(input_),
             },
-            output=build_output_string(MfaAccessMtp),
+            output=build_output_string(
+                MfaAccessMtp,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return MfaAccessMtp.from_dict(result.get(endpoint))
@@ -351,7 +405,10 @@ class TaegisSDKTenantProfilesMutation:
                 "id": prepare_input(id_),
                 "input": prepare_input(input_),
             },
-            output=build_output_string(MfaAccessMtp),
+            output=build_output_string(
+                MfaAccessMtp,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return MfaAccessMtp.from_dict(result.get(endpoint))
@@ -366,7 +423,10 @@ class TaegisSDKTenantProfilesMutation:
             variables={
                 "id": prepare_input(id_),
             },
-            output=build_output_string(MfaAccessMtp),
+            output=build_output_string(
+                MfaAccessMtp,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return MfaAccessMtp.from_dict(result.get(endpoint))
@@ -381,7 +441,10 @@ class TaegisSDKTenantProfilesMutation:
             variables={
                 "ids": prepare_input(ids),
             },
-            output=build_output_string(MfaAccessMtp),
+            output=build_output_string(
+                MfaAccessMtp,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return MfaAccessMtp.schema().load(
@@ -398,7 +461,10 @@ class TaegisSDKTenantProfilesMutation:
             variables={
                 "file": prepare_input(file),
             },
-            output=build_output_string(FileAttachmentMtp),
+            output=build_output_string(
+                FileAttachmentMtp,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return FileAttachmentMtp.from_dict(result.get(endpoint))
@@ -413,7 +479,10 @@ class TaegisSDKTenantProfilesMutation:
             variables={
                 "ids": prepare_input(ids),
             },
-            output=build_output_string(FileAttachmentMtp),
+            output=build_output_string(
+                FileAttachmentMtp,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return FileAttachmentMtp.schema().load(
@@ -430,7 +499,10 @@ class TaegisSDKTenantProfilesMutation:
             variables={
                 "ids": prepare_input(ids),
             },
-            output=build_output_string(FileAttachmentMtp),
+            output=build_output_string(
+                FileAttachmentMtp,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return FileAttachmentMtp.schema().load(
@@ -449,7 +521,10 @@ class TaegisSDKTenantProfilesMutation:
             variables={
                 "inputs": prepare_input(inputs),
             },
-            output=build_output_string(FileAttachmentMtp),
+            output=build_output_string(
+                FileAttachmentMtp,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return FileAttachmentMtp.schema().load(
@@ -468,7 +543,10 @@ class TaegisSDKTenantProfilesMutation:
             variables={
                 "input": prepare_input(input_),
             },
-            output=build_output_string(EntityOfInterestMtp),
+            output=build_output_string(
+                EntityOfInterestMtp,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return EntityOfInterestMtp.from_dict(result.get(endpoint))
@@ -486,7 +564,10 @@ class TaegisSDKTenantProfilesMutation:
                 "id": prepare_input(id_),
                 "input": prepare_input(input_),
             },
-            output=build_output_string(EntityOfInterestMtp),
+            output=build_output_string(
+                EntityOfInterestMtp,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return EntityOfInterestMtp.from_dict(result.get(endpoint))
@@ -501,7 +582,10 @@ class TaegisSDKTenantProfilesMutation:
             variables={
                 "id": prepare_input(id_),
             },
-            output=build_output_string(EntityOfInterestMtp),
+            output=build_output_string(
+                EntityOfInterestMtp,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return EntityOfInterestMtp.from_dict(result.get(endpoint))

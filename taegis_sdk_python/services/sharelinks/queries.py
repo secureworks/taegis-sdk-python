@@ -41,7 +41,10 @@ class TaegisSDKSharelinksQuery:
             variables={
                 "id": prepare_input(id_),
             },
-            output=build_output_string(ShareLink),
+            output=build_output_string(
+                ShareLink,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return ShareLink.from_dict(result.get(endpoint))

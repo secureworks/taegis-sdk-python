@@ -41,7 +41,10 @@ class TaegisSDKSubjectsQuery:
             variables={
                 "selector": prepare_input(selector),
             },
-            output=build_output_string(Subject),
+            output=build_output_string(
+                Subject,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return Subject.from_dict(result.get(endpoint))

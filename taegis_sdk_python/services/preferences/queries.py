@@ -41,7 +41,10 @@ class TaegisSDKPreferencesQuery:
             variables={
                 "id": prepare_input(id_),
             },
-            output=build_output_string(UserPreference),
+            output=build_output_string(
+                UserPreference,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return UserPreference.from_dict(result.get(endpoint))
@@ -56,7 +59,10 @@ class TaegisSDKPreferencesQuery:
             variables={
                 "userID": prepare_input(user_id),
             },
-            output=build_output_string(UserPreference),
+            output=build_output_string(
+                UserPreference,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return UserPreference.from_dict(result.get(endpoint))
@@ -73,7 +79,10 @@ class TaegisSDKPreferencesQuery:
             variables={
                 "arguments": prepare_input(arguments),
             },
-            output=build_output_string(UserNotificationPreferences),
+            output=build_output_string(
+                UserNotificationPreferences,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return UserNotificationPreferences.from_dict(result.get(endpoint))
@@ -88,7 +97,10 @@ class TaegisSDKPreferencesQuery:
             variables={
                 "key": prepare_input(key),
             },
-            output=build_output_string(UserPreference),
+            output=build_output_string(
+                UserPreference,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return UserPreference.from_dict(result.get(endpoint))
@@ -103,7 +115,10 @@ class TaegisSDKPreferencesQuery:
             variables={
                 "id": prepare_input(id_),
             },
-            output=build_output_string(TenantPreference),
+            output=build_output_string(
+                TenantPreference,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return TenantPreference.from_dict(result.get(endpoint))
@@ -118,7 +133,10 @@ class TaegisSDKPreferencesQuery:
             variables={
                 "key": prepare_input(key),
             },
-            output=build_output_string(TenantPreference),
+            output=build_output_string(
+                TenantPreference,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return TenantPreference.from_dict(result.get(endpoint))
@@ -133,7 +151,10 @@ class TaegisSDKPreferencesQuery:
             variables={
                 "key": prepare_input(key),
             },
-            output=build_output_string(TenantPreference),
+            output=build_output_string(
+                TenantPreference,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return TenantPreference.schema().load(
@@ -152,7 +173,10 @@ class TaegisSDKPreferencesQuery:
             variables={
                 "filter": prepare_input(filter_),
             },
-            output=build_output_string(TenantPreference),
+            output=build_output_string(
+                TenantPreference,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return TenantPreference.schema().load(
@@ -167,7 +191,10 @@ class TaegisSDKPreferencesQuery:
         result = self.service.execute_query(
             endpoint=endpoint,
             variables={},
-            output=build_output_string(TicketingSettings),
+            output=build_output_string(
+                TicketingSettings,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return TicketingSettings.schema().load(
@@ -182,7 +209,10 @@ class TaegisSDKPreferencesQuery:
         result = self.service.execute_query(
             endpoint=endpoint,
             variables={},
-            output=build_output_string(PartnerPreference),
+            output=build_output_string(
+                PartnerPreference,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return PartnerPreference.from_dict(result.get(endpoint))
@@ -199,7 +229,10 @@ class TaegisSDKPreferencesQuery:
             variables={
                 "getPreferenceSelector": prepare_input(get_preference_selector),
             },
-            output=build_output_string(UserPreferenceDictionary),
+            output=build_output_string(
+                UserPreferenceDictionary,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return UserPreferenceDictionary.schema().load(

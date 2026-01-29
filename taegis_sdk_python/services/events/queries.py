@@ -44,7 +44,9 @@ class TaegisSDKEventsQuery:
                 "ids": prepare_input(ids),
                 "options": prepare_input(options),
             },
-            output=build_output_string(Event),
+            output=build_output_string(
+                Event, exclude_deprecated_output=self.service.exclude_deprecated_output
+            ),
         )
         if result.get(endpoint) is not None:
             return Event.schema().load(
@@ -61,7 +63,10 @@ class TaegisSDKEventsQuery:
             variables={
                 "id": prepare_input(id_),
             },
-            output=build_output_string(EventQuery),
+            output=build_output_string(
+                EventQuery,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return EventQuery.from_dict(result.get(endpoint))

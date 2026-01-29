@@ -68,6 +68,14 @@ class CentralClient:
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
+class SSAv2:
+    """SSAv2."""
+
+    id: Optional[str] = field(default=None, metadata=config(field_name="id"))
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
 class CacheInvalidateInput:
     """CacheInvalidateInput."""
 
@@ -96,6 +104,7 @@ SubjectIdentity = Union[
     Client,
     CentralUser,
     CentralClient,
+    SSAv2,
 ]
 
 

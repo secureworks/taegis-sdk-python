@@ -43,7 +43,10 @@ class TaegisSDKByotiQuery:
             variables={
                 "input": prepare_input(input_),
             },
-            output=build_output_string(SearchIndicatorsResponse),
+            output=build_output_string(
+                SearchIndicatorsResponse,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return SearchIndicatorsResponse.from_dict(result.get(endpoint))
@@ -60,7 +63,10 @@ class TaegisSDKByotiQuery:
             variables={
                 "input": prepare_input(input_),
             },
-            output=build_output_string(SearchIndicatorsResponse),
+            output=build_output_string(
+                SearchIndicatorsResponse,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return SearchIndicatorsResponse.from_dict(result.get(endpoint))
@@ -77,7 +83,10 @@ class TaegisSDKByotiQuery:
             variables={
                 "input": prepare_input(input_),
             },
-            output=build_output_string(SearchIndicatorsResponse),
+            output=build_output_string(
+                SearchIndicatorsResponse,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return SearchIndicatorsResponse.from_dict(result.get(endpoint))

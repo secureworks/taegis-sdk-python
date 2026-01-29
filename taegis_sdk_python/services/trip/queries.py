@@ -43,7 +43,10 @@ class TaegisSDKTripQuery:
             variables={
                 "application": prepare_input(application),
             },
-            output=build_output_string(ApiProduct),
+            output=build_output_string(
+                ApiProduct,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return ApiProduct.schema().load(
@@ -58,7 +61,10 @@ class TaegisSDKTripQuery:
         result = self.service.execute_query(
             endpoint=endpoint,
             variables={},
-            output=build_output_string(ApiIntegrationSummary),
+            output=build_output_string(
+                ApiIntegrationSummary,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return ApiIntegrationSummary.schema().load(
@@ -75,11 +81,32 @@ class TaegisSDKTripQuery:
             variables={
                 "id": prepare_input(id_),
             },
-            output=build_output_string(ApiIntegration),
+            output=build_output_string(
+                ApiIntegration,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return ApiIntegration.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for query apiIntegration")
+
+    def api_integration_v2(self, id_: str) -> ApiIntegration:
+        """None."""
+        endpoint = "apiIntegrationV2"
+
+        result = self.service.execute_query(
+            endpoint=endpoint,
+            variables={
+                "id": prepare_input(id_),
+            },
+            output=build_output_string(
+                ApiIntegration,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
+        )
+        if result.get(endpoint) is not None:
+            return ApiIntegration.from_dict(result.get(endpoint))
+        raise GraphQLNoRowsInResultSetError("for query apiIntegrationV2")
 
     def list_api_integration_history(
         self, id_: int, start_time: str, end_time: str, page_number: int, page_size: int
@@ -96,7 +123,10 @@ class TaegisSDKTripQuery:
                 "pageNumber": prepare_input(page_number),
                 "pageSize": prepare_input(page_size),
             },
-            output=build_output_string(ApiIntegrationHistoryPage),
+            output=build_output_string(
+                ApiIntegrationHistoryPage,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return ApiIntegrationHistoryPage.from_dict(result.get(endpoint))
@@ -123,7 +153,12 @@ class TaegisSDKTripQuery:
         endpoint = "getEnvConfig"
 
         result = self.service.execute_query(
-            endpoint=endpoint, variables={}, output=build_output_string(TripEnvConfig)
+            endpoint=endpoint,
+            variables={},
+            output=build_output_string(
+                TripEnvConfig,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return TripEnvConfig.schema().load(
@@ -136,7 +171,12 @@ class TaegisSDKTripQuery:
         endpoint = "listAllowedProductsForTenant"
 
         result = self.service.execute_query(
-            endpoint=endpoint, variables={}, output=build_output_string(ApiProduct)
+            endpoint=endpoint,
+            variables={},
+            output=build_output_string(
+                ApiProduct,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return ApiProduct.schema().load(

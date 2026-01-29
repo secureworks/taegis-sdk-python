@@ -41,7 +41,10 @@ class TaegisSDKSharelinksMutation:
             variables={
                 "input": prepare_input(input_),
             },
-            output=build_output_string(ShareLink),
+            output=build_output_string(
+                ShareLink,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return ShareLink.from_dict(result.get(endpoint))
@@ -56,7 +59,10 @@ class TaegisSDKSharelinksMutation:
             variables={
                 "input": prepare_input(input_),
             },
-            output=build_output_string(ShareLink),
+            output=build_output_string(
+                ShareLink,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return ShareLink.schema().load(

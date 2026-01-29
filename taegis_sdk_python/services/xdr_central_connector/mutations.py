@@ -45,7 +45,10 @@ class TaegisSDKXdrCentralConnectorMutation:
             variables={
                 "input": prepare_input(input_),
             },
-            output=build_output_string(EndpointIsolationPayload),
+            output=build_output_string(
+                EndpointIsolationPayload,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return EndpointIsolationPayload.from_dict(result.get(endpoint))
@@ -62,7 +65,10 @@ class TaegisSDKXdrCentralConnectorMutation:
             variables={
                 "input": prepare_input(input_),
             },
-            output=build_output_string(EndpointsIsolationPayload),
+            output=build_output_string(
+                EndpointsIsolationPayload,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return EndpointsIsolationPayload.from_dict(result.get(endpoint))
@@ -79,7 +85,10 @@ class TaegisSDKXdrCentralConnectorMutation:
             variables={
                 "input": prepare_input(input_),
             },
-            output=build_output_string(ForensicLogsPayload),
+            output=build_output_string(
+                ForensicLogsPayload,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return ForensicLogsPayload.from_dict(result.get(endpoint))
@@ -96,7 +105,10 @@ class TaegisSDKXdrCentralConnectorMutation:
             variables={
                 "input": prepare_input(input_),
             },
-            output=build_output_string(LiveResponsePayload),
+            output=build_output_string(
+                LiveResponsePayload,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return LiveResponsePayload.from_dict(result.get(endpoint))
@@ -113,7 +125,10 @@ class TaegisSDKXdrCentralConnectorMutation:
             variables={
                 "input": prepare_input(input_),
             },
-            output=build_output_string(LiveResponsePayload),
+            output=build_output_string(
+                LiveResponsePayload,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return LiveResponsePayload.from_dict(result.get(endpoint))
@@ -130,7 +145,10 @@ class TaegisSDKXdrCentralConnectorMutation:
             variables={
                 "input": prepare_input(input_),
             },
-            output=build_output_string(EndLiveResponseSessionPayload),
+            output=build_output_string(
+                EndLiveResponseSessionPayload,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return EndLiveResponseSessionPayload.from_dict(result.get(endpoint))
@@ -147,7 +165,10 @@ class TaegisSDKXdrCentralConnectorMutation:
             variables={
                 "input": prepare_input(input_),
             },
-            output=build_output_string(EndLiveResponseSessionPayload),
+            output=build_output_string(
+                EndLiveResponseSessionPayload,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return EndLiveResponseSessionPayload.from_dict(result.get(endpoint))
@@ -166,7 +187,10 @@ class TaegisSDKXdrCentralConnectorMutation:
             variables={
                 "input": prepare_input(input_),
             },
-            output=build_output_string(CentralAccessToken),
+            output=build_output_string(
+                CentralAccessToken,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return CentralAccessToken.from_dict(result.get(endpoint))
@@ -183,7 +207,10 @@ class TaegisSDKXdrCentralConnectorMutation:
             variables={
                 "input": prepare_input(input_),
             },
-            output=build_output_string(CentralAccessToken),
+            output=build_output_string(
+                CentralAccessToken,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return CentralAccessToken.from_dict(result.get(endpoint))

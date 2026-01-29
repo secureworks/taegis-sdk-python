@@ -16,6 +16,7 @@ from gql.transport.aiohttp import AIOHTTPTransport
 from gql.transport.aiohttp_websockets import AIOHTTPWebsocketsTransport
 from graphql import GraphQLError, GraphQLField, GraphQLSchema
 
+from taegis_sdk_python._consts import DEFAULT_GATEWAY
 from taegis_sdk_python._version import __version__
 from taegis_sdk_python.errors import InvalidGraphQLEndpoint
 from taegis_sdk_python.utils import async_block, prepare_variables, remove_node
@@ -167,7 +168,7 @@ class ServiceCore:
         self.service = service
 
         self._urls = self.service._environments
-        self._gateway = self.service._gateway
+        self._gateway = None
         self._input_value_deprecation = True
 
         self._cache_map = SchemaCacheMap(expires=self.service.schema_expiry)
@@ -182,6 +183,11 @@ class ServiceCore:
         return self.service.url or self._urls.get(self.service.environment)
 
     @property
+    def exclude_deprecated_output(self):
+        """GraphQL Query Deprecated Output Fields in Schema."""
+        return self.service.exclude_deprecated_output
+
+    @property
     def wss_url(self) -> str:
         """WebSockets URL."""
         return self.sync_url.replace("https", "wss")
@@ -189,7 +195,7 @@ class ServiceCore:
     @property
     def gateway(self) -> str:
         """GraphQL Gateway"""
-        return self.service.gateway or self._gateway
+        return self.service.gateway or self._gateway or DEFAULT_GATEWAY
 
     @property
     def query(self):  # pragma: no cover

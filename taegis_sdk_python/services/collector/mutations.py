@@ -41,7 +41,10 @@ class TaegisSDKCollectorMutation:
             variables={
                 "clusterInput": prepare_input(cluster_input),
             },
-            output=build_output_string(Cluster),
+            output=build_output_string(
+                Cluster,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return Cluster.from_dict(result.get(endpoint))
@@ -58,7 +61,10 @@ class TaegisSDKCollectorMutation:
             variables={
                 "clusterInput": prepare_input(cluster_input),
             },
-            output=build_output_string(Cluster),
+            output=build_output_string(
+                Cluster,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return Cluster.from_dict(result.get(endpoint))
@@ -74,7 +80,10 @@ class TaegisSDKCollectorMutation:
                 "clusterID": prepare_input(cluster_id),
                 "clusterInput": prepare_input(cluster_input),
             },
-            output=build_output_string(Cluster),
+            output=build_output_string(
+                Cluster,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return Cluster.from_dict(result.get(endpoint))
@@ -89,7 +98,10 @@ class TaegisSDKCollectorMutation:
             variables={
                 "clusterID": prepare_input(cluster_id),
             },
-            output=build_output_string(Deleted),
+            output=build_output_string(
+                Deleted,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return Deleted.from_dict(result.get(endpoint))
@@ -104,7 +116,10 @@ class TaegisSDKCollectorMutation:
             variables={
                 "input": prepare_input(input_),
             },
-            output=build_output_string(OSConfig),
+            output=build_output_string(
+                OSConfig,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return OSConfig.from_dict(result.get(endpoint))
@@ -119,7 +134,10 @@ class TaegisSDKCollectorMutation:
             variables={
                 "input": prepare_input(input_),
             },
-            output=build_output_string(OSConfig),
+            output=build_output_string(
+                OSConfig,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return OSConfig.from_dict(result.get(endpoint))
@@ -171,7 +189,10 @@ class TaegisSDKCollectorMutation:
                 "clusterID": prepare_input(cluster_id),
                 "address": prepare_input(address),
             },
-            output=build_output_string(Deleted),
+            output=build_output_string(
+                Deleted,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return Deleted.from_dict(result.get(endpoint))
@@ -189,7 +210,9 @@ class TaegisSDKCollectorMutation:
                 "clusterID": prepare_input(cluster_id),
                 "statusInput": prepare_input(status_input),
             },
-            output=build_output_string(Status),
+            output=build_output_string(
+                Status, exclude_deprecated_output=self.service.exclude_deprecated_output
+            ),
         )
         if result.get(endpoint) is not None:
             return Status.from_dict(result.get(endpoint))
@@ -207,7 +230,9 @@ class TaegisSDKCollectorMutation:
                 "clusterID": prepare_input(cluster_id),
                 "statusInput": prepare_input(status_input),
             },
-            output=build_output_string(Status),
+            output=build_output_string(
+                Status, exclude_deprecated_output=self.service.exclude_deprecated_output
+            ),
         )
         if result.get(endpoint) is not None:
             return Status.from_dict(result.get(endpoint))
@@ -223,7 +248,10 @@ class TaegisSDKCollectorMutation:
                 "clusterID": prepare_input(cluster_id),
                 "deploymentID": prepare_input(deployment_id),
             },
-            output=build_output_string(Deleted),
+            output=build_output_string(
+                Deleted,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return Deleted.from_dict(result.get(endpoint))
@@ -241,7 +269,10 @@ class TaegisSDKCollectorMutation:
                 "clusterID": prepare_input(cluster_id),
                 "deploymentInput": prepare_input(deployment_input),
             },
-            output=build_output_string(Deployment),
+            output=build_output_string(
+                Deployment,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return Deployment.from_dict(result.get(endpoint))
@@ -260,7 +291,10 @@ class TaegisSDKCollectorMutation:
                 "deploymentID": prepare_input(deployment_id),
                 "deploymentInput": prepare_input(deployment_input),
             },
-            output=build_output_string(Deployment),
+            output=build_output_string(
+                Deployment,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return Deployment.from_dict(result.get(endpoint))
@@ -282,7 +316,10 @@ class TaegisSDKCollectorMutation:
                 "deploymentID": prepare_input(deployment_id),
                 "updateDeploymentInput": prepare_input(update_deployment_input),
             },
-            output=build_output_string(Deployment),
+            output=build_output_string(
+                Deployment,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return Deployment.from_dict(result.get(endpoint))
@@ -298,7 +335,10 @@ class TaegisSDKCollectorMutation:
                 "clusterID": prepare_input(cluster_id),
                 "deploymentID": prepare_input(deployment_id),
             },
-            output=build_output_string(Deleted),
+            output=build_output_string(
+                Deleted,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return Deleted.from_dict(result.get(endpoint))
@@ -317,7 +357,10 @@ class TaegisSDKCollectorMutation:
                 "deploymentID": prepare_input(deployment_id),
                 "endpointInput": prepare_input(endpoint_input),
             },
-            output=build_output_string(Endpoint),
+            output=build_output_string(
+                Endpoint,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return Endpoint.from_dict(result.get(endpoint))
@@ -341,7 +384,10 @@ class TaegisSDKCollectorMutation:
                 "endpointID": prepare_input(endpoint_id),
                 "endpointInput": prepare_input(endpoint_input),
             },
-            output=build_output_string(Endpoint),
+            output=build_output_string(
+                Endpoint,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return Endpoint.from_dict(result.get(endpoint))
@@ -360,7 +406,10 @@ class TaegisSDKCollectorMutation:
                 "deploymentID": prepare_input(deployment_id),
                 "endpointID": prepare_input(endpoint_id),
             },
-            output=build_output_string(Deleted),
+            output=build_output_string(
+                Deleted,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return Deleted.from_dict(result.get(endpoint))
@@ -378,7 +427,10 @@ class TaegisSDKCollectorMutation:
                 "role": prepare_input(role),
                 "deploymentInput": prepare_input(deployment_input),
             },
-            output=build_output_string(Deployment),
+            output=build_output_string(
+                Deployment,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return Deployment.from_dict(result.get(endpoint))
@@ -396,7 +448,10 @@ class TaegisSDKCollectorMutation:
                 "deploymentID": prepare_input(deployment_id),
                 "deploymentInput": prepare_input(deployment_input),
             },
-            output=build_output_string(Deployment),
+            output=build_output_string(
+                Deployment,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return Deployment.from_dict(result.get(endpoint))
@@ -411,7 +466,10 @@ class TaegisSDKCollectorMutation:
             variables={
                 "deploymentID": prepare_input(deployment_id),
             },
-            output=build_output_string(Deleted),
+            output=build_output_string(
+                Deleted,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return Deleted.from_dict(result.get(endpoint))
@@ -428,7 +486,10 @@ class TaegisSDKCollectorMutation:
             variables={
                 "scheduledServiceInput": prepare_input(scheduled_service_input),
             },
-            output=build_output_string(ScheduledService),
+            output=build_output_string(
+                ScheduledService,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return ScheduledService.from_dict(result.get(endpoint))
@@ -445,7 +506,10 @@ class TaegisSDKCollectorMutation:
             variables={
                 "serviceInput": prepare_input(service_input),
             },
-            output=build_output_string(Service),
+            output=build_output_string(
+                Service,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return Service.from_dict(result.get(endpoint))

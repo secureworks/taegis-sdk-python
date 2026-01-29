@@ -43,7 +43,10 @@ class TaegisSDKContractedEndpointQuery:
             variables={
                 "serviceDate": prepare_input(service_date),
             },
-            output=build_output_string(ContractedEndpoints),
+            output=build_output_string(
+                ContractedEndpoints,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return ContractedEndpoints.from_dict(result.get(endpoint))
@@ -70,7 +73,10 @@ class TaegisSDKContractedEndpointQuery:
                 "startDate": prepare_input(start_date),
                 "endDate": prepare_input(end_date),
             },
-            output=build_output_string(EndpointHistory),
+            output=build_output_string(
+                EndpointHistory,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return EndpointHistory.schema().load(

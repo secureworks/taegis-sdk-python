@@ -54,7 +54,10 @@ class TaegisSDKNotificationsQuery:
                 "is_read": prepare_input(is_read),
                 "order_direction": prepare_input(order_direction),
             },
-            output=build_output_string(NotificationsOutput),
+            output=build_output_string(
+                NotificationsOutput,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return NotificationsOutput.from_dict(result.get(endpoint))
@@ -69,7 +72,10 @@ class TaegisSDKNotificationsQuery:
             variables={
                 "notification_id": prepare_input(notification_id),
             },
-            output=build_output_string(Notification),
+            output=build_output_string(
+                Notification,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return Notification.from_dict(result.get(endpoint))

@@ -45,7 +45,10 @@ class TaegisSDKTripMutation:
                 "name": prepare_input(name),
                 "parameters": prepare_input(parameters),
             },
-            output=build_output_string(ApiIntegration),
+            output=build_output_string(
+                ApiIntegration,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return ApiIntegration.from_dict(result.get(endpoint))
@@ -67,7 +70,10 @@ class TaegisSDKTripMutation:
                 "name": prepare_input(name),
                 "parameters": prepare_input(parameters),
             },
-            output=build_output_string(ApiIntegration),
+            output=build_output_string(
+                ApiIntegration,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return ApiIntegration.from_dict(result.get(endpoint))
@@ -82,7 +88,10 @@ class TaegisSDKTripMutation:
             variables={
                 "id": prepare_input(id_),
             },
-            output=build_output_string(ApiIntegrationSummary),
+            output=build_output_string(
+                ApiIntegrationSummary,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return ApiIntegrationSummary.schema().load(
@@ -99,7 +108,10 @@ class TaegisSDKTripMutation:
             variables={
                 "id": prepare_input(id_),
             },
-            output=build_output_string(ApiIntegrationUpdateResponse),
+            output=build_output_string(
+                ApiIntegrationUpdateResponse,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return ApiIntegrationUpdateResponse.from_dict(result.get(endpoint))
@@ -114,7 +126,10 @@ class TaegisSDKTripMutation:
             variables={
                 "id": prepare_input(id_),
             },
-            output=build_output_string(ApiIntegrationUpdateResponse),
+            output=build_output_string(
+                ApiIntegrationUpdateResponse,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return ApiIntegrationUpdateResponse.from_dict(result.get(endpoint))
@@ -131,7 +146,10 @@ class TaegisSDKTripMutation:
             variables={
                 "id": prepare_input(id_),
             },
-            output=build_output_string(ApiIntegrationUpdateResponse),
+            output=build_output_string(
+                ApiIntegrationUpdateResponse,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return ApiIntegrationUpdateResponse.from_dict(result.get(endpoint))

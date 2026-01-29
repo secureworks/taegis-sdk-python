@@ -15,15 +15,6 @@ from taegis_sdk_python._consts import TaegisEnum
 from taegis_sdk_python.utils import decode_enum, encode_enum, parse_union_result
 
 
-class ContentFormat(str, Enum):
-    """ContentFormat."""
-
-    MD = "MD"
-    HTML = "HTML"
-    TEXT = "TEXT"
-    PDF = "PDF"
-
-
 class SortByDirectionInput(str, Enum):
     """SortByDirectionInput."""
 
@@ -816,37 +807,6 @@ class ThreatAdvisory:
     )
     report_id: Optional[str] = field(
         default=None, metadata=config(field_name="ReportID")
-    )
-
-
-@dataclass_json
-@dataclass(order=True, eq=True, frozen=True)
-class ThreatPublication:
-    """ThreatPublication."""
-
-    id: Optional[str] = field(default=None, metadata=config(field_name="id"))
-    type: Optional[str] = field(default=None, metadata=config(field_name="Type"))
-    name: Optional[str] = field(default=None, metadata=config(field_name="Name"))
-    description: Optional[str] = field(
-        default=None, metadata=config(field_name="Description")
-    )
-    published: Optional[str] = field(
-        default=None, metadata=config(field_name="Published")
-    )
-    content: Optional[str] = field(default=None, metadata=config(field_name="Content"))
-    tlp: Optional[str] = field(default=None, metadata=config(field_name="TLP"))
-    vid: Optional[str] = field(default=None, metadata=config(field_name="VID"))
-    report_id: Optional[str] = field(
-        default=None, metadata=config(field_name="ReportID")
-    )
-    reference: Optional[str] = field(
-        default=None, metadata=config(field_name="Reference")
-    )
-    category: Optional[str] = field(
-        default=None, metadata=config(field_name="Category")
-    )
-    language: Optional[str] = field(
-        default=None, metadata=config(field_name="Language")
     )
 
 

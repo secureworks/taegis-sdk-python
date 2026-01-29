@@ -167,6 +167,9 @@ class ApiIntegrationSummary:
 
     id: Optional[int] = field(default=None, metadata=config(field_name="id"))
     name: Optional[str] = field(default=None, metadata=config(field_name="name"))
+    integration_uuid: Optional[str] = field(
+        default=None, metadata=config(field_name="integrationUuid")
+    )
     created_at: Optional[str] = field(
         default=None, metadata=config(field_name="createdAt")
     )

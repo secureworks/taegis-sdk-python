@@ -52,7 +52,10 @@ class TaegisSDKEntityContextMutation:
                 "toAdd": prepare_input(to_add),
                 "filters": prepare_input(filters),
             },
-            output=build_output_string(EntityContextGroupedSubgraphForResponse),
+            output=build_output_string(
+                EntityContextGroupedSubgraphForResponse,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return EntityContextGroupedSubgraphForResponse.from_dict(

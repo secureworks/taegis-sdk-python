@@ -45,7 +45,10 @@ class TaegisSDKCommentsMutation:
             variables={
                 "comment_id": prepare_input(comment_id),
             },
-            output=build_output_string(Comment),
+            output=build_output_string(
+                Comment,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return Comment.from_dict(result.get(endpoint))
@@ -64,7 +67,10 @@ class TaegisSDKCommentsMutation:
             variables={
                 "parents": prepare_input(parents),
             },
-            output=build_output_string(Comment),
+            output=build_output_string(
+                Comment,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return Comment.schema().load(
@@ -85,7 +91,10 @@ class TaegisSDKCommentsMutation:
             variables={
                 "comment": prepare_input(comment),
             },
-            output=build_output_string(Comment),
+            output=build_output_string(
+                Comment,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return Comment.from_dict(result.get(endpoint))
@@ -105,7 +114,10 @@ class TaegisSDKCommentsMutation:
                 "comment_id": prepare_input(comment_id),
                 "comment": prepare_input(comment),
             },
-            output=build_output_string(Comment),
+            output=build_output_string(
+                Comment,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return Comment.from_dict(result.get(endpoint))
@@ -124,7 +136,10 @@ class TaegisSDKCommentsMutation:
             variables={
                 "comment_id": prepare_input(comment_id),
             },
-            output=build_output_string(Comment),
+            output=build_output_string(
+                Comment,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return Comment.from_dict(result.get(endpoint))

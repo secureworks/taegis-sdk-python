@@ -45,7 +45,10 @@ class TaegisSDKEndpointCommandManagerMutation:
             variables={
                 "input": prepare_input(input_),
             },
-            output=build_output_string(IsolationExclusionRuleResult),
+            output=build_output_string(
+                IsolationExclusionRuleResult,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return IsolationExclusionRuleResult.from_dict(result.get(endpoint))
@@ -62,7 +65,10 @@ class TaegisSDKEndpointCommandManagerMutation:
             variables={
                 "input": prepare_input(input_),
             },
-            output=build_output_string(IsolationExclusionRuleResult),
+            output=build_output_string(
+                IsolationExclusionRuleResult,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return IsolationExclusionRuleResult.from_dict(result.get(endpoint))
@@ -77,7 +83,9 @@ class TaegisSDKEndpointCommandManagerMutation:
             variables={
                 "RuleID": prepare_input(rule_id),
             },
-            output=build_output_string(Result),
+            output=build_output_string(
+                Result, exclude_deprecated_output=self.service.exclude_deprecated_output
+            ),
         )
         if result.get(endpoint) is not None:
             return Result.from_dict(result.get(endpoint))
@@ -93,7 +101,9 @@ class TaegisSDKEndpointCommandManagerMutation:
             variables={
                 "input": prepare_input(input_),
             },
-            output=build_output_string(Result),
+            output=build_output_string(
+                Result, exclude_deprecated_output=self.service.exclude_deprecated_output
+            ),
         )
         if result.get(endpoint) is not None:
             return Result.from_dict(result.get(endpoint))
@@ -108,7 +118,9 @@ class TaegisSDKEndpointCommandManagerMutation:
             variables={
                 "input": prepare_input(input_),
             },
-            output=build_output_string(Result),
+            output=build_output_string(
+                Result, exclude_deprecated_output=self.service.exclude_deprecated_output
+            ),
         )
         if result.get(endpoint) is not None:
             return Result.from_dict(result.get(endpoint))
@@ -123,7 +135,9 @@ class TaegisSDKEndpointCommandManagerMutation:
             variables={
                 "input": prepare_input(input_),
             },
-            output=build_output_string(Result),
+            output=build_output_string(
+                Result, exclude_deprecated_output=self.service.exclude_deprecated_output
+            ),
         )
         if result.get(endpoint) is not None:
             return Result.from_dict(result.get(endpoint))
@@ -138,7 +152,9 @@ class TaegisSDKEndpointCommandManagerMutation:
             variables={
                 "input": prepare_input(input_),
             },
-            output=build_output_string(Result),
+            output=build_output_string(
+                Result, exclude_deprecated_output=self.service.exclude_deprecated_output
+            ),
         )
         if result.get(endpoint) is not None:
             return Result.from_dict(result.get(endpoint))
@@ -153,7 +169,9 @@ class TaegisSDKEndpointCommandManagerMutation:
             variables={
                 "input": prepare_input(input_),
             },
-            output=build_output_string(Result),
+            output=build_output_string(
+                Result, exclude_deprecated_output=self.service.exclude_deprecated_output
+            ),
         )
         if result.get(endpoint) is not None:
             return Result.from_dict(result.get(endpoint))
@@ -168,7 +186,9 @@ class TaegisSDKEndpointCommandManagerMutation:
             variables={
                 "input": prepare_input(input_),
             },
-            output=build_output_string(Result),
+            output=build_output_string(
+                Result, exclude_deprecated_output=self.service.exclude_deprecated_output
+            ),
         )
         if result.get(endpoint) is not None:
             return Result.from_dict(result.get(endpoint))
@@ -183,7 +203,9 @@ class TaegisSDKEndpointCommandManagerMutation:
             variables={
                 "input": prepare_input(input_),
             },
-            output=build_output_string(Result),
+            output=build_output_string(
+                Result, exclude_deprecated_output=self.service.exclude_deprecated_output
+            ),
         )
         if result.get(endpoint) is not None:
             return Result.from_dict(result.get(endpoint))
@@ -198,7 +220,9 @@ class TaegisSDKEndpointCommandManagerMutation:
             variables={
                 "input": prepare_input(input_),
             },
-            output=build_output_string(Result),
+            output=build_output_string(
+                Result, exclude_deprecated_output=self.service.exclude_deprecated_output
+            ),
         )
         if result.get(endpoint) is not None:
             return Result.from_dict(result.get(endpoint))
@@ -213,7 +237,9 @@ class TaegisSDKEndpointCommandManagerMutation:
             variables={
                 "input": prepare_input(input_),
             },
-            output=build_output_string(Result),
+            output=build_output_string(
+                Result, exclude_deprecated_output=self.service.exclude_deprecated_output
+            ),
         )
         if result.get(endpoint) is not None:
             return Result.from_dict(result.get(endpoint))
@@ -228,7 +254,9 @@ class TaegisSDKEndpointCommandManagerMutation:
             variables={
                 "arguments": prepare_input(arguments),
             },
-            output=build_output_string(Result),
+            output=build_output_string(
+                Result, exclude_deprecated_output=self.service.exclude_deprecated_output
+            ),
         )
         if result.get(endpoint) is not None:
             return Result.from_dict(result.get(endpoint))

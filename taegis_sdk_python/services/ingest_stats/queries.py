@@ -41,7 +41,10 @@ class TaegisSDKIngestStatsQuery:
             variables={
                 "range": prepare_input(range_),
             },
-            output=build_output_string(TenantDailyVolume),
+            output=build_output_string(
+                TenantDailyVolume,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return TenantDailyVolume.schema().load(
@@ -58,7 +61,10 @@ class TaegisSDKIngestStatsQuery:
             variables={
                 "range": prepare_input(range_),
             },
-            output=build_output_string(HostDailyVolume),
+            output=build_output_string(
+                HostDailyVolume,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return HostDailyVolume.schema().load(
@@ -76,7 +82,10 @@ class TaegisSDKIngestStatsQuery:
                 "range": prepare_input(range_),
                 "topK": prepare_input(top_k),
             },
-            output=build_output_string(TopKSchema),
+            output=build_output_string(
+                TopKSchema,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return TopKSchema.schema().load(
@@ -96,7 +105,10 @@ class TaegisSDKIngestStatsQuery:
                 "range": prepare_input(range_),
                 "topK": prepare_input(top_k),
             },
-            output=build_output_string(TopKSchemasByDate),
+            output=build_output_string(
+                TopKSchemasByDate,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return TopKSchemasByDate.schema().load(
@@ -113,7 +125,10 @@ class TaegisSDKIngestStatsQuery:
             variables={
                 "range": prepare_input(range_),
             },
-            output=build_output_string(TenantSensorType),
+            output=build_output_string(
+                TenantSensorType,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return TenantSensorType.from_dict(result.get(endpoint))

@@ -6,7 +6,7 @@ import logging
 import threading
 from collections.abc import Mapping
 from ssl import SSLContext
-from typing import Any, Dict, Literal, Optional, Union
+from typing import Any, Callable, Dict, Literal, Optional, Tuple, Union
 
 import aiohttp
 from aiohttp.client_reqrep import Fingerprint
@@ -45,6 +45,7 @@ from taegis_sdk_python.services.endpoint_management_service import (
     EndpointManagementServiceService,
 )
 from taegis_sdk_python.services.entity_context import EntityContextService
+from taegis_sdk_python.services.escalation_policies import EscalationPoliciesService
 from taegis_sdk_python.services.event_search import EventSearchService
 from taegis_sdk_python.services.events import EventsService
 from taegis_sdk_python.services.exports import ExportsService
@@ -60,6 +61,7 @@ from taegis_sdk_python.services.multi_tenant_ioc import MultiTenantIocService
 from taegis_sdk_python.services.nl_search import NlSearchService
 from taegis_sdk_python.services.notebooks import NotebooksService
 from taegis_sdk_python.services.notifications import NotificationsService
+from taegis_sdk_python.services.notifications2 import Notifications2Service
 from taegis_sdk_python.services.preferences import PreferencesService
 from taegis_sdk_python.services.process_trees import ProcessTreesService
 from taegis_sdk_python.services.queries import QueriesService
@@ -71,6 +73,7 @@ from taegis_sdk_python.services.tenant_profiles import TenantProfilesService
 from taegis_sdk_python.services.tenants import TenantsService
 from taegis_sdk_python.services.tenants4 import Tenants4Service
 from taegis_sdk_python.services.threat import ThreatService
+from taegis_sdk_python.services.threat_publications import ThreatPublicationsService
 from taegis_sdk_python.services.threat_score import ThreatScoreService
 from taegis_sdk_python.services.trigger_action import TriggerActionService
 from taegis_sdk_python.services.trip import TripService
@@ -103,8 +106,9 @@ class GraphQLService:
         execute_timeout: Optional[Union[int, float]] = 300,
         max_message_size: int = 0,
         use_universal_authentication: bool = False,
-        middlewares=None,
-        reuse_request_id=False,
+        middlewares: Optional[Tuple[Callable]] = None,
+        reuse_request_id: bool = False,
+        exclude_deprecated_output: bool = True,
     ):  # pylint: disable=too-many-statements
         """
         GraphQLService
@@ -157,7 +161,7 @@ class GraphQLService:
             raise ValueError(f"environment must be in {self._environments.keys()}")
 
         self._tenant_id = tenant_id
-        self._gateway = gateway or "/graphql"
+        self._gateway = gateway
         self._thread_id = threading.get_ident()
         self._context_kwargs = {}
         if not extra_headers:
@@ -184,6 +188,8 @@ class GraphQLService:
         self._middlewares = middlewares or ()
         self._reuse_request_id = reuse_request_id
 
+        self._exclude_deprecated_output = exclude_deprecated_output
+
         self._access_points = None
         self._agent = None
         self._alerts = None
@@ -204,6 +210,7 @@ class GraphQLService:
         self._endpoint_management_service = None
         self._entity_context = None
         self._event_search = None
+        self._escalation_policies = None
         self._events = None
         self._exports = None
         self._fast_ioc = None
@@ -218,6 +225,7 @@ class GraphQLService:
         self._nl_search = None
         self._notebooks = None
         self._notifications = None
+        self._notifications2 = None
         self._preferences = None
         self._process_trees = None
         self._queries = None
@@ -230,6 +238,7 @@ class GraphQLService:
         self._tenants = None
         self._tenants4 = None
         self._threat = None
+        self._threat_publications = None
         self._threat_score = None
         self._trigger_action = None
         self._trip = None
@@ -343,7 +352,7 @@ class GraphQLService:
     @property
     def gateway(self):
         """Taegis GraphQL Gateway."""
-        return self._context_manager.get("gateway")
+        return self._context_manager.get("gateway", self._gateway)
 
     @property
     def tenant_id(self):
@@ -419,6 +428,13 @@ class GraphQLService:
     def max_message_size(self):
         """Max Message Size for Subscriptions."""
         return self._context_manager.get("max_message_size", self._max_message_size)
+
+    @property
+    def exclude_deprecated_output(self):
+        """GraphQL Query Deprecated Output Fields in Schema."""
+        return self._context_manager.get(
+            "exclude_deprecated_output", self._exclude_deprecated_output
+        )
 
     @property
     def input_value_deprecation(self):
@@ -614,6 +630,13 @@ class GraphQLService:
         return self._entity_context
 
     @property
+    def escalation_policies(self):
+        """Escalation Policies Service Endpoint."""
+        if not self._escalation_policies:
+            self._escalation_policies = EscalationPoliciesService(self)
+        return self._escalation_policies
+
+    @property
     def event_search(self):
         """Events Search Service Endpoint."""
         if not self._event_search:
@@ -719,6 +742,13 @@ class GraphQLService:
         return self._notifications
 
     @property
+    def notifications2(self):
+        """Notifications2 Service Endpoint."""
+        if not self._notifications2:
+            self._notifications2 = Notifications2Service(self)
+        return self._notifications2
+
+    @property
     def preferences(self):
         """Preferences Service Endpoint."""
         if not self._preferences:
@@ -813,6 +843,13 @@ class GraphQLService:
         if not self._threat:
             self._threat = ThreatService(self)
         return self._threat
+
+    @property
+    def threat_publications(self):
+        """Threat Publications Service Endpoint."""
+        if not self._threat_publications:
+            self._threat_publications = ThreatPublicationsService(self)
+        return self._threat_publications
 
     @property
     def threat_score(self):

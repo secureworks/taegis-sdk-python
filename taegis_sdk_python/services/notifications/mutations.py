@@ -41,7 +41,10 @@ class TaegisSDKNotificationsMutation:
             variables={
                 "notification": prepare_input(notification),
             },
-            output=build_output_string(Notification),
+            output=build_output_string(
+                Notification,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return Notification.from_dict(result.get(endpoint))
@@ -58,7 +61,10 @@ class TaegisSDKNotificationsMutation:
             variables={
                 "notification": prepare_input(notification),
             },
-            output=build_output_string(Notification),
+            output=build_output_string(
+                Notification,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return Notification.from_dict(result.get(endpoint))
@@ -77,7 +83,10 @@ class TaegisSDKNotificationsMutation:
             variables={
                 "notification": prepare_input(notification),
             },
-            output=build_output_string(Notification),
+            output=build_output_string(
+                Notification,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return Notification.from_dict(result.get(endpoint))
@@ -97,7 +106,10 @@ class TaegisSDKNotificationsMutation:
                 "notification_id": prepare_input(notification_id),
                 "notification": prepare_input(notification),
             },
-            output=build_output_string(Notification),
+            output=build_output_string(
+                Notification,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return Notification.from_dict(result.get(endpoint))
@@ -112,7 +124,10 @@ class TaegisSDKNotificationsMutation:
             variables={
                 "notification_id": prepare_input(notification_id),
             },
-            output=build_output_string(Notification),
+            output=build_output_string(
+                Notification,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return Notification.from_dict(result.get(endpoint))
@@ -129,7 +144,10 @@ class TaegisSDKNotificationsMutation:
             variables={
                 "ids": prepare_input(ids),
             },
-            output=build_output_string(Notification),
+            output=build_output_string(
+                Notification,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return Notification.schema().load(
@@ -146,7 +164,10 @@ class TaegisSDKNotificationsMutation:
             variables={
                 "notification_id": prepare_input(notification_id),
             },
-            output=build_output_string(Notification),
+            output=build_output_string(
+                Notification,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return Notification.from_dict(result.get(endpoint))
@@ -164,7 +185,10 @@ class TaegisSDKNotificationsMutation:
                 "ids": prepare_input(ids),
                 "mark_all_as_read": prepare_input(mark_all_as_read),
             },
-            output=build_output_string(Notification),
+            output=build_output_string(
+                Notification,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return Notification.schema().load(

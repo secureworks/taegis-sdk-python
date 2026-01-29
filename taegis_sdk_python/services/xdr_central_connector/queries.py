@@ -43,7 +43,10 @@ class TaegisSDKXdrCentralConnectorQuery:
             variables={
                 "id": prepare_input(id_),
             },
-            output=build_output_string(EndpointDetails),
+            output=build_output_string(
+                EndpointDetails,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return EndpointDetails.from_dict(result.get(endpoint))
@@ -60,7 +63,10 @@ class TaegisSDKXdrCentralConnectorQuery:
             variables={
                 "args": prepare_input(args),
             },
-            output=build_output_string(EndpointInstallers),
+            output=build_output_string(
+                EndpointInstallers,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return EndpointInstallers.from_dict(result.get(endpoint))
@@ -78,7 +84,10 @@ class TaegisSDKXdrCentralConnectorQuery:
                 "endpointID": prepare_input(endpoint_id),
                 "forensicLogRequestId": prepare_input(forensic_log_request_id),
             },
-            output=build_output_string(ForensicLogsPayload),
+            output=build_output_string(
+                ForensicLogsPayload,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return ForensicLogsPayload.from_dict(result.get(endpoint))
@@ -93,7 +102,10 @@ class TaegisSDKXdrCentralConnectorQuery:
             variables={
                 "endpointID": prepare_input(endpoint_id),
             },
-            output=build_output_string(LiveTerminalCheckPayload),
+            output=build_output_string(
+                LiveTerminalCheckPayload,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return LiveTerminalCheckPayload.from_dict(result.get(endpoint))
@@ -106,7 +118,10 @@ class TaegisSDKXdrCentralConnectorQuery:
         result = self.service.execute_query(
             endpoint=endpoint,
             variables={},
-            output=build_output_string(CentralAccessTokens),
+            output=build_output_string(
+                CentralAccessTokens,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return CentralAccessTokens.from_dict(result.get(endpoint))

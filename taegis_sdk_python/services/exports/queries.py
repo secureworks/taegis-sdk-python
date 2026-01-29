@@ -47,7 +47,9 @@ class TaegisSDKExportsQuery:
             variables={
                 "includeConnectedExports": prepare_input(include_connected_exports),
             },
-            output=build_output_string(Export),
+            output=build_output_string(
+                Export, exclude_deprecated_output=self.service.exclude_deprecated_output
+            ),
         )
         if result.get(endpoint) is not None:
             return Export.schema().load(
@@ -68,7 +70,9 @@ class TaegisSDKExportsQuery:
             variables={
                 "id": prepare_input(id_),
             },
-            output=build_output_string(Export),
+            output=build_output_string(
+                Export, exclude_deprecated_output=self.service.exclude_deprecated_output
+            ),
         )
         if result.get(endpoint) is not None:
             return Export.from_dict(result.get(endpoint))
@@ -109,7 +113,10 @@ class TaegisSDKExportsQuery:
                 "cursor": prepare_input(cursor),
                 "filters": prepare_input(filters),
             },
-            output=build_output_string(ReportsOutput),
+            output=build_output_string(
+                ReportsOutput,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return ReportsOutput.from_dict(result.get(endpoint))
@@ -127,7 +134,10 @@ class TaegisSDKExportsQuery:
                 "cursor": prepare_input(cursor),
                 "filters": prepare_input(filters),
             },
-            output=build_output_string(ReportsOutput),
+            output=build_output_string(
+                ReportsOutput,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return ReportsOutput.from_dict(result.get(endpoint))
@@ -147,7 +157,10 @@ class TaegisSDKExportsQuery:
                 "cursor": prepare_input(cursor),
                 "filters": prepare_input(filters),
             },
-            output=build_output_string(SchedulesOutput),
+            output=build_output_string(
+                SchedulesOutput,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return SchedulesOutput.from_dict(result.get(endpoint))
@@ -162,7 +175,10 @@ class TaegisSDKExportsQuery:
             variables={
                 "id": prepare_input(id_),
             },
-            output=build_output_string(Schedule),
+            output=build_output_string(
+                Schedule,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return Schedule.from_dict(result.get(endpoint))
@@ -177,7 +193,9 @@ class TaegisSDKExportsQuery:
             variables={
                 "id": prepare_input(id_),
             },
-            output=build_output_string(Report),
+            output=build_output_string(
+                Report, exclude_deprecated_output=self.service.exclude_deprecated_output
+            ),
         )
         if result.get(endpoint) is not None:
             return Report.from_dict(result.get(endpoint))
@@ -243,7 +261,10 @@ class TaegisSDKExportsQuery:
             variables={
                 "input": prepare_input(input_),
             },
-            output=build_output_string(ReportsOutput),
+            output=build_output_string(
+                ReportsOutput,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return ReportsOutput.from_dict(result.get(endpoint))
@@ -258,7 +279,10 @@ class TaegisSDKExportsQuery:
             variables={
                 "input": prepare_input(input_),
             },
-            output=build_output_string(ReportsOutput),
+            output=build_output_string(
+                ReportsOutput,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return ReportsOutput.from_dict(result.get(endpoint))
@@ -275,7 +299,10 @@ class TaegisSDKExportsQuery:
             variables={
                 "input": prepare_input(input_),
             },
-            output=build_output_string(SchedulesOutput),
+            output=build_output_string(
+                SchedulesOutput,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return SchedulesOutput.from_dict(result.get(endpoint))
@@ -318,7 +345,12 @@ class TaegisSDKExportsQuery:
         endpoint = "getAllUnsubscriptions"
 
         result = self.service.execute_query(
-            endpoint=endpoint, variables={}, output=build_output_string(Unsubscription)
+            endpoint=endpoint,
+            variables={},
+            output=build_output_string(
+                Unsubscription,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return Unsubscription.schema().load(

@@ -41,7 +41,10 @@ class TaegisSDKCollectorQuery:
             variables={
                 "clusterID": prepare_input(cluster_id),
             },
-            output=build_output_string(Cluster),
+            output=build_output_string(
+                Cluster,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return Cluster.from_dict(result.get(endpoint))
@@ -59,7 +62,10 @@ class TaegisSDKCollectorQuery:
                 "clusterID": prepare_input(cluster_id),
                 "timeRange": prepare_input(time_range),
             },
-            output=build_output_string(ClusterNodeTimeSeries),
+            output=build_output_string(
+                ClusterNodeTimeSeries,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return ClusterNodeTimeSeries.schema().load(
@@ -79,7 +85,10 @@ class TaegisSDKCollectorQuery:
                 "clusterID": prepare_input(cluster_id),
                 "timeRange": prepare_input(time_range),
             },
-            output=build_output_string(ClusterNodeTimeSeries),
+            output=build_output_string(
+                ClusterNodeTimeSeries,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return ClusterNodeTimeSeries.schema().load(
@@ -99,7 +108,10 @@ class TaegisSDKCollectorQuery:
                 "clusterID": prepare_input(cluster_id),
                 "timeRange": prepare_input(time_range),
             },
-            output=build_output_string(ClusterNodeTimeSeries),
+            output=build_output_string(
+                ClusterNodeTimeSeries,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return ClusterNodeTimeSeries.schema().load(
@@ -119,7 +131,10 @@ class TaegisSDKCollectorQuery:
                 "clusterID": prepare_input(cluster_id),
                 "timeRange": prepare_input(time_range),
             },
-            output=build_output_string(ClusterNodeTimeSeries),
+            output=build_output_string(
+                ClusterNodeTimeSeries,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return ClusterNodeTimeSeries.schema().load(
@@ -136,7 +151,10 @@ class TaegisSDKCollectorQuery:
             variables={
                 "clusterIDs": prepare_input(cluster_ids),
             },
-            output=build_output_string(Cluster),
+            output=build_output_string(
+                Cluster,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return Cluster.schema().load(
@@ -156,7 +174,10 @@ class TaegisSDKCollectorQuery:
                 "clusterID": prepare_input(cluster_id),
                 "clusterNodeInput": prepare_input(cluster_node_input),
             },
-            output=build_output_string(ClusterNode),
+            output=build_output_string(
+                ClusterNode,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return ClusterNode.from_dict(result.get(endpoint))
@@ -171,7 +192,10 @@ class TaegisSDKCollectorQuery:
             variables={
                 "role": prepare_input(role),
             },
-            output=build_output_string(Cluster),
+            output=build_output_string(
+                Cluster,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return Cluster.schema().load(
@@ -203,7 +227,9 @@ class TaegisSDKCollectorQuery:
             variables={
                 "input": prepare_input(input_),
             },
-            output=build_output_string(Image),
+            output=build_output_string(
+                Image, exclude_deprecated_output=self.service.exclude_deprecated_output
+            ),
         )
         if result.get(endpoint) is not None:
             return Image.from_dict(result.get(endpoint))
@@ -233,7 +259,9 @@ class TaegisSDKCollectorQuery:
                 "awsDetails": prepare_input(aws_details),
                 "gcpDetails": prepare_input(gcp_details),
             },
-            output=build_output_string(Image),
+            output=build_output_string(
+                Image, exclude_deprecated_output=self.service.exclude_deprecated_output
+            ),
         )
         if result.get(endpoint) is not None:
             return Image.from_dict(result.get(endpoint))
@@ -250,7 +278,10 @@ class TaegisSDKCollectorQuery:
             variables={
                 "imageType": prepare_input(image_type),
             },
-            output=build_output_string(CloudRegion),
+            output=build_output_string(
+                CloudRegion,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return CloudRegion.schema().load(
@@ -267,7 +298,10 @@ class TaegisSDKCollectorQuery:
             variables={
                 "clusterID": prepare_input(cluster_id),
             },
-            output=build_output_string(Credentials),
+            output=build_output_string(
+                Credentials,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return Credentials.from_dict(result.get(endpoint))
@@ -303,7 +337,10 @@ class TaegisSDKCollectorQuery:
             variables={
                 "clusterID": prepare_input(cluster_id),
             },
-            output=build_output_string(Activation),
+            output=build_output_string(
+                Activation,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return Activation.from_dict(result.get(endpoint))
@@ -318,7 +355,9 @@ class TaegisSDKCollectorQuery:
             variables={
                 "role": prepare_input(role),
             },
-            output=build_output_string(System),
+            output=build_output_string(
+                System, exclude_deprecated_output=self.service.exclude_deprecated_output
+            ),
         )
         if result.get(endpoint) is not None:
             return System.from_dict(result.get(endpoint))
@@ -336,7 +375,10 @@ class TaegisSDKCollectorQuery:
                 "clusterID": prepare_input(cluster_id),
                 "nodeName": prepare_input(node_name),
             },
-            output=build_output_string(OSConfig),
+            output=build_output_string(
+                OSConfig,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return OSConfig.from_dict(result.get(endpoint))
@@ -351,7 +393,10 @@ class TaegisSDKCollectorQuery:
             variables={
                 "clusterID": prepare_input(cluster_id),
             },
-            output=build_output_string(OSConfig),
+            output=build_output_string(
+                OSConfig,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return OSConfig.from_dict(result.get(endpoint))
@@ -366,7 +411,9 @@ class TaegisSDKCollectorQuery:
             variables={
                 "clusterID": prepare_input(cluster_id),
             },
-            output=build_output_string(Status),
+            output=build_output_string(
+                Status, exclude_deprecated_output=self.service.exclude_deprecated_output
+            ),
         )
         if result.get(endpoint) is not None:
             return Status.schema().load(
@@ -401,7 +448,9 @@ class TaegisSDKCollectorQuery:
             variables={
                 "chartName": prepare_input(chart_name),
             },
-            output=build_output_string(Chart),
+            output=build_output_string(
+                Chart, exclude_deprecated_output=self.service.exclude_deprecated_output
+            ),
         )
         if result.get(endpoint) is not None:
             return Chart.from_dict(result.get(endpoint))
@@ -412,7 +461,12 @@ class TaegisSDKCollectorQuery:
         endpoint = "getAllCharts"
 
         result = self.service.execute_query(
-            endpoint=endpoint, variables={}, output=build_output_string(ChartList)
+            endpoint=endpoint,
+            variables={},
+            output=build_output_string(
+                ChartList,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return ChartList.from_dict(result.get(endpoint))
@@ -423,7 +477,12 @@ class TaegisSDKCollectorQuery:
         endpoint = "getBillOfMaterials"
 
         result = self.service.execute_query(
-            endpoint=endpoint, variables={}, output=build_output_string(BillOfMaterials)
+            endpoint=endpoint,
+            variables={},
+            output=build_output_string(
+                BillOfMaterials,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return BillOfMaterials.from_dict(result.get(endpoint))
@@ -439,7 +498,10 @@ class TaegisSDKCollectorQuery:
                 "clusterID": prepare_input(cluster_id),
                 "deploymentID": prepare_input(deployment_id),
             },
-            output=build_output_string(Deployment),
+            output=build_output_string(
+                Deployment,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return Deployment.from_dict(result.get(endpoint))
@@ -454,7 +516,10 @@ class TaegisSDKCollectorQuery:
             variables={
                 "clusterID": prepare_input(cluster_id),
             },
-            output=build_output_string(Deployment),
+            output=build_output_string(
+                Deployment,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return Deployment.schema().load(
@@ -475,7 +540,10 @@ class TaegisSDKCollectorQuery:
                 "deploymentID": prepare_input(deployment_id),
                 "endpointID": prepare_input(endpoint_id),
             },
-            output=build_output_string(Endpoint),
+            output=build_output_string(
+                Endpoint,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return Endpoint.from_dict(result.get(endpoint))
@@ -493,7 +561,10 @@ class TaegisSDKCollectorQuery:
                 "clusterID": prepare_input(cluster_id),
                 "deploymentID": prepare_input(deployment_id),
             },
-            output=build_output_string(Endpoint),
+            output=build_output_string(
+                Endpoint,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return Endpoint.schema().load(
@@ -514,7 +585,10 @@ class TaegisSDKCollectorQuery:
                 "deploymentID": prepare_input(deployment_id),
                 "endpointID": prepare_input(endpoint_id),
             },
-            output=build_output_string(ValidityPeriod),
+            output=build_output_string(
+                ValidityPeriod,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return ValidityPeriod.from_dict(result.get(endpoint))
@@ -540,7 +614,10 @@ class TaegisSDKCollectorQuery:
             variables={
                 "role": prepare_input(role),
             },
-            output=build_output_string(Deployment),
+            output=build_output_string(
+                Deployment,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return Deployment.schema().load(
@@ -557,7 +634,10 @@ class TaegisSDKCollectorQuery:
             variables={
                 "deploymentID": prepare_input(deployment_id),
             },
-            output=build_output_string(Deployment),
+            output=build_output_string(
+                Deployment,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return Deployment.from_dict(result.get(endpoint))
@@ -575,7 +655,10 @@ class TaegisSDKCollectorQuery:
                 "role": prepare_input(role),
                 "timeRange": prepare_input(time_range),
             },
-            output=build_output_string(CollectorOverview),
+            output=build_output_string(
+                CollectorOverview,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return CollectorOverview.schema().load(
@@ -594,7 +677,10 @@ class TaegisSDKCollectorQuery:
             variables={
                 "timeRange": prepare_input(time_range),
             },
-            output=build_output_string(CollectorMetrics),
+            output=build_output_string(
+                CollectorMetrics,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return CollectorMetrics.from_dict(result.get(endpoint))
@@ -612,7 +698,10 @@ class TaegisSDKCollectorQuery:
                 "clusterID": prepare_input(cluster_id),
                 "timeRange": prepare_input(time_range),
             },
-            output=build_output_string(AggregateRateByCollector),
+            output=build_output_string(
+                AggregateRateByCollector,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return AggregateRateByCollector.from_dict(result.get(endpoint))
@@ -630,7 +719,10 @@ class TaegisSDKCollectorQuery:
                 "clusterID": prepare_input(cluster_id),
                 "timeRange": prepare_input(time_range),
             },
-            output=build_output_string(FlowRate),
+            output=build_output_string(
+                FlowRate,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return FlowRate.from_dict(result.get(endpoint))
@@ -653,7 +745,10 @@ class TaegisSDKCollectorQuery:
             variables={
                 "clusterID": prepare_input(cluster_id),
             },
-            output=build_output_string(LogLastSeenMetrics),
+            output=build_output_string(
+                LogLastSeenMetrics,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return LogLastSeenMetrics.from_dict(result.get(endpoint))
@@ -674,7 +769,10 @@ class TaegisSDKCollectorQuery:
             variables={
                 "in": prepare_input(in_),
             },
-            output=build_output_string(DataSourceMetrics),
+            output=build_output_string(
+                DataSourceMetrics,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return DataSourceMetrics.from_dict(result.get(endpoint))
@@ -691,7 +789,10 @@ class TaegisSDKCollectorQuery:
             variables={
                 "in": prepare_input(in_),
             },
-            output=build_output_string(SyslogMessageCountV2),
+            output=build_output_string(
+                SyslogMessageCountV2,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return SyslogMessageCountV2.schema().load(
@@ -708,7 +809,10 @@ class TaegisSDKCollectorQuery:
             variables={
                 "ID": prepare_input(id_),
             },
-            output=build_output_string(ScheduledService),
+            output=build_output_string(
+                ScheduledService,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return ScheduledService.from_dict(result.get(endpoint))
@@ -740,7 +844,10 @@ class TaegisSDKCollectorQuery:
             variables={
                 "input": prepare_input(input_),
             },
-            output=build_output_string(DataCollectorResult),
+            output=build_output_string(
+                DataCollectorResult,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return DataCollectorResult.from_dict(result.get(endpoint))

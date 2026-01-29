@@ -43,7 +43,10 @@ class TaegisSDKMultiTenantContextMutation:
             variables={
                 "input": prepare_input(input_),
             },
-            output=build_output_string(Session),
+            output=build_output_string(
+                Session,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return Session.from_dict(result.get(endpoint))
@@ -58,7 +61,10 @@ class TaegisSDKMultiTenantContextMutation:
             variables={
                 "inputs": prepare_input(inputs),
             },
-            output=build_output_string(Session),
+            output=build_output_string(
+                Session,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return Session.schema().load(
@@ -75,7 +81,10 @@ class TaegisSDKMultiTenantContextMutation:
             variables={
                 "input": prepare_input(input_),
             },
-            output=build_output_string(History),
+            output=build_output_string(
+                History,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return History.schema().load(
@@ -92,7 +101,10 @@ class TaegisSDKMultiTenantContextMutation:
             variables={
                 "key": prepare_input(key),
             },
-            output=build_output_string(Session),
+            output=build_output_string(
+                Session,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return Session.from_dict(result.get(endpoint))
@@ -107,7 +119,10 @@ class TaegisSDKMultiTenantContextMutation:
             variables={
                 "tenantID": prepare_input(tenant_id),
             },
-            output=build_output_string(TenantClaim),
+            output=build_output_string(
+                TenantClaim,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return TenantClaim.from_dict(result.get(endpoint))
@@ -122,7 +137,10 @@ class TaegisSDKMultiTenantContextMutation:
             variables={
                 "tenantID": prepare_input(tenant_id),
             },
-            output=build_output_string(TenantClaim),
+            output=build_output_string(
+                TenantClaim,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return TenantClaim.from_dict(result.get(endpoint))

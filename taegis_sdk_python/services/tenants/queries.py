@@ -44,7 +44,10 @@ class TaegisSDKTenantsQuery:
                 "tenantID": prepare_input(tenant_id),
                 "serviceIDs": prepare_input(service_ids),
             },
-            output=build_output_string(Service),
+            output=build_output_string(
+                Service,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return Service.schema().load(
@@ -61,7 +64,10 @@ class TaegisSDKTenantsQuery:
             variables={
                 "tenantsQuery": prepare_input(tenants_query),
             },
-            output=build_output_string(TenantResults),
+            output=build_output_string(
+                TenantResults,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return TenantResults.from_dict(result.get(endpoint))
@@ -76,7 +82,10 @@ class TaegisSDKTenantsQuery:
             variables={
                 "id": prepare_input(id_),
             },
-            output=build_output_string(SSOConnection),
+            output=build_output_string(
+                SSOConnection,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return SSOConnection.from_dict(result.get(endpoint))
@@ -93,7 +102,10 @@ class TaegisSDKTenantsQuery:
             variables={
                 "connectionQuery": prepare_input(connection_query),
             },
-            output=build_output_string(SSOConnection),
+            output=build_output_string(
+                SSOConnection,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return SSOConnection.schema().load(
@@ -117,7 +129,10 @@ class TaegisSDKTenantsQuery:
                 "metadataXML": prepare_input(metadata_xml),
                 "cert": prepare_input(cert),
             },
-            output=build_output_string(SSOConnectionConfigResponse),
+            output=build_output_string(
+                SSOConnectionConfigResponse,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return SSOConnectionConfigResponse.from_dict(result.get(endpoint))
@@ -132,7 +147,10 @@ class TaegisSDKTenantsQuery:
             variables={
                 "auditsQuery": prepare_input(audits_query),
             },
-            output=build_output_string(AuditResults),
+            output=build_output_string(
+                AuditResults,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return AuditResults.from_dict(result.get(endpoint))
@@ -147,7 +165,10 @@ class TaegisSDKTenantsQuery:
             variables={
                 "eventsQuery": prepare_input(events_query),
             },
-            output=build_output_string(ServiceEvents),
+            output=build_output_string(
+                ServiceEvents,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return ServiceEvents.schema().load(
@@ -160,7 +181,12 @@ class TaegisSDKTenantsQuery:
         endpoint = "requestableServices"
 
         result = self.service.execute_query(
-            endpoint=endpoint, variables={}, output=build_output_string(Service)
+            endpoint=endpoint,
+            variables={},
+            output=build_output_string(
+                Service,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return Service.schema().load(
@@ -177,7 +203,10 @@ class TaegisSDKTenantsQuery:
             variables={
                 "requestID": prepare_input(request_id),
             },
-            output=build_output_string(TenantDecommissionRequest),
+            output=build_output_string(
+                TenantDecommissionRequest,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return TenantDecommissionRequest.from_dict(result.get(endpoint))
@@ -194,7 +223,10 @@ class TaegisSDKTenantsQuery:
             variables={
                 "arguments": prepare_input(arguments),
             },
-            output=build_output_string(TenantDecommissionRequest),
+            output=build_output_string(
+                TenantDecommissionRequest,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return TenantDecommissionRequest.schema().load(
@@ -209,7 +241,10 @@ class TaegisSDKTenantsQuery:
         result = self.service.execute_query(
             endpoint=endpoint,
             variables={},
-            output=build_output_string(RegisteredDomain),
+            output=build_output_string(
+                RegisteredDomain,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return RegisteredDomain.schema().load(
