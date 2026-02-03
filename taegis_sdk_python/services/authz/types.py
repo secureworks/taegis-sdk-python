@@ -22,6 +22,13 @@ class Effect(str, Enum):
     DENY = "DENY"
 
 
+class PermissionOperator(str, Enum):
+    """PermissionOperator."""
+
+    AND = "AND"
+    OR = "OR"
+
+
 class AuthzRequestPermissionObject(str, Enum):
     """AuthzRequestPermissionObject."""
 
@@ -95,6 +102,20 @@ class AuthzActionTuple:
 
     action: Optional[str] = field(default=None, metadata=config(field_name="action"))
     effect: Optional[bool] = field(default=None, metadata=config(field_name="effect"))
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class AuthzPermittedTenantsResponse:
+    """AuthzPermittedTenantsResponse."""
+
+    total_count: Optional[int] = field(
+        default=None, metadata=config(field_name="totalCount")
+    )
+    count: Optional[int] = field(default=None, metadata=config(field_name="count"))
+    tenant_ids: Optional[List[str]] = field(
+        default=None, metadata=config(field_name="tenantIDs")
+    )
 
 
 @dataclass_json
@@ -292,6 +313,26 @@ class AuthzPolicy:
             encoder=encode_enum,
             decoder=lambda x: decode_enum(Effect, x),
             field_name="effect",
+        ),
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class AuthzPermittedTenantsInput:
+    """AuthzPermittedTenantsInput."""
+
+    count: Optional[int] = field(default=None, metadata=config(field_name="count"))
+    page: Optional[int] = field(default=None, metadata=config(field_name="page"))
+    permissions: Optional[List[AuthzObjectActionInput]] = field(
+        default=None, metadata=config(field_name="permissions")
+    )
+    operator: Optional[Union[PermissionOperator, TaegisEnum]] = field(
+        default=None,
+        metadata=config(
+            encoder=encode_enum,
+            decoder=lambda x: decode_enum(PermissionOperator, x),
+            field_name="operator",
         ),
     )
 

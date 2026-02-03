@@ -643,6 +643,15 @@ class TaegisSDKCollectorQuery:
             return Deployment.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for query getRoleDeployment")
 
+    def get_all_roles(self) -> List[str]:
+        """Get all roles in the environment.."""
+        endpoint = "getAllRoles"
+
+        result = self.service.execute_query(endpoint=endpoint, variables={}, output="")
+        if result.get(endpoint) is not None:
+            return result.get(endpoint)
+        raise GraphQLNoRowsInResultSetError("for query getAllRoles")
+
     def get_all_collectors_overview(
         self, role: str, time_range: Union[TimeRange, TaegisEnum]
     ) -> List[CollectorOverview]:

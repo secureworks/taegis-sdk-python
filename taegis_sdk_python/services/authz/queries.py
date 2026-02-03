@@ -201,7 +201,7 @@ class TaegisSDKAuthzQuery:
     def authz_check_tenants(
         self, input_: AuthzObjectActionInput, tenants: List[str]
     ) -> List[str]:
-        """Given a list of tenants and a permission, returns the IDs of tenants where the subject posesses the given permission."""
+        """Given a list of tenants and a permission, returns the IDs of tenants where the subject possesses the given permission."""
         endpoint = "authzCheckTenants"
 
         result = self.service.execute_query(
@@ -215,6 +215,26 @@ class TaegisSDKAuthzQuery:
         if result.get(endpoint) is not None:
             return result.get(endpoint)
         raise GraphQLNoRowsInResultSetError("for query authzCheckTenants")
+
+    def authz_permitted_tenants(
+        self, input_: AuthzPermittedTenantsInput
+    ) -> AuthzPermittedTenantsResponse:
+        """Returns all tenant IDs where the Central-native subject possesses the given permissions."""
+        endpoint = "authzPermittedTenants"
+
+        result = self.service.execute_query(
+            endpoint=endpoint,
+            variables={
+                "input": prepare_input(input_),
+            },
+            output=build_output_string(
+                AuthzPermittedTenantsResponse,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
+        )
+        if result.get(endpoint) is not None:
+            return AuthzPermittedTenantsResponse.from_dict(result.get(endpoint))
+        raise GraphQLNoRowsInResultSetError("for query authzPermittedTenants")
 
     def authz_permissions(self) -> List[AuthzPermission]:
         """Retrieve the full list of subjects permissions for the tenant context."""

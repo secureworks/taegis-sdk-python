@@ -119,6 +119,28 @@ class CachedEntryType(str, Enum):
     ALL_LICENSES_FOR_TENANT = "ALL_LICENSES_FOR_TENANT"
 
 
+class AccountOrigin(str, Enum):
+    """AccountOrigin."""
+
+    CENTRAL = "CENTRAL"
+    TAEGIS = "TAEGIS"
+
+
+class AuthzProvider(str, Enum):
+    """AuthzProvider."""
+
+    CENTRAL = "CENTRAL"
+    TAEGIS = "TAEGIS"
+
+
+class XDRProvider(str, Enum):
+    """XDRProvider."""
+
+    CENTRAL = "CENTRAL"
+    TAEGIS = "TAEGIS"
+    SECURITY_OPERATIONS = "SECURITY_OPERATIONS"
+
+
 class RetentionMonths(str, Enum):
     """RetentionMonths."""
 
@@ -132,6 +154,17 @@ class RetentionMonths(str, Enum):
     TWENTY_FOUR_MONTHS = "TWENTY_FOUR_MONTHS"
     THIRTY_SIX_MONTHS = "THIRTY_SIX_MONTHS"
     SIXTY_MONTHS = "SIXTY_MONTHS"
+
+
+class LicenseLevel(str, Enum):
+    """LicenseLevel."""
+
+    NONE = "NONE"
+    MDR = "MDR"
+    XDR_ITDR = "XDR_ITDR"
+    TAEGIS_NATIVE = "TAEGIS_NATIVE"
+    ALL_XDR = "ALL_XDR"
+    ALL = "ALL"
 
 
 @dataclass_json
@@ -500,6 +533,14 @@ class TenantV4:
     data_retention_policy: Optional[RetentionPolicy] = field(
         default=None, metadata=config(field_name="dataRetentionPolicy")
     )
+    license_level: Optional[Union[LicenseLevel, TaegisEnum]] = field(
+        default=None,
+        metadata=config(
+            encoder=encode_enum,
+            decoder=lambda x: decode_enum(LicenseLevel, x),
+            field_name="licenseLevel",
+        ),
+    )
 
 
 @dataclass_json
@@ -603,6 +644,14 @@ class TenantsQuery:
             encoder=encode_enum,
             decoder=lambda x: decode_enum(OrderDir, x),
             field_name="orderDir",
+        ),
+    )
+    license_level: Optional[Union[LicenseLevel, TaegisEnum]] = field(
+        default=None,
+        metadata=config(
+            encoder=encode_enum,
+            decoder=lambda x: decode_enum(LicenseLevel, x),
+            field_name="licenseLevel",
         ),
     )
 
