@@ -237,7 +237,7 @@ def build_output_string_from_introspection(
         if gql_type.deprecation_reason is not None:
             log.warning(
                 f"Output field `{name}` is deprecated: "
-                f"'{gql_type.metadata.get('deprecation_reason')}', "
+                f"'{gql_type.deprecation_reason}', "
                 "removing from default output..."
             )
 
