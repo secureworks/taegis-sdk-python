@@ -30,7 +30,6 @@ class AuthzObject(str, Enum):
     TENANT_HIERARCHY = "TenantHierarchy"
     TENANT_MANAGER = "TenantManager"
     ENTERPRISE_SSO_CONNECTION = "EnterpriseSSOConnection"
-    TENANT_DECOMMISSION = "TenantDecommission"
 
 
 class AuthzAction(str, Enum):
@@ -40,8 +39,6 @@ class AuthzAction(str, Enum):
     READ = "Read"
     CREATE = "Create"
     DELETE = "Delete"
-    APPROVE = "Approve"
-    EXECUTE = "Execute"
     REGISTER_DOMAIN = "RegisterDomain"
     DELETE_REGISTERED_DOMAIN = "DeleteRegisteredDomain"
 
@@ -158,28 +155,6 @@ class AuditAction(str, Enum):
     DELETE_REGISTERED_DOMAIN = "delete_registered_domain"
 
 
-class TenantDecommissionRequestStatus(str, Enum):
-    """TenantDecommissionRequestStatus."""
-
-    CREATED = "CREATED"
-    IN_REVIEW = "IN_REVIEW"
-    APPROVED = "APPROVED"
-    PROCESSING = "PROCESSING"
-    ERROR_STATE = "ERROR_STATE"
-    COMPLETED = "COMPLETED"
-    CANCELLED = "CANCELLED"
-
-
-class TenantDecommissionTaskStatus(str, Enum):
-    """TenantDecommissionTaskStatus."""
-
-    PENDING = "PENDING"
-    DEFERRED = "DEFERRED"
-    SCHEDULED = "SCHEDULED"
-    ERROR = "ERROR"
-    COMPLETED = "COMPLETED"
-
-
 class DomainVerificationMethod(str, Enum):
     """DomainVerificationMethod."""
 
@@ -207,6 +182,14 @@ class LicenseLevel(str, Enum):
     MDR = "MDR"
     XDR_ITDR = "XDR_ITDR"
     TAEGIS_NATIVE = "TAEGIS_NATIVE"
+
+
+class MdrProviderType(str, Enum):
+    """MdrProviderType."""
+
+    TAEGIS_MDR = "TAEGIS_MDR"
+    SOPHOS_MDR = "SOPHOS_MDR"
+    NONE = "NONE"
 
 
 @dataclass_json
@@ -454,17 +437,6 @@ class SAMLConnectionParameters:
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
-class TenantDecommissionAgentSummary:
-    """TenantDecommissionAgentSummary."""
-
-    agent_type: Optional[str] = field(
-        default=None, metadata=config(field_name="agentType")
-    )
-    count: Optional[int] = field(default=None, metadata=config(field_name="count"))
-
-
-@dataclass_json
-@dataclass(order=True, eq=True, frozen=True)
 class NewService:
     """NewService."""
 
@@ -657,53 +629,6 @@ class TenantServiceInput:
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
-class TenantDecommissionCreateRequestInput:
-    """TenantDecommissionCreateRequestInput."""
-
-    tenant_id: Optional[str] = field(
-        default=None, metadata=config(field_name="tenantID")
-    )
-    name: Optional[str] = field(default=None, metadata=config(field_name="name"))
-    description: Optional[str] = field(
-        default=None, metadata=config(field_name="description")
-    )
-    point_of_contact: Optional[str] = field(
-        default=None, metadata=config(field_name="pointOfContact")
-    )
-    notes: Optional[str] = field(default=None, metadata=config(field_name="notes"))
-
-
-@dataclass_json
-@dataclass(order=True, eq=True, frozen=True)
-class TenantDecommissionUpdateRequestInput:
-    """TenantDecommissionUpdateRequestInput."""
-
-    request_id: Optional[str] = field(
-        default=None, metadata=config(field_name="requestID")
-    )
-    name: Optional[str] = field(default=None, metadata=config(field_name="name"))
-    description: Optional[str] = field(
-        default=None, metadata=config(field_name="description")
-    )
-    point_of_contact: Optional[str] = field(
-        default=None, metadata=config(field_name="pointOfContact")
-    )
-    notes: Optional[str] = field(default=None, metadata=config(field_name="notes"))
-
-
-@dataclass_json
-@dataclass(order=True, eq=True, frozen=True)
-class TenantDecommissionTaskDeferInput:
-    """TenantDecommissionTaskDeferInput."""
-
-    task_id: Optional[str] = field(default=None, metadata=config(field_name="taskID"))
-    defer_days: Optional[int] = field(
-        default=None, metadata=config(field_name="deferDays")
-    )
-
-
-@dataclass_json
-@dataclass(order=True, eq=True, frozen=True)
 class RegisterDomainInput:
     """RegisterDomainInput."""
 
@@ -790,119 +715,6 @@ class SSOConnectionConfigResponse:
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
-class TenantDecommissionTask:
-    """TenantDecommissionTask."""
-
-    id: Optional[str] = field(default=None, metadata=config(field_name="id"))
-    created_at: Optional[str] = field(
-        default=None, metadata=config(field_name="createdAt")
-    )
-    updated_at: Optional[str] = field(
-        default=None, metadata=config(field_name="updatedAt")
-    )
-    name: Optional[str] = field(default=None, metadata=config(field_name="name"))
-    description: Optional[str] = field(
-        default=None, metadata=config(field_name="description")
-    )
-    error_text: Optional[str] = field(
-        default=None, metadata=config(field_name="errorText")
-    )
-    defer_days: Optional[int] = field(
-        default=None, metadata=config(field_name="deferDays")
-    )
-    status: Optional[Union[TenantDecommissionTaskStatus, TaegisEnum]] = field(
-        default=None,
-        metadata=config(
-            encoder=encode_enum,
-            decoder=lambda x: decode_enum(TenantDecommissionTaskStatus, x),
-            field_name="status",
-        ),
-    )
-
-
-@dataclass_json
-@dataclass(order=True, eq=True, frozen=True)
-class TenantDecommissionConfigReport:
-    """TenantDecommissionConfigReport."""
-
-    tenant_id: Optional[str] = field(
-        default=None, metadata=config(field_name="tenantID")
-    )
-    tenant_name: Optional[str] = field(
-        default=None, metadata=config(field_name="tenantName")
-    )
-    active_environments: Optional[str] = field(
-        default=None, metadata=config(field_name="activeEnvironments")
-    )
-    is_partner: Optional[bool] = field(
-        default=None, metadata=config(field_name="isPartner")
-    )
-    is_partner_tenant: Optional[bool] = field(
-        default=None, metadata=config(field_name="isPartnerTenant")
-    )
-    is_organization: Optional[bool] = field(
-        default=None, metadata=config(field_name="isOrganization")
-    )
-    is_organization_tenant: Optional[bool] = field(
-        default=None, metadata=config(field_name="isOrganizationTenant")
-    )
-    number_of_active_users: Optional[int] = field(
-        default=None, metadata=config(field_name="numberOfActiveUsers")
-    )
-    number_of_application_clients: Optional[int] = field(
-        default=None, metadata=config(field_name="numberOfApplicationClients")
-    )
-    custom_roles: Optional[List[str]] = field(
-        default=None, metadata=config(field_name="CustomRoles")
-    )
-    number_of_sso_connections: Optional[int] = field(
-        default=None, metadata=config(field_name="numberOfSSOConnections")
-    )
-    current_data_retention_months: Optional[int] = field(
-        default=None, metadata=config(field_name="CurrentDataRetentionMonths")
-    )
-    estimated_ingest_data_amount: Optional[str] = field(
-        default=None, metadata=config(field_name="EstimatedIngestDataAmount")
-    )
-    created_at: Optional[str] = field(
-        default=None, metadata=config(field_name="createdAt")
-    )
-    agent_summary: Optional[List[TenantDecommissionAgentSummary]] = field(
-        default=None, metadata=config(field_name="AgentSummary")
-    )
-
-
-@dataclass_json
-@dataclass(order=True, eq=True, frozen=True)
-class NewTenant:
-    """NewTenant."""
-
-    name: Optional[str] = field(default=None, metadata=config(field_name="name"))
-    initial_tenant_email: Optional[str] = field(
-        default=None, metadata=config(field_name="initial_tenant_email")
-    )
-    environments: Optional[List[str]] = field(
-        default=None, metadata=config(field_name="environments")
-    )
-    expires_at: Optional[int] = field(
-        default=None, metadata=config(field_name="expires_at")
-    )
-    parent_tenant_id: Optional[str] = field(
-        default=None, metadata=config(field_name="parentTenantID")
-    )
-    is_partner: Optional[bool] = field(
-        default=None, metadata=config(field_name="isPartner")
-    )
-    is_organization: Optional[bool] = field(
-        default=None, metadata=config(field_name="isOrganization")
-    )
-    labels: Optional[List[InputTenantLabel]] = field(
-        default=None, metadata=config(field_name="labels")
-    )
-
-
-@dataclass_json
-@dataclass(order=True, eq=True, frozen=True)
 class TenantEnvironmentUpdateInput:
     """TenantEnvironmentUpdateInput."""
 
@@ -957,6 +769,43 @@ class TenantsLicenseLevelInput:
             encoder=encode_enum,
             decoder=lambda x: decode_enum(LicenseLevel, x),
             field_name="licenseLevel",
+        ),
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class NewTenant:
+    """NewTenant."""
+
+    name: Optional[str] = field(default=None, metadata=config(field_name="name"))
+    initial_tenant_email: Optional[str] = field(
+        default=None, metadata=config(field_name="initial_tenant_email")
+    )
+    environments: Optional[List[str]] = field(
+        default=None, metadata=config(field_name="environments")
+    )
+    expires_at: Optional[int] = field(
+        default=None, metadata=config(field_name="expires_at")
+    )
+    parent_tenant_id: Optional[str] = field(
+        default=None, metadata=config(field_name="parentTenantID")
+    )
+    is_partner: Optional[bool] = field(
+        default=None, metadata=config(field_name="isPartner")
+    )
+    is_organization: Optional[bool] = field(
+        default=None, metadata=config(field_name="isOrganization")
+    )
+    labels: Optional[List[InputTenantLabel]] = field(
+        default=None, metadata=config(field_name="labels")
+    )
+    mdr_provider_type: Optional[Union[MdrProviderType, TaegisEnum]] = field(
+        default=None,
+        metadata=config(
+            encoder=encode_enum,
+            decoder=lambda x: decode_enum(MdrProviderType, x),
+            field_name="mdrProviderType",
         ),
     )
 
@@ -1031,6 +880,47 @@ class TenantAuditsQuery:
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
+class UpdateSSOConnectionInput:
+    """UpdateSSOConnectionInput."""
+
+    id: Optional[str] = field(default=None, metadata=config(field_name="id"))
+    name: Optional[str] = field(default=None, metadata=config(field_name="name"))
+    add_domains: Optional[List[str]] = field(
+        default=None, metadata=config(field_name="addDomains")
+    )
+    remove_domains: Optional[List[str]] = field(
+        default=None, metadata=config(field_name="removeDomains")
+    )
+    add_testers: Optional[List[str]] = field(
+        default=None, metadata=config(field_name="addTesters")
+    )
+    remove_testers: Optional[List[str]] = field(
+        default=None, metadata=config(field_name="removeTesters")
+    )
+    status: Optional[Union[SSOConnectionStatus, TaegisEnum]] = field(
+        default=None,
+        metadata=config(
+            encoder=encode_enum,
+            decoder=lambda x: decode_enum(SSOConnectionStatus, x),
+            field_name="status",
+        ),
+    )
+    connection_configuration: Optional[ConnectionConfiguration] = field(
+        default=None, metadata=config(field_name="connectionConfiguration")
+    )
+    auth0_domain_type: Optional[Union[Auth0DomainType, TaegisEnum]] = field(
+        default=None,
+        metadata=config(
+            metadata={"deprecated": True, "deprecation_reason": "No longer supported"},
+            encoder=encode_enum,
+            decoder=lambda x: decode_enum(Auth0DomainType, x),
+            field_name="auth0DomainType",
+        ),
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
 class TenantUpdateInput:
     """TenantUpdateInput."""
 
@@ -1054,6 +944,14 @@ class TenantUpdateInput:
             encoder=encode_enum,
             decoder=lambda x: decode_enum(RetentionMonths, x),
             field_name="dataRetentionMonths",
+        ),
+    )
+    mdr_provider_type: Optional[Union[MdrProviderType, TaegisEnum]] = field(
+        default=None,
+        metadata=config(
+            encoder=encode_enum,
+            decoder=lambda x: decode_enum(MdrProviderType, x),
+            field_name="mdrProviderType",
         ),
     )
 
@@ -1097,145 +995,12 @@ class TenantCreateInput:
     labels: Optional[List[InputTenantLabel]] = field(
         default=None, metadata=config(field_name="labels")
     )
-
-
-@dataclass_json
-@dataclass(order=True, eq=True, frozen=True)
-class TenantDecommissionRequestsInput:
-    """TenantDecommissionRequestsInput."""
-
-    for_tenants: Optional[List[str]] = field(
-        default=None, metadata=config(field_name="forTenants")
-    )
-    for_status: Optional[Union[TenantDecommissionRequestStatus, TaegisEnum]] = field(
+    mdr_provider_type: Optional[Union[MdrProviderType, TaegisEnum]] = field(
         default=None,
         metadata=config(
             encoder=encode_enum,
-            decoder=lambda x: decode_enum(TenantDecommissionRequestStatus, x),
-            field_name="forStatus",
-        ),
-    )
-    for_time_period: Optional[TimeFilter] = field(
-        default=None, metadata=config(field_name="forTimePeriod")
-    )
-
-
-@dataclass_json
-@dataclass(order=True, eq=True, frozen=True)
-class TenantDecommissionRequest:
-    """TenantDecommissionRequest."""
-
-    id: Optional[str] = field(default=None, metadata=config(field_name="id"))
-    created_at: Optional[str] = field(
-        default=None, metadata=config(field_name="createdAt")
-    )
-    updated_at: Optional[str] = field(
-        default=None, metadata=config(field_name="updatedAt")
-    )
-    created_by: Optional[str] = field(
-        default=None, metadata=config(field_name="createdBy")
-    )
-    approved_by: Optional[str] = field(
-        default=None, metadata=config(field_name="approvedBy")
-    )
-    executed_by: Optional[str] = field(
-        default=None, metadata=config(field_name="executedBy")
-    )
-    tenant_id: Optional[str] = field(
-        default=None, metadata=config(field_name="tenantID")
-    )
-    tenant_name: Optional[str] = field(
-        default=None, metadata=config(field_name="tenantName")
-    )
-    point_of_contact: Optional[str] = field(
-        default=None, metadata=config(field_name="pointOfContact")
-    )
-    notes: Optional[str] = field(default=None, metadata=config(field_name="notes"))
-    status: Optional[Union[TenantDecommissionRequestStatus, TaegisEnum]] = field(
-        default=None,
-        metadata=config(
-            encoder=encode_enum,
-            decoder=lambda x: decode_enum(TenantDecommissionRequestStatus, x),
-            field_name="status",
-        ),
-    )
-    tenant_configuration: Optional[TenantDecommissionConfigReport] = field(
-        default=None, metadata=config(field_name="tenantConfiguration")
-    )
-    ordered_decommission_task_list: Optional[List[TenantDecommissionTask]] = field(
-        default=None, metadata=config(field_name="orderedDecommissionTaskList")
-    )
-
-
-@dataclass_json
-@dataclass(order=True, eq=True, frozen=True)
-class UpdateTenant:
-    """UpdateTenant."""
-
-    name: Optional[str] = field(default=None, metadata=config(field_name="name"))
-    enabled: Optional[bool] = field(default=None, metadata=config(field_name="enabled"))
-    allow_response_actions: Optional[bool] = field(
-        default=None, metadata=config(field_name="allow_response_actions")
-    )
-    expires_at: Optional[int] = field(
-        default=None, metadata=config(field_name="expires_at")
-    )
-    parent_tenant_id: Optional[str] = field(
-        default=None, metadata=config(field_name="parentTenantID")
-    )
-    environments: Optional[List[InputTenantEnvironment]] = field(
-        default=None, metadata=config(field_name="environments")
-    )
-    labels: Optional[List[LabelsForTenantUpdate]] = field(
-        default=None, metadata=config(field_name="labels")
-    )
-    data_retention_months: Optional[Union[RetentionMonths, TaegisEnum]] = field(
-        default=None,
-        metadata=config(
-            encoder=encode_enum,
-            decoder=lambda x: decode_enum(RetentionMonths, x),
-            field_name="dataRetentionMonths",
-        ),
-    )
-
-
-@dataclass_json
-@dataclass(order=True, eq=True, frozen=True)
-class UpdateSSOConnectionInput:
-    """UpdateSSOConnectionInput."""
-
-    id: Optional[str] = field(default=None, metadata=config(field_name="id"))
-    name: Optional[str] = field(default=None, metadata=config(field_name="name"))
-    add_domains: Optional[List[str]] = field(
-        default=None, metadata=config(field_name="addDomains")
-    )
-    remove_domains: Optional[List[str]] = field(
-        default=None, metadata=config(field_name="removeDomains")
-    )
-    add_testers: Optional[List[str]] = field(
-        default=None, metadata=config(field_name="addTesters")
-    )
-    remove_testers: Optional[List[str]] = field(
-        default=None, metadata=config(field_name="removeTesters")
-    )
-    status: Optional[Union[SSOConnectionStatus, TaegisEnum]] = field(
-        default=None,
-        metadata=config(
-            encoder=encode_enum,
-            decoder=lambda x: decode_enum(SSOConnectionStatus, x),
-            field_name="status",
-        ),
-    )
-    connection_configuration: Optional[ConnectionConfiguration] = field(
-        default=None, metadata=config(field_name="connectionConfiguration")
-    )
-    auth0_domain_type: Optional[Union[Auth0DomainType, TaegisEnum]] = field(
-        default=None,
-        metadata=config(
-            metadata={"deprecated": True, "deprecation_reason": "No longer supported"},
-            encoder=encode_enum,
-            decoder=lambda x: decode_enum(Auth0DomainType, x),
-            field_name="auth0DomainType",
+            decoder=lambda x: decode_enum(MdrProviderType, x),
+            field_name="mdrProviderType",
         ),
     )
 
@@ -1278,6 +1043,46 @@ class PermissionCheck:
             encoder=encode_enum,
             decoder=lambda x: decode_enum(TenantType, x),
             field_name="on",
+        ),
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class UpdateTenant:
+    """UpdateTenant."""
+
+    name: Optional[str] = field(default=None, metadata=config(field_name="name"))
+    enabled: Optional[bool] = field(default=None, metadata=config(field_name="enabled"))
+    allow_response_actions: Optional[bool] = field(
+        default=None, metadata=config(field_name="allow_response_actions")
+    )
+    expires_at: Optional[int] = field(
+        default=None, metadata=config(field_name="expires_at")
+    )
+    parent_tenant_id: Optional[str] = field(
+        default=None, metadata=config(field_name="parentTenantID")
+    )
+    environments: Optional[List[InputTenantEnvironment]] = field(
+        default=None, metadata=config(field_name="environments")
+    )
+    labels: Optional[List[LabelsForTenantUpdate]] = field(
+        default=None, metadata=config(field_name="labels")
+    )
+    data_retention_months: Optional[Union[RetentionMonths, TaegisEnum]] = field(
+        default=None,
+        metadata=config(
+            encoder=encode_enum,
+            decoder=lambda x: decode_enum(RetentionMonths, x),
+            field_name="dataRetentionMonths",
+        ),
+    )
+    mdr_provider_type: Optional[Union[MdrProviderType, TaegisEnum]] = field(
+        default=None,
+        metadata=config(
+            encoder=encode_enum,
+            decoder=lambda x: decode_enum(MdrProviderType, x),
+            field_name="mdrProviderType",
         ),
     )
 
@@ -1527,6 +1332,9 @@ class TenantsQuery:
     with_data_retention_months: Optional[List[int]] = field(
         default=None, metadata=config(field_name="withDataRetentionMonths")
     )
+    with_mdr_provider_ids: Optional[List[str]] = field(
+        default=None, metadata=config(field_name="withMDRProviderIDs")
+    )
     environment_filter: Optional[TenantEnvironmentFilter] = field(
         default=None, metadata=config(field_name="environmentFilter")
     )
@@ -1663,6 +1471,14 @@ class Tenant:
             encoder=encode_enum,
             decoder=lambda x: decode_enum(LicenseLevel, x),
             field_name="licenseLevel",
+        ),
+    )
+    mdr_provider_type: Optional[Union[MdrProviderType, TaegisEnum]] = field(
+        default=None,
+        metadata=config(
+            encoder=encode_enum,
+            decoder=lambda x: decode_enum(MdrProviderType, x),
+            field_name="mdr_provider_type",
         ),
     )
 

@@ -923,6 +923,9 @@ class EntityFileSnapshot:
     hash_sha512: Optional[str] = field(
         default=None, metadata=config(field_name="hash_sha512")
     )
+    email_message_id: Optional[str] = field(
+        default=None, metadata=config(field_name="email_message_id")
+    )
 
 
 @dataclass_json
@@ -984,6 +987,9 @@ class EntityHostSnapshot:
     sensor_type: Optional[str] = field(
         default=None, metadata=config(field_name="sensor_type")
     )
+    system_type: Optional[str] = field(
+        default=None, metadata=config(field_name="system_type")
+    )
     vendor_agent_device_id: Optional[str] = field(
         default=None, metadata=config(field_name="vendor_agent_device_id")
     )
@@ -1031,6 +1037,9 @@ class EntityIpAddressSnapshot:
     )
     ip_geo_country_geoname_id: Optional[int] = field(
         default=None, metadata=config(field_name="ip_geo_country_geoname_id")
+    )
+    ip_geo_hash: Optional[str] = field(
+        default=None, metadata=config(field_name="ip_geo_hash")
     )
     ip_geo_latitude: Optional[float] = field(
         default=None, metadata=config(field_name="ip_geo_latitude")
@@ -1221,6 +1230,9 @@ class EntityUserSnapshot:
     )
     user_is_admin: Optional[bool] = field(
         default=None, metadata=config(field_name="user_is_admin")
+    )
+    identity_types_csv: Optional[str] = field(
+        default=None, metadata=config(field_name="identity_types_csv")
     )
 
 
@@ -1992,6 +2004,7 @@ class StructuredEntitySnapshot:
     identifiers: Optional[List[str]] = field(
         default=None, metadata=config(field_name="identifiers")
     )
+    subtype: Optional[str] = field(default=None, metadata=config(field_name="subtype"))
     perspective: Optional[Union[EntityPerspective, TaegisEnum]] = field(
         default=None,
         metadata=config(

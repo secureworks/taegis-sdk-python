@@ -48,22 +48,6 @@ class TaegisSDKTenantProfilesQuery:
             return ManagedTenantProfile.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for query managedTenantProfile")
 
-    def cse_contacts_mtp(self) -> CseCustomerContacts:
-        """None."""
-        endpoint = "cseContactsMtp"
-
-        result = self.service.execute_query(
-            endpoint=endpoint,
-            variables={},
-            output=build_output_string(
-                CseCustomerContacts,
-                exclude_deprecated_output=self.service.exclude_deprecated_output,
-            ),
-        )
-        if result.get(endpoint) is not None:
-            return CseCustomerContacts.from_dict(result.get(endpoint))
-        raise GraphQLNoRowsInResultSetError("for query cseContactsMtp")
-
     def version_mtp(self) -> VersionMtp:
         """None."""
         endpoint = "versionMtp"

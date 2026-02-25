@@ -15,15 +15,6 @@ from taegis_sdk_python._consts import TaegisEnum
 from taegis_sdk_python.utils import decode_enum, encode_enum, parse_union_result
 
 
-class CustomerContactPreferenceMtp(str, Enum):
-    """CustomerContactPreferenceMtp."""
-
-    CSE_PRIMARY = "CsePrimary"
-    CSE_SECONDARY = "CseSecondary"
-    CSE_TERTIARY = "CseTertiary"
-    HEALTH_INCIDENTS = "HealthIncidents"
-
-
 class MtpNetworkType(str, Enum):
     """MtpNetworkType."""
 
@@ -116,7 +107,6 @@ class MtpAuthzObject(str, Enum):
     """MtpAuthzObject."""
 
     TENANT_PROFILE = "TenantProfile"
-    TENANT_PROFILE_CSE_CONTACT = "TenantProfileCseContact"
     TENANT_PROFILE_ENTITY_OF_INTEREST = "TenantProfileEntityOfInterest"
     TENANT_PROFILE_NETWORK_INFO = "TenantProfileNetworkInfo"
     TENANT_PROFILE_NETWORK_RANGE = "TenantProfileNetworkRange"
@@ -330,61 +320,6 @@ class MfaAccessMtp:
             encoder=encode_enum,
             decoder=lambda x: decode_enum(MfaServiceMtp, x),
             field_name="service",
-        ),
-    )
-
-
-@dataclass_json
-@dataclass(order=True, eq=True, frozen=True)
-class CriticalContactMtpInput:
-    """CriticalContactMtpInput."""
-
-    tdr_user_id: Optional[str] = field(
-        default=None, metadata=config(field_name="tdrUserId")
-    )
-    preference: Optional[Union[CustomerContactPreferenceMtp, TaegisEnum]] = field(
-        default=None,
-        metadata=config(
-            encoder=encode_enum,
-            decoder=lambda x: decode_enum(CustomerContactPreferenceMtp, x),
-            field_name="preference",
-        ),
-    )
-
-
-@dataclass_json
-@dataclass(order=True, eq=True, frozen=True)
-class CriticalExternalContactMtpInput:
-    """CriticalExternalContactMtpInput."""
-
-    first_name: Optional[str] = field(
-        default=None, metadata=config(field_name="firstName")
-    )
-    last_name: Optional[str] = field(
-        default=None, metadata=config(field_name="lastName")
-    )
-    primary_phone: Optional[str] = field(
-        default=None, metadata=config(field_name="primaryPhone")
-    )
-    primary_phone_extension: Optional[str] = field(
-        default=None, metadata=config(field_name="primaryPhoneExtension")
-    )
-    secondary_phone: Optional[str] = field(
-        default=None, metadata=config(field_name="secondaryPhone")
-    )
-    secondary_phone_extension: Optional[str] = field(
-        default=None, metadata=config(field_name="secondaryPhoneExtension")
-    )
-    email: Optional[str] = field(default=None, metadata=config(field_name="email"))
-    external_email_verified: Optional[bool] = field(
-        default=None, metadata=config(field_name="externalEmailVerified")
-    )
-    preference: Optional[Union[CustomerContactPreferenceMtp, TaegisEnum]] = field(
-        default=None,
-        metadata=config(
-            encoder=encode_enum,
-            decoder=lambda x: decode_enum(CustomerContactPreferenceMtp, x),
-            field_name="preference",
         ),
     )
 
@@ -624,73 +559,6 @@ class ListAllTenantEntitiesOfInterestMtpInput:
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
-class CustomerContactMtp:
-    """CustomerContactMtp."""
-
-    id: Optional[str] = field(default=None, metadata=config(field_name="id"))
-    tenant_id: Optional[str] = field(
-        default=None, metadata=config(field_name="tenantId")
-    )
-    profile_id: Optional[str] = field(
-        default=None, metadata=config(field_name="profileId")
-    )
-    created_at: Optional[str] = field(
-        default=None, metadata=config(field_name="createdAt")
-    )
-    updated_at: Optional[str] = field(
-        default=None, metadata=config(field_name="updatedAt")
-    )
-    first_name: Optional[str] = field(
-        default=None, metadata=config(field_name="firstName")
-    )
-    last_name: Optional[str] = field(
-        default=None, metadata=config(field_name="lastName")
-    )
-    primary_phone: Optional[str] = field(
-        default=None, metadata=config(field_name="primaryPhone")
-    )
-    primary_phone_extension: Optional[str] = field(
-        default=None, metadata=config(field_name="primaryPhoneExtension")
-    )
-    secondary_phone: Optional[str] = field(
-        default=None, metadata=config(field_name="secondaryPhone")
-    )
-    secondary_phone_extension: Optional[str] = field(
-        default=None, metadata=config(field_name="secondaryPhoneExtension")
-    )
-    email: Optional[str] = field(default=None, metadata=config(field_name="email"))
-    tdr_user_id: Optional[str] = field(
-        default=None, metadata=config(field_name="tdrUserId")
-    )
-    tdr_user_status: Optional[str] = field(
-        default=None, metadata=config(field_name="tdrUserStatus")
-    )
-    tenant_status: Optional[str] = field(
-        default=None, metadata=config(field_name="tenantStatus")
-    )
-    is_external: Optional[bool] = field(
-        default=None, metadata=config(field_name="isExternal")
-    )
-    external_email_verified: Optional[bool] = field(
-        default=None, metadata=config(field_name="externalEmailVerified")
-    )
-    contact_preference: Optional[Union[CustomerContactPreferenceMtp, TaegisEnum]] = (
-        field(
-            default=None,
-            metadata=config(
-                encoder=encode_enum,
-                decoder=lambda x: decode_enum(CustomerContactPreferenceMtp, x),
-                field_name="contactPreference",
-            ),
-        )
-    )
-    tdr_user: Optional[TDRUser] = field(
-        default=None, metadata=config(field_name="tdrUser")
-    )
-
-
-@dataclass_json
-@dataclass(order=True, eq=True, frozen=True)
 class SecurityControlMtp:
     """SecurityControlMtp."""
 
@@ -779,22 +647,6 @@ class SecurityControlUpdateMtpInput:
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
-class CseCustomerContacts:
-    """CseCustomerContacts."""
-
-    primary: Optional[CustomerContactMtp] = field(
-        default=None, metadata=config(field_name="primary")
-    )
-    secondary: Optional[CustomerContactMtp] = field(
-        default=None, metadata=config(field_name="secondary")
-    )
-    tertiary: Optional[CustomerContactMtp] = field(
-        default=None, metadata=config(field_name="tertiary")
-    )
-
-
-@dataclass_json
-@dataclass(order=True, eq=True, frozen=True)
 class ManagedTenantProfile:
     """ManagedTenantProfile."""
 
@@ -807,9 +659,6 @@ class ManagedTenantProfile:
     )
     updated_at: Optional[str] = field(
         default=None, metadata=config(field_name="updatedAt")
-    )
-    cse_contacts: Optional[CseCustomerContacts] = field(
-        default=None, metadata=config(field_name="cseContacts")
     )
     network_ranges: Optional[List[NetworkRangeMtp]] = field(
         default=None, metadata=config(field_name="networkRanges")

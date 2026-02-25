@@ -50,6 +50,7 @@ class MitreAttackInformation:
     deprecated: Optional[bool] = field(
         default=None, metadata=config(field_name="deprecated")
     )
+    revoked: Optional[bool] = field(default=None, metadata=config(field_name="revoked"))
     alternate_technique: Optional[str] = field(
         default=None, metadata=config(field_name="alternate_technique")
     )

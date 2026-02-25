@@ -57,6 +57,7 @@ class AuthzSubjectIDType(str, Enum):
 
     TAEGIS = "TAEGIS"
     CENTRAL = "CENTRAL"
+    UNKNOWN = "UNKNOWN"
 
 
 @dataclass_json

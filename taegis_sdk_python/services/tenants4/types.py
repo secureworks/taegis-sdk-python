@@ -163,7 +163,9 @@ class LicenseLevel(str, Enum):
     MDR = "MDR"
     XDR_ITDR = "XDR_ITDR"
     TAEGIS_NATIVE = "TAEGIS_NATIVE"
+    ALL_SOPHOS = "ALL_SOPHOS"
     ALL_XDR = "ALL_XDR"
+    NOT_NONE = "NOT_NONE"
     ALL = "ALL"
 
 
@@ -317,6 +319,22 @@ class DeleteCachedEntriesOutput:
 
     success: Optional[bool] = field(default=None, metadata=config(field_name="success"))
     message: Optional[str] = field(default=None, metadata=config(field_name="message"))
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class RequestTenantContext:
+    """RequestTenantContext."""
+
+    partner_tenant_id: Optional[str] = field(
+        default=None, metadata=config(field_name="partnerTenantID")
+    )
+    organization_tenant_id: Optional[str] = field(
+        default=None, metadata=config(field_name="organizationTenantID")
+    )
+    tenant_ids: Optional[List[str]] = field(
+        default=None, metadata=config(field_name="tenantIDs")
+    )
 
 
 @dataclass_json
@@ -576,6 +594,9 @@ class TenantsQuery:
     )
     organizations: Optional[List[str]] = field(
         default=None, metadata=config(field_name="organizations")
+    )
+    mdr_providers: Optional[List[str]] = field(
+        default=None, metadata=config(field_name="mdrProviders")
     )
     enabled: Optional[bool] = field(default=None, metadata=config(field_name="enabled"))
     support_enabled: Optional[bool] = field(

@@ -319,6 +319,23 @@ class Network:
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
+class UpdateNetworkInput:
+    """UpdateNetworkInput."""
+
+    dhcp: Optional[bool] = field(default=None, metadata=config(field_name="dhcp"))
+    hostname: Optional[str] = field(
+        default=None, metadata=config(field_name="hostname")
+    )
+    address: Optional[str] = field(default=None, metadata=config(field_name="address"))
+    mask: Optional[str] = field(default=None, metadata=config(field_name="mask"))
+    gateway: Optional[str] = field(default=None, metadata=config(field_name="gateway"))
+    dns: Optional[List[str]] = field(default=None, metadata=config(field_name="dns"))
+    ntp: Optional[List[str]] = field(default=None, metadata=config(field_name="ntp"))
+    proxy: Optional[str] = field(default=None, metadata=config(field_name="proxy"))
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
 class HostsInput:
     """HostsInput."""
 

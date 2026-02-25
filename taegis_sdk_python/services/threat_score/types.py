@@ -50,6 +50,39 @@ class Entry:
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
+class EntityEvidenceData:
+    """EntityEvidenceData."""
+
+    name: Optional[str] = field(default=None, metadata=config(field_name="name"))
+    entity_id: Optional[str] = field(
+        default=None, metadata=config(field_name="entityId")
+    )
+    entity_type: Optional[str] = field(
+        default=None, metadata=config(field_name="entityType")
+    )
+    vt_malicious_flag: Optional[bool] = field(
+        default=None, metadata=config(field_name="vtMaliciousFlag")
+    )
+    vt_suspicious_flag: Optional[bool] = field(
+        default=None, metadata=config(field_name="vtSuspiciousFlag")
+    )
+    blocklist_rate_flag: Optional[bool] = field(
+        default=None, metadata=config(field_name="blocklistRateFlag")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class ThreatIntelEvidence:
+    """ThreatIntelEvidence."""
+
+    entity_evidence_data: Optional[List[EntityEvidenceData]] = field(
+        default=None, metadata=config(field_name="entityEvidenceData")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
 class Evidence:
     """Evidence."""
 
@@ -117,8 +150,17 @@ class AlertPrioritization:
     probability: Optional[float] = field(
         default=None, metadata=config(field_name="probability")
     )
+    investigation_predictor_raw_score: Optional[float] = field(
+        default=None, metadata=config(field_name="investigationPredictorRawScore")
+    )
+    threat_intel_raw_score: Optional[float] = field(
+        default=None, metadata=config(field_name="threatIntelRawScore")
+    )
     investigation_predictor_evidence: Optional[InvestigationPredictorEvidence] = field(
         default=None, metadata=config(field_name="investigationPredictorEvidence")
+    )
+    threat_intel_evidence: Optional[ThreatIntelEvidence] = field(
+        default=None, metadata=config(field_name="threatIntelEvidence")
     )
 
 

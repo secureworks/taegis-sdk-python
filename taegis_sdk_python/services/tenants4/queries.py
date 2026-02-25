@@ -148,3 +148,19 @@ class TaegisSDKTenants4Query:
         if result.get(endpoint) is not None:
             return ProductCatalogResponse.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for query productCatalog")
+
+    def request_tenant_context(self) -> RequestTenantContext:
+        """Populates a RequestTenantContext based on the access token and contents of `x-tenant-context` header."""
+        endpoint = "requestTenantContext"
+
+        result = self.service.execute_query(
+            endpoint=endpoint,
+            variables={},
+            output=build_output_string(
+                RequestTenantContext,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
+        )
+        if result.get(endpoint) is not None:
+            return RequestTenantContext.from_dict(result.get(endpoint))
+        raise GraphQLNoRowsInResultSetError("for query requestTenantContext")

@@ -127,34 +127,6 @@ class TaegisSDKInvestigations2Mutation:
             return RemoveEvidenceFromCaseResult.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for mutation removeEvidenceFromCase")
 
-    def close_case(self, input_: CloseCaseInput) -> Case:
-        """closeCase will close an existing case.
-        If the case has detections attached to it, the detectionsResolutionStatus field is required and detections will be resolved based on the provided status.
-        Once a case is closed, it can no longer be edited or have evidence added to it while in the closed state, it can only be archived.
-        A closed case can be reopened if changes are needed after closing.
-
-        Resolving evidence in a case is an asynchronous operation.
-        It will typically finish pretty quickly, but resolving detections will may not reflect the updated status until the async job is fully complete.
-        The processing status, that is found on the case type will reflect the state of the processing job.
-        Once the status is set to 'SUCCESS' the background job is complete and the detections will have been updated.
-
-        Adding, removing or updating evidence (closing a case) while other jobs are processing for a given case will cause the jobs to queue.
-        Jobs will be worked through in the order they were received.."""
-        endpoint = "closeCase"
-
-        result = self.service.execute_mutation(
-            endpoint=endpoint,
-            variables={
-                "input": prepare_input(input_),
-            },
-            output=build_output_string(
-                Case, exclude_deprecated_output=self.service.exclude_deprecated_output
-            ),
-        )
-        if result.get(endpoint) is not None:
-            return Case.from_dict(result.get(endpoint))
-        raise GraphQLNoRowsInResultSetError("for mutation closeCase")
-
     def create_case_rule(self, input_: CreateCaseRuleInput) -> CaseRule:
         """createCaseRule accepts input to create a new auto-case rule.."""
         endpoint = "createCaseRule"
@@ -265,28 +237,6 @@ class TaegisSDKInvestigations2Mutation:
             return CaseTemplate.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for mutation deleteCaseTemplate")
 
-    def import_case_resources(
-        self, input_: ImportCaseResourcesInput
-    ) -> List[CaseResource]:
-        """importCaseResources will import case resources (rules & templates) from a YAML file.
-        The input YAML structure can be retrieved from a YAML string exported from the exportCaseResources query..
-        """
-        endpoint = "importCaseResources"
-
-        result = self.service.execute_mutation(
-            endpoint=endpoint,
-            variables={
-                "input": prepare_input(input_),
-            },
-            output=build_output_string(
-                CaseResource,
-                exclude_deprecated_output=self.service.exclude_deprecated_output,
-            ),
-        )
-        if result.get(endpoint) is not None:
-            return [parse_union_result(CaseResource, r) for r in result.get(endpoint)]
-        raise GraphQLNoRowsInResultSetError("for mutation importCaseResources")
-
     def add_case_comment(self, input_: AddCaseComment) -> CaseComment:
         """addCaseComment adds a comment to an existing case.."""
         endpoint = "addCaseComment"
@@ -345,84 +295,6 @@ class TaegisSDKInvestigations2Mutation:
         if result.get(endpoint) is not None:
             return CaseComment.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for mutation deleteCaseComment")
-
-    def archive_case(self, input_: ArchiveCaseInput) -> Case:
-        """archiveCase archives an existing case.
-        Only cases that are closed can be archived.
-        There may be some cases that are archived but not in closed states, these are legacy cases that were archived before the closed requirement was introduced..
-        """
-        endpoint = "archiveCase"
-
-        result = self.service.execute_mutation(
-            endpoint=endpoint,
-            variables={
-                "input": prepare_input(input_),
-            },
-            output=build_output_string(
-                Case, exclude_deprecated_output=self.service.exclude_deprecated_output
-            ),
-        )
-        if result.get(endpoint) is not None:
-            return Case.from_dict(result.get(endpoint))
-        raise GraphQLNoRowsInResultSetError("for mutation archiveCase")
-
-    def unarchive_case(self, input_: UnarchiveCaseInput) -> Case:
-        """unarchiveCase unarchives an archived case.."""
-        endpoint = "unarchiveCase"
-
-        result = self.service.execute_mutation(
-            endpoint=endpoint,
-            variables={
-                "input": prepare_input(input_),
-            },
-            output=build_output_string(
-                Case, exclude_deprecated_output=self.service.exclude_deprecated_output
-            ),
-        )
-        if result.get(endpoint) is not None:
-            return Case.from_dict(result.get(endpoint))
-        raise GraphQLNoRowsInResultSetError("for mutation unarchiveCase")
-
-    def archive_cases(self, input_: ArchiveCasesInput) -> ArchivedCases:
-        """archiveCases archives a set of existing cases.
-        Only cases that are closed can be archived.
-        The response will include the ids of the cases that were successfully archived and will not return errors for cases that could not be archived..
-        """
-        endpoint = "archiveCases"
-
-        result = self.service.execute_mutation(
-            endpoint=endpoint,
-            variables={
-                "input": prepare_input(input_),
-            },
-            output=build_output_string(
-                ArchivedCases,
-                exclude_deprecated_output=self.service.exclude_deprecated_output,
-            ),
-        )
-        if result.get(endpoint) is not None:
-            return ArchivedCases.from_dict(result.get(endpoint))
-        raise GraphQLNoRowsInResultSetError("for mutation archiveCases")
-
-    def unarchive_cases(self, input_: UnarchiveCasesInput) -> UnarchivedCases:
-        """unarchiveCases unarchives a set of archived cases.
-        The response will include the ids of the cases that were successfully unarchived and will not return errors for cases that could not be unarchived..
-        """
-        endpoint = "unarchiveCases"
-
-        result = self.service.execute_mutation(
-            endpoint=endpoint,
-            variables={
-                "input": prepare_input(input_),
-            },
-            output=build_output_string(
-                UnarchivedCases,
-                exclude_deprecated_output=self.service.exclude_deprecated_output,
-            ),
-        )
-        if result.get(endpoint) is not None:
-            return UnarchivedCases.from_dict(result.get(endpoint))
-        raise GraphQLNoRowsInResultSetError("for mutation unarchiveCases")
 
     def start_case_file_upload(
         self, input_: StartCaseFileUploadInput

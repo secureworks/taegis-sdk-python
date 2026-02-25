@@ -514,3 +514,24 @@ class TaegisSDKCollectorMutation:
         if result.get(endpoint) is not None:
             return Service.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for mutation createService")
+
+    def update_cluster_network(
+        self, cluster_id: str, update_network_input: UpdateNetworkInput
+    ) -> Network:
+        """Update the Network config of a given cluster when its in provisioning state."""
+        endpoint = "updateClusterNetwork"
+
+        result = self.service.execute_mutation(
+            endpoint=endpoint,
+            variables={
+                "clusterID": prepare_input(cluster_id),
+                "updateNetworkInput": prepare_input(update_network_input),
+            },
+            output=build_output_string(
+                Network,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
+        )
+        if result.get(endpoint) is not None:
+            return Network.from_dict(result.get(endpoint))
+        raise GraphQLNoRowsInResultSetError("for mutation updateClusterNetwork")

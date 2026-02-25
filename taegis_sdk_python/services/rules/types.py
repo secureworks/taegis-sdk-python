@@ -323,6 +323,12 @@ class SearchRulesInput:
 
     query: Optional[str] = field(default=None, metadata=config(field_name="query"))
     global_: Optional[bool] = field(default=None, metadata=config(field_name="global"))
+    attack_technique_ids: Optional[str] = field(
+        default=None, metadata=config(field_name="attackTechniqueIds")
+    )
+    rule_types: Optional[str] = field(
+        default=None, metadata=config(field_name="ruleTypes")
+    )
 
 
 @dataclass_json
@@ -370,6 +376,12 @@ class RuleFacetAggregationsInput:
 
     filter_query: Optional[str] = field(
         default=None, metadata=config(field_name="filterQuery")
+    )
+    attack_technique_ids: Optional[str] = field(
+        default=None, metadata=config(field_name="attackTechniqueIds")
+    )
+    rule_types: Optional[str] = field(
+        default=None, metadata=config(field_name="ruleTypes")
     )
 
 

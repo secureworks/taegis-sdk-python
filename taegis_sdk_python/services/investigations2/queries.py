@@ -156,28 +156,6 @@ class TaegisSDKInvestigations2Query:
             return CaseTemplates.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for query caseTemplates")
 
-    def export_case_resources(
-        self, arguments: ExportCaseResourcesArguments
-    ) -> CaseResourceExport:
-        """exportCaseResources returns a YAML string representation for auto-case resources (rules & templates).
-        The returned string can be saved into a file and imported back into the system using importCaseResources..
-        """
-        endpoint = "exportCaseResources"
-
-        result = self.service.execute_query(
-            endpoint=endpoint,
-            variables={
-                "arguments": prepare_input(arguments),
-            },
-            output=build_output_string(
-                CaseResourceExport,
-                exclude_deprecated_output=self.service.exclude_deprecated_output,
-            ),
-        )
-        if result.get(endpoint) is not None:
-            return CaseResourceExport.from_dict(result.get(endpoint))
-        raise GraphQLNoRowsInResultSetError("for query exportCaseResources")
-
     def case_comments(self, arguments: CaseCommentsArguments) -> CaseComments:
         """comments returns all the comments for a case."""
         endpoint = "caseComments"
@@ -294,30 +272,6 @@ class TaegisSDKInvestigations2Query:
         if result.get(endpoint) is not None:
             return CaseFiles.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for query caseFiles")
-
-    def cases_aggregation(
-        self, arguments: CasesAggregationArguments
-    ) -> CasesAggregation:
-        """casesAggregation allows aggregating data for cases.
-        It cannot be used to fetch individual cases or lists of cases, only aggregate data.
-        It should not be used by external clients and should only be called from the Taegis UI.
-        Use of this endpoint is discouraged as it may be changed at any time without notice..
-        """
-        endpoint = "casesAggregation"
-
-        result = self.service.execute_query(
-            endpoint=endpoint,
-            variables={
-                "arguments": prepare_input(arguments),
-            },
-            output=build_output_string(
-                CasesAggregation,
-                exclude_deprecated_output=self.service.exclude_deprecated_output,
-            ),
-        )
-        if result.get(endpoint) is not None:
-            return CasesAggregation.from_dict(result.get(endpoint))
-        raise GraphQLNoRowsInResultSetError("for query casesAggregation")
 
     def cases_is_key_findings_rich_text(self, id_: str) -> bool:
         """DO NOT USE: casesIsKeyFindingsRichText is meant for the Taegis/Central UIs only. It may be removed at any time without notice."""
