@@ -985,6 +985,9 @@ class TDRUser:
     managed_by_central: Optional[bool] = field(
         default=None, metadata=config(field_name="managed_by_central")
     )
+    is_sophos_mdr: Optional[bool] = field(
+        default=None, metadata=config(field_name="is_sophos_mdr")
+    )
     tenants: Optional[List[TDRUserTenant]] = field(
         default=None,
         metadata=config(

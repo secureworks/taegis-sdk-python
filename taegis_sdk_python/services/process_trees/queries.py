@@ -40,6 +40,7 @@ class TaegisSDKProcessTreesQuery:
         resource_id: Optional[str] = None,
         order_by_input: Optional[List[OrderByInput]] = None,
         next_token: Optional[str] = None,
+        page_size: Optional[int] = None,
     ) -> Children:
         """None."""
         endpoint = "processChildren"
@@ -53,6 +54,7 @@ class TaegisSDKProcessTreesQuery:
                 "resourceID": prepare_input(resource_id),
                 "orderByInput": prepare_input(order_by_input),
                 "nextToken": prepare_input(next_token),
+                "pageSize": prepare_input(page_size),
             },
             output=build_output_string(
                 Children,

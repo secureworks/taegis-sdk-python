@@ -3289,6 +3289,15 @@ class Case:
     is_created_by_partner: Optional[bool] = field(
         default=None, metadata=config(field_name="isCreatedByPartner")
     )
+    detections_count: Optional[int] = field(
+        default=None, metadata=config(field_name="detectionsCount")
+    )
+    events_count: Optional[int] = field(
+        default=None, metadata=config(field_name="eventsCount")
+    )
+    assets_count: Optional[int] = field(
+        default=None, metadata=config(field_name="assetsCount")
+    )
     type: Optional[CaseType] = field(default=None, metadata=config(field_name="type"))
     primary_status: Optional[CasePrimaryStatus] = field(
         default=None, metadata=config(field_name="primaryStatus")

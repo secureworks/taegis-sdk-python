@@ -110,6 +110,15 @@ class ENTITY_CONTEXT_PROPERTY_COMPARATOR(str, Enum):
     ENDS_WITH = "ENDS_WITH"
 
 
+class EntityContextDataSourceHealthState(str, Enum):
+    """EntityContextDataSourceHealthState."""
+
+    UNKNOWN_HEALTH_STATE = "UNKNOWN_HEALTH_STATE"
+    HEALTHY = "HEALTHY"
+    NO_DATA = "NO_DATA"
+    WARNING = "WARNING"
+
+
 class EntityContextAddToTypeInput(str, Enum):
     """EntityContextAddToTypeInput."""
 
@@ -261,6 +270,26 @@ class ThreatContextURLInfo:
     """ThreatContextURLInfo."""
 
     id: Optional[str] = field(default=None, metadata=config(field_name="id"))
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class EntityContextDataSourceCollector:
+    """EntityContextDataSourceCollector."""
+
+    id: Optional[str] = field(default=None, metadata=config(field_name="id"))
+    name: Optional[str] = field(default=None, metadata=config(field_name="name"))
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class EntityContextDataSourceTag:
+    """EntityContextDataSourceTag."""
+
+    id: Optional[str] = field(default=None, metadata=config(field_name="id"))
+    key: Optional[str] = field(default=None, metadata=config(field_name="key"))
+    value: Optional[str] = field(default=None, metadata=config(field_name="value"))
+    tenant: Optional[str] = field(default=None, metadata=config(field_name="tenant"))
 
 
 @dataclass_json
@@ -648,6 +677,37 @@ class EntityContextPivotQLOptions:
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
+class EntityContextDataSourceEnrichment:
+    """EntityContextDataSourceEnrichment."""
+
+    source_id: Optional[str] = field(
+        default=None, metadata=config(field_name="sourceId")
+    )
+    last_seen_at: Optional[str] = field(
+        default=None, metadata=config(field_name="lastSeenAt")
+    )
+    service: Optional[str] = field(default=None, metadata=config(field_name="service"))
+    sensor_type: Optional[str] = field(
+        default=None, metadata=config(field_name="sensorType")
+    )
+    collector: Optional[EntityContextDataSourceCollector] = field(
+        default=None, metadata=config(field_name="collector")
+    )
+    tags: Optional[List[EntityContextDataSourceTag]] = field(
+        default=None, metadata=config(field_name="tags")
+    )
+    health: Optional[Union[EntityContextDataSourceHealthState, TaegisEnum]] = field(
+        default=None,
+        metadata=config(
+            encoder=encode_enum,
+            decoder=lambda x: decode_enum(EntityContextDataSourceHealthState, x),
+            field_name="health",
+        ),
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
 class EntityContextsArguments:
     """EntityContextsArguments."""
 
@@ -968,6 +1028,9 @@ class EntityContextEntityEnrichments:
     )
     asset: Optional[EntityContextAssetEnrichment] = field(
         default=None, metadata=config(field_name="asset")
+    )
+    data_source: Optional[EntityContextDataSourceEnrichment] = field(
+        default=None, metadata=config(field_name="dataSource")
     )
     whois: Optional[EntityContextWhoIs] = field(
         default=None, metadata=config(field_name="whois")

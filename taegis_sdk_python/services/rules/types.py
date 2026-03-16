@@ -43,6 +43,7 @@ class RuleEventType(str, Enum):
     TAEGIS_AGENT_DETECTION = "taegis_agent_detection"
     DETECTION_FINDING = "detection_finding"
     TECHNIQUE_FINDING = "technique_finding"
+    IAM_ANALYSIS_FINDING = "iam_analysis_finding"
     MULTI_EVENT = "multi_event"
 
 
@@ -70,6 +71,7 @@ class RuleType(str, Enum):
     REDQL = "REDQL"
     QL = "QL"
     DWL = "DWL"
+    DETECTOR = "DETECTOR"
 
 
 class RuleAction(str, Enum):
@@ -327,7 +329,17 @@ class SearchRulesInput:
         default=None, metadata=config(field_name="attackTechniqueIds")
     )
     rule_types: Optional[str] = field(
-        default=None, metadata=config(field_name="ruleTypes")
+        default=None,
+        metadata=config(
+            metadata={
+                "deprecated": True,
+                "deprecation_reason": "Use ruleSource instead. ruleTypes will be removed in a future release.",
+            },
+            field_name="ruleTypes",
+        ),
+    )
+    rule_sources: Optional[str] = field(
+        default=None, metadata=config(field_name="ruleSources")
     )
 
 
@@ -381,7 +393,17 @@ class RuleFacetAggregationsInput:
         default=None, metadata=config(field_name="attackTechniqueIds")
     )
     rule_types: Optional[str] = field(
-        default=None, metadata=config(field_name="ruleTypes")
+        default=None,
+        metadata=config(
+            metadata={
+                "deprecated": True,
+                "deprecation_reason": "Use ruleSource instead. ruleTypes will be removed in a future release.",
+            },
+            field_name="ruleTypes",
+        ),
+    )
+    rule_sources: Optional[str] = field(
+        default=None, metadata=config(field_name="ruleSources")
     )
 
 
@@ -961,6 +983,9 @@ class Rule:
     )
     attack_categories: Optional[List[str]] = field(
         default=None, metadata=config(field_name="attackCategories")
+    )
+    attack_tactics: Optional[List[str]] = field(
+        default=None, metadata=config(field_name="attackTactics")
     )
     deleted: Optional[bool] = field(default=None, metadata=config(field_name="deleted"))
     created_at: Optional[str] = field(
