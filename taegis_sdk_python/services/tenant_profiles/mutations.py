@@ -33,7 +33,7 @@ class TaegisSDKTenantProfilesMutation:
         self.service = service
 
     def create_profile_mtp(self) -> ManagedTenantProfile:
-        """None."""
+        """No developer notes."""
         endpoint = "createProfileMtp"
 
         result = self.service.execute_mutation(
@@ -51,7 +51,7 @@ class TaegisSDKTenantProfilesMutation:
     def create_network_range_mtp(
         self, input_: Optional[NetworkRangeCreateMtpInput] = None
     ) -> NetworkRangeMtp:
-        """None."""
+        """No developer notes."""
         endpoint = "createNetworkRangeMtp"
 
         result = self.service.execute_mutation(
@@ -71,7 +71,7 @@ class TaegisSDKTenantProfilesMutation:
     def update_network_range_mtp(
         self, id_: str, network: Optional[NetworkRangeUpdateMtpInput] = None
     ) -> NetworkRangeMtp:
-        """None."""
+        """No developer notes."""
         endpoint = "updateNetworkRangeMtp"
 
         result = self.service.execute_mutation(
@@ -90,7 +90,7 @@ class TaegisSDKTenantProfilesMutation:
         raise GraphQLNoRowsInResultSetError("for mutation updateNetworkRangeMtp")
 
     def delete_network_range_mtp(self, id_: str) -> NetworkRangeMtp:
-        """None."""
+        """No developer notes."""
         endpoint = "deleteNetworkRangeMtp"
 
         result = self.service.execute_mutation(
@@ -128,7 +128,7 @@ class TaegisSDKTenantProfilesMutation:
         raise GraphQLNoRowsInResultSetError("for mutation bulkDeleteNetworkRangeMtp")
 
     def update_note_mtp(self, contents: str) -> NoteMtp:
-        """None."""
+        """No developer notes."""
         endpoint = "updateNoteMtp"
 
         result = self.service.execute_mutation(
@@ -148,7 +148,7 @@ class TaegisSDKTenantProfilesMutation:
     def create_security_control_mtp(
         self, input_: SecurityControlCreateMtpInput
     ) -> SecurityControlMtp:
-        """None."""
+        """No developer notes."""
         endpoint = "createSecurityControlMtp"
 
         result = self.service.execute_mutation(
@@ -168,7 +168,7 @@ class TaegisSDKTenantProfilesMutation:
     def update_security_control_mtp(
         self, id_: str, input_: SecurityControlUpdateMtpInput
     ) -> SecurityControlMtp:
-        """None."""
+        """No developer notes."""
         endpoint = "updateSecurityControlMtp"
 
         result = self.service.execute_mutation(
@@ -187,7 +187,7 @@ class TaegisSDKTenantProfilesMutation:
         raise GraphQLNoRowsInResultSetError("for mutation updateSecurityControlMtp")
 
     def delete_security_control_mtp(self, id_: str) -> SecurityControlMtp:
-        """None."""
+        """No developer notes."""
         endpoint = "deleteSecurityControlMtp"
 
         result = self.service.execute_mutation(
@@ -227,7 +227,7 @@ class TaegisSDKTenantProfilesMutation:
         raise GraphQLNoRowsInResultSetError("for mutation bulkDeleteSecurityControlMtp")
 
     def create_mfa_access_mtp(self, input_: MfaAccessCreateMtpInput) -> MfaAccessMtp:
-        """None."""
+        """No developer notes."""
         endpoint = "createMfaAccessMtp"
 
         result = self.service.execute_mutation(
@@ -247,7 +247,7 @@ class TaegisSDKTenantProfilesMutation:
     def update_mfa_access_mtp(
         self, id_: str, input_: MfaAccessUpdateMtpInput
     ) -> MfaAccessMtp:
-        """None."""
+        """No developer notes."""
         endpoint = "updateMfaAccessMtp"
 
         result = self.service.execute_mutation(
@@ -266,7 +266,7 @@ class TaegisSDKTenantProfilesMutation:
         raise GraphQLNoRowsInResultSetError("for mutation updateMfaAccessMtp")
 
     def delete_mfa_access_mtp(self, id_: str) -> MfaAccessMtp:
-        """None."""
+        """No developer notes."""
         endpoint = "deleteMfaAccessMtp"
 
         result = self.service.execute_mutation(
@@ -322,7 +322,7 @@ class TaegisSDKTenantProfilesMutation:
         raise GraphQLNoRowsInResultSetError("for mutation uploadAttachmentMtp")
 
     def delete_attachments_mtp(self, ids: List[str]) -> List[FileAttachmentMtp]:
-        """Mark an attachment as deleted. Only works on the most recent file version.."""
+        """Mark an attachment as deleted. Only works on the most recent file version."""
         endpoint = "deleteAttachmentsMtp"
 
         result = self.service.execute_mutation(
@@ -342,7 +342,7 @@ class TaegisSDKTenantProfilesMutation:
         raise GraphQLNoRowsInResultSetError("for mutation deleteAttachmentsMtp")
 
     def restore_attachments_mtp(self, ids: List[str]) -> List[FileAttachmentMtp]:
-        """Restore a previously deleted attachment. Only works on the most recent file version.."""
+        """Restore a previously deleted attachment. Only works on the most recent file version."""
         endpoint = "restoreAttachmentsMtp"
 
         result = self.service.execute_mutation(
@@ -364,7 +364,7 @@ class TaegisSDKTenantProfilesMutation:
     def update_attachments_mtp(
         self, inputs: List[FileUpdateInputMtp]
     ) -> List[FileAttachmentMtp]:
-        """Updates one or more file attachments. Currently only the clientVisible flag can be modified.."""
+        """Updates one or more file attachments. Currently only the clientVisible flag can be modified."""
         endpoint = "updateAttachmentsMtp"
 
         result = self.service.execute_mutation(

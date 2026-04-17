@@ -76,7 +76,7 @@ class TaegisSDKEscalationPoliciesQuery:
         self, arguments: WalkEscalationPolicyArguments
     ) -> EscalationPolicyStep:
         """Walk Escalation Policy gets the next valid contact to try in an escalation policy.
-        If there are no more contacts to try, the escalationStep field will be null and no error will be returned..
+        If there are no more contacts to try, the escalationStep field will be null and no error will be returned.
         """
         endpoint = "walkEscalationPolicy"
 
@@ -97,7 +97,7 @@ class TaegisSDKEscalationPoliciesQuery:
     def contact_method_options(
         self, arguments: Optional[ContactMethodOptionsArguments] = None
     ) -> ContactMethods:
-        """Contact Method Options returns a list of currently supported contact methods for the tenant.."""
+        """Contact Method Options returns a list of currently supported contact methods for the tenant."""
         endpoint = "contactMethodOptions"
 
         result = self.service.execute_query(

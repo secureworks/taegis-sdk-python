@@ -57,7 +57,7 @@ class TaegisSDKXdrCentralConnectorMutation:
     def cixa_isolate_endpoints(
         self, input_: IsolateEndpointsInput
     ) -> EndpointsIsolationPayload:
-        """Set the desired isolation state for multiple endpoints.."""
+        """Set the desired isolation state for multiple endpoints."""
         endpoint = "cixaIsolateEndpoints"
 
         result = self.service.execute_mutation(
@@ -77,7 +77,7 @@ class TaegisSDKXdrCentralConnectorMutation:
     def cixa_endpoint_forensic_logs(
         self, input_: ForensicLogsInput
     ) -> ForensicLogsPayload:
-        """Sends a request to the endpoint to collect forensic log.."""
+        """Sends a request to the endpoint to collect forensic log."""
         endpoint = "cixaEndpointForensicLogs"
 
         result = self.service.execute_mutation(
@@ -97,7 +97,7 @@ class TaegisSDKXdrCentralConnectorMutation:
     def launch_live_terminal_server(
         self, input_: LiveResponseInput
     ) -> LiveResponsePayload:
-        """start live terminal session for a server.."""
+        """start live terminal session for a server."""
         endpoint = "launchLiveTerminalServer"
 
         result = self.service.execute_mutation(
@@ -117,7 +117,7 @@ class TaegisSDKXdrCentralConnectorMutation:
     def launch_live_terminal_endpoint(
         self, input_: LiveResponseInput
     ) -> LiveResponsePayload:
-        """start live terminal session for an endpoint.."""
+        """start live terminal session for an endpoint."""
         endpoint = "launchLiveTerminalEndpoint"
 
         result = self.service.execute_mutation(
@@ -137,7 +137,7 @@ class TaegisSDKXdrCentralConnectorMutation:
     def end_live_terminal_session_server(
         self, input_: EndLiveResponseInput
     ) -> EndLiveResponseSessionPayload:
-        """end the live response with the given session id. Response is "true" if the session was successfully ended.."""
+        """end the live response with the given session id. Response is "true" if the session was successfully ended."""
         endpoint = "endLiveTerminalSessionServer"
 
         result = self.service.execute_mutation(
@@ -157,7 +157,7 @@ class TaegisSDKXdrCentralConnectorMutation:
     def end_live_terminal_session_endpoint(
         self, input_: EndLiveResponseInput
     ) -> EndLiveResponseSessionPayload:
-        """end the live response with the given session id. Response is "true" if the session was successfully ended.."""
+        """end the live response with the given session id. Response is "true" if the session was successfully ended."""
         endpoint = "endLiveTerminalSessionEndpoint"
 
         result = self.service.execute_mutation(

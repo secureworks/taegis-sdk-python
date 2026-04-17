@@ -119,7 +119,7 @@ class TaegisSDKNotifications2Mutation:
     def register_push_subscription(
         self, input_: RegisterPushSubscriptionInput
     ) -> PushSubscription:
-        """None."""
+        """No developer notes."""
         endpoint = "registerPushSubscription"
 
         result = self.service.execute_mutation(
@@ -139,7 +139,7 @@ class TaegisSDKNotifications2Mutation:
     def un_register_push_subscription(
         self, input_: UnRegisterPushSubscriptionInput
     ) -> PushSubscription:
-        """None."""
+        """No developer notes."""
         endpoint = "unRegisterPushSubscription"
 
         result = self.service.execute_mutation(
@@ -159,7 +159,7 @@ class TaegisSDKNotifications2Mutation:
     def acknowledge_notification(
         self, input_: CreateAcknowledgmentInput
     ) -> NotificationAcknowledgment:
-        """None."""
+        """No developer notes."""
         endpoint = "acknowledgeNotification"
 
         result = self.service.execute_mutation(
@@ -179,7 +179,7 @@ class TaegisSDKNotifications2Mutation:
     def create_notification_rule(
         self, input_: CreateNotificationRuleInput
     ) -> NotificationRule:
-        """None."""
+        """No developer notes."""
         endpoint = "createNotificationRule"
 
         result = self.service.execute_mutation(
@@ -199,7 +199,7 @@ class TaegisSDKNotifications2Mutation:
     def update_notification_rule(
         self, input_: UpdateNotificationRuleInput
     ) -> NotificationRule:
-        """None."""
+        """No developer notes."""
         endpoint = "updateNotificationRule"
 
         result = self.service.execute_mutation(
@@ -219,7 +219,7 @@ class TaegisSDKNotifications2Mutation:
     def delete_notification_rule(
         self, input_: DeleteNotificationRuleInput
     ) -> NotificationRule:
-        """None."""
+        """No developer notes."""
         endpoint = "deleteNotificationRule"
 
         result = self.service.execute_mutation(
@@ -241,7 +241,7 @@ class TaegisSDKNotifications2Mutation:
     ) -> NotificationRule:
         """Set an escalation policy for a notification rule.
         A notification rule can only have one escalation policy at a time for a given tenant.
-        Calling this endpoint will replace the existing escalation policy with the new one if one was present before..
+        Calling this endpoint will replace the existing escalation policy with the new one if one was present before.
         """
         endpoint = "setEscalationPolicyForNotificationRule"
 
@@ -286,7 +286,7 @@ class TaegisSDKNotifications2Mutation:
     def create_notification_templates_mapping(
         self, input_: CreateNotificationTemplatesMappingInput
     ) -> NotificationTemplatesMapping:
-        """None."""
+        """No developer notes."""
         endpoint = "createNotificationTemplatesMapping"
 
         result = self.service.execute_mutation(
@@ -308,7 +308,7 @@ class TaegisSDKNotifications2Mutation:
     def create_notification_templates(
         self, input_: CreateNotificationTemplatesInput
     ) -> List[NotificationTemplate]:
-        """None."""
+        """No developer notes."""
         endpoint = "createNotificationTemplates"
 
         result = self.service.execute_mutation(
@@ -330,7 +330,7 @@ class TaegisSDKNotifications2Mutation:
     def update_notification_templates_mapping(
         self, input_: UpdateNotificationTemplatesMappingInput
     ) -> NotificationTemplatesMapping:
-        """None."""
+        """No developer notes."""
         endpoint = "updateNotificationTemplatesMapping"
 
         result = self.service.execute_mutation(
@@ -352,7 +352,7 @@ class TaegisSDKNotifications2Mutation:
     def update_notification_templates(
         self, inputs: List[UpdateNotificationTemplateInput]
     ) -> List[NotificationTemplate]:
-        """None."""
+        """No developer notes."""
         endpoint = "updateNotificationTemplates"
 
         result = self.service.execute_mutation(

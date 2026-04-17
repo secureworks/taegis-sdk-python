@@ -42,7 +42,7 @@ class TaegisSDKNotificationsQuery:
             Union[NotificationsOrderDirection, TaegisEnum]
         ] = None,
     ) -> NotificationsOutput:
-        """Get all Notifications.."""
+        """Get all Notifications."""
         endpoint = "notifications"
 
         result = self.service.execute_query(

@@ -110,8 +110,8 @@ def alerts_federated_search(
     *,
     limit: int = 10000,
     caller_name: str = "Taegis SDK Commons",
-    federated_call: Callable,
-    federated_poll_call: Callable,
+    federated_call: Callable = alerts_service_search_with_events,
+    federated_poll_call: Callable = alerts_service_poll_with_events,
 ) -> List[TaegisCommonsAlertsResponse]:
     """
     Search Taegis Alerts service.

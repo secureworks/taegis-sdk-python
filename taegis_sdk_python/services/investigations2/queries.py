@@ -33,7 +33,7 @@ class TaegisSDKInvestigations2Query:
         self.service = service
 
     def case(self, arguments: CaseArguments) -> Case:
-        """case gets a single case.."""
+        """case gets a single case."""
         endpoint = "case"
 
         result = self.service.execute_query(
@@ -50,7 +50,7 @@ class TaegisSDKInvestigations2Query:
         raise GraphQLNoRowsInResultSetError("for query case")
 
     def cases(self, arguments: CasesArguments) -> Cases:
-        """cases returns a list of cases matching the provided arguments.."""
+        """cases returns a list of cases matching the provided arguments."""
         endpoint = "cases"
 
         result = self.service.execute_query(
@@ -67,7 +67,7 @@ class TaegisSDKInvestigations2Query:
         raise GraphQLNoRowsInResultSetError("for query cases")
 
     def case_evidence(self, arguments: CaseEvidenceArguments) -> CaseEvidence:
-        """caseEvidence returns the attached evidence for a case.."""
+        """caseEvidence returns the attached evidence for a case."""
         endpoint = "caseEvidence"
 
         result = self.service.execute_query(
@@ -103,7 +103,7 @@ class TaegisSDKInvestigations2Query:
         raise GraphQLNoRowsInResultSetError("for query caseRule")
 
     def case_rules(self, arguments: CaseRulesArguments) -> CaseRules:
-        """caseRules returns a list of case rules matching the provided arguments.."""
+        """caseRules returns a list of case rules matching the provided arguments."""
         endpoint = "caseRules"
 
         result = self.service.execute_query(
@@ -139,7 +139,7 @@ class TaegisSDKInvestigations2Query:
         raise GraphQLNoRowsInResultSetError("for query caseTemplate")
 
     def case_templates(self, arguments: CaseTemplatesArguments) -> CaseTemplates:
-        """caseTemplates returns a list of case templates matching the provided arguments.."""
+        """caseTemplates returns a list of case templates matching the provided arguments."""
         endpoint = "caseTemplates"
 
         result = self.service.execute_query(
@@ -232,9 +232,67 @@ class TaegisSDKInvestigations2Query:
             return CasePrimaryStatuses.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for query casePrimaryStatuses")
 
+    def case_primary_verdicts(
+        self, arguments: CasePrimaryVerdictsArguments
+    ) -> CasePrimaryVerdicts:
+        """casePrimaryVerdicts returns the available case primary verdicts for a given user and the current tenant's service level."""
+        endpoint = "casePrimaryVerdicts"
+
+        result = self.service.execute_query(
+            endpoint=endpoint,
+            variables={
+                "arguments": prepare_input(arguments),
+            },
+            output=build_output_string(
+                CasePrimaryVerdicts,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
+        )
+        if result.get(endpoint) is not None:
+            return CasePrimaryVerdicts.from_dict(result.get(endpoint))
+        raise GraphQLNoRowsInResultSetError("for query casePrimaryVerdicts")
+
+    def case_secondary_verdicts(
+        self, arguments: CaseSecondaryVerdictsArguments
+    ) -> CaseSecondaryVerdicts:
+        """caseSecondaryVerdicts returns the available case secondary verdicts for a given user and the current tenant's service level."""
+        endpoint = "caseSecondaryVerdicts"
+
+        result = self.service.execute_query(
+            endpoint=endpoint,
+            variables={
+                "arguments": prepare_input(arguments),
+            },
+            output=build_output_string(
+                CaseSecondaryVerdicts,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
+        )
+        if result.get(endpoint) is not None:
+            return CaseSecondaryVerdicts.from_dict(result.get(endpoint))
+        raise GraphQLNoRowsInResultSetError("for query caseSecondaryVerdicts")
+
+    def case_sources(self, arguments: CaseSourcesArguments) -> CaseSources:
+        """caseSources returns all available case sources, optionally filtered by transition rules."""
+        endpoint = "caseSources"
+
+        result = self.service.execute_query(
+            endpoint=endpoint,
+            variables={
+                "arguments": prepare_input(arguments),
+            },
+            output=build_output_string(
+                CaseSources,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
+        )
+        if result.get(endpoint) is not None:
+            return CaseSources.from_dict(result.get(endpoint))
+        raise GraphQLNoRowsInResultSetError("for query caseSources")
+
     def case_file(self, arguments: CaseFileArguments) -> CaseFile:
         """caseFile returns file details for a single file attached to a case based on the arguments provided.
-        The result will also include a pre-signed download url.."""
+        The result will also include a pre-signed download url."""
         endpoint = "caseFile"
 
         result = self.service.execute_query(
@@ -255,7 +313,7 @@ class TaegisSDKInvestigations2Query:
         """caseFiles returns file details for all files matching the arguments provided.
         Download URLs will be generated only if the downloadURL field is requested in the query.
         Note: Audit logs are created for all file downloads except embedded files (isEmbedded=true).
-        To filter by embedded status, use CQL: query with isEmbedded=true or isEmbedded=false..
+        To filter by embedded status, use CQL: query with isEmbedded=true or isEmbedded=false.
         """
         endpoint = "caseFiles"
 
@@ -273,23 +331,32 @@ class TaegisSDKInvestigations2Query:
             return CaseFiles.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for query caseFiles")
 
-    def cases_is_key_findings_rich_text(self, id_: str) -> bool:
-        """DO NOT USE: casesIsKeyFindingsRichText is meant for the Taegis/Central UIs only. It may be removed at any time without notice."""
-        endpoint = "casesIsKeyFindingsRichText"
+    def cases_aggregation(
+        self, arguments: CasesAggregationArguments
+    ) -> CasesAggregation:
+        """casesAggregation allows aggregating data for cases.
+        It cannot be used to fetch individual cases or lists of cases, only aggregate data.
+        It should not be used by external clients and should only be called from the Taegis UI.
+        Use of this endpoint is discouraged as it may be changed at any time without notice.
+        """
+        endpoint = "casesAggregation"
 
         result = self.service.execute_query(
             endpoint=endpoint,
             variables={
-                "id": prepare_input(id_),
+                "arguments": prepare_input(arguments),
             },
-            output="",
+            output=build_output_string(
+                CasesAggregation,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
-            return result.get(endpoint)
-        raise GraphQLNoRowsInResultSetError("for query casesIsKeyFindingsRichText")
+            return CasesAggregation.from_dict(result.get(endpoint))
+        raise GraphQLNoRowsInResultSetError("for query casesAggregation")
 
     def investigation_v2(self, arguments: InvestigationV2Arguments) -> InvestigationV2:
-        """investigationV2 gets a single Investigation.."""
+        """investigationV2 gets a single Investigation."""
         endpoint = "investigationV2"
 
         result = self.service.execute_query(
@@ -309,7 +376,7 @@ class TaegisSDKInvestigations2Query:
     def investigations_v2(
         self, arguments: InvestigationsV2Arguments
     ) -> InvestigationsV2:
-        """investigationsV2 returns a list of investigations matching the provided arguments.."""
+        """investigationsV2 returns a list of investigations matching the provided arguments."""
         endpoint = "investigationsV2"
 
         result = self.service.execute_query(
@@ -349,7 +416,7 @@ class TaegisSDKInvestigations2Query:
     def investigation_rules(
         self, arguments: InvestigationRulesArguments
     ) -> InvestigationRules:
-        """investigationRules returns a list of investigation rules matching the provided arguments.."""
+        """investigationRules returns a list of investigation rules matching the provided arguments."""
         endpoint = "investigationRules"
 
         result = self.service.execute_query(
@@ -389,7 +456,7 @@ class TaegisSDKInvestigations2Query:
     def investigation_templates(
         self, arguments: InvestigationTemplatesArguments
     ) -> InvestigationTemplates:
-        """investigationTemplates returns a list of investigation templates matching the provided arguments.."""
+        """investigationTemplates returns a list of investigation templates matching the provided arguments."""
         endpoint = "investigationTemplates"
 
         result = self.service.execute_query(
@@ -410,7 +477,7 @@ class TaegisSDKInvestigations2Query:
         self, arguments: ExportInvestigationResourcesArguments
     ) -> InvestigationResourceExport:
         """exportInvestigationResources returns a YAML string representation for auto-investigation resources (rules & templates).
-        The returned string can be saved into a file and imported back into the system using importInvestigationResources..
+        The returned string can be saved into a file and imported back into the system using importInvestigationResources.
         """
         endpoint = "exportInvestigationResources"
 
@@ -431,7 +498,7 @@ class TaegisSDKInvestigations2Query:
     def investigation_v2_timeline(
         self, arguments: InvestigationV2TimelineArguments
     ) -> InvestigationV2Timeline:
-        """investigationV2Timeline returns an investigation timeline detailing the order of alerts, events and other actions taken in relation to an investigation.."""
+        """investigationV2Timeline returns an investigation timeline detailing the order of alerts, events and other actions taken in relation to an investigation."""
         endpoint = "investigationV2Timeline"
 
         result = self.service.execute_query(
@@ -510,7 +577,7 @@ class TaegisSDKInvestigations2Query:
         self, arguments: InvestigationFileV2Arguments
     ) -> InvestigationFileV2:
         """investigationFileV2 returns file details for a single file attached to an investigation based on the arguments provided.
-        The result will also include a pre-signed download url.."""
+        The result will also include a pre-signed download url."""
         endpoint = "investigationFileV2"
 
         result = self.service.execute_query(
@@ -531,7 +598,7 @@ class TaegisSDKInvestigations2Query:
         self, arguments: InvestigationFilesV2Arguments
     ) -> InvestigationFilesV2:
         """investigationFilesV2 returns file details for all files matching the arguments provided.
-        The results will not include pre-signed download urls for each file metadata returned..
+        The results will not include pre-signed download urls for each file metadata returned.
         """
         endpoint = "investigationFilesV2"
 

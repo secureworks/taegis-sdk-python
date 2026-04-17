@@ -33,7 +33,7 @@ class TaegisSDKAccessPointsMutation:
         self.service = service
 
     def create_access_point(self, principal: str) -> AccessPoint:
-        """None."""
+        """No developer notes."""
         endpoint = "createAccessPoint"
 
         result = self.service.execute_mutation(
@@ -51,7 +51,7 @@ class TaegisSDKAccessPointsMutation:
         raise GraphQLNoRowsInResultSetError("for mutation createAccessPoint")
 
     def update_access_point(self, principal: str) -> AccessPoint:
-        """None."""
+        """No developer notes."""
         endpoint = "updateAccessPoint"
 
         result = self.service.execute_mutation(
@@ -69,7 +69,7 @@ class TaegisSDKAccessPointsMutation:
         raise GraphQLNoRowsInResultSetError("for mutation updateAccessPoint")
 
     def delete_access_point(self) -> AccessPoint:
-        """None."""
+        """No developer notes."""
         endpoint = "deleteAccessPoint"
 
         result = self.service.execute_mutation(

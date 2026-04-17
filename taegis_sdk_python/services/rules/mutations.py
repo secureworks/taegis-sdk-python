@@ -196,7 +196,7 @@ class TaegisSDKRulesMutation:
 
         Note some users may not have permission to do a hard delete.
 
-        The rule with also be disabled.."""
+        The rule with also be disabled."""
         endpoint = "deleteRule"
 
         result = self.service.execute_mutation(
@@ -216,7 +216,7 @@ class TaegisSDKRulesMutation:
     def restore_rule(self, rule_id: str) -> Rule:
         """Restore the given rule from deleted status.
 
-        It will remain disabled from being deleted and can be enabled with enableRule..
+        It will remain disabled from being deleted and can be enabled with enableRule.
         """
         endpoint = "restoreRule"
 
@@ -265,7 +265,7 @@ class TaegisSDKRulesMutation:
         provided.
 
         Multiple errors will be returned for each filter which fails validation. Any
-        errors will make the entire update fail.."""
+        errors will make the entire update fail."""
         endpoint = "updateFilters"
 
         result = self.service.execute_mutation(

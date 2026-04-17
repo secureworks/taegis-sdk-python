@@ -99,7 +99,7 @@ def cases_federated_search(
     query: str,
     *,
     limit: int = 10000,
-    federated_call: Callable,
+    federated_call: Callable = investigations_search_with_subjects,
 ) -> List[InvestigationsV2]:
     """Taegis Cases search with Subject federation."""
 

@@ -33,7 +33,7 @@ class TaegisSDKRoadrunnerMutation:
         self.service = service
 
     def create_parser(self, parser: ParserInput) -> Parser:
-        """None."""
+        """No developer notes."""
         endpoint = "createParser"
 
         result = self.service.execute_mutation(
@@ -50,7 +50,7 @@ class TaegisSDKRoadrunnerMutation:
         raise GraphQLNoRowsInResultSetError("for mutation createParser")
 
     def update_parser(self, id_: int, updated_parser: UpdatedParserInput) -> Parser:
-        """None."""
+        """No developer notes."""
         endpoint = "updateParser"
 
         result = self.service.execute_mutation(
@@ -68,7 +68,7 @@ class TaegisSDKRoadrunnerMutation:
         raise GraphQLNoRowsInResultSetError("for mutation updateParser")
 
     def delete_parser(self, id_: int) -> Parser:
-        """None."""
+        """No developer notes."""
         endpoint = "deleteParser"
 
         result = self.service.execute_mutation(
@@ -85,7 +85,7 @@ class TaegisSDKRoadrunnerMutation:
         raise GraphQLNoRowsInResultSetError("for mutation deleteParser")
 
     def create_directory(self, directory: DirectoryInput) -> Directory:
-        """None."""
+        """No developer notes."""
         endpoint = "createDirectory"
 
         log.warning(
@@ -109,7 +109,7 @@ class TaegisSDKRoadrunnerMutation:
     def update_directory(
         self, id_: int, updated_directory: UpdatedDirectoryInput
     ) -> Directory:
-        """None."""
+        """No developer notes."""
         endpoint = "updateDirectory"
 
         log.warning(
@@ -132,7 +132,7 @@ class TaegisSDKRoadrunnerMutation:
         raise GraphQLNoRowsInResultSetError("for mutation updateDirectory")
 
     def delete_directory(self, id_: int) -> Directory:
-        """None."""
+        """No developer notes."""
         endpoint = "deleteDirectory"
 
         log.warning(
@@ -154,7 +154,7 @@ class TaegisSDKRoadrunnerMutation:
         raise GraphQLNoRowsInResultSetError("for mutation deleteDirectory")
 
     def create_sample(self, sample: CreateSampleInput) -> Sample:
-        """None."""
+        """No developer notes."""
         endpoint = "createSample"
 
         result = self.service.execute_mutation(
@@ -171,7 +171,7 @@ class TaegisSDKRoadrunnerMutation:
         raise GraphQLNoRowsInResultSetError("for mutation createSample")
 
     def update_sample(self, id_: int, updated_sample: UpdatedSampleInput) -> Sample:
-        """None."""
+        """No developer notes."""
         endpoint = "updateSample"
 
         result = self.service.execute_mutation(
@@ -189,7 +189,7 @@ class TaegisSDKRoadrunnerMutation:
         raise GraphQLNoRowsInResultSetError("for mutation updateSample")
 
     def delete_sample(self, id_: int) -> Sample:
-        """None."""
+        """No developer notes."""
         endpoint = "deleteSample"
 
         result = self.service.execute_mutation(

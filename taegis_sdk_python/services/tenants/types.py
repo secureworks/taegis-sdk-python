@@ -81,6 +81,9 @@ class TenantEnvironment(str, Enum):
     PILOT_GOLF = "pilot_golf"
     PILOT_HOTEL = "pilot_hotel"
     PILOT_JULIET = "pilot_juliet"
+    PILOT_INDIA = "pilot_india"
+    PILOT_KILO = "pilot_kilo"
+    PILOT_QUEBEC = "pilot_quebec"
     CHARLIE = "charlie"
     ECHO = "echo"
     DELTA = "delta"
@@ -88,6 +91,9 @@ class TenantEnvironment(str, Enum):
     GOLF = "golf"
     HOTEL = "hotel"
     JULIET = "juliet"
+    INDIA = "india"
+    KILO = "kilo"
+    QUEBEC = "quebec"
 
 
 class SSOEnvironment(str, Enum):
@@ -624,6 +630,22 @@ class TenantServiceInput:
     )
     tenant_id: Optional[str] = field(
         default=None, metadata=config(field_name="tenantID")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class UpdateTenantHierarchyInput:
+    """UpdateTenantHierarchyInput."""
+
+    tenant_id: Optional[str] = field(
+        default=None, metadata=config(field_name="tenantID")
+    )
+    new_partner_id: Optional[str] = field(
+        default=None, metadata=config(field_name="newPartnerID")
+    )
+    new_organization_id: Optional[str] = field(
+        default=None, metadata=config(field_name="newOrganizationID")
     )
 
 

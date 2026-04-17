@@ -92,7 +92,7 @@ class TaegisSDKRulesQuery:
         Providing a kind allows for choosing global-only rules, tenant-only rules, or
         all rules. If not provided the default kinds of rules are returned, which
         depends on who is making the request: Secureworks users will get all rules
-        (global and all tenant rules), but tenant users will only get their rules.."""
+        (global and all tenant rules), but tenant users will only get their rules."""
         endpoint = "suppressionRules"
 
         result = self.service.execute_query(
@@ -122,7 +122,7 @@ class TaegisSDKRulesQuery:
         Providing a kind allows for choosing global-only rules, tenant-only rules, or
         all rules. If not provided the default kinds of rules are returned, which
         depends on who is making the request: Secureworks users will get all rules
-        (global and all tenant rules), but tenant users will only get their rules.."""
+        (global and all tenant rules), but tenant users will only get their rules."""
         endpoint = "eventTaggingRules"
 
         result = self.service.execute_query(
@@ -337,7 +337,7 @@ class TaegisSDKRulesQuery:
         If no rules or filters have changed since that time, nothing will be returned.
 
         This can be used by clients to easily see when rules have been edited by
-        polling this endpoint periodically, passing in the last time they checked.."""
+        polling this endpoint periodically, passing in the last time they checked."""
         endpoint = "changesSince"
 
         result = self.service.execute_query(

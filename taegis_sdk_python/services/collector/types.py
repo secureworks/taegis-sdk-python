@@ -675,6 +675,9 @@ class GCPDetails:
     region: Optional[str] = field(default=None, metadata=config(field_name="region"))
     subnet: Optional[str] = field(default=None, metadata=config(field_name="subnet"))
     zone: Optional[str] = field(default=None, metadata=config(field_name="zone"))
+    network_project: Optional[str] = field(
+        default=None, metadata=config(field_name="networkProject")
+    )
 
 
 @dataclass_json
@@ -691,6 +694,9 @@ class GCPDetailsV2:
     region: Optional[str] = field(default=None, metadata=config(field_name="region"))
     subnet: Optional[str] = field(default=None, metadata=config(field_name="subnet"))
     zone: Optional[str] = field(default=None, metadata=config(field_name="zone"))
+    network_project: Optional[str] = field(
+        default=None, metadata=config(field_name="networkProject")
+    )
 
 
 @dataclass_json

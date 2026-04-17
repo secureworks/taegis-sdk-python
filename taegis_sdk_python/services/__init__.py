@@ -55,6 +55,7 @@ from taegis_sdk_python.services.ingest_stats import IngestStatsService
 from taegis_sdk_python.services.investigations import InvestigationsService
 from taegis_sdk_python.services.investigations2 import Investigations2Service
 from taegis_sdk_python.services.isensor import IsensorService
+from taegis_sdk_python.services.llm_service import LlmServiceService
 from taegis_sdk_python.services.mitre_attack_info import MitreAttackInfoService
 from taegis_sdk_python.services.multi_tenant_context import MultiTenantContextService
 from taegis_sdk_python.services.multi_tenant_ioc import MultiTenantIocService
@@ -64,6 +65,7 @@ from taegis_sdk_python.services.notifications import NotificationsService
 from taegis_sdk_python.services.notifications2 import Notifications2Service
 from taegis_sdk_python.services.preferences import PreferencesService
 from taegis_sdk_python.services.process_trees import ProcessTreesService
+from taegis_sdk_python.services.ql_schemas import QlSchemasService
 from taegis_sdk_python.services.queries import QueriesService
 from taegis_sdk_python.services.roadrunner import RoadrunnerService
 from taegis_sdk_python.services.rules import RulesService
@@ -219,6 +221,7 @@ class GraphQLService:
         self._investigations = None
         self._investigations2 = None
         self._isensor = None
+        self._llm_service = None
         self._mitre_attack_info = None
         self._multi_tenant_context = None
         self._multi_tenant_ioc = None
@@ -228,6 +231,7 @@ class GraphQLService:
         self._notifications2 = None
         self._preferences = None
         self._process_trees = None
+        self._ql_schemas = None
         self._queries = None
         self._roadrunner = None
         self._rules = None
@@ -700,6 +704,13 @@ class GraphQLService:
         return self._isensor
 
     @property
+    def llm_service(self):
+        """LLM Service Endpoint."""
+        if not self._llm_service:
+            self._llm_service = LlmServiceService(self)
+        return self._llm_service
+
+    @property
     def mitre_attack_info(self):
         """MitreAttackInfo Service Endpoint."""
         if not self._mitre_attack_info:
@@ -756,16 +767,11 @@ class GraphQLService:
         return self._preferences
 
     @property
-    def process_tress(self):
-        """Process Trees Service Endpoint."""
-
-        log.warning(
-            "Please use service.process_trees instead of service.process_tress."
-        )
-
-        if not self._process_trees:
-            self._process_trees = ProcessTreesService(self)
-        return self._process_trees
+    def ql_schemas(self):
+        """QL Schemas Service Endpoint."""
+        if not self._ql_schemas:
+            self._ql_schemas = QlSchemasService(self)
+        return self._ql_schemas
 
     @property
     def process_trees(self):

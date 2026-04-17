@@ -24,7 +24,10 @@ class TenantRegion(str, Enum):
     FOXTROT = "FOXTROT"
     GOLF = "GOLF"
     HOTEL = "HOTEL"
+    INDIA = "INDIA"
     JULIET = "JULIET"
+    KILO = "KILO"
+    QUEBEC = "QUEBEC"
     PILOT = "PILOT"
     PILOT_CHARLIE = "PILOT_CHARLIE"
     PILOT_DELTA = "PILOT_DELTA"
@@ -32,7 +35,10 @@ class TenantRegion(str, Enum):
     PILOT_FOXTROT = "PILOT_FOXTROT"
     PILOT_GOLF = "PILOT_GOLF"
     PILOT_HOTEL = "PILOT_HOTEL"
+    PILOT_INDIA = "PILOT_INDIA"
     PILOT_JULIET = "PILOT_JULIET"
+    PILOT_KILO = "PILOT_KILO"
+    PILOT_QUEBEC = "PILOT_QUEBEC"
 
 
 class TenantEnvironment(str, Enum):
@@ -44,7 +50,10 @@ class TenantEnvironment(str, Enum):
     FOXTROT = "FOXTROT"
     GOLF = "GOLF"
     HOTEL = "HOTEL"
+    INDIA = "INDIA"
     JULIET = "JULIET"
+    KILO = "KILO"
+    QUEBEC = "QUEBEC"
     PILOT = "PILOT"
     PILOT_CHARLIE = "PILOT_CHARLIE"
     PILOT_DELTA = "PILOT_DELTA"
@@ -52,7 +61,10 @@ class TenantEnvironment(str, Enum):
     PILOT_FOXTROT = "PILOT_FOXTROT"
     PILOT_GOLF = "PILOT_GOLF"
     PILOT_HOTEL = "PILOT_HOTEL"
+    PILOT_INDIA = "PILOT_INDIA"
     PILOT_JULIET = "PILOT_JULIET"
+    PILOT_KILO = "PILOT_KILO"
+    PILOT_QUEBEC = "PILOT_QUEBEC"
 
 
 class TenantResultOrder(str, Enum):

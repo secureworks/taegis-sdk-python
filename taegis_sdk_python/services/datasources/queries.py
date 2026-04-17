@@ -37,7 +37,7 @@ class TaegisSDKDatasourcesQuery:
     ) -> List[LastSeenAsset]:
         """Fetches the last seen data about all data sources associated with a tenant based on input parameters.
         It provides ability to filter the data by collectorId and sourceId. Authorization permission is
-        required with read access to the collector object.."""
+        required with read access to the collector object."""
         endpoint = "getDataSourceLastSeenAsset"
 
         log.warning(
@@ -73,7 +73,7 @@ class TaegisSDKDatasourcesQuery:
         It provides ability to filter the data by collectorId and sourceId. The data returned by this query
         is eventually consistent. Consequently, actions such as deleting an asset may not be immediately reflected in the
         result set. Authorization permission is required with read access to the collector object.
-        It also supports forward and backward pagination.."""
+        It also supports forward and backward pagination."""
         endpoint = "getDataSourceLastSeenAssetsV2"
 
         result = self.service.execute_query(
@@ -99,7 +99,7 @@ class TaegisSDKDatasourcesQuery:
         self, input_: List[Union[FilterCriteria, TaegisEnum]]
     ) -> List[FilterValues]:
         """Provides clients with the ability to retrieve the possible values for a given filter criteria. Note that unique
-        values will be returned, for enum types, only those observed in the data set will be returned..
+        values will be returned, for enum types, only those observed in the data set will be returned.
         """
         endpoint = "getDataSourceLastSeenAssetFilterValues"
 
@@ -142,7 +142,7 @@ class TaegisSDKDatasourcesQuery:
         raise GraphQLNoRowsInResultSetError("for query dataSourceLastSeenAssetsQuery")
 
     def get_data_source_tags(self) -> List[DataSourceTag]:
-        """Fetches all tags associated with a given tenant.."""
+        """Fetches all tags associated with a given tenant."""
         endpoint = "getDataSourceTags"
 
         result = self.service.execute_query(
@@ -160,7 +160,7 @@ class TaegisSDKDatasourcesQuery:
         raise GraphQLNoRowsInResultSetError("for query getDataSourceTags")
 
     def get_data_source_tag(self, tag_id: str) -> DataSourceTag:
-        """Fetches a specific tag by its ID.."""
+        """Fetches a specific tag by its ID."""
         endpoint = "getDataSourceTag"
 
         result = self.service.execute_query(
@@ -176,3 +176,23 @@ class TaegisSDKDatasourcesQuery:
         if result.get(endpoint) is not None:
             return DataSourceTag.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for query getDataSourceTag")
+
+    def get_unhealthy_assets_summary(self) -> List[TenantUnhealthySummary]:
+        """Fetches the summary of unhealthy assets count per tenant. This provides a quick overview of the health status of
+        assets across different tenants. Authorization permission is required with read access to the
+        UNHEALTHY_ASSETS_SUMMARY object."""
+        endpoint = "getUnhealthyAssetsSummary"
+
+        result = self.service.execute_query(
+            endpoint=endpoint,
+            variables={},
+            output=build_output_string(
+                TenantUnhealthySummary,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
+        )
+        if result.get(endpoint) is not None:
+            return TenantUnhealthySummary.schema().load(
+                [r or {} for r in result.get(endpoint)], many=True
+            )
+        raise GraphQLNoRowsInResultSetError("for query getUnhealthyAssetsSummary")

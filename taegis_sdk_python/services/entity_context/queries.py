@@ -35,7 +35,7 @@ class TaegisSDKEntityContextQuery:
     def entity_context(
         self, entity_id: str, origin: Optional[EntityContextOrigin] = None
     ) -> EntityContextEntity:
-        """Returns a single entity that matches the provided id. Must use hashed global id of the entity.."""
+        """Returns a single entity that matches the provided id. Must use hashed global id of the entity."""
         endpoint = "entityContext"
 
         result = self.service.execute_query(
@@ -60,7 +60,7 @@ class TaegisSDKEntityContextQuery:
     ) -> EntityContextEntity:
         """Returns a single entity that matches the provided id. Must use valid set or superset of identifiers.
         EntityContextIdByIdentifiers.matchWeakerIdentifiers must be set to false, as only a single entity may be returned by this query.
-        Use 'entityContexts' for multiple entities by identifiers.."""
+        Use 'entityContexts' for multiple entities by identifiers."""
         endpoint = "entityContextByIdentifiers"
 
         result = self.service.execute_query(
@@ -83,7 +83,7 @@ class TaegisSDKEntityContextQuery:
         arguments: EntityContextsArguments,
         page: Optional[EntityContextPageInput] = None,
     ) -> EntityContexts:
-        """Returns a list of entities that match the arguments.."""
+        """Returns a list of entities that match the arguments."""
         endpoint = "entityContexts"
 
         result = self.service.execute_query(
@@ -104,7 +104,7 @@ class TaegisSDKEntityContextQuery:
     def entity_context_edge(
         self, edge_id: str, origin: Optional[EntityContextOrigin] = None
     ) -> EntityContextEdge:
-        """Returns a single edge that matches the provided id. Must use hashed global id of the edge.."""
+        """Returns a single edge that matches the provided id. Must use hashed global id of the edge."""
         endpoint = "entityContextEdge"
 
         result = self.service.execute_query(
@@ -133,7 +133,7 @@ class TaegisSDKEntityContextQuery:
         The data source for the subgraph can be from the graph, on-demand, or a on-demand fallback.
         Choosing to retrieve only data currently present in the graph will be the fastest option.
         ON_DEMAND_FALLBACK is the default and is a compromise of the two, first searching the graph
-        and then populating the missing data with on-demand data (which can be much slower)..
+        and then populating the missing data with on-demand data (which can be much slower).
         """
         endpoint = "entityContextGroupedSubgraphFor"
 
@@ -167,7 +167,7 @@ class TaegisSDKEntityContextQuery:
         correspond to an edge, which will look at the incoming or outgoing edges from the provided edges vertices.
 
         Warning: It is possible for data to be missing for highly connected entrypoints. This is because we have a hard limit on
-        the number of edges we can explore to prevent timeouts.."""
+        the number of edges we can explore to prevent timeouts."""
         endpoint = "entityContextRelatedResources"
 
         result = self.service.execute_query(
@@ -203,7 +203,7 @@ class TaegisSDKEntityContextQuery:
         null it will return all entities. If page is not null, it will return a page of entities sorted by the filters
 
         Warning: It is possible for data to be missing for highly connected entrypoints. This is because we have a hard limit on
-        the number of edges we can explore to prevent timeouts.."""
+        the number of edges we can explore to prevent timeouts."""
         endpoint = "entityContextAssociatedEntities"
 
         result = self.service.execute_query(
@@ -230,7 +230,7 @@ class TaegisSDKEntityContextQuery:
         entry_point: EntityContextSingleEntryPoint,
         source: Optional[EntityContextSourceInput] = None,
     ) -> EntityContextAssociatedEntityTypesResponse:
-        """None."""
+        """No developer notes."""
         endpoint = "entityContextAssociatedEntityTypes"
 
         result = self.service.execute_query(
@@ -266,7 +266,7 @@ class TaegisSDKEntityContextQuery:
     ) -> List[EntityContextPivotQLQuery]:
         """Provides a list of QL queries that can be used to pivot from the provided entry point. If the entrypoint is an
         edge, event, alert, or investigation, it will return a list of queries that can be used to pivot to the entities
-        associated with them.."""
+        associated with them."""
         endpoint = "entityContextPivotQL"
 
         result = self.service.execute_query(

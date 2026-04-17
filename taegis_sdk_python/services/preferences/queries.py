@@ -33,7 +33,7 @@ class TaegisSDKPreferencesQuery:
         self.service = service
 
     def user_preference_by_id(self, id_: str) -> UserPreference:
-        """None."""
+        """No developer notes."""
         endpoint = "userPreferenceByID"
 
         result = self.service.execute_query(
@@ -51,7 +51,7 @@ class TaegisSDKPreferencesQuery:
         raise GraphQLNoRowsInResultSetError("for query userPreferenceByID")
 
     def user_notification_preference(self, user_id: str) -> UserPreference:
-        """None."""
+        """No developer notes."""
         endpoint = "userNotificationPreference"
 
         result = self.service.execute_query(
@@ -71,7 +71,7 @@ class TaegisSDKPreferencesQuery:
     def user_notification_preferences(
         self, arguments: UserNotificationPreferencesArguments
     ) -> UserNotificationPreferences:
-        """None."""
+        """No developer notes."""
         endpoint = "userNotificationPreferences"
 
         result = self.service.execute_query(
@@ -89,7 +89,7 @@ class TaegisSDKPreferencesQuery:
         raise GraphQLNoRowsInResultSetError("for query userNotificationPreferences")
 
     def user_preference_by_key(self, key: str) -> UserPreference:
-        """None."""
+        """No developer notes."""
         endpoint = "userPreferenceByKey"
 
         result = self.service.execute_query(
@@ -107,7 +107,7 @@ class TaegisSDKPreferencesQuery:
         raise GraphQLNoRowsInResultSetError("for query userPreferenceByKey")
 
     def tenant_preference_by_id(self, id_: str) -> TenantPreference:
-        """None."""
+        """No developer notes."""
         endpoint = "tenantPreferenceByID"
 
         result = self.service.execute_query(
@@ -125,7 +125,7 @@ class TaegisSDKPreferencesQuery:
         raise GraphQLNoRowsInResultSetError("for query tenantPreferenceByID")
 
     def tenant_preference_by_key(self, key: str) -> TenantPreference:
-        """None."""
+        """No developer notes."""
         endpoint = "tenantPreferenceByKey"
 
         result = self.service.execute_query(
@@ -143,7 +143,7 @@ class TaegisSDKPreferencesQuery:
         raise GraphQLNoRowsInResultSetError("for query tenantPreferenceByKey")
 
     def list_tenant_preferences_by_key(self, key: str) -> List[TenantPreference]:
-        """None."""
+        """No developer notes."""
         endpoint = "listTenantPreferencesByKey"
 
         result = self.service.execute_query(
@@ -165,7 +165,7 @@ class TaegisSDKPreferencesQuery:
     def list_all_tenant_preferences(
         self, filter_: listAllTenantPreferencesInput
     ) -> List[TenantPreference]:
-        """None."""
+        """No developer notes."""
         endpoint = "listAllTenantPreferences"
 
         result = self.service.execute_query(
@@ -185,7 +185,7 @@ class TaegisSDKPreferencesQuery:
         raise GraphQLNoRowsInResultSetError("for query listAllTenantPreferences")
 
     def ticketing_settings(self) -> List[TicketingSettings]:
-        """None."""
+        """No developer notes."""
         endpoint = "ticketingSettings"
 
         result = self.service.execute_query(
@@ -203,7 +203,7 @@ class TaegisSDKPreferencesQuery:
         raise GraphQLNoRowsInResultSetError("for query ticketingSettings")
 
     def partner_preferences(self) -> PartnerPreference:
-        """None."""
+        """No developer notes."""
         endpoint = "partnerPreferences"
 
         result = self.service.execute_query(
@@ -221,7 +221,7 @@ class TaegisSDKPreferencesQuery:
     def get_preferences(
         self, get_preference_selector: Optional[GetPreferenceSelector] = None
     ) -> List[UserPreferenceDictionary]:
-        """None."""
+        """No developer notes."""
         endpoint = "getPreferences"
 
         result = self.service.execute_query(

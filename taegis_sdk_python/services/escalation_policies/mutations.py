@@ -77,7 +77,7 @@ class TaegisSDKEscalationPoliciesMutation:
     ) -> EscalationPolicy:
         """Delete an existing escalation policy.
         This is a hard delete and will remove the escalation policy from the system entirely.
-        Policies that are in use by notification rules will need to be unlinked before they can be deleted..
+        Policies that are in use by notification rules will need to be unlinked before they can be deleted.
         """
         endpoint = "deleteEscalationPolicy"
 

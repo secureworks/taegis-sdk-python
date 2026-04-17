@@ -33,7 +33,7 @@ class TaegisSDKTenantProfilesQuery:
         self.service = service
 
     def managed_tenant_profile(self) -> ManagedTenantProfile:
-        """None."""
+        """No developer notes."""
         endpoint = "managedTenantProfile"
 
         result = self.service.execute_query(
@@ -49,7 +49,7 @@ class TaegisSDKTenantProfilesQuery:
         raise GraphQLNoRowsInResultSetError("for query managedTenantProfile")
 
     def version_mtp(self) -> VersionMtp:
-        """None."""
+        """No developer notes."""
         endpoint = "versionMtp"
 
         result = self.service.execute_query(
@@ -65,7 +65,7 @@ class TaegisSDKTenantProfilesQuery:
         raise GraphQLNoRowsInResultSetError("for query versionMtp")
 
     def network_ranges_mtp(self) -> List[NetworkRangeMtp]:
-        """None."""
+        """No developer notes."""
         endpoint = "networkRangesMtp"
 
         result = self.service.execute_query(
@@ -83,7 +83,7 @@ class TaegisSDKTenantProfilesQuery:
         raise GraphQLNoRowsInResultSetError("for query networkRangesMtp")
 
     def search_network_ranges_mtp(self, ip_address: str) -> List[NetworkRangeMtp]:
-        """None."""
+        """No developer notes."""
         endpoint = "searchNetworkRangesMtp"
 
         result = self.service.execute_query(
@@ -103,7 +103,7 @@ class TaegisSDKTenantProfilesQuery:
         raise GraphQLNoRowsInResultSetError("for query searchNetworkRangesMtp")
 
     def find_network_range_cidr_mtp(self, cidr: str) -> List[NetworkRangeMtp]:
-        """None."""
+        """No developer notes."""
         endpoint = "findNetworkRangeCidrMtp"
 
         result = self.service.execute_query(
@@ -139,7 +139,7 @@ class TaegisSDKTenantProfilesQuery:
         raise GraphQLNoRowsInResultSetError("for query noteMtp")
 
     def security_controls_mtp(self) -> List[SecurityControlMtp]:
-        """None."""
+        """No developer notes."""
         endpoint = "securityControlsMtp"
 
         result = self.service.execute_query(
@@ -157,7 +157,7 @@ class TaegisSDKTenantProfilesQuery:
         raise GraphQLNoRowsInResultSetError("for query securityControlsMtp")
 
     def mfa_accesses_mtp(self) -> List[MfaAccessMtp]:
-        """None."""
+        """No developer notes."""
         endpoint = "mfaAccessesMtp"
 
         result = self.service.execute_query(

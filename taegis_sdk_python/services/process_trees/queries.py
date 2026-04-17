@@ -42,7 +42,7 @@ class TaegisSDKProcessTreesQuery:
         next_token: Optional[str] = None,
         page_size: Optional[int] = None,
     ) -> Children:
-        """None."""
+        """No developer notes."""
         endpoint = "processChildren"
 
         result = self.service.execute_query(
@@ -72,7 +72,7 @@ class TaegisSDKProcessTreesQuery:
         parent_process_correlation_id: str,
         resource_id: Optional[str] = None,
     ) -> ProcessEvent:
-        """None."""
+        """No developer notes."""
         endpoint = "processParent"
 
         result = self.service.execute_query(
@@ -102,7 +102,7 @@ class TaegisSDKProcessTreesQuery:
         resource_id: Optional[str] = None,
         process_create_time: Optional[int] = None,
     ) -> ProcessLineage:
-        """None."""
+        """No developer notes."""
         endpoint = "processLineage"
 
         result = self.service.execute_query(
@@ -132,7 +132,7 @@ class TaegisSDKProcessTreesQuery:
         order_by_input: Optional[List[OrderByInput]] = None,
         next_token: Optional[str] = None,
     ) -> Children:
-        """None."""
+        """No developer notes."""
         endpoint = "GetProcessChildren"
 
         log.warning(
@@ -165,7 +165,7 @@ class TaegisSDKProcessTreesQuery:
         parent_process_correlation_id: str,
         resource_id: Optional[str] = None,
     ) -> ProcessEvent:
-        """None."""
+        """No developer notes."""
         endpoint = "GetProcessParent"
 
         log.warning(

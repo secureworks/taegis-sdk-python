@@ -33,7 +33,7 @@ class TaegisSDKRoadrunnerQuery:
         self.service = service
 
     def syslog_sample(self, filter_: SyslogSampleFilter) -> List[SyslogSample]:
-        """None."""
+        """No developer notes."""
         endpoint = "syslogSample"
 
         result = self.service.execute_query(
@@ -53,7 +53,7 @@ class TaegisSDKRoadrunnerQuery:
         raise GraphQLNoRowsInResultSetError("for query syslogSample")
 
     def all_parsers(self) -> List[Parser]:
-        """None."""
+        """No developer notes."""
         endpoint = "allParsers"
 
         result = self.service.execute_query(
@@ -70,7 +70,7 @@ class TaegisSDKRoadrunnerQuery:
         raise GraphQLNoRowsInResultSetError("for query allParsers")
 
     def parser(self, filter_: ParserFilterInput) -> Parser:
-        """None."""
+        """No developer notes."""
         endpoint = "parser"
 
         result = self.service.execute_query(
@@ -87,7 +87,7 @@ class TaegisSDKRoadrunnerQuery:
         raise GraphQLNoRowsInResultSetError("for query parser")
 
     def native_sensor_types(self) -> List[str]:
-        """None."""
+        """No developer notes."""
         endpoint = "nativeSensorTypes"
 
         result = self.service.execute_query(endpoint=endpoint, variables={}, output="")
@@ -98,7 +98,7 @@ class TaegisSDKRoadrunnerQuery:
     def validate_parser(
         self, unvalidated_parser: UnvalidatedParserInput
     ) -> ValidateResult:
-        """None."""
+        """No developer notes."""
         endpoint = "validateParser"
 
         result = self.service.execute_query(
@@ -122,7 +122,7 @@ class TaegisSDKRoadrunnerQuery:
         run_isolated: Optional[bool] = None,
         run_disabled: Optional[bool] = None,
     ) -> List[SampleResult]:
-        """None."""
+        """No developer notes."""
         endpoint = "sampleParser"
 
         result = self.service.execute_query(
@@ -145,7 +145,7 @@ class TaegisSDKRoadrunnerQuery:
         raise GraphQLNoRowsInResultSetError("for query sampleParser")
 
     def parser_schemas(self) -> List[str]:
-        """None."""
+        """No developer notes."""
         endpoint = "parserSchemas"
 
         result = self.service.execute_query(endpoint=endpoint, variables={}, output="")
@@ -156,7 +156,7 @@ class TaegisSDKRoadrunnerQuery:
     def directory(
         self, filter_: Optional[DirectoryFilterInput] = None
     ) -> List[Directory]:
-        """None."""
+        """No developer notes."""
         endpoint = "directory"
 
         log.warning(
@@ -180,7 +180,7 @@ class TaegisSDKRoadrunnerQuery:
         raise GraphQLNoRowsInResultSetError("for query directory")
 
     def all_samples(self) -> List[Sample]:
-        """None."""
+        """No developer notes."""
         endpoint = "allSamples"
 
         result = self.service.execute_query(
@@ -197,7 +197,7 @@ class TaegisSDKRoadrunnerQuery:
         raise GraphQLNoRowsInResultSetError("for query allSamples")
 
     def sample(self, filter_: SampleFilterInput) -> Sample:
-        """None."""
+        """No developer notes."""
         endpoint = "sample"
 
         result = self.service.execute_query(

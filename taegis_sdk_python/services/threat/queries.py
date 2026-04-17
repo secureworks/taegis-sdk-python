@@ -33,7 +33,7 @@ class TaegisSDKThreatQuery:
         self.service = service
 
     def threat_identities_by_confidence(self, confidence: int) -> List[ThreatResult]:
-        """Gets identities by confidence score.."""
+        """Gets identities by confidence score."""
         endpoint = "threatIdentitiesByConfidence"
 
         result = self.service.execute_query(
@@ -79,8 +79,7 @@ class TaegisSDKThreatQuery:
           Note: Each filter should use either confidence fields OR targetRef, not both in the same where clause
         - page: Optional pagination controls (offset/limit). If not provided, returns ALL results.
           When paginating, clients must detect the last page by checking if the number of returned
-          results is less than the requested limit, or if an empty array is returned..
-        """
+          results is less than the requested limit, or if an empty array is returned."""
         endpoint = "threatWatchlist"
 
         result = self.service.execute_query(
@@ -128,7 +127,7 @@ class TaegisSDKThreatQuery:
 
         Pagination: Uses cursor-based pagination with 'last_created' parameter. For small time ranges
         (results < 10k), all data is returned in one response. For larger datasets, use 'last_created'
-        to paginate through results.."""
+        to paginate through results."""
         endpoint = "threatTimsMalwareFiles"
 
         result = self.service.execute_query(
@@ -149,7 +148,7 @@ class TaegisSDKThreatQuery:
     def threat_indicators(self, ids: List[str]) -> List[ThreatIndicator]:
         """Get indicator info by indicator ID.
         Returns a deduped list of all found indicators.
-        If an indicator is not found, there will be no result for that indicator.."""
+        If an indicator is not found, there will be no result for that indicator."""
         endpoint = "threatIndicators"
 
         result = self.service.execute_query(
@@ -169,7 +168,7 @@ class TaegisSDKThreatQuery:
         raise GraphQLNoRowsInResultSetError("for query threatIndicators")
 
     def threat_indicator_publications(self, id_: str) -> List[ThreatReport]:
-        """Gets publications related to indicators.."""
+        """Gets publications related to indicators."""
         endpoint = "threatIndicatorPublications"
 
         result = self.service.execute_query(
@@ -209,7 +208,7 @@ class TaegisSDKThreatQuery:
         raise GraphQLNoRowsInResultSetError("for query threatPublicationsIndicators")
 
     def threat_indicator_intelligence(self, id_: str) -> ThreatIndicatorIntelligence:
-        """Retrieves all intelligence associated with an indicator.."""
+        """Retrieves all intelligence associated with an indicator."""
         endpoint = "threatIndicatorIntelligence"
 
         result = self.service.execute_query(
@@ -227,7 +226,7 @@ class TaegisSDKThreatQuery:
         raise GraphQLNoRowsInResultSetError("for query threatIndicatorIntelligence")
 
     def threat_relationship(self, id_: str) -> ThreatRelationship:
-        """Gets relationship by `id`.."""
+        """Gets relationship by `id`."""
         endpoint = "threatRelationship"
 
         result = self.service.execute_query(
@@ -245,7 +244,7 @@ class TaegisSDKThreatQuery:
         raise GraphQLNoRowsInResultSetError("for query threatRelationship")
 
     def threat_identity(self, id_: str) -> ThreatIdentity:
-        """Gets identity by `id`.."""
+        """Gets identity by `id`."""
         endpoint = "threatIdentity"
 
         result = self.service.execute_query(
@@ -263,7 +262,7 @@ class TaegisSDKThreatQuery:
         raise GraphQLNoRowsInResultSetError("for query threatIdentity")
 
     def threat_malware(self, id_: str) -> ThreatMalware:
-        """Gets malware by `id`.."""
+        """Gets malware by `id`."""
         endpoint = "threatMalware"
 
         result = self.service.execute_query(
@@ -283,7 +282,7 @@ class TaegisSDKThreatQuery:
     def threat_identities(
         self, confidence: Optional[int] = None
     ) -> List[ThreatIdentity]:
-        """Gets identities by confidence score.."""
+        """Gets identities by confidence score."""
         endpoint = "threatIdentities"
 
         result = self.service.execute_query(
@@ -303,7 +302,7 @@ class TaegisSDKThreatQuery:
         raise GraphQLNoRowsInResultSetError("for query threatIdentities")
 
     def threat_vid_intelligence(self, vid: str) -> ThreatVidIntelligence:
-        """Retrieves all intelligence associated with a `VID`.."""
+        """Retrieves all intelligence associated with a `VID`."""
         endpoint = "threatVidIntelligence"
 
         result = self.service.execute_query(
@@ -323,7 +322,7 @@ class TaegisSDKThreatQuery:
     def threat_indicators_intelligence(
         self, id_: Optional[List[str]] = None
     ) -> List[ThreatIndicatorIntelligence]:
-        """Retrieves all intelligence associated with a list of indicators.."""
+        """Retrieves all intelligence associated with a list of indicators."""
         endpoint = "threatIndicatorsIntelligence"
 
         result = self.service.execute_query(
@@ -343,7 +342,7 @@ class TaegisSDKThreatQuery:
         raise GraphQLNoRowsInResultSetError("for query threatIndicatorsIntelligence")
 
     def threat_rule_vid_intelligence(self, rule_id: str) -> List[ThreatVidIntelligence]:
-        """Retrieves all intelligence associated with a `Rule ID`.."""
+        """Retrieves all intelligence associated with a `Rule ID`."""
         endpoint = "threatRuleVidIntelligence"
 
         result = self.service.execute_query(
@@ -363,7 +362,7 @@ class TaegisSDKThreatQuery:
         raise GraphQLNoRowsInResultSetError("for query threatRuleVidIntelligence")
 
     def threat_malware_intelligence(self, id_: str) -> ThreatMalwareIntelligence:
-        """Retrieves all intelligence associated with a malware.."""
+        """Retrieves all intelligence associated with a malware."""
         endpoint = "threatMalwareIntelligence"
 
         result = self.service.execute_query(

@@ -112,7 +112,7 @@ class TaegisSDKTenants4Query:
     def tenant_licenses(
         self, tenant_licenses: TenantLicensesInput
     ) -> TenantLicenseResponse:
-        """Retrieval of a tenant's currently active licenses.."""
+        """Retrieval of a tenant's currently active licenses."""
         endpoint = "tenantLicenses"
 
         result = self.service.execute_query(
@@ -132,7 +132,7 @@ class TaegisSDKTenants4Query:
     def product_catalog(
         self, product_catalog: ProductCatalogInput
     ) -> ProductCatalogResponse:
-        """Retrieval of the product catalog available for licensing by tenants.."""
+        """Retrieval of the product catalog available for licensing by tenants."""
         endpoint = "productCatalog"
 
         result = self.service.execute_query(

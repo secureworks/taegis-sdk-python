@@ -33,7 +33,7 @@ class TaegisSDKCommentsQuery:
         self.service = service
 
     def comment(self, comment_id: str) -> Comment:
-        """None."""
+        """No developer notes."""
         endpoint = "comment"
 
         log.warning(
@@ -55,7 +55,7 @@ class TaegisSDKCommentsQuery:
         raise GraphQLNoRowsInResultSetError("for query comment")
 
     def comments_by_parent(self, parent_type: str, parent_id: str) -> List[Comment]:
-        """None."""
+        """No developer notes."""
         endpoint = "commentsByParent"
 
         log.warning(
@@ -82,7 +82,7 @@ class TaegisSDKCommentsQuery:
     def comments_by_parent_section(
         self, parent_type: str, parent_id: str, section_type: str, section_id: str
     ) -> List[Comment]:
-        """None."""
+        """No developer notes."""
         endpoint = "commentsByParentSection"
 
         log.warning(
@@ -109,7 +109,7 @@ class TaegisSDKCommentsQuery:
         raise GraphQLNoRowsInResultSetError("for query commentsByParentSection")
 
     def comments_count_by_parent(self, parent_type: str, parent_id: str) -> ParentCount:
-        """None."""
+        """No developer notes."""
         endpoint = "commentsCountByParent"
 
         log.warning(
@@ -132,7 +132,7 @@ class TaegisSDKCommentsQuery:
         raise GraphQLNoRowsInResultSetError("for query commentsCountByParent")
 
     def comments_count_by_parent_type(self, parent_type: str) -> List[ParentCount]:
-        """None."""
+        """No developer notes."""
         endpoint = "commentsCountByParentType"
 
         log.warning(
@@ -156,7 +156,7 @@ class TaegisSDKCommentsQuery:
         raise GraphQLNoRowsInResultSetError("for query commentsCountByParentType")
 
     def unread_comments_by_parents(self, parents: List[Parent]) -> List[Comment]:
-        """None."""
+        """No developer notes."""
         endpoint = "unreadCommentsByParents"
 
         log.warning(
@@ -182,7 +182,7 @@ class TaegisSDKCommentsQuery:
     def latest_bulk_comments_by_parent(
         self, parent_type: str, parent_ids: List[str]
     ) -> List[LatestComment]:
-        """None."""
+        """No developer notes."""
         endpoint = "latestBulkCommentsByParent"
 
         log.warning(
@@ -209,7 +209,7 @@ class TaegisSDKCommentsQuery:
     def comments_count_by_parent_ids(
         self, parent_type: str, parent_ids: List[str]
     ) -> List[ParentCount]:
-        """None."""
+        """No developer notes."""
         endpoint = "commentsCountByParentIds"
 
         log.warning(

@@ -35,7 +35,7 @@ class TaegisSDKAlertsMutation:
     def alerts_service_update_investigation_info(
         self, in_: Optional[UpdateInvestigationRequestInput] = None
     ) -> UpdateInvestigationResponse:
-        """None."""
+        """No developer notes."""
         endpoint = "alertsServiceUpdateInvestigationInfo"
 
         result = self.service.execute_mutation(
@@ -57,7 +57,7 @@ class TaegisSDKAlertsMutation:
     def alerts_service_update_resolution_info(
         self, in_: Optional[UpdateResolutionRequestInput] = None
     ) -> UpdateResolutionResponse:
-        """Add a resolution or modify an existing resolution for a give list of alert IDs.."""
+        """Add a resolution or modify an existing resolution for a give list of alert IDs."""
         endpoint = "alertsServiceUpdateResolutionInfo"
 
         result = self.service.execute_mutation(
@@ -79,7 +79,7 @@ class TaegisSDKAlertsMutation:
     def alerts_service_bulk_investigations_processor(
         self, in_: Optional[BulkInvestigationsRequestInput] = None
     ) -> BulkInvestigationsResponse:
-        """Bulk add alerts to an existing investigation by providing either a query or list of alert IDs. If a query is provided, then all alerts matching the query will be added to the investigation.."""
+        """Bulk add alerts to an existing investigation by providing either a query or list of alert IDs. If a query is provided, then all alerts matching the query will be added to the investigation."""
         endpoint = "alertsServiceBulkInvestigationsProcessor"
 
         result = self.service.execute_mutation(
@@ -101,7 +101,7 @@ class TaegisSDKAlertsMutation:
     def alerts_service_evict(
         self, in_: Optional[EvictRequestInput] = None
     ) -> EvictResponse:
-        """DEPRECATED: Does not do anything other than to return OK. No replacement necessary.."""
+        """DEPRECATED: Does not do anything other than to return OK. No replacement necessary."""
         endpoint = "alertsServiceEvict"
 
         log.warning(
@@ -125,7 +125,7 @@ class TaegisSDKAlertsMutation:
     def alerts_service_update_threat_score(
         self, in_: UpdateThreatScoreRequestInput
     ) -> UpdateThreatScoreResponse:
-        """Update threat score for a given list of alert IDs.."""
+        """Update threat score for a given list of alert IDs."""
         endpoint = "alertsServiceUpdateThreatScore"
 
         result = self.service.execute_mutation(
@@ -147,7 +147,7 @@ class TaegisSDKAlertsMutation:
     def alerts_service_update_threat_score_v2(
         self, in_: UpdateThreatScoreV2RequestInput
     ) -> UpdateThreatScoreResponse:
-        """Update threat score v2 for a given list of alert IDs.."""
+        """Update threat score v2 for a given list of alert IDs."""
         endpoint = "alertsServiceUpdateThreatScoreV2"
 
         result = self.service.execute_mutation(

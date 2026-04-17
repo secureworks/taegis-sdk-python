@@ -125,7 +125,7 @@ class TaegisSDKTenantsMutation:
     def create_tenant_label(
         self, tenant_id: str, label_input: InputTenantLabel
     ) -> TenantLabel:
-        """Add Label to Tenant. If label is for partner parent/child and is owned by SCWX, subject must have access to SCWX also.."""
+        """Add Label to Tenant. If label is for partner parent/child and is owned by SCWX, subject must have access to SCWX also."""
         endpoint = "createTenantLabel"
 
         result = self.service.execute_mutation(
@@ -146,7 +146,7 @@ class TaegisSDKTenantsMutation:
     def update_tenant_label(
         self, label_id: str, tenant_id: str, label_input: InputTenantLabel
     ) -> TenantLabel:
-        """Update Label for a Tenant. If label is for partner parent/child and is owned by SCWX, subject must have access to SCWX also.."""
+        """Update Label for a Tenant. If label is for partner parent/child and is owned by SCWX, subject must have access to SCWX also."""
         endpoint = "updateTenantLabel"
 
         result = self.service.execute_mutation(
@@ -166,7 +166,7 @@ class TaegisSDKTenantsMutation:
         raise GraphQLNoRowsInResultSetError("for mutation updateTenantLabel")
 
     def delete_tenant_label(self, label_id: str, tenant_id: str) -> TenantLabel:
-        """Remove a Label from a Tenant. If label is for partner parent/child and is owned by SCWX, subject must have access to SCWX also.."""
+        """Remove a Label from a Tenant. If label is for partner parent/child and is owned by SCWX, subject must have access to SCWX also."""
         endpoint = "deleteTenantLabel"
 
         result = self.service.execute_mutation(
@@ -348,6 +348,23 @@ class TaegisSDKTenantsMutation:
         if result.get(endpoint) is not None:
             return Tenant.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for mutation changeTenantHierarchy")
+
+    def update_tenant_hierarchy(self, input_: UpdateTenantHierarchyInput) -> Tenant:
+        """Updates tenant hierarchy with explicit partner and optional organization. Handles same-partner and cross-partner moves. Requires TenantHierarchy:Update."""
+        endpoint = "updateTenantHierarchy"
+
+        result = self.service.execute_mutation(
+            endpoint=endpoint,
+            variables={
+                "input": prepare_input(input_),
+            },
+            output=build_output_string(
+                Tenant, exclude_deprecated_output=self.service.exclude_deprecated_output
+            ),
+        )
+        if result.get(endpoint) is not None:
+            return Tenant.from_dict(result.get(endpoint))
+        raise GraphQLNoRowsInResultSetError("for mutation updateTenantHierarchy")
 
     def request_service(
         self, tenant_service_input: TenantServiceInput

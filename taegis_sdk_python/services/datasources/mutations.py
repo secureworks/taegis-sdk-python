@@ -37,7 +37,7 @@ class TaegisSDKDatasourcesMutation:
     ) -> List[DeletedAsset]:
         """Executes a delete operation on all included data sources for a specified tenant. Returns an array of
         deleted assets with metadata. Authorization permission is required with delete access to the collector
-        object.."""
+        object."""
         endpoint = "deleteDataSourceAssets"
 
         result = self.service.execute_mutation(
@@ -57,7 +57,7 @@ class TaegisSDKDatasourcesMutation:
         raise GraphQLNoRowsInResultSetError("for mutation deleteDataSourceAssets")
 
     def delete_data_source_tag(self, tag_id: str) -> bool:
-        """Deleted a tag by its ID. Returns true if the tag was successfully deleted.."""
+        """Deleted a tag by its ID. Returns true if the tag was successfully deleted."""
         endpoint = "deleteDataSourceTag"
 
         result = self.service.execute_mutation(
@@ -72,7 +72,7 @@ class TaegisSDKDatasourcesMutation:
         raise GraphQLNoRowsInResultSetError("for mutation deleteDataSourceTag")
 
     def detach_data_source_tag(self, input_: DataSourceTagOperationInput) -> List[str]:
-        """Detaches an existing tag from datasource(s). Returns the assetIDs that were detached from the tag.."""
+        """Detaches an existing tag from datasource(s). Returns the assetIDs that were detached from the tag."""
         endpoint = "detachDataSourceTag"
 
         result = self.service.execute_mutation(
@@ -88,7 +88,7 @@ class TaegisSDKDatasourcesMutation:
 
     def create_data_source_tag(self, input_: CreateDataSourceTagInput) -> DataSourceTag:
         """Creates a new tag and associates it with existing datasource(s). Returns the created tag. This API
-        allows a maximum of 100 tags to be created for a given tenant.."""
+        allows a maximum of 100 tags to be created for a given tenant."""
         endpoint = "createDataSourceTag"
 
         result = self.service.execute_mutation(
@@ -107,7 +107,7 @@ class TaegisSDKDatasourcesMutation:
 
     def attach_data_source_tag(self, input_: DataSourceTagOperationInput) -> List[str]:
         """Attaches or associates an existing tag to datasource(s). Returns the assetIDs attached to the tag.
-        A maximum of 100 assetIDs can be associated in a single operation. A single asset can have up to 16 tags attached to it..
+        A maximum of 100 assetIDs can be associated in a single operation. A single asset can have up to 16 tags attached to it.
         """
         endpoint = "attachDataSourceTag"
 

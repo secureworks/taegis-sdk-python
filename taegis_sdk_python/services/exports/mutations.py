@@ -33,7 +33,7 @@ class TaegisSDKExportsMutation:
         self.service = service
 
     def new_export(self, input_: NewExportInput) -> Export:
-        """None."""
+        """No developer notes."""
         endpoint = "newExport"
 
         log.warning(
@@ -54,7 +54,7 @@ class TaegisSDKExportsMutation:
         raise GraphQLNoRowsInResultSetError("for mutation newExport")
 
     def cancel_export(self, input_: str) -> Export:
-        """None."""
+        """No developer notes."""
         endpoint = "cancelExport"
 
         log.warning(
@@ -75,7 +75,7 @@ class TaegisSDKExportsMutation:
         raise GraphQLNoRowsInResultSetError("for mutation cancelExport")
 
     def delete_export(self, id_: str) -> Export:
-        """None."""
+        """No developer notes."""
         endpoint = "deleteExport"
 
         log.warning(
@@ -96,7 +96,7 @@ class TaegisSDKExportsMutation:
         raise GraphQLNoRowsInResultSetError("for mutation deleteExport")
 
     def retry_export(self, id_: str) -> Export:
-        """None."""
+        """No developer notes."""
         endpoint = "retryExport"
 
         log.warning(
@@ -117,7 +117,7 @@ class TaegisSDKExportsMutation:
         raise GraphQLNoRowsInResultSetError("for mutation retryExport")
 
     def schedule_report(self, input_: NewScheduleInput) -> Schedule:
-        """None."""
+        """No developer notes."""
         endpoint = "scheduleReport"
 
         result = self.service.execute_mutation(
@@ -135,7 +135,7 @@ class TaegisSDKExportsMutation:
         raise GraphQLNoRowsInResultSetError("for mutation scheduleReport")
 
     def delete_schedule(self, id_: str) -> Schedule:
-        """None."""
+        """No developer notes."""
         endpoint = "deleteSchedule"
 
         result = self.service.execute_mutation(
@@ -153,7 +153,7 @@ class TaegisSDKExportsMutation:
         raise GraphQLNoRowsInResultSetError("for mutation deleteSchedule")
 
     def edit_schedule(self, edits: ScheduleEditInput) -> Schedule:
-        """None."""
+        """No developer notes."""
         endpoint = "editSchedule"
 
         result = self.service.execute_mutation(
@@ -177,7 +177,7 @@ class TaegisSDKExportsMutation:
         manual_run: Optional[bool] = None,
         timeframe: Optional[ReportTimeframeInput] = None,
     ) -> Report:
-        """None."""
+        """No developer notes."""
         endpoint = "reportFromSchedule"
 
         result = self.service.execute_mutation(
@@ -197,7 +197,7 @@ class TaegisSDKExportsMutation:
         raise GraphQLNoRowsInResultSetError("for mutation reportFromSchedule")
 
     def attach_export_to_report(self, id_: str, export_id: str) -> Report:
-        """None."""
+        """No developer notes."""
         endpoint = "attachExportToReport"
 
         result = self.service.execute_mutation(
@@ -215,7 +215,7 @@ class TaegisSDKExportsMutation:
         raise GraphQLNoRowsInResultSetError("for mutation attachExportToReport")
 
     def retry_report(self, id_: str) -> Report:
-        """None."""
+        """No developer notes."""
         endpoint = "retryReport"
 
         result = self.service.execute_mutation(
@@ -232,7 +232,7 @@ class TaegisSDKExportsMutation:
         raise GraphQLNoRowsInResultSetError("for mutation retryReport")
 
     def archive_report(self, id_: str) -> Report:
-        """None."""
+        """No developer notes."""
         endpoint = "archiveReport"
 
         result = self.service.execute_mutation(
@@ -249,7 +249,7 @@ class TaegisSDKExportsMutation:
         raise GraphQLNoRowsInResultSetError("for mutation archiveReport")
 
     def unarchive_report(self, id_: str) -> Report:
-        """None."""
+        """No developer notes."""
         endpoint = "unarchiveReport"
 
         result = self.service.execute_mutation(
@@ -266,7 +266,7 @@ class TaegisSDKExportsMutation:
         raise GraphQLNoRowsInResultSetError("for mutation unarchiveReport")
 
     def delete_report(self, id_: str) -> Report:
-        """None."""
+        """No developer notes."""
         endpoint = "deleteReport"
 
         result = self.service.execute_mutation(
@@ -283,7 +283,7 @@ class TaegisSDKExportsMutation:
         raise GraphQLNoRowsInResultSetError("for mutation deleteReport")
 
     def delete_reports(self, report_ids: List[str]) -> List[Report]:
-        """None."""
+        """No developer notes."""
         endpoint = "deleteReports"
 
         result = self.service.execute_mutation(
@@ -302,7 +302,7 @@ class TaegisSDKExportsMutation:
         raise GraphQLNoRowsInResultSetError("for mutation deleteReports")
 
     def pause_schedule(self, schedule_id: str) -> Schedule:
-        """None."""
+        """No developer notes."""
         endpoint = "pauseSchedule"
 
         result = self.service.execute_mutation(
@@ -320,7 +320,7 @@ class TaegisSDKExportsMutation:
         raise GraphQLNoRowsInResultSetError("for mutation pauseSchedule")
 
     def resume_schedule(self, schedule_id: str) -> Schedule:
-        """None."""
+        """No developer notes."""
         endpoint = "resumeSchedule"
 
         result = self.service.execute_mutation(
@@ -340,7 +340,7 @@ class TaegisSDKExportsMutation:
     def create_exports_zip(
         self, name: str, exports_input: List[NewExportInput]
     ) -> Export:
-        """None."""
+        """No developer notes."""
         endpoint = "createExportsZip"
 
         result = self.service.execute_mutation(
@@ -360,7 +360,7 @@ class TaegisSDKExportsMutation:
     def manually_run_report_from_schedule(
         self, input_: NewReportFromSchedule
     ) -> Report:
-        """None."""
+        """No developer notes."""
         endpoint = "manuallyRunReportFromSchedule"
 
         result = self.service.execute_mutation(
@@ -379,7 +379,7 @@ class TaegisSDKExportsMutation:
         )
 
     def attach_export_to_report_v2(self, input_: AttachExportToReportInput) -> Report:
-        """None."""
+        """No developer notes."""
         endpoint = "attachExportToReportV2"
 
         result = self.service.execute_mutation(
@@ -396,7 +396,7 @@ class TaegisSDKExportsMutation:
         raise GraphQLNoRowsInResultSetError("for mutation attachExportToReportV2")
 
     def unsubscribe(self, schedule_id: str) -> Unsubscription:
-        """None."""
+        """No developer notes."""
         endpoint = "unsubscribe"
 
         result = self.service.execute_mutation(
@@ -414,7 +414,7 @@ class TaegisSDKExportsMutation:
         raise GraphQLNoRowsInResultSetError("for mutation unsubscribe")
 
     def resubscribe(self, schedule_id: str) -> Schedule:
-        """None."""
+        """No developer notes."""
         endpoint = "resubscribe"
 
         result = self.service.execute_mutation(
@@ -432,7 +432,7 @@ class TaegisSDKExportsMutation:
         raise GraphQLNoRowsInResultSetError("for mutation resubscribe")
 
     def share_with_users(self, schedule_id: str, user_ids: List[str]) -> Schedule:
-        """None."""
+        """No developer notes."""
         endpoint = "shareWithUsers"
 
         result = self.service.execute_mutation(
@@ -451,7 +451,7 @@ class TaegisSDKExportsMutation:
         raise GraphQLNoRowsInResultSetError("for mutation shareWithUsers")
 
     def unshare_with_users(self, schedule_id: str, user_ids: List[str]) -> Schedule:
-        """None."""
+        """No developer notes."""
         endpoint = "unshareWithUsers"
 
         result = self.service.execute_mutation(

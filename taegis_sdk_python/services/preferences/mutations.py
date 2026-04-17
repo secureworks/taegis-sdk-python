@@ -35,7 +35,7 @@ class TaegisSDKPreferencesMutation:
     def create_user_preference(
         self, new_user_preference: Optional[NewUserPreferenceInput] = None
     ) -> UserPreference:
-        """None."""
+        """No developer notes."""
         endpoint = "createUserPreference"
 
         result = self.service.execute_mutation(
@@ -55,7 +55,7 @@ class TaegisSDKPreferencesMutation:
     def update_user_preference(
         self, updated_user_preference: Optional[UpdateUserPreferenceInput] = None
     ) -> UserPreference:
-        """None."""
+        """No developer notes."""
         endpoint = "updateUserPreference"
 
         result = self.service.execute_mutation(
@@ -73,7 +73,7 @@ class TaegisSDKPreferencesMutation:
         raise GraphQLNoRowsInResultSetError("for mutation updateUserPreference")
 
     def reset_user_preferences(self) -> List[UserPreference]:
-        """None."""
+        """No developer notes."""
         endpoint = "resetUserPreferences"
 
         result = self.service.execute_mutation(
@@ -93,7 +93,7 @@ class TaegisSDKPreferencesMutation:
     def create_tenant_preference(
         self, new_tenant_preference: Optional[NewTenantPreferenceInput] = None
     ) -> TenantPreference:
-        """None."""
+        """No developer notes."""
         endpoint = "createTenantPreference"
 
         result = self.service.execute_mutation(
@@ -113,7 +113,7 @@ class TaegisSDKPreferencesMutation:
     def update_tenant_preference(
         self, updated_tenant_preference: Optional[UpdateTenantPreferenceInput] = None
     ) -> TenantPreference:
-        """None."""
+        """No developer notes."""
         endpoint = "updateTenantPreference"
 
         result = self.service.execute_mutation(
@@ -131,7 +131,7 @@ class TaegisSDKPreferencesMutation:
         raise GraphQLNoRowsInResultSetError("for mutation updateTenantPreference")
 
     def delete_tenant_preference(self, key: str) -> TenantPreference:
-        """None."""
+        """No developer notes."""
         endpoint = "deleteTenantPreference"
 
         result = self.service.execute_mutation(
@@ -151,7 +151,7 @@ class TaegisSDKPreferencesMutation:
     def save_ticketing_settings(
         self, ticketing_settings_input: TicketingSettingsInput
     ) -> TicketingSettings:
-        """None."""
+        """No developer notes."""
         endpoint = "saveTicketingSettings"
 
         result = self.service.execute_mutation(
@@ -171,7 +171,7 @@ class TaegisSDKPreferencesMutation:
     def save_partner_preferences(
         self, partner_preference_input: PartnerPreferenceInput
     ) -> PartnerPreference:
-        """None."""
+        """No developer notes."""
         endpoint = "savePartnerPreferences"
 
         result = self.service.execute_mutation(
@@ -191,7 +191,7 @@ class TaegisSDKPreferencesMutation:
     def set_user_preferences(
         self, user_preference_input: UserPreferenceInput
     ) -> UserPreferenceDictionary:
-        """None."""
+        """No developer notes."""
         endpoint = "setUserPreferences"
 
         result = self.service.execute_mutation(
@@ -211,7 +211,7 @@ class TaegisSDKPreferencesMutation:
     def unset_user_preferences(
         self, unset_preference_selector: Optional[UnsetPreferenceSelector] = None
     ) -> UserPreferenceDictionary:
-        """None."""
+        """No developer notes."""
         endpoint = "unsetUserPreferences"
 
         result = self.service.execute_mutation(
@@ -232,7 +232,7 @@ class TaegisSDKPreferencesMutation:
         self,
         update_user_notification_preference_input: UpdateUserNotificationPreferenceInput,
     ) -> UserNotificationPreferencesResponse:
-        """None."""
+        """No developer notes."""
         endpoint = "updateUserNotificationPreference"
 
         result = self.service.execute_mutation(

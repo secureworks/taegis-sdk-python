@@ -33,7 +33,7 @@ class TaegisSDKThreatMutation:
         self.service = service
 
     def indicator(self, id_: str) -> ThreatIndicator:
-        """None."""
+        """No developer notes."""
         endpoint = "indicator"
 
         result = self.service.execute_mutation(

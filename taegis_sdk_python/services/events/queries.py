@@ -35,7 +35,7 @@ class TaegisSDKEventsQuery:
     def events(
         self, ids: List[str], options: Optional[EventFetchOptions] = None
     ) -> List[Event]:
-        """Resolve events by their ID. Accepts options for crafting events.."""
+        """Resolve events by their ID. Accepts options for crafting events."""
         endpoint = "events"
 
         result = self.service.execute_query(
@@ -55,7 +55,7 @@ class TaegisSDKEventsQuery:
         raise GraphQLNoRowsInResultSetError("for query events")
 
     def event_query(self, id_: str) -> EventQuery:
-        """Return the query's status. Query IDs are included in EventQueryResult.."""
+        """Return the query's status. Query IDs are included in EventQueryResult."""
         endpoint = "eventQuery"
 
         result = self.service.execute_query(

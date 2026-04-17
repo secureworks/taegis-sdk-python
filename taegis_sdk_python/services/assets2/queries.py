@@ -35,7 +35,7 @@ class TaegisSDKAssets2Query:
     def facets_v2(
         self, endpoint_type: Optional[List[Union[EndpointTypeV2, TaegisEnum]]] = None
     ) -> List[FacetV2]:
-        """Retrieve a list of facets for a given endpoint type.."""
+        """Retrieve a list of facets for a given endpoint type."""
         endpoint = "facetsV2"
 
         result = self.service.execute_query(
@@ -60,7 +60,7 @@ class TaegisSDKAssets2Query:
         order_by: Optional[Union[FacetInfoOrderByInputV2, TaegisEnum]] = None,
         filter_: Optional[AssetFilter] = None,
     ) -> List[FacetInfoV2]:
-        """Get facet info based on a currently selected facet.."""
+        """Get facet info based on a currently selected facet."""
         endpoint = "facetInfoV2"
 
         result = self.service.execute_query(
@@ -90,7 +90,7 @@ class TaegisSDKAssets2Query:
         filter_: Optional[AssetFilter] = None,
         order_by: Optional[Union[AssetSearchOrderByInputV2, TaegisEnum]] = None,
     ) -> AssetsV2:
-        """Retrieve assets.."""
+        """Retrieve assets."""
         endpoint = "assetsV2"
 
         result = self.service.execute_query(
@@ -119,7 +119,7 @@ class TaegisSDKAssets2Query:
         filter_: Optional[AssetFilter] = None,
         order_by: Optional[Union[AssetSearchOrderByInputV2, TaegisEnum]] = None,
     ) -> AssetsExportOutputV2:
-        """Retrieve assets in a form coercible into CSV files.."""
+        """Retrieve assets in a form coercible into CSV files."""
         endpoint = "exportAssetsV2"
 
         result = self.service.execute_query(
@@ -140,7 +140,7 @@ class TaegisSDKAssets2Query:
         raise GraphQLNoRowsInResultSetError("for query exportAssetsV2")
 
     def tag_keys_v2(self, filter_: Optional[TagFilter] = None) -> List[str]:
-        """Fetch the tag keys matching the filter criteria.."""
+        """Fetch the tag keys matching the filter criteria."""
         endpoint = "tagKeysV2"
 
         result = self.service.execute_query(
@@ -155,7 +155,7 @@ class TaegisSDKAssets2Query:
         raise GraphQLNoRowsInResultSetError("for query tagKeysV2")
 
     def tag_values_v2(self, filter_: Optional[TagFilter] = None) -> List[str]:
-        """Fetch the tag values matching the filter criteria.."""
+        """Fetch the tag values matching the filter criteria."""
         endpoint = "tagValuesV2"
 
         result = self.service.execute_query(
@@ -170,7 +170,7 @@ class TaegisSDKAssets2Query:
         raise GraphQLNoRowsInResultSetError("for query tagValuesV2")
 
     def update_tags_for_endpoint_status_v2(self, id_: str) -> TaskInfoPayload:
-        """Return the status of the updateTagsForEndpointV2 operation.."""
+        """Return the status of the updateTagsForEndpointV2 operation."""
         endpoint = "updateTagsForEndpointStatusV2"
 
         result = self.service.execute_query(
@@ -188,7 +188,7 @@ class TaegisSDKAssets2Query:
         raise GraphQLNoRowsInResultSetError("for query updateTagsForEndpointStatusV2")
 
     def delete_assets_status_v2(self, id_: str) -> TaskInfoPayload:
-        """Return the status of the deleteAssetsV2 operation.."""
+        """Return the status of the deleteAssetsV2 operation."""
         endpoint = "deleteAssetsStatusV2"
 
         result = self.service.execute_query(
@@ -206,7 +206,7 @@ class TaegisSDKAssets2Query:
         raise GraphQLNoRowsInResultSetError("for query deleteAssetsStatusV2")
 
     def restore_assets_status_v2(self, id_: str) -> TaskInfoPayload:
-        """Return the status of the restoreAssetsV2 operation.."""
+        """Return the status of the restoreAssetsV2 operation."""
         endpoint = "restoreAssetsStatusV2"
 
         result = self.service.execute_query(
@@ -224,7 +224,7 @@ class TaegisSDKAssets2Query:
         raise GraphQLNoRowsInResultSetError("for query restoreAssetsStatusV2")
 
     def assign_bulk_assets_to_group_status(self, id_: str) -> TaskInfoPayload:
-        """Return the status of the assignBulkAssetsToGroup operation.."""
+        """Return the status of the assignBulkAssetsToGroup operation."""
         endpoint = "assignBulkAssetsToGroupStatus"
 
         result = self.service.execute_query(
@@ -242,7 +242,7 @@ class TaegisSDKAssets2Query:
         raise GraphQLNoRowsInResultSetError("for query assignBulkAssetsToGroupStatus")
 
     def bulk_update_tags_for_endpoints_status_v2(self, id_: str) -> TaskInfoPayload:
-        """Return the status of the bulkUpdateTagsForEndpointsV2 operation.."""
+        """Return the status of the bulkUpdateTagsForEndpointsV2 operation."""
         endpoint = "bulkUpdateTagsForEndpointsStatusV2"
 
         result = self.service.execute_query(
@@ -262,7 +262,7 @@ class TaegisSDKAssets2Query:
         )
 
     def bulk_delete_tags_for_endpoints_status_v2(self, id_: str) -> TaskInfoPayload:
-        """Return the status of the bulkDeleteTagsForEndpointsV2 operation.."""
+        """Return the status of the bulkDeleteTagsForEndpointsV2 operation."""
         endpoint = "bulkDeleteTagsForEndpointsStatusV2"
 
         result = self.service.execute_query(
@@ -282,7 +282,7 @@ class TaegisSDKAssets2Query:
         )
 
     def bulk_reconnect_native_assets_status(self, id_: str) -> TaskInfoPayload:
-        """Return the status of the bulkReconnectNativeAssets operation.."""
+        """Return the status of the bulkReconnectNativeAssets operation."""
         endpoint = "bulkReconnectNativeAssetsStatus"
 
         result = self.service.execute_query(
@@ -300,7 +300,7 @@ class TaegisSDKAssets2Query:
         raise GraphQLNoRowsInResultSetError("for query bulkReconnectNativeAssetsStatus")
 
     def bulk_uninstall_native_assets_status(self, id_: str) -> TaskInfoPayload:
-        """Return the status of the bulkUninstallNativeAssets operation.."""
+        """Return the status of the bulkUninstallNativeAssets operation."""
         endpoint = "bulkUninstallNativeAssetsStatus"
 
         result = self.service.execute_query(
@@ -317,10 +317,28 @@ class TaegisSDKAssets2Query:
             return TaskInfoPayload.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for query bulkUninstallNativeAssetsStatus")
 
+    def bulk_reconnect_by_scope_status(self, id_: str) -> TaskInfoPayload:
+        """Return the status of the bulkReconnectByScope operation."""
+        endpoint = "bulkReconnectByScopeStatus"
+
+        result = self.service.execute_query(
+            endpoint=endpoint,
+            variables={
+                "id": prepare_input(id_),
+            },
+            output=build_output_string(
+                TaskInfoPayload,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
+        )
+        if result.get(endpoint) is not None:
+            return TaskInfoPayload.from_dict(result.get(endpoint))
+        raise GraphQLNoRowsInResultSetError("for query bulkReconnectByScopeStatus")
+
     def asset_dead_period(self) -> str:
         """Return the tenant's asset dead period threshold used by the api. The value
         from the tenants preference api is used if present, otherwise the default of
-        720h (30 days) is used.."""
+        720h (30 days) is used."""
         endpoint = "assetDeadPeriod"
 
         result = self.service.execute_query(endpoint=endpoint, variables={}, output="")

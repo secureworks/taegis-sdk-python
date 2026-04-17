@@ -33,7 +33,7 @@ class TaegisSDKEventsMutation:
         self.service = service
 
     def delete_event_query(self, id_: str) -> bool:
-        """Remove the query from the cached query catalog.."""
+        """Remove the query from the cached query catalog."""
         endpoint = "deleteEventQuery"
 
         result = self.service.execute_mutation(

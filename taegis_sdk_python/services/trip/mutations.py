@@ -35,7 +35,7 @@ class TaegisSDKTripMutation:
     def create_api_integration(
         self, product_id: int, name: str, parameters: List[ApiIntegrationParameterInput]
     ) -> ApiIntegration:
-        """None."""
+        """No developer notes."""
         endpoint = "createApiIntegration"
 
         result = self.service.execute_mutation(
@@ -60,7 +60,7 @@ class TaegisSDKTripMutation:
         name: str,
         parameters: List[ApiIntegrationParameterInput],
     ) -> ApiIntegration:
-        """None."""
+        """No developer notes."""
         endpoint = "updateApiIntegration"
 
         result = self.service.execute_mutation(
@@ -80,7 +80,7 @@ class TaegisSDKTripMutation:
         raise GraphQLNoRowsInResultSetError("for mutation updateApiIntegration")
 
     def delete_api_integration(self, id_: int) -> List[ApiIntegrationSummary]:
-        """None."""
+        """No developer notes."""
         endpoint = "deleteApiIntegration"
 
         result = self.service.execute_mutation(
@@ -100,7 +100,7 @@ class TaegisSDKTripMutation:
         raise GraphQLNoRowsInResultSetError("for mutation deleteApiIntegration")
 
     def pause_api_integration(self, id_: int) -> ApiIntegrationUpdateResponse:
-        """None."""
+        """No developer notes."""
         endpoint = "pauseApiIntegration"
 
         result = self.service.execute_mutation(
@@ -118,7 +118,7 @@ class TaegisSDKTripMutation:
         raise GraphQLNoRowsInResultSetError("for mutation pauseApiIntegration")
 
     def resume_api_integration(self, id_: int) -> ApiIntegrationUpdateResponse:
-        """None."""
+        """No developer notes."""
         endpoint = "resumeApiIntegration"
 
         result = self.service.execute_mutation(

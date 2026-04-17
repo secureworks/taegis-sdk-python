@@ -35,7 +35,7 @@ class TaegisSDKMitreAttackInfoQuery:
     def get_mitre_attack_info_by_technique_name(
         self, in_: Optional[str] = None
     ) -> List[MitreAttackInformation]:
-        """None."""
+        """No developer notes."""
         endpoint = "getMitreAttackInfoByTechniqueName"
 
         result = self.service.execute_query(
@@ -59,7 +59,7 @@ class TaegisSDKMitreAttackInfoQuery:
     def get_mitre_attack_info_by_technique_names(
         self, in_: Optional[Ids] = None
     ) -> List[MitreAttackInformation]:
-        """None."""
+        """No developer notes."""
         endpoint = "getMitreAttackInfoByTechniqueNames"
 
         result = self.service.execute_query(
@@ -83,7 +83,7 @@ class TaegisSDKMitreAttackInfoQuery:
     def get_mitre_attack_info_by_technique_id(
         self, in_: Optional[str] = None
     ) -> List[MitreAttackInformation]:
-        """None."""
+        """No developer notes."""
         endpoint = "getMitreAttackInfoByTechniqueId"
 
         result = self.service.execute_query(
@@ -105,7 +105,7 @@ class TaegisSDKMitreAttackInfoQuery:
     def get_mitre_attack_info_by_technique_ids(
         self, in_: Optional[Ids] = None
     ) -> List[MitreAttackInformation]:
-        """None."""
+        """No developer notes."""
         endpoint = "getMitreAttackInfoByTechniqueIds"
 
         result = self.service.execute_query(
@@ -129,7 +129,7 @@ class TaegisSDKMitreAttackInfoQuery:
     def get_mitre_attack_info_by_data_source(
         self, in_: Optional[str] = None
     ) -> List[MitreAttackInformation]:
-        """None."""
+        """No developer notes."""
         endpoint = "getMitreAttackInfoByDataSource"
 
         result = self.service.execute_query(
@@ -151,7 +151,7 @@ class TaegisSDKMitreAttackInfoQuery:
     def get_mitre_attack_info_by_data_sources(
         self, in_: Optional[Ids] = None
     ) -> List[MitreAttackInformation]:
-        """None."""
+        """No developer notes."""
         endpoint = "getMitreAttackInfoByDataSources"
 
         result = self.service.execute_query(
@@ -173,7 +173,7 @@ class TaegisSDKMitreAttackInfoQuery:
     def get_mitre_attack_info_by_type(
         self, in_: Optional[str] = None
     ) -> List[MitreAttackInformation]:
-        """None."""
+        """No developer notes."""
         endpoint = "getMitreAttackInfoByType"
 
         result = self.service.execute_query(
@@ -195,7 +195,7 @@ class TaegisSDKMitreAttackInfoQuery:
     def get_mitre_attack_info_by_types(
         self, in_: Optional[Ids] = None
     ) -> List[MitreAttackInformation]:
-        """None."""
+        """No developer notes."""
         endpoint = "getMitreAttackInfoByTypes"
 
         result = self.service.execute_query(
@@ -217,7 +217,7 @@ class TaegisSDKMitreAttackInfoQuery:
     def get_mitre_attack_info_by_contributor(
         self, in_: Optional[str] = None
     ) -> List[MitreAttackInformation]:
-        """None."""
+        """No developer notes."""
         endpoint = "getMitreAttackInfoByContributor"
 
         result = self.service.execute_query(
@@ -239,7 +239,7 @@ class TaegisSDKMitreAttackInfoQuery:
     def get_mitre_attack_info_by_contributors(
         self, in_: Optional[Ids] = None
     ) -> List[MitreAttackInformation]:
-        """None."""
+        """No developer notes."""
         endpoint = "getMitreAttackInfoByContributors"
 
         result = self.service.execute_query(
@@ -261,7 +261,7 @@ class TaegisSDKMitreAttackInfoQuery:
         )
 
     def get_all_mitre_attack_info(self) -> List[MitreAttackInformation]:
-        """None."""
+        """No developer notes."""
         endpoint = "getAllMitreAttackInfo"
 
         result = self.service.execute_query(
@@ -281,7 +281,7 @@ class TaegisSDKMitreAttackInfoQuery:
     def search_mitre_info_by_regex_pattern(
         self, in_: Optional[SearchMitreAttackInput] = None
     ) -> List[MitreAttackInformation]:
-        """None."""
+        """No developer notes."""
         endpoint = "searchMitreInfoByRegexPattern"
 
         result = self.service.execute_query(

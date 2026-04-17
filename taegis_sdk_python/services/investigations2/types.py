@@ -15,6 +15,13 @@ from taegis_sdk_python._consts import TaegisEnum
 from taegis_sdk_python.utils import decode_enum, encode_enum, parse_union_result
 
 
+class DocumentType(str, Enum):
+    """DocumentType."""
+
+    MARKDOWN = "MARKDOWN"
+    RICH_TEXT = "RICH_TEXT"
+
+
 class CaseRuleState(str, Enum):
     """CaseRuleState."""
 
@@ -178,6 +185,16 @@ class CommentVisibilityFilter(str, Enum):
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
+class CasesAggregation:
+    """CasesAggregation."""
+
+    aggregation: Optional[List[dict]] = field(
+        default=None, metadata=config(field_name="aggregation")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
 class CaseLink:
     """CaseLink."""
 
@@ -223,6 +240,9 @@ class AddEvidenceToCaseResult:
     )
     search_queries: Optional[List[str]] = field(
         default=None, metadata=config(field_name="searchQueries")
+    )
+    host_ids: Optional[List[str]] = field(
+        default=None, metadata=config(field_name="hostIds")
     )
 
 
@@ -369,6 +389,9 @@ class CaseSecondaryStatus:
     )
     updated_at: Optional[str] = field(
         default=None, metadata=config(field_name="updatedAt")
+    )
+    allowed_substatus_reasons: Optional[List[str]] = field(
+        default=None, metadata=config(field_name="allowedSubstatusReasons")
     )
 
 
@@ -733,6 +756,14 @@ class InvestigationFileMeta:
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
+class CasesAggregationArguments:
+    """CasesAggregationArguments."""
+
+    query: Optional[str] = field(default=None, metadata=config(field_name="query"))
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
 class AddEvidenceToCaseInput:
     """AddEvidenceToCaseInput."""
 
@@ -748,6 +779,9 @@ class AddEvidenceToCaseInput:
     )
     search_queries: Optional[List[str]] = field(
         default=None, metadata=config(field_name="searchQueries")
+    )
+    host_ids: Optional[List[str]] = field(
+        default=None, metadata=config(field_name="hostIds")
     )
 
 
@@ -902,6 +936,30 @@ class CasePrimaryStatusesArguments:
     """CasePrimaryStatusesArguments."""
 
     type_id: Optional[str] = field(default=None, metadata=config(field_name="typeId"))
+    transition_from_id: Optional[str] = field(
+        default=None, metadata=config(field_name="transitionFromId")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class CasePrimaryVerdictsArguments:
+    """CasePrimaryVerdictsArguments."""
+
+    type_id: Optional[str] = field(default=None, metadata=config(field_name="typeId"))
+    primary_status_id: Optional[str] = field(
+        default=None, metadata=config(field_name="primaryStatusId")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class CaseSecondaryVerdictsArguments:
+    """CaseSecondaryVerdictsArguments."""
+
+    primary_verdict_id: Optional[str] = field(
+        default=None, metadata=config(field_name="primaryVerdictId")
+    )
 
 
 @dataclass_json
@@ -920,7 +978,19 @@ class CaseSecondaryStatusesArguments:
 class CaseTypesArguments:
     """CaseTypesArguments."""
 
-    noop: Optional[str] = field(default=None, metadata=config(field_name="noop"))
+    transition_from_id: Optional[str] = field(
+        default=None, metadata=config(field_name="transitionFromId")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class CaseSourcesArguments:
+    """CaseSourcesArguments."""
+
+    transition_from_id: Optional[str] = field(
+        default=None, metadata=config(field_name="transitionFromId")
+    )
 
 
 @dataclass_json
@@ -1282,6 +1352,56 @@ class DeleteInvestigationFileInput:
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
+class KeyFindingsDocument:
+    """KeyFindingsDocument."""
+
+    document_version: Optional[str] = field(
+        default=None, metadata=config(field_name="documentVersion")
+    )
+    content: Optional[str] = field(default=None, metadata=config(field_name="content"))
+    document_type: Optional[Union[DocumentType, TaegisEnum]] = field(
+        default=None,
+        metadata=config(
+            encoder=encode_enum,
+            decoder=lambda x: decode_enum(DocumentType, x),
+            field_name="documentType",
+        ),
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class KeyFindingsTemplate:
+    """KeyFindingsTemplate."""
+
+    document_version: Optional[str] = field(
+        default=None, metadata=config(field_name="documentVersion")
+    )
+    content_template: Optional[str] = field(
+        default=None, metadata=config(field_name="contentTemplate")
+    )
+    document_type: Optional[Union[DocumentType, TaegisEnum]] = field(
+        default=None,
+        metadata=config(
+            encoder=encode_enum,
+            decoder=lambda x: decode_enum(DocumentType, x),
+            field_name="documentType",
+        ),
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class CaseSecondaryVerdicts:
+    """CaseSecondaryVerdicts."""
+
+    secondary_verdicts: Optional[List[CaseSecondaryVerdict]] = field(
+        default=None, metadata=config(field_name="secondaryVerdicts")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
 class CaseSecondaryStatuses:
     """CaseSecondaryStatuses."""
 
@@ -1316,8 +1436,43 @@ class CasePrimaryStatus:
     updated_at: Optional[str] = field(
         default=None, metadata=config(field_name="updatedAt")
     )
+    is_case_visible_to_customers: Optional[bool] = field(
+        default=None, metadata=config(field_name="isCaseVisibleToCustomers")
+    )
+    is_closed: Optional[bool] = field(
+        default=None, metadata=config(field_name="isClosed")
+    )
     supported_secondary_statuses: Optional[List[CaseSecondaryStatus]] = field(
         default=None, metadata=config(field_name="supportedSecondaryStatuses")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class CaseSource:
+    """CaseSource."""
+
+    id: Optional[str] = field(default=None, metadata=config(field_name="id"))
+    name: Optional[str] = field(default=None, metadata=config(field_name="name"))
+    title: Optional[str] = field(default=None, metadata=config(field_name="title"))
+    description: Optional[str] = field(
+        default=None, metadata=config(field_name="description")
+    )
+    tenant_id: Optional[str] = field(
+        default=None, metadata=config(field_name="tenantId")
+    )
+    allowed_next_sources: Optional[List["CaseSource"]] = field(
+        default=None, metadata=config(field_name="allowedNextSources")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class CaseSources:
+    """CaseSources."""
+
+    sources: Optional[List[CaseSource]] = field(
+        default=None, metadata=config(field_name="sources")
     )
 
 
@@ -1461,161 +1616,80 @@ class InvestigationV2Status:
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
-class CreateCaseInput:
-    """CreateCaseInput."""
+class CreateKeyFindingsDocumentInput:
+    """CreateKeyFindingsDocumentInput."""
 
-    type_id: Optional[str] = field(default=None, metadata=config(field_name="typeId"))
-    severity: Optional[int] = field(
-        default=None, metadata=config(field_name="severity")
+    document_version: Optional[str] = field(
+        default=None, metadata=config(field_name="documentVersion")
     )
-    title: Optional[str] = field(default=None, metadata=config(field_name="title"))
-    tags: Optional[List[str]] = field(default=None, metadata=config(field_name="tags"))
-    key_findings: Optional[str] = field(
-        default=None, metadata=config(field_name="keyFindings")
-    )
-    primary_status_id: Optional[str] = field(
-        default=None, metadata=config(field_name="primaryStatusId")
-    )
-    secondary_status_id: Optional[str] = field(
-        default=None, metadata=config(field_name="secondaryStatusId")
-    )
-    primary_verdict_id: Optional[str] = field(
-        default=None, metadata=config(field_name="primaryVerdictId")
-    )
-    secondary_verdict_id: Optional[str] = field(
-        default=None, metadata=config(field_name="secondaryVerdictId")
-    )
-    assignee_id: Optional[str] = field(
-        default=None, metadata=config(field_name="assigneeId")
-    )
-    detection_ids: Optional[List[str]] = field(
-        default=None, metadata=config(field_name="detectionIds")
-    )
-    detections_search_query: Optional[str] = field(
-        default=None, metadata=config(field_name="detectionsSearchQuery")
-    )
-    event_ids: Optional[List[str]] = field(
-        default=None, metadata=config(field_name="eventIds")
-    )
-    search_queries: Optional[List[str]] = field(
-        default=None, metadata=config(field_name="searchQueries")
-    )
-    incident_advisor: Optional[str] = field(
-        default=None, metadata=config(field_name="incidentAdvisor")
-    )
-    rule_id: Optional[str] = field(default=None, metadata=config(field_name="ruleId"))
-    template_id: Optional[str] = field(
-        default=None, metadata=config(field_name="templateId")
-    )
-    managed_by: Optional[Union[CaseManagedBy, TaegisEnum]] = field(
+    content: Optional[str] = field(default=None, metadata=config(field_name="content"))
+    document_type: Optional[Union[DocumentType, TaegisEnum]] = field(
         default=None,
         metadata=config(
             encoder=encode_enum,
-            decoder=lambda x: decode_enum(CaseManagedBy, x),
-            field_name="managedBy",
+            decoder=lambda x: decode_enum(DocumentType, x),
+            field_name="documentType",
         ),
     )
 
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
-class UpdateCaseInput:
-    """UpdateCaseInput."""
+class UpdateKeyFindingsDocumentInput:
+    """UpdateKeyFindingsDocumentInput."""
 
-    id: Optional[str] = field(default=None, metadata=config(field_name="id"))
-    type_id: Optional[str] = field(default=None, metadata=config(field_name="typeId"))
-    severity: Optional[int] = field(
-        default=None, metadata=config(field_name="severity")
+    document_version: Optional[str] = field(
+        default=None, metadata=config(field_name="documentVersion")
     )
-    title: Optional[str] = field(default=None, metadata=config(field_name="title"))
-    tags: Optional[List[str]] = field(default=None, metadata=config(field_name="tags"))
-    key_findings: Optional[str] = field(
-        default=None, metadata=config(field_name="keyFindings")
-    )
-    primary_status_id: Optional[str] = field(
-        default=None, metadata=config(field_name="primaryStatusId")
-    )
-    secondary_status_id: Optional[str] = field(
-        default=None, metadata=config(field_name="secondaryStatusId")
-    )
-    primary_verdict_id: Optional[str] = field(
-        default=None, metadata=config(field_name="primaryVerdictId")
-    )
-    secondary_verdict_id: Optional[str] = field(
-        default=None, metadata=config(field_name="secondaryVerdictId")
-    )
-    assignee_id: Optional[str] = field(
-        default=None, metadata=config(field_name="assigneeId")
-    )
-    incident_advisor: Optional[str] = field(
-        default=None, metadata=config(field_name="incidentAdvisor")
-    )
-    close_reason: Optional[str] = field(
-        default=None, metadata=config(field_name="closeReason")
-    )
-    is_archived: Optional[bool] = field(
-        default=None, metadata=config(field_name="isArchived")
-    )
-    managed_by: Optional[Union[CaseManagedBy, TaegisEnum]] = field(
+    content: Optional[str] = field(default=None, metadata=config(field_name="content"))
+    document_type: Optional[Union[DocumentType, TaegisEnum]] = field(
         default=None,
         metadata=config(
             encoder=encode_enum,
-            decoder=lambda x: decode_enum(CaseManagedBy, x),
-            field_name="managedBy",
+            decoder=lambda x: decode_enum(DocumentType, x),
+            field_name="documentType",
         ),
     )
 
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
-class UpdateCaseTemplateInput:
-    """UpdateCaseTemplateInput."""
+class CreateKeyFindingsTemplateInput:
+    """CreateKeyFindingsTemplateInput."""
 
-    id: Optional[str] = field(default=None, metadata=config(field_name="id"))
-    title: Optional[str] = field(default=None, metadata=config(field_name="title"))
-    description: Optional[str] = field(
-        default=None, metadata=config(field_name="description")
+    document_version: Optional[str] = field(
+        default=None, metadata=config(field_name="documentVersion")
     )
-    tags: Optional[List[str]] = field(default=None, metadata=config(field_name="tags"))
-    case_type_id: Optional[str] = field(
-        default=None, metadata=config(field_name="caseTypeId")
+    content_template: Optional[str] = field(
+        default=None, metadata=config(field_name="contentTemplate")
     )
-    case_severity: Optional[int] = field(
-        default=None, metadata=config(field_name="caseSeverity")
-    )
-    case_title: Optional[str] = field(
-        default=None, metadata=config(field_name="caseTitle")
-    )
-    case_tags: Optional[List[str]] = field(
-        default=None, metadata=config(field_name="caseTags")
-    )
-    case_key_findings: Optional[str] = field(
-        default=None, metadata=config(field_name="caseKeyFindings")
-    )
-    case_key_findings_prompts: Optional[List[str]] = field(
-        default=None, metadata=config(field_name="caseKeyFindingsPrompts")
-    )
-    case_assignee: Optional[str] = field(
-        default=None, metadata=config(field_name="caseAssignee")
-    )
-    case_primary_status_id: Optional[str] = field(
-        default=None, metadata=config(field_name="casePrimaryStatusId")
-    )
-    case_secondary_status_id: Optional[str] = field(
-        default=None, metadata=config(field_name="caseSecondaryStatusId")
-    )
-    case_primary_verdict_id: Optional[str] = field(
-        default=None, metadata=config(field_name="casePrimaryVerdictId")
-    )
-    case_secondary_verdict_id: Optional[str] = field(
-        default=None, metadata=config(field_name="caseSecondaryVerdictId")
-    )
-    case_managed_by: Optional[Union[CaseManagedBy, TaegisEnum]] = field(
+    document_type: Optional[Union[DocumentType, TaegisEnum]] = field(
         default=None,
         metadata=config(
             encoder=encode_enum,
-            decoder=lambda x: decode_enum(CaseManagedBy, x),
-            field_name="caseManagedBy",
+            decoder=lambda x: decode_enum(DocumentType, x),
+            field_name="documentType",
+        ),
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class UpdateKeyFindingsTemplateInput:
+    """UpdateKeyFindingsTemplateInput."""
+
+    document_version: Optional[str] = field(
+        default=None, metadata=config(field_name="documentVersion")
+    )
+    content_template: Optional[str] = field(
+        default=None, metadata=config(field_name="contentTemplate")
+    )
+    document_type: Optional[Union[DocumentType, TaegisEnum]] = field(
+        default=None,
+        metadata=config(
+            encoder=encode_enum,
+            decoder=lambda x: decode_enum(DocumentType, x),
+            field_name="documentType",
         ),
     )
 
@@ -1663,8 +1737,8 @@ class UpdateCaseRuleInput:
     skip_detection_prioritization: Optional[bool] = field(
         default=None, metadata=config(field_name="skipDetectionPrioritization")
     )
-    is_central_tenants_only: Optional[bool] = field(
-        default=None, metadata=config(field_name="isCentralTenantsOnly")
+    is_global: Optional[bool] = field(
+        default=None, metadata=config(field_name="isGlobal")
     )
     template_id: Optional[str] = field(
         default=None, metadata=config(field_name="templateId")
@@ -1720,6 +1794,9 @@ class CreateInvestigationTemplateInput:
     is_shared_with_child_tenants: Optional[bool] = field(
         default=None, metadata=config(field_name="isSharedWithChildTenants")
     )
+    generate_key_findings: Optional[bool] = field(
+        default=None, metadata=config(field_name="generateKeyFindings")
+    )
     usages: Optional[List[Union[TemplateUsage, TaegisEnum]]] = field(
         default=None,
         metadata=config(
@@ -1767,6 +1844,9 @@ class UpdateInvestigationTemplateInput:
     )
     is_shared_with_child_tenants: Optional[bool] = field(
         default=None, metadata=config(field_name="isSharedWithChildTenants")
+    )
+    generate_key_findings: Optional[bool] = field(
+        default=None, metadata=config(field_name="generateKeyFindings")
     )
     usages: Optional[List[Union[TemplateUsage, TaegisEnum]]] = field(
         default=None,
@@ -1873,14 +1953,17 @@ class UpdateInvestigationRuleInput:
     skip_alert_prioritization: Optional[bool] = field(
         default=None, metadata=config(field_name="skipAlertPrioritization")
     )
-    is_central_tenants_only: Optional[bool] = field(
-        default=None, metadata=config(field_name="isCentralTenantsOnly")
+    is_global: Optional[bool] = field(
+        default=None, metadata=config(field_name="isGlobal")
     )
     template_id: Optional[str] = field(
         default=None, metadata=config(field_name="templateId")
     )
     response_data: Optional[dict] = field(
         default=None, metadata=config(field_name="responseData")
+    )
+    is_central_tenants_only: Optional[bool] = field(
+        default=None, metadata=config(field_name="isCentralTenantsOnly")
     )
     state: Optional[Union[InvestigationRuleState, TaegisEnum]] = field(
         default=None,
@@ -1936,10 +2019,132 @@ class BulkSetInvestigationStatusResult:
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
-class CreateCaseTemplateInput:
-    """CreateCaseTemplateInput."""
+class CreateCaseInput:
+    """CreateCaseInput."""
 
-    name: Optional[str] = field(default=None, metadata=config(field_name="name"))
+    type_id: Optional[str] = field(default=None, metadata=config(field_name="typeId"))
+    severity: Optional[int] = field(
+        default=None, metadata=config(field_name="severity")
+    )
+    title: Optional[str] = field(default=None, metadata=config(field_name="title"))
+    tags: Optional[List[str]] = field(default=None, metadata=config(field_name="tags"))
+    primary_status_id: Optional[str] = field(
+        default=None, metadata=config(field_name="primaryStatusId")
+    )
+    secondary_status_id: Optional[str] = field(
+        default=None, metadata=config(field_name="secondaryStatusId")
+    )
+    secondary_status_reason: Optional[List[str]] = field(
+        default=None, metadata=config(field_name="secondaryStatusReason")
+    )
+    primary_verdict_id: Optional[str] = field(
+        default=None, metadata=config(field_name="primaryVerdictId")
+    )
+    secondary_verdict_id: Optional[str] = field(
+        default=None, metadata=config(field_name="secondaryVerdictId")
+    )
+    assignee_id: Optional[str] = field(
+        default=None, metadata=config(field_name="assigneeId")
+    )
+    detection_ids: Optional[List[str]] = field(
+        default=None, metadata=config(field_name="detectionIds")
+    )
+    detections_search_query: Optional[str] = field(
+        default=None, metadata=config(field_name="detectionsSearchQuery")
+    )
+    event_ids: Optional[List[str]] = field(
+        default=None, metadata=config(field_name="eventIds")
+    )
+    search_queries: Optional[List[str]] = field(
+        default=None, metadata=config(field_name="searchQueries")
+    )
+    host_ids: Optional[List[str]] = field(
+        default=None, metadata=config(field_name="hostIds")
+    )
+    incident_advisor: Optional[str] = field(
+        default=None, metadata=config(field_name="incidentAdvisor")
+    )
+    source_id: Optional[str] = field(
+        default=None, metadata=config(field_name="sourceId")
+    )
+    rule_id: Optional[str] = field(default=None, metadata=config(field_name="ruleId"))
+    template_id: Optional[str] = field(
+        default=None, metadata=config(field_name="templateId")
+    )
+    key_findings: Optional[CreateKeyFindingsDocumentInput] = field(
+        default=None, metadata=config(field_name="keyFindings")
+    )
+    managed_by: Optional[Union[CaseManagedBy, TaegisEnum]] = field(
+        default=None,
+        metadata=config(
+            encoder=encode_enum,
+            decoder=lambda x: decode_enum(CaseManagedBy, x),
+            field_name="managedBy",
+        ),
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class UpdateCaseInput:
+    """UpdateCaseInput."""
+
+    id: Optional[str] = field(default=None, metadata=config(field_name="id"))
+    type_id: Optional[str] = field(default=None, metadata=config(field_name="typeId"))
+    severity: Optional[int] = field(
+        default=None, metadata=config(field_name="severity")
+    )
+    title: Optional[str] = field(default=None, metadata=config(field_name="title"))
+    tags: Optional[List[str]] = field(default=None, metadata=config(field_name="tags"))
+    primary_status_id: Optional[str] = field(
+        default=None, metadata=config(field_name="primaryStatusId")
+    )
+    secondary_status_id: Optional[str] = field(
+        default=None, metadata=config(field_name="secondaryStatusId")
+    )
+    secondary_status_reason: Optional[List[str]] = field(
+        default=None, metadata=config(field_name="secondaryStatusReason")
+    )
+    primary_verdict_id: Optional[str] = field(
+        default=None, metadata=config(field_name="primaryVerdictId")
+    )
+    secondary_verdict_id: Optional[str] = field(
+        default=None, metadata=config(field_name="secondaryVerdictId")
+    )
+    assignee_id: Optional[str] = field(
+        default=None, metadata=config(field_name="assigneeId")
+    )
+    incident_advisor: Optional[str] = field(
+        default=None, metadata=config(field_name="incidentAdvisor")
+    )
+    close_reason: Optional[str] = field(
+        default=None, metadata=config(field_name="closeReason")
+    )
+    is_archived: Optional[bool] = field(
+        default=None, metadata=config(field_name="isArchived")
+    )
+    source_id: Optional[str] = field(
+        default=None, metadata=config(field_name="sourceId")
+    )
+    key_findings: Optional[UpdateKeyFindingsDocumentInput] = field(
+        default=None, metadata=config(field_name="keyFindings")
+    )
+    managed_by: Optional[Union[CaseManagedBy, TaegisEnum]] = field(
+        default=None,
+        metadata=config(
+            encoder=encode_enum,
+            decoder=lambda x: decode_enum(CaseManagedBy, x),
+            field_name="managedBy",
+        ),
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class UpdateCaseTemplateInput:
+    """UpdateCaseTemplateInput."""
+
+    id: Optional[str] = field(default=None, metadata=config(field_name="id"))
     title: Optional[str] = field(default=None, metadata=config(field_name="title"))
     description: Optional[str] = field(
         default=None, metadata=config(field_name="description")
@@ -1957,9 +2162,6 @@ class CreateCaseTemplateInput:
     case_tags: Optional[List[str]] = field(
         default=None, metadata=config(field_name="caseTags")
     )
-    case_key_findings: Optional[str] = field(
-        default=None, metadata=config(field_name="caseKeyFindings")
-    )
     case_key_findings_prompts: Optional[List[str]] = field(
         default=None, metadata=config(field_name="caseKeyFindingsPrompts")
     )
@@ -1972,14 +2174,20 @@ class CreateCaseTemplateInput:
     case_secondary_status_id: Optional[str] = field(
         default=None, metadata=config(field_name="caseSecondaryStatusId")
     )
+    case_secondary_status_reason: Optional[List[str]] = field(
+        default=None, metadata=config(field_name="caseSecondaryStatusReason")
+    )
     case_primary_verdict_id: Optional[str] = field(
         default=None, metadata=config(field_name="casePrimaryVerdictId")
     )
     case_secondary_verdict_id: Optional[str] = field(
         default=None, metadata=config(field_name="caseSecondaryVerdictId")
     )
-    is_shared_with_child_tenants: Optional[bool] = field(
-        default=None, metadata=config(field_name="isSharedWithChildTenants")
+    generate_key_findings: Optional[bool] = field(
+        default=None, metadata=config(field_name="generateKeyFindings")
+    )
+    case_key_findings: Optional[UpdateKeyFindingsTemplateInput] = field(
+        default=None, metadata=config(field_name="caseKeyFindings")
     )
     case_managed_by: Optional[Union[CaseManagedBy, TaegisEnum]] = field(
         default=None,
@@ -1987,14 +2195,6 @@ class CreateCaseTemplateInput:
             encoder=encode_enum,
             decoder=lambda x: decode_enum(CaseManagedBy, x),
             field_name="caseManagedBy",
-        ),
-    )
-    usages: Optional[List[Union[TemplateUsage, TaegisEnum]]] = field(
-        default=None,
-        metadata=config(
-            encoder=encode_enum,
-            decoder=lambda x: decode_enum(TemplateUsage, x),
-            field_name="usages",
         ),
     )
 
@@ -2042,8 +2242,8 @@ class CreateCaseRuleInput:
     skip_detection_prioritization: Optional[bool] = field(
         default=None, metadata=config(field_name="skipDetectionPrioritization")
     )
-    is_central_tenants_only: Optional[bool] = field(
-        default=None, metadata=config(field_name="isCentralTenantsOnly")
+    is_global: Optional[bool] = field(
+        default=None, metadata=config(field_name="isGlobal")
     )
     template_id: Optional[str] = field(
         default=None, metadata=config(field_name="templateId")
@@ -2295,14 +2495,17 @@ class CreateInvestigationRuleInput:
     skip_alert_prioritization: Optional[bool] = field(
         default=None, metadata=config(field_name="skipAlertPrioritization")
     )
-    is_central_tenants_only: Optional[bool] = field(
-        default=None, metadata=config(field_name="isCentralTenantsOnly")
+    is_global: Optional[bool] = field(
+        default=None, metadata=config(field_name="isGlobal")
     )
     template_id: Optional[str] = field(
         default=None, metadata=config(field_name="templateId")
     )
     response_data: Optional[dict] = field(
         default=None, metadata=config(field_name="responseData")
+    )
+    is_central_tenants_only: Optional[bool] = field(
+        default=None, metadata=config(field_name="isCentralTenantsOnly")
     )
     type: Optional[Union[InvestigationRuleType, TaegisEnum]] = field(
         default=None,
@@ -2661,6 +2864,77 @@ class InvestigationV2TimelineEntity:
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
+class CreateCaseTemplateInput:
+    """CreateCaseTemplateInput."""
+
+    name: Optional[str] = field(default=None, metadata=config(field_name="name"))
+    title: Optional[str] = field(default=None, metadata=config(field_name="title"))
+    description: Optional[str] = field(
+        default=None, metadata=config(field_name="description")
+    )
+    tags: Optional[List[str]] = field(default=None, metadata=config(field_name="tags"))
+    case_type_id: Optional[str] = field(
+        default=None, metadata=config(field_name="caseTypeId")
+    )
+    case_severity: Optional[int] = field(
+        default=None, metadata=config(field_name="caseSeverity")
+    )
+    case_title: Optional[str] = field(
+        default=None, metadata=config(field_name="caseTitle")
+    )
+    case_tags: Optional[List[str]] = field(
+        default=None, metadata=config(field_name="caseTags")
+    )
+    case_key_findings_prompts: Optional[List[str]] = field(
+        default=None, metadata=config(field_name="caseKeyFindingsPrompts")
+    )
+    case_assignee: Optional[str] = field(
+        default=None, metadata=config(field_name="caseAssignee")
+    )
+    case_primary_status_id: Optional[str] = field(
+        default=None, metadata=config(field_name="casePrimaryStatusId")
+    )
+    case_secondary_status_id: Optional[str] = field(
+        default=None, metadata=config(field_name="caseSecondaryStatusId")
+    )
+    case_secondary_status_reason: Optional[List[str]] = field(
+        default=None, metadata=config(field_name="caseSecondaryStatusReason")
+    )
+    case_primary_verdict_id: Optional[str] = field(
+        default=None, metadata=config(field_name="casePrimaryVerdictId")
+    )
+    case_secondary_verdict_id: Optional[str] = field(
+        default=None, metadata=config(field_name="caseSecondaryVerdictId")
+    )
+    is_shared_with_child_tenants: Optional[bool] = field(
+        default=None, metadata=config(field_name="isSharedWithChildTenants")
+    )
+    generate_key_findings: Optional[bool] = field(
+        default=None, metadata=config(field_name="generateKeyFindings")
+    )
+    case_key_findings: Optional[CreateKeyFindingsTemplateInput] = field(
+        default=None, metadata=config(field_name="caseKeyFindings")
+    )
+    case_managed_by: Optional[Union[CaseManagedBy, TaegisEnum]] = field(
+        default=None,
+        metadata=config(
+            encoder=encode_enum,
+            decoder=lambda x: decode_enum(CaseManagedBy, x),
+            field_name="caseManagedBy",
+        ),
+    )
+    usages: Optional[List[Union[TemplateUsage, TaegisEnum]]] = field(
+        default=None,
+        metadata=config(
+            encoder=encode_enum,
+            decoder=lambda x: decode_enum(TemplateUsage, x),
+            field_name="usages",
+        ),
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
 class CaseEvidence:
     """CaseEvidence."""
 
@@ -2688,185 +2962,6 @@ class CaseEvidence:
     )
     search_queries_evidence: Optional[List[CaseSearchQueryEvidence]] = field(
         default=None, metadata=config(field_name="searchQueriesEvidence")
-    )
-
-
-@dataclass_json
-@dataclass(order=True, eq=True, frozen=True)
-class CaseTemplate:
-    """CaseTemplate."""
-
-    id: Optional[str] = field(default=None, metadata=config(field_name="id"))
-    created_by_id: Optional[str] = field(
-        default=None, metadata=config(field_name="createdById")
-    )
-    created_at: Optional[str] = field(
-        default=None, metadata=config(field_name="createdAt")
-    )
-    updated_by_id: Optional[str] = field(
-        default=None, metadata=config(field_name="updatedById")
-    )
-    updated_at: Optional[str] = field(
-        default=None, metadata=config(field_name="updatedAt")
-    )
-    tenant_id: Optional[str] = field(
-        default=None, metadata=config(field_name="tenantId")
-    )
-    name: Optional[str] = field(default=None, metadata=config(field_name="name"))
-    title: Optional[str] = field(default=None, metadata=config(field_name="title"))
-    description: Optional[str] = field(
-        default=None, metadata=config(field_name="description")
-    )
-    tags: Optional[List[str]] = field(default=None, metadata=config(field_name="tags"))
-    case_type_id: Optional[str] = field(
-        default=None, metadata=config(field_name="caseTypeId")
-    )
-    case_severity: Optional[int] = field(
-        default=None, metadata=config(field_name="caseSeverity")
-    )
-    case_title: Optional[str] = field(
-        default=None, metadata=config(field_name="caseTitle")
-    )
-    case_tags: Optional[List[str]] = field(
-        default=None, metadata=config(field_name="caseTags")
-    )
-    case_key_findings: Optional[str] = field(
-        default=None, metadata=config(field_name="caseKeyFindings")
-    )
-    case_key_findings_prompts: Optional[List[str]] = field(
-        default=None, metadata=config(field_name="caseKeyFindingsPrompts")
-    )
-    case_assignee: Optional[str] = field(
-        default=None, metadata=config(field_name="caseAssignee")
-    )
-    case_primary_status_id: Optional[str] = field(
-        default=None, metadata=config(field_name="casePrimaryStatusId")
-    )
-    case_secondary_status_id: Optional[str] = field(
-        default=None, metadata=config(field_name="caseSecondaryStatusId")
-    )
-    case_primary_verdict_id: Optional[str] = field(
-        default=None, metadata=config(field_name="casePrimaryVerdictId")
-    )
-    case_secondary_verdict_id: Optional[str] = field(
-        default=None, metadata=config(field_name="caseSecondaryVerdictId")
-    )
-    is_shared_with_child_tenants: Optional[bool] = field(
-        default=None, metadata=config(field_name="isSharedWithChildTenants")
-    )
-    created_by_subject: Optional[Subject] = field(
-        default=None, metadata=config(field_name="createdBySubject")
-    )
-    updated_by_subject: Optional[Subject] = field(
-        default=None, metadata=config(field_name="updatedBySubject")
-    )
-    case_assignee_subject: Optional[Subject] = field(
-        default=None, metadata=config(field_name="caseAssigneeSubject")
-    )
-    case_managed_by: Optional[Union[CaseManagedBy, TaegisEnum]] = field(
-        default=None,
-        metadata=config(
-            encoder=encode_enum,
-            decoder=lambda x: decode_enum(CaseManagedBy, x),
-            field_name="CaseManagedBy",
-        ),
-    )
-    usages: Optional[List[Union[TemplateUsage, TaegisEnum]]] = field(
-        default=None,
-        metadata=config(
-            encoder=encode_enum,
-            decoder=lambda x: decode_enum(TemplateUsage, x),
-            field_name="usages",
-        ),
-    )
-
-
-@dataclass_json
-@dataclass(order=True, eq=True, frozen=True)
-class CaseRule:
-    """CaseRule."""
-
-    id: Optional[str] = field(default=None, metadata=config(field_name="id"))
-    created_by_id: Optional[str] = field(
-        default=None, metadata=config(field_name="createdById")
-    )
-    created_at: Optional[str] = field(
-        default=None, metadata=config(field_name="createdAt")
-    )
-    updated_by_id: Optional[str] = field(
-        default=None, metadata=config(field_name="updatedById")
-    )
-    updated_at: Optional[str] = field(
-        default=None, metadata=config(field_name="updatedAt")
-    )
-    tenant_id: Optional[str] = field(
-        default=None, metadata=config(field_name="tenantId")
-    )
-    name: Optional[str] = field(default=None, metadata=config(field_name="name"))
-    title: Optional[str] = field(default=None, metadata=config(field_name="title"))
-    description: Optional[str] = field(
-        default=None, metadata=config(field_name="description")
-    )
-    tags: Optional[List[str]] = field(default=None, metadata=config(field_name="tags"))
-    order: Optional[int] = field(default=None, metadata=config(field_name="order"))
-    filter: Optional[str] = field(default=None, metadata=config(field_name="filter"))
-    append_filter: Optional[str] = field(
-        default=None, metadata=config(field_name="appendFilter")
-    )
-    append_comment: Optional[str] = field(
-        default=None, metadata=config(field_name="appendComment")
-    )
-    group_by: Optional[List[str]] = field(
-        default=None, metadata=config(field_name="groupBy")
-    )
-    group_count: Optional[int] = field(
-        default=None, metadata=config(field_name="groupCount")
-    )
-    group_duration: Optional[str] = field(
-        default=None, metadata=config(field_name="groupDuration")
-    )
-    group_extend_on_append: Optional[bool] = field(
-        default=None, metadata=config(field_name="groupExtendOnAppend")
-    )
-    search_queries: Optional[List[str]] = field(
-        default=None, metadata=config(field_name="searchQueries")
-    )
-    search_window: Optional[str] = field(
-        default=None, metadata=config(field_name="searchWindow")
-    )
-    tenant_filter: Optional[str] = field(
-        default=None, metadata=config(field_name="tenantFilter")
-    )
-    skip_detection_prioritization: Optional[bool] = field(
-        default=None, metadata=config(field_name="skipDetectionPrioritization")
-    )
-    is_central_tenants_only: Optional[bool] = field(
-        default=None, metadata=config(field_name="isCentralTenantsOnly")
-    )
-    created_by_subject: Optional[Subject] = field(
-        default=None, metadata=config(field_name="createdBySubject")
-    )
-    updated_by_subject: Optional[Subject] = field(
-        default=None, metadata=config(field_name="updatedBySubject")
-    )
-    type: Optional[Union[CaseRuleType, TaegisEnum]] = field(
-        default=None,
-        metadata=config(
-            encoder=encode_enum,
-            decoder=lambda x: decode_enum(CaseRuleType, x),
-            field_name="type",
-        ),
-    )
-    state: Optional[Union[CaseRuleState, TaegisEnum]] = field(
-        default=None,
-        metadata=config(
-            encoder=encode_enum,
-            decoder=lambda x: decode_enum(CaseRuleState, x),
-            field_name="state",
-        ),
-    )
-    template: Optional[CaseTemplate] = field(
-        default=None, metadata=config(field_name="template")
     )
 
 
@@ -2928,6 +3023,102 @@ class InvestigationFileV2:
         metadata=config(
             metadata={"deprecated": True, "deprecation_reason": "use deletedBySubject"},
             field_name="deletedBy",
+        ),
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class CaseTemplate:
+    """CaseTemplate."""
+
+    id: Optional[str] = field(default=None, metadata=config(field_name="id"))
+    created_by_id: Optional[str] = field(
+        default=None, metadata=config(field_name="createdById")
+    )
+    created_at: Optional[str] = field(
+        default=None, metadata=config(field_name="createdAt")
+    )
+    updated_by_id: Optional[str] = field(
+        default=None, metadata=config(field_name="updatedById")
+    )
+    updated_at: Optional[str] = field(
+        default=None, metadata=config(field_name="updatedAt")
+    )
+    tenant_id: Optional[str] = field(
+        default=None, metadata=config(field_name="tenantId")
+    )
+    name: Optional[str] = field(default=None, metadata=config(field_name="name"))
+    title: Optional[str] = field(default=None, metadata=config(field_name="title"))
+    description: Optional[str] = field(
+        default=None, metadata=config(field_name="description")
+    )
+    tags: Optional[List[str]] = field(default=None, metadata=config(field_name="tags"))
+    case_type_id: Optional[str] = field(
+        default=None, metadata=config(field_name="caseTypeId")
+    )
+    case_severity: Optional[int] = field(
+        default=None, metadata=config(field_name="caseSeverity")
+    )
+    case_title: Optional[str] = field(
+        default=None, metadata=config(field_name="caseTitle")
+    )
+    case_tags: Optional[List[str]] = field(
+        default=None, metadata=config(field_name="caseTags")
+    )
+    case_key_findings_prompts: Optional[List[str]] = field(
+        default=None, metadata=config(field_name="caseKeyFindingsPrompts")
+    )
+    case_assignee: Optional[str] = field(
+        default=None, metadata=config(field_name="caseAssignee")
+    )
+    case_primary_status_id: Optional[str] = field(
+        default=None, metadata=config(field_name="casePrimaryStatusId")
+    )
+    case_secondary_status_id: Optional[str] = field(
+        default=None, metadata=config(field_name="caseSecondaryStatusId")
+    )
+    case_secondary_status_reason: Optional[List[str]] = field(
+        default=None, metadata=config(field_name="caseSecondaryStatusReason")
+    )
+    case_primary_verdict_id: Optional[str] = field(
+        default=None, metadata=config(field_name="casePrimaryVerdictId")
+    )
+    case_secondary_verdict_id: Optional[str] = field(
+        default=None, metadata=config(field_name="caseSecondaryVerdictId")
+    )
+    is_shared_with_child_tenants: Optional[bool] = field(
+        default=None, metadata=config(field_name="isSharedWithChildTenants")
+    )
+    generate_key_findings: Optional[bool] = field(
+        default=None, metadata=config(field_name="generateKeyFindings")
+    )
+    created_by_subject: Optional[Subject] = field(
+        default=None, metadata=config(field_name="createdBySubject")
+    )
+    updated_by_subject: Optional[Subject] = field(
+        default=None, metadata=config(field_name="updatedBySubject")
+    )
+    case_key_findings: Optional[KeyFindingsTemplate] = field(
+        default=None, metadata=config(field_name="caseKeyFindings")
+    )
+    case_assignee_subject: Optional[Subject] = field(
+        default=None, metadata=config(field_name="caseAssigneeSubject")
+    )
+    case_managed_by: Optional[Union[CaseManagedBy, TaegisEnum]] = field(
+        default=None,
+        metadata=config(
+            encoder=encode_enum,
+            decoder=lambda x: decode_enum(CaseManagedBy, x),
+            field_name="CaseManagedBy",
+        ),
+    )
+    usages: Optional[List[Union[TemplateUsage, TaegisEnum]]] = field(
+        default=None,
+        metadata=config(
+            encoder=encode_enum,
+            decoder=lambda x: decode_enum(TemplateUsage, x),
+            field_name="usages",
         ),
     )
 
@@ -3077,6 +3268,9 @@ class InvestigationTemplate:
     is_shared_with_child_tenants: Optional[bool] = field(
         default=None, metadata=config(field_name="isSharedWithChildTenants")
     )
+    generate_key_findings: Optional[bool] = field(
+        default=None, metadata=config(field_name="generateKeyFindings")
+    )
     created_by_subject: Optional[Subject] = field(
         default=None, metadata=config(field_name="createdBySubject")
     )
@@ -3179,8 +3373,8 @@ class InvestigationRule:
     skip_alert_prioritization: Optional[bool] = field(
         default=None, metadata=config(field_name="skipAlertPrioritization")
     )
-    is_central_tenants_only: Optional[bool] = field(
-        default=None, metadata=config(field_name="isCentralTenantsOnly")
+    is_global: Optional[bool] = field(
+        default=None, metadata=config(field_name="isGlobal")
     )
     comment: Optional[str] = field(
         default=None,
@@ -3194,6 +3388,13 @@ class InvestigationRule:
         metadata=config(
             metadata={"deprecated": True, "deprecation_reason": "use tenantFilter"},
             field_name="excludeChildTenants",
+        ),
+    )
+    is_central_tenants_only: Optional[bool] = field(
+        default=None,
+        metadata=config(
+            metadata={"deprecated": True, "deprecation_reason": "does nothing"},
+            field_name="isCentralTenantsOnly",
         ),
     )
     created_by_subject: Optional[Subject] = field(
@@ -3245,11 +3446,11 @@ class Case:
     id: Optional[str] = field(default=None, metadata=config(field_name="id"))
     short_id: Optional[str] = field(default=None, metadata=config(field_name="shortId"))
     title: Optional[str] = field(default=None, metadata=config(field_name="title"))
-    key_findings: Optional[str] = field(
-        default=None, metadata=config(field_name="keyFindings")
-    )
     severity: Optional[int] = field(
         default=None, metadata=config(field_name="severity")
+    )
+    secondary_status_reason: Optional[List[str]] = field(
+        default=None, metadata=config(field_name="secondaryStatusReason")
     )
     tags: Optional[List[str]] = field(default=None, metadata=config(field_name="tags"))
     contributor_ids: Optional[List[str]] = field(
@@ -3276,6 +3477,9 @@ class Case:
     archived_at: Optional[str] = field(
         default=None, metadata=config(field_name="archivedAt")
     )
+    closed_at: Optional[str] = field(
+        default=None, metadata=config(field_name="closedAt")
+    )
     close_reason: Optional[str] = field(
         default=None, metadata=config(field_name="closeReason")
     )
@@ -3297,6 +3501,9 @@ class Case:
     )
     assets_count: Optional[int] = field(
         default=None, metadata=config(field_name="assetsCount")
+    )
+    key_findings: Optional[KeyFindingsDocument] = field(
+        default=None, metadata=config(field_name="keyFindings")
     )
     type: Optional[CaseType] = field(default=None, metadata=config(field_name="type"))
     primary_status: Optional[CasePrimaryStatus] = field(
@@ -3328,6 +3535,9 @@ class Case:
     )
     processing_status: Optional[CaseProcessingStatus] = field(
         default=None, metadata=config(field_name="processingStatus")
+    )
+    source: Optional[CaseSource] = field(
+        default=None, metadata=config(field_name="source")
     )
     links: Optional[List[CaseLink]] = field(
         default=None, metadata=config(field_name="links")
@@ -3590,19 +3800,6 @@ class CaseTemplates:
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
-class CaseRules:
-    """CaseRules."""
-
-    total_count: Optional[int] = field(
-        default=None, metadata=config(field_name="totalCount")
-    )
-    rules: Optional[List[CaseRule]] = field(
-        default=None, metadata=config(field_name="rules")
-    )
-
-
-@dataclass_json
-@dataclass(order=True, eq=True, frozen=True)
 class CaseTypes:
     """CaseTypes."""
 
@@ -3618,6 +3815,16 @@ class CasePrimaryStatuses:
 
     primary_statuses: Optional[List[CasePrimaryStatus]] = field(
         default=None, metadata=config(field_name="primaryStatuses")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class CasePrimaryVerdicts:
+    """CasePrimaryVerdicts."""
+
+    primary_verdicts: Optional[List[CasePrimaryVerdict]] = field(
+        default=None, metadata=config(field_name="primaryVerdicts")
     )
 
 
@@ -3762,4 +3969,106 @@ class InvestigationsV2:
     )
     metrics: Optional[Metrics] = field(
         default=None, metadata=config(field_name="metrics")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class CaseRule:
+    """CaseRule."""
+
+    id: Optional[str] = field(default=None, metadata=config(field_name="id"))
+    created_by_id: Optional[str] = field(
+        default=None, metadata=config(field_name="createdById")
+    )
+    created_at: Optional[str] = field(
+        default=None, metadata=config(field_name="createdAt")
+    )
+    updated_by_id: Optional[str] = field(
+        default=None, metadata=config(field_name="updatedById")
+    )
+    updated_at: Optional[str] = field(
+        default=None, metadata=config(field_name="updatedAt")
+    )
+    tenant_id: Optional[str] = field(
+        default=None, metadata=config(field_name="tenantId")
+    )
+    name: Optional[str] = field(default=None, metadata=config(field_name="name"))
+    title: Optional[str] = field(default=None, metadata=config(field_name="title"))
+    description: Optional[str] = field(
+        default=None, metadata=config(field_name="description")
+    )
+    tags: Optional[List[str]] = field(default=None, metadata=config(field_name="tags"))
+    order: Optional[int] = field(default=None, metadata=config(field_name="order"))
+    filter: Optional[str] = field(default=None, metadata=config(field_name="filter"))
+    append_filter: Optional[str] = field(
+        default=None, metadata=config(field_name="appendFilter")
+    )
+    append_comment: Optional[str] = field(
+        default=None, metadata=config(field_name="appendComment")
+    )
+    group_by: Optional[List[str]] = field(
+        default=None, metadata=config(field_name="groupBy")
+    )
+    group_count: Optional[int] = field(
+        default=None, metadata=config(field_name="groupCount")
+    )
+    group_duration: Optional[str] = field(
+        default=None, metadata=config(field_name="groupDuration")
+    )
+    group_extend_on_append: Optional[bool] = field(
+        default=None, metadata=config(field_name="groupExtendOnAppend")
+    )
+    search_queries: Optional[List[str]] = field(
+        default=None, metadata=config(field_name="searchQueries")
+    )
+    search_window: Optional[str] = field(
+        default=None, metadata=config(field_name="searchWindow")
+    )
+    tenant_filter: Optional[str] = field(
+        default=None, metadata=config(field_name="tenantFilter")
+    )
+    skip_detection_prioritization: Optional[bool] = field(
+        default=None, metadata=config(field_name="skipDetectionPrioritization")
+    )
+    is_global: Optional[bool] = field(
+        default=None, metadata=config(field_name="isGlobal")
+    )
+    created_by_subject: Optional[Subject] = field(
+        default=None, metadata=config(field_name="createdBySubject")
+    )
+    updated_by_subject: Optional[Subject] = field(
+        default=None, metadata=config(field_name="updatedBySubject")
+    )
+    type: Optional[Union[CaseRuleType, TaegisEnum]] = field(
+        default=None,
+        metadata=config(
+            encoder=encode_enum,
+            decoder=lambda x: decode_enum(CaseRuleType, x),
+            field_name="type",
+        ),
+    )
+    state: Optional[Union[CaseRuleState, TaegisEnum]] = field(
+        default=None,
+        metadata=config(
+            encoder=encode_enum,
+            decoder=lambda x: decode_enum(CaseRuleState, x),
+            field_name="state",
+        ),
+    )
+    template: Optional[CaseTemplate] = field(
+        default=None, metadata=config(field_name="template")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class CaseRules:
+    """CaseRules."""
+
+    total_count: Optional[int] = field(
+        default=None, metadata=config(field_name="totalCount")
+    )
+    rules: Optional[List[CaseRule]] = field(
+        default=None, metadata=config(field_name="rules")
     )

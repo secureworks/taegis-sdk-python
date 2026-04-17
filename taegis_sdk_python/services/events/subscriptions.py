@@ -39,7 +39,7 @@ class TaegisSDKEventsSubscription:
         options: Optional[EventQueryOptions] = None,
     ) -> List[EventQueryResults]:
         """Evaluate a query string and returns results for the first page of
-        each event type covered by the query.."""
+        each event type covered by the query."""
         endpoint = "eventQuery"
 
         result = self.service.execute_subscription(
@@ -62,7 +62,7 @@ class TaegisSDKEventsSubscription:
 
     def event_page(self, id_: str) -> List[EventQueryResults]:
         """Returns the next logical page of results for each of the event types
-        covered by the query.."""
+        covered by the query."""
         endpoint = "eventPage"
 
         result = self.service.execute_subscription(

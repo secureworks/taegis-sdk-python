@@ -44,7 +44,7 @@ class TaegisSDKNotifications2Subscription:
         Multiple subscription calls with different arguments can be made needing to create a new websocket connection in order to paginate over the existing notifications.
         As a client is paginating, new notifications will continue to be sent to the client as they are created outside of the pagination calls.
 
-        Filters set in the notification subscription arguments are not applied to newly created notifications at this time..
+        Filters set in the notification subscription arguments are not applied to newly created notifications at this time.
         """
         endpoint = "notifications"
 

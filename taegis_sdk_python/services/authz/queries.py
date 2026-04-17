@@ -289,8 +289,9 @@ class TaegisSDKAuthzQuery:
         self,
         subject_id: str,
         subject_type: Optional[Union[AuthzSubjectIDType, TaegisEnum]] = None,
+        include_mdr_provider: Optional[bool] = None,
     ) -> bool:
-        """Indicates if the input subject can assume the target tenant."""
+        """Indicates if the input subject can assume the target tenant, includeMDRProvider optionally also returns true if the subject can assume the tenant through an MDR provider relationship."""
         endpoint = "authzCanSubjectIDAssumeTenant"
 
         result = self.service.execute_query(
@@ -298,6 +299,7 @@ class TaegisSDKAuthzQuery:
             variables={
                 "subjectID": prepare_input(subject_id),
                 "subjectType": prepare_input(subject_type),
+                "includeMDRProvider": prepare_input(include_mdr_provider),
             },
             output="",
         )
@@ -472,3 +474,21 @@ class TaegisSDKAuthzQuery:
                 [r or {} for r in result.get(endpoint)], many=True
             )
         raise GraphQLNoRowsInResultSetError("for query authzTrustedRoles")
+
+    def authz_check_step_up(self, input_: AuthzStepUpInput) -> AuthzStepUpResponse:
+        """Step-up authorization check."""
+        endpoint = "authzCheckStepUp"
+
+        result = self.service.execute_query(
+            endpoint=endpoint,
+            variables={
+                "input": prepare_input(input_),
+            },
+            output=build_output_string(
+                AuthzStepUpResponse,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
+        )
+        if result.get(endpoint) is not None:
+            return AuthzStepUpResponse.from_dict(result.get(endpoint))
+        raise GraphQLNoRowsInResultSetError("for query authzCheckStepUp")

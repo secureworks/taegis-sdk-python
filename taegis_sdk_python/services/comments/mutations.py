@@ -33,7 +33,7 @@ class TaegisSDKCommentsMutation:
         self.service = service
 
     def mark_comment_read(self, comment_id: str) -> Comment:
-        """None."""
+        """No developer notes."""
         endpoint = "markCommentRead"
 
         log.warning(
@@ -55,7 +55,7 @@ class TaegisSDKCommentsMutation:
         raise GraphQLNoRowsInResultSetError("for mutation markCommentRead")
 
     def mark_parent_comments_read(self, parents: List[Parent]) -> List[Comment]:
-        """None."""
+        """No developer notes."""
         endpoint = "markParentCommentsRead"
 
         log.warning(
@@ -79,7 +79,7 @@ class TaegisSDKCommentsMutation:
         raise GraphQLNoRowsInResultSetError("for mutation markParentCommentsRead")
 
     def create_comment(self, comment: CommentInput) -> Comment:
-        """None."""
+        """No developer notes."""
         endpoint = "createComment"
 
         log.warning(
@@ -101,7 +101,7 @@ class TaegisSDKCommentsMutation:
         raise GraphQLNoRowsInResultSetError("for mutation createComment")
 
     def update_comment(self, comment_id: str, comment: CommentUpdate) -> Comment:
-        """None."""
+        """No developer notes."""
         endpoint = "updateComment"
 
         log.warning(
@@ -124,7 +124,7 @@ class TaegisSDKCommentsMutation:
         raise GraphQLNoRowsInResultSetError("for mutation updateComment")
 
     def delete_comment(self, comment_id: str) -> Comment:
-        """None."""
+        """No developer notes."""
         endpoint = "deleteComment"
 
         log.warning(
@@ -146,7 +146,7 @@ class TaegisSDKCommentsMutation:
         raise GraphQLNoRowsInResultSetError("for mutation deleteComment")
 
     def bulk_restore_comments(self, ids: List[str]) -> List[str]:
-        """None."""
+        """No developer notes."""
         endpoint = "bulkRestoreComments"
 
         log.warning(

@@ -403,7 +403,7 @@ class TaegisSDKInvestigationsMutation:
         raise GraphQLNoRowsInResultSetError("for mutation addAccessVector")
 
     def remove_access_vector(self, id_: str) -> AccessVector:
-        """None."""
+        """No developer notes."""
         endpoint = "removeAccessVector"
 
         log.warning(

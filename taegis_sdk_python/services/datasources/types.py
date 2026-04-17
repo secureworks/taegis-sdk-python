@@ -19,6 +19,7 @@ class AuthzObject(str, Enum):
     """AuthzObject."""
 
     COLLECTOR = "COLLECTOR"
+    DATASOURCE_ASSETS = "DATASOURCE_ASSETS"
 
 
 class AuthzAction(str, Enum):
@@ -27,6 +28,7 @@ class AuthzAction(str, Enum):
     READ = "READ"
     DELETE = "DELETE"
     CREATE = "CREATE"
+    READ_UNHEALTHY_ASSETS_SUMMARY = "READ_UNHEALTHY_ASSETS_SUMMARY"
 
 
 class HealthState(str, Enum):
@@ -234,6 +236,17 @@ class DataSourceTagOperationInput:
     tag_id: Optional[str] = field(default=None, metadata=config(field_name="tagId"))
     asset_ids: Optional[List[str]] = field(
         default=None, metadata=config(field_name="assetIds")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class TenantUnhealthySummary:
+    """TenantUnhealthySummary."""
+
+    tenant: Optional[str] = field(default=None, metadata=config(field_name="tenant"))
+    unhealthy_count: Optional[int] = field(
+        default=None, metadata=config(field_name="unhealthyCount")
     )
 
 

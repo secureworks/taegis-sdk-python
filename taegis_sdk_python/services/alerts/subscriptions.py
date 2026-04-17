@@ -35,7 +35,7 @@ class TaegisSDKAlertsSubscription:
     def alerts_service_bulk_resolution_processor(
         self, in_: Optional[BulkResolutionRequestInput] = None
     ) -> List[BulkResolutionResponse]:
-        """Add a resolution or modify an existing resolution for multiple alerts selected with a CQL query.."""
+        """Add a resolution or modify an existing resolution for multiple alerts selected with a CQL query."""
         endpoint = "alertsServiceBulkResolutionProcessor"
 
         result = self.service.execute_subscription(

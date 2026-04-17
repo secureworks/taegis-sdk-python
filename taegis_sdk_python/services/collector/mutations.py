@@ -108,7 +108,7 @@ class TaegisSDKCollectorMutation:
         raise GraphQLNoRowsInResultSetError("for mutation deleteCluster")
 
     def create_os_config(self, input_: OSConfigInput) -> OSConfig:
-        """None."""
+        """No developer notes."""
         endpoint = "createOSConfig"
 
         result = self.service.execute_mutation(
@@ -126,7 +126,7 @@ class TaegisSDKCollectorMutation:
         raise GraphQLNoRowsInResultSetError("for mutation createOSConfig")
 
     def update_os_config(self, input_: OSConfigInput) -> OSConfig:
-        """None."""
+        """No developer notes."""
         endpoint = "updateOSConfig"
 
         result = self.service.execute_mutation(
@@ -144,7 +144,7 @@ class TaegisSDKCollectorMutation:
         raise GraphQLNoRowsInResultSetError("for mutation updateOSConfig")
 
     def delete_os_config(self, cluster_id: str, node_name: Optional[str] = None) -> str:
-        """None."""
+        """No developer notes."""
         endpoint = "deleteOSConfig"
 
         result = self.service.execute_mutation(
@@ -418,7 +418,7 @@ class TaegisSDKCollectorMutation:
     def create_role_deployment(
         self, role: str, deployment_input: DeploymentInput
     ) -> Deployment:
-        """Create a deployment to be installed on every cluster of a given role. Only Secureworks admins can reach this endpoint.."""
+        """Create a deployment to be installed on every cluster of a given role. Only Secureworks admins can reach this endpoint."""
         endpoint = "createRoleDeployment"
 
         result = self.service.execute_mutation(
@@ -439,7 +439,7 @@ class TaegisSDKCollectorMutation:
     def update_role_deployment(
         self, deployment_id: str, deployment_input: DeploymentInput
     ) -> Deployment:
-        """Update a system deployment by ID. Only Secureworks admins can reach this endpoint.."""
+        """Update a system deployment by ID. Only Secureworks admins can reach this endpoint."""
         endpoint = "updateRoleDeployment"
 
         result = self.service.execute_mutation(
@@ -458,7 +458,7 @@ class TaegisSDKCollectorMutation:
         raise GraphQLNoRowsInResultSetError("for mutation updateRoleDeployment")
 
     def delete_role_deployment(self, deployment_id: str) -> Deleted:
-        """Delete a system deployment by ID. Only Secureworks admins can reach this endpoint.."""
+        """Delete a system deployment by ID. Only Secureworks admins can reach this endpoint."""
         endpoint = "deleteRoleDeployment"
 
         result = self.service.execute_mutation(
@@ -478,7 +478,7 @@ class TaegisSDKCollectorMutation:
     def update_scheduled_service(
         self, scheduled_service_input: Optional[ScheduledServiceInput] = None
     ) -> ScheduledService:
-        """None."""
+        """No developer notes."""
         endpoint = "updateScheduledService"
 
         result = self.service.execute_mutation(
@@ -498,7 +498,7 @@ class TaegisSDKCollectorMutation:
     def create_service(
         self, service_input: Optional[CreateServiceInput] = None
     ) -> Service:
-        """None."""
+        """No developer notes."""
         endpoint = "createService"
 
         result = self.service.execute_mutation(

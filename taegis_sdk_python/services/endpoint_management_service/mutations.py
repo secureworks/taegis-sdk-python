@@ -35,7 +35,7 @@ class TaegisSDKEndpointManagementServiceMutation:
         self.service = service
 
     def create_endpoint_group(self, input_: CreateEndpointGroupInput) -> EndpointGroup:
-        """Create new endpoint group for a tenant.."""
+        """Create new endpoint group for a tenant."""
         endpoint = "createEndpointGroup"
 
         result = self.service.execute_mutation(
@@ -53,7 +53,7 @@ class TaegisSDKEndpointManagementServiceMutation:
         raise GraphQLNoRowsInResultSetError("for mutation createEndpointGroup")
 
     def update_endpoint_group(self, input_: UpdateEndpointGroupInput) -> EndpointGroup:
-        """Update policy type of endpoint group for a tenant.."""
+        """Update policy type of endpoint group for a tenant."""
         endpoint = "updateEndpointGroup"
 
         result = self.service.execute_mutation(
@@ -71,7 +71,7 @@ class TaegisSDKEndpointManagementServiceMutation:
         raise GraphQLNoRowsInResultSetError("for mutation updateEndpointGroup")
 
     def delete_endpoint_group(self, input_: DeleteEndpointGrpInput) -> bool:
-        """Delete endpoint group for a tenant.."""
+        """Delete endpoint group for a tenant."""
         endpoint = "deleteEndpointGroup"
 
         result = self.service.execute_mutation(

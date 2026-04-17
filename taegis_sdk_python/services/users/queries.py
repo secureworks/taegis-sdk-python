@@ -99,7 +99,7 @@ class TaegisSDKUsersQuery:
         raise GraphQLNoRowsInResultSetError("for query tdrusers")
 
     def tdrusers_by_ids(self, user_ids: Optional[List[str]] = None) -> List[TDRUser]:
-        """Search users by id list. The list can contain a mixture of IDs or UserIDs.."""
+        """Search users by id list. The list can contain a mixture of IDs or UserIDs."""
         endpoint = "tdrusersByIDs"
 
         result = self.service.execute_query(
@@ -126,7 +126,7 @@ class TaegisSDKUsersQuery:
         """ "
         Search users by id list. The list can contain a mixture of IDs or UserIDs. Errors are reported individually for each ID.
         Search will be processed using the X-Tenant-Context header as a filter first. Subsequent searches will use role assignments
-        for user IDs that have not been found until all users are retrieved or all role assignments are exhausted..
+        for user IDs that have not been found until all users are retrieved or all role assignments are exhausted.
         """
         endpoint = "searchTDRUsersByIDs"
 
@@ -150,7 +150,7 @@ class TaegisSDKUsersQuery:
         raise GraphQLNoRowsInResultSetError("for query searchTDRUsersByIDs")
 
     def get_support_pin(self) -> TDRUserSupportPin:
-        """Get the user's current support pin. The user is implicitly assumed based on the requester's access token.."""
+        """Get the user's current support pin. The user is implicitly assumed based on the requester's access token."""
         endpoint = "getSupportPin"
 
         result = self.service.execute_query(
@@ -166,7 +166,7 @@ class TaegisSDKUsersQuery:
         raise GraphQLNoRowsInResultSetError("for query getSupportPin")
 
     def get_support_pin_verification(self, support_pin: str) -> List[SupportPinDetails]:
-        """Get a list of details associated with the given support pin.."""
+        """Get a list of details associated with the given support pin."""
         endpoint = "getSupportPinVerification"
 
         result = self.service.execute_query(

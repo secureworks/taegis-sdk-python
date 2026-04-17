@@ -35,7 +35,7 @@ class TaegisSDKEventSearchQuery:
     def auxiliary_events_by_id(
         self, in_: Optional[GetEventByIDRequestInput] = None
     ) -> AuxiliaryEventsSearchResponse:
-        """None."""
+        """No developer notes."""
         endpoint = "auxiliaryEventsById"
 
         result = self.service.execute_query(
@@ -55,7 +55,7 @@ class TaegisSDKEventSearchQuery:
     def auxiliary_events_search(
         self, in_: AuxiliaryEventsSearchInput
     ) -> AuxiliaryEventsSearchResponse:
-        """None."""
+        """No developer notes."""
         endpoint = "auxiliaryEventsSearch"
 
         result = self.service.execute_query(
@@ -76,7 +76,7 @@ class TaegisSDKEventSearchQuery:
         self, in_: AuxiliaryEventsSearchInput
     ) -> List[str]:
         """Will perform a more efficient search for auxiliary events that will only return a list of
-        alert IDs associated with the events found.."""
+        alert IDs associated with the events found."""
         endpoint = "alertIdsFromAuxEventsSearch"
 
         result = self.service.execute_query(

@@ -33,7 +33,7 @@ class TaegisSDKInvestigations2Mutation:
         self.service = service
 
     def create_case(self, input_: CreateCaseInput) -> Case:
-        """createCase creates new case with the provided arguments.."""
+        """createCase creates new case with the provided arguments."""
         endpoint = "createCase"
 
         result = self.service.execute_mutation(
@@ -51,7 +51,7 @@ class TaegisSDKInvestigations2Mutation:
 
     def update_case(self, input_: UpdateCaseInput) -> Case:
         """updateCase updates an existing case.
-        This is a PATCH style mutation, only fields that are send in the input will be updated..
+        This is a PATCH style mutation, only fields that are send in the input will be updated.
         """
         endpoint = "updateCase"
 
@@ -81,7 +81,7 @@ class TaegisSDKInvestigations2Mutation:
         Once the status is set to 'SUCCESS' the background job is complete and requesting the case will return the related evidence.
 
         Adding, removing or updating evidence (closing a case) while other jobs are processing for a given case will cause the jobs to queue.
-        Jobs will be worked through in the order they were received.."""
+        Jobs will be worked through in the order they were received."""
         endpoint = "addEvidenceToCase"
 
         result = self.service.execute_mutation(
@@ -110,7 +110,7 @@ class TaegisSDKInvestigations2Mutation:
         Once the status is set to 'SUCCESS' the background job is complete and requesting the case will only return evidence that was not removed.
 
         Adding, removing or updating evidence (closing a case) while other jobs are processing for a given case will cause the jobs to queue.
-        Jobs will be worked through in the order they were received.."""
+        Jobs will be worked through in the order they were received."""
         endpoint = "removeEvidenceFromCase"
 
         result = self.service.execute_mutation(
@@ -128,7 +128,7 @@ class TaegisSDKInvestigations2Mutation:
         raise GraphQLNoRowsInResultSetError("for mutation removeEvidenceFromCase")
 
     def create_case_rule(self, input_: CreateCaseRuleInput) -> CaseRule:
-        """createCaseRule accepts input to create a new auto-case rule.."""
+        """createCaseRule accepts input to create a new auto-case rule."""
         endpoint = "createCaseRule"
 
         result = self.service.execute_mutation(
@@ -146,7 +146,7 @@ class TaegisSDKInvestigations2Mutation:
         raise GraphQLNoRowsInResultSetError("for mutation createCaseRule")
 
     def update_case_rule(self, input_: UpdateCaseRuleInput) -> CaseRule:
-        """updateCaseRule accepts input to update an existing auto-case rule.."""
+        """updateCaseRule accepts input to update an existing auto-case rule."""
         endpoint = "updateCaseRule"
 
         result = self.service.execute_mutation(
@@ -165,7 +165,7 @@ class TaegisSDKInvestigations2Mutation:
 
     def delete_case_rule(self, input_: DeleteCaseRuleInput) -> CaseRule:
         """deleteCaseRule removes an existing case rule.
-        This is a hard delete. Data will not be recoverable.."""
+        This is a hard delete. Data will not be recoverable."""
         endpoint = "deleteCaseRule"
 
         result = self.service.execute_mutation(
@@ -183,7 +183,7 @@ class TaegisSDKInvestigations2Mutation:
         raise GraphQLNoRowsInResultSetError("for mutation deleteCaseRule")
 
     def create_case_template(self, input_: CreateCaseTemplateInput) -> CaseTemplate:
-        """createCaseTemplate accepts input to create a new auto-case template.."""
+        """createCaseTemplate accepts input to create a new auto-case template."""
         endpoint = "createCaseTemplate"
 
         result = self.service.execute_mutation(
@@ -201,7 +201,7 @@ class TaegisSDKInvestigations2Mutation:
         raise GraphQLNoRowsInResultSetError("for mutation createCaseTemplate")
 
     def update_case_template(self, input_: UpdateCaseTemplateInput) -> CaseTemplate:
-        """updateCaseTemplate accepts input to update an existing auto-case template.."""
+        """updateCaseTemplate accepts input to update an existing auto-case template."""
         endpoint = "updateCaseTemplate"
 
         result = self.service.execute_mutation(
@@ -220,7 +220,7 @@ class TaegisSDKInvestigations2Mutation:
 
     def delete_case_template(self, input_: DeleteCaseTemplateInput) -> CaseTemplate:
         """deleteCaseTemplate removes an existing case template.
-        This is a hard delete. Data will not be recoverable.."""
+        This is a hard delete. Data will not be recoverable."""
         endpoint = "deleteCaseTemplate"
 
         result = self.service.execute_mutation(
@@ -238,7 +238,7 @@ class TaegisSDKInvestigations2Mutation:
         raise GraphQLNoRowsInResultSetError("for mutation deleteCaseTemplate")
 
     def add_case_comment(self, input_: AddCaseComment) -> CaseComment:
-        """addCaseComment adds a comment to an existing case.."""
+        """addCaseComment adds a comment to an existing case."""
         endpoint = "addCaseComment"
 
         result = self.service.execute_mutation(
@@ -259,7 +259,7 @@ class TaegisSDKInvestigations2Mutation:
         """updateCaseComment updates an existing comment on a case.
         This is a PATCH style mutation, only fields that are send in the input will be updated.
         Only the user who created the comment can update it.
-        Updating a comment and adding new @mentions will trigger new notifications but will not send notifications to @mentions that are already present in the comment..
+        Updating a comment and adding new @mentions will trigger new notifications but will not send notifications to @mentions that are already present in the comment.
         """
         endpoint = "updateCaseComment"
 
@@ -279,7 +279,7 @@ class TaegisSDKInvestigations2Mutation:
 
     def delete_case_comment(self, input_: DeleteCaseCommentInput) -> CaseComment:
         """deleteCaseComment removes an existing comment from a case.
-        This is a hard delete. Data will not be recoverable.."""
+        This is a hard delete. Data will not be recoverable."""
         endpoint = "deleteCaseComment"
 
         result = self.service.execute_mutation(
@@ -300,7 +300,7 @@ class TaegisSDKInvestigations2Mutation:
         self, input_: StartCaseFileUploadInput
     ) -> CaseFileUpload:
         """startCaseFileUpload initializes a file upload for a case.
-        The response will include a pre-signed URL that can be used to upload a file to the case..
+        The response will include a pre-signed URL that can be used to upload a file to the case.
         """
         endpoint = "startCaseFileUpload"
 
@@ -320,7 +320,7 @@ class TaegisSDKInvestigations2Mutation:
 
     def delete_case_file(self, input_: DeleteCaseFileInput) -> CaseFile:
         """deleteCaseFile removes an existing file from a case.
-        This is a hard delete. Data will not be recoverable.."""
+        This is a hard delete. Data will not be recoverable."""
         endpoint = "deleteCaseFile"
 
         result = self.service.execute_mutation(
@@ -338,7 +338,7 @@ class TaegisSDKInvestigations2Mutation:
         raise GraphQLNoRowsInResultSetError("for mutation deleteCaseFile")
 
     def create_case_link(self, input_: CreateCaseLinkInput) -> CaseLink:
-        """createCaseLink creates a new link on an existing case.."""
+        """createCaseLink creates a new link on an existing case."""
         endpoint = "createCaseLink"
 
         result = self.service.execute_mutation(
@@ -356,7 +356,7 @@ class TaegisSDKInvestigations2Mutation:
         raise GraphQLNoRowsInResultSetError("for mutation createCaseLink")
 
     def update_case_link(self, input_: UpdateCaseLinkInput) -> CaseLink:
-        """updateCaseLink updates an existing link on a case.."""
+        """updateCaseLink updates an existing link on a case."""
         endpoint = "updateCaseLink"
 
         result = self.service.execute_mutation(
@@ -374,7 +374,7 @@ class TaegisSDKInvestigations2Mutation:
         raise GraphQLNoRowsInResultSetError("for mutation updateCaseLink")
 
     def delete_case_link(self, input_: DeleteCaseLinkInput) -> CaseLink:
-        """deleteCaseLink deletes an existing link from a case.."""
+        """deleteCaseLink deletes an existing link from a case."""
         endpoint = "deleteCaseLink"
 
         result = self.service.execute_mutation(
@@ -394,7 +394,7 @@ class TaegisSDKInvestigations2Mutation:
     def create_investigation_v2(
         self, input_: CreateInvestigationInput
     ) -> InvestigationV2:
-        """createInvestigationV2 creates new investigation with the provided arguments.."""
+        """createInvestigationV2 creates new investigation with the provided arguments."""
         endpoint = "createInvestigationV2"
 
         result = self.service.execute_mutation(
@@ -415,7 +415,7 @@ class TaegisSDKInvestigations2Mutation:
         self, input_: UpdateInvestigationV2Input
     ) -> InvestigationV2:
         """updateInvestigationV2 updates an existing investigation.
-        This is a PATCH style mutation, only fields that are send in the input will be updated..
+        This is a PATCH style mutation, only fields that are send in the input will be updated.
         """
         endpoint = "updateInvestigationV2"
 
@@ -446,7 +446,7 @@ class TaegisSDKInvestigations2Mutation:
         Once the status is set to 'SUCCESS' the background job is complete and requesting the investigation will return the related evidence.
 
         Adding, removing or updating evidence (closing an investigation) while other jobs are processing for a given investigation will cause the jobs to queue.
-        Jobs will be worked through in the order they were received.."""
+        Jobs will be worked through in the order they were received."""
         endpoint = "addEvidenceToInvestigation"
 
         result = self.service.execute_mutation(
@@ -475,7 +475,7 @@ class TaegisSDKInvestigations2Mutation:
         Once the status is set to 'SUCCESS' the background job is complete and requesting the investigation will only return evidence that was not removed.
 
         Adding, removing or updating evidence (closing an investigation) while other jobs are processing for a given investigation will cause the jobs to queue.
-        Jobs will be worked through in the order they were received.."""
+        Jobs will be worked through in the order they were received."""
         endpoint = "removeEvidenceFromInvestigation"
 
         result = self.service.execute_mutation(
@@ -506,7 +506,7 @@ class TaegisSDKInvestigations2Mutation:
         Once the status is set to 'SUCCESS' the background job is complete and the alerts will have been updated.
 
         Adding, removing or updating evidence (closing an investigation) while other jobs are processing for a given investigation will cause the jobs to queue.
-        Jobs will be worked through in the order they were received.."""
+        Jobs will be worked through in the order they were received."""
         endpoint = "closeInvestigation"
 
         result = self.service.execute_mutation(
@@ -539,7 +539,7 @@ class TaegisSDKInvestigations2Mutation:
 
         Statuses such as AWAITING_ACTION and DRAFT may not be used when setting the status of investigations in bulk.
 
-        Investigations currently in the DRAFT state may be bulk updated to a non-DRAFT state, but investigations that are not in the DRAFT state may not be bulk updated to the DRAFT state..
+        Investigations currently in the DRAFT state may be bulk updated to a non-DRAFT state, but investigations that are not in the DRAFT state may not be bulk updated to the DRAFT state.
         """
         endpoint = "bulkSetInvestigationStatus"
 
@@ -560,7 +560,7 @@ class TaegisSDKInvestigations2Mutation:
     def create_investigation_rule(
         self, input_: CreateInvestigationRuleInput
     ) -> InvestigationRule:
-        """createInvestigationRule accepts input to create a new auto-investigation rule.."""
+        """createInvestigationRule accepts input to create a new auto-investigation rule."""
         endpoint = "createInvestigationRule"
 
         result = self.service.execute_mutation(
@@ -580,7 +580,7 @@ class TaegisSDKInvestigations2Mutation:
     def update_investigation_rule(
         self, input_: UpdateInvestigationRuleInput
     ) -> InvestigationRule:
-        """updateInvestigationRule accepts input to update an existing auto-investigation rule.."""
+        """updateInvestigationRule accepts input to update an existing auto-investigation rule."""
         endpoint = "updateInvestigationRule"
 
         result = self.service.execute_mutation(
@@ -601,7 +601,7 @@ class TaegisSDKInvestigations2Mutation:
         self, input_: DeleteInvestigationRuleInput
     ) -> InvestigationRule:
         """deleteInvestigationRule removes an existing investigation rule.
-        This is a hard delete. Data will not be recoverable.."""
+        This is a hard delete. Data will not be recoverable."""
         endpoint = "deleteInvestigationRule"
 
         result = self.service.execute_mutation(
@@ -621,7 +621,7 @@ class TaegisSDKInvestigations2Mutation:
     def create_investigation_template(
         self, input_: CreateInvestigationTemplateInput
     ) -> InvestigationTemplate:
-        """createInvestigationTemplate accepts input to create a new auto-investigation template.."""
+        """createInvestigationTemplate accepts input to create a new auto-investigation template."""
         endpoint = "createInvestigationTemplate"
 
         result = self.service.execute_mutation(
@@ -641,7 +641,7 @@ class TaegisSDKInvestigations2Mutation:
     def update_investigation_template(
         self, input_: UpdateInvestigationTemplateInput
     ) -> InvestigationTemplate:
-        """updateInvestigationTemplate accepts input to update an existing auto-investigation template.."""
+        """updateInvestigationTemplate accepts input to update an existing auto-investigation template."""
         endpoint = "updateInvestigationTemplate"
 
         result = self.service.execute_mutation(
@@ -662,7 +662,7 @@ class TaegisSDKInvestigations2Mutation:
         self, input_: DeleteInvestigationTemplateInput
     ) -> InvestigationTemplate:
         """deleteInvestigationTemplate removes an existing investigation template.
-        This is a hard delete. Data will not be recoverable.."""
+        This is a hard delete. Data will not be recoverable."""
         endpoint = "deleteInvestigationTemplate"
 
         result = self.service.execute_mutation(
@@ -683,7 +683,7 @@ class TaegisSDKInvestigations2Mutation:
         self, input_: ImportInvestigationResourcesInput
     ) -> List[InvestigationResource]:
         """importInvestigationResources will import investigation resources (rules & templates) from a YAML file.
-        The input YAML structure can be retrieved from a YAML string exported from the exportInvestigationResources query..
+        The input YAML structure can be retrieved from a YAML string exported from the exportInvestigationResources query.
         """
         endpoint = "importInvestigationResources"
 
@@ -707,7 +707,7 @@ class TaegisSDKInvestigations2Mutation:
     def add_comment_to_investigation(
         self, input_: AddCommentToInvestigationInput
     ) -> CommentV2:
-        """addCommentToInvestigation adds a comment to an existing investigation.."""
+        """addCommentToInvestigation adds a comment to an existing investigation."""
         endpoint = "addCommentToInvestigation"
 
         result = self.service.execute_mutation(
@@ -730,7 +730,7 @@ class TaegisSDKInvestigations2Mutation:
         """updateInvestigationComment updates an existing comment on an investigation.
         This is a PATCH style mutation, only fields that are send in the input will be updated.
         Only the user who created the comment can update it.
-        Updating a comment and adding new @mentions will trigger new notifications but will not send notifications to @mentions that are already present in the comment..
+        Updating a comment and adding new @mentions will trigger new notifications but will not send notifications to @mentions that are already present in the comment.
         """
         endpoint = "updateInvestigationComment"
 
@@ -752,7 +752,7 @@ class TaegisSDKInvestigations2Mutation:
         self, input_: DeleteInvestigationCommentInput
     ) -> CommentV2:
         """deleteInvestigationComment removes an existing comment from an investigation.
-        This is a hard delete. Data will not be recoverable.."""
+        This is a hard delete. Data will not be recoverable."""
         endpoint = "deleteInvestigationComment"
 
         result = self.service.execute_mutation(
@@ -774,7 +774,7 @@ class TaegisSDKInvestigations2Mutation:
     ) -> InvestigationV2:
         """archiveInvestigationV2 archives an existing investigation.
         Only investigations that are closed can be archived.
-        There may be some investigations that are archived but not in closed states, these are legacy investigations that were archived before the closed requirement was introduced..
+        There may be some investigations that are archived but not in closed states, these are legacy investigations that were archived before the closed requirement was introduced.
         """
         endpoint = "archiveInvestigationV2"
 
@@ -795,7 +795,7 @@ class TaegisSDKInvestigations2Mutation:
     def unarchive_investigation_v2(
         self, input_: UnarchiveInvestigationInput
     ) -> InvestigationV2:
-        """unarchiveInvestigationV2 unarchives an archived investigation.."""
+        """unarchiveInvestigationV2 unarchives an archived investigation."""
         endpoint = "unarchiveInvestigationV2"
 
         result = self.service.execute_mutation(
@@ -817,7 +817,7 @@ class TaegisSDKInvestigations2Mutation:
     ) -> ArchivedInvestigations:
         """archiveInvestigationsV2 archives a set of existing investigations.
         Only investigations that are closed can be archived.
-        The response will include the ids of the investigations that were successfully archived and will not return errors for investigations that could not be archived..
+        The response will include the ids of the investigations that were successfully archived and will not return errors for investigations that could not be archived.
         """
         endpoint = "archiveInvestigationsV2"
 
@@ -839,7 +839,7 @@ class TaegisSDKInvestigations2Mutation:
         self, input_: UnarchiveInvestigationsInput
     ) -> UnarchivedInvestigations:
         """unarchiveInvestigationsV2 unarchives a set of archived investigations.
-        The response will include the ids of the investigations that were successfully unarchived and will not return errors for investigations that could not be unarchived..
+        The response will include the ids of the investigations that were successfully unarchived and will not return errors for investigations that could not be unarchived.
         """
         endpoint = "unarchiveInvestigationsV2"
 
@@ -861,7 +861,7 @@ class TaegisSDKInvestigations2Mutation:
         self, input_: InitInvestigationFileUploadInput
     ) -> InvestigationFileUpload:
         """initInvestigationFileUpload initializes a file upload for an investigation.
-        The response will include a pre-signed URL that can be used to upload a file to the investigation..
+        The response will include a pre-signed URL that can be used to upload a file to the investigation.
         """
         endpoint = "initInvestigationFileUpload"
 
@@ -883,7 +883,7 @@ class TaegisSDKInvestigations2Mutation:
         self, input_: DeleteInvestigationFileInput
     ) -> InvestigationFileV2:
         """deleteInvestigationFile removes an existing file from an investigation.
-        This is a hard delete. Data will not be recoverable.."""
+        This is a hard delete. Data will not be recoverable."""
         endpoint = "deleteInvestigationFile"
 
         result = self.service.execute_mutation(

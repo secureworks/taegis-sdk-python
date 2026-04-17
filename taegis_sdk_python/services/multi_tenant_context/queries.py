@@ -35,7 +35,7 @@ class TaegisSDKMultiTenantContextQuery:
         self.service = service
 
     def get_session(self, keys: Optional[List[str]] = None) -> List[Session]:
-        """Gets a multi tenant session. This contains the multiple tenants a subject can look at. If the global key is provided but the session does not exist, it will be populated.."""
+        """Gets a multi tenant session. This contains the multiple tenants a subject can look at. If the global key is provided but the session does not exist, it will be populated."""
         endpoint = "getSession"
 
         result = self.service.execute_query(
@@ -55,7 +55,7 @@ class TaegisSDKMultiTenantContextQuery:
         raise GraphQLNoRowsInResultSetError("for query getSession")
 
     def get_tenant_history(self, key: str) -> List[History]:
-        """Gets tenant history for a subject. If the global key is provided but the tenant history does not exist, it will be populated.."""
+        """Gets tenant history for a subject. If the global key is provided but the tenant history does not exist, it will be populated."""
         endpoint = "getTenantHistory"
 
         result = self.service.execute_query(

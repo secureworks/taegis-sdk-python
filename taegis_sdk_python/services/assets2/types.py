@@ -187,6 +187,14 @@ class BulkOpStatusV2(str, Enum):
     TASK_STATE_IN_PROGRESS = "TASK_STATE_IN_PROGRESS"
 
 
+class ReconnectScope(str, Enum):
+    """ReconnectScope."""
+
+    TENANT = "TENANT"
+    GROUPS = "GROUPS"
+    SETTING = "SETTING"
+
+
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
 class ConnectionDetails:
@@ -668,6 +676,28 @@ class AssetsExportOutputV2:
     )
     page_info: Optional[PageInfoV2] = field(
         default=None, metadata=config(field_name="pageInfo")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class BulkReconnectByScopeInput:
+    """BulkReconnectByScopeInput."""
+
+    group_ids: Optional[List[str]] = field(
+        default=None, metadata=config(field_name="groupIds")
+    )
+    setting_id: Optional[str] = field(
+        default=None, metadata=config(field_name="settingId")
+    )
+    reason: Optional[str] = field(default=None, metadata=config(field_name="reason"))
+    scope: Optional[Union[ReconnectScope, TaegisEnum]] = field(
+        default=None,
+        metadata=config(
+            encoder=encode_enum,
+            decoder=lambda x: decode_enum(ReconnectScope, x),
+            field_name="scope",
+        ),
     )
 
 

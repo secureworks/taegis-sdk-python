@@ -35,7 +35,7 @@ class TaegisSDKTripQuery:
     def list_active_api_products(
         self, application: Union[ApiProductGroup, TaegisEnum]
     ) -> List[ApiProduct]:
-        """None."""
+        """No developer notes."""
         endpoint = "listActiveApiProducts"
 
         result = self.service.execute_query(
@@ -55,7 +55,7 @@ class TaegisSDKTripQuery:
         raise GraphQLNoRowsInResultSetError("for query listActiveApiProducts")
 
     def list_api_integrations(self) -> List[ApiIntegrationSummary]:
-        """None."""
+        """No developer notes."""
         endpoint = "listApiIntegrations"
 
         result = self.service.execute_query(
@@ -73,7 +73,7 @@ class TaegisSDKTripQuery:
         raise GraphQLNoRowsInResultSetError("for query listApiIntegrations")
 
     def api_integration(self, id_: int) -> ApiIntegration:
-        """None."""
+        """No developer notes."""
         endpoint = "apiIntegration"
 
         result = self.service.execute_query(
@@ -91,7 +91,7 @@ class TaegisSDKTripQuery:
         raise GraphQLNoRowsInResultSetError("for query apiIntegration")
 
     def api_integration_v2(self, id_: str) -> ApiIntegration:
-        """None."""
+        """No developer notes."""
         endpoint = "apiIntegrationV2"
 
         result = self.service.execute_query(
@@ -111,7 +111,7 @@ class TaegisSDKTripQuery:
     def list_api_integration_history(
         self, id_: int, start_time: str, end_time: str, page_number: int, page_size: int
     ) -> ApiIntegrationHistoryPage:
-        """None."""
+        """No developer notes."""
         endpoint = "listApiIntegrationHistory"
 
         result = self.service.execute_query(
@@ -133,7 +133,7 @@ class TaegisSDKTripQuery:
         raise GraphQLNoRowsInResultSetError("for query listApiIntegrationHistory")
 
     def get_form_options(self, product_id: int, form_item_name: str) -> List[str]:
-        """None."""
+        """No developer notes."""
         endpoint = "getFormOptions"
 
         result = self.service.execute_query(
@@ -149,7 +149,7 @@ class TaegisSDKTripQuery:
         raise GraphQLNoRowsInResultSetError("for query getFormOptions")
 
     def get_env_config(self) -> List[TripEnvConfig]:
-        """None."""
+        """No developer notes."""
         endpoint = "getEnvConfig"
 
         result = self.service.execute_query(
@@ -167,7 +167,7 @@ class TaegisSDKTripQuery:
         raise GraphQLNoRowsInResultSetError("for query getEnvConfig")
 
     def list_allowed_products_for_tenant(self) -> List[ApiProduct]:
-        """None."""
+        """No developer notes."""
         endpoint = "listAllowedProductsForTenant"
 
         result = self.service.execute_query(

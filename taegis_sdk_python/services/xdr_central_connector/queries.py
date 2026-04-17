@@ -35,7 +35,7 @@ class TaegisSDKXdrCentralConnectorQuery:
         self.service = service
 
     def cixa_endpoint_details(self, id_: str) -> EndpointDetails:
-        """Get an endpoint based on ID.."""
+        """Get an endpoint based on ID."""
         endpoint = "cixaEndpointDetails"
 
         result = self.service.execute_query(
@@ -55,7 +55,7 @@ class TaegisSDKXdrCentralConnectorQuery:
     def cixa_endpoint_downloads(
         self, args: Optional[PackageDownloadInput] = None
     ) -> EndpointInstallers:
-        """Get all the endpoint installer links for a tenant.."""
+        """Get all the endpoint installer links for a tenant."""
         endpoint = "cixaEndpointDownloads"
 
         result = self.service.execute_query(
@@ -75,7 +75,7 @@ class TaegisSDKXdrCentralConnectorQuery:
     def cixa_endpoint_forensic_logs_status(
         self, endpoint_id: str, forensic_log_request_id: str
     ) -> ForensicLogsPayload:
-        """Gets the status of the forensic log collection.."""
+        """Gets the status of the forensic log collection."""
         endpoint = "cixaEndpointForensicLogsStatus"
 
         result = self.service.execute_query(
@@ -112,7 +112,7 @@ class TaegisSDKXdrCentralConnectorQuery:
         raise GraphQLNoRowsInResultSetError("for query launchLiveTerminalCheck")
 
     def central_access_tokens(self) -> CentralAccessTokens:
-        """Get all access tokens for a tenant.."""
+        """Get all access tokens for a tenant."""
         endpoint = "centralAccessTokens"
 
         result = self.service.execute_query(

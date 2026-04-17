@@ -231,7 +231,7 @@ class TaegisSDKUsersMutation:
         raise GraphQLNoRowsInResultSetError("for mutation removeTDRUserInternalRoles")
 
     def validate_support_pin(self, email: str, support_pin: str) -> PinValidation:
-        """Validate that the given support pin matches the pin associated with the given user id. Upon validation, a new token will generated for the user.."""
+        """Validate that the given support pin matches the pin associated with the given user id. Upon validation, a new token will generated for the user."""
         endpoint = "validateSupportPin"
 
         result = self.service.execute_mutation(
@@ -250,7 +250,7 @@ class TaegisSDKUsersMutation:
         raise GraphQLNoRowsInResultSetError("for mutation validateSupportPin")
 
     def update_tdruser_info(self, user_info: TDRUserInfoInput) -> TDRUser:
-        """Self-update user information. Permissions are user:read since all users have read permission. The user to update is determined by the sub claim in the access token.."""
+        """Self-update user information. Permissions are user:read since all users have read permission. The user to update is determined by the sub claim in the access token."""
         endpoint = "updateTDRUserInfo"
 
         result = self.service.execute_mutation(

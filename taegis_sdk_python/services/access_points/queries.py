@@ -33,7 +33,7 @@ class TaegisSDKAccessPointsQuery:
         self.service = service
 
     def get_access_point(self) -> AccessPoint:
-        """None."""
+        """No developer notes."""
         endpoint = "getAccessPoint"
 
         result = self.service.execute_query(
@@ -49,7 +49,7 @@ class TaegisSDKAccessPointsQuery:
         raise GraphQLNoRowsInResultSetError("for query getAccessPoint")
 
     def get_access_point_template(self) -> AccessPointCloudFormation:
-        """None."""
+        """No developer notes."""
         endpoint = "getAccessPointTemplate"
 
         result = self.service.execute_query(
@@ -65,7 +65,7 @@ class TaegisSDKAccessPointsQuery:
         raise GraphQLNoRowsInResultSetError("for query getAccessPointTemplate")
 
     def get_access_point_prefixes(self) -> AccessPointPrefixes:
-        """None."""
+        """No developer notes."""
         endpoint = "getAccessPointPrefixes"
 
         result = self.service.execute_query(

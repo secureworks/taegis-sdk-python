@@ -33,7 +33,7 @@ class TaegisSDKThreatScoreQuery:
         self.service = service
 
     def alert_prioritization_by_id(self, id_: str) -> AlertPrioritization:
-        """Get Alert Prioritization using Alert ID.."""
+        """Get Alert Prioritization using Alert ID."""
         endpoint = "alertPrioritizationById"
 
         result = self.service.execute_query(
@@ -53,7 +53,7 @@ class TaegisSDKThreatScoreQuery:
     def alert_prioritization_by_ids(
         self, ids: Optional[List[str]] = None
     ) -> List[AlertPrioritization]:
-        """Provide a list of Alert IDs to retrieve each Alert Prioritization.."""
+        """Provide a list of Alert IDs to retrieve each Alert Prioritization."""
         endpoint = "alertPrioritizationByIds"
 
         result = self.service.execute_query(

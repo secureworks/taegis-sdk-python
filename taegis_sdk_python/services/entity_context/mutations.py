@@ -41,7 +41,7 @@ class TaegisSDKEntityContextMutation:
         """Mutation to add an subgraph to the graph.
         The entrypoint specifies the type of object you are adding to and will syncronously call the coresponding API.
         Afterwards a subgraph will be generated from the resource ids in options and added to the graph.
-        If multiple Ids are specified, the mutation will be applied to all of them and returned as one subgraph..
+        If multiple Ids are specified, the mutation will be applied to all of them and returned as one subgraph.
         """
         endpoint = "entityContextAddTo"
 

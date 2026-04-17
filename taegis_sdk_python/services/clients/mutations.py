@@ -77,7 +77,7 @@ class TaegisSDKClientsMutation:
         raise GraphQLNoRowsInResultSetError("for mutation rotateClientSecret")
 
     def force_rotate_client_secret(self, id_: str) -> NewClient:
-        """Force rotate a new secret for an existing client.."""
+        """Force rotate a new secret for an existing client."""
         endpoint = "forceRotateClientSecret"
 
         result = self.service.execute_mutation(

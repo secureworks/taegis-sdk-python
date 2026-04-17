@@ -35,7 +35,7 @@ class TaegisSDKMultiTenantContextMutation:
         self.service = service
 
     def create_session(self, input_: CreateSessionInput) -> Session:
-        """Creates a session. Any inputs besides the key are optional.."""
+        """Creates a session. Any inputs besides the key are optional."""
         endpoint = "createSession"
 
         result = self.service.execute_mutation(
@@ -53,7 +53,7 @@ class TaegisSDKMultiTenantContextMutation:
         raise GraphQLNoRowsInResultSetError("for mutation createSession")
 
     def set_session(self, inputs: Optional[List[SessionInput]] = None) -> List[Session]:
-        """Sets a multi tenant session. Set the tenants you want to look at for a session.."""
+        """Sets a multi tenant session. Set the tenants you want to look at for a session."""
         endpoint = "setSession"
 
         result = self.service.execute_mutation(
@@ -73,7 +73,7 @@ class TaegisSDKMultiTenantContextMutation:
         raise GraphQLNoRowsInResultSetError("for mutation setSession")
 
     def add_to_tenant_history(self, input_: SessionInput) -> List[History]:
-        """Adds to a subject's tenant history. Returns the new histories which were added.."""
+        """Adds to a subject's tenant history. Returns the new histories which were added."""
         endpoint = "addToTenantHistory"
 
         result = self.service.execute_mutation(

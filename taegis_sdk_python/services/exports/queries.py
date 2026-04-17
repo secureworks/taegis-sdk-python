@@ -35,7 +35,7 @@ class TaegisSDKExportsQuery:
     def all_exports(
         self, include_connected_exports: Optional[bool] = None
     ) -> List[Export]:
-        """None."""
+        """No developer notes."""
         endpoint = "allExports"
 
         log.warning(
@@ -58,7 +58,7 @@ class TaegisSDKExportsQuery:
         raise GraphQLNoRowsInResultSetError("for query allExports")
 
     def single_export(self, id_: str) -> Export:
-        """None."""
+        """No developer notes."""
         endpoint = "singleExport"
 
         log.warning(
@@ -79,7 +79,7 @@ class TaegisSDKExportsQuery:
         raise GraphQLNoRowsInResultSetError("for query singleExport")
 
     def get_export_url(self, input_: str) -> str:
-        """None."""
+        """No developer notes."""
         endpoint = "getExportURL"
 
         log.warning(
@@ -103,7 +103,7 @@ class TaegisSDKExportsQuery:
         cursor: Optional[Cursor] = None,
         filters: Optional[ReportsFilters] = None,
     ) -> ReportsOutput:
-        """None."""
+        """No developer notes."""
         endpoint = "getReportsFromSchedule"
 
         result = self.service.execute_query(
@@ -125,7 +125,7 @@ class TaegisSDKExportsQuery:
     def all_reports(
         self, cursor: Optional[Cursor] = None, filters: Optional[ReportsFilters] = None
     ) -> ReportsOutput:
-        """None."""
+        """No developer notes."""
         endpoint = "allReports"
 
         result = self.service.execute_query(
@@ -148,7 +148,7 @@ class TaegisSDKExportsQuery:
         cursor: Optional[Cursor] = None,
         filters: Optional[SchedulesFilters] = None,
     ) -> SchedulesOutput:
-        """None."""
+        """No developer notes."""
         endpoint = "allSchedules"
 
         result = self.service.execute_query(
@@ -167,7 +167,7 @@ class TaegisSDKExportsQuery:
         raise GraphQLNoRowsInResultSetError("for query allSchedules")
 
     def single_schedule(self, id_: str) -> Schedule:
-        """None."""
+        """No developer notes."""
         endpoint = "singleSchedule"
 
         result = self.service.execute_query(
@@ -185,7 +185,7 @@ class TaegisSDKExportsQuery:
         raise GraphQLNoRowsInResultSetError("for query singleSchedule")
 
     def single_report(self, id_: str) -> Report:
-        """None."""
+        """No developer notes."""
         endpoint = "singleReport"
 
         result = self.service.execute_query(
@@ -202,7 +202,7 @@ class TaegisSDKExportsQuery:
         raise GraphQLNoRowsInResultSetError("for query singleReport")
 
     def get_report_url(self, id_: str) -> str:
-        """None."""
+        """No developer notes."""
         endpoint = "getReportURL"
 
         result = self.service.execute_query(
@@ -217,7 +217,7 @@ class TaegisSDKExportsQuery:
         raise GraphQLNoRowsInResultSetError("for query getReportURL")
 
     def get_connected_export_url(self, id_: str) -> str:
-        """None."""
+        """No developer notes."""
         endpoint = "getConnectedExportURL"
 
         result = self.service.execute_query(
@@ -234,7 +234,7 @@ class TaegisSDKExportsQuery:
     def create_absolute_time_red_ql_query(
         self, query: str, reference_time: str, current_time: str
     ) -> str:
-        """None."""
+        """No developer notes."""
         endpoint = "createAbsoluteTimeRedQLQuery"
 
         result = self.service.execute_query(
@@ -253,7 +253,7 @@ class TaegisSDKExportsQuery:
     def get_reports_from_schedule_v2(
         self, input_: ReportsFromScheduleInput
     ) -> ReportsOutput:
-        """None."""
+        """No developer notes."""
         endpoint = "getReportsFromScheduleV2"
 
         result = self.service.execute_query(
@@ -271,7 +271,7 @@ class TaegisSDKExportsQuery:
         raise GraphQLNoRowsInResultSetError("for query getReportsFromScheduleV2")
 
     def all_reports_v2(self, input_: Optional[AllReportsInput] = None) -> ReportsOutput:
-        """None."""
+        """No developer notes."""
         endpoint = "allReportsV2"
 
         result = self.service.execute_query(
@@ -291,7 +291,7 @@ class TaegisSDKExportsQuery:
     def all_schedules_v2(
         self, input_: Optional[AllSchedulesInput] = None
     ) -> SchedulesOutput:
-        """None."""
+        """No developer notes."""
         endpoint = "allSchedulesV2"
 
         result = self.service.execute_query(
@@ -311,7 +311,7 @@ class TaegisSDKExportsQuery:
     def create_absolute_time_red_ql_query_v2(
         self, input_: AbsoluteTimeRedQLQueryInput
     ) -> str:
-        """None."""
+        """No developer notes."""
         endpoint = "createAbsoluteTimeRedQLQueryV2"
 
         result = self.service.execute_query(
@@ -326,7 +326,7 @@ class TaegisSDKExportsQuery:
         raise GraphQLNoRowsInResultSetError("for query createAbsoluteTimeRedQLQueryV2")
 
     def get_red_ql_query_with_time_range(self, input_: QueryWithTimeRangeInput) -> str:
-        """None."""
+        """No developer notes."""
         endpoint = "getRedQLQueryWithTimeRange"
 
         result = self.service.execute_query(
@@ -341,7 +341,7 @@ class TaegisSDKExportsQuery:
         raise GraphQLNoRowsInResultSetError("for query getRedQLQueryWithTimeRange")
 
     def get_all_unsubscriptions(self) -> List[Unsubscription]:
-        """None."""
+        """No developer notes."""
         endpoint = "getAllUnsubscriptions"
 
         result = self.service.execute_query(

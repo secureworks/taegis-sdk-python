@@ -3229,6 +3229,9 @@ class Alert2:
     parent_tenant_id: Optional[str] = field(
         default=None, metadata=config(field_name="parent_tenant_id")
     )
+    mdr_provider: Optional[str] = field(
+        default=None, metadata=config(field_name="mdr_provider")
+    )
     suppressed: Optional[bool] = field(
         default=None, metadata=config(field_name="suppressed")
     )

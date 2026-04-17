@@ -35,7 +35,7 @@ class TaegisSDKContractedEndpointQuery:
     def endpoint_count_for_tenant_id(
         self, service_date: Optional[str] = None
     ) -> ContractedEndpoints:
-        """None."""
+        """No developer notes."""
         endpoint = "endpointCountForTenantID"
 
         result = self.service.execute_query(
@@ -53,7 +53,7 @@ class TaegisSDKContractedEndpointQuery:
         raise GraphQLNoRowsInResultSetError("for query endpointCountForTenantID")
 
     def project_ir_hours_for_tenant_id(self) -> float:
-        """None."""
+        """No developer notes."""
         endpoint = "projectIRHoursForTenantID"
 
         result = self.service.execute_query(endpoint=endpoint, variables={}, output="")
@@ -64,7 +64,7 @@ class TaegisSDKContractedEndpointQuery:
     def get_historical_endpoint_count_for_tenant_id(
         self, start_date: str, end_date: str
     ) -> List[EndpointHistory]:
-        """None."""
+        """No developer notes."""
         endpoint = "getHistoricalEndpointCountForTenantID"
 
         result = self.service.execute_query(

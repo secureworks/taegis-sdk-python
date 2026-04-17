@@ -33,7 +33,7 @@ class TaegisSDKNotifications2Query:
         self.service = service
 
     def notifications_v2(self, arguments: NotificationsV2Arguments) -> NotificationsV2:
-        """notificationsV2 returns a list of notifications intended for the calling user.."""
+        """notificationsV2 returns a list of notifications intended for the calling user."""
         endpoint = "notificationsV2"
 
         result = self.service.execute_query(
@@ -52,7 +52,7 @@ class TaegisSDKNotifications2Query:
 
     def notification_v2(self, arguments: NotificationV2Arguments) -> NotificationV2:
         """notificationV2 returns a single notification by id. If the notification is not found, the service will return null.
-        Will only return the last 60ish days of notifications.."""
+        Will only return the last 60ish days of notifications."""
         endpoint = "notificationV2"
 
         result = self.service.execute_query(
@@ -70,7 +70,7 @@ class TaegisSDKNotifications2Query:
         raise GraphQLNoRowsInResultSetError("for query notificationV2")
 
     def push_subscriptions(self) -> List[PushSubscription]:
-        """pushSubscriptions returns a list of push subscriptions for the calling user.."""
+        """pushSubscriptions returns a list of push subscriptions for the calling user."""
         endpoint = "pushSubscriptions"
 
         result = self.service.execute_query(
@@ -90,7 +90,7 @@ class TaegisSDKNotifications2Query:
     def notification_rules(
         self, arguments: NotificationRulesArguments
     ) -> NotificationRules:
-        """rules returns a list of rules.."""
+        """rules returns a list of rules."""
         endpoint = "notificationRules"
 
         result = self.service.execute_query(
@@ -110,7 +110,7 @@ class TaegisSDKNotifications2Query:
     def notification_rule(
         self, arguments: NotificationRuleArguments
     ) -> NotificationRule:
-        """rule returns a single rule by id.."""
+        """rule returns a single rule by id."""
         endpoint = "notificationRule"
 
         result = self.service.execute_query(
@@ -150,7 +150,7 @@ class TaegisSDKNotifications2Query:
     def notifications_search(
         self, arguments: NotificationsSearchArguments
     ) -> NotificationsV2:
-        """notificationsSearch returns a list of notifications based on the search arguments provided.."""
+        """notificationsSearch returns a list of notifications based on the search arguments provided."""
         endpoint = "notificationsSearch"
 
         result = self.service.execute_query(
@@ -168,7 +168,7 @@ class TaegisSDKNotifications2Query:
         raise GraphQLNoRowsInResultSetError("for query notificationsSearch")
 
     def notification_rule_source_details(self) -> List[NotificationRuleSourceDetails]:
-        """notificationRuleSourceDetails returns the details of notification rule sources.."""
+        """notificationRuleSourceDetails returns the details of notification rule sources."""
         endpoint = "notificationRuleSourceDetails"
 
         result = self.service.execute_query(
@@ -188,7 +188,7 @@ class TaegisSDKNotifications2Query:
     def notification_templates(
         self, arguments: NotificationTemplatesArguments
     ) -> NotificationTemplates:
-        """None."""
+        """No developer notes."""
         endpoint = "notificationTemplates"
 
         result = self.service.execute_query(

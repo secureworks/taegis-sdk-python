@@ -43,7 +43,7 @@ class TaegisSDKAssets2Mutation:
         tags for the endpoint. If the intention is to change/remove a single
         tag, query the asset first to get the current set of tags for the
         endpoint, then pass the complete set of tags desired with the changes
-        included.."""
+        included."""
         endpoint = "updateTagsForEndpointV2"
 
         result = self.service.execute_mutation(
@@ -68,7 +68,7 @@ class TaegisSDKAssets2Mutation:
         endpoints have tags with the same key, but a different value, the value
         will be updated with the value in the input. Use the task ID in the
         response to poll the bulkUpdateTagsForEndpointsStatusV2 query to
-        determine if the job succeeded.."""
+        determine if the job succeeded."""
         endpoint = "bulkUpdateTagsForEndpointsV2"
 
         result = self.service.execute_mutation(
@@ -88,7 +88,7 @@ class TaegisSDKAssets2Mutation:
     def delete_assets_v2(self, input_: DeleteAssetsInputV2) -> BulkOpPayloadV2:
         """Start a job to "soft" delete the assets matching the filter criteria.
         Use the task ID in the response to poll the deleteAssetsStatusV2
-        query to determine if the job succeeded.."""
+        query to determine if the job succeeded."""
         endpoint = "deleteAssetsV2"
 
         result = self.service.execute_mutation(
@@ -108,7 +108,7 @@ class TaegisSDKAssets2Mutation:
     def restore_assets_v2(self, input_: RestoreAssetsInputV2) -> BulkOpPayloadV2:
         """Start a job to restore assets that were previously deleted and that
         match the filter criteria. Use the task ID in the response to poll the
-        restoreAssetsStatusV2 query to determine if the job succeeded.."""
+        restoreAssetsStatusV2 query to determine if the job succeeded."""
         endpoint = "restoreAssetsV2"
 
         result = self.service.execute_mutation(
@@ -130,7 +130,7 @@ class TaegisSDKAssets2Mutation:
     ) -> BulkOpPayloadV2:
         """Start a job to assign the endpoints matching the filter criteria to the
         endpoint group in the input. Use the task ID in the response to poll the
-        assignBulkAssetsToGroupStatus query to determine if the job succeeded.."""
+        assignBulkAssetsToGroupStatus query to determine if the job succeeded."""
         endpoint = "assignBulkAssetsToGroup"
 
         result = self.service.execute_mutation(
@@ -153,7 +153,7 @@ class TaegisSDKAssets2Mutation:
         """Start a job to delete the provided tags from the endpoints matching the
         filter criteria in the input. Use the task ID in the response to poll
         the bulkDeleteTagsForEndpointsStatusV2 query to determine if the job
-        succeeded.."""
+        succeeded."""
         endpoint = "bulkDeleteTagsForEndpointsV2"
 
         result = self.service.execute_mutation(
@@ -173,7 +173,7 @@ class TaegisSDKAssets2Mutation:
     def bulk_reconnect_native_assets(
         self, input_: BulkReconnectNativeAssetsInput
     ) -> BulkOpPayloadV2:
-        """Start a job to reconnect taegis endpoints matching the filter criteria in the input.."""
+        """Start a job to reconnect taegis endpoints matching the filter criteria in the input."""
         endpoint = "bulkReconnectNativeAssets"
 
         result = self.service.execute_mutation(
@@ -193,7 +193,7 @@ class TaegisSDKAssets2Mutation:
     def bulk_uninstall_native_assets(
         self, input_: BulkUninstallNativeAssetsInput
     ) -> BulkOpPayloadV2:
-        """Start a job to uninstall taegis endpoints matching the filter criteria in the input.."""
+        """Start a job to uninstall taegis endpoints matching the filter criteria in the input."""
         endpoint = "bulkUninstallNativeAssets"
 
         result = self.service.execute_mutation(
@@ -209,3 +209,23 @@ class TaegisSDKAssets2Mutation:
         if result.get(endpoint) is not None:
             return BulkOpPayloadV2.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for mutation bulkUninstallNativeAssets")
+
+    def bulk_reconnect_by_scope(
+        self, input_: BulkReconnectByScopeInput
+    ) -> BulkOpPayloadV2:
+        """Start a job to reconnect taegis endpoints by scope (tenant or group level)."""
+        endpoint = "bulkReconnectByScope"
+
+        result = self.service.execute_mutation(
+            endpoint=endpoint,
+            variables={
+                "input": prepare_input(input_),
+            },
+            output=build_output_string(
+                BulkOpPayloadV2,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
+        )
+        if result.get(endpoint) is not None:
+            return BulkOpPayloadV2.from_dict(result.get(endpoint))
+        raise GraphQLNoRowsInResultSetError("for mutation bulkReconnectByScope")

@@ -60,6 +60,14 @@ class AuthzSubjectIDType(str, Enum):
     UNKNOWN = "UNKNOWN"
 
 
+class StepUpResult(str, Enum):
+    """StepUpResult."""
+
+    REQUIRE_STEP_UP = "REQUIRE_STEP_UP"
+    ALLOW = "ALLOW"
+    ACCESS_DENIED = "ACCESS_DENIED"
+
+
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
 class Subject:
@@ -223,6 +231,19 @@ class AuthzSupportedFeatureState:
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
+class AuthzStepUpInput:
+    """AuthzStepUpInput."""
+
+    operation: Optional[str] = field(
+        default=None, metadata=config(field_name="operation")
+    )
+    tenant_id: Optional[str] = field(
+        default=None, metadata=config(field_name="tenantID")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
 class AuthzPermission:
     """AuthzPermission."""
 
@@ -283,6 +304,27 @@ class AuthzUpdateSupportedFeatureStateInput:
             encoder=encode_enum,
             decoder=lambda x: decode_enum(AuthzSupportedFeatureTarget, x),
             field_name="target",
+        ),
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class AuthzStepUpResponse:
+    """AuthzStepUpResponse."""
+
+    operation: Optional[str] = field(
+        default=None, metadata=config(field_name="operation")
+    )
+    tenant_id: Optional[str] = field(
+        default=None, metadata=config(field_name="tenantID")
+    )
+    result: Optional[Union[StepUpResult, TaegisEnum]] = field(
+        default=None,
+        metadata=config(
+            encoder=encode_enum,
+            decoder=lambda x: decode_enum(StepUpResult, x),
+            field_name="result",
         ),
     )
 

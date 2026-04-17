@@ -20,6 +20,13 @@ class languageType(str, Enum):
 
     EN = "EN"
     JA = "JA"
+    IT_IT = "IT_IT"
+    DE_DE = "DE_DE"
+    ZH_TW = "ZH_TW"
+    KO_KR = "KO_KR"
+    PT_BR = "PT_BR"
+    ES_ES = "ES_ES"
+    FR_FR = "FR_FR"
 
 
 class ContentFormat(str, Enum):

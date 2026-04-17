@@ -37,7 +37,7 @@ class TaegisSDKThreatPublicationsQuery:
         id_: str,
         content_format: Optional[Union[ContentFormat, TaegisEnum]] = None,
     ) -> ThreatPublication:
-        """Retreives a publication by ID.."""
+        """Retreives a publication by ID."""
         endpoint = "threatPublication"
 
         result = self.service.execute_query(
@@ -60,7 +60,7 @@ class TaegisSDKThreatPublicationsQuery:
         text: str,
         content_format: Optional[Union[ContentFormat, TaegisEnum]] = None,
     ) -> List[ThreatPublication]:
-        """Searches publications for text.."""
+        """Searches publications for text."""
         endpoint = "threatPublications"
 
         result = self.service.execute_query(
@@ -86,7 +86,7 @@ class TaegisSDKThreatPublicationsQuery:
         size: int,
         content_format: Optional[Union[ContentFormat, TaegisEnum]] = None,
     ) -> List[ThreatPublication]:
-        """Gets the latest publications from an offset with a size.."""
+        """Gets the latest publications from an offset with a size."""
         endpoint = "threatLatestPublications"
 
         result = self.service.execute_query(
@@ -112,7 +112,7 @@ class TaegisSDKThreatPublicationsQuery:
         text: List[str],
         content_format: Optional[Union[ContentFormat, TaegisEnum]] = None,
     ) -> List[ThreatPublication]:
-        """Searches publications for array of text.."""
+        """Searches publications for array of text."""
         endpoint = "threatPublicationsSearch"
 
         result = self.service.execute_query(
