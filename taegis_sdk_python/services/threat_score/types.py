@@ -69,6 +69,9 @@ class EntityEvidenceData:
     blocklist_rate_flag: Optional[bool] = field(
         default=None, metadata=config(field_name="blocklistRateFlag")
     )
+    entity_in_past_tpb_or_fp_alert: Optional[bool] = field(
+        default=None, metadata=config(field_name="entityInPastTpbOrFpAlert")
+    )
 
 
 @dataclass_json

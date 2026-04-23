@@ -41,7 +41,10 @@ class TaegisSDKTriggerActionMutation:
             variables={
                 "input": prepare_input(input_),
             },
-            output=build_output_string(PlaybookExecution),
+            output=build_output_string(
+                PlaybookExecution,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return PlaybookExecution.from_dict(result.get(endpoint))
@@ -56,7 +59,10 @@ class TaegisSDKTriggerActionMutation:
             variables={
                 "input": prepare_input(input_),
             },
-            output=build_output_string(BulkActions),
+            output=build_output_string(
+                BulkActions,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return BulkActions.from_dict(result.get(endpoint))
@@ -84,7 +90,10 @@ class TaegisSDKTriggerActionMutation:
                 "targetResource": prepare_input(target_resource),
                 "reason": prepare_input(reason),
             },
-            output=build_output_string(PlaybookExecution),
+            output=build_output_string(
+                PlaybookExecution,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return PlaybookExecution.from_dict(result.get(endpoint))
@@ -105,7 +114,10 @@ class TaegisSDKTriggerActionMutation:
             variables={
                 "input": prepare_input(input_),
             },
-            output=build_output_string(PlaybookExecution),
+            output=build_output_string(
+                PlaybookExecution,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return PlaybookExecution.schema().load(
@@ -128,7 +140,10 @@ class TaegisSDKTriggerActionMutation:
             variables={
                 "input": prepare_input(input_),
             },
-            output=build_output_string(PlaybookExecution),
+            output=build_output_string(
+                PlaybookExecution,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return PlaybookExecution.schema().load(

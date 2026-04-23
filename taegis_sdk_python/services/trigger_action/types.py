@@ -6,9 +6,36 @@
 # DO NOT MODIFY
 
 from dataclasses import dataclass, field
+from enum import Enum
 from typing import Any, Dict, List, Optional, Tuple, Union
 
 from dataclasses_json import config, dataclass_json
+
+from taegis_sdk_python._consts import TaegisEnum
+from taegis_sdk_python.utils import decode_enum, encode_enum, parse_union_result
+
+
+class SortDirection(str, Enum):
+    """SortDirection."""
+
+    ASC = "ASC"
+    DESC = "DESC"
+
+
+class PlaybookActionResponseMode(str, Enum):
+    """PlaybookActionResponseMode."""
+
+    AUTHORIZED = "AUTHORIZED"
+    COLLABORATE_PLUS = "COLLABORATE_PLUS"
+    COLLABORATE = "COLLABORATE"
+    NOTIFY_ONLY = "NOTIFY_ONLY"
+    DEFAULT = "DEFAULT"
+
+
+class PlaybookActionSortField(str, Enum):
+    """PlaybookActionSortField."""
+
+    NAME = "NAME"
 
 
 @dataclass_json
@@ -24,10 +51,24 @@ class PlaybookExecution:
 class PlaybookActionCategory:
     """PlaybookActionCategory."""
 
-    id: Optional[str] = field(default=None, metadata=config(field_name="id"))
-    name: Optional[str] = field(default=None, metadata=config(field_name="name"))
+    value: Optional[str] = field(default=None, metadata=config(field_name="value"))
+    title: Optional[str] = field(default=None, metadata=config(field_name="title"))
     description: Optional[str] = field(
         default=None, metadata=config(field_name="description")
+    )
+    id: Optional[str] = field(
+        default=None,
+        metadata=config(
+            metadata={"deprecated": True, "deprecation_reason": "use value instead"},
+            field_name="id",
+        ),
+    )
+    name: Optional[str] = field(
+        default=None,
+        metadata=config(
+            metadata={"deprecated": True, "deprecation_reason": "use title instead"},
+            field_name="name",
+        ),
     )
 
 
@@ -36,10 +77,27 @@ class PlaybookActionCategory:
 class PlaybookActionContext:
     """PlaybookActionContext."""
 
-    id: Optional[str] = field(default=None, metadata=config(field_name="id"))
-    name: Optional[str] = field(default=None, metadata=config(field_name="name"))
+    value: Optional[str] = field(default=None, metadata=config(field_name="value"))
+    title: Optional[str] = field(default=None, metadata=config(field_name="title"))
     description: Optional[str] = field(
         default=None, metadata=config(field_name="description")
+    )
+    categories: Optional[List[str]] = field(
+        default=None, metadata=config(field_name="categories")
+    )
+    id: Optional[str] = field(
+        default=None,
+        metadata=config(
+            metadata={"deprecated": True, "deprecation_reason": "use value instead"},
+            field_name="id",
+        ),
+    )
+    name: Optional[str] = field(
+        default=None,
+        metadata=config(
+            metadata={"deprecated": True, "deprecation_reason": "use title instead"},
+            field_name="name",
+        ),
     )
 
 
@@ -57,6 +115,9 @@ class ExecuteActionInput:
     reason: Optional[str] = field(default=None, metadata=config(field_name="reason"))
     investigation_id: Optional[str] = field(
         default=None, metadata=config(field_name="investigationId")
+    )
+    additional_inputs: Optional[Any] = field(
+        default=None, metadata=config(field_name="additionalInputs")
     )
 
 
@@ -182,8 +243,34 @@ class ExecutePlaybookActionInput:
 class BulkActions:
     """BulkActions."""
 
+    execution_group_id: Optional[str] = field(
+        default=None, metadata=config(field_name="executionGroupId")
+    )
     executions: Optional[List[PlaybookExecution]] = field(
         default=None, metadata=config(field_name="executions")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class PlaybookActionSortInput:
+    """PlaybookActionSortInput."""
+
+    field_: Optional[Union[PlaybookActionSortField, TaegisEnum]] = field(
+        default=None,
+        metadata=config(
+            encoder=encode_enum,
+            decoder=lambda x: decode_enum(PlaybookActionSortField, x),
+            field_name="field",
+        ),
+    )
+    direction: Optional[Union[SortDirection, TaegisEnum]] = field(
+        default=None,
+        metadata=config(
+            encoder=encode_enum,
+            decoder=lambda x: decode_enum(SortDirection, x),
+            field_name="direction",
+        ),
     )
 
 
@@ -202,7 +289,14 @@ class PlaybookAction:
         default=None, metadata=config(field_name="isEnabled")
     )
     is_proactive: Optional[bool] = field(
-        default=None, metadata=config(field_name="isProactive")
+        default=None,
+        metadata=config(
+            metadata={
+                "deprecated": True,
+                "deprecation_reason": "Use isPreApproved and responseMode to determine action approval status",
+            },
+            field_name="isProactive",
+        ),
     )
     is_pre_approved: Optional[bool] = field(
         default=None, metadata=config(field_name="isPreApproved")
@@ -210,11 +304,25 @@ class PlaybookAction:
     approved_by: Optional[str] = field(
         default=None, metadata=config(field_name="approvedBy")
     )
+    additional_inputs_required: Optional[Any] = field(
+        default=None, metadata=config(field_name="additionalInputsRequired")
+    )
+    is_mdr_provider_internal_response_action: Optional[bool] = field(
+        default=None, metadata=config(field_name="isMDRProviderInternalResponseAction")
+    )
     category: Optional[PlaybookActionCategory] = field(
         default=None, metadata=config(field_name="category")
     )
     context: Optional[PlaybookActionContext] = field(
         default=None, metadata=config(field_name="context")
+    )
+    response_mode: Optional[Union[PlaybookActionResponseMode, TaegisEnum]] = field(
+        default=None,
+        metadata=config(
+            encoder=encode_enum,
+            decoder=lambda x: decode_enum(PlaybookActionResponseMode, x),
+            field_name="responseMode",
+        ),
     )
 
 

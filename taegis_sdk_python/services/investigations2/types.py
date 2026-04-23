@@ -225,6 +225,25 @@ class CaseLink:
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
+class PageInfo:
+    """PageInfo."""
+
+    start_cursor: Optional[str] = field(
+        default=None, metadata=config(field_name="startCursor")
+    )
+    end_cursor: Optional[str] = field(
+        default=None, metadata=config(field_name="endCursor")
+    )
+    has_next_page: Optional[bool] = field(
+        default=None, metadata=config(field_name="hasNextPage")
+    )
+    has_previous_page: Optional[bool] = field(
+        default=None, metadata=config(field_name="hasPreviousPage")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
 class AddEvidenceToCaseResult:
     """AddEvidenceToCaseResult."""
 
@@ -458,6 +477,21 @@ class TDRUser:
     """TDRUser."""
 
     id: Optional[str] = field(default=None, metadata=config(field_name="id"))
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class IncidentAdvisor:
+    """IncidentAdvisor."""
+
+    id: Optional[str] = field(default=None, metadata=config(field_name="id"))
+    email: Optional[str] = field(default=None, metadata=config(field_name="email"))
+    given_name: Optional[str] = field(
+        default=None, metadata=config(field_name="givenName")
+    )
+    family_name: Optional[str] = field(
+        default=None, metadata=config(field_name="familyName")
+    )
 
 
 @dataclass_json
@@ -881,15 +915,22 @@ class CaseArguments:
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
-class CasesArguments:
-    """CasesArguments."""
+class OffsetPagination:
+    """OffsetPagination."""
 
-    query: Optional[str] = field(default=None, metadata=config(field_name="query"))
     page: Optional[int] = field(default=None, metadata=config(field_name="page"))
     per_page: Optional[int] = field(default=None, metadata=config(field_name="perPage"))
-    tenant_service_filters: Optional[List[str]] = field(
-        default=None, metadata=config(field_name="tenantServiceFilters")
-    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class CursorPagination:
+    """CursorPagination."""
+
+    first: Optional[int] = field(default=None, metadata=config(field_name="first"))
+    after: Optional[str] = field(default=None, metadata=config(field_name="after"))
+    last: Optional[int] = field(default=None, metadata=config(field_name="last"))
+    before: Optional[str] = field(default=None, metadata=config(field_name="before"))
 
 
 @dataclass_json
@@ -2061,8 +2102,8 @@ class CreateCaseInput:
     host_ids: Optional[List[str]] = field(
         default=None, metadata=config(field_name="hostIds")
     )
-    incident_advisor: Optional[str] = field(
-        default=None, metadata=config(field_name="incidentAdvisor")
+    incident_advisor_id: Optional[str] = field(
+        default=None, metadata=config(field_name="incidentAdvisorId")
     )
     source_id: Optional[str] = field(
         default=None, metadata=config(field_name="sourceId")
@@ -2114,8 +2155,8 @@ class UpdateCaseInput:
     assignee_id: Optional[str] = field(
         default=None, metadata=config(field_name="assigneeId")
     )
-    incident_advisor: Optional[str] = field(
-        default=None, metadata=config(field_name="incidentAdvisor")
+    incident_advisor_id: Optional[str] = field(
+        default=None, metadata=config(field_name="incidentAdvisorId")
     )
     close_reason: Optional[str] = field(
         default=None, metadata=config(field_name="closeReason")
@@ -2196,6 +2237,19 @@ class UpdateCaseTemplateInput:
             decoder=lambda x: decode_enum(CaseManagedBy, x),
             field_name="caseManagedBy",
         ),
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class CasesPagination:
+    """CasesPagination."""
+
+    offset: Optional[OffsetPagination] = field(
+        default=None, metadata=config(field_name="offset")
+    )
+    cursor: Optional[CursorPagination] = field(
+        default=None, metadata=config(field_name="cursor")
     )
 
 
@@ -3487,8 +3541,8 @@ class Case:
         default=None, metadata=config(field_name="riskScore")
     )
     rule_id: Optional[str] = field(default=None, metadata=config(field_name="ruleId"))
-    incident_advisor: Optional[str] = field(
-        default=None, metadata=config(field_name="incidentAdvisor")
+    incident_advisor_id: Optional[str] = field(
+        default=None, metadata=config(field_name="incidentAdvisorId")
     )
     is_created_by_partner: Optional[bool] = field(
         default=None, metadata=config(field_name="isCreatedByPartner")
@@ -3549,6 +3603,9 @@ class Case:
             decoder=lambda x: decode_enum(CaseManagedBy, x),
             field_name="managedBy",
         ),
+    )
+    incident_advisor: Optional[IncidentAdvisor] = field(
+        default=None, metadata=config(field_name="incidentAdvisor")
     )
 
 
@@ -3774,19 +3831,6 @@ InvestigationResource = Union[
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
-class Cases:
-    """Cases."""
-
-    total_count: Optional[int] = field(
-        default=None, metadata=config(field_name="totalCount")
-    )
-    cases: Optional[List[Case]] = field(
-        default=None, metadata=config(field_name="cases")
-    )
-
-
-@dataclass_json
-@dataclass(order=True, eq=True, frozen=True)
 class CaseTemplates:
     """CaseTemplates."""
 
@@ -3945,11 +3989,61 @@ class InvestigationFilesV2:
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
+class CasesArguments:
+    """CasesArguments."""
+
+    query: Optional[str] = field(default=None, metadata=config(field_name="query"))
+    tenant_service_filters: Optional[List[str]] = field(
+        default=None, metadata=config(field_name="tenantServiceFilters")
+    )
+    page: Optional[int] = field(
+        default=None,
+        metadata=config(
+            metadata={
+                "deprecated": True,
+                "deprecation_reason": "use pagination.offset.page",
+            },
+            field_name="page",
+        ),
+    )
+    per_page: Optional[int] = field(
+        default=None,
+        metadata=config(
+            metadata={
+                "deprecated": True,
+                "deprecation_reason": "use pagination.offset.perPage",
+            },
+            field_name="perPage",
+        ),
+    )
+    pagination: Optional[CasesPagination] = field(
+        default=None, metadata=config(field_name="pagination")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
 class ExportInvestigationResourcesArguments:
     """ExportInvestigationResourcesArguments."""
 
     arguments: Optional[List[ExportInvestigationResourcesArgument]] = field(
         default=None, metadata=config(field_name="arguments")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class Cases:
+    """Cases."""
+
+    total_count: Optional[int] = field(
+        default=None, metadata=config(field_name="totalCount")
+    )
+    cases: Optional[List[Case]] = field(
+        default=None, metadata=config(field_name="cases")
+    )
+    page_info: Optional[PageInfo] = field(
+        default=None, metadata=config(field_name="pageInfo")
     )
 
 

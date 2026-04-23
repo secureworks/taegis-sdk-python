@@ -508,6 +508,9 @@ class TenantV4:
     is_partner: Optional[bool] = field(
         default=None, metadata=config(field_name="isPartner")
     )
+    is_sophos_mdr_provider: Optional[bool] = field(
+        default=None, metadata=config(field_name="isSophosMDRProvider")
+    )
     has_support_enabled: Optional[bool] = field(
         default=None, metadata=config(field_name="hasSupportEnabled")
     )

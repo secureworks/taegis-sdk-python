@@ -23,7 +23,6 @@ from taegis_sdk_python.utils import (
 if TYPE_CHECKING:  # pragma: no cover
     from taegis_sdk_python.services.trigger_action import TriggerActionService
 
-
 log = logging.getLogger(__name__)
 
 
@@ -42,7 +41,10 @@ class TaegisSDKTriggerActionQuery:
             variables={
                 "id": prepare_input(id_),
             },
-            output=build_output_string(PlaybookActionCategory),
+            output=build_output_string(
+                PlaybookActionCategory,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return PlaybookActionCategory.from_dict(result.get(endpoint))
@@ -55,7 +57,10 @@ class TaegisSDKTriggerActionQuery:
         result = self.service.execute_query(
             endpoint=endpoint,
             variables={},
-            output=build_output_string(PlaybookActionCategory),
+            output=build_output_string(
+                PlaybookActionCategory,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return PlaybookActionCategory.schema().load(
@@ -72,7 +77,10 @@ class TaegisSDKTriggerActionQuery:
             variables={
                 "id": prepare_input(id_),
             },
-            output=build_output_string(PlaybookActionContext),
+            output=build_output_string(
+                PlaybookActionContext,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return PlaybookActionContext.from_dict(result.get(endpoint))
@@ -85,7 +93,10 @@ class TaegisSDKTriggerActionQuery:
         result = self.service.execute_query(
             endpoint=endpoint,
             variables={},
-            output=build_output_string(PlaybookActionContext),
+            output=build_output_string(
+                PlaybookActionContext,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return PlaybookActionContext.schema().load(
@@ -95,21 +106,39 @@ class TaegisSDKTriggerActionQuery:
 
     def playbook_actions(
         self,
-        playbook_action_context: str,
-        inputs: Any,
+        playbook_action_ids: Optional[List[str]] = None,
+        playbook_action_context: Optional[str] = None,
         playbook_action_category: Optional[str] = None,
+        inputs: Optional[Any] = None,
+        sort: Optional[PlaybookActionSortInput] = None,
+        response_modes: Optional[
+            List[Union[PlaybookActionResponseMode, TaegisEnum]]
+        ] = None,
     ) -> List[PlaybookAction]:
-        """playbookActions returns all actions that can be taken for a given context, category and input."""
+        """playbookActions returns actions that can be taken for a given context, category and input.
+
+        When playbookActionIds is provided, returns the matching actions by ID (or empty if none found).
+        If inputs are also provided alongside playbookActionIds, each action's trigger filter is
+        evaluated against the inputs — only actions that pass are returned.
+        playbookActionIds takes precedence over playbookActionContext when both are provided.
+        When playbookActionIds is omitted, playbookActionContext and inputs are required.
+        """
         endpoint = "playbookActions"
 
         result = self.service.execute_query(
             endpoint=endpoint,
             variables={
+                "playbookActionIds": prepare_input(playbook_action_ids),
                 "playbookActionContext": prepare_input(playbook_action_context),
                 "playbookActionCategory": prepare_input(playbook_action_category),
                 "inputs": prepare_input(inputs),
+                "sort": prepare_input(sort),
+                "responseModes": prepare_input(response_modes),
             },
-            output=build_output_string(PlaybookAction),
+            output=build_output_string(
+                PlaybookAction,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return PlaybookAction.schema().load(
@@ -130,7 +159,10 @@ class TaegisSDKTriggerActionQuery:
             variables={
                 "arguments": prepare_input(arguments),
             },
-            output=build_output_string(PlaybookAction),
+            output=build_output_string(
+                PlaybookAction,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return PlaybookAction.schema().load(
@@ -151,7 +183,10 @@ class TaegisSDKTriggerActionQuery:
             variables={
                 "arguments": prepare_input(arguments),
             },
-            output=build_output_string(PlaybookActions),
+            output=build_output_string(
+                PlaybookActions,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return PlaybookActions.from_dict(result.get(endpoint))
@@ -166,7 +201,10 @@ class TaegisSDKTriggerActionQuery:
             variables={
                 "input": prepare_input(input_),
             },
-            output=build_output_string(ExprResult),
+            output=build_output_string(
+                ExprResult,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
         )
         if result.get(endpoint) is not None:
             return ExprResult.from_dict(result.get(endpoint))
