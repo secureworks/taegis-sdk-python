@@ -980,6 +980,7 @@ class CasePrimaryStatusesArguments:
     transition_from_id: Optional[str] = field(
         default=None, metadata=config(field_name="transitionFromId")
     )
+    case_id: Optional[str] = field(default=None, metadata=config(field_name="caseId"))
 
 
 @dataclass_json
@@ -3995,26 +3996,6 @@ class CasesArguments:
     query: Optional[str] = field(default=None, metadata=config(field_name="query"))
     tenant_service_filters: Optional[List[str]] = field(
         default=None, metadata=config(field_name="tenantServiceFilters")
-    )
-    page: Optional[int] = field(
-        default=None,
-        metadata=config(
-            metadata={
-                "deprecated": True,
-                "deprecation_reason": "use pagination.offset.page",
-            },
-            field_name="page",
-        ),
-    )
-    per_page: Optional[int] = field(
-        default=None,
-        metadata=config(
-            metadata={
-                "deprecated": True,
-                "deprecation_reason": "use pagination.offset.perPage",
-            },
-            field_name="perPage",
-        ),
     )
     pagination: Optional[CasesPagination] = field(
         default=None, metadata=config(field_name="pagination")

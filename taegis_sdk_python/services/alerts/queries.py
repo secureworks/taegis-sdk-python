@@ -199,3 +199,161 @@ class TaegisSDKAlertsQuery:
         raise GraphQLNoRowsInResultSetError(
             "for query alertsServiceAggregateAlertsBySeverity"
         )
+
+    def detection_retrieve_by_id(
+        self, in_: Optional[GetByIDRequestInput] = None
+    ) -> AlertsResponse:
+        """Provide a list of Alert IDs to retrieve each alert's detail."""
+        endpoint = "detectionRetrieveById"
+
+        result = self.service.execute_query(
+            endpoint=endpoint,
+            variables={
+                "in": prepare_input(in_),
+            },
+            output=build_output_string(
+                AlertsResponse,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
+        )
+        if result.get(endpoint) is not None:
+            return AlertsResponse.from_dict(result.get(endpoint))
+        raise GraphQLNoRowsInResultSetError("for query detectionRetrieveById")
+
+    def detection_retrieve_by_host(
+        self, in_: Optional[GetByIDRequestInput] = None
+    ) -> AlertsResponse:
+        """Provide a list of Host IDs to retrieve alert details about each alert that contains those hosts."""
+        endpoint = "detectionRetrieveByHost"
+
+        result = self.service.execute_query(
+            endpoint=endpoint,
+            variables={
+                "in": prepare_input(in_),
+            },
+            output=build_output_string(
+                AlertsResponse,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
+        )
+        if result.get(endpoint) is not None:
+            return AlertsResponse.from_dict(result.get(endpoint))
+        raise GraphQLNoRowsInResultSetError("for query detectionRetrieveByHost")
+
+    def detection_retrieve_by_entity(
+        self, in_: Optional[GetByIDRequestInput] = None
+    ) -> AlertsResponse:
+        """Provide a list of entities to retrieve alert details about each alert that contains those entities."""
+        endpoint = "detectionRetrieveByEntity"
+
+        result = self.service.execute_query(
+            endpoint=endpoint,
+            variables={
+                "in": prepare_input(in_),
+            },
+            output=build_output_string(
+                AlertsResponse,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
+        )
+        if result.get(endpoint) is not None:
+            return AlertsResponse.from_dict(result.get(endpoint))
+        raise GraphQLNoRowsInResultSetError("for query detectionRetrieveByEntity")
+
+    def detection_retrieve_by_group_key(
+        self, in_: Optional[GetByIDRequestInput] = None
+    ) -> AlertsResponse:
+        """Provide a list of entities to retrieve alert details about each alert that contains the group_key. This is used by the service to aid in alert deduplication. This would not commonly be used by a tenant of XDR."""
+        endpoint = "detectionRetrieveByGroupKey"
+
+        result = self.service.execute_query(
+            endpoint=endpoint,
+            variables={
+                "in": prepare_input(in_),
+            },
+            output=build_output_string(
+                AlertsResponse,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
+        )
+        if result.get(endpoint) is not None:
+            return AlertsResponse.from_dict(result.get(endpoint))
+        raise GraphQLNoRowsInResultSetError("for query detectionRetrieveByGroupKey")
+
+    def detection_count_by_tenant(
+        self, in_: AlertsCountByTenantInput
+    ) -> AlertsCountByTenantResponse:
+        """Returns the count of alerts per tenant. Allows a CQL query, but any aggregation or pipe will be ignored."""
+        endpoint = "detectionCountByTenant"
+
+        result = self.service.execute_query(
+            endpoint=endpoint,
+            variables={
+                "in": prepare_input(in_),
+            },
+            output=build_output_string(
+                AlertsCountByTenantResponse,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
+        )
+        if result.get(endpoint) is not None:
+            return AlertsCountByTenantResponse.from_dict(result.get(endpoint))
+        raise GraphQLNoRowsInResultSetError("for query detectionCountByTenant")
+
+    def detection_search(
+        self, in_: Optional[SearchRequestInput] = None
+    ) -> AlertsResponse:
+        """Search alerts using Query Language. This is the same query language provided in Advanced Search page in Taegis XDR."""
+        endpoint = "detectionSearch"
+
+        result = self.service.execute_query(
+            endpoint=endpoint,
+            variables={
+                "in": prepare_input(in_),
+            },
+            output=build_output_string(
+                AlertsResponse,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
+        )
+        if result.get(endpoint) is not None:
+            return AlertsResponse.from_dict(result.get(endpoint))
+        raise GraphQLNoRowsInResultSetError("for query detectionSearch")
+
+    def detection_poll(self, in_: Optional[PollRequestInput] = None) -> AlertsResponse:
+        """Poll for results for a specific `search_id`."""
+        endpoint = "detectionPoll"
+
+        result = self.service.execute_query(
+            endpoint=endpoint,
+            variables={
+                "in": prepare_input(in_),
+            },
+            output=build_output_string(
+                AlertsResponse,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
+        )
+        if result.get(endpoint) is not None:
+            return AlertsResponse.from_dict(result.get(endpoint))
+        raise GraphQLNoRowsInResultSetError("for query detectionPoll")
+
+    def detection_aggregates_by_severity(
+        self, in_: Optional[AggregateAlertsBySeverityInputInput] = None
+    ) -> AlertsAggregateResponse:
+        """Pull alert severity aggregates based on `group_by` parameters: domain, watchlist, hostname, detector, user."""
+        endpoint = "detectionAggregatesBySeverity"
+
+        result = self.service.execute_query(
+            endpoint=endpoint,
+            variables={
+                "in": prepare_input(in_),
+            },
+            output=build_output_string(
+                AlertsAggregateResponse,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
+        )
+        if result.get(endpoint) is not None:
+            return AlertsAggregateResponse.from_dict(result.get(endpoint))
+        raise GraphQLNoRowsInResultSetError("for query detectionAggregatesBySeverity")

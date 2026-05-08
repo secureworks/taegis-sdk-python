@@ -55,3 +55,27 @@ class TaegisSDKAlertsSubscription:
         raise GraphQLNoRowsInResultSetError(
             "for subscription alertsServiceBulkResolutionProcessor"
         )
+
+    def detection_bulk_resolution_processor(
+        self, in_: Optional[BulkResolutionRequestInput] = None
+    ) -> List[BulkResolutionResponse]:
+        """Add a resolution or modify an existing resolution for multiple alerts selected with a CQL query."""
+        endpoint = "detectionBulkResolutionProcessor"
+
+        result = self.service.execute_subscription(
+            endpoint=endpoint,
+            variables={
+                "in": prepare_input(in_),
+            },
+            output=build_output_string(
+                BulkResolutionResponse,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
+        )
+        if any(r.get(endpoint) for r in result):
+            return BulkResolutionResponse.schema().load(
+                [r.get(endpoint, {}) or {} for r in result], many=True
+            )
+        raise GraphQLNoRowsInResultSetError(
+            "for subscription detectionBulkResolutionProcessor"
+        )

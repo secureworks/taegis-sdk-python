@@ -104,6 +104,19 @@ class TripEnvConfig:
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
+class ListApiIntegrationsFilter:
+    """ListApiIntegrationsFilter."""
+
+    product_id: Optional[int] = field(
+        default=None, metadata=config(field_name="productId")
+    )
+    integration_id: Optional[int] = field(
+        default=None, metadata=config(field_name="integrationId")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
 class ApiIntegrationHistory:
     """ApiIntegrationHistory."""
 

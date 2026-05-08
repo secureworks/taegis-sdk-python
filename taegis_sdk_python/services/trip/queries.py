@@ -72,6 +72,28 @@ class TaegisSDKTripQuery:
             )
         raise GraphQLNoRowsInResultSetError("for query listApiIntegrations")
 
+    def list_api_integrations_v2(
+        self, filter_: Optional[ListApiIntegrationsFilter] = None
+    ) -> List[ApiIntegrationSummary]:
+        """No developer notes."""
+        endpoint = "listApiIntegrationsV2"
+
+        result = self.service.execute_query(
+            endpoint=endpoint,
+            variables={
+                "filter": prepare_input(filter_),
+            },
+            output=build_output_string(
+                ApiIntegrationSummary,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
+        )
+        if result.get(endpoint) is not None:
+            return ApiIntegrationSummary.schema().load(
+                [r or {} for r in result.get(endpoint)], many=True
+            )
+        raise GraphQLNoRowsInResultSetError("for query listApiIntegrationsV2")
+
     def api_integration(self, id_: int) -> ApiIntegration:
         """No developer notes."""
         endpoint = "apiIntegration"

@@ -20,7 +20,7 @@ with service(middlewares=(headers_logging_middleware, retry_middleware)):
 
 ## Examples
 
-The Taegis SDK for Python provides 2 example middlewares, `headers_logging_middleware` and `retry_middleware`.
+The Taegis SDK for Python provides 3 example middlewares, `headers_logging_middleware`, `retry_middleware`, and `to_curl`.
 
 `headers_logging_middleware` logs at the debug logging level the Request and Response headers.  Access Tokens cached by the SDK are replaced with a `<redacted>` string.
 
@@ -34,6 +34,8 @@ from taegis_sdk_python.config import write_to_config
 write_to_config("backoff.retry", "max_time", 60)  # specifies the maximum amount of total time in seconds that can elapse before giving up
 write_to_config("backoff.retry", "max_tries", 5)  # specifies the maximum number of calls to make to the target function before giving up
 ```
+
+`to_curl` logs at the info logging level a valid cURL command.  Access Tokens cached by the SDK are replaced with a `<redacted>` string.
 
 ## References
 

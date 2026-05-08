@@ -165,3 +165,109 @@ class TaegisSDKAlertsMutation:
         raise GraphQLNoRowsInResultSetError(
             "for mutation alertsServiceUpdateThreatScoreV2"
         )
+
+    def detection_update_investigation_info(
+        self, in_: Optional[UpdateInvestigationRequestInput] = None
+    ) -> UpdateInvestigationResponse:
+        """No developer notes."""
+        endpoint = "detectionUpdateInvestigationInfo"
+
+        result = self.service.execute_mutation(
+            endpoint=endpoint,
+            variables={
+                "in": prepare_input(in_),
+            },
+            output=build_output_string(
+                UpdateInvestigationResponse,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
+        )
+        if result.get(endpoint) is not None:
+            return UpdateInvestigationResponse.from_dict(result.get(endpoint))
+        raise GraphQLNoRowsInResultSetError(
+            "for mutation detectionUpdateInvestigationInfo"
+        )
+
+    def detection_update_resolution_info(
+        self, in_: Optional[UpdateResolutionRequestInput] = None
+    ) -> UpdateResolutionResponse:
+        """Add a resolution or modify an existing resolution for a give list of alert IDs."""
+        endpoint = "detectionUpdateResolutionInfo"
+
+        result = self.service.execute_mutation(
+            endpoint=endpoint,
+            variables={
+                "in": prepare_input(in_),
+            },
+            output=build_output_string(
+                UpdateResolutionResponse,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
+        )
+        if result.get(endpoint) is not None:
+            return UpdateResolutionResponse.from_dict(result.get(endpoint))
+        raise GraphQLNoRowsInResultSetError(
+            "for mutation detectionUpdateResolutionInfo"
+        )
+
+    def detection_bulk_investigations_processor(
+        self, in_: Optional[BulkInvestigationsRequestInput] = None
+    ) -> BulkInvestigationsResponse:
+        """Bulk add alerts to an existing investigation by providing either a query or list of alert IDs. If a query is provided, then all alerts matching the query will be added to the investigation."""
+        endpoint = "detectionBulkInvestigationsProcessor"
+
+        result = self.service.execute_mutation(
+            endpoint=endpoint,
+            variables={
+                "in": prepare_input(in_),
+            },
+            output=build_output_string(
+                BulkInvestigationsResponse,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
+        )
+        if result.get(endpoint) is not None:
+            return BulkInvestigationsResponse.from_dict(result.get(endpoint))
+        raise GraphQLNoRowsInResultSetError(
+            "for mutation detectionBulkInvestigationsProcessor"
+        )
+
+    def detection_update_threat_score(
+        self, in_: UpdateThreatScoreRequestInput
+    ) -> UpdateThreatScoreResponse:
+        """Update threat score for a given list of alert IDs."""
+        endpoint = "detectionUpdateThreatScore"
+
+        result = self.service.execute_mutation(
+            endpoint=endpoint,
+            variables={
+                "in": prepare_input(in_),
+            },
+            output=build_output_string(
+                UpdateThreatScoreResponse,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
+        )
+        if result.get(endpoint) is not None:
+            return UpdateThreatScoreResponse.from_dict(result.get(endpoint))
+        raise GraphQLNoRowsInResultSetError("for mutation detectionUpdateThreatScore")
+
+    def detection_update_threat_score_v2(
+        self, in_: UpdateThreatScoreV2RequestInput
+    ) -> UpdateThreatScoreResponse:
+        """Update threat score v2 for a given list of alert IDs."""
+        endpoint = "detectionUpdateThreatScoreV2"
+
+        result = self.service.execute_mutation(
+            endpoint=endpoint,
+            variables={
+                "in": prepare_input(in_),
+            },
+            output=build_output_string(
+                UpdateThreatScoreResponse,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
+        )
+        if result.get(endpoint) is not None:
+            return UpdateThreatScoreResponse.from_dict(result.get(endpoint))
+        raise GraphQLNoRowsInResultSetError("for mutation detectionUpdateThreatScoreV2")

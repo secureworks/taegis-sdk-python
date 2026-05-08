@@ -350,7 +350,7 @@ class TaegisSDKTenantsMutation:
         raise GraphQLNoRowsInResultSetError("for mutation changeTenantHierarchy")
 
     def update_tenant_hierarchy(self, input_: UpdateTenantHierarchyInput) -> Tenant:
-        """Updates tenant hierarchy with explicit partner and optional organization. Handles same-partner and cross-partner moves. Requires TenantHierarchy:Update."""
+        """Updates tenant hierarchy with explicit partner and optional organization. Handles same-partner and cross-partner moves. Requires TenantHierarchy:Update (internal role)."""
         endpoint = "updateTenantHierarchy"
 
         result = self.service.execute_mutation(
