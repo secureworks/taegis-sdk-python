@@ -62,3 +62,20 @@ class TaegisSDKEntityContextMutation:
                 result.get(endpoint)
             )
         raise GraphQLNoRowsInResultSetError("for mutation entityContextAddTo")
+
+    def entity_context_identity_teardown(self, provider_id: str) -> bool:
+        """No developer notes."""
+        endpoint = "entityContextIdentityTeardown"
+
+        result = self.service.execute_mutation(
+            endpoint=endpoint,
+            variables={
+                "providerID": prepare_input(provider_id),
+            },
+            output="",
+        )
+        if result.get(endpoint) is not None:
+            return result.get(endpoint)
+        raise GraphQLNoRowsInResultSetError(
+            "for mutation entityContextIdentityTeardown"
+        )

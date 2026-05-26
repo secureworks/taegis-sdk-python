@@ -75,6 +75,94 @@ class EntityPerspective(str, Enum):
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
+class Timestamp:
+    """Timestamp."""
+
+    seconds: Optional[int] = field(default=None, metadata=config(field_name="seconds"))
+    nanos: Optional[int] = field(default=None, metadata=config(field_name="nanos"))
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class Detector:
+    """Detector."""
+
+    detector_id: Optional[str] = field(
+        default=None, metadata=config(field_name="detector_id")
+    )
+    detector_name: Optional[str] = field(
+        default=None, metadata=config(field_name="detector_name")
+    )
+    version: Optional[str] = field(default=None, metadata=config(field_name="version"))
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class CreationRule:
+    """CreationRule."""
+
+    rule_id: Optional[str] = field(default=None, metadata=config(field_name="rule_id"))
+    version: Optional[str] = field(default=None, metadata=config(field_name="version"))
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class Engine:
+    """Engine."""
+
+    name: Optional[str] = field(default=None, metadata=config(field_name="name"))
+    version: Optional[str] = field(default=None, metadata=config(field_name="version"))
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class AlertRuleReference:
+    """AlertRuleReference."""
+
+    id: Optional[str] = field(default=None, metadata=config(field_name="id"))
+    version: Optional[str] = field(default=None, metadata=config(field_name="version"))
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class Relationship:
+    """Relationship."""
+
+    from_entity: Optional[str] = field(
+        default=None, metadata=config(field_name="from_entity")
+    )
+    to_entity: Optional[str] = field(
+        default=None, metadata=config(field_name="to_entity")
+    )
+    relationship: Optional[str] = field(
+        default=None, metadata=config(field_name="relationship")
+    )
+    type: Optional[str] = field(default=None, metadata=config(field_name="type"))
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class EntityMetadata:
+    """EntityMetadata."""
+
+    entity: Optional[str] = field(default=None, metadata=config(field_name="entity"))
+    label: Optional[str] = field(default=None, metadata=config(field_name="label"))
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class Reference:
+    """Reference."""
+
+    type: Optional[str] = field(default=None, metadata=config(field_name="type"))
+    url: Optional[str] = field(default=None, metadata=config(field_name="url"))
+    description: Optional[str] = field(
+        default=None, metadata=config(field_name="description")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
 class GeographicIp:
     """GeographicIp."""
 
@@ -1272,89 +1360,62 @@ class EntityUrlSnapshot:
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
-class Timestamp:
-    """Timestamp."""
-
-    seconds: Optional[int] = field(default=None, metadata=config(field_name="seconds"))
-    nanos: Optional[int] = field(default=None, metadata=config(field_name="nanos"))
-
-
-@dataclass_json
-@dataclass(order=True, eq=True, frozen=True)
-class Detector:
-    """Detector."""
-
-    detector_id: Optional[str] = field(
-        default=None, metadata=config(field_name="detector_id")
-    )
-    detector_name: Optional[str] = field(
-        default=None, metadata=config(field_name="detector_name")
-    )
-    version: Optional[str] = field(default=None, metadata=config(field_name="version"))
-
-
-@dataclass_json
-@dataclass(order=True, eq=True, frozen=True)
-class CreationRule:
-    """CreationRule."""
-
-    rule_id: Optional[str] = field(default=None, metadata=config(field_name="rule_id"))
-    version: Optional[str] = field(default=None, metadata=config(field_name="version"))
-
-
-@dataclass_json
-@dataclass(order=True, eq=True, frozen=True)
-class Engine:
-    """Engine."""
-
-    name: Optional[str] = field(default=None, metadata=config(field_name="name"))
-    version: Optional[str] = field(default=None, metadata=config(field_name="version"))
-
-
-@dataclass_json
-@dataclass(order=True, eq=True, frozen=True)
-class AlertRuleReference:
-    """AlertRuleReference."""
+class SeverityUpdate:
+    """SeverityUpdate."""
 
     id: Optional[str] = field(default=None, metadata=config(field_name="id"))
+    severity: Optional[float] = field(
+        default=None, metadata=config(field_name="severity")
+    )
+    changed_at: Optional[Timestamp] = field(
+        default=None, metadata=config(field_name="changed_at")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class EntityRelationships:
+    """EntityRelationships."""
+
+    entities: Optional[List[str]] = field(
+        default=None, metadata=config(field_name="entities")
+    )
+    relationships: Optional[List[Relationship]] = field(
+        default=None, metadata=config(field_name="relationships")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class ReferenceDetail:
+    """ReferenceDetail."""
+
+    reference: Optional[Reference] = field(
+        default=None, metadata=config(field_name="reference")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class AlertPriority:
+    """AlertPriority."""
+
+    value: Optional[float] = field(default=None, metadata=config(field_name="value"))
+    prioritizer: Optional[str] = field(
+        default=None, metadata=config(field_name="prioritizer")
+    )
     version: Optional[str] = field(default=None, metadata=config(field_name="version"))
-
-
-@dataclass_json
-@dataclass(order=True, eq=True, frozen=True)
-class Relationship:
-    """Relationship."""
-
-    from_entity: Optional[str] = field(
-        default=None, metadata=config(field_name="from_entity")
+    model_name: Optional[str] = field(
+        default=None, metadata=config(field_name="model_name")
     )
-    to_entity: Optional[str] = field(
-        default=None, metadata=config(field_name="to_entity")
+    model_version: Optional[str] = field(
+        default=None, metadata=config(field_name="model_version")
     )
-    relationship: Optional[str] = field(
-        default=None, metadata=config(field_name="relationship")
+    evidence: Optional[List[str]] = field(
+        default=None, metadata=config(field_name="evidence")
     )
-    type: Optional[str] = field(default=None, metadata=config(field_name="type"))
-
-
-@dataclass_json
-@dataclass(order=True, eq=True, frozen=True)
-class EntityMetadata:
-    """EntityMetadata."""
-
-    entity: Optional[str] = field(default=None, metadata=config(field_name="entity"))
-    label: Optional[str] = field(default=None, metadata=config(field_name="label"))
-
-
-@dataclass_json
-@dataclass(order=True, eq=True, frozen=True)
-class Reference:
-    """Reference."""
-
-    type: Optional[str] = field(default=None, metadata=config(field_name="type"))
-    url: Optional[str] = field(default=None, metadata=config(field_name="url"))
-    description: Optional[str] = field(
-        default=None, metadata=config(field_name="description")
+    applied_time: Optional[Timestamp] = field(
+        default=None, metadata=config(field_name="applied_time")
     )
 
 
@@ -1502,62 +1563,78 @@ class KeyValuePairsIndexed:
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
-class SeverityUpdate:
-    """SeverityUpdate."""
+class Creator:
+    """Creator."""
+
+    detector: Optional[Detector] = field(
+        default=None, metadata=config(field_name="detector")
+    )
+    rule: Optional[CreationRule] = field(
+        default=None, metadata=config(field_name="rule")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class ResolutionMetadataHistory:
+    """ResolutionMetadataHistory."""
 
     id: Optional[str] = field(default=None, metadata=config(field_name="id"))
-    severity: Optional[float] = field(
-        default=None, metadata=config(field_name="severity")
+    user_id: Optional[str] = field(
+        default=None,
+        metadata=config(
+            metadata={
+                "deprecated": True,
+                "deprecation_reason": "moving to uuid user id",
+            },
+            field_name="user_id",
+        ),
+    )
+    reason: Optional[str] = field(default=None, metadata=config(field_name="reason"))
+    num_alerts_affected: Optional[int] = field(
+        default=None, metadata=config(field_name="num_alerts_affected")
+    )
+    uuid_user_id: Optional[str] = field(
+        default=None, metadata=config(field_name="uuid_user_id")
+    )
+    timestamp: Optional[Timestamp] = field(
+        default=None, metadata=config(field_name="timestamp")
+    )
+    status: Optional[Union[ResolutionStatus, TaegisEnum]] = field(
+        default=None,
+        metadata=config(
+            encoder=encode_enum,
+            decoder=lambda x: decode_enum(ResolutionStatus, x),
+            field_name="status",
+        ),
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class TuningUpdate:
+    """TuningUpdate."""
+
+    id: Optional[str] = field(default=None, metadata=config(field_name="id"))
+    field_name: Optional[str] = field(
+        default=None, metadata=config(field_name="field_name")
+    )
+    severity_value: Optional[float] = field(
+        default=None, metadata=config(field_name="severity_value")
+    )
+    suppressed_value: Optional[bool] = field(
+        default=None, metadata=config(field_name="suppressed_value")
+    )
+    origin_value: Optional[Union[Origin, TaegisEnum]] = field(
+        default=None,
+        metadata=config(
+            encoder=encode_enum,
+            decoder=lambda x: decode_enum(Origin, x),
+            field_name="origin_value",
+        ),
     )
     changed_at: Optional[Timestamp] = field(
         default=None, metadata=config(field_name="changed_at")
-    )
-
-
-@dataclass_json
-@dataclass(order=True, eq=True, frozen=True)
-class EntityRelationships:
-    """EntityRelationships."""
-
-    entities: Optional[List[str]] = field(
-        default=None, metadata=config(field_name="entities")
-    )
-    relationships: Optional[List[Relationship]] = field(
-        default=None, metadata=config(field_name="relationships")
-    )
-
-
-@dataclass_json
-@dataclass(order=True, eq=True, frozen=True)
-class ReferenceDetail:
-    """ReferenceDetail."""
-
-    reference: Optional[Reference] = field(
-        default=None, metadata=config(field_name="reference")
-    )
-
-
-@dataclass_json
-@dataclass(order=True, eq=True, frozen=True)
-class AlertPriority:
-    """AlertPriority."""
-
-    value: Optional[float] = field(default=None, metadata=config(field_name="value"))
-    prioritizer: Optional[str] = field(
-        default=None, metadata=config(field_name="prioritizer")
-    )
-    version: Optional[str] = field(default=None, metadata=config(field_name="version"))
-    model_name: Optional[str] = field(
-        default=None, metadata=config(field_name="model_name")
-    )
-    model_version: Optional[str] = field(
-        default=None, metadata=config(field_name="model_version")
-    )
-    evidence: Optional[List[str]] = field(
-        default=None, metadata=config(field_name="evidence")
-    )
-    applied_time: Optional[Timestamp] = field(
-        default=None, metadata=config(field_name="applied_time")
     )
 
 
@@ -1709,78 +1786,26 @@ class AuthScanDetail:
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
-class Creator:
-    """Creator."""
+class AlertEventMetadata:
+    """AlertEventMetadata."""
 
-    detector: Optional[Detector] = field(
-        default=None, metadata=config(field_name="detector")
+    first_event_id: Optional[str] = field(
+        default=None, metadata=config(field_name="first_event_id")
     )
-    rule: Optional[CreationRule] = field(
-        default=None, metadata=config(field_name="rule")
+    last_event_id: Optional[str] = field(
+        default=None, metadata=config(field_name="last_event_id")
     )
-
-
-@dataclass_json
-@dataclass(order=True, eq=True, frozen=True)
-class ResolutionMetadataHistory:
-    """ResolutionMetadataHistory."""
-
-    id: Optional[str] = field(default=None, metadata=config(field_name="id"))
-    user_id: Optional[str] = field(
-        default=None,
-        metadata=config(
-            metadata={
-                "deprecated": True,
-                "deprecation_reason": "moving to uuid user id",
-            },
-            field_name="user_id",
-        ),
+    total_events: Optional[int] = field(
+        default=None, metadata=config(field_name="total_events")
     )
-    reason: Optional[str] = field(default=None, metadata=config(field_name="reason"))
-    num_alerts_affected: Optional[int] = field(
-        default=None, metadata=config(field_name="num_alerts_affected")
+    updated_at: Optional[Timestamp] = field(
+        default=None, metadata=config(field_name="updated_at")
     )
-    uuid_user_id: Optional[str] = field(
-        default=None, metadata=config(field_name="uuid_user_id")
+    began_at: Optional[Timestamp] = field(
+        default=None, metadata=config(field_name="began_at")
     )
-    timestamp: Optional[Timestamp] = field(
-        default=None, metadata=config(field_name="timestamp")
-    )
-    status: Optional[Union[ResolutionStatus, TaegisEnum]] = field(
-        default=None,
-        metadata=config(
-            encoder=encode_enum,
-            decoder=lambda x: decode_enum(ResolutionStatus, x),
-            field_name="status",
-        ),
-    )
-
-
-@dataclass_json
-@dataclass(order=True, eq=True, frozen=True)
-class TuningUpdate:
-    """TuningUpdate."""
-
-    id: Optional[str] = field(default=None, metadata=config(field_name="id"))
-    field_name: Optional[str] = field(
-        default=None, metadata=config(field_name="field_name")
-    )
-    severity_value: Optional[float] = field(
-        default=None, metadata=config(field_name="severity_value")
-    )
-    suppressed_value: Optional[bool] = field(
-        default=None, metadata=config(field_name="suppressed_value")
-    )
-    origin_value: Optional[Union[Origin, TaegisEnum]] = field(
-        default=None,
-        metadata=config(
-            encoder=encode_enum,
-            decoder=lambda x: decode_enum(Origin, x),
-            field_name="origin_value",
-        ),
-    )
-    changed_at: Optional[Timestamp] = field(
-        default=None, metadata=config(field_name="changed_at")
+    ended_at: Optional[Timestamp] = field(
+        default=None, metadata=config(field_name="ended_at")
     )
 
 
@@ -1808,31 +1833,6 @@ class ImprobableLogonDetail:
     )
     user_logon_baselines: Optional[List[UserLogonBaseline]] = field(
         default=None, metadata=config(field_name="user_logon_baselines")
-    )
-
-
-@dataclass_json
-@dataclass(order=True, eq=True, frozen=True)
-class AlertEventMetadata:
-    """AlertEventMetadata."""
-
-    first_event_id: Optional[str] = field(
-        default=None, metadata=config(field_name="first_event_id")
-    )
-    last_event_id: Optional[str] = field(
-        default=None, metadata=config(field_name="last_event_id")
-    )
-    total_events: Optional[int] = field(
-        default=None, metadata=config(field_name="total_events")
-    )
-    updated_at: Optional[Timestamp] = field(
-        default=None, metadata=config(field_name="updated_at")
-    )
-    began_at: Optional[Timestamp] = field(
-        default=None, metadata=config(field_name="began_at")
-    )
-    ended_at: Optional[Timestamp] = field(
-        default=None, metadata=config(field_name="ended_at")
     )
 
 
@@ -1987,16 +1987,6 @@ class GeoSummary_City:
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
-class ThirdPartyDetail:
-    """ThirdPartyDetail."""
-
-    generic: Optional[GenericDetail] = field(
-        default=None, metadata=config(field_name="generic")
-    )
-
-
-@dataclass_json
-@dataclass(order=True, eq=True, frozen=True)
 class StructuredEntitySnapshot:
     """StructuredEntitySnapshot."""
 
@@ -2041,6 +2031,16 @@ class GeoSummary:
     )
     asn: Optional[GeoSummary_ASN] = field(
         default=None, metadata=config(field_name="asn")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class ThirdPartyDetail:
+    """ThirdPartyDetail."""
+
+    generic: Optional[GenericDetail] = field(
+        default=None, metadata=config(field_name="generic")
     )
 
 

@@ -107,11 +107,11 @@ class TripEnvConfig:
 class ListApiIntegrationsFilter:
     """ListApiIntegrationsFilter."""
 
-    product_id: Optional[int] = field(
-        default=None, metadata=config(field_name="productId")
+    product_ids: Optional[List[int]] = field(
+        default=None, metadata=config(field_name="productIds")
     )
-    integration_id: Optional[int] = field(
-        default=None, metadata=config(field_name="integrationId")
+    integration_ids: Optional[List[int]] = field(
+        default=None, metadata=config(field_name="integrationIds")
     )
 
 
@@ -145,6 +145,40 @@ class ApiIntegrationHistory:
             decoder=lambda x: decode_enum(ApiIntegrationHistoryStatus, x),
             field_name="status",
         ),
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class CreateApiIntegrationV2Input:
+    """CreateApiIntegrationV2Input."""
+
+    product_id: Optional[int] = field(
+        default=None, metadata=config(field_name="productId")
+    )
+    name: Optional[str] = field(default=None, metadata=config(field_name="name"))
+    enabled_optional_child_product_ids: Optional[List[int]] = field(
+        default=None, metadata=config(field_name="enabledOptionalChildProductIds")
+    )
+    parameters: Optional[List[ApiIntegrationParameterInput]] = field(
+        default=None, metadata=config(field_name="parameters")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class UpdateApiIntegrationV2Input:
+    """UpdateApiIntegrationV2Input."""
+
+    integration_id: Optional[int] = field(
+        default=None, metadata=config(field_name="integrationId")
+    )
+    name: Optional[str] = field(default=None, metadata=config(field_name="name"))
+    enabled_optional_child_product_ids: Optional[List[int]] = field(
+        default=None, metadata=config(field_name="enabledOptionalChildProductIds")
+    )
+    parameters: Optional[List[ApiIntegrationParameterInput]] = field(
+        default=None, metadata=config(field_name="parameters")
     )
 
 
@@ -199,6 +233,37 @@ class ApiIntegrationSummary:
     )
     child_summaries: Optional[List["ApiIntegrationSummary"]] = field(
         default=None, metadata=config(field_name="childSummaries")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class ApiProductDetail:
+    """ApiProductDetail."""
+
+    id: Optional[int] = field(default=None, metadata=config(field_name="id"))
+    name: Optional[str] = field(default=None, metadata=config(field_name="name"))
+    is_optional: Optional[bool] = field(
+        default=None, metadata=config(field_name="isOptional")
+    )
+    product_group: Optional[Union[ApiProductGroup, TaegisEnum]] = field(
+        default=None,
+        metadata=config(
+            encoder=encode_enum,
+            decoder=lambda x: decode_enum(ApiProductGroup, x),
+            field_name="productGroup",
+        ),
+    )
+    status: Optional[Union[ApiProductStatus, TaegisEnum]] = field(
+        default=None,
+        metadata=config(
+            encoder=encode_enum,
+            decoder=lambda x: decode_enum(ApiProductStatus, x),
+            field_name="status",
+        ),
+    )
+    child_products: Optional[List["ApiProductDetail"]] = field(
+        default=None, metadata=config(field_name="childProducts")
     )
 
 

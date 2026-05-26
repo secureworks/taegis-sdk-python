@@ -394,6 +394,38 @@ class TaegisSDKRulesMutation:
             return Rule.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for mutation enableRule")
 
+    def approve_pending_suppression_rule(self, rule_id: str) -> bool:
+        """Approve a pending QL suppression rule change."""
+        endpoint = "approvePendingSuppressionRule"
+
+        result = self.service.execute_mutation(
+            endpoint=endpoint,
+            variables={
+                "ruleID": prepare_input(rule_id),
+            },
+            output="",
+        )
+        if result.get(endpoint) is not None:
+            return result.get(endpoint)
+        raise GraphQLNoRowsInResultSetError(
+            "for mutation approvePendingSuppressionRule"
+        )
+
+    def cancel_pending_suppression_rule(self, rule_id: str) -> bool:
+        """Cancel a pending QL suppression rule change."""
+        endpoint = "cancelPendingSuppressionRule"
+
+        result = self.service.execute_mutation(
+            endpoint=endpoint,
+            variables={
+                "ruleID": prepare_input(rule_id),
+            },
+            output="",
+        )
+        if result.get(endpoint) is not None:
+            return result.get(endpoint)
+        raise GraphQLNoRowsInResultSetError("for mutation cancelPendingSuppressionRule")
+
     def create_red_ql_rule(
         self, input_: RuleInput, red_ql_filter: RuleRedQLFilterInput
     ) -> Rule:

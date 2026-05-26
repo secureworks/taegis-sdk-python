@@ -90,6 +90,34 @@ class IDP(str, Enum):
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
+class CentralUser:
+    """CentralUser."""
+
+    id: Optional[str] = field(default=None, metadata=config(field_name="id"))
+    created_at: Optional[str] = field(
+        default=None, metadata=config(field_name="created_at")
+    )
+    updated_at: Optional[str] = field(
+        default=None, metadata=config(field_name="updated_at")
+    )
+    email: Optional[str] = field(default=None, metadata=config(field_name="email"))
+    email_normalized: Optional[str] = field(
+        default=None, metadata=config(field_name="email_normalized")
+    )
+    family_name: Optional[str] = field(
+        default=None, metadata=config(field_name="family_name")
+    )
+    given_name: Optional[str] = field(
+        default=None, metadata=config(field_name="given_name")
+    )
+    masked: Optional[bool] = field(default=None, metadata=config(field_name="masked"))
+    is_sophos_mdr: Optional[bool] = field(
+        default=None, metadata=config(field_name="is_sophos_mdr")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
 class TDRUserTenant:
     """TDRUserTenant."""
 

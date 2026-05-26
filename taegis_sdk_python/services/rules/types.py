@@ -86,6 +86,16 @@ class RuleAction(str, Enum):
     NONE = "NONE"
 
 
+class RuleApprovalState(str, Enum):
+    """RuleApprovalState."""
+
+    APPROVED = "APPROVED"
+    PENDING_CREATE = "PENDING_CREATE"
+    PENDING_UPDATE = "PENDING_UPDATE"
+    PENDING_ARCHIVE = "PENDING_ARCHIVE"
+    REJECTED = "REJECTED"
+
+
 class RuleScope(str, Enum):
     """RuleScope."""
 
@@ -849,6 +859,9 @@ class RuleInput:
     tags: Optional[List[str]] = field(default=None, metadata=config(field_name="tags"))
     cve: Optional[str] = field(default=None, metadata=config(field_name="cve"))
     vid: Optional[int] = field(default=None, metadata=config(field_name="vid"))
+    mdr_providers: Optional[List[str]] = field(
+        default=None, metadata=config(field_name="mdrProviders")
+    )
     destination_topic: Optional[str] = field(
         default=None, metadata=config(field_name="destinationTopic")
     )
@@ -945,6 +958,9 @@ class Rule:
     tenant_id: Optional[str] = field(
         default=None, metadata=config(field_name="tenantID")
     )
+    mdr_providers: Optional[List[str]] = field(
+        default=None, metadata=config(field_name="mdrProviders")
+    )
     user_id: Optional[str] = field(
         default=None,
         metadata=config(
@@ -967,6 +983,21 @@ class Rule:
     )
     confidence: Optional[float] = field(
         default=None, metadata=config(field_name="confidence")
+    )
+    change_submitted_by: Optional[str] = field(
+        default=None, metadata=config(field_name="changeSubmittedBy")
+    )
+    change_submitted_at: Optional[str] = field(
+        default=None, metadata=config(field_name="changeSubmittedAt")
+    )
+    reviewed_by: Optional[str] = field(
+        default=None, metadata=config(field_name="reviewedBy")
+    )
+    reviewed_at: Optional[str] = field(
+        default=None, metadata=config(field_name="reviewedAt")
+    )
+    pending_ql_filter_query: Optional[str] = field(
+        default=None, metadata=config(field_name="pendingQLFilterQuery")
     )
     enabled: Optional[bool] = field(default=None, metadata=config(field_name="enabled"))
     aggressive_threat_detection: Optional[bool] = field(
@@ -1036,6 +1067,14 @@ class Rule:
             encoder=encode_enum,
             decoder=lambda x: decode_enum(RuleResolutionStatus, x),
             field_name="status",
+        ),
+    )
+    approval_state: Optional[Union[RuleApprovalState, TaegisEnum]] = field(
+        default=None,
+        metadata=config(
+            encoder=encode_enum,
+            decoder=lambda x: decode_enum(RuleApprovalState, x),
+            field_name="approvalState",
         ),
     )
     origin: Optional[Union[AlertOrigin, TaegisEnum]] = field(

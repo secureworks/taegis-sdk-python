@@ -156,3 +156,43 @@ class TaegisSDKTripMutation:
         raise GraphQLNoRowsInResultSetError(
             "for mutation retryApiIntegrationProvisioning"
         )
+
+    def create_api_integration_v2(
+        self, input_: CreateApiIntegrationV2Input
+    ) -> ApiIntegration:
+        """No developer notes."""
+        endpoint = "createApiIntegrationV2"
+
+        result = self.service.execute_mutation(
+            endpoint=endpoint,
+            variables={
+                "input": prepare_input(input_),
+            },
+            output=build_output_string(
+                ApiIntegration,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
+        )
+        if result.get(endpoint) is not None:
+            return ApiIntegration.from_dict(result.get(endpoint))
+        raise GraphQLNoRowsInResultSetError("for mutation createApiIntegrationV2")
+
+    def update_api_integration_v2(
+        self, input_: UpdateApiIntegrationV2Input
+    ) -> ApiIntegration:
+        """No developer notes."""
+        endpoint = "updateApiIntegrationV2"
+
+        result = self.service.execute_mutation(
+            endpoint=endpoint,
+            variables={
+                "input": prepare_input(input_),
+            },
+            output=build_output_string(
+                ApiIntegration,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
+        )
+        if result.get(endpoint) is not None:
+            return ApiIntegration.from_dict(result.get(endpoint))
+        raise GraphQLNoRowsInResultSetError("for mutation updateApiIntegrationV2")

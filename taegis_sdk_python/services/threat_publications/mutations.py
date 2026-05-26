@@ -31,3 +31,32 @@ class TaegisSDKThreatPublicationsMutation:
 
     def __init__(self, service: ThreatPublicationsService):
         self.service = service
+
+    def resend_publication(
+        self,
+        id_: str,
+        language: Union[languageType, TaegisEnum],
+        dry_run: bool,
+        mode: Optional[Union[ResendMode, TaegisEnum]] = None,
+        email_addresses: Optional[List[str]] = None,
+    ) -> ResendPublicationResponse:
+        """Resends emails for a publication and language based on the specified mode."""
+        endpoint = "resendPublication"
+
+        result = self.service.execute_mutation(
+            endpoint=endpoint,
+            variables={
+                "ID": prepare_input(id_),
+                "language": prepare_input(language),
+                "dryRun": prepare_input(dry_run),
+                "mode": prepare_input(mode),
+                "emailAddresses": prepare_input(email_addresses),
+            },
+            output=build_output_string(
+                ResendPublicationResponse,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
+        )
+        if result.get(endpoint) is not None:
+            return ResendPublicationResponse.from_dict(result.get(endpoint))
+        raise GraphQLNoRowsInResultSetError("for mutation resendPublication")

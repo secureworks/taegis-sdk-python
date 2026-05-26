@@ -205,3 +205,21 @@ class TaegisSDKTripQuery:
                 [r or {} for r in result.get(endpoint)], many=True
             )
         raise GraphQLNoRowsInResultSetError("for query listAllowedProductsForTenant")
+
+    def api_product_details(self, product_id: int) -> ApiProductDetail:
+        """No developer notes."""
+        endpoint = "apiProductDetails"
+
+        result = self.service.execute_query(
+            endpoint=endpoint,
+            variables={
+                "productId": prepare_input(product_id),
+            },
+            output=build_output_string(
+                ApiProductDetail,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
+        )
+        if result.get(endpoint) is not None:
+            return ApiProductDetail.from_dict(result.get(endpoint))
+        raise GraphQLNoRowsInResultSetError("for query apiProductDetails")

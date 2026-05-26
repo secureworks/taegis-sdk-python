@@ -34,6 +34,7 @@ from taegis_sdk_python.services.byoti import ByotiService
 from taegis_sdk_python.services.clients import ClientsService
 from taegis_sdk_python.services.collector import CollectorService
 from taegis_sdk_python.services.comments import CommentsService
+from taegis_sdk_python.services.context_summarizer import ContextSummarizerService
 from taegis_sdk_python.services.contracted_endpoint import ContractedEndpointService
 from taegis_sdk_python.services.cql_metadata import CqlMetadataService
 from taegis_sdk_python.services.datasources import DatasourcesService
@@ -47,6 +48,7 @@ from taegis_sdk_python.services.endpoint_management_service import (
 from taegis_sdk_python.services.entity_context import EntityContextService
 from taegis_sdk_python.services.escalation_policies import EscalationPoliciesService
 from taegis_sdk_python.services.event_search import EventSearchService
+from taegis_sdk_python.services.event_stats import EventStatsService
 from taegis_sdk_python.services.events import EventsService
 from taegis_sdk_python.services.exports import ExportsService
 from taegis_sdk_python.services.fast_ioc import FastIocService
@@ -204,6 +206,7 @@ class GraphQLService:
         self._clients = None
         self._collector = None
         self._comments = None
+        self._context_summarizer = None
         self._contracted_endpoint = None
         self._cql_metadata = None
         self._datasources = None
@@ -212,6 +215,7 @@ class GraphQLService:
         self._endpoint_management_service = None
         self._entity_context = None
         self._event_search = None
+        self._event_stats = None
         self._escalation_policies = None
         self._events = None
         self._exports = None
@@ -585,6 +589,13 @@ class GraphQLService:
         return self._comments
 
     @property
+    def context_summarizer(self):
+        """Context Summarizer Service Endpoint."""
+        if not self._context_summarizer:
+            self._context_summarizer = ContextSummarizerService(self)
+        return self._context_summarizer
+
+    @property
     def contracted_endpoint(self):
         """ContractedEndpoint Service Endpoint."""
         if not self._contracted_endpoint:
@@ -646,6 +657,13 @@ class GraphQLService:
         if not self._event_search:
             self._event_search = EventSearchService(self)
         return self._event_search
+
+    @property
+    def event_stats(self):
+        """EventStats Service Endpoint."""
+        if not self._event_stats:
+            self._event_stats = EventStatsService(self)
+        return self._event_stats
 
     @property
     def events(self):

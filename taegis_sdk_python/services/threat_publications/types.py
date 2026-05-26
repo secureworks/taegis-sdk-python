@@ -15,6 +15,15 @@ from taegis_sdk_python._consts import TaegisEnum
 from taegis_sdk_python.utils import decode_enum, encode_enum, parse_union_result
 
 
+class ResendMode(str, Enum):
+    """ResendMode."""
+
+    ALL = "ALL"
+    UNDELIVERED = "UNDELIVERED"
+    FAILED = "FAILED"
+    SPECIFIC = "SPECIFIC"
+
+
 class languageType(str, Enum):
     """languageType."""
 
@@ -36,6 +45,18 @@ class ContentFormat(str, Enum):
     HTML = "HTML"
     TEXT = "TEXT"
     PDF = "PDF"
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class ResendPublicationResponse:
+    """ResendPublicationResponse."""
+
+    emails: Optional[List[str]] = field(
+        default=None, metadata=config(field_name="emails")
+    )
+    count: Optional[int] = field(default=None, metadata=config(field_name="count"))
+    sent: Optional[bool] = field(default=None, metadata=config(field_name="sent"))
 
 
 @dataclass_json

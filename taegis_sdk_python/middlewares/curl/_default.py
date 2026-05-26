@@ -3,12 +3,7 @@
 import logging
 from shlex import quote
 
-from aiohttp import (
-    BytesPayload,
-    ClientHandlerType,
-    ClientRequest,
-    ClientResponse,
-)
+from aiohttp import BytesPayload, ClientHandlerType, ClientRequest, ClientResponse
 
 from taegis_sdk_python.middlewares.utils import scrub_dict
 
@@ -42,7 +37,9 @@ async def to_curl(request: ClientRequest, handler: ClientHandlerType) -> ClientR
         if isinstance(body, (bytes, BytesPayload)):
             body = body.decode("utf-8")
         else:
-            log.error(f"Unsupported body type for curl middleware: {type(body)}, request.body must be bytes or BytesPayload")
+            log.error(
+                f"Unsupported body type for curl middleware: {type(body)}, request.body must be bytes or BytesPayload"
+            )
             return await handler(request)
 
         data_type = "-d"

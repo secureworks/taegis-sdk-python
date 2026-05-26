@@ -37,23 +37,6 @@ class VdrAssetsSortMode(str, Enum):
     LAST_REPORT = "LAST_REPORT"
 
 
-class VdrScanStatus(str, Enum):
-    """VdrScanStatus."""
-
-    NEW = "NEW"
-    DONE = "DONE"
-    CANCEL = "CANCEL"
-    PROGRESS = "PROGRESS"
-    PICKED = "PICKED"
-    FAILED = "FAILED"
-
-
-class VdrScanSortMode(str, Enum):
-    """VdrScanSortMode."""
-
-    REQUEST_DATE = "REQUEST_DATE"
-
-
 class VdrCounterThreatUnit(str, Enum):
     """VdrCounterThreatUnit."""
 
@@ -104,6 +87,37 @@ class VdrMetricsPeriod(str, Enum):
     DAY_1 = "DAY_1"
     DAYS_7 = "DAYS_7"
     DAYS_30 = "DAYS_30"
+
+
+class VdrScanStatus(str, Enum):
+    """VdrScanStatus."""
+
+    NEW = "NEW"
+    DONE = "DONE"
+    CANCEL = "CANCEL"
+    PROGRESS = "PROGRESS"
+    PICKED = "PICKED"
+    FAILED = "FAILED"
+
+
+class VdrScanSortMode(str, Enum):
+    """VdrScanSortMode."""
+
+    REQUEST_DATE = "REQUEST_DATE"
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class VdrThreatIntel:
+    """VdrThreatIntel."""
+
+    id: Optional[str] = field(default=None, metadata=config(field_name="id"))
+    content: Optional[str] = field(default=None, metadata=config(field_name="content"))
+    publication_date: Optional[str] = field(
+        default=None, metadata=config(field_name="publicationDate")
+    )
+    source: Optional[str] = field(default=None, metadata=config(field_name="source"))
+    title: Optional[str] = field(default=None, metadata=config(field_name="title"))
 
 
 @dataclass_json
@@ -228,108 +242,6 @@ class VdrStatistics:
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
-class VdrInspectScore:
-    """VdrInspectScore."""
-
-    step_base: Optional[float] = field(
-        default=None, metadata=config(field_name="stepBase")
-    )
-    step_final: Optional[float] = field(
-        default=None, metadata=config(field_name="stepFinal")
-    )
-
-
-@dataclass_json
-@dataclass(order=True, eq=True, frozen=True)
-class VdrAffectedHost:
-    """VdrAffectedHost."""
-
-    host_id: Optional[str] = field(default=None, metadata=config(field_name="hostId"))
-    address: Optional[str] = field(default=None, metadata=config(field_name="address"))
-
-
-@dataclass_json
-@dataclass(order=True, eq=True, frozen=True)
-class VdrInspectHostArgs:
-    """VdrInspectHostArgs."""
-
-    hosts: Optional[List[str]] = field(
-        default=None, metadata=config(field_name="hosts")
-    )
-    alert_detail: Optional[str] = field(
-        default=None, metadata=config(field_name="alertDetail")
-    )
-
-
-@dataclass_json
-@dataclass(order=True, eq=True, frozen=True)
-class VdrTenant:
-    """VdrTenant."""
-
-    id: Optional[str] = field(default=None, metadata=config(field_name="id"))
-    instance: Optional[str] = field(
-        default=None, metadata=config(field_name="instance")
-    )
-    xdr_tenant_id: Optional[str] = field(
-        default=None, metadata=config(field_name="xdrTenantId")
-    )
-    host_url: Optional[str] = field(default=None, metadata=config(field_name="hostUrl"))
-
-
-@dataclass_json
-@dataclass(order=True, eq=True, frozen=True)
-class VdrThreatIntel:
-    """VdrThreatIntel."""
-
-    id: Optional[str] = field(default=None, metadata=config(field_name="id"))
-    content: Optional[str] = field(default=None, metadata=config(field_name="content"))
-    publication_date: Optional[str] = field(
-        default=None, metadata=config(field_name="publicationDate")
-    )
-    source: Optional[str] = field(default=None, metadata=config(field_name="source"))
-    title: Optional[str] = field(default=None, metadata=config(field_name="title"))
-
-
-@dataclass_json
-@dataclass(order=True, eq=True, frozen=True)
-class VdrVulnerabilityDetailsInputArgs:
-    """VdrVulnerabilityDetailsInputArgs."""
-
-    vulnerability_group_id: Optional[str] = field(
-        default=None, metadata=config(field_name="vulnerabilityGroupId")
-    )
-
-
-@dataclass_json
-@dataclass(order=True, eq=True, frozen=True)
-class VdrVulnerabilityDetailsHttpHeaders:
-    """VdrVulnerabilityDetailsHttpHeaders."""
-
-    id: Optional[str] = field(default=None, metadata=config(field_name="id"))
-
-
-@dataclass_json
-@dataclass(order=True, eq=True, frozen=True)
-class VdrScoreStep:
-    """VdrScoreStep."""
-
-    score: Optional[float] = field(default=None, metadata=config(field_name="score"))
-    segment: Optional[str] = field(default=None, metadata=config(field_name="segment"))
-
-
-@dataclass_json
-@dataclass(order=True, eq=True, frozen=True)
-class VdrExtraData:
-    """VdrExtraData."""
-
-    key: Optional[str] = field(default=None, metadata=config(field_name="key"))
-    value: Optional[List[str]] = field(
-        default=None, metadata=config(field_name="value")
-    )
-
-
-@dataclass_json
-@dataclass(order=True, eq=True, frozen=True)
 class VdrVulnScore:
     """VdrVulnScore."""
 
@@ -412,6 +324,94 @@ class VdrVulnerabilityAggregate:
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
+class VdrVulnerabilityDetailsInputArgs:
+    """VdrVulnerabilityDetailsInputArgs."""
+
+    vulnerability_group_id: Optional[str] = field(
+        default=None, metadata=config(field_name="vulnerabilityGroupId")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class VdrVulnerabilityDetailsHttpHeaders:
+    """VdrVulnerabilityDetailsHttpHeaders."""
+
+    id: Optional[str] = field(default=None, metadata=config(field_name="id"))
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class VdrScoreStep:
+    """VdrScoreStep."""
+
+    score: Optional[float] = field(default=None, metadata=config(field_name="score"))
+    segment: Optional[str] = field(default=None, metadata=config(field_name="segment"))
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class VdrExtraData:
+    """VdrExtraData."""
+
+    key: Optional[str] = field(default=None, metadata=config(field_name="key"))
+    value: Optional[List[str]] = field(
+        default=None, metadata=config(field_name="value")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class VdrInspectScore:
+    """VdrInspectScore."""
+
+    step_base: Optional[float] = field(
+        default=None, metadata=config(field_name="stepBase")
+    )
+    step_final: Optional[float] = field(
+        default=None, metadata=config(field_name="stepFinal")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class VdrAffectedHost:
+    """VdrAffectedHost."""
+
+    host_id: Optional[str] = field(default=None, metadata=config(field_name="hostId"))
+    address: Optional[str] = field(default=None, metadata=config(field_name="address"))
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class VdrInspectHostArgs:
+    """VdrInspectHostArgs."""
+
+    hosts: Optional[List[str]] = field(
+        default=None, metadata=config(field_name="hosts")
+    )
+    alert_detail: Optional[str] = field(
+        default=None, metadata=config(field_name="alertDetail")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class VdrTenant:
+    """VdrTenant."""
+
+    id: Optional[str] = field(default=None, metadata=config(field_name="id"))
+    instance: Optional[str] = field(
+        default=None, metadata=config(field_name="instance")
+    )
+    xdr_tenant_id: Optional[str] = field(
+        default=None, metadata=config(field_name="xdrTenantId")
+    )
+    host_url: Optional[str] = field(default=None, metadata=config(field_name="hostUrl"))
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
 class VdrAssetsFiltersInputArgs:
     """VdrAssetsFiltersInputArgs."""
 
@@ -422,6 +422,40 @@ class VdrAssetsFiltersInputArgs:
             encoder=encode_enum,
             decoder=lambda x: decode_enum(VdrAssetType, x),
             field_name="assetType",
+        ),
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class VdrScoreExplanation:
+    """VdrScoreExplanation."""
+
+    category: Optional[str] = field(
+        default=None, metadata=config(field_name="category")
+    )
+    code: Optional[str] = field(default=None, metadata=config(field_name="code"))
+    label: Optional[str] = field(default=None, metadata=config(field_name="label"))
+    extra_data: Optional[List[VdrExtraData]] = field(
+        default=None, metadata=config(field_name="extraData")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class VdrScan:
+    """VdrScan."""
+
+    id: Optional[str] = field(default=None, metadata=config(field_name="id"))
+    request_date: Optional[str] = field(
+        default=None, metadata=config(field_name="requestDate")
+    )
+    status: Optional[Union[VdrScanStatus, TaegisEnum]] = field(
+        default=None,
+        metadata=config(
+            encoder=encode_enum,
+            decoder=lambda x: decode_enum(VdrScanStatus, x),
+            field_name="status",
         ),
     )
 
@@ -484,76 +518,21 @@ class VdrDefinition:
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
-class VdrScan:
-    """VdrScan."""
+class VdrSeriesGroup:
+    """VdrSeriesGroup."""
 
-    id: Optional[str] = field(default=None, metadata=config(field_name="id"))
-    request_date: Optional[str] = field(
-        default=None, metadata=config(field_name="requestDate")
+    severity: Optional[str] = field(
+        default=None, metadata=config(field_name="severity")
     )
-    status: Optional[Union[VdrScanStatus, TaegisEnum]] = field(
+    series: Optional[List[VdrSeries]] = field(
+        default=None, metadata=config(field_name="series")
+    )
+    period: Optional[Union[VdrMetricsPeriod, TaegisEnum]] = field(
         default=None,
         metadata=config(
             encoder=encode_enum,
-            decoder=lambda x: decode_enum(VdrScanStatus, x),
-            field_name="status",
-        ),
-    )
-
-
-@dataclass_json
-@dataclass(order=True, eq=True, frozen=True)
-class VdrScoreExplanation:
-    """VdrScoreExplanation."""
-
-    category: Optional[str] = field(
-        default=None, metadata=config(field_name="category")
-    )
-    code: Optional[str] = field(default=None, metadata=config(field_name="code"))
-    label: Optional[str] = field(default=None, metadata=config(field_name="label"))
-    extra_data: Optional[List[VdrExtraData]] = field(
-        default=None, metadata=config(field_name="extraData")
-    )
-
-
-@dataclass_json
-@dataclass(order=True, eq=True, frozen=True)
-class VdrInspectHost:
-    """VdrInspectHost."""
-
-    definitions: Optional[List[VdrDefinition]] = field(
-        default=None, metadata=config(field_name="definitions")
-    )
-    matching_vulnerability_groups: Optional[List[VdrMatchingVulnerabilityGroup]] = (
-        field(default=None, metadata=config(field_name="matchingVulnerabilityGroups"))
-    )
-
-
-@dataclass_json
-@dataclass(order=True, eq=True, frozen=True)
-class VdrScanInputArgs:
-    """VdrScanInputArgs."""
-
-    host_id: Optional[str] = field(default=None, metadata=config(field_name="hostId"))
-    is_future: Optional[bool] = field(
-        default=None, metadata=config(field_name="isFuture")
-    )
-    offset: Optional[int] = field(default=None, metadata=config(field_name="offset"))
-    limit: Optional[int] = field(default=None, metadata=config(field_name="limit"))
-    status: Optional[Union[VdrScanStatus, TaegisEnum]] = field(
-        default=None,
-        metadata=config(
-            encoder=encode_enum,
-            decoder=lambda x: decode_enum(VdrScanStatus, x),
-            field_name="status",
-        ),
-    )
-    sort_by: Optional[Union[VdrScanSortMode, TaegisEnum]] = field(
-        default=None,
-        metadata=config(
-            encoder=encode_enum,
-            decoder=lambda x: decode_enum(VdrScanSortMode, x),
-            field_name="sortBy",
+            decoder=lambda x: decode_enum(VdrMetricsPeriod, x),
+            field_name="period",
         ),
     )
 
@@ -676,22 +655,43 @@ class VdrVulnerabilityDetail:
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
-class VdrSeriesGroup:
-    """VdrSeriesGroup."""
+class VdrScanInputArgs:
+    """VdrScanInputArgs."""
 
-    severity: Optional[str] = field(
-        default=None, metadata=config(field_name="severity")
+    host_id: Optional[str] = field(default=None, metadata=config(field_name="hostId"))
+    is_future: Optional[bool] = field(
+        default=None, metadata=config(field_name="isFuture")
     )
-    series: Optional[List[VdrSeries]] = field(
-        default=None, metadata=config(field_name="series")
-    )
-    period: Optional[Union[VdrMetricsPeriod, TaegisEnum]] = field(
+    offset: Optional[int] = field(default=None, metadata=config(field_name="offset"))
+    limit: Optional[int] = field(default=None, metadata=config(field_name="limit"))
+    status: Optional[Union[VdrScanStatus, TaegisEnum]] = field(
         default=None,
         metadata=config(
             encoder=encode_enum,
-            decoder=lambda x: decode_enum(VdrMetricsPeriod, x),
-            field_name="period",
+            decoder=lambda x: decode_enum(VdrScanStatus, x),
+            field_name="status",
         ),
+    )
+    sort_by: Optional[Union[VdrScanSortMode, TaegisEnum]] = field(
+        default=None,
+        metadata=config(
+            encoder=encode_enum,
+            decoder=lambda x: decode_enum(VdrScanSortMode, x),
+            field_name="sortBy",
+        ),
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class VdrInspectHost:
+    """VdrInspectHost."""
+
+    definitions: Optional[List[VdrDefinition]] = field(
+        default=None, metadata=config(field_name="definitions")
+    )
+    matching_vulnerability_groups: Optional[List[VdrMatchingVulnerabilityGroup]] = (
+        field(default=None, metadata=config(field_name="matchingVulnerabilityGroups"))
     )
 
 
@@ -1141,19 +1141,6 @@ class VdrEdgeServices:
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
-class VdrScans:
-    """VdrScans."""
-
-    total_count: Optional[int] = field(
-        default=None, metadata=config(field_name="totalCount")
-    )
-    scans: Optional[List[VdrScan]] = field(
-        default=None, metadata=config(field_name="scans")
-    )
-
-
-@dataclass_json
-@dataclass(order=True, eq=True, frozen=True)
 class VdrVulnerabilities:
     """VdrVulnerabilities."""
 
@@ -1167,17 +1154,14 @@ class VdrVulnerabilities:
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
-class VdrVulnerabilityDetails:
-    """VdrVulnerabilityDetails."""
+class VdrScans:
+    """VdrScans."""
 
     total_count: Optional[int] = field(
         default=None, metadata=config(field_name="totalCount")
     )
-    vulnerability_group_details: Optional[VdrVulnerability] = field(
-        default=None, metadata=config(field_name="vulnerabilityGroupDetails")
-    )
-    vulnerability_details: Optional[List[VdrVulnerabilityDetail]] = field(
-        default=None, metadata=config(field_name="vulnerabilityDetails")
+    scans: Optional[List[VdrScan]] = field(
+        default=None, metadata=config(field_name="scans")
     )
 
 
@@ -1195,6 +1179,22 @@ class VdrVulnerabilityMetricsInputArgs:
     )
     exclude_filters: Optional[VdrVulnerabilitiesFiltersInputArgs] = field(
         default=None, metadata=config(field_name="excludeFilters")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class VdrVulnerabilityDetails:
+    """VdrVulnerabilityDetails."""
+
+    total_count: Optional[int] = field(
+        default=None, metadata=config(field_name="totalCount")
+    )
+    vulnerability_group_details: Optional[VdrVulnerability] = field(
+        default=None, metadata=config(field_name="vulnerabilityGroupDetails")
+    )
+    vulnerability_details: Optional[List[VdrVulnerabilityDetail]] = field(
+        default=None, metadata=config(field_name="vulnerabilityDetails")
     )
 
 

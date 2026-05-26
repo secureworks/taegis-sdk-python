@@ -15,46 +15,6 @@ from taegis_sdk_python._consts import TaegisEnum
 from taegis_sdk_python.utils import decode_enum, encode_enum, parse_union_result
 
 
-class AggregateAlertsBySeverityInput_GroupBy(str, Enum):
-    """AggregateAlertsBySeverityInput_GroupBy."""
-
-    DOMAIN = "DOMAIN"
-    WATCHLIST = "WATCHLIST"
-    HOSTNAME = "HOSTNAME"
-    DETECTOR = "DETECTOR"
-    USER = "USER"
-
-
-class CallerInformation(str, Enum):
-    """CallerInformation."""
-
-    UNKNOWN = "UNKNOWN"
-    ALERTS_V1 = "ALERTS_V1"
-    ALERTS_V2 = "ALERTS_V2"
-
-
-class InvestigationOperation(str, Enum):
-    """InvestigationOperation."""
-
-    UPDATE = "UPDATE"
-    DELETE = "DELETE"
-
-
-class ResponseStatus(str, Enum):
-    """ResponseStatus."""
-
-    SUCCESS = "SUCCESS"
-    FAILED = "FAILED"
-
-
-class RPCResponseStatus(str, Enum):
-    """RPCResponseStatus."""
-
-    OK = "OK"
-    INVALID_REQUEST = "INVALID_REQUEST"
-    TRANSACTION_ERROR = "TRANSACTION_ERROR"
-
-
 class AlertsSeverity(str, Enum):
     """AlertsSeverity."""
 
@@ -127,343 +87,44 @@ class Locale(str, Enum):
     ZH_TW = "zh_TW"
 
 
-@dataclass_json
-@dataclass(order=True, eq=True, frozen=True)
-class GeoSummary_CountryInput:
-    """GeoSummary_CountryInput."""
+class AggregateAlertsBySeverityInput_GroupBy(str, Enum):
+    """AggregateAlertsBySeverityInput_GroupBy."""
 
-    geoname_id: Optional[int] = field(
-        default=None, metadata=config(field_name="geoname_id")
-    )
-    iso_code: Optional[str] = field(
-        default=None, metadata=config(field_name="iso_code")
-    )
-    code: Optional[str] = field(default=None, metadata=config(field_name="code"))
-    confidence: Optional[int] = field(
-        default=None, metadata=config(field_name="confidence")
-    )
+    DOMAIN = "DOMAIN"
+    WATCHLIST = "WATCHLIST"
+    HOSTNAME = "HOSTNAME"
+    DETECTOR = "DETECTOR"
+    USER = "USER"
 
 
-@dataclass_json
-@dataclass(order=True, eq=True, frozen=True)
-class KeyAndValuesInput:
-    """KeyAndValuesInput."""
+class CallerInformation(str, Enum):
+    """CallerInformation."""
 
-    key: Optional[str] = field(default=None, metadata=config(field_name="key"))
-    values: Optional[List[str]] = field(
-        default=None, metadata=config(field_name="values")
-    )
+    UNKNOWN = "UNKNOWN"
+    ALERTS_V1 = "ALERTS_V1"
+    ALERTS_V2 = "ALERTS_V2"
 
 
-@dataclass_json
-@dataclass(order=True, eq=True, frozen=True)
-class AlertRuleReferenceInput:
-    """AlertRuleReferenceInput."""
+class InvestigationOperation(str, Enum):
+    """InvestigationOperation."""
 
-    id: Optional[str] = field(default=None, metadata=config(field_name="id"))
-    version: Optional[str] = field(default=None, metadata=config(field_name="version"))
+    UPDATE = "UPDATE"
+    DELETE = "DELETE"
 
 
-@dataclass_json
-@dataclass(order=True, eq=True, frozen=True)
-class BulkInvestigationsRequestInput:
-    """BulkInvestigationsRequestInput."""
+class ResponseStatus(str, Enum):
+    """ResponseStatus."""
 
-    query: Optional[str] = field(default=None, metadata=config(field_name="query"))
-    investigation_id: Optional[str] = field(
-        default=None, metadata=config(field_name="investigation_id")
-    )
-    genesis_alerts: Optional[List[str]] = field(
-        default=None,
-        metadata=config(
-            metadata={
-                "deprecated": True,
-                "deprecation_reason": "used to flag specific alerts as the genesis of the investigation",
-            },
-            field_name="genesis_alerts",
-        ),
-    )
-    alerts: Optional[List[str]] = field(
-        default=None, metadata=config(field_name="alerts")
-    )
-    tenant: Optional[str] = field(default=None, metadata=config(field_name="tenant"))
+    SUCCESS = "SUCCESS"
+    FAILED = "FAILED"
 
 
-@dataclass_json
-@dataclass(order=True, eq=True, frozen=True)
-class EntityMetadataInput:
-    """EntityMetadataInput."""
+class RPCResponseStatus(str, Enum):
+    """RPCResponseStatus."""
 
-    entity: Optional[str] = field(default=None, metadata=config(field_name="entity"))
-    label: Optional[str] = field(default=None, metadata=config(field_name="label"))
-
-
-@dataclass_json
-@dataclass(order=True, eq=True, frozen=True)
-class EvictRequestInput:
-    """EvictRequestInput."""
-
-    search_id: Optional[str] = field(
-        default=None, metadata=config(field_name="search_id")
-    )
-
-
-@dataclass_json
-@dataclass(order=True, eq=True, frozen=True)
-class GetByIDRequestInput:
-    """GetByIDRequestInput."""
-
-    i_ds: Optional[List[str]] = field(default=None, metadata=config(field_name="iDs"))
-
-
-@dataclass_json
-@dataclass(order=True, eq=True, frozen=True)
-class PollRequestInput:
-    """PollRequestInput."""
-
-    search_id: Optional[str] = field(
-        default=None, metadata=config(field_name="search_id")
-    )
-    part_id: Optional[int] = field(
-        default=None,
-        metadata=config(
-            metadata={
-                "deprecated": True,
-                "deprecation_reason": "part id is advanced transparently with each new call now",
-            },
-            field_name="part_id",
-        ),
-    )
-
-
-@dataclass_json
-@dataclass(order=True, eq=True, frozen=True)
-class AlertsCountByTenantInput:
-    """AlertsCountByTenantInput."""
-
-    ql_query: Optional[str] = field(
-        default=None, metadata=config(field_name="ql_query")
-    )
-    tenant_service_filters: Optional[List[str]] = field(
-        default=None, metadata=config(field_name="tenant_service_filters")
-    )
-
-
-@dataclass_json
-@dataclass(order=True, eq=True, frozen=True)
-class TimestampInput:
-    """TimestampInput."""
-
-    seconds: Optional[int] = field(default=None, metadata=config(field_name="seconds"))
-    nanos: Optional[int] = field(default=None, metadata=config(field_name="nanos"))
-
-
-@dataclass_json
-@dataclass(order=True, eq=True, frozen=True)
-class UpdateThreatScoreEntry:
-    """UpdateThreatScoreEntry."""
-
-    alert_id: Optional[str] = field(
-        default=None, metadata=config(field_name="alert_id")
-    )
-    threat_score: Optional[float] = field(
-        default=None, metadata=config(field_name="threat_score")
-    )
-
-
-@dataclass_json
-@dataclass(order=True, eq=True, frozen=True)
-class UpdateThreatScoreV2Entry:
-    """UpdateThreatScoreV2Entry."""
-
-    alert_id: Optional[str] = field(
-        default=None, metadata=config(field_name="alert_id")
-    )
-    threat_score_v2: Optional[float] = field(
-        default=None, metadata=config(field_name="threat_score_v2")
-    )
-
-
-@dataclass_json
-@dataclass(order=True, eq=True, frozen=True)
-class AccountCompromiseDetectorDetailInput:
-    """AccountCompromiseDetectorDetailInput."""
-
-    user_name: Optional[str] = field(
-        default=None, metadata=config(field_name="user_name")
-    )
-
-
-@dataclass_json
-@dataclass(order=True, eq=True, frozen=True)
-class AuthScanLogonAttemptInput:
-    """AuthScanLogonAttemptInput."""
-
-    target_user_name: Optional[str] = field(
-        default=None, metadata=config(field_name="target_user_name")
-    )
-    has_logon_success: Optional[bool] = field(
-        default=None, metadata=config(field_name="has_logon_success")
-    )
-    num_attempts: Optional[int] = field(
-        default=None, metadata=config(field_name="num_attempts")
-    )
-
-
-@dataclass_json
-@dataclass(order=True, eq=True, frozen=True)
-class BruteForceAuthInput:
-    """BruteForceAuthInput."""
-
-    win_event_id: Optional[str] = field(
-        default=None, metadata=config(field_name="win_event_id")
-    )
-    action: Optional[str] = field(default=None, metadata=config(field_name="action"))
-    domain: Optional[str] = field(default=None, metadata=config(field_name="domain"))
-    target_username: Optional[str] = field(
-        default=None, metadata=config(field_name="target_username")
-    )
-    event_timestamp: Optional[int] = field(
-        default=None, metadata=config(field_name="event_timestamp")
-    )
-    resource_record_identifier: Optional[str] = field(
-        default=None, metadata=config(field_name="resource_record_identifier")
-    )
-
-
-@dataclass_json
-@dataclass(order=True, eq=True, frozen=True)
-class KerberoastingInput:
-    """KerberoastingInput."""
-
-    user: Optional[str] = field(default=None, metadata=config(field_name="user"))
-    user_baseline: Optional[int] = field(
-        default=None, metadata=config(field_name="user_baseline")
-    )
-    user_avg_requests: Optional[float] = field(
-        default=None, metadata=config(field_name="user_avg_requests")
-    )
-    user_max_requests: Optional[int] = field(
-        default=None, metadata=config(field_name="user_max_requests")
-    )
-    total_spns: Optional[int] = field(
-        default=None, metadata=config(field_name="total_spns")
-    )
-    suspicious_num_requests: Optional[int] = field(
-        default=None, metadata=config(field_name="suspicious_num_requests")
-    )
-    percentage_accessed: Optional[float] = field(
-        default=None, metadata=config(field_name="percentage_accessed")
-    )
-    spns_accessed: Optional[List[str]] = field(
-        default=None, metadata=config(field_name="spns_accessed")
-    )
-    source_address: Optional[str] = field(
-        default=None, metadata=config(field_name="source_address")
-    )
-    hostname: Optional[str] = field(
-        default=None, metadata=config(field_name="hostname")
-    )
-
-
-@dataclass_json
-@dataclass(order=True, eq=True, frozen=True)
-class LogonAnomalyInput:
-    """LogonAnomalyInput."""
-
-    feature_value: Optional[str] = field(
-        default=None, metadata=config(field_name="feature_value")
-    )
-    feature_frequency_in_org: Optional[float] = field(
-        default=None, metadata=config(field_name="feature_frequency_in_org")
-    )
-    feature_frequency_in_user: Optional[float] = field(
-        default=None, metadata=config(field_name="feature_frequency_in_user")
-    )
-    approximate_count_in_user: Optional[int] = field(
-        default=None, metadata=config(field_name="approximate_count_in_user")
-    )
-    min_allowed_user_percentage: Optional[float] = field(
-        default=None, metadata=config(field_name="min_allowed_user_percentage")
-    )
-    min_allowed_org_percentage: Optional[float] = field(
-        default=None, metadata=config(field_name="min_allowed_org_percentage")
-    )
-
-
-@dataclass_json
-@dataclass(order=True, eq=True, frozen=True)
-class MatchDetailsInput:
-    """MatchDetailsInput."""
-
-    list_name: Optional[str] = field(
-        default=None, metadata=config(field_name="list_name")
-    )
-    reason: Optional[str] = field(default=None, metadata=config(field_name="reason"))
-    attacks: Optional[List[str]] = field(
-        default=None, metadata=config(field_name="attacks")
-    )
-
-
-@dataclass_json
-@dataclass(order=True, eq=True, frozen=True)
-class PasswordSprayAffectedUserInput:
-    """PasswordSprayAffectedUserInput."""
-
-    target_user_name: Optional[str] = field(
-        default=None, metadata=config(field_name="target_user_name")
-    )
-    target_domain_name: Optional[str] = field(
-        default=None, metadata=config(field_name="target_domain_name")
-    )
-    user_had_auth_success: Optional[bool] = field(
-        default=None, metadata=config(field_name="user_had_auth_success")
-    )
-
-
-@dataclass_json
-@dataclass(order=True, eq=True, frozen=True)
-class UserLogonBaselineInput:
-    """UserLogonBaselineInput."""
-
-    feature_value: Optional[str] = field(
-        default=None, metadata=config(field_name="feature_value")
-    )
-    feature_frequency_in_org: Optional[float] = field(
-        default=None, metadata=config(field_name="feature_frequency_in_org")
-    )
-    feature_frequency_in_user: Optional[float] = field(
-        default=None, metadata=config(field_name="feature_frequency_in_user")
-    )
-    approximate_count_in_user: Optional[int] = field(
-        default=None, metadata=config(field_name="approximate_count_in_user")
-    )
-    days_in_baseline: Optional[int] = field(
-        default=None, metadata=config(field_name="days_in_baseline")
-    )
-
-
-@dataclass_json
-@dataclass(order=True, eq=True, frozen=True)
-class AggregationKeys:
-    """AggregationKeys."""
-
-    key: Optional[str] = field(default=None, metadata=config(field_name="key"))
-    value: Optional[str] = field(default=None, metadata=config(field_name="value"))
-
-
-@dataclass_json
-@dataclass(order=True, eq=True, frozen=True)
-class AlertsAggregateResponse_AlertsAggregation_Severity:
-    """AlertsAggregateResponse_AlertsAggregation_Severity."""
-
-    info: Optional[int] = field(default=None, metadata=config(field_name="info"))
-    low: Optional[int] = field(default=None, metadata=config(field_name="low"))
-    medium: Optional[int] = field(default=None, metadata=config(field_name="medium"))
-    high: Optional[int] = field(default=None, metadata=config(field_name="high"))
-    critical: Optional[int] = field(
-        default=None, metadata=config(field_name="critical")
-    )
+    OK = "OK"
+    INVALID_REQUEST = "INVALID_REQUEST"
+    TRANSACTION_ERROR = "TRANSACTION_ERROR"
 
 
 @dataclass_json
@@ -1760,6 +1421,583 @@ class Observation:
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
+class GeoSummary_CountryInput:
+    """GeoSummary_CountryInput."""
+
+    geoname_id: Optional[int] = field(
+        default=None, metadata=config(field_name="geoname_id")
+    )
+    iso_code: Optional[str] = field(
+        default=None, metadata=config(field_name="iso_code")
+    )
+    code: Optional[str] = field(default=None, metadata=config(field_name="code"))
+    confidence: Optional[int] = field(
+        default=None, metadata=config(field_name="confidence")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class KeyAndValuesInput:
+    """KeyAndValuesInput."""
+
+    key: Optional[str] = field(default=None, metadata=config(field_name="key"))
+    values: Optional[List[str]] = field(
+        default=None, metadata=config(field_name="values")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class AlertRuleReferenceInput:
+    """AlertRuleReferenceInput."""
+
+    id: Optional[str] = field(default=None, metadata=config(field_name="id"))
+    version: Optional[str] = field(default=None, metadata=config(field_name="version"))
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class BulkInvestigationsRequestInput:
+    """BulkInvestigationsRequestInput."""
+
+    query: Optional[str] = field(default=None, metadata=config(field_name="query"))
+    investigation_id: Optional[str] = field(
+        default=None, metadata=config(field_name="investigation_id")
+    )
+    genesis_alerts: Optional[List[str]] = field(
+        default=None,
+        metadata=config(
+            metadata={
+                "deprecated": True,
+                "deprecation_reason": "used to flag specific alerts as the genesis of the investigation",
+            },
+            field_name="genesis_alerts",
+        ),
+    )
+    alerts: Optional[List[str]] = field(
+        default=None, metadata=config(field_name="alerts")
+    )
+    tenant: Optional[str] = field(default=None, metadata=config(field_name="tenant"))
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class EntityMetadataInput:
+    """EntityMetadataInput."""
+
+    entity: Optional[str] = field(default=None, metadata=config(field_name="entity"))
+    label: Optional[str] = field(default=None, metadata=config(field_name="label"))
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class EvictRequestInput:
+    """EvictRequestInput."""
+
+    search_id: Optional[str] = field(
+        default=None, metadata=config(field_name="search_id")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class GetByIDRequestInput:
+    """GetByIDRequestInput."""
+
+    i_ds: Optional[List[str]] = field(default=None, metadata=config(field_name="iDs"))
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class PollRequestInput:
+    """PollRequestInput."""
+
+    search_id: Optional[str] = field(
+        default=None, metadata=config(field_name="search_id")
+    )
+    part_id: Optional[int] = field(
+        default=None,
+        metadata=config(
+            metadata={
+                "deprecated": True,
+                "deprecation_reason": "part id is advanced transparently with each new call now",
+            },
+            field_name="part_id",
+        ),
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class AlertsCountByTenantInput:
+    """AlertsCountByTenantInput."""
+
+    ql_query: Optional[str] = field(
+        default=None, metadata=config(field_name="ql_query")
+    )
+    tenant_service_filters: Optional[List[str]] = field(
+        default=None, metadata=config(field_name="tenant_service_filters")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class TimestampInput:
+    """TimestampInput."""
+
+    seconds: Optional[int] = field(default=None, metadata=config(field_name="seconds"))
+    nanos: Optional[int] = field(default=None, metadata=config(field_name="nanos"))
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class UpdateThreatScoreEntry:
+    """UpdateThreatScoreEntry."""
+
+    alert_id: Optional[str] = field(
+        default=None, metadata=config(field_name="alert_id")
+    )
+    threat_score: Optional[float] = field(
+        default=None, metadata=config(field_name="threat_score")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class UpdateThreatScoreV2Entry:
+    """UpdateThreatScoreV2Entry."""
+
+    alert_id: Optional[str] = field(
+        default=None, metadata=config(field_name="alert_id")
+    )
+    threat_score_v2: Optional[float] = field(
+        default=None, metadata=config(field_name="threat_score_v2")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class AccountCompromiseDetectorDetailInput:
+    """AccountCompromiseDetectorDetailInput."""
+
+    user_name: Optional[str] = field(
+        default=None, metadata=config(field_name="user_name")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class AuthScanLogonAttemptInput:
+    """AuthScanLogonAttemptInput."""
+
+    target_user_name: Optional[str] = field(
+        default=None, metadata=config(field_name="target_user_name")
+    )
+    has_logon_success: Optional[bool] = field(
+        default=None, metadata=config(field_name="has_logon_success")
+    )
+    num_attempts: Optional[int] = field(
+        default=None, metadata=config(field_name="num_attempts")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class BruteForceAuthInput:
+    """BruteForceAuthInput."""
+
+    win_event_id: Optional[str] = field(
+        default=None, metadata=config(field_name="win_event_id")
+    )
+    action: Optional[str] = field(default=None, metadata=config(field_name="action"))
+    domain: Optional[str] = field(default=None, metadata=config(field_name="domain"))
+    target_username: Optional[str] = field(
+        default=None, metadata=config(field_name="target_username")
+    )
+    event_timestamp: Optional[int] = field(
+        default=None, metadata=config(field_name="event_timestamp")
+    )
+    resource_record_identifier: Optional[str] = field(
+        default=None, metadata=config(field_name="resource_record_identifier")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class KerberoastingInput:
+    """KerberoastingInput."""
+
+    user: Optional[str] = field(default=None, metadata=config(field_name="user"))
+    user_baseline: Optional[int] = field(
+        default=None, metadata=config(field_name="user_baseline")
+    )
+    user_avg_requests: Optional[float] = field(
+        default=None, metadata=config(field_name="user_avg_requests")
+    )
+    user_max_requests: Optional[int] = field(
+        default=None, metadata=config(field_name="user_max_requests")
+    )
+    total_spns: Optional[int] = field(
+        default=None, metadata=config(field_name="total_spns")
+    )
+    suspicious_num_requests: Optional[int] = field(
+        default=None, metadata=config(field_name="suspicious_num_requests")
+    )
+    percentage_accessed: Optional[float] = field(
+        default=None, metadata=config(field_name="percentage_accessed")
+    )
+    spns_accessed: Optional[List[str]] = field(
+        default=None, metadata=config(field_name="spns_accessed")
+    )
+    source_address: Optional[str] = field(
+        default=None, metadata=config(field_name="source_address")
+    )
+    hostname: Optional[str] = field(
+        default=None, metadata=config(field_name="hostname")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class LogonAnomalyInput:
+    """LogonAnomalyInput."""
+
+    feature_value: Optional[str] = field(
+        default=None, metadata=config(field_name="feature_value")
+    )
+    feature_frequency_in_org: Optional[float] = field(
+        default=None, metadata=config(field_name="feature_frequency_in_org")
+    )
+    feature_frequency_in_user: Optional[float] = field(
+        default=None, metadata=config(field_name="feature_frequency_in_user")
+    )
+    approximate_count_in_user: Optional[int] = field(
+        default=None, metadata=config(field_name="approximate_count_in_user")
+    )
+    min_allowed_user_percentage: Optional[float] = field(
+        default=None, metadata=config(field_name="min_allowed_user_percentage")
+    )
+    min_allowed_org_percentage: Optional[float] = field(
+        default=None, metadata=config(field_name="min_allowed_org_percentage")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class MatchDetailsInput:
+    """MatchDetailsInput."""
+
+    list_name: Optional[str] = field(
+        default=None, metadata=config(field_name="list_name")
+    )
+    reason: Optional[str] = field(default=None, metadata=config(field_name="reason"))
+    attacks: Optional[List[str]] = field(
+        default=None, metadata=config(field_name="attacks")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class PasswordSprayAffectedUserInput:
+    """PasswordSprayAffectedUserInput."""
+
+    target_user_name: Optional[str] = field(
+        default=None, metadata=config(field_name="target_user_name")
+    )
+    target_domain_name: Optional[str] = field(
+        default=None, metadata=config(field_name="target_domain_name")
+    )
+    user_had_auth_success: Optional[bool] = field(
+        default=None, metadata=config(field_name="user_had_auth_success")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class UserLogonBaselineInput:
+    """UserLogonBaselineInput."""
+
+    feature_value: Optional[str] = field(
+        default=None, metadata=config(field_name="feature_value")
+    )
+    feature_frequency_in_org: Optional[float] = field(
+        default=None, metadata=config(field_name="feature_frequency_in_org")
+    )
+    feature_frequency_in_user: Optional[float] = field(
+        default=None, metadata=config(field_name="feature_frequency_in_user")
+    )
+    approximate_count_in_user: Optional[int] = field(
+        default=None, metadata=config(field_name="approximate_count_in_user")
+    )
+    days_in_baseline: Optional[int] = field(
+        default=None, metadata=config(field_name="days_in_baseline")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class AggregationKeys:
+    """AggregationKeys."""
+
+    key: Optional[str] = field(default=None, metadata=config(field_name="key"))
+    value: Optional[str] = field(default=None, metadata=config(field_name="value"))
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class AlertsAggregateResponse_AlertsAggregation_Severity:
+    """AlertsAggregateResponse_AlertsAggregation_Severity."""
+
+    info: Optional[int] = field(default=None, metadata=config(field_name="info"))
+    low: Optional[int] = field(default=None, metadata=config(field_name="low"))
+    medium: Optional[int] = field(default=None, metadata=config(field_name="medium"))
+    high: Optional[int] = field(default=None, metadata=config(field_name="high"))
+    critical: Optional[int] = field(
+        default=None, metadata=config(field_name="critical")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class SeverityUpdate:
+    """SeverityUpdate."""
+
+    id: Optional[str] = field(default=None, metadata=config(field_name="id"))
+    severity: Optional[float] = field(
+        default=None, metadata=config(field_name="severity")
+    )
+    changed_at: Optional[Timestamp] = field(
+        default=None, metadata=config(field_name="changed_at")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class AlertPriority:
+    """AlertPriority."""
+
+    value: Optional[float] = field(default=None, metadata=config(field_name="value"))
+    prioritizer: Optional[str] = field(
+        default=None, metadata=config(field_name="prioritizer")
+    )
+    version: Optional[str] = field(default=None, metadata=config(field_name="version"))
+    model_name: Optional[str] = field(
+        default=None, metadata=config(field_name="model_name")
+    )
+    model_version: Optional[str] = field(
+        default=None, metadata=config(field_name="model_version")
+    )
+    evidence: Optional[List[str]] = field(
+        default=None, metadata=config(field_name="evidence")
+    )
+    applied_time: Optional[Timestamp] = field(
+        default=None, metadata=config(field_name="applied_time")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class Description:
+    """Description."""
+
+    description: Optional[str] = field(
+        default=None, metadata=config(field_name="description")
+    )
+    locale: Optional[Union[Locale, TaegisEnum]] = field(
+        default=None,
+        metadata=config(
+            encoder=encode_enum,
+            decoder=lambda x: decode_enum(Locale, x),
+            field_name="locale",
+        ),
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class EntityRelationships:
+    """EntityRelationships."""
+
+    entities: Optional[List[str]] = field(
+        default=None, metadata=config(field_name="entities")
+    )
+    relationships: Optional[List[Relationship]] = field(
+        default=None, metadata=config(field_name="relationships")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class KeyValuePairsIndexed:
+    """KeyValuePairsIndexed."""
+
+    record: Optional[List[KeyValueRecordIndexed]] = field(
+        default=None, metadata=config(field_name="record")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class ReferenceDetail:
+    """ReferenceDetail."""
+
+    reference: Optional[Reference] = field(
+        default=None, metadata=config(field_name="reference")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class DDosIpCount:
+    """DDosIpCount."""
+
+    count: Optional[int] = field(default=None, metadata=config(field_name="count"))
+    date: Optional[Timestamp] = field(default=None, metadata=config(field_name="date"))
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class RareProgramRareIpDetail:
+    """RareProgramRareIpDetail."""
+
+    host: Optional[str] = field(default=None, metadata=config(field_name="host"))
+    programs: Optional[List[str]] = field(
+        default=None, metadata=config(field_name="programs")
+    )
+    connections: Optional[List[NetworkConnection]] = field(
+        default=None, metadata=config(field_name="connections")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class StolenCredsTrustFeatures:
+    """StolenCredsTrustFeatures."""
+
+    network_unknown_asn: Optional[bool] = field(
+        default=None, metadata=config(field_name="network_unknown_asn")
+    )
+    network_unknown_ip: Optional[bool] = field(
+        default=None, metadata=config(field_name="network_unknown_ip")
+    )
+    user_unknown_ip: Optional[bool] = field(
+        default=None, metadata=config(field_name="user_unknown_ip")
+    )
+    user_unknown_asn: Optional[bool] = field(
+        default=None, metadata=config(field_name="user_unknown_asn")
+    )
+    prior_event_time_sec: Optional[int] = field(
+        default=None, metadata=config(field_name="prior_event_time_sec")
+    )
+    current_event_time_sec: Optional[int] = field(
+        default=None, metadata=config(field_name="current_event_time_sec")
+    )
+    prior_event_id: Optional[str] = field(
+        default=None, metadata=config(field_name="prior_event_id")
+    )
+    current_event_id: Optional[str] = field(
+        default=None, metadata=config(field_name="current_event_id")
+    )
+    username: Optional[str] = field(
+        default=None, metadata=config(field_name="username")
+    )
+    location: Optional[GeographicIp] = field(
+        default=None, metadata=config(field_name="location")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class WatchlistMatches:
+    """WatchlistMatches."""
+
+    entity: Optional[str] = field(default=None, metadata=config(field_name="entity"))
+    details: Optional[List[MatchDetails]] = field(
+        default=None, metadata=config(field_name="details")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class PasswordSprayDetail:
+    """PasswordSprayDetail."""
+
+    source_address: Optional[str] = field(
+        default=None, metadata=config(field_name="source_address")
+    )
+    num_auth_failures: Optional[int] = field(
+        default=None, metadata=config(field_name="num_auth_failures")
+    )
+    num_auth_successes: Optional[int] = field(
+        default=None, metadata=config(field_name="num_auth_successes")
+    )
+    all_affected_users: Optional[List[PasswordSprayAffectedUser]] = field(
+        default=None, metadata=config(field_name="all_affected_users")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class GeoSummary_City:
+    """GeoSummary_City."""
+
+    geoname_id: Optional[int] = field(
+        default=None, metadata=config(field_name="geoname_id")
+    )
+    name: Optional[str] = field(default=None, metadata=config(field_name="name"))
+    confidence: Optional[int] = field(
+        default=None, metadata=config(field_name="confidence")
+    )
+    locale_names: Optional[KeyValuePairsIndexed] = field(
+        default=None, metadata=config(field_name="locale_names")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class MatchedYaraRule:
+    """MatchedYaraRule."""
+
+    rule_name: Optional[str] = field(
+        default=None, metadata=config(field_name="rule_name")
+    )
+    rule_description: Optional[str] = field(
+        default=None, metadata=config(field_name="rule_description")
+    )
+    classification: Optional[str] = field(
+        default=None, metadata=config(field_name="classification")
+    )
+    confidence: Optional[float] = field(
+        default=None, metadata=config(field_name="confidence")
+    )
+    severity: Optional[float] = field(
+        default=None, metadata=config(field_name="severity")
+    )
+    attack_technique_ids: Optional[List[str]] = field(
+        default=None, metadata=config(field_name="attack_technique_ids")
+    )
+    vid: Optional[str] = field(default=None, metadata=config(field_name="vid"))
+    rule_created_date: Optional[Timestamp] = field(
+        default=None, metadata=config(field_name="rule_created_date")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class TacticGraphDetail:
+    """TacticGraphDetail."""
+
+    graph_id: Optional[str] = field(
+        default=None, metadata=config(field_name="graph_id")
+    )
+    events: Optional[List[KeyAndValues]] = field(
+        default=None, metadata=config(field_name="events")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
 class AlertPriorityInput:
     """AlertPriorityInput."""
 
@@ -2057,326 +2295,6 @@ class UpdateThreatScoreResponse:
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
-class SeverityUpdate:
-    """SeverityUpdate."""
-
-    id: Optional[str] = field(default=None, metadata=config(field_name="id"))
-    severity: Optional[float] = field(
-        default=None, metadata=config(field_name="severity")
-    )
-    changed_at: Optional[Timestamp] = field(
-        default=None, metadata=config(field_name="changed_at")
-    )
-
-
-@dataclass_json
-@dataclass(order=True, eq=True, frozen=True)
-class AlertPriority:
-    """AlertPriority."""
-
-    value: Optional[float] = field(default=None, metadata=config(field_name="value"))
-    prioritizer: Optional[str] = field(
-        default=None, metadata=config(field_name="prioritizer")
-    )
-    version: Optional[str] = field(default=None, metadata=config(field_name="version"))
-    model_name: Optional[str] = field(
-        default=None, metadata=config(field_name="model_name")
-    )
-    model_version: Optional[str] = field(
-        default=None, metadata=config(field_name="model_version")
-    )
-    evidence: Optional[List[str]] = field(
-        default=None, metadata=config(field_name="evidence")
-    )
-    applied_time: Optional[Timestamp] = field(
-        default=None, metadata=config(field_name="applied_time")
-    )
-
-
-@dataclass_json
-@dataclass(order=True, eq=True, frozen=True)
-class Description:
-    """Description."""
-
-    description: Optional[str] = field(
-        default=None, metadata=config(field_name="description")
-    )
-    locale: Optional[Union[Locale, TaegisEnum]] = field(
-        default=None,
-        metadata=config(
-            encoder=encode_enum,
-            decoder=lambda x: decode_enum(Locale, x),
-            field_name="locale",
-        ),
-    )
-
-
-@dataclass_json
-@dataclass(order=True, eq=True, frozen=True)
-class EntityRelationships:
-    """EntityRelationships."""
-
-    entities: Optional[List[str]] = field(
-        default=None, metadata=config(field_name="entities")
-    )
-    relationships: Optional[List[Relationship]] = field(
-        default=None, metadata=config(field_name="relationships")
-    )
-
-
-@dataclass_json
-@dataclass(order=True, eq=True, frozen=True)
-class KeyValuePairsIndexed:
-    """KeyValuePairsIndexed."""
-
-    record: Optional[List[KeyValueRecordIndexed]] = field(
-        default=None, metadata=config(field_name="record")
-    )
-
-
-@dataclass_json
-@dataclass(order=True, eq=True, frozen=True)
-class ReferenceDetail:
-    """ReferenceDetail."""
-
-    reference: Optional[Reference] = field(
-        default=None, metadata=config(field_name="reference")
-    )
-
-
-@dataclass_json
-@dataclass(order=True, eq=True, frozen=True)
-class DDosIpCount:
-    """DDosIpCount."""
-
-    count: Optional[int] = field(default=None, metadata=config(field_name="count"))
-    date: Optional[Timestamp] = field(default=None, metadata=config(field_name="date"))
-
-
-@dataclass_json
-@dataclass(order=True, eq=True, frozen=True)
-class RareProgramRareIpDetail:
-    """RareProgramRareIpDetail."""
-
-    host: Optional[str] = field(default=None, metadata=config(field_name="host"))
-    programs: Optional[List[str]] = field(
-        default=None, metadata=config(field_name="programs")
-    )
-    connections: Optional[List[NetworkConnection]] = field(
-        default=None, metadata=config(field_name="connections")
-    )
-
-
-@dataclass_json
-@dataclass(order=True, eq=True, frozen=True)
-class StolenCredsTrustFeatures:
-    """StolenCredsTrustFeatures."""
-
-    network_unknown_asn: Optional[bool] = field(
-        default=None, metadata=config(field_name="network_unknown_asn")
-    )
-    network_unknown_ip: Optional[bool] = field(
-        default=None, metadata=config(field_name="network_unknown_ip")
-    )
-    user_unknown_ip: Optional[bool] = field(
-        default=None, metadata=config(field_name="user_unknown_ip")
-    )
-    user_unknown_asn: Optional[bool] = field(
-        default=None, metadata=config(field_name="user_unknown_asn")
-    )
-    prior_event_time_sec: Optional[int] = field(
-        default=None, metadata=config(field_name="prior_event_time_sec")
-    )
-    current_event_time_sec: Optional[int] = field(
-        default=None, metadata=config(field_name="current_event_time_sec")
-    )
-    prior_event_id: Optional[str] = field(
-        default=None, metadata=config(field_name="prior_event_id")
-    )
-    current_event_id: Optional[str] = field(
-        default=None, metadata=config(field_name="current_event_id")
-    )
-    username: Optional[str] = field(
-        default=None, metadata=config(field_name="username")
-    )
-    location: Optional[GeographicIp] = field(
-        default=None, metadata=config(field_name="location")
-    )
-
-
-@dataclass_json
-@dataclass(order=True, eq=True, frozen=True)
-class WatchlistMatches:
-    """WatchlistMatches."""
-
-    entity: Optional[str] = field(default=None, metadata=config(field_name="entity"))
-    details: Optional[List[MatchDetails]] = field(
-        default=None, metadata=config(field_name="details")
-    )
-
-
-@dataclass_json
-@dataclass(order=True, eq=True, frozen=True)
-class PasswordSprayDetail:
-    """PasswordSprayDetail."""
-
-    source_address: Optional[str] = field(
-        default=None, metadata=config(field_name="source_address")
-    )
-    num_auth_failures: Optional[int] = field(
-        default=None, metadata=config(field_name="num_auth_failures")
-    )
-    num_auth_successes: Optional[int] = field(
-        default=None, metadata=config(field_name="num_auth_successes")
-    )
-    all_affected_users: Optional[List[PasswordSprayAffectedUser]] = field(
-        default=None, metadata=config(field_name="all_affected_users")
-    )
-
-
-@dataclass_json
-@dataclass(order=True, eq=True, frozen=True)
-class GeoSummary_City:
-    """GeoSummary_City."""
-
-    geoname_id: Optional[int] = field(
-        default=None, metadata=config(field_name="geoname_id")
-    )
-    name: Optional[str] = field(default=None, metadata=config(field_name="name"))
-    confidence: Optional[int] = field(
-        default=None, metadata=config(field_name="confidence")
-    )
-    locale_names: Optional[KeyValuePairsIndexed] = field(
-        default=None, metadata=config(field_name="locale_names")
-    )
-
-
-@dataclass_json
-@dataclass(order=True, eq=True, frozen=True)
-class MatchedYaraRule:
-    """MatchedYaraRule."""
-
-    rule_name: Optional[str] = field(
-        default=None, metadata=config(field_name="rule_name")
-    )
-    rule_description: Optional[str] = field(
-        default=None, metadata=config(field_name="rule_description")
-    )
-    classification: Optional[str] = field(
-        default=None, metadata=config(field_name="classification")
-    )
-    confidence: Optional[float] = field(
-        default=None, metadata=config(field_name="confidence")
-    )
-    severity: Optional[float] = field(
-        default=None, metadata=config(field_name="severity")
-    )
-    attack_technique_ids: Optional[List[str]] = field(
-        default=None, metadata=config(field_name="attack_technique_ids")
-    )
-    vid: Optional[str] = field(default=None, metadata=config(field_name="vid"))
-    rule_created_date: Optional[Timestamp] = field(
-        default=None, metadata=config(field_name="rule_created_date")
-    )
-
-
-@dataclass_json
-@dataclass(order=True, eq=True, frozen=True)
-class TacticGraphDetail:
-    """TacticGraphDetail."""
-
-    graph_id: Optional[str] = field(
-        default=None, metadata=config(field_name="graph_id")
-    )
-    events: Optional[List[KeyAndValues]] = field(
-        default=None, metadata=config(field_name="events")
-    )
-
-
-@dataclass_json
-@dataclass(order=True, eq=True, frozen=True)
-class ResolutionMetadataInput:
-    """ResolutionMetadataInput."""
-
-    id: Optional[str] = field(default=None, metadata=config(field_name="id"))
-    user_id: Optional[str] = field(default=None, metadata=config(field_name="user_id"))
-    reason: Optional[str] = field(default=None, metadata=config(field_name="reason"))
-    num_alerts_affected: Optional[int] = field(
-        default=None, metadata=config(field_name="num_alerts_affected")
-    )
-    uuid_user_id: Optional[str] = field(
-        default=None, metadata=config(field_name="uuid_user_id")
-    )
-    timestamp: Optional[TimestampInput] = field(
-        default=None, metadata=config(field_name="timestamp")
-    )
-    status: Optional[Union[ResolutionStatus, TaegisEnum]] = field(
-        default=None,
-        metadata=config(
-            encoder=encode_enum,
-            decoder=lambda x: decode_enum(ResolutionStatus, x),
-            field_name="status",
-        ),
-    )
-
-
-@dataclass_json
-@dataclass(order=True, eq=True, frozen=True)
-class AuthScanDetailInput:
-    """AuthScanDetailInput."""
-
-    total_attempts: Optional[int] = field(
-        default=None, metadata=config(field_name="total_attempts")
-    )
-    successful_logon_attempts: Optional[List[AuthScanLogonAttemptInput]] = field(
-        default=None, metadata=config(field_name="successful_logon_attempts")
-    )
-    failed_logon_attempts: Optional[List[AuthScanLogonAttemptInput]] = field(
-        default=None, metadata=config(field_name="failed_logon_attempts")
-    )
-
-
-@dataclass_json
-@dataclass(order=True, eq=True, frozen=True)
-class BruteForceDetailsInput:
-    """BruteForceDetailsInput."""
-
-    num_auth_failures: Optional[int] = field(
-        default=None, metadata=config(field_name="num_auth_failures")
-    )
-    num_auth_successes: Optional[int] = field(
-        default=None, metadata=config(field_name="num_auth_successes")
-    )
-    last_successful_auth: Optional[BruteForceAuthInput] = field(
-        default=None, metadata=config(field_name="last_successful_auth")
-    )
-    most_recent_auths_failures: Optional[List[BruteForceAuthInput]] = field(
-        default=None, metadata=config(field_name="most_recent_auths_failures")
-    )
-
-
-@dataclass_json
-@dataclass(order=True, eq=True, frozen=True)
-class InitialAccessVectorInfo:
-    """InitialAccessVectorInfo."""
-
-    investigation_ids: Optional[str] = field(
-        default=None, metadata=config(field_name="investigation_ids")
-    )
-    tenant_id: Optional[str] = field(
-        default=None, metadata=config(field_name="tenant_id")
-    )
-    name: Optional[str] = field(default=None, metadata=config(field_name="name"))
-    created_at: Optional[Timestamp] = field(
-        default=None, metadata=config(field_name="created_at")
-    )
-    updated_at: Optional[Timestamp] = field(
-        default=None, metadata=config(field_name="updated_at")
-    )
-
-
-@dataclass_json
-@dataclass(order=True, eq=True, frozen=True)
 class ResolutionMetadata:
     """ResolutionMetadata."""
 
@@ -2591,6 +2509,140 @@ class HandsOnKeyboardDetails_MatchedProcess:
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
+class ResolutionMetadataInput:
+    """ResolutionMetadataInput."""
+
+    id: Optional[str] = field(default=None, metadata=config(field_name="id"))
+    user_id: Optional[str] = field(default=None, metadata=config(field_name="user_id"))
+    reason: Optional[str] = field(default=None, metadata=config(field_name="reason"))
+    num_alerts_affected: Optional[int] = field(
+        default=None, metadata=config(field_name="num_alerts_affected")
+    )
+    uuid_user_id: Optional[str] = field(
+        default=None, metadata=config(field_name="uuid_user_id")
+    )
+    timestamp: Optional[TimestampInput] = field(
+        default=None, metadata=config(field_name="timestamp")
+    )
+    status: Optional[Union[ResolutionStatus, TaegisEnum]] = field(
+        default=None,
+        metadata=config(
+            encoder=encode_enum,
+            decoder=lambda x: decode_enum(ResolutionStatus, x),
+            field_name="status",
+        ),
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class AuthScanDetailInput:
+    """AuthScanDetailInput."""
+
+    total_attempts: Optional[int] = field(
+        default=None, metadata=config(field_name="total_attempts")
+    )
+    successful_logon_attempts: Optional[List[AuthScanLogonAttemptInput]] = field(
+        default=None, metadata=config(field_name="successful_logon_attempts")
+    )
+    failed_logon_attempts: Optional[List[AuthScanLogonAttemptInput]] = field(
+        default=None, metadata=config(field_name="failed_logon_attempts")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class BruteForceDetailsInput:
+    """BruteForceDetailsInput."""
+
+    num_auth_failures: Optional[int] = field(
+        default=None, metadata=config(field_name="num_auth_failures")
+    )
+    num_auth_successes: Optional[int] = field(
+        default=None, metadata=config(field_name="num_auth_successes")
+    )
+    last_successful_auth: Optional[BruteForceAuthInput] = field(
+        default=None, metadata=config(field_name="last_successful_auth")
+    )
+    most_recent_auths_failures: Optional[List[BruteForceAuthInput]] = field(
+        default=None, metadata=config(field_name="most_recent_auths_failures")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class InitialAccessVectorInfo:
+    """InitialAccessVectorInfo."""
+
+    investigation_ids: Optional[str] = field(
+        default=None, metadata=config(field_name="investigation_ids")
+    )
+    tenant_id: Optional[str] = field(
+        default=None, metadata=config(field_name="tenant_id")
+    )
+    name: Optional[str] = field(default=None, metadata=config(field_name="name"))
+    created_at: Optional[Timestamp] = field(
+        default=None, metadata=config(field_name="created_at")
+    )
+    updated_at: Optional[Timestamp] = field(
+        default=None, metadata=config(field_name="updated_at")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class AlertEventMetadata:
+    """AlertEventMetadata."""
+
+    first_event_id: Optional[str] = field(
+        default=None, metadata=config(field_name="first_event_id")
+    )
+    last_event_id: Optional[str] = field(
+        default=None, metadata=config(field_name="last_event_id")
+    )
+    total_events: Optional[int] = field(
+        default=None, metadata=config(field_name="total_events")
+    )
+    updated_at: Optional[Timestamp] = field(
+        default=None, metadata=config(field_name="updated_at")
+    )
+    began_at: Optional[Timestamp] = field(
+        default=None, metadata=config(field_name="began_at")
+    )
+    ended_at: Optional[Timestamp] = field(
+        default=None, metadata=config(field_name="ended_at")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class ImprobableLogonDetail:
+    """ImprobableLogonDetail."""
+
+    user: Optional[str] = field(default=None, metadata=config(field_name="user"))
+    source_address: Optional[str] = field(
+        default=None, metadata=config(field_name="source_address")
+    )
+    feature_name: Optional[Union[ImprobableLogonDetail_FeatureName, TaegisEnum]] = (
+        field(
+            default=None,
+            metadata=config(
+                encoder=encode_enum,
+                decoder=lambda x: decode_enum(ImprobableLogonDetail_FeatureName, x),
+                field_name="feature_name",
+            ),
+        )
+    )
+    logon_anomaly: Optional[LogonAnomaly] = field(
+        default=None, metadata=config(field_name="logon_anomaly")
+    )
+    user_logon_baselines: Optional[List[UserLogonBaseline]] = field(
+        default=None, metadata=config(field_name="user_logon_baselines")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
 class BulkResolutionRequestInput:
     """BulkResolutionRequestInput."""
 
@@ -2724,58 +2776,6 @@ class ImprobableLogonDetailInput:
         default=None, metadata=config(field_name="logon_anomaly")
     )
     user_logon_baselines: Optional[List[UserLogonBaselineInput]] = field(
-        default=None, metadata=config(field_name="user_logon_baselines")
-    )
-
-
-@dataclass_json
-@dataclass(order=True, eq=True, frozen=True)
-class AlertEventMetadata:
-    """AlertEventMetadata."""
-
-    first_event_id: Optional[str] = field(
-        default=None, metadata=config(field_name="first_event_id")
-    )
-    last_event_id: Optional[str] = field(
-        default=None, metadata=config(field_name="last_event_id")
-    )
-    total_events: Optional[int] = field(
-        default=None, metadata=config(field_name="total_events")
-    )
-    updated_at: Optional[Timestamp] = field(
-        default=None, metadata=config(field_name="updated_at")
-    )
-    began_at: Optional[Timestamp] = field(
-        default=None, metadata=config(field_name="began_at")
-    )
-    ended_at: Optional[Timestamp] = field(
-        default=None, metadata=config(field_name="ended_at")
-    )
-
-
-@dataclass_json
-@dataclass(order=True, eq=True, frozen=True)
-class ImprobableLogonDetail:
-    """ImprobableLogonDetail."""
-
-    user: Optional[str] = field(default=None, metadata=config(field_name="user"))
-    source_address: Optional[str] = field(
-        default=None, metadata=config(field_name="source_address")
-    )
-    feature_name: Optional[Union[ImprobableLogonDetail_FeatureName, TaegisEnum]] = (
-        field(
-            default=None,
-            metadata=config(
-                encoder=encode_enum,
-                decoder=lambda x: decode_enum(ImprobableLogonDetail_FeatureName, x),
-                field_name="feature_name",
-            ),
-        )
-    )
-    logon_anomaly: Optional[LogonAnomaly] = field(
-        default=None, metadata=config(field_name="logon_anomaly")
-    )
-    user_logon_baselines: Optional[List[UserLogonBaseline]] = field(
         default=None, metadata=config(field_name="user_logon_baselines")
     )
 
@@ -2935,36 +2935,6 @@ Properties = Union[
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
-class AlertsAggregateResponse:
-    """AlertsAggregateResponse."""
-
-    aggregation: Optional[List[AlertsAggregateResponse_AlertsAggregation]] = field(
-        default=None, metadata=config(field_name="aggregation")
-    )
-
-
-@dataclass_json
-@dataclass(order=True, eq=True, frozen=True)
-class AlertsInvestigationInfo:
-    """AlertsInvestigationInfo."""
-
-    alert_resource_id: Optional[str] = field(
-        default=None, metadata=config(field_name="alert_resource_id")
-    )
-    initial_access_vector_info: Optional[List[InitialAccessVectorInfo]] = field(
-        default=None,
-        metadata=config(
-            metadata={
-                "deprecated": True,
-                "deprecation_reason": "data no longer exists",
-            },
-            field_name="initial_access_vector_info",
-        ),
-    )
-
-
-@dataclass_json
-@dataclass(order=True, eq=True, frozen=True)
 class GenericDetail:
     """GenericDetail."""
 
@@ -3038,6 +3008,65 @@ class FileAnalysisDetail:
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
+class AlertsAggregateResponse:
+    """AlertsAggregateResponse."""
+
+    aggregation: Optional[List[AlertsAggregateResponse_AlertsAggregation]] = field(
+        default=None, metadata=config(field_name="aggregation")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class AlertsInvestigationInfo:
+    """AlertsInvestigationInfo."""
+
+    alert_resource_id: Optional[str] = field(
+        default=None, metadata=config(field_name="alert_resource_id")
+    )
+    initial_access_vector_info: Optional[List[InitialAccessVectorInfo]] = field(
+        default=None,
+        metadata=config(
+            metadata={
+                "deprecated": True,
+                "deprecation_reason": "data no longer exists",
+            },
+            field_name="initial_access_vector_info",
+        ),
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class StructuredEntity:
+    """StructuredEntity."""
+
+    id: Optional[str] = field(default=None, metadata=config(field_name="id"))
+    identifiers: Optional[List[str]] = field(
+        default=None, metadata=config(field_name="identifiers")
+    )
+    display_name: Optional[str] = field(
+        default=None, metadata=config(field_name="display_name")
+    )
+    subtype: Optional[str] = field(default=None, metadata=config(field_name="subtype"))
+    perspective: Optional[Union[EntityPerspective, TaegisEnum]] = field(
+        default=None,
+        metadata=config(
+            encoder=encode_enum,
+            decoder=lambda x: decode_enum(EntityPerspective, x),
+            field_name="perspective",
+        ),
+    )
+    properties: Optional[Properties] = field(
+        default=None,
+        metadata=config(
+            decoder=lambda x: parse_union_result(Properties, x), field_name="properties"
+        ),
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
 class BulkInvestigationsResponse:
     """BulkInvestigationsResponse."""
 
@@ -3098,35 +3127,6 @@ class UpdateInvestigationResponse:
                 "deprecation_reason": "data no longer exists",
             },
             field_name="access_vector_info",
-        ),
-    )
-
-
-@dataclass_json
-@dataclass(order=True, eq=True, frozen=True)
-class StructuredEntity:
-    """StructuredEntity."""
-
-    id: Optional[str] = field(default=None, metadata=config(field_name="id"))
-    identifiers: Optional[List[str]] = field(
-        default=None, metadata=config(field_name="identifiers")
-    )
-    display_name: Optional[str] = field(
-        default=None, metadata=config(field_name="display_name")
-    )
-    subtype: Optional[str] = field(default=None, metadata=config(field_name="subtype"))
-    perspective: Optional[Union[EntityPerspective, TaegisEnum]] = field(
-        default=None,
-        metadata=config(
-            encoder=encode_enum,
-            decoder=lambda x: decode_enum(EntityPerspective, x),
-            field_name="perspective",
-        ),
-    )
-    properties: Optional[Properties] = field(
-        default=None,
-        metadata=config(
-            decoder=lambda x: parse_union_result(Properties, x), field_name="properties"
         ),
     )
 
