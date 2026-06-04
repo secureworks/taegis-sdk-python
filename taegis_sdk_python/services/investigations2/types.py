@@ -298,15 +298,6 @@ class RemoveEvidenceFromCaseResult:
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
-class CaseCommentsCount:
-    """CaseCommentsCount."""
-
-    total: Optional[int] = field(default=None, metadata=config(field_name="total"))
-    unread: Optional[int] = field(default=None, metadata=config(field_name="unread"))
-
-
-@dataclass_json
-@dataclass(order=True, eq=True, frozen=True)
 class CaseDetectionEvidence:
     """CaseDetectionEvidence."""
 
@@ -3596,6 +3587,12 @@ class Case:
     is_created_by_partner: Optional[bool] = field(
         default=None, metadata=config(field_name="isCreatedByPartner")
     )
+    is_created_by_mdr_provider: Optional[bool] = field(
+        default=None, metadata=config(field_name="isCreatedByMDRProvider")
+    )
+    is_created_by_parent: Optional[bool] = field(
+        default=None, metadata=config(field_name="isCreatedByParent")
+    )
     detections_count: Optional[int] = field(
         default=None, metadata=config(field_name="detectionsCount")
     )
@@ -3931,6 +3928,9 @@ class CaseComments:
 
     total_count: Optional[int] = field(
         default=None, metadata=config(field_name="totalCount")
+    )
+    total_unread_count: Optional[int] = field(
+        default=None, metadata=config(field_name="totalUnreadCount")
     )
     comments: Optional[List[CaseComment]] = field(
         default=None, metadata=config(field_name="comments")

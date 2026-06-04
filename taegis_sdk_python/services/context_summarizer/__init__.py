@@ -1,8 +1,12 @@
 """ContextSummarizer Service."""
 
 from taegis_sdk_python.service_core import ServiceCore
-from taegis_sdk_python.services.context_summarizer.mutations import TaegisSDKContextSummarizerMutation
-from taegis_sdk_python.services.context_summarizer.queries import TaegisSDKContextSummarizerQuery
+from taegis_sdk_python.services.context_summarizer.mutations import (
+    TaegisSDKContextSummarizerMutation,
+)
+from taegis_sdk_python.services.context_summarizer.queries import (
+    TaegisSDKContextSummarizerQuery,
+)
 from taegis_sdk_python.services.context_summarizer.subscriptions import (
     TaegisSDKContextSummarizerSubscription,
 )

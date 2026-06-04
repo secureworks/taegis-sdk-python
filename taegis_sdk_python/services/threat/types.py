@@ -34,6 +34,7 @@ class SortByFieldInput(str, Enum):
     THREAT_GROUP_NAME = "threat_group_name"
     THREAT_GROUP_THEMATIC_AREA = "threat_group_thematic_area"
     THREAT_GROUP_STATUS = "threat_group_status"
+    THREAT_GROUP_LAST_KNOWN_ACTIVITY = "threat_group_last_known_activity"
     REPORT_NAME = "report_name"
     REPORT_PUBLISHED = "report_published"
 
@@ -2310,21 +2311,24 @@ ThreatResult = Union[
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
-class ThreatFilter:
-    """ThreatFilter."""
+class IndicatorFilter:
+    """IndicatorFilter."""
 
-    where: Optional[ThreatWhereInput] = field(
+    where: Optional[IndicatorWhereInput] = field(
         default=None, metadata=config(field_name="where")
     )
 
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
-class IndicatorFilter:
-    """IndicatorFilter."""
+class ThreatFilter:
+    """ThreatFilter."""
 
-    where: Optional[IndicatorWhereInput] = field(
+    where: Optional[ThreatWhereInput] = field(
         default=None, metadata=config(field_name="where")
+    )
+    time_range: Optional[ThreatTimeRangeInput] = field(
+        default=None, metadata=config(field_name="timeRange")
     )
 
 

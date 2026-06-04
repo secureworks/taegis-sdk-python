@@ -35,6 +35,7 @@ class ResolutionStatus(str, Enum):
     NOT_ACTIONABLE = "NOT_ACTIONABLE"
     OTHER = "OTHER"
     SUPPRESSED = "SUPPRESSED"
+    AUTO_CLOSE = "AUTO_CLOSE"
 
 
 class Origin(str, Enum):

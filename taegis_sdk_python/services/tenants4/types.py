@@ -181,6 +181,19 @@ class LicenseLevel(str, Enum):
     ALL = "ALL"
 
 
+class TenantLicenseCapability(str, Enum):
+    """TenantLicenseCapability."""
+
+    NO_DATA = "NO_DATA"
+    EDR = "EDR"
+    MDR = "MDR"
+    XDR = "XDR"
+    ITDR = "ITDR"
+    NG_SIEM = "NG_SIEM"
+    AI_SECURITY = "AI_SECURITY"
+    MANAGED_RISK = "MANAGED_RISK"
+
+
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
 class MappedTenant:
@@ -331,6 +344,16 @@ class DeleteCachedEntriesOutput:
 
     success: Optional[bool] = field(default=None, metadata=config(field_name="success"))
     message: Optional[str] = field(default=None, metadata=config(field_name="message"))
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class SyncTenantLicenseCapabilitiesOutput:
+    """SyncTenantLicenseCapabilitiesOutput."""
+
+    tenant_id: Optional[str] = field(
+        default=None, metadata=config(field_name="tenantID")
+    )
 
 
 @dataclass_json
@@ -574,6 +597,16 @@ class TenantV4:
             field_name="licenseLevel",
         ),
     )
+    license_capabilities: Optional[List[Union[TenantLicenseCapability, TaegisEnum]]] = (
+        field(
+            default=None,
+            metadata=config(
+                encoder=encode_enum,
+                decoder=lambda x: decode_enum(TenantLicenseCapability, x),
+                field_name="licenseCapabilities",
+            ),
+        )
+    )
 
 
 @dataclass_json
@@ -688,6 +721,36 @@ class TenantsQuery:
             encoder=encode_enum,
             decoder=lambda x: decode_enum(LicenseLevel, x),
             field_name="licenseLevel",
+        ),
+    )
+    license_capabilities_any: Optional[
+        List[Union[TenantLicenseCapability, TaegisEnum]]
+    ] = field(
+        default=None,
+        metadata=config(
+            encoder=encode_enum,
+            decoder=lambda x: decode_enum(TenantLicenseCapability, x),
+            field_name="licenseCapabilitiesAny",
+        ),
+    )
+    license_capabilities_all: Optional[
+        List[Union[TenantLicenseCapability, TaegisEnum]]
+    ] = field(
+        default=None,
+        metadata=config(
+            encoder=encode_enum,
+            decoder=lambda x: decode_enum(TenantLicenseCapability, x),
+            field_name="licenseCapabilitiesAll",
+        ),
+    )
+    license_capabilities_none: Optional[
+        List[Union[TenantLicenseCapability, TaegisEnum]]
+    ] = field(
+        default=None,
+        metadata=config(
+            encoder=encode_enum,
+            decoder=lambda x: decode_enum(TenantLicenseCapability, x),
+            field_name="licenseCapabilitiesNone",
         ),
     )
 

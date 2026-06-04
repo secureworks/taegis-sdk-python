@@ -51,3 +51,21 @@ class TaegisSDKTenants4Mutation:
         if result.get(endpoint) is not None:
             return DeleteCachedEntriesOutput.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for mutation deleteCachedEntries")
+
+    def sync_tenant_license_capabilities(self) -> SyncTenantLicenseCapabilitiesOutput:
+        """Enqueue a license capability refresh for the tenant in request context."""
+        endpoint = "syncTenantLicenseCapabilities"
+
+        result = self.service.execute_mutation(
+            endpoint=endpoint,
+            variables={},
+            output=build_output_string(
+                SyncTenantLicenseCapabilitiesOutput,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
+        )
+        if result.get(endpoint) is not None:
+            return SyncTenantLicenseCapabilitiesOutput.from_dict(result.get(endpoint))
+        raise GraphQLNoRowsInResultSetError(
+            "for mutation syncTenantLicenseCapabilities"
+        )

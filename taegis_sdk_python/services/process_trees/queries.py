@@ -41,6 +41,9 @@ class TaegisSDKProcessTreesQuery:
         order_by_input: Optional[List[OrderByInput]] = None,
         next_token: Optional[str] = None,
         page_size: Optional[int] = None,
+        max_results: Optional[int] = None,
+        start_date: Optional[str] = None,
+        end_date: Optional[str] = None,
     ) -> Children:
         """No developer notes."""
         endpoint = "processChildren"
@@ -55,6 +58,9 @@ class TaegisSDKProcessTreesQuery:
                 "orderByInput": prepare_input(order_by_input),
                 "nextToken": prepare_input(next_token),
                 "pageSize": prepare_input(page_size),
+                "maxResults": prepare_input(max_results),
+                "startDate": prepare_input(start_date),
+                "endDate": prepare_input(end_date),
             },
             output=build_output_string(
                 Children,
