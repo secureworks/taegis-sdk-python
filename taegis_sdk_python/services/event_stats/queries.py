@@ -36,6 +36,10 @@ class TaegisSDKEventStatsQuery:
         """Get effective agents count for the given tenant and time range."""
         endpoint = "effectiveAgents"
 
+        log.warning(
+            f"GraphQL Query `{endpoint}` is deprecated: 'Use `eventStatsQuery` instead'"
+        )
+
         result = self.service.execute_query(
             endpoint=endpoint,
             variables={

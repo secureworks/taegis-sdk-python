@@ -2559,54 +2559,6 @@ class CaseComment:
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
-class CaseType:
-    """CaseType."""
-
-    id: Optional[str] = field(default=None, metadata=config(field_name="id"))
-    name: Optional[str] = field(default=None, metadata=config(field_name="name"))
-    title: Optional[str] = field(default=None, metadata=config(field_name="title"))
-    description: Optional[str] = field(
-        default=None, metadata=config(field_name="description")
-    )
-    tenant_id: Optional[str] = field(
-        default=None, metadata=config(field_name="tenantId")
-    )
-    created_by_id: Optional[str] = field(
-        default=None, metadata=config(field_name="createdById")
-    )
-    created_at: Optional[str] = field(
-        default=None, metadata=config(field_name="createdAt")
-    )
-    updated_by_id: Optional[str] = field(
-        default=None, metadata=config(field_name="updatedById")
-    )
-    updated_at: Optional[str] = field(
-        default=None, metadata=config(field_name="updatedAt")
-    )
-    supported_primary_status_ids: Optional[List[str]] = field(
-        default=None, metadata=config(field_name="supportedPrimaryStatusIds")
-    )
-    supported_secondary_status_ids: Optional[List[str]] = field(
-        default=None, metadata=config(field_name="supportedSecondaryStatusIds")
-    )
-    supported_primary_statuses: Optional[List[CasePrimaryStatus]] = field(
-        default=None, metadata=config(field_name="supportedPrimaryStatuses")
-    )
-    supported_secondary_statuses: Optional[List[CaseSecondaryStatus]] = field(
-        default=None, metadata=config(field_name="supportedSecondaryStatuses")
-    )
-    managed_by: Optional[Union[CaseManagedBy, TaegisEnum]] = field(
-        default=None,
-        metadata=config(
-            encoder=encode_enum,
-            decoder=lambda x: decode_enum(CaseManagedBy, x),
-            field_name="managedBy",
-        ),
-    )
-
-
-@dataclass_json
-@dataclass(order=True, eq=True, frozen=True)
 class CaseFile:
     """CaseFile."""
 
@@ -2979,6 +2931,60 @@ class CaseEvidence:
     )
     search_queries_evidence: Optional[List[CaseSearchQueryEvidence]] = field(
         default=None, metadata=config(field_name="searchQueriesEvidence")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class CaseType:
+    """CaseType."""
+
+    id: Optional[str] = field(default=None, metadata=config(field_name="id"))
+    name: Optional[str] = field(default=None, metadata=config(field_name="name"))
+    title: Optional[str] = field(default=None, metadata=config(field_name="title"))
+    description: Optional[str] = field(
+        default=None, metadata=config(field_name="description")
+    )
+    tenant_id: Optional[str] = field(
+        default=None, metadata=config(field_name="tenantId")
+    )
+    created_by_id: Optional[str] = field(
+        default=None, metadata=config(field_name="createdById")
+    )
+    created_at: Optional[str] = field(
+        default=None, metadata=config(field_name="createdAt")
+    )
+    updated_by_id: Optional[str] = field(
+        default=None, metadata=config(field_name="updatedById")
+    )
+    updated_at: Optional[str] = field(
+        default=None, metadata=config(field_name="updatedAt")
+    )
+    supported_primary_status_ids: Optional[List[str]] = field(
+        default=None, metadata=config(field_name="supportedPrimaryStatusIds")
+    )
+    supported_secondary_status_ids: Optional[List[str]] = field(
+        default=None, metadata=config(field_name="supportedSecondaryStatusIds")
+    )
+    supported_primary_verdict_ids: Optional[List[str]] = field(
+        default=None, metadata=config(field_name="supportedPrimaryVerdictIds")
+    )
+    supported_primary_statuses: Optional[List[CasePrimaryStatus]] = field(
+        default=None, metadata=config(field_name="supportedPrimaryStatuses")
+    )
+    supported_secondary_statuses: Optional[List[CaseSecondaryStatus]] = field(
+        default=None, metadata=config(field_name="supportedSecondaryStatuses")
+    )
+    supported_primary_verdicts: Optional[List[CasePrimaryVerdict]] = field(
+        default=None, metadata=config(field_name="supportedPrimaryVerdicts")
+    )
+    managed_by: Optional[Union[CaseManagedBy, TaegisEnum]] = field(
+        default=None,
+        metadata=config(
+            encoder=encode_enum,
+            decoder=lambda x: decode_enum(CaseManagedBy, x),
+            field_name="managedBy",
+        ),
     )
 
 

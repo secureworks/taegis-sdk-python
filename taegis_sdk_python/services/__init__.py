@@ -53,6 +53,7 @@ from taegis_sdk_python.services.events import EventsService
 from taegis_sdk_python.services.exports import ExportsService
 from taegis_sdk_python.services.fast_ioc import FastIocService
 from taegis_sdk_python.services.file_info import FileInfoService
+from taegis_sdk_python.services.health import HealthService
 from taegis_sdk_python.services.ingest_stats import IngestStatsService
 from taegis_sdk_python.services.investigations import InvestigationsService
 from taegis_sdk_python.services.investigations2 import Investigations2Service
@@ -220,6 +221,7 @@ class GraphQLService:
         self._events = None
         self._exports = None
         self._fast_ioc = None
+        self._health = None
         self._file_info = None
         self._ingest_stats = None
         self._investigations = None
@@ -685,6 +687,13 @@ class GraphQLService:
         if not self._fast_ioc:
             self._fast_ioc = FastIocService(self)
         return self._fast_ioc
+
+    @property
+    def health(self):
+        """Health Service Endpoint."""
+        if not self._health:
+            self._health = HealthService(self)
+        return self._health
 
     @property
     def file_info(self):

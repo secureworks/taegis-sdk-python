@@ -56,6 +56,10 @@ class TaegisSDKContractedEndpointQuery:
         """No developer notes."""
         endpoint = "projectIRHoursForTenantID"
 
+        log.warning(
+            f"GraphQL Query `{endpoint}` is deprecated: 'Use endpointCountForTenantID instead. Planned removal: 2026-09-01'"
+        )
+
         result = self.service.execute_query(endpoint=endpoint, variables={}, output="")
         if result.get(endpoint) is not None:
             return result.get(endpoint)

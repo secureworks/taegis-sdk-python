@@ -405,8 +405,26 @@ class TagV2:
         default=None, metadata=config(field_name="updatedAt")
     )
     tag: Optional[str] = field(default=None, metadata=config(field_name="tag"))
-    key: Optional[str] = field(default=None, metadata=config(field_name="key"))
-    value: Optional[str] = field(default=None, metadata=config(field_name="value"))
+    key: Optional[str] = field(
+        default=None,
+        metadata=config(
+            metadata={
+                "deprecated": True,
+                "deprecation_reason": "Use the tag field instead. Key/value separation is inconsistent across endpoint types.",
+            },
+            field_name="key",
+        ),
+    )
+    value: Optional[str] = field(
+        default=None,
+        metadata=config(
+            metadata={
+                "deprecated": True,
+                "deprecation_reason": "Use the tag field instead. Key/value separation is inconsistent across endpoint types.",
+            },
+            field_name="value",
+        ),
+    )
     is_vendor_tag: Optional[bool] = field(
         default=None, metadata=config(field_name="isVendorTag")
     )

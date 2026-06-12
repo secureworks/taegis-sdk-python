@@ -36,6 +36,7 @@ class ResolutionStatus(str, Enum):
     OTHER = "OTHER"
     SUPPRESSED = "SUPPRESSED"
     AUTO_CLOSE = "AUTO_CLOSE"
+    DISMISSED = "DISMISSED"
 
 
 class Origin(str, Enum):

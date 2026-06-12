@@ -172,6 +172,9 @@ class EventFetchOptions:
     normalize_event_keys: Optional[bool] = field(
         default=None, metadata=config(field_name="normalizeEventKeys")
     )
+    metadata: Optional[dict] = field(
+        default=None, metadata=config(field_name="metadata")
+    )
     backend_strategy: Optional[BackendStrategy] = field(
         default=None, metadata=config(field_name="backendStrategy")
     )
