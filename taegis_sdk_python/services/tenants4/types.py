@@ -153,6 +153,14 @@ class XDRProvider(str, Enum):
     SECURITY_OPERATIONS = "SECURITY_OPERATIONS"
 
 
+class MdrProviderType(str, Enum):
+    """MdrProviderType."""
+
+    SOPHOS_MDR = "SOPHOS_MDR"
+    TAEGIS_MDR = "TAEGIS_MDR"
+    NONE = "NONE"
+
+
 class RetentionMonths(str, Enum):
     """RetentionMonths."""
 
@@ -187,6 +195,10 @@ class TenantLicenseCapability(str, Enum):
     NO_DATA = "NO_DATA"
     EDR = "EDR"
     MDR = "MDR"
+    MDR_ENDPOINT_ESSENTIALS = "MDR_ENDPOINT_ESSENTIALS"
+    MDR_ENDPOINT_COMPLETE = "MDR_ENDPOINT_COMPLETE"
+    MDR_SERVER_ESSENTIALS = "MDR_SERVER_ESSENTIALS"
+    MDR_SERVER_COMPLETE = "MDR_SERVER_COMPLETE"
     XDR = "XDR"
     ITDR = "ITDR"
     NG_SIEM = "NG_SIEM"
@@ -554,6 +566,14 @@ class TenantV4:
     )
     updated_at: Optional[str] = field(
         default=None, metadata=config(field_name="updatedAt")
+    )
+    mdr_provider_type: Optional[Union[MdrProviderType, TaegisEnum]] = field(
+        default=None,
+        metadata=config(
+            encoder=encode_enum,
+            decoder=lambda x: decode_enum(MdrProviderType, x),
+            field_name="mdrProviderType",
+        ),
     )
     enabled_at_regions: Optional[List[Union[TenantRegion, TaegisEnum]]] = field(
         default=None,

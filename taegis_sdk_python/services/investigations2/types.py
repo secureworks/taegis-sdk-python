@@ -298,6 +298,29 @@ class RemoveEvidenceFromCaseResult:
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
+class SplitCaseResult:
+    """SplitCaseResult."""
+
+    case_id: Optional[str] = field(default=None, metadata=config(field_name="caseId"))
+    destination_case_id: Optional[str] = field(
+        default=None, metadata=config(field_name="destinationCaseId")
+    )
+    detection_ids: Optional[List[str]] = field(
+        default=None, metadata=config(field_name="detectionIds")
+    )
+    event_ids: Optional[List[str]] = field(
+        default=None, metadata=config(field_name="eventIds")
+    )
+    search_queries: Optional[List[str]] = field(
+        default=None, metadata=config(field_name="searchQueries")
+    )
+    file_ids: Optional[List[str]] = field(
+        default=None, metadata=config(field_name="fileIds")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
 class CaseDetectionEvidence:
     """CaseDetectionEvidence."""
 
@@ -1016,6 +1039,10 @@ class CasePrimaryVerdictsArguments:
     primary_status_id: Optional[str] = field(
         default=None, metadata=config(field_name="primaryStatusId")
     )
+    case_id: Optional[str] = field(default=None, metadata=config(field_name="caseId"))
+    include_automation_verdicts: Optional[bool] = field(
+        default=None, metadata=config(field_name="includeAutomationVerdicts")
+    )
 
 
 @dataclass_json
@@ -1026,6 +1053,7 @@ class CaseSecondaryVerdictsArguments:
     primary_verdict_id: Optional[str] = field(
         default=None, metadata=config(field_name="primaryVerdictId")
     )
+    case_id: Optional[str] = field(default=None, metadata=config(field_name="caseId"))
 
 
 @dataclass_json
@@ -1037,6 +1065,7 @@ class CaseSecondaryStatusesArguments:
     primary_status_id: Optional[str] = field(
         default=None, metadata=config(field_name="primaryStatusId")
     )
+    case_id: Optional[str] = field(default=None, metadata=config(field_name="caseId"))
 
 
 @dataclass_json
@@ -1047,6 +1076,7 @@ class CaseTypesArguments:
     transition_from_id: Optional[str] = field(
         default=None, metadata=config(field_name="transitionFromId")
     )
+    case_id: Optional[str] = field(default=None, metadata=config(field_name="caseId"))
 
 
 @dataclass_json
@@ -2936,60 +2966,6 @@ class CaseEvidence:
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
-class CaseType:
-    """CaseType."""
-
-    id: Optional[str] = field(default=None, metadata=config(field_name="id"))
-    name: Optional[str] = field(default=None, metadata=config(field_name="name"))
-    title: Optional[str] = field(default=None, metadata=config(field_name="title"))
-    description: Optional[str] = field(
-        default=None, metadata=config(field_name="description")
-    )
-    tenant_id: Optional[str] = field(
-        default=None, metadata=config(field_name="tenantId")
-    )
-    created_by_id: Optional[str] = field(
-        default=None, metadata=config(field_name="createdById")
-    )
-    created_at: Optional[str] = field(
-        default=None, metadata=config(field_name="createdAt")
-    )
-    updated_by_id: Optional[str] = field(
-        default=None, metadata=config(field_name="updatedById")
-    )
-    updated_at: Optional[str] = field(
-        default=None, metadata=config(field_name="updatedAt")
-    )
-    supported_primary_status_ids: Optional[List[str]] = field(
-        default=None, metadata=config(field_name="supportedPrimaryStatusIds")
-    )
-    supported_secondary_status_ids: Optional[List[str]] = field(
-        default=None, metadata=config(field_name="supportedSecondaryStatusIds")
-    )
-    supported_primary_verdict_ids: Optional[List[str]] = field(
-        default=None, metadata=config(field_name="supportedPrimaryVerdictIds")
-    )
-    supported_primary_statuses: Optional[List[CasePrimaryStatus]] = field(
-        default=None, metadata=config(field_name="supportedPrimaryStatuses")
-    )
-    supported_secondary_statuses: Optional[List[CaseSecondaryStatus]] = field(
-        default=None, metadata=config(field_name="supportedSecondaryStatuses")
-    )
-    supported_primary_verdicts: Optional[List[CasePrimaryVerdict]] = field(
-        default=None, metadata=config(field_name="supportedPrimaryVerdicts")
-    )
-    managed_by: Optional[Union[CaseManagedBy, TaegisEnum]] = field(
-        default=None,
-        metadata=config(
-            encoder=encode_enum,
-            decoder=lambda x: decode_enum(CaseManagedBy, x),
-            field_name="managedBy",
-        ),
-    )
-
-
-@dataclass_json
-@dataclass(order=True, eq=True, frozen=True)
 class CreateCaseTemplateInput:
     """CreateCaseTemplateInput."""
 
@@ -3058,6 +3034,63 @@ class CreateCaseTemplateInput:
             encoder=encode_enum,
             decoder=lambda x: decode_enum(TemplateUsage, x),
             field_name="usages",
+        ),
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class CaseType:
+    """CaseType."""
+
+    id: Optional[str] = field(default=None, metadata=config(field_name="id"))
+    name: Optional[str] = field(default=None, metadata=config(field_name="name"))
+    title: Optional[str] = field(default=None, metadata=config(field_name="title"))
+    description: Optional[str] = field(
+        default=None, metadata=config(field_name="description")
+    )
+    tenant_id: Optional[str] = field(
+        default=None, metadata=config(field_name="tenantId")
+    )
+    created_by_id: Optional[str] = field(
+        default=None, metadata=config(field_name="createdById")
+    )
+    created_at: Optional[str] = field(
+        default=None, metadata=config(field_name="createdAt")
+    )
+    updated_by_id: Optional[str] = field(
+        default=None, metadata=config(field_name="updatedById")
+    )
+    updated_at: Optional[str] = field(
+        default=None, metadata=config(field_name="updatedAt")
+    )
+    supported_primary_status_ids: Optional[List[str]] = field(
+        default=None, metadata=config(field_name="supportedPrimaryStatusIds")
+    )
+    supported_secondary_status_ids: Optional[List[str]] = field(
+        default=None, metadata=config(field_name="supportedSecondaryStatusIds")
+    )
+    supported_primary_verdict_ids: Optional[List[str]] = field(
+        default=None, metadata=config(field_name="supportedPrimaryVerdictIds")
+    )
+    supported_primary_statuses: Optional[List[CasePrimaryStatus]] = field(
+        default=None, metadata=config(field_name="supportedPrimaryStatuses")
+    )
+    supported_secondary_statuses: Optional[List[CaseSecondaryStatus]] = field(
+        default=None, metadata=config(field_name="supportedSecondaryStatuses")
+    )
+    supported_primary_verdicts: Optional[List[CasePrimaryVerdict]] = field(
+        default=None, metadata=config(field_name="supportedPrimaryVerdicts")
+    )
+    allowed_next_types: Optional[List["CaseType"]] = field(
+        default=None, metadata=config(field_name="allowedNextTypes")
+    )
+    managed_by: Optional[Union[CaseManagedBy, TaegisEnum]] = field(
+        default=None,
+        metadata=config(
+            encoder=encode_enum,
+            decoder=lambda x: decode_enum(CaseManagedBy, x),
+            field_name="managedBy",
         ),
     )
 
@@ -4056,6 +4089,29 @@ class CasesArguments:
     )
     pagination: Optional[CasesPagination] = field(
         default=None, metadata=config(field_name="pagination")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class SplitCaseInput:
+    """SplitCaseInput."""
+
+    case_id: Optional[str] = field(default=None, metadata=config(field_name="caseId"))
+    detection_ids: Optional[List[str]] = field(
+        default=None, metadata=config(field_name="detectionIds")
+    )
+    event_ids: Optional[List[str]] = field(
+        default=None, metadata=config(field_name="eventIds")
+    )
+    search_queries: Optional[List[str]] = field(
+        default=None, metadata=config(field_name="searchQueries")
+    )
+    file_ids: Optional[List[str]] = field(
+        default=None, metadata=config(field_name="fileIds")
+    )
+    new_case: Optional[CreateCaseInput] = field(
+        default=None, metadata=config(field_name="newCase")
     )
 
 

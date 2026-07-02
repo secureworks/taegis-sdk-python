@@ -127,6 +127,27 @@ class TaegisSDKInvestigations2Mutation:
             return RemoveEvidenceFromCaseResult.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for mutation removeEvidenceFromCase")
 
+    def split_case(self, input_: SplitCaseInput) -> SplitCaseResult:
+        """splitCase creates one new destination case and moves the selected case evidence to it asynchronously.
+        Only detections, events, saved searches, and files can be moved. Key findings, comments, entities, and agents remain on the source case.
+        Requested evidence not attached to the source case (already removed, or never present) is silently ignored — only what is still attached when the move runs is moved; the rest is recorded in the audit trail as skipped. SCHEDULED attachments (upload link issued but file not yet uploaded) are likewise skipped and left on the source.
+        """
+        endpoint = "splitCase"
+
+        result = self.service.execute_mutation(
+            endpoint=endpoint,
+            variables={
+                "input": prepare_input(input_),
+            },
+            output=build_output_string(
+                SplitCaseResult,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
+        )
+        if result.get(endpoint) is not None:
+            return SplitCaseResult.from_dict(result.get(endpoint))
+        raise GraphQLNoRowsInResultSetError("for mutation splitCase")
+
     def create_case_rule(self, input_: CreateCaseRuleInput) -> CaseRule:
         """createCaseRule accepts input to create a new auto-case rule."""
         endpoint = "createCaseRule"

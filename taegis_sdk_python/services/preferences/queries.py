@@ -218,6 +218,22 @@ class TaegisSDKPreferencesQuery:
             return PartnerPreference.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for query partnerPreferences")
 
+    def provider_preferences(self) -> PartnerPreference:
+        """No developer notes."""
+        endpoint = "providerPreferences"
+
+        result = self.service.execute_query(
+            endpoint=endpoint,
+            variables={},
+            output=build_output_string(
+                PartnerPreference,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
+        )
+        if result.get(endpoint) is not None:
+            return PartnerPreference.from_dict(result.get(endpoint))
+        raise GraphQLNoRowsInResultSetError("for query providerPreferences")
+
     def get_preferences(
         self, get_preference_selector: Optional[GetPreferenceSelector] = None
     ) -> List[UserPreferenceDictionary]:

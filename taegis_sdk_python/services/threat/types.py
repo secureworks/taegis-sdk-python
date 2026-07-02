@@ -207,6 +207,7 @@ class ThreatMalwareType(str, Enum):
     LOLBIN = "lolbin"
     MALICIOUS_DOCUMENT = "malicious_document"
     PACKER = "packer"
+    PHISHING_KIT = "phishing_kit"
     POST_COMPROMISE_TOOL = "post_compromise_tool"
     POST_EXPLOITATION = "post_exploitation"
     PRIVILEGE_ESCALATION_TOOL = "privilege_escalation_tool"

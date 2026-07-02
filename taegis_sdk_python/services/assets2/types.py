@@ -428,6 +428,9 @@ class TagV2:
     is_vendor_tag: Optional[bool] = field(
         default=None, metadata=config(field_name="isVendorTag")
     )
+    is_sophos_tag: Optional[bool] = field(
+        default=None, metadata=config(field_name="isSophosTag")
+    )
 
 
 @dataclass_json

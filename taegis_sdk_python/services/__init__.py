@@ -99,7 +99,7 @@ class GraphQLService:
         *,
         environment: Optional[str] = None,
         tenant_id: Optional[str] = None,
-        environments: Optional[Dict[str, str]] = None,
+        environments: Optional[Union[Dict[str, str], CIMultiDict[str, str]]] = None,
         gateway: Optional[str] = None,
         extra_headers: Optional[Dict[str, Any]] = None,
         schema_expiry: int = 5,
@@ -158,7 +158,11 @@ class GraphQLService:
         """
         self.response_headers: CIMultiDictProxy[str] = CIMultiDictProxy(CIMultiDict())
 
-        self._environments = environments or TAEGIS_ENVIRONMENT_URLS
+        if not environments:
+            self._environments = TAEGIS_ENVIRONMENT_URLS
+        else:
+            self._environments = CIMultiDict(environments)
+
         self._environment = environment or list(self._environments)[0]
         self._use_universal_authentication = use_universal_authentication
 

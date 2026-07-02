@@ -40,7 +40,14 @@ class ContractedEndpoints:
         default=None, metadata=config(field_name="endpointCount")
     )
     service: Optional[List[str]] = field(
-        default=None, metadata=config(field_name="service")
+        default=None,
+        metadata=config(
+            metadata={
+                "deprecated": True,
+                "deprecation_reason": "Service list is best-effort only and may be empty if tenant service lookup fails.",
+            },
+            field_name="service",
+        ),
     )
     service_date: Optional[str] = field(
         default=None, metadata=config(field_name="serviceDate")
