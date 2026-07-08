@@ -70,6 +70,7 @@ from taegis_sdk_python.services.preferences import PreferencesService
 from taegis_sdk_python.services.process_trees import ProcessTreesService
 from taegis_sdk_python.services.ql_schemas import QlSchemasService
 from taegis_sdk_python.services.queries import QueriesService
+from taegis_sdk_python.services.query_relay import QueryRelayService
 from taegis_sdk_python.services.roadrunner import RoadrunnerService
 from taegis_sdk_python.services.rules import RulesService
 from taegis_sdk_python.services.sharelinks import SharelinksService
@@ -242,6 +243,7 @@ class GraphQLService:
         self._preferences = None
         self._process_trees = None
         self._ql_schemas = None
+        self._query_relay = None
         self._queries = None
         self._roadrunner = None
         self._rules = None
@@ -810,6 +812,13 @@ class GraphQLService:
         if not self._process_trees:
             self._process_trees = ProcessTreesService(self)
         return self._process_trees
+
+    @property
+    def query_relay(self):
+        """QueryRelay Service Endpoint."""
+        if not self._query_relay:
+            self._query_relay = QueryRelayService(self)
+        return self._query_relay
 
     @property
     def queries(self):

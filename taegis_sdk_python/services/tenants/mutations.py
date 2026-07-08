@@ -329,6 +329,27 @@ class TaegisSDKTenantsMutation:
             return Tenant.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for mutation disableTenantSupport")
 
+    def set_tenants_license_level(
+        self, input_: TenantsLicenseLevelInput
+    ) -> List[Tenant]:
+        """Set license level to the specified license level for tenant/s."""
+        endpoint = "setTenantsLicenseLevel"
+
+        result = self.service.execute_mutation(
+            endpoint=endpoint,
+            variables={
+                "input": prepare_input(input_),
+            },
+            output=build_output_string(
+                Tenant, exclude_deprecated_output=self.service.exclude_deprecated_output
+            ),
+        )
+        if result.get(endpoint) is not None:
+            return Tenant.schema().load(
+                [r or {} for r in result.get(endpoint)], many=True
+            )
+        raise GraphQLNoRowsInResultSetError("for mutation setTenantsLicenseLevel")
+
     def change_tenant_hierarchy(
         self, tenant_id: str, new_partner_tenant_id: str
     ) -> Tenant:
