@@ -71,8 +71,10 @@ from taegis_sdk_python.services.process_trees import ProcessTreesService
 from taegis_sdk_python.services.ql_schemas import QlSchemasService
 from taegis_sdk_python.services.queries import QueriesService
 from taegis_sdk_python.services.query_relay import QueryRelayService
+from taegis_sdk_python.services.results import ResultsService
 from taegis_sdk_python.services.roadrunner import RoadrunnerService
 from taegis_sdk_python.services.rules import RulesService
+from taegis_sdk_python.services.search import SearchService
 from taegis_sdk_python.services.sharelinks import SharelinksService
 from taegis_sdk_python.services.subjects import SubjectsService
 from taegis_sdk_python.services.tenant_profiles import TenantProfilesService
@@ -245,9 +247,11 @@ class GraphQLService:
         self._ql_schemas = None
         self._query_relay = None
         self._queries = None
+        self._results = None
         self._roadrunner = None
         self._rules = None
         self._core = None
+        self._search = None
         self._sharelinks = None
         self._subjects = None
         self._tenant_profiles = None
@@ -835,6 +839,13 @@ class GraphQLService:
         return self._roadrunner
 
     @property
+    def results(self):
+        """Results Service Endpoint."""
+        if not self._results:
+            self._results = ResultsService(self)
+        return self._results
+
+    @property
     def rules(self):
         """Rules Service Endpoint."""
         if not self._rules:
@@ -847,6 +858,13 @@ class GraphQLService:
         if not self._core:
             self._core = ServiceCore(self)
         return self._core
+
+    @property
+    def search(self):
+        """Search Service Endpoint."""
+        if not self._search:
+            self._search = SearchService(self)
+        return self._search
 
     @property
     def sharelinks(self):
