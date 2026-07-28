@@ -158,6 +158,7 @@ class MdrProviderType(str, Enum):
 
     SOPHOS_MDR = "SOPHOS_MDR"
     TAEGIS_MDR = "TAEGIS_MDR"
+    PARTNER_MDR = "PARTNER_MDR"
     NONE = "NONE"
 
 
@@ -545,6 +546,9 @@ class TenantV4:
     )
     is_sophos_mdr_provider: Optional[bool] = field(
         default=None, metadata=config(field_name="isSophosMDRProvider")
+    )
+    is_mdr_provider: Optional[bool] = field(
+        default=None, metadata=config(field_name="isMDRProvider")
     )
     has_support_enabled: Optional[bool] = field(
         default=None, metadata=config(field_name="hasSupportEnabled")

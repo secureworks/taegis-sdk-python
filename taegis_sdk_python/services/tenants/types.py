@@ -41,6 +41,7 @@ class AuthzAction(str, Enum):
     DELETE = "Delete"
     REGISTER_DOMAIN = "RegisterDomain"
     DELETE_REGISTERED_DOMAIN = "DeleteRegisteredDomain"
+    SYNC_LICENSE_CAPABILITIES = "SyncLicenseCapabilities"
 
 
 class TenantType(str, Enum):
@@ -195,6 +196,7 @@ class MdrProviderType(str, Enum):
 
     TAEGIS_MDR = "TAEGIS_MDR"
     SOPHOS_MDR = "SOPHOS_MDR"
+    PARTNER_MDR = "PARTNER_MDR"
     NONE = "NONE"
 
 
@@ -618,6 +620,9 @@ class UpdateTenantHierarchyInput:
     new_organization_id: Optional[str] = field(
         default=None, metadata=config(field_name="newOrganizationID")
     )
+    is_mdr_provider: Optional[bool] = field(
+        default=None, metadata=config(field_name="isMDRProvider")
+    )
 
 
 @dataclass_json
@@ -641,6 +646,9 @@ class SetTenantLicenseCapabilitiesInput:
     )
     refreshed_at: Optional[str] = field(
         default=None, metadata=config(field_name="refreshedAt")
+    )
+    data_retention_months: Optional[int] = field(
+        default=None, metadata=config(field_name="dataRetentionMonths")
     )
 
 
@@ -1405,6 +1413,9 @@ class Tenant:
     )
     mdr_provider_id: Optional[str] = field(
         default=None, metadata=config(field_name="mdr_provider_id")
+    )
+    is_mdr_provider: Optional[bool] = field(
+        default=None, metadata=config(field_name="is_mdr_provider")
     )
     labels: Optional[List[TenantLabel]] = field(
         default=None, metadata=config(field_name="labels")

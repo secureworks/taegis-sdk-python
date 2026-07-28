@@ -148,6 +148,26 @@ class TaegisSDKInvestigations2Mutation:
             return SplitCaseResult.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for mutation splitCase")
 
+    def merge_case(self, input_: MergeCaseInput) -> MergeCaseResult:
+        """mergeCase associates source evidence to a target case.
+        Source cases are transitioned and may be archived.
+        Evidence association is asynchronous."""
+        endpoint = "mergeCase"
+
+        result = self.service.execute_mutation(
+            endpoint=endpoint,
+            variables={
+                "input": prepare_input(input_),
+            },
+            output=build_output_string(
+                MergeCaseResult,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
+        )
+        if result.get(endpoint) is not None:
+            return MergeCaseResult.from_dict(result.get(endpoint))
+        raise GraphQLNoRowsInResultSetError("for mutation mergeCase")
+
     def create_case_rule(self, input_: CreateCaseRuleInput) -> CaseRule:
         """createCaseRule accepts input to create a new auto-case rule."""
         endpoint = "createCaseRule"

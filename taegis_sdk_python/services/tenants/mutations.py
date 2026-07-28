@@ -350,6 +350,50 @@ class TaegisSDKTenantsMutation:
             )
         raise GraphQLNoRowsInResultSetError("for mutation setTenantsLicenseLevel")
 
+    def set_tenant_license_capabilities(
+        self, input_: SetTenantLicenseCapabilitiesInput
+    ) -> SetTenantLicenseCapabilitiesResult:
+        """Set license capabilities for a tenant."""
+        endpoint = "setTenantLicenseCapabilities"
+
+        result = self.service.execute_mutation(
+            endpoint=endpoint,
+            variables={
+                "input": prepare_input(input_),
+            },
+            output=build_output_string(
+                SetTenantLicenseCapabilitiesResult,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
+        )
+        if result.get(endpoint) is not None:
+            return SetTenantLicenseCapabilitiesResult.from_dict(result.get(endpoint))
+        raise GraphQLNoRowsInResultSetError("for mutation setTenantLicenseCapabilities")
+
+    def record_tenant_license_capabilities_refresh_failure(
+        self, input_: RecordTenantLicenseCapabilitiesRefreshFailureInput
+    ) -> RecordTenantLicenseCapabilitiesRefreshFailureResult:
+        """Record a failure to refresh the license capabilities for a tenant."""
+        endpoint = "recordTenantLicenseCapabilitiesRefreshFailure"
+
+        result = self.service.execute_mutation(
+            endpoint=endpoint,
+            variables={
+                "input": prepare_input(input_),
+            },
+            output=build_output_string(
+                RecordTenantLicenseCapabilitiesRefreshFailureResult,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
+        )
+        if result.get(endpoint) is not None:
+            return RecordTenantLicenseCapabilitiesRefreshFailureResult.from_dict(
+                result.get(endpoint)
+            )
+        raise GraphQLNoRowsInResultSetError(
+            "for mutation recordTenantLicenseCapabilitiesRefreshFailure"
+        )
+
     def change_tenant_hierarchy(
         self, tenant_id: str, new_partner_tenant_id: str
     ) -> Tenant:

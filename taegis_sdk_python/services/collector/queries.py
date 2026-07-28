@@ -324,28 +324,6 @@ class TaegisSDKCollectorQuery:
             return result.get(endpoint)
         raise GraphQLNoRowsInResultSetError("for query getHosts")
 
-    def get_cluster_activation_details(self, cluster_id: str) -> Activation:
-        """No developer notes."""
-        endpoint = "getClusterActivationDetails"
-
-        log.warning(
-            f"GraphQL Query `{endpoint}` is deprecated: 'Does not support HA collectors'"
-        )
-
-        result = self.service.execute_query(
-            endpoint=endpoint,
-            variables={
-                "clusterID": prepare_input(cluster_id),
-            },
-            output=build_output_string(
-                Activation,
-                exclude_deprecated_output=self.service.exclude_deprecated_output,
-            ),
-        )
-        if result.get(endpoint) is not None:
-            return Activation.from_dict(result.get(endpoint))
-        raise GraphQLNoRowsInResultSetError("for query getClusterActivationDetails")
-
     def get_system_by_role(self, role: str) -> System:
         """No developer notes."""
         endpoint = "getSystemByRole"

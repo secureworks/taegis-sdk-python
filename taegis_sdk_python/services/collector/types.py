@@ -211,16 +211,6 @@ class CreateServiceInput:
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
-class Activation:
-    """Activation."""
-
-    code: Optional[str] = field(default=None, metadata=config(field_name="code"))
-    id: Optional[str] = field(default=None, metadata=config(field_name="id"))
-    region: Optional[str] = field(default=None, metadata=config(field_name="region"))
-
-
-@dataclass_json
-@dataclass(order=True, eq=True, frozen=True)
 class Deleted:
     """Deleted."""
 

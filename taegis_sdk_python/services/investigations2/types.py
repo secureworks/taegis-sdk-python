@@ -298,6 +298,22 @@ class RemoveEvidenceFromCaseResult:
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
+class MergeCaseResult:
+    """MergeCaseResult."""
+
+    target_case_id: Optional[str] = field(
+        default=None, metadata=config(field_name="targetCaseId")
+    )
+    source_case_ids: Optional[List[str]] = field(
+        default=None, metadata=config(field_name="sourceCaseIds")
+    )
+    processing_event_id: Optional[str] = field(
+        default=None, metadata=config(field_name="processingEventId")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
 class SplitCaseResult:
     """SplitCaseResult."""
 
@@ -942,6 +958,22 @@ class DeleteCaseLinkInput:
     """DeleteCaseLinkInput."""
 
     id: Optional[str] = field(default=None, metadata=config(field_name="id"))
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class MergeCaseInput:
+    """MergeCaseInput."""
+
+    target_case_id: Optional[str] = field(
+        default=None, metadata=config(field_name="targetCaseId")
+    )
+    source_case_ids: Optional[List[str]] = field(
+        default=None, metadata=config(field_name="sourceCaseIds")
+    )
+    archive_sources: Optional[bool] = field(
+        default=None, metadata=config(field_name="archiveSources")
+    )
 
 
 @dataclass_json
@@ -3613,6 +3645,9 @@ class Case:
     closed_at: Optional[str] = field(
         default=None, metadata=config(field_name="closedAt")
     )
+    closed_by_id: Optional[str] = field(
+        default=None, metadata=config(field_name="closedById")
+    )
     close_reason: Optional[str] = field(
         default=None, metadata=config(field_name="closeReason")
     )
@@ -3665,6 +3700,9 @@ class Case:
     )
     updated_by_subject: Optional[Subject] = field(
         default=None, metadata=config(field_name="updatedBySubject")
+    )
+    closed_by_subject: Optional[Subject] = field(
+        default=None, metadata=config(field_name="closedBySubject")
     )
     primary_verdict: Optional[CasePrimaryVerdict] = field(
         default=None, metadata=config(field_name="primaryVerdict")
