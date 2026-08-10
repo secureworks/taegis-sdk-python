@@ -15,6 +15,14 @@ from taegis_sdk_python._consts import TaegisEnum
 from taegis_sdk_python.utils import decode_enum, encode_enum, parse_union_result
 
 
+class SearchEntityKind(str, Enum):
+    """SearchEntityKind."""
+
+    SEARCH = "SEARCH"
+    SEARCH_PARTITION = "SEARCH_PARTITION"
+    REPOSITORY = "REPOSITORY"
+
+
 class BaseType(str, Enum):
     """BaseType."""
 
@@ -68,6 +76,33 @@ class LogicalType(str, Enum):
     TIMESTAMP = "TIMESTAMP"
 
 
+class SearchStatus(str, Enum):
+    """SearchStatus."""
+
+    QUEUED = "QUEUED"
+    IN_PROGRESS = "IN_PROGRESS"
+    COMPLETE = "COMPLETE"
+
+
+class PartitionsSuccess(str, Enum):
+    """PartitionsSuccess."""
+
+    UNKNOWN = "UNKNOWN"
+    ALL = "ALL"
+    PARTIAL = "PARTIAL"
+    NONE = "NONE"
+
+
+class PartitionStatus(str, Enum):
+    """PartitionStatus."""
+
+    WAITING = "WAITING"
+    IN_PROGRESS = "IN_PROGRESS"
+    SUCCEEDED = "SUCCEEDED"
+    FAILED = "FAILED"
+    CANCELED = "CANCELED"
+
+
 class SearchState(str, Enum):
     """SearchState."""
 
@@ -89,13 +124,25 @@ class QueryHistoryVisibility(str, Enum):
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
-class ValidateSearchInput:
-    """ValidateSearchInput."""
+class HostnameMapping:
+    """HostnameMapping."""
 
-    text: Optional[str] = field(default=None, metadata=config(field_name="text"))
-    spec: Optional[Any] = field(default=None, metadata=config(field_name="spec"))
-    repository: Optional[str] = field(
-        default=None, metadata=config(field_name="repository")
+    hostname: Optional[str] = field(
+        default=None, metadata=config(field_name="hostname")
+    )
+    host_ids: Optional[List[str]] = field(
+        default=None, metadata=config(field_name="hostIds")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class SearchPartitionError:
+    """SearchPartitionError."""
+
+    urn: Optional[str] = field(default=None, metadata=config(field_name="urn"))
+    errors: Optional[List[str]] = field(
+        default=None, metadata=config(field_name="errors")
     )
 
 
@@ -120,45 +167,26 @@ class ValidationErrorRange:
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
-class SearchPartition:
-    """SearchPartition."""
+class ValidateSearchInput:
+    """ValidateSearchInput."""
 
-    rn: Optional[str] = field(default=None, metadata=config(field_name="rn"))
-    history_rn: Optional[str] = field(
-        default=None, metadata=config(field_name="historyRN")
+    text: Optional[str] = field(default=None, metadata=config(field_name="text"))
+    spec: Optional[Any] = field(default=None, metadata=config(field_name="spec"))
+    repository: Optional[str] = field(
+        default=None, metadata=config(field_name="repository")
     )
-    resource_type: Optional[str] = field(
-        default=None, metadata=config(field_name="resourceType")
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class ValidationError:
+    """ValidationError."""
+
+    description: Optional[str] = field(
+        default=None, metadata=config(field_name="description")
     )
-    query_text: Optional[str] = field(
-        default=None, metadata=config(field_name="queryText")
-    )
-    query_spec: Optional[Any] = field(
-        default=None, metadata=config(field_name="querySpec")
-    )
-    create_time: Optional[str] = field(
-        default=None, metadata=config(field_name="createTime")
-    )
-    start_time: Optional[str] = field(
-        default=None, metadata=config(field_name="startTime")
-    )
-    end_time: Optional[str] = field(default=None, metadata=config(field_name="endTime"))
-    expire_time: Optional[str] = field(
-        default=None, metadata=config(field_name="expireTime")
-    )
-    errors: Optional[List[str]] = field(
-        default=None, metadata=config(field_name="errors")
-    )
-    created_by: Optional[str] = field(
-        default=None, metadata=config(field_name="createdBy")
-    )
-    state: Optional[Union[SearchState, TaegisEnum]] = field(
-        default=None,
-        metadata=config(
-            encoder=encode_enum,
-            decoder=lambda x: decode_enum(SearchState, x),
-            field_name="state",
-        ),
+    location: Optional[ValidationErrorRange] = field(
+        default=None, metadata=config(field_name="location")
     )
 
 
@@ -182,34 +210,83 @@ class QueryHistoryInput:
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
-class ValidationError:
-    """ValidationError."""
+class SearchOutcome:
+    """SearchOutcome."""
 
-    description: Optional[str] = field(
-        default=None, metadata=config(field_name="description")
+    success: Optional[Union[PartitionsSuccess, TaegisEnum]] = field(
+        default=None,
+        metadata=config(
+            encoder=encode_enum,
+            decoder=lambda x: decode_enum(PartitionsSuccess, x),
+            field_name="success",
+        ),
     )
-    location: Optional[ValidationErrorRange] = field(
-        default=None, metadata=config(field_name="location")
+    errors: Optional[List[SearchPartitionError]] = field(
+        default=None, metadata=config(field_name="errors")
     )
 
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
-class SearchV2:
-    """SearchV2."""
+class SearchPartition:
+    """SearchPartition."""
 
-    rn: Optional[str] = field(default=None, metadata=config(field_name="rn"))
+    rn: Optional[str] = field(
+        default=None,
+        metadata=config(
+            metadata={"deprecated": True, "deprecation_reason": "use urn"},
+            field_name="rn",
+        ),
+    )
+    created_by: Optional[str] = field(
+        default=None,
+        metadata=config(
+            metadata={
+                "deprecated": True,
+                "deprecation_reason": "does not apply to partitions",
+            },
+            field_name="createdBy",
+        ),
+    )
     history_rn: Optional[str] = field(
-        default=None, metadata=config(field_name="historyRN")
+        default=None,
+        metadata=config(
+            metadata={
+                "deprecated": True,
+                "deprecation_reason": "refer to the search instead",
+            },
+            field_name="historyRN",
+        ),
+    )
+    query_text: Optional[str] = field(
+        default=None,
+        metadata=config(
+            metadata={
+                "deprecated": True,
+                "deprecation_reason": "refer to the search instead",
+            },
+            field_name="queryText",
+        ),
+    )
+    query_spec: Optional[Any] = field(
+        default=None,
+        metadata=config(
+            metadata={
+                "deprecated": True,
+                "deprecation_reason": "refer to the search instead",
+            },
+            field_name="querySpec",
+        ),
+    )
+    urn: Optional[str] = field(default=None, metadata=config(field_name="urn"))
+    search_urn: Optional[str] = field(
+        default=None, metadata=config(field_name="searchURN")
+    )
+    resource_type: Optional[str] = field(
+        default=None, metadata=config(field_name="resourceType")
     )
     errors: Optional[List[str]] = field(
         default=None, metadata=config(field_name="errors")
-    )
-    query_text: Optional[str] = field(
-        default=None, metadata=config(field_name="queryText")
-    )
-    query_spec: Optional[Any] = field(
-        default=None, metadata=config(field_name="querySpec")
     )
     create_time: Optional[str] = field(
         default=None, metadata=config(field_name="createTime")
@@ -221,19 +298,22 @@ class SearchV2:
     expire_time: Optional[str] = field(
         default=None, metadata=config(field_name="expireTime")
     )
-    metadata: Optional[dict] = field(
-        default=None, metadata=config(field_name="metadata")
-    )
     state: Optional[Union[SearchState, TaegisEnum]] = field(
         default=None,
         metadata=config(
+            metadata={"deprecated": True, "deprecation_reason": "use status"},
             encoder=encode_enum,
             decoder=lambda x: decode_enum(SearchState, x),
             field_name="state",
         ),
     )
-    search_partitions: Optional[List[SearchPartition]] = field(
-        default=None, metadata=config(field_name="searchPartitions")
+    status: Optional[Union[PartitionStatus, TaegisEnum]] = field(
+        default=None,
+        metadata=config(
+            encoder=encode_enum,
+            decoder=lambda x: decode_enum(PartitionStatus, x),
+            field_name="status",
+        ),
     )
 
 
@@ -266,12 +346,92 @@ class CreateSearchInput:
 
     text: Optional[str] = field(default=None, metadata=config(field_name="text"))
     spec: Optional[Any] = field(default=None, metadata=config(field_name="spec"))
+    metadata: Optional[dict] = field(
+        default=None, metadata=config(field_name="metadata")
+    )
     repository: Optional[str] = field(
         default=None, metadata=config(field_name="repository")
+    )
+    query_history_input: Optional[QueryHistoryInput] = field(
+        default=None,
+        metadata=config(
+            metadata={"deprecated": True, "deprecation_reason": "use searchHistory"},
+            field_name="queryHistoryInput",
+        ),
+    )
+    search_history: Optional[QueryHistoryInput] = field(
+        default=None, metadata=config(field_name="searchHistory")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class SearchV2:
+    """SearchV2."""
+
+    rn: Optional[str] = field(
+        default=None,
+        metadata=config(
+            metadata={"deprecated": True, "deprecation_reason": "use urn"},
+            field_name="rn",
+        ),
+    )
+    history_rn: Optional[str] = field(
+        default=None,
+        metadata=config(
+            metadata={"deprecated": True, "deprecation_reason": "use historyId"},
+            field_name="historyRN",
+        ),
+    )
+    urn: Optional[str] = field(default=None, metadata=config(field_name="urn"))
+    history_id: Optional[str] = field(
+        default=None, metadata=config(field_name="historyId")
+    )
+    errors: Optional[List[str]] = field(
+        default=None, metadata=config(field_name="errors")
+    )
+    query_text: Optional[str] = field(
+        default=None, metadata=config(field_name="queryText")
+    )
+    query_spec: Optional[Any] = field(
+        default=None, metadata=config(field_name="querySpec")
+    )
+    create_time: Optional[str] = field(
+        default=None, metadata=config(field_name="createTime")
+    )
+    start_time: Optional[str] = field(
+        default=None, metadata=config(field_name="startTime")
+    )
+    end_time: Optional[str] = field(default=None, metadata=config(field_name="endTime"))
+    expire_time: Optional[str] = field(
+        default=None, metadata=config(field_name="expireTime")
     )
     metadata: Optional[dict] = field(
         default=None, metadata=config(field_name="metadata")
     )
-    query_history_input: Optional[QueryHistoryInput] = field(
-        default=None, metadata=config(field_name="queryHistoryInput")
+    state: Optional[Union[SearchState, TaegisEnum]] = field(
+        default=None,
+        metadata=config(
+            metadata={"deprecated": True, "deprecation_reason": "use status"},
+            encoder=encode_enum,
+            decoder=lambda x: decode_enum(SearchState, x),
+            field_name="state",
+        ),
+    )
+    status: Optional[Union[SearchStatus, TaegisEnum]] = field(
+        default=None,
+        metadata=config(
+            encoder=encode_enum,
+            decoder=lambda x: decode_enum(SearchStatus, x),
+            field_name="status",
+        ),
+    )
+    outcome: Optional[SearchOutcome] = field(
+        default=None, metadata=config(field_name="outcome")
+    )
+    search_partitions: Optional[List[SearchPartition]] = field(
+        default=None, metadata=config(field_name="searchPartitions")
+    )
+    hostname_mappings: Optional[List[HostnameMapping]] = field(
+        default=None, metadata=config(field_name="hostnameMappings")
     )

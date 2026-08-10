@@ -15,6 +15,14 @@ from taegis_sdk_python._consts import TaegisEnum
 from taegis_sdk_python.utils import decode_enum, encode_enum, parse_union_result
 
 
+class SearchEntityKind(str, Enum):
+    """SearchEntityKind."""
+
+    SEARCH = "SEARCH"
+    SEARCH_PARTITION = "SEARCH_PARTITION"
+    REPOSITORY = "REPOSITORY"
+
+
 class BaseType(str, Enum):
     """BaseType."""
 
@@ -68,24 +76,17 @@ class LogicalType(str, Enum):
     TIMESTAMP = "TIMESTAMP"
 
 
-class HistogramDurationUnit(str, Enum):
-    """HistogramDurationUnit."""
-
-    MICROSECOND = "MICROSECOND"
-    MILLISECOND = "MILLISECOND"
-    SECOND = "SECOND"
-    MINUTE = "MINUTE"
-    HOUR = "HOUR"
-    DAY = "DAY"
-
-
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
-class FacetValue:
-    """FacetValue."""
+class HostnameMapping:
+    """HostnameMapping."""
 
-    data: Optional[Any] = field(default=None, metadata=config(field_name="data"))
-    count: Optional[int] = field(default=None, metadata=config(field_name="count"))
+    hostname: Optional[str] = field(
+        default=None, metadata=config(field_name="hostname")
+    )
+    host_ids: Optional[List[str]] = field(
+        default=None, metadata=config(field_name="hostIds")
+    )
 
 
 @dataclass_json
@@ -109,12 +110,11 @@ class SearchResultSubTotal:
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
-class SearchResultFacetValues:
-    """SearchResultFacetValues."""
+class FacetValue:
+    """FacetValue."""
 
-    facet_values: Optional[List[FacetValue]] = field(
-        default=None, metadata=config(field_name="facetValues")
-    )
+    data: Optional[Any] = field(default=None, metadata=config(field_name="data"))
+    count: Optional[int] = field(default=None, metadata=config(field_name="count"))
 
 
 @dataclass_json
@@ -132,46 +132,11 @@ class SearchResultTotalResponse:
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
-class HistogramDuration:
-    """HistogramDuration."""
+class SearchResultFacetValues:
+    """SearchResultFacetValues."""
 
-    value: Optional[int] = field(default=None, metadata=config(field_name="value"))
-    unit: Optional[Union[HistogramDurationUnit, TaegisEnum]] = field(
-        default=None,
-        metadata=config(
-            encoder=encode_enum,
-            decoder=lambda x: decode_enum(HistogramDurationUnit, x),
-            field_name="unit",
-        ),
-    )
-
-
-@dataclass_json
-@dataclass(order=True, eq=True, frozen=True)
-class HistogramDurationInput:
-    """HistogramDurationInput."""
-
-    value: Optional[int] = field(default=None, metadata=config(field_name="value"))
-    unit: Optional[Union[HistogramDurationUnit, TaegisEnum]] = field(
-        default=None,
-        metadata=config(
-            encoder=encode_enum,
-            decoder=lambda x: decode_enum(HistogramDurationUnit, x),
-            field_name="unit",
-        ),
-    )
-
-
-@dataclass_json
-@dataclass(order=True, eq=True, frozen=True)
-class SearchResultTotals:
-    """SearchResultTotals."""
-
-    total: Optional[SearchResultTotal] = field(
-        default=None, metadata=config(field_name="total")
-    )
-    subtotals: Optional[List[SearchResultSubTotal]] = field(
-        default=None, metadata=config(field_name="subtotals")
+    facet_values: Optional[List[FacetValue]] = field(
+        default=None, metadata=config(field_name="facetValues")
     )
 
 
@@ -213,6 +178,19 @@ class SearchResultField:
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
+class SearchResultTotals:
+    """SearchResultTotals."""
+
+    total: Optional[SearchResultTotal] = field(
+        default=None, metadata=config(field_name="total")
+    )
+    subtotals: Optional[List[SearchResultSubTotal]] = field(
+        default=None, metadata=config(field_name="subtotals")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
 class SearchResultFacet:
     """SearchResultFacet."""
 
@@ -227,33 +205,6 @@ class SearchResultFacet:
     )
     result_facet_values: Optional[SearchResultFacetValues] = field(
         default=None, metadata=config(field_name="resultFacetValues")
-    )
-
-
-@dataclass_json
-@dataclass(order=True, eq=True, frozen=True)
-class SearchResultHistogram:
-    """SearchResultHistogram."""
-
-    rn: Optional[str] = field(default=None, metadata=config(field_name="rn"))
-    start: Optional[str] = field(default=None, metadata=config(field_name="start"))
-    end: Optional[str] = field(default=None, metadata=config(field_name="end"))
-    values: Optional[List[int]] = field(
-        default=None, metadata=config(field_name="values")
-    )
-    bucket_duration: Optional[HistogramDuration] = field(
-        default=None, metadata=config(field_name="bucketDuration")
-    )
-
-
-@dataclass_json
-@dataclass(order=True, eq=True, frozen=True)
-class SearchResultFacetPage:
-    """SearchResultFacetPage."""
-
-    rn: Optional[str] = field(default=None, metadata=config(field_name="rn"))
-    facets: Optional[List[SearchResultFacet]] = field(
-        default=None, metadata=config(field_name="facets")
     )
 
 
@@ -274,4 +225,25 @@ class SearchResultPage:
     )
     totals: Optional[SearchResultTotals] = field(
         default=None, metadata=config(field_name="totals")
+    )
+    hostname_mappings: Optional[List[HostnameMapping]] = field(
+        default=None, metadata=config(field_name="hostnameMappings")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class SearchResultFacetPage:
+    """SearchResultFacetPage."""
+
+    rn: Optional[str] = field(
+        default=None,
+        metadata=config(
+            metadata={"deprecated": True, "deprecation_reason": "use urn"},
+            field_name="rn",
+        ),
+    )
+    urn: Optional[str] = field(default=None, metadata=config(field_name="urn"))
+    facets: Optional[List[SearchResultFacet]] = field(
+        default=None, metadata=config(field_name="facets")
     )

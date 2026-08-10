@@ -35,7 +35,7 @@ class TaegisSDKResultsQuery:
     def search_results(
         self, rn: str, cursor: Optional[str] = None, limit: Optional[int] = None
     ) -> SearchResultPage:
-        """List results from a completed run."""
+        """Reads results from a completed search or search partition."""
         endpoint = "searchResults"
 
         result = self.service.execute_query(
@@ -57,7 +57,7 @@ class TaegisSDKResultsQuery:
     def search_results_totals(
         self, history_rns: Optional[List[str]] = None
     ) -> List[SearchResultTotalResponse]:
-        """List results counts for a list of searches by query history RN (if succeeded)."""
+        """Lists result counts for a list of searches by search history id."""
         endpoint = "searchResultsTotals"
 
         result = self.service.execute_query(
@@ -75,27 +75,6 @@ class TaegisSDKResultsQuery:
                 [r or {} for r in result.get(endpoint)], many=True
             )
         raise GraphQLNoRowsInResultSetError("for query searchResultsTotals")
-
-    def search_result_histogram(
-        self, rn: str, bucket_width: HistogramDurationInput
-    ) -> SearchResultHistogram:
-        """Get the number of events bucketed within a time range."""
-        endpoint = "searchResultHistogram"
-
-        result = self.service.execute_query(
-            endpoint=endpoint,
-            variables={
-                "rn": prepare_input(rn),
-                "bucketWidth": prepare_input(bucket_width),
-            },
-            output=build_output_string(
-                SearchResultHistogram,
-                exclude_deprecated_output=self.service.exclude_deprecated_output,
-            ),
-        )
-        if result.get(endpoint) is not None:
-            return SearchResultHistogram.from_dict(result.get(endpoint))
-        raise GraphQLNoRowsInResultSetError("for query searchResultHistogram")
 
     def search_result_facets(
         self,

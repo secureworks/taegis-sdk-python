@@ -33,7 +33,7 @@ class TaegisSDKSearchQuery:
         self.service = service
 
     def search(self, rn: str) -> SearchV2:
-        """Get search group by rn."""
+        """Retrieve search information and its current state."""
         endpoint = "search"
 
         result = self.service.execute_query(
@@ -51,7 +51,7 @@ class TaegisSDKSearchQuery:
         raise GraphQLNoRowsInResultSetError("for query search")
 
     def search_v2s(self, history_rns: Optional[List[str]] = None) -> List[SearchV2]:
-        """No developer notes."""
+        """Retrieve searches via their linked search history service ids."""
         endpoint = "searchV2s"
 
         result = self.service.execute_query(
@@ -71,7 +71,7 @@ class TaegisSDKSearchQuery:
         raise GraphQLNoRowsInResultSetError("for query searchV2s")
 
     def validate_search(self, input_: ValidateSearchInput) -> ValidateSearchOutput:
-        """Validate that a search would be valid if created."""
+        """Run validation against a search query input without executing it."""
         endpoint = "validateSearch"
 
         result = self.service.execute_query(
@@ -89,7 +89,7 @@ class TaegisSDKSearchQuery:
         raise GraphQLNoRowsInResultSetError("for query validateSearch")
 
     def query_spec(self, text: str) -> Any:
-        """Get the parsed format for a query in text format."""
+        """Parse QL text in to structured QuerySpec format."""
         endpoint = "querySpec"
 
         result = self.service.execute_query(
@@ -104,7 +104,8 @@ class TaegisSDKSearchQuery:
         raise GraphQLNoRowsInResultSetError("for query querySpec")
 
     def query_text(self, spec: Any) -> str:
-        """Get the string format for a query in parsed format."""
+        """Generate a canonical QL text representation of a query in structured QuerySpec
+        format."""
         endpoint = "queryText"
 
         result = self.service.execute_query(

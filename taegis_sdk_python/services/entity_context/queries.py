@@ -203,7 +203,11 @@ class TaegisSDKEntityContextQuery:
         null it will return all entities. If page is not null, it will return a page of entities sorted by the filters
 
         Warning: It is possible for data to be missing for highly connected entrypoints. This is because we have a hard limit on
-        the number of edges we can explore to prevent timeouts."""
+        the number of edges we can explore to prevent timeouts.
+
+        `_displayName` property filters match the canonical display name derived from entity properties before optional
+        enrichment. Because that value is computed after traversal, those filters are also bounded by this traversal limit.
+        """
         endpoint = "entityContextAssociatedEntities"
 
         result = self.service.execute_query(

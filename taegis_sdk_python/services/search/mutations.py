@@ -33,7 +33,7 @@ class TaegisSDKSearchMutation:
         self.service = service
 
     def create_search(self, input_: Optional[CreateSearchInput] = None) -> SearchV2:
-        """Create a new search."""
+        """Create and execute a new search."""
         endpoint = "createSearch"
 
         result = self.service.execute_mutation(
@@ -53,7 +53,10 @@ class TaegisSDKSearchMutation:
     def get_or_create_search(
         self, input_: Optional[CreateSearchInput] = None
     ) -> SearchV2:
-        """Create a new search if a matching one doesn't exist."""
+        """Create and execute a new search if a matching one doesn't exist. Otherwise,
+        retrieve search information and its current state. Searches are matched on
+        their input data, with queries compared for equivalency via their canonical
+        structured representations, not byte-wise textual representations."""
         endpoint = "getOrCreateSearch"
 
         result = self.service.execute_mutation(
