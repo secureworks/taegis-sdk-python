@@ -1,5 +1,4 @@
 """Trip Mutation."""
-
 # pylint: disable=no-member, unused-argument, too-many-locals, duplicate-code, wildcard-import, unused-wildcard-import, cyclic-import
 
 
@@ -9,14 +8,12 @@
 from __future__ import annotations
 
 import logging
-from typing import TYPE_CHECKING, Any, Dict, List, Optional, Tuple, Union
+from typing import TYPE_CHECKING
 
 from taegis_sdk_python import GraphQLNoRowsInResultSetError
-from taegis_sdk_python._consts import TaegisEnum
 from taegis_sdk_python.services.trip.types import *
 from taegis_sdk_python.utils import (
     build_output_string,
-    parse_union_result,
     prepare_input,
 )
 
@@ -33,7 +30,7 @@ class TaegisSDKTripMutation:
         self.service = service
 
     def create_api_integration(
-        self, product_id: int, name: str, parameters: List[ApiIntegrationParameterInput]
+        self, product_id: int, name: str, parameters: list[ApiIntegrationParameterInput]
     ) -> ApiIntegration:
         """No developer notes."""
         endpoint = "createApiIntegration"
@@ -58,7 +55,7 @@ class TaegisSDKTripMutation:
         self,
         integration_id: int,
         name: str,
-        parameters: List[ApiIntegrationParameterInput],
+        parameters: list[ApiIntegrationParameterInput],
     ) -> ApiIntegration:
         """No developer notes."""
         endpoint = "updateApiIntegration"
@@ -79,7 +76,7 @@ class TaegisSDKTripMutation:
             return ApiIntegration.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for mutation updateApiIntegration")
 
-    def delete_api_integration(self, id_: int) -> List[ApiIntegrationSummary]:
+    def delete_api_integration(self, id_: int) -> list[ApiIntegrationSummary]:
         """No developer notes."""
         endpoint = "deleteApiIntegration"
 

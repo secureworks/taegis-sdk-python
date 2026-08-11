@@ -3,7 +3,7 @@
 Taegis Python SDK Exception class definitions.
 """
 
-from typing import List, Optional
+from typing import Optional
 
 
 class ServiceCoreException(Exception):
@@ -12,7 +12,7 @@ class ServiceCoreException(Exception):
     def __init__(
         self,
         message: str,
-        comments: Optional[List[str]] = None,
+        comments: Optional[list[str]] = None,
         nested_exception: Optional[BaseException] = None,
     ):
         """ServiceCoreException initialization.
@@ -43,7 +43,7 @@ class ServiceCoreException(Exception):
         message = self.message
         if self.nested_exception:
             exc = self.nested_exception.__class__.__name__
-            message += f"\nnested exception: [{exc} -> {str(self.nested_exception)}]"
+            message += f"\nnested exception: [{exc} -> {self.nested_exception!s}]"
         if self.comments:
             joined = "\n".join(self.comments)
             message += f"\ncomments:\n{joined}"
@@ -80,12 +80,12 @@ class InvalidGraphQLEndpoint(ServiceCoreException):
 
 # pylint: disable=duplicate-code
 __all__ = [
-    "ServiceCoreException",
-    "InvalidAuthenticationMethod",
     "AccessTokenException",
-    "MissingAccessTokenError",
-    "InvalidAccessTokenError",
     "GraphQLNoRowsInResultSetError",
     "InvalidAccessTokenClaims",
+    "InvalidAccessTokenError",
+    "InvalidAuthenticationMethod",
     "InvalidGraphQLEndpoint",
+    "MissingAccessTokenError",
+    "ServiceCoreException",
 ]

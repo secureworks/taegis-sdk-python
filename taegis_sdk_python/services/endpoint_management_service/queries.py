@@ -1,5 +1,4 @@
 """EndpointManagementService Query."""
-
 # pylint: disable=no-member, unused-argument, too-many-locals, duplicate-code, wildcard-import, unused-wildcard-import, cyclic-import
 
 
@@ -9,14 +8,13 @@
 from __future__ import annotations
 
 import logging
-from typing import TYPE_CHECKING, Any, Dict, List, Optional, Tuple, Union
+from typing import TYPE_CHECKING
 
 from taegis_sdk_python import GraphQLNoRowsInResultSetError
 from taegis_sdk_python._consts import TaegisEnum
 from taegis_sdk_python.services.endpoint_management_service.types import *
 from taegis_sdk_python.utils import (
     build_output_string,
-    parse_union_result,
     prepare_input,
 )
 
@@ -34,7 +32,7 @@ class TaegisSDKEndpointManagementServiceQuery:
     def __init__(self, service: EndpointManagementServiceService):
         self.service = service
 
-    def all_endpoint_groups(self) -> List[EndpointGroup]:
+    def all_endpoint_groups(self) -> list[EndpointGroup]:
         """Get list of all endpoint groups for a tenant."""
         endpoint = "allEndpointGroups"
 
@@ -53,7 +51,7 @@ class TaegisSDKEndpointManagementServiceQuery:
         raise GraphQLNoRowsInResultSetError("for query allEndpointGroups")
 
     def all_endpoint_groups_paged(
-        self, first: Optional[int] = None, after: Optional[str] = None
+        self, first: int | None = None, after: str | None = None
     ) -> EndpointGroupsPagedOutput:
         """Get list of all endpoint groups for a tenant, paged."""
         endpoint = "allEndpointGroupsPaged"
@@ -111,7 +109,7 @@ class TaegisSDKEndpointManagementServiceQuery:
             return EndpointGroup.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for query endpointGroupByRegistrationKey")
 
-    def policy_by_name(self, arguments: PolicyArguments) -> List[Policy]:
+    def policy_by_name(self, arguments: PolicyArguments) -> list[Policy]:
         """Get a policy by name and filtered by registration_key."""
         endpoint = "policyByName"
 
@@ -203,7 +201,7 @@ class TaegisSDKEndpointManagementServiceQuery:
         raise GraphQLNoRowsInResultSetError("for query agentSetting")
 
     def agent_settings(
-        self, first: Optional[int] = None, after: Optional[str] = None
+        self, first: int | None = None, after: str | None = None
     ) -> AgentSettings:
         """fetch paginated list of agent settings items."""
         endpoint = "agentSettings"
@@ -224,7 +222,7 @@ class TaegisSDKEndpointManagementServiceQuery:
         raise GraphQLNoRowsInResultSetError("for query agentSettings")
 
     def get_settings_for_profile(
-        self, profile_name: Optional[Union[AgentSettingsProfile, TaegisEnum]] = None
+        self, profile_name: AgentSettingsProfile | TaegisEnum | None = None
     ) -> AgentSettingsDefaults:
         """fetch the setting defaults for a given profile."""
         endpoint = "getSettingsForProfile"

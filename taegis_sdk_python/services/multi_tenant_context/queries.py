@@ -1,5 +1,4 @@
 """MultiTenantContext Query."""
-
 # pylint: disable=no-member, unused-argument, too-many-locals, duplicate-code, wildcard-import, unused-wildcard-import, cyclic-import
 
 
@@ -9,14 +8,12 @@
 from __future__ import annotations
 
 import logging
-from typing import TYPE_CHECKING, Any, Dict, List, Optional, Tuple, Union
+from typing import TYPE_CHECKING
 
 from taegis_sdk_python import GraphQLNoRowsInResultSetError
-from taegis_sdk_python._consts import TaegisEnum
 from taegis_sdk_python.services.multi_tenant_context.types import *
 from taegis_sdk_python.utils import (
     build_output_string,
-    parse_union_result,
     prepare_input,
 )
 
@@ -34,7 +31,7 @@ class TaegisSDKMultiTenantContextQuery:
     def __init__(self, service: MultiTenantContextService):
         self.service = service
 
-    def get_session(self, keys: Optional[List[str]] = None) -> List[Session]:
+    def get_session(self, keys: list[str] | None = None) -> list[Session]:
         """Gets a multi tenant session. This contains the multiple tenants a subject can look at. If the global key is provided but the session does not exist, it will be populated."""
         endpoint = "getSession"
 
@@ -54,7 +51,7 @@ class TaegisSDKMultiTenantContextQuery:
             )
         raise GraphQLNoRowsInResultSetError("for query getSession")
 
-    def get_tenant_history(self, key: str) -> List[History]:
+    def get_tenant_history(self, key: str) -> list[History]:
         """Gets tenant history for a subject. If the global key is provided but the tenant history does not exist, it will be populated."""
         endpoint = "getTenantHistory"
 
@@ -74,7 +71,7 @@ class TaegisSDKMultiTenantContextQuery:
             )
         raise GraphQLNoRowsInResultSetError("for query getTenantHistory")
 
-    def get_claims_for_tenant(self, tenant_id: str) -> List[TenantClaim]:
+    def get_claims_for_tenant(self, tenant_id: str) -> list[TenantClaim]:
         """Gets all the subjects who have claimed a specific tenant."""
         endpoint = "getClaimsForTenant"
 
@@ -94,7 +91,7 @@ class TaegisSDKMultiTenantContextQuery:
             )
         raise GraphQLNoRowsInResultSetError("for query getClaimsForTenant")
 
-    def get_claims_for_tenants(self, tenant_ids: List[str]) -> List[TenantsClaim]:
+    def get_claims_for_tenants(self, tenant_ids: list[str]) -> list[TenantsClaim]:
         """Gets all the subjects who have claims for multiple tenants."""
         endpoint = "getClaimsForTenants"
 
@@ -114,7 +111,7 @@ class TaegisSDKMultiTenantContextQuery:
             )
         raise GraphQLNoRowsInResultSetError("for query getClaimsForTenants")
 
-    def get_claimed_tenants(self) -> List[TenantClaim]:
+    def get_claimed_tenants(self) -> list[TenantClaim]:
         """Gets all the tenant claims the current subject has."""
         endpoint = "getClaimedTenants"
 
@@ -132,7 +129,7 @@ class TaegisSDKMultiTenantContextQuery:
             )
         raise GraphQLNoRowsInResultSetError("for query getClaimedTenants")
 
-    def get_tenant_service_filters(self) -> List[str]:
+    def get_tenant_service_filters(self) -> list[str]:
         """Gets the available tenant service filters."""
         endpoint = "getTenantServiceFilters"
 

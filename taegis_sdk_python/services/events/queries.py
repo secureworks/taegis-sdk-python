@@ -1,5 +1,4 @@
 """Events Query."""
-
 # pylint: disable=no-member, unused-argument, too-many-locals, duplicate-code, wildcard-import, unused-wildcard-import, cyclic-import
 
 
@@ -9,14 +8,12 @@
 from __future__ import annotations
 
 import logging
-from typing import TYPE_CHECKING, Any, Dict, List, Optional, Tuple, Union
+from typing import TYPE_CHECKING
 
 from taegis_sdk_python import GraphQLNoRowsInResultSetError
-from taegis_sdk_python._consts import TaegisEnum
 from taegis_sdk_python.services.events.types import *
 from taegis_sdk_python.utils import (
     build_output_string,
-    parse_union_result,
     prepare_input,
 )
 
@@ -33,8 +30,8 @@ class TaegisSDKEventsQuery:
         self.service = service
 
     def events(
-        self, ids: List[str], options: Optional[EventFetchOptions] = None
-    ) -> List[Event]:
+        self, ids: list[str], options: EventFetchOptions | None = None
+    ) -> list[Event]:
         """Resolve events by their ID. Accepts options for crafting events."""
         endpoint = "events"
 

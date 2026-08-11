@@ -47,7 +47,7 @@ from aiohttp import BasicAuth
 
 service = GraphQLService(
     proxy="http://your.proxy.domain:port",
-    proxy_auth=BasicAuth("<username>", "<password>")
+    proxy_auth=BasicAuth("<username>", "<password>"),
 )
 
 results = service.subjects.query.current_subject()
@@ -63,7 +63,8 @@ from aiohttp import BasicAuth
 service = GraphQLService()
 
 with service(
-    proxy="http://your.proxy.domain:port", proxy_auth=BasicAuth("<username>", "<password>")
+    proxy="http://your.proxy.domain:port",
+    proxy_auth=BasicAuth("<username>", "<password>"),
 ):
     results = service.subjects.query.current_subject()
 print(results)

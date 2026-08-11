@@ -137,16 +137,18 @@ with service(
         }
     """,
 ):
-    result = service.alerts.query.alerts_service_search(SearchRequestInput(
-        offset=0,
-        limit=10,
-        cql_query="""
+    result = service.alerts.query.alerts_service_search(
+        SearchRequestInput(
+            offset=0,
+            limit=10,
+            cql_query="""
         FROM alert
         WHERE
             severity >= 0.6
         EARLIEST=-1d
-        """
-    ))
+        """,
+        )
+    )
 ```
 
 ### Change Tenant Context
@@ -159,11 +161,11 @@ service = GraphQLService()
 
 # specify the output fields, and start the service context
 with service(tenant_id="00000"):
-    result = service.investigations2.query.investigations_v2(InvestigationsV2Arguments(
-        page=1,
-        per_page=3,
-        cql="WHERE deleted_at IS NOT NULL EARLIEST=-90d"
-    ))
+    result = service.investigations2.query.investigations_v2(
+        InvestigationsV2Arguments(
+            page=1, per_page=3, cql="WHERE deleted_at IS NOT NULL EARLIEST=-90d"
+        )
+    )
 pp(result)
 ```
 
@@ -177,11 +179,11 @@ service = GraphQLService()
 
 # specify the output fields, and start the service context
 with service(environment="US2"):
-    result = service.investigations2.query.investigations_v2(InvestigationsV2Arguments(
-        page=1,
-        per_page=3,
-        cql="WHERE deleted_at IS NOT NULL EARLIEST=-90d"
-    ))
+    result = service.investigations2.query.investigations_v2(
+        InvestigationsV2Arguments(
+            page=1, per_page=3, cql="WHERE deleted_at IS NOT NULL EARLIEST=-90d"
+        )
+    )
 pp(result)
 ```
 
@@ -195,11 +197,11 @@ service = GraphQLService()
 
 # specify the output fields, and start the service context
 with service(access_token="<your access token>"):
-    result = service.investigations2.query.investigations_v2(InvestigationsV2Arguments(
-        page=1,
-        per_page=3,
-        cql="WHERE deleted_at IS NOT NULL EARLIEST=-90d"
-    ))
+    result = service.investigations2.query.investigations_v2(
+        InvestigationsV2Arguments(
+            page=1, per_page=3, cql="WHERE deleted_at IS NOT NULL EARLIEST=-90d"
+        )
+    )
 pp(result)
 ```
 
@@ -385,7 +387,7 @@ results = service.alerts.execute_query(
             WHERE
                 severity >= 0.6
             EARLIEST=-1d
-            """
+            """,
         }
     },
     output="""
@@ -401,7 +403,7 @@ results = service.alerts.execute_query(
                 status
             }
         }
-    """
+    """,
 )
 pp(results)
 ```
@@ -415,7 +417,7 @@ results = service.core.execute_mutation(
         "investigation": {
             "description": "SDK Test Investigation",
             "key_findings": "This is a test.",
-            "priority": 1
+            "priority": 1,
         }
     },
     output="""
@@ -428,7 +430,7 @@ results = service.core.execute_mutation(
     }
     description
     key_findings
-    """
+    """,
 )
 print(results)
 ```
@@ -483,17 +485,21 @@ service endpoint.
 
 ```python
 from taegis_sdk_python import GraphQLService, build_output_string
-from taegis_sdk_python.services.investigations.types import InvestigationStatusCountResponse
+from taegis_sdk_python.services.investigations.types import (
+    InvestigationStatusCountResponse,
+)
 
 service = GraphQLService()
 schema = service.alerts.get_sync_schema()
 
-print(service.alerts._build_output_query(
-    operation_type="query",
-    endpoint="investigationsStatusCount",
-    graphql_field=schema.query_type.fields.get("investigationsStatusCount"),
-    output=build_output_string(InvestigationStatusCountResponse)
-))
+print(
+    service.alerts._build_output_query(
+        operation_type="query",
+        endpoint="investigationsStatusCount",
+        graphql_field=schema.query_type.fields.get("investigationsStatusCount"),
+        output=build_output_string(InvestigationStatusCountResponse),
+    )
+)
 ```
 
 ### Deprecation Warnings
@@ -520,7 +526,7 @@ from taegis_sdk_python import GraphQLService
 # all schemas will be cached for 15 minutes
 service = GraphQLService(schema_expiry=15)
 
-with service(schema_expiry=30): # users schema will now be cached for 30 minutes
+with service(schema_expiry=30):  # users schema will now be cached for 30 minutes
     results = service.users.query.current_tdruser()
 ```
 
@@ -531,7 +537,9 @@ from taegis_sdk_python import GraphQLService
 
 service = GraphQLService()
 
-user = service.users.query.current_tdruser() # schema will be cached for the users service
+user = (
+    service.users.query.current_tdruser()
+)  # schema will be cached for the users service
 
 service.users.clear_schema()  # local schema will be cleared and re-fetched on next call
 ```

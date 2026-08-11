@@ -1,5 +1,4 @@
 """Tenants4 Query."""
-
 # pylint: disable=no-member, unused-argument, too-many-locals, duplicate-code, wildcard-import, unused-wildcard-import, cyclic-import
 
 
@@ -9,14 +8,12 @@
 from __future__ import annotations
 
 import logging
-from typing import TYPE_CHECKING, Any, Dict, List, Optional, Tuple, Union
+from typing import TYPE_CHECKING
 
 from taegis_sdk_python import GraphQLNoRowsInResultSetError
-from taegis_sdk_python._consts import TaegisEnum
 from taegis_sdk_python.services.tenants4.types import *
 from taegis_sdk_python.utils import (
     build_output_string,
-    parse_union_result,
     prepare_input,
 )
 
@@ -68,7 +65,7 @@ class TaegisSDKTenants4Query:
             return TenantV4.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for query tenant")
 
-    def available_regions(self) -> List[TenantRegion]:
+    def available_regions(self) -> list[TenantRegion]:
         """Returns the regions where the tenant in XTC can be enabled at (excluding any regions currently enabled at). If a partner tenant ID is provided, this returns the regions where the partner can enable children at. If multiple tenants are provided in XTC, only the first is used. If none provided, an error is returned."""
         endpoint = "availableRegions"
 
@@ -81,7 +78,7 @@ class TaegisSDKTenants4Query:
             return [TenantRegion(r) for r in result.get(endpoint)]
         raise GraphQLNoRowsInResultSetError("for query availableRegions")
 
-    def available_environments(self) -> List[TenantEnvironment]:
+    def available_environments(self) -> list[TenantEnvironment]:
         """Returns the environments where the tenant in XTC can be enabled at (excluding any environments currently enabled at). If a partner tenant ID is provided, this returns the environments where the partner can enable children at. If multiple tenants are provided in XTC, only the first is used. If none provided, an error is returned."""
         endpoint = "availableEnvironments"
 
@@ -94,7 +91,7 @@ class TaegisSDKTenants4Query:
             return [TenantEnvironment(r) for r in result.get(endpoint)]
         raise GraphQLNoRowsInResultSetError("for query availableEnvironments")
 
-    def available_environments_v2(self, tenant_id: str) -> List[TenantEnvironment]:
+    def available_environments_v2(self, tenant_id: str) -> list[TenantEnvironment]:
         """Returns the environments where the tenant can be enabled at (excluding any environments currently enabled at). If a partner tenant ID is provided, this returns the environments where the partner can enable children at. Works for disabled tenants."""
         endpoint = "availableEnvironmentsV2"
 

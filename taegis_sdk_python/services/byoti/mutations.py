@@ -1,5 +1,4 @@
 """Byoti Mutation."""
-
 # pylint: disable=no-member, unused-argument, too-many-locals, duplicate-code, wildcard-import, unused-wildcard-import, cyclic-import
 
 
@@ -9,14 +8,12 @@
 from __future__ import annotations
 
 import logging
-from typing import TYPE_CHECKING, Any, Dict, List, Optional, Tuple, Union
+from typing import TYPE_CHECKING
 
 from taegis_sdk_python import GraphQLNoRowsInResultSetError
-from taegis_sdk_python._consts import TaegisEnum
 from taegis_sdk_python.services.byoti.types import *
 from taegis_sdk_python.utils import (
     build_output_string,
-    parse_union_result,
     prepare_input,
 )
 
@@ -33,7 +30,7 @@ class TaegisSDKByotiMutation:
         self.service = service
 
     def upsert_stix_documents(
-        self, input_: List[STIXDocumentInput]
+        self, input_: list[STIXDocumentInput]
     ) -> UpsertIndicatorsResponse:
         """Mutation for adding or updating STIX documents as indicators."""
         endpoint = "upsertSTIXDocuments"
@@ -53,7 +50,7 @@ class TaegisSDKByotiMutation:
         raise GraphQLNoRowsInResultSetError("for mutation upsertSTIXDocuments")
 
     def upsert_indicators(
-        self, input_: List[IndicatorInput]
+        self, input_: list[IndicatorInput]
     ) -> UpsertIndicatorsResponse:
         """Mutation for adding or updating indicators."""
         endpoint = "upsertIndicators"

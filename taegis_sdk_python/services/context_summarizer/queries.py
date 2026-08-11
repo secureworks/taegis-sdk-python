@@ -1,5 +1,4 @@
 """ContextSummarizer Query."""
-
 # pylint: disable=no-member, unused-argument, too-many-locals, duplicate-code, wildcard-import, unused-wildcard-import, cyclic-import
 
 
@@ -9,14 +8,13 @@
 from __future__ import annotations
 
 import logging
-from typing import TYPE_CHECKING, Any, Dict, List, Optional, Tuple, Union
+from typing import TYPE_CHECKING
 
 from taegis_sdk_python import GraphQLNoRowsInResultSetError
 from taegis_sdk_python._consts import TaegisEnum
 from taegis_sdk_python.services.context_summarizer.types import *
 from taegis_sdk_python.utils import (
     build_output_string,
-    parse_union_result,
     prepare_input,
 )
 
@@ -36,8 +34,8 @@ class TaegisSDKContextSummarizerQuery:
         self,
         begin_year: int,
         begin_month: int,
-        end_year: Optional[int] = None,
-        end_month: Optional[int] = None,
+        end_year: int | None = None,
+        end_month: int | None = None,
     ) -> BillingMonthEstimate:
         """Estimate the billing for a month, or many months."""
         endpoint = "generativeAIMonthlyBilling"
@@ -95,7 +93,7 @@ class TaegisSDKContextSummarizerQuery:
 
     def generative_ai_event_explain(
         self, input_: EventExplanationInput
-    ) -> List[EventExplanation]:
+    ) -> list[EventExplanation]:
         """Explain the alert's events based on their content."""
         endpoint = "generativeAIEventExplain"
 
@@ -117,7 +115,7 @@ class TaegisSDKContextSummarizerQuery:
 
     def explain_command_lines(
         self, input_: CommandLineExplanationInput
-    ) -> List[CommandLineExplanation]:
+    ) -> list[CommandLineExplanation]:
         """Explain the alert's command line events based on their content."""
         endpoint = "explainCommandLines"
 
@@ -144,8 +142,8 @@ class TaegisSDKContextSummarizerQuery:
     def generative_ai_alert_analysis(
         self,
         alert_id: str,
-        fetch_unconditionally: Optional[bool] = None,
-        follow_up_prompt: Optional[str] = None,
+        fetch_unconditionally: bool | None = None,
+        follow_up_prompt: str | None = None,
     ) -> str:
         """Derive an analysis of the alert from its overall content."""
         endpoint = "generativeAIAlertAnalysis"
@@ -164,9 +162,7 @@ class TaegisSDKContextSummarizerQuery:
         raise GraphQLNoRowsInResultSetError("for query generativeAIAlertAnalysis")
 
     def generative_ai_case_summary(
-        self,
-        case_id: str,
-        cache_options: Optional[ContextSummarizerCacheOptions] = None,
+        self, case_id: str, cache_options: ContextSummarizerCacheOptions | None = None
     ) -> ContextSummarizerCaseSummary:
         """Generate a summary of a Case(formerly, Investigation) based on analyses of its Alerts."""
         endpoint = "generativeAICaseSummary"
@@ -189,8 +185,8 @@ class TaegisSDKContextSummarizerQuery:
     def generative_ai_key_findings(
         self,
         case_id: str,
-        cache_options: Optional[ContextSummarizerCacheOptions] = None,
-        output_format: Optional[Union[OutputFormat, TaegisEnum]] = None,
+        cache_options: ContextSummarizerCacheOptions | None = None,
+        output_format: OutputFormat | TaegisEnum | None = None,
     ) -> ContextSummarizerKeyFindings:
         """Generate key findings for a Case based on analyses of its Alerts."""
         endpoint = "generativeAIKeyFindings"

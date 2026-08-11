@@ -68,3 +68,6 @@ include = [
 [tool.hatch.envs.venv]
 type = "virtual"
 installer = "uv"
+
+[tool.ruff.lint]
+ignore = ["FA100", "B008", "BLE001"]

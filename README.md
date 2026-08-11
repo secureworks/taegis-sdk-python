@@ -34,6 +34,7 @@ To use the SDK, you must first import the `GraphQLService`
 ```python
 from taegis_sdk_python import GraphQLService
 from pprint import pprint as pp
+
 service = GraphQLService()
 ```
 
@@ -41,18 +42,18 @@ Now that you have the `GraphQLService`, you can make requests and process respon
 
 ```python
 result = service.investigations.query.investigations_search(
-    page=1,
-    per_page=3,
-    query="WHERE deleted_at IS NOT NULL EARLIEST=-90d"
+    page=1, per_page=3, query="WHERE deleted_at IS NOT NULL EARLIEST=-90d"
 )
 pp(result)
 ```
 
 ```python
-result = service.tenants.query.tenants(tenants_query=TenantsQuery(
-    max_results=10,
-    page_num=1,
-))
+result = service.tenants.query.tenants(
+    tenants_query=TenantsQuery(
+        max_results=10,
+        page_num=1,
+    )
+)
 pp(result)
 ```
 
@@ -68,15 +69,7 @@ results = service.events.subscription.event_query(
 pp(results)
 print()
 try:
-    next_page = next(
-        iter(
-            {
-                result.next
-                for result in results
-                if result.next
-            }
-        )
-    )
+    next_page = next(iter({result.next for result in results if result.next}))
 except StopIteration:
     next_page = None
 

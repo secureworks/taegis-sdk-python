@@ -1,5 +1,4 @@
 """Comments Mutation."""
-
 # pylint: disable=no-member, unused-argument, too-many-locals, duplicate-code, wildcard-import, unused-wildcard-import, cyclic-import
 
 
@@ -9,14 +8,12 @@
 from __future__ import annotations
 
 import logging
-from typing import TYPE_CHECKING, Any, Dict, List, Optional, Tuple, Union
+from typing import TYPE_CHECKING
 
 from taegis_sdk_python import GraphQLNoRowsInResultSetError
-from taegis_sdk_python._consts import TaegisEnum
 from taegis_sdk_python.services.comments.types import *
 from taegis_sdk_python.utils import (
     build_output_string,
-    parse_union_result,
     prepare_input,
 )
 
@@ -54,7 +51,7 @@ class TaegisSDKCommentsMutation:
             return Comment.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for mutation markCommentRead")
 
-    def mark_parent_comments_read(self, parents: List[Parent]) -> List[Comment]:
+    def mark_parent_comments_read(self, parents: list[Parent]) -> list[Comment]:
         """No developer notes."""
         endpoint = "markParentCommentsRead"
 
@@ -145,7 +142,7 @@ class TaegisSDKCommentsMutation:
             return Comment.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for mutation deleteComment")
 
-    def bulk_restore_comments(self, ids: List[str]) -> List[str]:
+    def bulk_restore_comments(self, ids: list[str]) -> list[str]:
         """No developer notes."""
         endpoint = "bulkRestoreComments"
 

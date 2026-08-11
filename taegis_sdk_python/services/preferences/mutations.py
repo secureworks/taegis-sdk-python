@@ -1,5 +1,4 @@
 """Preferences Mutation."""
-
 # pylint: disable=no-member, unused-argument, too-many-locals, duplicate-code, wildcard-import, unused-wildcard-import, cyclic-import
 
 
@@ -9,14 +8,12 @@
 from __future__ import annotations
 
 import logging
-from typing import TYPE_CHECKING, Any, Dict, List, Optional, Tuple, Union
+from typing import TYPE_CHECKING
 
 from taegis_sdk_python import GraphQLNoRowsInResultSetError
-from taegis_sdk_python._consts import TaegisEnum
 from taegis_sdk_python.services.preferences.types import *
 from taegis_sdk_python.utils import (
     build_output_string,
-    parse_union_result,
     prepare_input,
 )
 
@@ -33,7 +30,7 @@ class TaegisSDKPreferencesMutation:
         self.service = service
 
     def create_user_preference(
-        self, new_user_preference: Optional[NewUserPreferenceInput] = None
+        self, new_user_preference: NewUserPreferenceInput | None = None
     ) -> UserPreference:
         """No developer notes."""
         endpoint = "createUserPreference"
@@ -53,7 +50,7 @@ class TaegisSDKPreferencesMutation:
         raise GraphQLNoRowsInResultSetError("for mutation createUserPreference")
 
     def update_user_preference(
-        self, updated_user_preference: Optional[UpdateUserPreferenceInput] = None
+        self, updated_user_preference: UpdateUserPreferenceInput | None = None
     ) -> UserPreference:
         """No developer notes."""
         endpoint = "updateUserPreference"
@@ -72,7 +69,7 @@ class TaegisSDKPreferencesMutation:
             return UserPreference.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for mutation updateUserPreference")
 
-    def reset_user_preferences(self) -> List[UserPreference]:
+    def reset_user_preferences(self) -> list[UserPreference]:
         """No developer notes."""
         endpoint = "resetUserPreferences"
 
@@ -91,7 +88,7 @@ class TaegisSDKPreferencesMutation:
         raise GraphQLNoRowsInResultSetError("for mutation resetUserPreferences")
 
     def create_tenant_preference(
-        self, new_tenant_preference: Optional[NewTenantPreferenceInput] = None
+        self, new_tenant_preference: NewTenantPreferenceInput | None = None
     ) -> TenantPreference:
         """No developer notes."""
         endpoint = "createTenantPreference"
@@ -111,7 +108,7 @@ class TaegisSDKPreferencesMutation:
         raise GraphQLNoRowsInResultSetError("for mutation createTenantPreference")
 
     def update_tenant_preference(
-        self, updated_tenant_preference: Optional[UpdateTenantPreferenceInput] = None
+        self, updated_tenant_preference: UpdateTenantPreferenceInput | None = None
     ) -> TenantPreference:
         """No developer notes."""
         endpoint = "updateTenantPreference"
@@ -209,7 +206,7 @@ class TaegisSDKPreferencesMutation:
         raise GraphQLNoRowsInResultSetError("for mutation setUserPreferences")
 
     def unset_user_preferences(
-        self, unset_preference_selector: Optional[UnsetPreferenceSelector] = None
+        self, unset_preference_selector: UnsetPreferenceSelector | None = None
     ) -> UserPreferenceDictionary:
         """No developer notes."""
         endpoint = "unsetUserPreferences"

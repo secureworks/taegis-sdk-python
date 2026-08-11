@@ -1,5 +1,4 @@
 """Tenants Query."""
-
 # pylint: disable=no-member, unused-argument, too-many-locals, duplicate-code, wildcard-import, unused-wildcard-import, cyclic-import
 
 
@@ -9,14 +8,12 @@
 from __future__ import annotations
 
 import logging
-from typing import TYPE_CHECKING, Any, Dict, List, Optional, Tuple, Union
+from typing import TYPE_CHECKING
 
 from taegis_sdk_python import GraphQLNoRowsInResultSetError
-from taegis_sdk_python._consts import TaegisEnum
 from taegis_sdk_python.services.tenants.types import *
 from taegis_sdk_python.utils import (
     build_output_string,
-    parse_union_result,
     prepare_input,
 )
 
@@ -33,8 +30,8 @@ class TaegisSDKTenantsQuery:
         self.service = service
 
     def assignable_services(
-        self, tenant_id: Optional[str] = None, service_ids: Optional[List[str]] = None
-    ) -> List[Service]:
+        self, tenant_id: str | None = None, service_ids: list[str] | None = None
+    ) -> list[Service]:
         """Returns the assignable Services for the optional tenant, or assignable Services for all accessible tenants if a tenant is not specified.  Only Secureworks and Partners may manage Services, for other tenants this will return an empty list."""
         endpoint = "assignableServices"
 
@@ -93,7 +90,7 @@ class TaegisSDKTenantsQuery:
 
     def sso_connections(
         self, connection_query: TenantSSOConnectionQueryInput
-    ) -> List[SSOConnection]:
+    ) -> list[SSOConnection]:
         """Retrieves the sso connections for the tenant in context."""
         endpoint = "SSOConnections"
 
@@ -115,9 +112,9 @@ class TaegisSDKTenantsQuery:
 
     def get_sso_connection_config(
         self,
-        metadata_url: Optional[str] = None,
-        metadata_xml: Optional[str] = None,
-        cert: Optional[str] = None,
+        metadata_url: str | None = None,
+        metadata_xml: str | None = None,
+        cert: str | None = None,
     ) -> SSOConnectionConfigResponse:
         """Downloads configuration for an SSO connection if metadataURL is provided, or extracts the configuration from the metadataXML string if provided, or the certificate attributes if that is provided. Currently applicable only to SAML connections."""
         endpoint = "getSSOConnectionConfig"
@@ -156,7 +153,7 @@ class TaegisSDKTenantsQuery:
             return AuditResults.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for query audits")
 
-    def service_events(self, events_query: ServiceEventQuery) -> List[ServiceEvents]:
+    def service_events(self, events_query: ServiceEventQuery) -> list[ServiceEvents]:
         """Returns a list of service events for the given query."""
         endpoint = "serviceEvents"
 
@@ -176,7 +173,7 @@ class TaegisSDKTenantsQuery:
             )
         raise GraphQLNoRowsInResultSetError("for query serviceEvents")
 
-    def requestable_services(self) -> List[Service]:
+    def requestable_services(self) -> list[Service]:
         """Returns a list of services that can be requested (owned by SCWX and preconfigured)."""
         endpoint = "requestableServices"
 
@@ -194,7 +191,7 @@ class TaegisSDKTenantsQuery:
             )
         raise GraphQLNoRowsInResultSetError("for query requestableServices")
 
-    def registered_domains(self) -> List[RegisteredDomain]:
+    def registered_domains(self) -> list[RegisteredDomain]:
         """Return the list of registered domains for the tenant in context."""
         endpoint = "registeredDomains"
 

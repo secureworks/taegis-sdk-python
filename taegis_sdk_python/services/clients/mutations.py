@@ -1,5 +1,4 @@
 """Clients Mutation."""
-
 # pylint: disable=no-member, unused-argument, too-many-locals, duplicate-code, wildcard-import, unused-wildcard-import, cyclic-import
 
 
@@ -9,14 +8,12 @@
 from __future__ import annotations
 
 import logging
-from typing import TYPE_CHECKING, Any, Dict, List, Optional, Tuple, Union
+from typing import TYPE_CHECKING
 
 from taegis_sdk_python import GraphQLNoRowsInResultSetError
-from taegis_sdk_python._consts import TaegisEnum
 from taegis_sdk_python.services.clients.types import *
 from taegis_sdk_python.utils import (
     build_output_string,
-    parse_union_result,
     prepare_input,
 )
 
@@ -35,8 +32,8 @@ class TaegisSDKClientsMutation:
     def create_client(
         self,
         name: str,
-        roles: Optional[List[str]] = None,
-        input_: Optional[CreateClientInput] = None,
+        roles: list[str] | None = None,
+        input_: CreateClientInput | None = None,
     ) -> NewClient:
         """Create a new client (SCWX (tenant 5000) clients are disallowed). The new client will be assigned the TenantAnalyst role if the `roles` parameter is omitted."""
         endpoint = "createClient"
@@ -57,7 +54,7 @@ class TaegisSDKClientsMutation:
             return NewClient.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for mutation createClient")
 
-    def rotate_client_secret(self, id_: str, secret: Optional[str] = None) -> NewClient:
+    def rotate_client_secret(self, id_: str, secret: str | None = None) -> NewClient:
         """Generate a new secret for an existing client."""
         endpoint = "rotateClientSecret"
 
@@ -95,7 +92,7 @@ class TaegisSDKClientsMutation:
         raise GraphQLNoRowsInResultSetError("for mutation forceRotateClientSecret")
 
     def append_client_roles(
-        self, id_: str, roles: List[ClientRoleAssignmentInput]
+        self, id_: str, roles: list[ClientRoleAssignmentInput]
     ) -> Client:
         """Append roles to a clients role assignments (internal roles are forbidden)."""
         endpoint = "appendClientRoles"
@@ -114,7 +111,7 @@ class TaegisSDKClientsMutation:
             return Client.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for mutation appendClientRoles")
 
-    def remove_client_roles(self, id_: str, roles: List[str]) -> Client:
+    def remove_client_roles(self, id_: str, roles: list[str]) -> Client:
         """Remove roles from a clients role assignments (internal roles are forbidden)."""
         endpoint = "removeClientRoles"
 

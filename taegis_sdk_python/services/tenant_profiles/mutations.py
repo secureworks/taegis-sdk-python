@@ -1,5 +1,4 @@
 """TenantProfiles Mutation."""
-
 # pylint: disable=no-member, unused-argument, too-many-locals, duplicate-code, wildcard-import, unused-wildcard-import, cyclic-import
 
 
@@ -9,14 +8,12 @@
 from __future__ import annotations
 
 import logging
-from typing import TYPE_CHECKING, Any, Dict, List, Optional, Tuple, Union
+from typing import TYPE_CHECKING
 
 from taegis_sdk_python import GraphQLNoRowsInResultSetError
-from taegis_sdk_python._consts import TaegisEnum
 from taegis_sdk_python.services.tenant_profiles.types import *
 from taegis_sdk_python.utils import (
     build_output_string,
-    parse_union_result,
     prepare_input,
 )
 
@@ -49,7 +46,7 @@ class TaegisSDKTenantProfilesMutation:
         raise GraphQLNoRowsInResultSetError("for mutation createProfileMtp")
 
     def create_network_range_mtp(
-        self, input_: Optional[NetworkRangeCreateMtpInput] = None
+        self, input_: NetworkRangeCreateMtpInput | None = None
     ) -> NetworkRangeMtp:
         """No developer notes."""
         endpoint = "createNetworkRangeMtp"
@@ -69,7 +66,7 @@ class TaegisSDKTenantProfilesMutation:
         raise GraphQLNoRowsInResultSetError("for mutation createNetworkRangeMtp")
 
     def update_network_range_mtp(
-        self, id_: str, network: Optional[NetworkRangeUpdateMtpInput] = None
+        self, id_: str, network: NetworkRangeUpdateMtpInput | None = None
     ) -> NetworkRangeMtp:
         """No developer notes."""
         endpoint = "updateNetworkRangeMtp"
@@ -107,7 +104,7 @@ class TaegisSDKTenantProfilesMutation:
             return NetworkRangeMtp.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for mutation deleteNetworkRangeMtp")
 
-    def bulk_delete_network_range_mtp(self, ids: List[str]) -> List[NetworkRangeMtp]:
+    def bulk_delete_network_range_mtp(self, ids: list[str]) -> list[NetworkRangeMtp]:
         """Delete multiple NetworkRangeMtps and return list of ones actually deleted."""
         endpoint = "bulkDeleteNetworkRangeMtp"
 
@@ -205,8 +202,8 @@ class TaegisSDKTenantProfilesMutation:
         raise GraphQLNoRowsInResultSetError("for mutation deleteSecurityControlMtp")
 
     def bulk_delete_security_control_mtp(
-        self, ids: List[str]
-    ) -> List[SecurityControlMtp]:
+        self, ids: list[str]
+    ) -> list[SecurityControlMtp]:
         """Delete multiple SecurityControlMtps and return list of ones actually deleted."""
         endpoint = "bulkDeleteSecurityControlMtp"
 
@@ -283,7 +280,7 @@ class TaegisSDKTenantProfilesMutation:
             return MfaAccessMtp.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for mutation deleteMfaAccessMtp")
 
-    def bulk_delete_mfa_access_mtp(self, ids: List[str]) -> List[MfaAccessMtp]:
+    def bulk_delete_mfa_access_mtp(self, ids: list[str]) -> list[MfaAccessMtp]:
         """Delete multiple MfaAccessMtps and return list of ones actually deleted."""
         endpoint = "bulkDeleteMfaAccessMtp"
 
@@ -321,7 +318,7 @@ class TaegisSDKTenantProfilesMutation:
             return FileAttachmentMtp.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for mutation uploadAttachmentMtp")
 
-    def delete_attachments_mtp(self, ids: List[str]) -> List[FileAttachmentMtp]:
+    def delete_attachments_mtp(self, ids: list[str]) -> list[FileAttachmentMtp]:
         """Mark an attachment as deleted. Only works on the most recent file version."""
         endpoint = "deleteAttachmentsMtp"
 
@@ -341,7 +338,7 @@ class TaegisSDKTenantProfilesMutation:
             )
         raise GraphQLNoRowsInResultSetError("for mutation deleteAttachmentsMtp")
 
-    def restore_attachments_mtp(self, ids: List[str]) -> List[FileAttachmentMtp]:
+    def restore_attachments_mtp(self, ids: list[str]) -> list[FileAttachmentMtp]:
         """Restore a previously deleted attachment. Only works on the most recent file version."""
         endpoint = "restoreAttachmentsMtp"
 
@@ -362,8 +359,8 @@ class TaegisSDKTenantProfilesMutation:
         raise GraphQLNoRowsInResultSetError("for mutation restoreAttachmentsMtp")
 
     def update_attachments_mtp(
-        self, inputs: List[FileUpdateInputMtp]
-    ) -> List[FileAttachmentMtp]:
+        self, inputs: list[FileUpdateInputMtp]
+    ) -> list[FileAttachmentMtp]:
         """Updates one or more file attachments. Currently only the clientVisible flag can be modified."""
         endpoint = "updateAttachmentsMtp"
 

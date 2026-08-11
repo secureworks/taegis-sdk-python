@@ -2,15 +2,10 @@
 
 from __future__ import annotations
 
-from typing import TYPE_CHECKING
-
 from taegis_sdk_python.service_core import ServiceCore
 from taegis_sdk_python.services.health.mutations import TaegisSDKHealthMutation
 from taegis_sdk_python.services.health.queries import TaegisSDKHealthQuery
 from taegis_sdk_python.services.health.subscriptions import TaegisSDKHealthSubscription
-
-if TYPE_CHECKING:  # pragma: no cover
-    from taegis_sdk_python.services import GraphQLService
 
 
 class HealthService(ServiceCore):

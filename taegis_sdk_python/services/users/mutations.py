@@ -1,5 +1,4 @@
 """Users Mutation."""
-
 # pylint: disable=no-member, unused-argument, too-many-locals, duplicate-code, wildcard-import, unused-wildcard-import, cyclic-import
 
 
@@ -9,14 +8,12 @@
 from __future__ import annotations
 
 import logging
-from typing import TYPE_CHECKING, Any, Dict, List, Optional, Tuple, Union
+from typing import TYPE_CHECKING
 
 from taegis_sdk_python import GraphQLNoRowsInResultSetError
-from taegis_sdk_python._consts import TaegisEnum
 from taegis_sdk_python.services.users.types import *
 from taegis_sdk_python.utils import (
     build_output_string,
-    parse_union_result,
     prepare_input,
 )
 
@@ -51,8 +48,8 @@ class TaegisSDKUsersMutation:
         raise GraphQLNoRowsInResultSetError("for mutation inviteTDRUser")
 
     def invite_tdrusers(
-        self, invites: List[TDRUserInviteInput]
-    ) -> List[InviteUsersResponse]:
+        self, invites: list[TDRUserInviteInput]
+    ) -> list[InviteUsersResponse]:
         """Invite multiple TDRUsers. The tenant to use for the request will be extracted from the X-Tenant-Context header."""
         endpoint = "inviteTDRUsers"
 
@@ -170,7 +167,7 @@ class TaegisSDKUsersMutation:
             "for mutation currentTDRUserChangeEmailValidate"
         )
 
-    def remove_tdruser_roles(self, id_: str, roles: List[str]) -> TDRUser:
+    def remove_tdruser_roles(self, id_: str, roles: list[str]) -> TDRUser:
         """Remove roles from a user. Roles can either contain the role ID or role assignment ID."""
         endpoint = "removeTDRUserRoles"
 
@@ -190,7 +187,7 @@ class TaegisSDKUsersMutation:
         raise GraphQLNoRowsInResultSetError("for mutation removeTDRUserRoles")
 
     def append_tdruser_internal_roles(
-        self, id_: str, roles: List[str], expires_at: Optional[str] = None
+        self, id_: str, roles: list[str], expires_at: str | None = None
     ) -> TDRUser:
         """Append internal roles to a users role assignments."""
         endpoint = "appendTDRUserInternalRoles"
@@ -211,7 +208,7 @@ class TaegisSDKUsersMutation:
             return TDRUser.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for mutation appendTDRUserInternalRoles")
 
-    def remove_tdruser_internal_roles(self, id_: str, roles: List[str]) -> TDRUser:
+    def remove_tdruser_internal_roles(self, id_: str, roles: list[str]) -> TDRUser:
         """Remove internal roles from a users role assignments."""
         endpoint = "removeTDRUserInternalRoles"
 
@@ -322,7 +319,7 @@ class TaegisSDKUsersMutation:
         raise GraphQLNoRowsInResultSetError("for mutation resendMigrationEmail")
 
     def forgot_password(
-        self, email: str, app: Optional[str] = None
+        self, email: str, app: str | None = None
     ) -> ForgotPasswordResponse:
         """Initiate the password reset workflow requested by a user."""
         endpoint = "forgotPassword"

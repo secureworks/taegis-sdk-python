@@ -1,5 +1,4 @@
 """Threat Query."""
-
 # pylint: disable=no-member, unused-argument, too-many-locals, duplicate-code, wildcard-import, unused-wildcard-import, cyclic-import
 
 
@@ -9,7 +8,7 @@
 from __future__ import annotations
 
 import logging
-from typing import TYPE_CHECKING, Any, Dict, List, Optional, Tuple, Union
+from typing import TYPE_CHECKING
 
 from taegis_sdk_python import GraphQLNoRowsInResultSetError
 from taegis_sdk_python._consts import TaegisEnum
@@ -32,7 +31,7 @@ class TaegisSDKThreatQuery:
     def __init__(self, service: ThreatService):
         self.service = service
 
-    def threat_identities_by_confidence(self, confidence: int) -> List[ThreatResult]:
+    def threat_identities_by_confidence(self, confidence: int) -> list[ThreatResult]:
         """Gets identities by confidence score."""
         endpoint = "threatIdentitiesByConfidence"
 
@@ -52,10 +51,10 @@ class TaegisSDKThreatQuery:
 
     def threat_watchlist(
         self,
-        type_: Union[ThreatParentType, TaegisEnum],
-        page: Optional[PageInput] = None,
-        filters: Optional[WatchlistFilter] = None,
-    ) -> List[ThreatRelationship]:
+        type_: ThreatParentType | TaegisEnum,
+        page: PageInput | None = None,
+        filters: WatchlistFilter | None = None,
+    ) -> list[ThreatRelationship]:
         """Gets a watchlist by type. All results are considered **high confidence**.
         Only IP and DOMAIN types are supported. FILE type has been removed from this endpoint.
         Instead, use the paged endpoint threatTimsMalwareFiles for FILE types.
@@ -101,9 +100,7 @@ class TaegisSDKThreatQuery:
         raise GraphQLNoRowsInResultSetError("for query threatWatchlist")
 
     def threat_tims_malware_files(
-        self,
-        last_created: Optional[str] = None,
-        filters: Optional[MalwareFileFilter] = None,
+        self, last_created: str | None = None, filters: MalwareFileFilter | None = None
     ) -> PagedMalwareFiles:
         """Get all TIMS 2.0 Malware file hashes. All results are considered **high confidence**.
         This is a cursor-based paged service, requiring repeated queries. Total number of results can number over 750k.
@@ -145,7 +142,7 @@ class TaegisSDKThreatQuery:
             return PagedMalwareFiles.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for query threatTimsMalwareFiles")
 
-    def threat_indicators(self, ids: List[str]) -> List[ThreatIndicator]:
+    def threat_indicators(self, ids: list[str]) -> list[ThreatIndicator]:
         """Get indicator info by indicator ID.
         Returns a deduped list of all found indicators.
         If an indicator is not found, there will be no result for that indicator."""
@@ -167,7 +164,7 @@ class TaegisSDKThreatQuery:
             )
         raise GraphQLNoRowsInResultSetError("for query threatIndicators")
 
-    def threat_indicator_publications(self, id_: str) -> List[ThreatReport]:
+    def threat_indicator_publications(self, id_: str) -> list[ThreatReport]:
         """Gets publications related to indicators."""
         endpoint = "threatIndicatorPublications"
 
@@ -187,7 +184,7 @@ class TaegisSDKThreatQuery:
             )
         raise GraphQLNoRowsInResultSetError("for query threatIndicatorPublications")
 
-    def threat_publications_indicators(self, id_: List[str]) -> List[ThreatIndicator]:
+    def threat_publications_indicators(self, id_: list[str]) -> list[ThreatIndicator]:
         """Get list of indicators related to list of publications."""
         endpoint = "threatPublicationsIndicators"
 
@@ -279,9 +276,7 @@ class TaegisSDKThreatQuery:
             return ThreatMalware.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for query threatMalware")
 
-    def threat_identities(
-        self, confidence: Optional[int] = None
-    ) -> List[ThreatIdentity]:
+    def threat_identities(self, confidence: int | None = None) -> list[ThreatIdentity]:
         """Gets identities by confidence score."""
         endpoint = "threatIdentities"
 
@@ -320,8 +315,8 @@ class TaegisSDKThreatQuery:
         raise GraphQLNoRowsInResultSetError("for query threatVidIntelligence")
 
     def threat_indicators_intelligence(
-        self, id_: Optional[List[str]] = None
-    ) -> List[ThreatIndicatorIntelligence]:
+        self, id_: list[str] | None = None
+    ) -> list[ThreatIndicatorIntelligence]:
         """Retrieves all intelligence associated with a list of indicators."""
         endpoint = "threatIndicatorsIntelligence"
 
@@ -341,7 +336,7 @@ class TaegisSDKThreatQuery:
             )
         raise GraphQLNoRowsInResultSetError("for query threatIndicatorsIntelligence")
 
-    def threat_rule_vid_intelligence(self, rule_id: str) -> List[ThreatVidIntelligence]:
+    def threat_rule_vid_intelligence(self, rule_id: str) -> list[ThreatVidIntelligence]:
         """Retrieves all intelligence associated with a `Rule ID`."""
         endpoint = "threatRuleVidIntelligence"
 
@@ -381,10 +376,10 @@ class TaegisSDKThreatQuery:
 
     def threat_intelligence(
         self,
-        object_type: Union[ThreatFacetObject, TaegisEnum],
-        filters: Optional[ThreatFilter] = None,
-        page: Optional[ThreatPageInput] = None,
-        sort_by: Optional[List[SortByInput]] = None,
+        object_type: ThreatFacetObject | TaegisEnum,
+        filters: ThreatFilter | None = None,
+        page: ThreatPageInput | None = None,
+        sort_by: list[SortByInput] | None = None,
     ) -> ThreatIntelligence:
         """Retrieves all intelligence based on input threat object type and filters."""
         endpoint = "threatIntelligence"
@@ -408,10 +403,10 @@ class TaegisSDKThreatQuery:
 
     def threat_facet_info(
         self,
-        object_type: Union[ThreatFacetObject, TaegisEnum],
-        filters: Optional[ThreatFilter] = None,
-        facet_objs: Optional[List[str]] = None,
-    ) -> List[FacetInfo]:
+        object_type: ThreatFacetObject | TaegisEnum,
+        filters: ThreatFilter | None = None,
+        facet_objs: list[str] | None = None,
+    ) -> list[FacetInfo]:
         """Retrieves facet count based on object type and filters."""
         endpoint = "threatFacetInfo"
 
@@ -436,9 +431,9 @@ class TaegisSDKThreatQuery:
     def threat_associated_indicators(
         self,
         id_: str,
-        filters: Optional[IndicatorFilter] = None,
-        page: Optional[ThreatPageInput] = None,
-    ) -> List[ThreatIndicator]:
+        filters: IndicatorFilter | None = None,
+        page: ThreatPageInput | None = None,
+    ) -> list[ThreatIndicator]:
         """Retrives all associated indicators to a malware or threat_group."""
         endpoint = "threatAssociatedIndicators"
 

@@ -7,25 +7,33 @@ from taegis_sdk_python import GraphQLService
 from taegis_sdk_python.services.alerts.types import SearchRequestInput
 
 service = GraphQLService()
-results = service.alerts.query.alerts_service_search(SearchRequestInput(
-    cql_query="FROM alert WHERE severity >= 0.6 AND status = 'OPEN' EARLIEST=-3d",
-    limit=10000,
-    offset=0,
-))
+results = service.alerts.query.alerts_service_search(
+    SearchRequestInput(
+        cql_query="FROM alert WHERE severity >= 0.6 AND status = 'OPEN' EARLIEST=-3d",
+        limit=10000,
+        offset=0,
+    )
+)
 ```
 
 ## Pagination
 
 ```python
 from taegis_sdk_python import GraphQLService
-from taegis_sdk_python.services.alerts.types import SearchRequestInput, PollRequestInput, AlertsResponse
+from taegis_sdk_python.services.alerts.types import (
+    SearchRequestInput,
+    PollRequestInput,
+    AlertsResponse,
+)
 
 service = GraphQLService()
-results = service.alerts.query.alerts_service_search(SearchRequestInput(
-    cql_query="FROM alert WHERE severity >= 0.6 AND status = 'OPEN' EARLIEST=-3d",
-    limit=1000000,
-    offset=0,
-))
+results = service.alerts.query.alerts_service_search(
+    SearchRequestInput(
+        cql_query="FROM alert WHERE severity >= 0.6 AND status = 'OPEN' EARLIEST=-3d",
+        limit=1000000,
+        offset=0,
+    )
+)
 
 poll_responses = [results]
 search_id = results.search_id
@@ -46,14 +54,8 @@ if search_id:
                 break
             raise exc
 
-        if (
-            isinstance(results, AlertsResponse)
-            and results.alerts is not None
-        ):
+        if isinstance(results, AlertsResponse) and results.alerts is not None:
             poll_responses.append(results)
 
-print(sum(
-    len(response.alerts.list)
-    for response in poll_responses
-))
+print(sum(len(response.alerts.list_) for response in poll_responses))
 ```

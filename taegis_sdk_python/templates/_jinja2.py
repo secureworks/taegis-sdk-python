@@ -2,7 +2,7 @@
 
 import re
 from pathlib import Path
-from typing import List, Union
+from typing import Optional, Union
 
 from jinja2 import Environment, FileSystemLoader
 
@@ -24,10 +24,10 @@ def escape_value(value):
 # Filters
 
 
-def filter_or(value: List[str], field_name: str = None, operator: str = "="):
+def filter_or(value: list[str], field_name: Optional[str] = None, operator: str = "="):
     """Format values for Taegis QL OR statement."""
     if not isinstance(value, list):
-        raise ValueError("Input is not list.")
+        raise TypeError("Input is not list.")
 
     return " OR ".join(
         [
@@ -37,48 +37,48 @@ def filter_or(value: List[str], field_name: str = None, operator: str = "="):
     )
 
 
-def filter_and(value: List[str], field_name: str, operator: str = "="):
+def filter_and(value: list[str], field_name: str, operator: str = "="):
     """Format values for Taegis QL AND statement."""
     if not isinstance(value, list):
-        raise ValueError("Input is not list.")
+        raise TypeError("Input is not list.")
 
     return " AND ".join(
         [f"{field_name} {operator} {escape_value(item)}" for item in value]
     )
 
 
-def filter_in(value: List[str], field_name: str):
+def filter_in(value: list[str], field_name: str):
     """Format values for Taegis QL IN statement."""
     if not isinstance(value, list):
-        raise ValueError("Input is not list.")
+        raise TypeError("Input is not list.")
 
     in_ = ",".join([escape_value(item) for item in value])
     return f"{field_name} IN ({in_})"
 
 
-def filter_not_in(value: List[str], field_name: str):
+def filter_not_in(value: list[str], field_name: str):
     """Format values for Taegis QL !IN statement."""
     if not isinstance(value, list):
-        raise ValueError("Input is not list.")
+        raise TypeError("Input is not list.")
 
     in_ = ",".join([escape_value(item) for item in value])
     return f"{field_name} !IN ({in_})"
 
 
-def filter_regex(value: List[str], field_name: str, separator="|"):
+def filter_regex(value: list[str], field_name: str, separator="|"):
     """Format values for Taegis QL MATCHES_REGEX statement."""
     if not isinstance(value, list):
-        raise ValueError("Input is not list.")
+        raise TypeError("Input is not list.")
 
     pattern = separator.join([re.escape(rf"{item}") for item in value])
 
     return f"{field_name} MATCHES_REGEX '{pattern}'"
 
 
-def filter_not_regex(value: List[str], field_name: str, separator="|"):
+def filter_not_regex(value: list[str], field_name: str, separator="|"):
     """Format values for Taegis QL !MATCHES_REGEX statement."""
     if not isinstance(value, list):
-        raise ValueError("Input is not list.")
+        raise TypeError("Input is not list.")
 
     pattern = separator.join([re.escape(rf"{item}") for item in value])
 

@@ -1,5 +1,4 @@
 """Exports Mutation."""
-
 # pylint: disable=no-member, unused-argument, too-many-locals, duplicate-code, wildcard-import, unused-wildcard-import, cyclic-import
 
 
@@ -9,14 +8,12 @@
 from __future__ import annotations
 
 import logging
-from typing import TYPE_CHECKING, Any, Dict, List, Optional, Tuple, Union
+from typing import TYPE_CHECKING
 
 from taegis_sdk_python import GraphQLNoRowsInResultSetError
-from taegis_sdk_python._consts import TaegisEnum
 from taegis_sdk_python.services.exports.types import *
 from taegis_sdk_python.utils import (
     build_output_string,
-    parse_union_result,
     prepare_input,
 )
 
@@ -174,8 +171,8 @@ class TaegisSDKExportsMutation:
         self,
         id_: str,
         run_at: str,
-        manual_run: Optional[bool] = None,
-        timeframe: Optional[ReportTimeframeInput] = None,
+        manual_run: bool | None = None,
+        timeframe: ReportTimeframeInput | None = None,
     ) -> Report:
         """No developer notes."""
         endpoint = "reportFromSchedule"
@@ -282,7 +279,7 @@ class TaegisSDKExportsMutation:
             return Report.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for mutation deleteReport")
 
-    def delete_reports(self, report_ids: List[str]) -> List[Report]:
+    def delete_reports(self, report_ids: list[str]) -> list[Report]:
         """No developer notes."""
         endpoint = "deleteReports"
 
@@ -338,7 +335,7 @@ class TaegisSDKExportsMutation:
         raise GraphQLNoRowsInResultSetError("for mutation resumeSchedule")
 
     def create_exports_zip(
-        self, name: str, exports_input: List[NewExportInput]
+        self, name: str, exports_input: list[NewExportInput]
     ) -> Export:
         """No developer notes."""
         endpoint = "createExportsZip"
@@ -431,7 +428,7 @@ class TaegisSDKExportsMutation:
             return Schedule.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for mutation resubscribe")
 
-    def share_with_users(self, schedule_id: str, user_ids: List[str]) -> Schedule:
+    def share_with_users(self, schedule_id: str, user_ids: list[str]) -> Schedule:
         """No developer notes."""
         endpoint = "shareWithUsers"
 
@@ -450,7 +447,7 @@ class TaegisSDKExportsMutation:
             return Schedule.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for mutation shareWithUsers")
 
-    def unshare_with_users(self, schedule_id: str, user_ids: List[str]) -> Schedule:
+    def unshare_with_users(self, schedule_id: str, user_ids: list[str]) -> Schedule:
         """No developer notes."""
         endpoint = "unshareWithUsers"
 

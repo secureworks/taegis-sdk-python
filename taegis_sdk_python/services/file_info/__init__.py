@@ -2,17 +2,12 @@
 
 from __future__ import annotations
 
-from typing import TYPE_CHECKING
-
 from taegis_sdk_python.service_core import ServiceCore
 from taegis_sdk_python.services.file_info.mutations import TaegisSDKFileInfoMutation
 from taegis_sdk_python.services.file_info.queries import TaegisSDKFileInfoQuery
 from taegis_sdk_python.services.file_info.subscriptions import (
     TaegisSDKFileInfoSubscription,
 )
-
-if TYPE_CHECKING:  # pragma: no cover
-    from taegis_sdk_python.services import GraphQLService
 
 
 class FileInfoService(ServiceCore):

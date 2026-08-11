@@ -1,5 +1,4 @@
 """Datasources Mutation."""
-
 # pylint: disable=no-member, unused-argument, too-many-locals, duplicate-code, wildcard-import, unused-wildcard-import, cyclic-import
 
 
@@ -9,14 +8,12 @@
 from __future__ import annotations
 
 import logging
-from typing import TYPE_CHECKING, Any, Dict, List, Optional, Tuple, Union
+from typing import TYPE_CHECKING
 
 from taegis_sdk_python import GraphQLNoRowsInResultSetError
-from taegis_sdk_python._consts import TaegisEnum
 from taegis_sdk_python.services.datasources.types import *
 from taegis_sdk_python.utils import (
     build_output_string,
-    parse_union_result,
     prepare_input,
 )
 
@@ -33,8 +30,8 @@ class TaegisSDKDatasourcesMutation:
         self.service = service
 
     def delete_data_source_assets(
-        self, delete_asset_input: List[DeleteAssetInput]
-    ) -> List[DeletedAsset]:
+        self, delete_asset_input: list[DeleteAssetInput]
+    ) -> list[DeletedAsset]:
         """Executes a delete operation on all included data sources for a specified tenant. Returns an array of
         deleted assets with metadata. Authorization permission is required with delete access to the collector
         object."""
@@ -71,7 +68,7 @@ class TaegisSDKDatasourcesMutation:
             return result.get(endpoint)
         raise GraphQLNoRowsInResultSetError("for mutation deleteDataSourceTag")
 
-    def detach_data_source_tag(self, input_: DataSourceTagOperationInput) -> List[str]:
+    def detach_data_source_tag(self, input_: DataSourceTagOperationInput) -> list[str]:
         """Detaches an existing tag from datasource(s). Returns the assetIDs that were detached from the tag."""
         endpoint = "detachDataSourceTag"
 
@@ -105,10 +102,9 @@ class TaegisSDKDatasourcesMutation:
             return DataSourceTag.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for mutation createDataSourceTag")
 
-    def attach_data_source_tag(self, input_: DataSourceTagOperationInput) -> List[str]:
+    def attach_data_source_tag(self, input_: DataSourceTagOperationInput) -> list[str]:
         """Attaches or associates an existing tag to datasource(s). Returns the assetIDs attached to the tag.
-        A maximum of 100 assetIDs can be associated in a single operation. A single asset can have up to 16 tags attached to it.
-        """
+        A maximum of 100 assetIDs can be associated in a single operation. A single asset can have up to 16 tags attached to it."""
         endpoint = "attachDataSourceTag"
 
         result = self.service.execute_mutation(

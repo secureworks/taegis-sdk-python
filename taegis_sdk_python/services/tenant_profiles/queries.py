@@ -1,5 +1,4 @@
 """TenantProfiles Query."""
-
 # pylint: disable=no-member, unused-argument, too-many-locals, duplicate-code, wildcard-import, unused-wildcard-import, cyclic-import
 
 
@@ -9,14 +8,12 @@
 from __future__ import annotations
 
 import logging
-from typing import TYPE_CHECKING, Any, Dict, List, Optional, Tuple, Union
+from typing import TYPE_CHECKING
 
 from taegis_sdk_python import GraphQLNoRowsInResultSetError
-from taegis_sdk_python._consts import TaegisEnum
 from taegis_sdk_python.services.tenant_profiles.types import *
 from taegis_sdk_python.utils import (
     build_output_string,
-    parse_union_result,
     prepare_input,
 )
 
@@ -64,7 +61,7 @@ class TaegisSDKTenantProfilesQuery:
             return VersionMtp.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for query versionMtp")
 
-    def network_ranges_mtp(self) -> List[NetworkRangeMtp]:
+    def network_ranges_mtp(self) -> list[NetworkRangeMtp]:
         """No developer notes."""
         endpoint = "networkRangesMtp"
 
@@ -82,7 +79,7 @@ class TaegisSDKTenantProfilesQuery:
             )
         raise GraphQLNoRowsInResultSetError("for query networkRangesMtp")
 
-    def search_network_ranges_mtp(self, ip_address: str) -> List[NetworkRangeMtp]:
+    def search_network_ranges_mtp(self, ip_address: str) -> list[NetworkRangeMtp]:
         """No developer notes."""
         endpoint = "searchNetworkRangesMtp"
 
@@ -102,7 +99,7 @@ class TaegisSDKTenantProfilesQuery:
             )
         raise GraphQLNoRowsInResultSetError("for query searchNetworkRangesMtp")
 
-    def find_network_range_cidr_mtp(self, cidr: str) -> List[NetworkRangeMtp]:
+    def find_network_range_cidr_mtp(self, cidr: str) -> list[NetworkRangeMtp]:
         """No developer notes."""
         endpoint = "findNetworkRangeCidrMtp"
 
@@ -138,7 +135,7 @@ class TaegisSDKTenantProfilesQuery:
             return NoteMtp.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for query noteMtp")
 
-    def security_controls_mtp(self) -> List[SecurityControlMtp]:
+    def security_controls_mtp(self) -> list[SecurityControlMtp]:
         """No developer notes."""
         endpoint = "securityControlsMtp"
 
@@ -156,7 +153,7 @@ class TaegisSDKTenantProfilesQuery:
             )
         raise GraphQLNoRowsInResultSetError("for query securityControlsMtp")
 
-    def mfa_accesses_mtp(self) -> List[MfaAccessMtp]:
+    def mfa_accesses_mtp(self) -> list[MfaAccessMtp]:
         """No developer notes."""
         endpoint = "mfaAccessesMtp"
 
@@ -175,8 +172,8 @@ class TaegisSDKTenantProfilesQuery:
         raise GraphQLNoRowsInResultSetError("for query mfaAccessesMtp")
 
     def file_attachments_mtp(
-        self, include_all_versions: Optional[bool] = None
-    ) -> List[FileAttachmentMtp]:
+        self, include_all_versions: bool | None = None
+    ) -> list[FileAttachmentMtp]:
         """Retrieve all file attachments for the current tenant. Returns only current files unless `includeAllVersions` is true."""
         endpoint = "fileAttachmentsMtp"
 
@@ -215,7 +212,7 @@ class TaegisSDKTenantProfilesQuery:
         raise GraphQLNoRowsInResultSetError("for query fileAttachmentMtp")
 
     def file_attachment_by_name_mtp(
-        self, filename: str, version: Optional[int] = None
+        self, filename: str, version: int | None = None
     ) -> FileAttachmentMtp:
         """Retrieve details for a specific version of a file attachment. The latest version is returned unless specified."""
         endpoint = "fileAttachmentByNameMtp"
@@ -235,7 +232,7 @@ class TaegisSDKTenantProfilesQuery:
             return FileAttachmentMtp.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for query fileAttachmentByNameMtp")
 
-    def file_versions_by_name_mtp(self, filename: str) -> List[FileAttachmentMtp]:
+    def file_versions_by_name_mtp(self, filename: str) -> list[FileAttachmentMtp]:
         """Retrieve details for all versions of a single file attachment."""
         endpoint = "fileVersionsByNameMtp"
 
@@ -255,7 +252,7 @@ class TaegisSDKTenantProfilesQuery:
             )
         raise GraphQLNoRowsInResultSetError("for query fileVersionsByNameMtp")
 
-    def download_attachments_mtp(self, ids: List[str]) -> List[FileDownloadMtp]:
+    def download_attachments_mtp(self, ids: list[str]) -> list[FileDownloadMtp]:
         """Create download URLs for one or more attachments, by attachment IDs."""
         endpoint = "downloadAttachmentsMtp"
 
@@ -293,7 +290,7 @@ class TaegisSDKTenantProfilesQuery:
             return EntityOfInterestMtp.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for query entityOfInterestMtp")
 
-    def tenant_entities_of_interest_mtp(self) -> List[EntityOfInterestMtp]:
+    def tenant_entities_of_interest_mtp(self) -> list[EntityOfInterestMtp]:
         """Retrieve all Entities of Interest for the current tenant."""
         endpoint = "tenantEntitiesOfInterestMtp"
 

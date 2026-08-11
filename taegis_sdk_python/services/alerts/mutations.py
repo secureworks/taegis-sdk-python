@@ -1,5 +1,4 @@
 """Alerts Mutation."""
-
 # pylint: disable=no-member, unused-argument, too-many-locals, duplicate-code, wildcard-import, unused-wildcard-import, cyclic-import
 
 
@@ -9,14 +8,12 @@
 from __future__ import annotations
 
 import logging
-from typing import TYPE_CHECKING, Any, Dict, List, Optional, Tuple, Union
+from typing import TYPE_CHECKING
 
 from taegis_sdk_python import GraphQLNoRowsInResultSetError
-from taegis_sdk_python._consts import TaegisEnum
 from taegis_sdk_python.services.alerts.types import *
 from taegis_sdk_python.utils import (
     build_output_string,
-    parse_union_result,
     prepare_input,
 )
 
@@ -33,7 +30,7 @@ class TaegisSDKAlertsMutation:
         self.service = service
 
     def alerts_service_update_investigation_info(
-        self, in_: Optional[UpdateInvestigationRequestInput] = None
+        self, in_: UpdateInvestigationRequestInput | None = None
     ) -> UpdateInvestigationResponse:
         """No developer notes."""
         endpoint = "alertsServiceUpdateInvestigationInfo"
@@ -55,7 +52,7 @@ class TaegisSDKAlertsMutation:
         )
 
     def alerts_service_update_resolution_info(
-        self, in_: Optional[UpdateResolutionRequestInput] = None
+        self, in_: UpdateResolutionRequestInput | None = None
     ) -> UpdateResolutionResponse:
         """Add a resolution or modify an existing resolution for a give list of alert IDs."""
         endpoint = "alertsServiceUpdateResolutionInfo"
@@ -77,7 +74,7 @@ class TaegisSDKAlertsMutation:
         )
 
     def alerts_service_bulk_investigations_processor(
-        self, in_: Optional[BulkInvestigationsRequestInput] = None
+        self, in_: BulkInvestigationsRequestInput | None = None
     ) -> BulkInvestigationsResponse:
         """Bulk add alerts to an existing investigation by providing either a query or list of alert IDs. If a query is provided, then all alerts matching the query will be added to the investigation."""
         endpoint = "alertsServiceBulkInvestigationsProcessor"
@@ -99,7 +96,7 @@ class TaegisSDKAlertsMutation:
         )
 
     def alerts_service_evict(
-        self, in_: Optional[EvictRequestInput] = None
+        self, in_: EvictRequestInput | None = None
     ) -> EvictResponse:
         """DEPRECATED: Does not do anything other than to return OK. No replacement necessary."""
         endpoint = "alertsServiceEvict"
@@ -167,7 +164,7 @@ class TaegisSDKAlertsMutation:
         )
 
     def detection_update_investigation_info(
-        self, in_: Optional[UpdateInvestigationRequestInput] = None
+        self, in_: UpdateInvestigationRequestInput | None = None
     ) -> UpdateInvestigationResponse:
         """No developer notes."""
         endpoint = "detectionUpdateInvestigationInfo"
@@ -189,7 +186,7 @@ class TaegisSDKAlertsMutation:
         )
 
     def detection_update_resolution_info(
-        self, in_: Optional[UpdateResolutionRequestInput] = None
+        self, in_: UpdateResolutionRequestInput | None = None
     ) -> UpdateResolutionResponse:
         """Add a resolution or modify an existing resolution for a give list of alert IDs."""
         endpoint = "detectionUpdateResolutionInfo"
@@ -211,7 +208,7 @@ class TaegisSDKAlertsMutation:
         )
 
     def detection_bulk_investigations_processor(
-        self, in_: Optional[BulkInvestigationsRequestInput] = None
+        self, in_: BulkInvestigationsRequestInput | None = None
     ) -> BulkInvestigationsResponse:
         """Bulk add alerts to an existing investigation by providing either a query or list of alert IDs. If a query is provided, then all alerts matching the query will be added to the investigation."""
         endpoint = "detectionBulkInvestigationsProcessor"

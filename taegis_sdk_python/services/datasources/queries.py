@@ -1,5 +1,4 @@
 """Datasources Query."""
-
 # pylint: disable=no-member, unused-argument, too-many-locals, duplicate-code, wildcard-import, unused-wildcard-import, cyclic-import
 
 
@@ -9,14 +8,13 @@
 from __future__ import annotations
 
 import logging
-from typing import TYPE_CHECKING, Any, Dict, List, Optional, Tuple, Union
+from typing import TYPE_CHECKING
 
 from taegis_sdk_python import GraphQLNoRowsInResultSetError
 from taegis_sdk_python._consts import TaegisEnum
 from taegis_sdk_python.services.datasources.types import *
 from taegis_sdk_python.utils import (
     build_output_string,
-    parse_union_result,
     prepare_input,
 )
 
@@ -33,8 +31,8 @@ class TaegisSDKDatasourcesQuery:
         self.service = service
 
     def get_data_source_last_seen_asset(
-        self, input_: Optional[GetDataSourceInput] = None
-    ) -> List[LastSeenAsset]:
+        self, input_: GetDataSourceInput | None = None
+    ) -> list[LastSeenAsset]:
         """Fetches the last seen data about all data sources associated with a tenant based on input parameters.
         It provides ability to filter the data by collectorId and sourceId. Authorization permission is
         required with read access to the collector object."""
@@ -62,12 +60,12 @@ class TaegisSDKDatasourcesQuery:
 
     def get_data_source_last_seen_assets_v2(
         self,
-        first: Optional[int] = None,
-        last: Optional[int] = None,
-        after: Optional[str] = None,
-        before: Optional[str] = None,
-        filter_: Optional[DataSourceAssetsFilter] = None,
-        sort: Optional[Union[LastSeenAssetsSort, TaegisEnum]] = None,
+        first: int | None = None,
+        last: int | None = None,
+        after: str | None = None,
+        before: str | None = None,
+        filter_: DataSourceAssetsFilter | None = None,
+        sort: LastSeenAssetsSort | TaegisEnum | None = None,
     ) -> LastSeenAssets:
         """Fetches the last seen data about all data sources associated with a tenant based on input parameters.
         It provides ability to filter the data by collectorId and sourceId. The data returned by this query
@@ -96,11 +94,10 @@ class TaegisSDKDatasourcesQuery:
         raise GraphQLNoRowsInResultSetError("for query getDataSourceLastSeenAssetsV2")
 
     def get_data_source_last_seen_asset_filter_values(
-        self, input_: List[Union[FilterCriteria, TaegisEnum]]
-    ) -> List[FilterValues]:
+        self, input_: list[FilterCriteria | TaegisEnum]
+    ) -> list[FilterValues]:
         """Provides clients with the ability to retrieve the possible values for a given filter criteria. Note that unique
-        values will be returned, for enum types, only those observed in the data set will be returned.
-        """
+        values will be returned, for enum types, only those observed in the data set will be returned."""
         endpoint = "getDataSourceLastSeenAssetFilterValues"
 
         result = self.service.execute_query(
@@ -141,7 +138,7 @@ class TaegisSDKDatasourcesQuery:
             return LastSeenAssetsQueryResult.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for query dataSourceLastSeenAssetsQuery")
 
-    def get_data_source_tags(self) -> List[DataSourceTag]:
+    def get_data_source_tags(self) -> list[DataSourceTag]:
         """Fetches all tags associated with a given tenant."""
         endpoint = "getDataSourceTags"
 
@@ -177,7 +174,7 @@ class TaegisSDKDatasourcesQuery:
             return DataSourceTag.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for query getDataSourceTag")
 
-    def get_unhealthy_assets_summary(self) -> List[TenantUnhealthySummary]:
+    def get_unhealthy_assets_summary(self) -> list[TenantUnhealthySummary]:
         """Fetches the summary of unhealthy assets count per tenant. This provides a quick overview of the health status of
         assets across different tenants. Authorization permission is required with read access to the
         UNHEALTHY_ASSETS_SUMMARY object."""

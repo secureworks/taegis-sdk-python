@@ -6,6 +6,7 @@
 
 ```python
 import logging
+
 logging.basicConfig(level=logging.DEBUG)
 ```
 
@@ -13,14 +14,16 @@ logging.basicConfig(level=logging.DEBUG)
 
 ```python
 import logging
-logging.getLogger('taegis_sdk_python').setLevel(level=logging.DEBUG)
+
+logging.getLogger("taegis_sdk_python").setLevel(level=logging.DEBUG)
 ```
 
 ### Turn on debug logging for a specific service just the Taegis SDK for Python
 
 ```python
 import logging
-logging.getLogger('taegis_sdk_python.services.alerts').setLevel(level=logging.DEBUG)
+
+logging.getLogger("taegis_sdk_python.services.alerts").setLevel(level=logging.DEBUG)
 ```
 
 Replace `alerts` with the service you want to debug.

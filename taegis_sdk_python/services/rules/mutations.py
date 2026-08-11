@@ -1,5 +1,4 @@
 """Rules Mutation."""
-
 # pylint: disable=no-member, unused-argument, too-many-locals, duplicate-code, wildcard-import, unused-wildcard-import, cyclic-import
 
 
@@ -9,14 +8,12 @@
 from __future__ import annotations
 
 import logging
-from typing import TYPE_CHECKING, Any, Dict, List, Optional, Tuple, Union
+from typing import TYPE_CHECKING
 
 from taegis_sdk_python import GraphQLNoRowsInResultSetError
-from taegis_sdk_python._consts import TaegisEnum
 from taegis_sdk_python.services.rules.types import *
 from taegis_sdk_python.utils import (
     build_output_string,
-    parse_union_result,
     prepare_input,
 )
 
@@ -53,7 +50,7 @@ class TaegisSDKRulesMutation:
         raise GraphQLNoRowsInResultSetError("for mutation createCustomQLRule")
 
     def create_custom_suppression_rule(
-        self, input_: RuleInput, filters: List[RuleFilterInput]
+        self, input_: RuleInput, filters: list[RuleFilterInput]
     ) -> Rule:
         """Create a custom suppression rule, with at least one filter."""
         endpoint = "createCustomSuppressionRule"
@@ -73,7 +70,7 @@ class TaegisSDKRulesMutation:
         raise GraphQLNoRowsInResultSetError("for mutation createCustomSuppressionRule")
 
     def create_rule(
-        self, input_: RuleInput, filters: Optional[List[RuleFilterInput]] = None
+        self, input_: RuleInput, filters: list[RuleFilterInput] | None = None
     ) -> Rule:
         """Create the given new rule, with optional filters."""
         endpoint = "createRule"
@@ -93,7 +90,7 @@ class TaegisSDKRulesMutation:
         raise GraphQLNoRowsInResultSetError("for mutation createRule")
 
     def create_suppression_rule(
-        self, input_: RuleInput, filters: List[RuleFilterInput]
+        self, input_: RuleInput, filters: list[RuleFilterInput]
     ) -> Rule:
         """Create a suppression rule with at least one filter."""
         endpoint = "createSuppressionRule"
@@ -113,7 +110,7 @@ class TaegisSDKRulesMutation:
         raise GraphQLNoRowsInResultSetError("for mutation createSuppressionRule")
 
     def create_event_tagging_rule(
-        self, input_: RuleInput, filters: List[RuleFilterInput]
+        self, input_: RuleInput, filters: list[RuleFilterInput]
     ) -> Rule:
         """Creates an event tagging rule with at least one filter."""
         endpoint = "createEventTaggingRule"
@@ -189,7 +186,7 @@ class TaegisSDKRulesMutation:
             return Rule.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for mutation updateRule")
 
-    def delete_rule(self, rule_id: str, hard: Optional[bool] = None) -> Rule:
+    def delete_rule(self, rule_id: str, hard: bool | None = None) -> Rule:
         """Delete the given rule. This is normally a soft delete and can be undone with restoreRule.
 
         If the hard parameter is true this will be a permanent hard deletion. Only do this with care!
@@ -216,8 +213,7 @@ class TaegisSDKRulesMutation:
     def restore_rule(self, rule_id: str) -> Rule:
         """Restore the given rule from deleted status.
 
-        It will remain disabled from being deleted and can be enabled with enableRule.
-        """
+        It will remain disabled from being deleted and can be enabled with enableRule."""
         endpoint = "restoreRule"
 
         result = self.service.execute_mutation(
@@ -253,11 +249,8 @@ class TaegisSDKRulesMutation:
         raise GraphQLNoRowsInResultSetError("for mutation updateFilter")
 
     def update_filters(
-        self,
-        rule_id: str,
-        filters: List[RuleFilterInput],
-        replace: Optional[bool] = None,
-    ) -> List[RuleFilter]:
+        self, rule_id: str, filters: list[RuleFilterInput], replace: bool | None = None
+    ) -> list[RuleFilter]:
         """Bulk update the given list of filters for the given Rule ID.
 
         Existing filters should have the ID field provided in RuleFilterInput. New

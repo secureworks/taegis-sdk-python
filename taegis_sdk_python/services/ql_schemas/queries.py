@@ -1,5 +1,4 @@
 """QlSchemas Query."""
-
 # pylint: disable=no-member, unused-argument, too-many-locals, duplicate-code, wildcard-import, unused-wildcard-import, cyclic-import
 
 
@@ -9,14 +8,12 @@
 from __future__ import annotations
 
 import logging
-from typing import TYPE_CHECKING, Any, Dict, List, Optional, Tuple, Union
+from typing import TYPE_CHECKING, Any
 
 from taegis_sdk_python import GraphQLNoRowsInResultSetError
-from taegis_sdk_python._consts import TaegisEnum
 from taegis_sdk_python.services.ql_schemas.types import *
 from taegis_sdk_python.utils import (
     build_output_string,
-    parse_union_result,
     prepare_input,
 )
 
@@ -33,8 +30,8 @@ class TaegisSDKQlSchemasQuery:
         self.service = service
 
     def ql_schema_map_v1(
-        self, schemas_query: Optional[QLQueryInputV1] = None
-    ) -> Dict[str, Any]:
+        self, schemas_query: QLQueryInputV1 | None = None
+    ) -> dict[str, Any]:
         """returns the main schema document it includes any schema added by schema providers as map that resembles legacy format ."""
         endpoint = "qlSchemaMapV1"
 
@@ -50,7 +47,7 @@ class TaegisSDKQlSchemasQuery:
         raise GraphQLNoRowsInResultSetError("for query qlSchemaMapV1")
 
     def validate_ql_query_v1(
-        self, query: str, schemas_query: Optional[QLQueryInputV1] = None
+        self, query: str, schemas_query: QLQueryInputV1 | None = None
     ) -> QLQueryValidationResultV1:
         """Validates a query string and returns a valid boolean or an error, schemaQuery can be used to narrow down the schemas supported."""
         endpoint = "validateQLQueryV1"

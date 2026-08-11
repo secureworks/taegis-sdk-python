@@ -1,5 +1,4 @@
 """ProcessTrees Query."""
-
 # pylint: disable=no-member, unused-argument, too-many-locals, duplicate-code, wildcard-import, unused-wildcard-import, cyclic-import
 
 
@@ -9,14 +8,12 @@
 from __future__ import annotations
 
 import logging
-from typing import TYPE_CHECKING, Any, Dict, List, Optional, Tuple, Union
+from typing import TYPE_CHECKING
 
 from taegis_sdk_python import GraphQLNoRowsInResultSetError
-from taegis_sdk_python._consts import TaegisEnum
 from taegis_sdk_python.services.process_trees.types import *
 from taegis_sdk_python.utils import (
     build_output_string,
-    parse_union_result,
     prepare_input,
 )
 
@@ -37,13 +34,13 @@ class TaegisSDKProcessTreesQuery:
         tenant_id: str,
         host_id: str,
         process_correlation_id: str,
-        resource_id: Optional[str] = None,
-        order_by_input: Optional[List[OrderByInput]] = None,
-        next_token: Optional[str] = None,
-        page_size: Optional[int] = None,
-        max_results: Optional[int] = None,
-        start_date: Optional[str] = None,
-        end_date: Optional[str] = None,
+        resource_id: str | None = None,
+        order_by_input: list[OrderByInput] | None = None,
+        next_token: str | None = None,
+        page_size: int | None = None,
+        max_results: int | None = None,
+        start_date: str | None = None,
+        end_date: str | None = None,
     ) -> Children:
         """No developer notes."""
         endpoint = "processChildren"
@@ -76,7 +73,7 @@ class TaegisSDKProcessTreesQuery:
         tenant_id: str,
         host_id: str,
         parent_process_correlation_id: str,
-        resource_id: Optional[str] = None,
+        resource_id: str | None = None,
     ) -> ProcessEvent:
         """No developer notes."""
         endpoint = "processParent"
@@ -105,8 +102,8 @@ class TaegisSDKProcessTreesQuery:
         tenant_id: str,
         host_id: str,
         process_correlation_id: str,
-        resource_id: Optional[str] = None,
-        process_create_time: Optional[int] = None,
+        resource_id: str | None = None,
+        process_create_time: int | None = None,
     ) -> ProcessLineage:
         """No developer notes."""
         endpoint = "processLineage"
@@ -134,9 +131,9 @@ class TaegisSDKProcessTreesQuery:
         tenant_id: str,
         host_id: str,
         process_correlation_id: str,
-        resource_id: Optional[str] = None,
-        order_by_input: Optional[List[OrderByInput]] = None,
-        next_token: Optional[str] = None,
+        resource_id: str | None = None,
+        order_by_input: list[OrderByInput] | None = None,
+        next_token: str | None = None,
     ) -> Children:
         """No developer notes."""
         endpoint = "GetProcessChildren"
@@ -169,7 +166,7 @@ class TaegisSDKProcessTreesQuery:
         tenant_id: str,
         host_id: str,
         parent_process_correlation_id: str,
-        resource_id: Optional[str] = None,
+        resource_id: str | None = None,
     ) -> ProcessEvent:
         """No developer notes."""
         endpoint = "GetProcessParent"

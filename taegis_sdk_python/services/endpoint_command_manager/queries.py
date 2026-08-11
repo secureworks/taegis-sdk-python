@@ -1,5 +1,4 @@
 """EndpointCommandManager Query."""
-
 # pylint: disable=no-member, unused-argument, too-many-locals, duplicate-code, wildcard-import, unused-wildcard-import, cyclic-import
 
 
@@ -9,14 +8,12 @@
 from __future__ import annotations
 
 import logging
-from typing import TYPE_CHECKING, Any, Dict, List, Optional, Tuple, Union
+from typing import TYPE_CHECKING
 
 from taegis_sdk_python import GraphQLNoRowsInResultSetError
-from taegis_sdk_python._consts import TaegisEnum
 from taegis_sdk_python.services.endpoint_command_manager.types import *
 from taegis_sdk_python.utils import (
     build_output_string,
-    parse_union_result,
     prepare_input,
 )
 
@@ -51,7 +48,7 @@ class TaegisSDKEndpointCommandManagerQuery:
 
     def endpoint_command_history(
         self, arguments: CommandHistoryArguments
-    ) -> List[HistoryEntry]:
+    ) -> list[HistoryEntry]:
         """Retrieve endpoint command histories."""
         endpoint = "endpointCommandHistory"
 
@@ -91,7 +88,7 @@ class TaegisSDKEndpointCommandManagerQuery:
             return HistoryPagedOutput.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for query endpointCommandHistoryPaged")
 
-    def endpoint_isolation_exclusion_rules(self) -> List[IsolationExclusionRule]:
+    def endpoint_isolation_exclusion_rules(self) -> list[IsolationExclusionRule]:
         """Retrieve all isolation exclusion rules."""
         endpoint = "endpointIsolationExclusionRules"
 

@@ -9,14 +9,12 @@
 from __future__ import annotations
 
 import logging
-from typing import TYPE_CHECKING, Any, Dict, List, Optional, Tuple, Union
+from typing import TYPE_CHECKING
 
 from taegis_sdk_python import GraphQLNoRowsInResultSetError
-from taegis_sdk_python._consts import TaegisEnum
 from taegis_sdk_python.services.nl_search.types import *
 from taegis_sdk_python.utils import (
     build_output_string,
-    parse_union_result,
     prepare_input,
 )
 
@@ -33,7 +31,7 @@ class TaegisSDKNlSearchQuery:
     def __init__(self, service: NlSearchService):
         self.service = service
 
-    def nl_search(self, in_: NLSearchInputs) -> List[NLSearchOutputs]:
+    def nl_search(self, in_: NLSearchInputs) -> list[NLSearchOutputs]:
         """nlSearch takes a natural language query input and converts to QL as the output. If many results are returned as output, the best result is first at the top of the list.."""
         endpoint = "nlSearch"
 

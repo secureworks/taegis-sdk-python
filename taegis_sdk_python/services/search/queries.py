@@ -1,5 +1,4 @@
 """Search Query."""
-
 # pylint: disable=no-member, unused-argument, too-many-locals, duplicate-code, wildcard-import, unused-wildcard-import, cyclic-import
 
 
@@ -9,14 +8,12 @@
 from __future__ import annotations
 
 import logging
-from typing import TYPE_CHECKING, Any, Dict, List, Optional, Tuple, Union
+from typing import TYPE_CHECKING, Any
 
 from taegis_sdk_python import GraphQLNoRowsInResultSetError
-from taegis_sdk_python._consts import TaegisEnum
 from taegis_sdk_python.services.search.types import *
 from taegis_sdk_python.utils import (
     build_output_string,
-    parse_union_result,
     prepare_input,
 )
 
@@ -50,7 +47,7 @@ class TaegisSDKSearchQuery:
             return SearchV2.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for query search")
 
-    def search_v2s(self, history_rns: Optional[List[str]] = None) -> List[SearchV2]:
+    def search_v2s(self, history_rns: list[str] | None = None) -> list[SearchV2]:
         """Retrieve searches via their linked search history service ids."""
         endpoint = "searchV2s"
 

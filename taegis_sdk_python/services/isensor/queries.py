@@ -9,14 +9,13 @@
 from __future__ import annotations
 
 import logging
-from typing import TYPE_CHECKING, Any, Dict, List, Optional, Tuple, Union
+from typing import TYPE_CHECKING
 
 from taegis_sdk_python import GraphQLNoRowsInResultSetError
 from taegis_sdk_python._consts import TaegisEnum
 from taegis_sdk_python.services.isensor.types import *
 from taegis_sdk_python.utils import (
     build_output_string,
-    parse_union_result,
     prepare_input,
 )
 
@@ -33,7 +32,7 @@ class TaegisSDKIsensorQuery:
     def __init__(self, service: IsensorService):
         self.service = service
 
-    def i_sensor_details(self) -> List[IsensorDetail]:
+    def i_sensor_details(self) -> list[IsensorDetail]:
         """Get all iSensor overview data."""
         endpoint = "iSensorDetails"
 
@@ -130,11 +129,11 @@ class TaegisSDKIsensorQuery:
 
     def i_sensor_change_mgmt_report_list(
         self,
-        limit: Optional[int] = None,
-        offset: Optional[int] = None,
-        sort_by: Optional[Union[IsensorReportResultSortBy, TaegisEnum]] = None,
-        sort_order: Optional[Union[IsensorReportResultSortOrder, TaegisEnum]] = None,
-    ) -> List[IsensorChangeMgmtReportList]:
+        limit: int | None = None,
+        offset: int | None = None,
+        sort_by: IsensorReportResultSortBy | TaegisEnum | None = None,
+        sort_order: IsensorReportResultSortOrder | TaegisEnum | None = None,
+    ) -> list[IsensorChangeMgmtReportList]:
         """Get iSensor Change Management Report List."""
         endpoint = "iSensorChangeMgmtReportList"
 
@@ -170,7 +169,7 @@ class TaegisSDKIsensorQuery:
         raise GraphQLNoRowsInResultSetError("for query iSensorChangeMgmtReportResult")
 
     def i_sensor_change_mgmt_report_location(
-        self, report_id: str, format_: Union[IsensorReportFormat, TaegisEnum]
+        self, report_id: str, format_: IsensorReportFormat | TaegisEnum
     ) -> ISensorArtifact:
         """Get iSensor ChangeManagement Report Location."""
         endpoint = "iSensorChangeMgmtReportLocation"
@@ -187,7 +186,7 @@ class TaegisSDKIsensorQuery:
             return ISensorArtifact.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for query iSensorChangeMgmtReportLocation")
 
-    def ndr_maintenance_windows(self, idn: str) -> List[NdrMaintenanceWindowResult]:
+    def ndr_maintenance_windows(self, idn: str) -> list[NdrMaintenanceWindowResult]:
         """Get NDR Device Maintenance window."""
         endpoint = "ndrMaintenanceWindows"
 
@@ -204,7 +203,7 @@ class TaegisSDKIsensorQuery:
             )
         raise GraphQLNoRowsInResultSetError("for query ndrMaintenanceWindows")
 
-    def ndr_maintenance_event_devices(self, idn: str) -> List[NdrEventDeviceResult]:
+    def ndr_maintenance_event_devices(self, idn: str) -> list[NdrEventDeviceResult]:
         """Get Upcoming NDR EventDevice Events scheduled for idn."""
         endpoint = "ndrMaintenanceEventDevices"
 
@@ -223,7 +222,7 @@ class TaegisSDKIsensorQuery:
 
     def ndr_device_policy(
         self, policy_input: NdrPolicyInput
-    ) -> List[NdrDevicePolicyResult]:
+    ) -> list[NdrDevicePolicyResult]:
         """Get NDR Policy for Device."""
         endpoint = "ndrDevicePolicy"
 
@@ -241,8 +240,8 @@ class TaegisSDKIsensorQuery:
         raise GraphQLNoRowsInResultSetError("for query ndrDevicePolicy")
 
     def ndr_zeek_policy(
-        self, idn: str, item_name: Optional[str] = None
-    ) -> List[NdrDevicePolicyResult]:
+        self, idn: str, item_name: str | None = None
+    ) -> list[NdrDevicePolicyResult]:
         """Get NDR Zeek Policy for Device."""
         endpoint = "ndrZeekPolicy"
 

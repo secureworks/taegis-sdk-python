@@ -7,7 +7,7 @@
 
 from dataclasses import dataclass, field
 from enum import Enum
-from typing import Any, Dict, List, Optional, Tuple, Union
+from typing import Optional, Union
 
 from dataclasses_json import config, dataclass_json
 
@@ -363,7 +363,7 @@ class IsensorFirewallRulePayload:
     """IsensorFirewallRulePayload."""
 
     job_name: Optional[str] = field(default=None, metadata=config(field_name="jobName"))
-    firewall_rules: Optional[List[IsensorFirewallRule]] = field(
+    firewall_rules: Optional[list[IsensorFirewallRule]] = field(
         default=None, metadata=config(field_name="firewallRules")
     )
 
@@ -515,7 +515,7 @@ class IsensorReportRuleset:
     ruleset_version: Optional[str] = field(
         default=None, metadata=config(field_name="rulesetVersion")
     )
-    rules: Optional[List[IsensorReportRule]] = field(
+    rules: Optional[list[IsensorReportRule]] = field(
         default=None, metadata=config(field_name="rules")
     )
 
@@ -699,13 +699,13 @@ class IsensorFirewallRules:
     """IsensorFirewallRules."""
 
     id: Optional[str] = field(default=None, metadata=config(field_name="id"))
-    shuns: Optional[List[IsensorFirewallRule]] = field(
+    shuns: Optional[list[IsensorFirewallRule]] = field(
         default=None, metadata=config(field_name="shuns")
     )
-    trusts: Optional[List[IsensorFirewallRule]] = field(
+    trusts: Optional[list[IsensorFirewallRule]] = field(
         default=None, metadata=config(field_name="trusts")
     )
-    bypasses: Optional[List[IsensorFirewallRule]] = field(
+    bypasses: Optional[list[IsensorFirewallRule]] = field(
         default=None, metadata=config(field_name="bypasses")
     )
 
@@ -733,7 +733,7 @@ class IsensorRuleChange:
     ruleset_rollouts: Optional[str] = field(
         default=None, metadata=config(field_name="rulesetRollouts")
     )
-    rulesets: Optional[List[IsensorReportRuleset]] = field(
+    rulesets: Optional[list[IsensorReportRuleset]] = field(
         default=None, metadata=config(field_name="rulesets")
     )
 
@@ -757,6 +757,6 @@ class IsensorReportResult:
     user_time_zone: Optional[str] = field(
         default=None, metadata=config(field_name="userTimeZone")
     )
-    isensor_rule_changes: Optional[List[IsensorRuleChange]] = field(
+    isensor_rule_changes: Optional[list[IsensorRuleChange]] = field(
         default=None, metadata=config(field_name="isensorRuleChanges")
     )

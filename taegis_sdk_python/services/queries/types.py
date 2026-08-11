@@ -7,7 +7,7 @@
 
 from dataclasses import dataclass, field
 from enum import Enum
-from typing import Any, Dict, List, Optional, Tuple, Union
+from typing import Optional
 
 from dataclasses_json import config, dataclass_json
 
@@ -114,7 +114,7 @@ class CreateSavedQLQuery:
 class QLQueriesInput:
     """QLQueriesInput."""
 
-    rns: Optional[List[str]] = field(default=None, metadata=config(field_name="rns"))
+    rns: Optional[list[str]] = field(default=None, metadata=config(field_name="rns"))
 
 
 @dataclass_json
@@ -133,7 +133,7 @@ class UpdateSavedQLQueryInput:
     metadata: Optional[dict] = field(
         default=None, metadata=config(field_name="metadata")
     )
-    tenants: Optional[List[str]] = field(
+    tenants: Optional[list[str]] = field(
         default=None, metadata=config(field_name="tenants")
     )
 
@@ -143,7 +143,7 @@ class UpdateSavedQLQueryInput:
 class DeleteQLQueriesInput:
     """DeleteQLQueriesInput."""
 
-    rns: Optional[List[str]] = field(default=None, metadata=config(field_name="rns"))
+    rns: Optional[list[str]] = field(default=None, metadata=config(field_name="rns"))
 
 
 @dataclass_json
@@ -198,7 +198,7 @@ class SavedQLQuery:
     metadata: Optional[dict] = field(
         default=None, metadata=config(field_name="metadata")
     )
-    tenant_ids: Optional[List[str]] = field(
+    tenant_ids: Optional[list[str]] = field(
         default=None, metadata=config(field_name="tenantIds")
     )
     created_at: Optional[str] = field(
@@ -216,7 +216,7 @@ class SavedQLQueriesResults:
     """SavedQLQueriesResults."""
 
     error: Optional[str] = field(default=None, metadata=config(field_name="error"))
-    queries: Optional[List[SavedQLQuery]] = field(
+    queries: Optional[list[SavedQLQuery]] = field(
         default=None, metadata=config(field_name="queries")
     )
 
@@ -226,7 +226,7 @@ class SavedQLQueriesResults:
 class CreateSavedQLQueryInput:
     """CreateSavedQLQueryInput."""
 
-    tenants: Optional[List[str]] = field(
+    tenants: Optional[list[str]] = field(
         default=None, metadata=config(field_name="tenants")
     )
     ql_query: Optional[CreateSavedQLQuery] = field(
@@ -239,7 +239,7 @@ class CreateSavedQLQueryInput:
 class AddQLQueryToHistoryInput:
     """AddQLQueryToHistoryInput."""
 
-    run_in_tenants: Optional[List[str]] = field(
+    run_in_tenants: Optional[list[str]] = field(
         default=None, metadata=config(field_name="runInTenants")
     )
     ql_query: Optional[CreateQLQuery] = field(
@@ -268,7 +268,7 @@ class QLQuery:
     metadata: Optional[dict] = field(
         default=None, metadata=config(field_name="metadata")
     )
-    tenant_ids: Optional[List[str]] = field(
+    tenant_ids: Optional[list[str]] = field(
         default=None, metadata=config(field_name="tenantIds")
     )
     created_at: Optional[str] = field(
@@ -289,7 +289,7 @@ class ListQLQueriesResults:
     total_records: Optional[int] = field(
         default=None, metadata=config(field_name="totalRecords")
     )
-    queries: Optional[List[QLQuery]] = field(
+    queries: Optional[list[QLQuery]] = field(
         default=None, metadata=config(field_name="queries")
     )
     page_info: Optional[PageInfo] = field(
@@ -305,7 +305,7 @@ class ListSavedQLQueriesResults:
     total_records: Optional[int] = field(
         default=None, metadata=config(field_name="totalRecords")
     )
-    queries: Optional[List[SavedQLQuery]] = field(
+    queries: Optional[list[SavedQLQuery]] = field(
         default=None, metadata=config(field_name="queries")
     )
     page_info: Optional[PageInfo] = field(
@@ -332,7 +332,7 @@ class QLQueriesResults:
     """QLQueriesResults."""
 
     error: Optional[str] = field(default=None, metadata=config(field_name="error"))
-    queries: Optional[List[QLQuery]] = field(
+    queries: Optional[list[QLQuery]] = field(
         default=None, metadata=config(field_name="queries")
     )
 
@@ -349,6 +349,6 @@ class ListQLQueriesInput:
     filters: Optional[QueryFilters] = field(
         default=None, metadata=config(field_name="filters")
     )
-    sort_by: Optional[List[QuerySort]] = field(
+    sort_by: Optional[list[QuerySort]] = field(
         default=None, metadata=config(field_name="sortBy")
     )

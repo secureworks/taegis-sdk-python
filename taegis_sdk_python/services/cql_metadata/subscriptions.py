@@ -9,14 +9,12 @@
 from __future__ import annotations
 
 import logging
-from typing import TYPE_CHECKING, Any, Dict, List, Optional, Tuple, Union
+from typing import TYPE_CHECKING
 
 from taegis_sdk_python import GraphQLNoRowsInResultSetError
-from taegis_sdk_python._consts import TaegisEnum
 from taegis_sdk_python.services.cql_metadata.types import *
 from taegis_sdk_python.utils import (
     build_output_string,
-    parse_union_result,
     prepare_input,
 )
 
@@ -33,8 +31,8 @@ class TaegisSDKCqlMetadataSubscription:
         self.service = service
 
     def validate_event_query(
-        self, query: str, options: Optional[EventQueryOptions] = None
-    ) -> List[ValidatorResults]:
+        self, query: str, options: EventQueryOptions | None = None
+    ) -> list[ValidatorResults]:
         """Validates a query string and returns a valid boolean or an error."""
         endpoint = "validateEventQuery"
 

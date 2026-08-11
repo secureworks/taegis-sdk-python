@@ -15,7 +15,9 @@ options = EventQueryOptions(
     aggregation_off=False,
 )
 
-results = service.events.subscription.event_query("FROM process EARLIEST=-1d | head 10", options=options)
+results = service.events.subscription.event_query(
+    "FROM process EARLIEST=-1d | head 10", options=options
+)
 ```
 
 ## Pagination
@@ -24,6 +26,7 @@ results = service.events.subscription.event_query("FROM process EARLIEST=-1d | h
 from taegis_sdk_python import GraphQLService
 from taegis_sdk_python.services.events.types import EventQueryResults, EventQueryOptions
 from typing import List, Optional
+
 
 def get_next_page(events_results: List[EventQueryResults]) -> Optional[str]:
     """Retrieve events  next page indicator."""
@@ -36,6 +39,7 @@ def get_next_page(events_results: List[EventQueryResults]) -> Optional[str]:
     except StopIteration:
         return None
 
+
 service = GraphQLService()
 options = EventQueryOptions(
     timestamp_ascending=True,
@@ -46,7 +50,9 @@ options = EventQueryOptions(
 )
 results = []
 
-result = service.events.subscription.event_query("FROM process EARLIEST=-1d | head 10", options=options)
+result = service.events.subscription.event_query(
+    "FROM process EARLIEST=-1d | head 10", options=options
+)
 results.extend(result)
 next_page = get_next_page(result)
 

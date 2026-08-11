@@ -1,5 +1,4 @@
 """Alerts Query."""
-
 # pylint: disable=no-member, unused-argument, too-many-locals, duplicate-code, wildcard-import, unused-wildcard-import, cyclic-import
 
 
@@ -9,14 +8,12 @@
 from __future__ import annotations
 
 import logging
-from typing import TYPE_CHECKING, Any, Dict, List, Optional, Tuple, Union
+from typing import TYPE_CHECKING
 
 from taegis_sdk_python import GraphQLNoRowsInResultSetError
-from taegis_sdk_python._consts import TaegisEnum
 from taegis_sdk_python.services.alerts.types import *
 from taegis_sdk_python.utils import (
     build_output_string,
-    parse_union_result,
     prepare_input,
 )
 
@@ -33,7 +30,7 @@ class TaegisSDKAlertsQuery:
         self.service = service
 
     def alerts_service_retrieve_alerts_by_id(
-        self, in_: Optional[GetByIDRequestInput] = None
+        self, in_: GetByIDRequestInput | None = None
     ) -> AlertsResponse:
         """Provide a list of Alert IDs to retrieve each alert&#8217;s detail."""
         endpoint = "alertsServiceRetrieveAlertsById"
@@ -53,7 +50,7 @@ class TaegisSDKAlertsQuery:
         raise GraphQLNoRowsInResultSetError("for query alertsServiceRetrieveAlertsById")
 
     def alerts_service_retrieve_alerts_by_host(
-        self, in_: Optional[GetByIDRequestInput] = None
+        self, in_: GetByIDRequestInput | None = None
     ) -> AlertsResponse:
         """Provide a list of Host IDs to retrieve alert details about each alert that contains those hosts."""
         endpoint = "alertsServiceRetrieveAlertsByHost"
@@ -75,7 +72,7 @@ class TaegisSDKAlertsQuery:
         )
 
     def alerts_service_retrieve_alerts_by_entity(
-        self, in_: Optional[GetByIDRequestInput] = None
+        self, in_: GetByIDRequestInput | None = None
     ) -> AlertsResponse:
         """Provide a list of entities to retrieve alert details about each alert that contains those entities."""
         endpoint = "alertsServiceRetrieveAlertsByEntity"
@@ -97,7 +94,7 @@ class TaegisSDKAlertsQuery:
         )
 
     def alerts_service_retrieve_alerts_by_group_key(
-        self, in_: Optional[GetByIDRequestInput] = None
+        self, in_: GetByIDRequestInput | None = None
     ) -> AlertsResponse:
         """Provide a list of entities to retrieve alert details about each alert that contains the group_key. This is used by the service to aid in alert deduplication. This would not commonly be used by a tenant of XDR."""
         endpoint = "alertsServiceRetrieveAlertsByGroupKey"
@@ -139,7 +136,7 @@ class TaegisSDKAlertsQuery:
         raise GraphQLNoRowsInResultSetError("for query alertsCountByTenant")
 
     def alerts_service_search(
-        self, in_: Optional[SearchRequestInput] = None
+        self, in_: SearchRequestInput | None = None
     ) -> AlertsResponse:
         """Search alerts using Query Language. This is the same query language provided in Advanced Search page in Taegis XDR."""
         endpoint = "alertsServiceSearch"
@@ -159,7 +156,7 @@ class TaegisSDKAlertsQuery:
         raise GraphQLNoRowsInResultSetError("for query alertsServiceSearch")
 
     def alerts_service_poll(
-        self, in_: Optional[PollRequestInput] = None
+        self, in_: PollRequestInput | None = None
     ) -> AlertsResponse:
         """Poll for results for a specific `search_id`."""
         endpoint = "alertsServicePoll"
@@ -179,7 +176,7 @@ class TaegisSDKAlertsQuery:
         raise GraphQLNoRowsInResultSetError("for query alertsServicePoll")
 
     def alerts_service_aggregate_alerts_by_severity(
-        self, in_: Optional[AggregateAlertsBySeverityInputInput] = None
+        self, in_: AggregateAlertsBySeverityInputInput | None = None
     ) -> AlertsAggregateResponse:
         """Pull alert severity aggregates based on `group_by` parameters: domain, watchlist, hostname, detector, user."""
         endpoint = "alertsServiceAggregateAlertsBySeverity"
@@ -201,7 +198,7 @@ class TaegisSDKAlertsQuery:
         )
 
     def detection_retrieve_by_id(
-        self, in_: Optional[GetByIDRequestInput] = None
+        self, in_: GetByIDRequestInput | None = None
     ) -> AlertsResponse:
         """Provide a list of Alert IDs to retrieve each alert's detail."""
         endpoint = "detectionRetrieveById"
@@ -221,7 +218,7 @@ class TaegisSDKAlertsQuery:
         raise GraphQLNoRowsInResultSetError("for query detectionRetrieveById")
 
     def detection_retrieve_by_host(
-        self, in_: Optional[GetByIDRequestInput] = None
+        self, in_: GetByIDRequestInput | None = None
     ) -> AlertsResponse:
         """Provide a list of Host IDs to retrieve alert details about each alert that contains those hosts."""
         endpoint = "detectionRetrieveByHost"
@@ -241,7 +238,7 @@ class TaegisSDKAlertsQuery:
         raise GraphQLNoRowsInResultSetError("for query detectionRetrieveByHost")
 
     def detection_retrieve_by_entity(
-        self, in_: Optional[GetByIDRequestInput] = None
+        self, in_: GetByIDRequestInput | None = None
     ) -> AlertsResponse:
         """Provide a list of entities to retrieve alert details about each alert that contains those entities."""
         endpoint = "detectionRetrieveByEntity"
@@ -261,7 +258,7 @@ class TaegisSDKAlertsQuery:
         raise GraphQLNoRowsInResultSetError("for query detectionRetrieveByEntity")
 
     def detection_retrieve_by_group_key(
-        self, in_: Optional[GetByIDRequestInput] = None
+        self, in_: GetByIDRequestInput | None = None
     ) -> AlertsResponse:
         """Provide a list of entities to retrieve alert details about each alert that contains the group_key. This is used by the service to aid in alert deduplication. This would not commonly be used by a tenant of XDR."""
         endpoint = "detectionRetrieveByGroupKey"
@@ -300,9 +297,7 @@ class TaegisSDKAlertsQuery:
             return AlertsCountByTenantResponse.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for query detectionCountByTenant")
 
-    def detection_search(
-        self, in_: Optional[SearchRequestInput] = None
-    ) -> AlertsResponse:
+    def detection_search(self, in_: SearchRequestInput | None = None) -> AlertsResponse:
         """Search alerts using Query Language. This is the same query language provided in Advanced Search page in Taegis XDR."""
         endpoint = "detectionSearch"
 
@@ -320,7 +315,7 @@ class TaegisSDKAlertsQuery:
             return AlertsResponse.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for query detectionSearch")
 
-    def detection_poll(self, in_: Optional[PollRequestInput] = None) -> AlertsResponse:
+    def detection_poll(self, in_: PollRequestInput | None = None) -> AlertsResponse:
         """Poll for results for a specific `search_id`."""
         endpoint = "detectionPoll"
 
@@ -339,7 +334,7 @@ class TaegisSDKAlertsQuery:
         raise GraphQLNoRowsInResultSetError("for query detectionPoll")
 
     def detection_aggregates_by_severity(
-        self, in_: Optional[AggregateAlertsBySeverityInputInput] = None
+        self, in_: AggregateAlertsBySeverityInputInput | None = None
     ) -> AlertsAggregateResponse:
         """Pull alert severity aggregates based on `group_by` parameters: domain, watchlist, hostname, detector, user."""
         endpoint = "detectionAggregatesBySeverity"

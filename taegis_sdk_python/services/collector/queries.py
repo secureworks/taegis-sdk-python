@@ -1,5 +1,4 @@
 """Collector Query."""
-
 # pylint: disable=no-member, unused-argument, too-many-locals, duplicate-code, wildcard-import, unused-wildcard-import, cyclic-import
 
 
@@ -9,14 +8,13 @@
 from __future__ import annotations
 
 import logging
-from typing import TYPE_CHECKING, Any, Dict, List, Optional, Tuple, Union
+from typing import TYPE_CHECKING, Any
 
 from taegis_sdk_python import GraphQLNoRowsInResultSetError
 from taegis_sdk_python._consts import TaegisEnum
 from taegis_sdk_python.services.collector.types import *
 from taegis_sdk_python.utils import (
     build_output_string,
-    parse_union_result,
     prepare_input,
 )
 
@@ -51,8 +49,8 @@ class TaegisSDKCollectorQuery:
         raise GraphQLNoRowsInResultSetError("for query getCluster")
 
     def get_cluster_backlog_count(
-        self, cluster_id: str, time_range: Union[TimeRange, TaegisEnum]
-    ) -> List[ClusterNodeTimeSeries]:
+        self, cluster_id: str, time_range: TimeRange | TaegisEnum
+    ) -> list[ClusterNodeTimeSeries]:
         """No developer notes."""
         endpoint = "getClusterBacklogCount"
 
@@ -74,8 +72,8 @@ class TaegisSDKCollectorQuery:
         raise GraphQLNoRowsInResultSetError("for query getClusterBacklogCount")
 
     def get_cluster_backlog_age(
-        self, cluster_id: str, time_range: Union[TimeRange, TaegisEnum]
-    ) -> List[ClusterNodeTimeSeries]:
+        self, cluster_id: str, time_range: TimeRange | TaegisEnum
+    ) -> list[ClusterNodeTimeSeries]:
         """No developer notes."""
         endpoint = "getClusterBacklogAge"
 
@@ -97,8 +95,8 @@ class TaegisSDKCollectorQuery:
         raise GraphQLNoRowsInResultSetError("for query getClusterBacklogAge")
 
     def get_cluster_transmit_bytes(
-        self, cluster_id: str, time_range: Union[TimeRange, TaegisEnum]
-    ) -> List[ClusterNodeTimeSeries]:
+        self, cluster_id: str, time_range: TimeRange | TaegisEnum
+    ) -> list[ClusterNodeTimeSeries]:
         """No developer notes."""
         endpoint = "getClusterTransmitBytes"
 
@@ -120,8 +118,8 @@ class TaegisSDKCollectorQuery:
         raise GraphQLNoRowsInResultSetError("for query getClusterTransmitBytes")
 
     def get_cluster_receive_bytes(
-        self, cluster_id: str, time_range: Union[TimeRange, TaegisEnum]
-    ) -> List[ClusterNodeTimeSeries]:
+        self, cluster_id: str, time_range: TimeRange | TaegisEnum
+    ) -> list[ClusterNodeTimeSeries]:
         """No developer notes."""
         endpoint = "getClusterReceiveBytes"
 
@@ -142,7 +140,7 @@ class TaegisSDKCollectorQuery:
             )
         raise GraphQLNoRowsInResultSetError("for query getClusterReceiveBytes")
 
-    def get_clusters_by_ids(self, cluster_ids: List[str]) -> List[Cluster]:
+    def get_clusters_by_ids(self, cluster_ids: list[str]) -> list[Cluster]:
         """Get clusters by IDs."""
         endpoint = "getClustersByIDs"
 
@@ -163,7 +161,7 @@ class TaegisSDKCollectorQuery:
         raise GraphQLNoRowsInResultSetError("for query getClustersByIDs")
 
     def get_cluster_node(
-        self, cluster_id: str, cluster_node_input: Optional[ClusterNodeInput] = None
+        self, cluster_id: str, cluster_node_input: ClusterNodeInput | None = None
     ) -> ClusterNode:
         """No developer notes."""
         endpoint = "getClusterNode"
@@ -183,7 +181,7 @@ class TaegisSDKCollectorQuery:
             return ClusterNode.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for query getClusterNode")
 
-    def get_all_clusters(self, role: str) -> List[Cluster]:
+    def get_all_clusters(self, role: str) -> list[Cluster]:
         """Get all clusters provisioned on the tenant."""
         endpoint = "getAllClusters"
 
@@ -238,10 +236,10 @@ class TaegisSDKCollectorQuery:
     def get_cluster_image(
         self,
         cluster_id: str,
-        image_type: Union[ImageType, TaegisEnum],
-        launch_console: Optional[bool] = None,
-        aws_details: Optional[AWSDetails] = None,
-        gcp_details: Optional[GCPDetails] = None,
+        image_type: ImageType | TaegisEnum,
+        launch_console: bool | None = None,
+        aws_details: AWSDetails | None = None,
+        gcp_details: GCPDetails | None = None,
     ) -> Image:
         """Deprecated, use `getClusterImageV2` instead for consolidated inputs."""
         endpoint = "getClusterImage"
@@ -267,9 +265,7 @@ class TaegisSDKCollectorQuery:
             return Image.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for query getClusterImage")
 
-    def get_cloud_zones(
-        self, image_type: Union[ImageType, TaegisEnum]
-    ) -> List[CloudRegion]:
+    def get_cloud_zones(self, image_type: ImageType | TaegisEnum) -> list[CloudRegion]:
         """Get a cloud service region and zones."""
         endpoint = "getCloudZones"
 
@@ -307,7 +303,7 @@ class TaegisSDKCollectorQuery:
             return Credentials.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for query getClusterCredentials")
 
-    def get_hosts(self, cluster_id: str) -> Dict[str, Any]:
+    def get_hosts(self, cluster_id: str) -> dict[str, Any]:
         """Get all of the host->address mappings associated with a given cluster."""
         endpoint = "getHosts"
 
@@ -341,9 +337,7 @@ class TaegisSDKCollectorQuery:
             return System.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for query getSystemByRole")
 
-    def get_os_config(
-        self, cluster_id: str, node_name: Optional[str] = None
-    ) -> OSConfig:
+    def get_os_config(self, cluster_id: str, node_name: str | None = None) -> OSConfig:
         """No developer notes."""
         endpoint = "getOSConfig"
 
@@ -380,7 +374,7 @@ class TaegisSDKCollectorQuery:
             return OSConfig.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for query getAllOSConfigs")
 
-    def get_cluster_statuses(self, cluster_id: str) -> List[Status]:
+    def get_cluster_statuses(self, cluster_id: str) -> list[Status]:
         """Get a cluster's statuses and helm resources deployed."""
         endpoint = "getClusterStatuses"
 
@@ -401,7 +395,7 @@ class TaegisSDKCollectorQuery:
 
     def get_cluster_deployment_status(
         self, cluster_id: str, deployment_id: str
-    ) -> Dict[str, Any]:
+    ) -> dict[str, Any]:
         """Get the status of a cluster deployment."""
         endpoint = "getClusterDeploymentStatus"
 
@@ -485,7 +479,7 @@ class TaegisSDKCollectorQuery:
             return Deployment.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for query getClusterDeployment")
 
-    def get_all_cluster_deployments(self, cluster_id: str) -> List[Deployment]:
+    def get_all_cluster_deployments(self, cluster_id: str) -> list[Deployment]:
         """Get all of the deployments under a collector."""
         endpoint = "getAllClusterDeployments"
 
@@ -529,7 +523,7 @@ class TaegisSDKCollectorQuery:
 
     def get_all_deployment_endpoints(
         self, cluster_id: str, deployment_id: str
-    ) -> List[Endpoint]:
+    ) -> list[Endpoint]:
         """Get all of the endpoints configured for a given deployment."""
         endpoint = "getAllDeploymentEndpoints"
 
@@ -574,7 +568,7 @@ class TaegisSDKCollectorQuery:
             "for query getDeploymentEndpointCredentialsValidityPeriod"
         )
 
-    def get_aws_regions(self) -> List[str]:
+    def get_aws_regions(self) -> list[str]:
         """Fetch list of AWS regions where we have images available."""
         endpoint = "getAWSRegions"
 
@@ -583,7 +577,7 @@ class TaegisSDKCollectorQuery:
             return result.get(endpoint)
         raise GraphQLNoRowsInResultSetError("for query getAWSRegions")
 
-    def get_role_deployments(self, role: str) -> List[Deployment]:
+    def get_role_deployments(self, role: str) -> list[Deployment]:
         """Get deployments to be installed on every cluster of a given role."""
         endpoint = "getRoleDeployments"
 
@@ -621,7 +615,7 @@ class TaegisSDKCollectorQuery:
             return Deployment.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for query getRoleDeployment")
 
-    def get_all_roles(self) -> List[str]:
+    def get_all_roles(self) -> list[str]:
         """Get all roles in the environment."""
         endpoint = "getAllRoles"
 
@@ -631,8 +625,8 @@ class TaegisSDKCollectorQuery:
         raise GraphQLNoRowsInResultSetError("for query getAllRoles")
 
     def get_all_collectors_overview(
-        self, role: str, time_range: Union[TimeRange, TaegisEnum]
-    ) -> List[CollectorOverview]:
+        self, role: str, time_range: TimeRange | TaegisEnum
+    ) -> list[CollectorOverview]:
         """Get all collector overview data for the given role and time range."""
         endpoint = "getAllCollectorsOverview"
 
@@ -654,7 +648,7 @@ class TaegisSDKCollectorQuery:
         raise GraphQLNoRowsInResultSetError("for query getAllCollectorsOverview")
 
     def get_collector_metrics(
-        self, time_range: Union[TimeRange, TaegisEnum]
+        self, time_range: TimeRange | TaegisEnum
     ) -> CollectorMetrics:
         """Get collector data flow metrics over a given time range."""
         endpoint = "getCollectorMetrics"
@@ -674,7 +668,7 @@ class TaegisSDKCollectorQuery:
         raise GraphQLNoRowsInResultSetError("for query getCollectorMetrics")
 
     def get_aggregate_rate_by_collector(
-        self, cluster_id: str, time_range: Union[TimeRange, TaegisEnum]
+        self, cluster_id: str, time_range: TimeRange | TaegisEnum
     ) -> AggregateRateByCollector:
         """Get aggregated data flow rate metrics for a given collector over a given time range."""
         endpoint = "getAggregateRateByCollector"
@@ -695,7 +689,7 @@ class TaegisSDKCollectorQuery:
         raise GraphQLNoRowsInResultSetError("for query getAggregateRateByCollector")
 
     def get_flow_rate(
-        self, cluster_id: str, time_range: Union[TimeRange, TaegisEnum]
+        self, cluster_id: str, time_range: TimeRange | TaegisEnum
     ) -> FlowRate:
         """Get flow rate metrics for a given collector over a given time range."""
         endpoint = "getFlowRate"
@@ -716,11 +710,10 @@ class TaegisSDKCollectorQuery:
         raise GraphQLNoRowsInResultSetError("for query getFlowRate")
 
     def get_log_last_seen_metrics(
-        self, cluster_id: Optional[str] = None
+        self, cluster_id: str | None = None
     ) -> LogLastSeenMetrics:
         """Get last seen metrics for all available log sources for a given cluster.
-        If no clusterId is specified, this will return all log sources metrics for all existing clusters.
-        """
+        If no clusterId is specified, this will return all log sources metrics for all existing clusters."""
         endpoint = "getLogLastSeenMetrics"
 
         log.warning(
@@ -767,7 +760,7 @@ class TaegisSDKCollectorQuery:
 
     def syslog_message_count_v2(
         self, in_: SyslogMessageCountV2Arguments
-    ) -> List[SyslogMessageCountV2]:
+    ) -> list[SyslogMessageCountV2]:
         """Get syslog message counts for a given cluster or data source."""
         endpoint = "syslogMessageCountV2"
 

@@ -1,7 +1,6 @@
 """Taegis Commons Alerts Search implementations."""
 
 import logging
-from typing import List
 
 from taegis_sdk_python import GraphQLService
 from taegis_sdk_python.services.alerts.types import (
@@ -19,7 +18,7 @@ def alerts_search(
     *,
     limit: int = 10000,
     caller_name: str = "Taegis SDK Commons",
-) -> List[AlertsResponse]:
+) -> list[AlertsResponse]:
     """
     Search Taegis Alerts service.
     """
@@ -62,9 +61,9 @@ def alerts_search(
             if isinstance(response, AlertsResponse) and response.alerts is not None:
                 poll_responses.append(response)
                 # CX-92571 work around
-                if sum(len(response.alerts.list) for response in poll_responses) >= int(
-                    limit
-                ):
+                if sum(
+                    len(response.alerts.list_) for response in poll_responses
+                ) >= int(limit):
                     break
 
     return poll_responses

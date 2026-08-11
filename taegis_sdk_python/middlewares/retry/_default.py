@@ -46,13 +46,15 @@ def config_max_tries() -> Optional[int]:
 )
 @backoff.on_predicate(
     backoff.expo,
-    lambda r: r.status
-    in (
-        HTTPStatus.REQUEST_TIMEOUT,
-        HTTPStatus.INTERNAL_SERVER_ERROR,
-        HTTPStatus.BAD_GATEWAY,
-        HTTPStatus.SERVICE_UNAVAILABLE,
-        HTTPStatus.GATEWAY_TIMEOUT,
+    lambda r: (
+        r.status
+        in (
+            HTTPStatus.REQUEST_TIMEOUT,
+            HTTPStatus.INTERNAL_SERVER_ERROR,
+            HTTPStatus.BAD_GATEWAY,
+            HTTPStatus.SERVICE_UNAVAILABLE,
+            HTTPStatus.GATEWAY_TIMEOUT,
+        )
     ),
     max_time=config_max_time,
     max_tries=config_max_tries,

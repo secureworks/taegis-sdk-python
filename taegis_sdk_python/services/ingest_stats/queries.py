@@ -1,5 +1,4 @@
 """IngestStats Query."""
-
 # pylint: disable=no-member, unused-argument, too-many-locals, duplicate-code, wildcard-import, unused-wildcard-import, cyclic-import
 
 
@@ -9,14 +8,12 @@
 from __future__ import annotations
 
 import logging
-from typing import TYPE_CHECKING, Any, Dict, List, Optional, Tuple, Union
+from typing import TYPE_CHECKING
 
 from taegis_sdk_python import GraphQLNoRowsInResultSetError
-from taegis_sdk_python._consts import TaegisEnum
 from taegis_sdk_python.services.ingest_stats.types import *
 from taegis_sdk_python.utils import (
     build_output_string,
-    parse_union_result,
     prepare_input,
 )
 
@@ -32,7 +29,7 @@ class TaegisSDKIngestStatsQuery:
     def __init__(self, service: IngestStatsService):
         self.service = service
 
-    def tenant_volume(self, range_: DateRange) -> List[TenantDailyVolume]:
+    def tenant_volume(self, range_: DateRange) -> list[TenantDailyVolume]:
         """TenantVolume Given a Date range return the volume of data in the data lake."""
         endpoint = "TenantVolume"
 
@@ -52,7 +49,7 @@ class TaegisSDKIngestStatsQuery:
             )
         raise GraphQLNoRowsInResultSetError("for query TenantVolume")
 
-    def host_volume(self, range_: DateRange) -> List[HostDailyVolume]:
+    def host_volume(self, range_: DateRange) -> list[HostDailyVolume]:
         """HostVolume description."""
         endpoint = "HostVolume"
 
@@ -72,7 +69,7 @@ class TaegisSDKIngestStatsQuery:
             )
         raise GraphQLNoRowsInResultSetError("for query HostVolume")
 
-    def top_schemas(self, range_: DateRange, top_k: int) -> List[TopKSchema]:
+    def top_schemas(self, range_: DateRange, top_k: int) -> list[TopKSchema]:
         """TopSchemas description."""
         endpoint = "TopSchemas"
 
@@ -95,7 +92,7 @@ class TaegisSDKIngestStatsQuery:
 
     def top_schemas_by_date(
         self, range_: DateRange, top_k: int
-    ) -> List[TopKSchemasByDate]:
+    ) -> list[TopKSchemasByDate]:
         """TopSchemasByDate description."""
         endpoint = "TopSchemasByDate"
 

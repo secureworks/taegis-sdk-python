@@ -1,5 +1,4 @@
 """Notifications2 Query."""
-
 # pylint: disable=no-member, unused-argument, too-many-locals, duplicate-code, wildcard-import, unused-wildcard-import, cyclic-import
 
 
@@ -9,14 +8,12 @@
 from __future__ import annotations
 
 import logging
-from typing import TYPE_CHECKING, Any, Dict, List, Optional, Tuple, Union
+from typing import TYPE_CHECKING
 
 from taegis_sdk_python import GraphQLNoRowsInResultSetError
-from taegis_sdk_python._consts import TaegisEnum
 from taegis_sdk_python.services.notifications2.types import *
 from taegis_sdk_python.utils import (
     build_output_string,
-    parse_union_result,
     prepare_input,
 )
 
@@ -69,7 +66,7 @@ class TaegisSDKNotifications2Query:
             return NotificationV2.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for query notificationV2")
 
-    def push_subscriptions(self) -> List[PushSubscription]:
+    def push_subscriptions(self) -> list[PushSubscription]:
         """pushSubscriptions returns a list of push subscriptions for the calling user."""
         endpoint = "pushSubscriptions"
 
@@ -128,7 +125,7 @@ class TaegisSDKNotifications2Query:
         raise GraphQLNoRowsInResultSetError("for query notificationRule")
 
     def notification_policy_assignments(
-        self, arguments: Optional[NotificationEscalationsArguments] = None
+        self, arguments: NotificationEscalationsArguments | None = None
     ) -> NotificationEscalations:
         """retrieve policy/rule assignments."""
         endpoint = "notificationPolicyAssignments"
@@ -167,7 +164,7 @@ class TaegisSDKNotifications2Query:
             return NotificationsV2.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for query notificationsSearch")
 
-    def notification_rule_source_details(self) -> List[NotificationRuleSourceDetails]:
+    def notification_rule_source_details(self) -> list[NotificationRuleSourceDetails]:
         """notificationRuleSourceDetails returns the details of notification rule sources."""
         endpoint = "notificationRuleSourceDetails"
 

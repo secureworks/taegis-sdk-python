@@ -1,5 +1,4 @@
 """FileInfo Mutation."""
-
 # pylint: disable=no-member, unused-argument, too-many-locals, duplicate-code, wildcard-import, unused-wildcard-import, cyclic-import
 
 
@@ -9,14 +8,12 @@
 from __future__ import annotations
 
 import logging
-from typing import TYPE_CHECKING, Any, Dict, List, Optional, Tuple, Union
+from typing import TYPE_CHECKING
 
 from taegis_sdk_python import GraphQLNoRowsInResultSetError
-from taegis_sdk_python._consts import TaegisEnum
 from taegis_sdk_python.services.file_info.types import *
 from taegis_sdk_python.utils import (
     build_output_string,
-    parse_union_result,
     prepare_input,
 )
 
@@ -66,9 +63,9 @@ class TaegisSDKFileInfoMutation:
 
     def set_malicious(
         self,
-        id_: Optional[str] = None,
-        file_hash: Optional[str] = None,
-        malicious: Optional[bool] = None,
+        id_: str | None = None,
+        file_hash: str | None = None,
+        malicious: bool | None = None,
     ) -> File:
         """Sets the malicious flag for the file."""
         endpoint = "setMalicious"
@@ -89,8 +86,8 @@ class TaegisSDKFileInfoMutation:
         raise GraphQLNoRowsInResultSetError("for mutation setMalicious")
 
     def create_appearances(
-        self, appearances: List[AppearanceInput]
-    ) -> List[Appearance]:
+        self, appearances: list[AppearanceInput]
+    ) -> list[Appearance]:
         """Create file appearances."""
         endpoint = "createAppearances"
 
@@ -111,8 +108,8 @@ class TaegisSDKFileInfoMutation:
         raise GraphQLNoRowsInResultSetError("for mutation createAppearances")
 
     def create_yara_metadata(
-        self, metadata: List[YaraMetadataInput]
-    ) -> List[YaraMetadata]:
+        self, metadata: list[YaraMetadataInput]
+    ) -> list[YaraMetadata]:
         """Create YARA metadata."""
         endpoint = "createYaraMetadata"
 

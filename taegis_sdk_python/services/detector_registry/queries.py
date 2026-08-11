@@ -1,5 +1,4 @@
 """DetectorRegistry Query."""
-
 # pylint: disable=no-member, unused-argument, too-many-locals, duplicate-code, wildcard-import, unused-wildcard-import, cyclic-import
 
 
@@ -9,14 +8,12 @@
 from __future__ import annotations
 
 import logging
-from typing import TYPE_CHECKING, Any, Dict, List, Optional, Tuple, Union
+from typing import TYPE_CHECKING
 
 from taegis_sdk_python import GraphQLNoRowsInResultSetError
-from taegis_sdk_python._consts import TaegisEnum
 from taegis_sdk_python.services.detector_registry.types import *
 from taegis_sdk_python.utils import (
     build_output_string,
-    parse_union_result,
     prepare_input,
 )
 
@@ -50,7 +47,7 @@ class TaegisSDKDetectorRegistryQuery:
             return RegisteredDetector.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for query detector")
 
-    def detectors(self) -> List[RegisteredDetector]:
+    def detectors(self) -> list[RegisteredDetector]:
         """returns all detectors."""
         endpoint = "detectors"
 
@@ -68,7 +65,7 @@ class TaegisSDKDetectorRegistryQuery:
             )
         raise GraphQLNoRowsInResultSetError("for query detectors")
 
-    def search_detectors(self, input_: SearchDetectors) -> List[RegisteredDetector]:
+    def search_detectors(self, input_: SearchDetectors) -> list[RegisteredDetector]:
         """searches detectors given the input criteria."""
         endpoint = "searchDetectors"
 
@@ -88,7 +85,7 @@ class TaegisSDKDetectorRegistryQuery:
             )
         raise GraphQLNoRowsInResultSetError("for query searchDetectors")
 
-    def detector_by_name(self, display_name: str) -> List[str]:
+    def detector_by_name(self, display_name: str) -> list[str]:
         """returns ids that match the given registered detector name."""
         endpoint = "detectorByName"
 

@@ -9,14 +9,13 @@
 from __future__ import annotations
 
 import logging
-from typing import TYPE_CHECKING, Any, Dict, List, Optional, Tuple, Union
+from typing import TYPE_CHECKING
 
 from taegis_sdk_python import GraphQLNoRowsInResultSetError
 from taegis_sdk_python._consts import TaegisEnum
 from taegis_sdk_python.services.isensor.types import *
 from taegis_sdk_python.utils import (
     build_output_string,
-    parse_union_result,
     prepare_input,
 )
 
@@ -35,8 +34,8 @@ class TaegisSDKIsensorMutation:
     def i_sensor_create_firewall_rules(
         self,
         id_: str,
-        action: Union[IsensorRuleActionInput, TaegisEnum],
-        input_: List[IsensorFirewallRuleInput],
+        action: IsensorRuleActionInput | TaegisEnum,
+        input_: list[IsensorFirewallRuleInput],
     ) -> IsensorFirewallRulePayload:
         """iSensor Create Firewall Rules."""
         endpoint = "iSensorCreateFirewallRules"
@@ -57,8 +56,8 @@ class TaegisSDKIsensorMutation:
     def i_sensor_delete_firewall_rules(
         self,
         id_: str,
-        action: Union[IsensorRuleActionInput, TaegisEnum],
-        input_: List[IsensorFirewallRuleInput],
+        action: IsensorRuleActionInput | TaegisEnum,
+        input_: list[IsensorFirewallRuleInput],
     ) -> IsensorFirewallRulePayload:
         """iSensor Delete Firewall Rules."""
         endpoint = "iSensorDeleteFirewallRules"
@@ -118,8 +117,8 @@ class TaegisSDKIsensorMutation:
         id_: str,
         uin: str,
         policy: str,
-        input_: List[IsensorRuleVariableCustomizationsInput],
-    ) -> List[IsensorRuleVariableCustomizationsPayload]:
+        input_: list[IsensorRuleVariableCustomizationsInput],
+    ) -> list[IsensorRuleVariableCustomizationsPayload]:
         """iSensor Rule Variable Customizations."""
         endpoint = "iSensorRuleVariableCustomizations"
 

@@ -40,13 +40,13 @@ schema.query_type.fields
 Accessing the field is the same as a dictionary in Python (direct access via brackets `[]` or using `.get()`).
 
 ```python
-schema.query_type.fields['alertsServiceSearch']
+schema.query_type.fields["alertsServiceSearch"]
 ```
 
 \- or -
 
 ```python
-schema.query_type.fields.get('alertsServiceSearch')
+schema.query_type.fields.get("alertsServiceSearch")
 ```
 
 ```python
@@ -60,7 +60,7 @@ Here we can see that the `alertsServiceSearch` will return an `AlertsResponse` o
 Lising the argument names.
 
 ```python
-schema.query_type.fields['alertsServiceSearch'].args
+schema.query_type.fields["alertsServiceSearch"].args
 ```
 
 ```python
@@ -70,7 +70,7 @@ schema.query_type.fields['alertsServiceSearch'].args
 We can get the argument type name.
 
 ```python
-schema.query_type.fields['alertsServiceSearch'].args["in"].type
+schema.query_type.fields["alertsServiceSearch"].args["in"].type
 ```
 
 This is a `SearchRequestInput` object.
@@ -82,7 +82,7 @@ This is a `SearchRequestInput` object.
 This endpoint takes 1 argument called `in`, but we do not know the fields this argument will accept.
 
 ```python
-schema.query_type.fields['alertsServiceSearch'].args["in"].type.fields
+schema.query_type.fields["alertsServiceSearch"].args["in"].type.fields
 ```
 
 ```python
@@ -99,7 +99,7 @@ This will continue until all the field types are of a GraphQLScalarType.  Some i
 We can use `.type.fields` to get a dictionary of return fields.  Using a combination of `.type` or `.of_type` on each field until we reach a scalar or enum to determine what is available for request.
 
 ```python
-schema.query_type.fields['alertsServiceSearch'].type.fields
+schema.query_type.fields["alertsServiceSearch"].type.fields
 ```
 
 ```python
@@ -110,7 +110,7 @@ schema.query_type.fields['alertsServiceSearch'].type.fields
 ```
 
 ```python
-schema.query_type.fields['alertsServiceSearch'].type.fields["alerts"].type.fields
+schema.query_type.fields["alertsServiceSearch"].type.fields["alerts"].type.fields
 ```
 
 ```python
@@ -128,7 +128,9 @@ schema.query_type.fields['alertsServiceSearch'].type.fields["alerts"].type.field
 For a field like `list`, we can see that there are multiple defintions to unpack: `GraphQLField (type) -> GraphQLList (of_type) -> GraphQLNonNull (of_type)`.
 
 ```python
-schema.query_type.fields['alertsServiceSearch'].type.fields["alerts"].type.fields["list"].type.of_type.of_type.fields
+schema.query_type.fields["alertsServiceSearch"].type.fields["alerts"].type.fields[
+    "list"
+].type.of_type.of_type.fields
 ```
 
 ```python
@@ -176,11 +178,7 @@ Arbitrary methods include:
 ```python
 service.core.execute_query(
     endpoint="alertsServiceSearch",
-    variables={
-        "in": {
-            "cql_query": "FROM alert EARLIEST=-1d | head 10"
-        }
-    },
+    variables={"in": {"cql_query": "FROM alert EARLIEST=-1d | head 10"}},
     output="""
     status
     alerts {
@@ -188,22 +186,50 @@ service.core.execute_query(
             id
         }
     }
-    """
+    """,
 )
 ```
 
 ```python
-{'alertsServiceSearch': {'status': 'OK',
-  'alerts': {'list': [{'id': 'alert://priv:event-filter:00000:0000000000000:xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx'},
-    {'id': 'alert://priv:event-filter:00000:0000000000000:xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx'},
-    {'id': 'alert://priv:event-filter:00000:0000000000000:xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx'},
-    {'id': 'alert://priv:event-filter:00000:0000000000000:xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx'},
-    {'id': 'alert://priv:event-filter:00000:0000000000000:xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx'},
-    {'id': 'alert://priv:email:00000:0000000000000:xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx'},
-    {'id': 'alert://priv:email:00000:0000000000000:xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx'},
-    {'id': 'alert://priv:event-filter-ql:00000:0000000000000:xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx'},
-    {'id': 'alert://priv:event-filter:00000:0000000000000:xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx'},
-    {'id': 'alert://priv:event-filter:00000:0000000000000:xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx'}]}}}
+{
+    "alertsServiceSearch": {
+        "status": "OK",
+        "alerts": {
+            "list": [
+                {
+                    "id": "alert://priv:event-filter:00000:0000000000000:xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
+                },
+                {
+                    "id": "alert://priv:event-filter:00000:0000000000000:xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
+                },
+                {
+                    "id": "alert://priv:event-filter:00000:0000000000000:xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
+                },
+                {
+                    "id": "alert://priv:event-filter:00000:0000000000000:xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
+                },
+                {
+                    "id": "alert://priv:event-filter:00000:0000000000000:xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
+                },
+                {
+                    "id": "alert://priv:email:00000:0000000000000:xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
+                },
+                {
+                    "id": "alert://priv:email:00000:0000000000000:xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
+                },
+                {
+                    "id": "alert://priv:event-filter-ql:00000:0000000000000:xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
+                },
+                {
+                    "id": "alert://priv:event-filter:00000:0000000000000:xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
+                },
+                {
+                    "id": "alert://priv:event-filter:00000:0000000000000:xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
+                },
+            ]
+        },
+    }
+}
 ```
 
 ### Building an raw query
@@ -235,17 +261,45 @@ service.core.execute(
 ```
 
 ```python
-{'alertsServiceSearch': {'status': 'OK',
-  'alerts': {'list': [{'id': 'alert://priv:event-filter:00000:0000000000000:xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx'},
-    {'id': 'alert://priv:event-filter:00000:0000000000000:xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx'},
-    {'id': 'alert://priv:event-filter:00000:0000000000000:xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx'},
-    {'id': 'alert://priv:event-filter:00000:0000000000000:xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx'},
-    {'id': 'alert://priv:event-filter:00000:0000000000000:xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx'},
-    {'id': 'alert://priv:email:00000:0000000000000:xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx'},
-    {'id': 'alert://priv:email:00000:0000000000000:xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx'},
-    {'id': 'alert://priv:event-filter-ql:00000:0000000000000:xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx'},
-    {'id': 'alert://priv:event-filter:00000:0000000000000:xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx'},
-    {'id': 'alert://priv:event-filter:00000:0000000000000:xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx'}]}}}
+{
+    "alertsServiceSearch": {
+        "status": "OK",
+        "alerts": {
+            "list": [
+                {
+                    "id": "alert://priv:event-filter:00000:0000000000000:xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
+                },
+                {
+                    "id": "alert://priv:event-filter:00000:0000000000000:xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
+                },
+                {
+                    "id": "alert://priv:event-filter:00000:0000000000000:xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
+                },
+                {
+                    "id": "alert://priv:event-filter:00000:0000000000000:xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
+                },
+                {
+                    "id": "alert://priv:event-filter:00000:0000000000000:xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
+                },
+                {
+                    "id": "alert://priv:email:00000:0000000000000:xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
+                },
+                {
+                    "id": "alert://priv:email:00000:0000000000000:xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
+                },
+                {
+                    "id": "alert://priv:event-filter-ql:00000:0000000000000:xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
+                },
+                {
+                    "id": "alert://priv:event-filter:00000:0000000000000:xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
+                },
+                {
+                    "id": "alert://priv:event-filter:00000:0000000000000:xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
+                },
+            ]
+        },
+    }
+}
 ```
 
 

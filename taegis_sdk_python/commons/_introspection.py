@@ -15,7 +15,7 @@ def introspection_query(
     service: GraphQLService,
     endpoint: str,
     schema: Optional[GraphQLSchema] = None,
-    **kwargs
+    **kwargs,
 ) -> Any:
     """Generate a GraphQL Query operation with output based on server-side introspection.
 
@@ -52,7 +52,7 @@ def introspection_mutation(
     service: GraphQLService,
     endpoint: str,
     schema: Optional[GraphQLSchema] = None,
-    **kwargs
+    **kwargs,
 ) -> Any:
     """Generate a GraphQL Mutation operation with output based on server-side introspection.
 
@@ -89,7 +89,7 @@ def introspection_subscription(
     service: GraphQLService,
     endpoint: str,
     schema: Optional[GraphQLSchema] = None,
-    **kwargs
+    **kwargs,
 ) -> Any:
     """Generate a GraphQL Subscription operation with output based on server-side introspection.
 

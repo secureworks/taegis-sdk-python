@@ -1,5 +1,4 @@
 """ThreatContext Query."""
-
 # pylint: disable=no-member, unused-argument, too-many-locals, duplicate-code, wildcard-import, unused-wildcard-import, cyclic-import
 
 
@@ -9,10 +8,9 @@
 from __future__ import annotations
 
 import logging
-from typing import TYPE_CHECKING, Any, Dict, List, Optional, Tuple, Union
+from typing import TYPE_CHECKING
 
 from taegis_sdk_python import GraphQLNoRowsInResultSetError
-from taegis_sdk_python._consts import TaegisEnum
 from taegis_sdk_python.services.threat_context.types import *
 from taegis_sdk_python.utils import (
     build_output_string,
@@ -34,10 +32,10 @@ class TaegisSDKThreatContextQuery:
 
     def reputation(
         self,
-        indicators: List[ThreatContextIndicatorInput],
-        cache: Optional[CacheOptions] = None,
-        options: Optional[ReputationOptions] = None,
-    ) -> List[Results]:
+        indicators: list[ThreatContextIndicatorInput],
+        cache: CacheOptions | None = None,
+        options: ReputationOptions | None = None,
+    ) -> list[Results]:
         """No developer notes."""
         endpoint = "reputation"
 
@@ -59,8 +57,8 @@ class TaegisSDKThreatContextQuery:
 
     def reputation_summaries(
         self,
-        indicators: List[ThreatContextIndicatorInput],
-        cache: Optional[CacheOptions] = None,
+        indicators: list[ThreatContextIndicatorInput],
+        cache: CacheOptions | None = None,
     ) -> IndicatorsSummary:
         """No developer notes."""
         endpoint = "reputationSummaries"
@@ -80,7 +78,7 @@ class TaegisSDKThreatContextQuery:
             return IndicatorsSummary.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for query reputationSummaries")
 
-    def risky_indicators(self, arguments: RiskyIndicatorArguments) -> List[Results]:
+    def risky_indicators(self, arguments: RiskyIndicatorArguments) -> list[Results]:
         """No developer notes."""
         endpoint = "riskyIndicators"
 

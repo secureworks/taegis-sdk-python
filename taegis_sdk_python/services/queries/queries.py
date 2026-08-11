@@ -9,13 +9,12 @@
 from __future__ import annotations
 
 import logging
-from typing import TYPE_CHECKING, Any, Dict, List, Optional, Tuple, Union
+from typing import TYPE_CHECKING
 
 from taegis_sdk_python import GraphQLNoRowsInResultSetError
 from taegis_sdk_python.services.queries.types import *
 from taegis_sdk_python.utils import (
     build_output_string,
-    parse_union_result,
     prepare_input,
 )
 
@@ -47,7 +46,7 @@ class TaegisSDKQueriesQuery:
         raise GraphQLNoRowsInResultSetError("for query qlQueries")
 
     def list_ql_queries(
-        self, input_: Optional[ListQLQueriesInput] = None
+        self, input_: ListQLQueriesInput | None = None
     ) -> ListQLQueriesResults:
         """Searches for queries by their attributes.."""
         endpoint = "listQLQueries"
@@ -97,7 +96,7 @@ class TaegisSDKQueriesQuery:
             return SavedQLQuery.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for query savedQLQuery")
 
-    def saved_ql_queries(self, rns: List[str]) -> SavedQLQueriesResults:
+    def saved_ql_queries(self, rns: list[str]) -> SavedQLQueriesResults:
         """None."""
         endpoint = "savedQLQueries"
 
@@ -113,7 +112,7 @@ class TaegisSDKQueriesQuery:
         raise GraphQLNoRowsInResultSetError("for query savedQLQueries")
 
     def list_saved_ql_queries(
-        self, input_: Optional[ListQLQueriesInput] = None
+        self, input_: ListQLQueriesInput | None = None
     ) -> ListSavedQLQueriesResults:
         """None."""
         endpoint = "listSavedQLQueries"

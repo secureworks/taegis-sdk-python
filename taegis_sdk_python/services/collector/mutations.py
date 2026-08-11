@@ -1,5 +1,4 @@
 """Collector Mutation."""
-
 # pylint: disable=no-member, unused-argument, too-many-locals, duplicate-code, wildcard-import, unused-wildcard-import, cyclic-import
 
 
@@ -9,14 +8,12 @@
 from __future__ import annotations
 
 import logging
-from typing import TYPE_CHECKING, Any, Dict, List, Optional, Tuple, Union
+from typing import TYPE_CHECKING, Any
 
 from taegis_sdk_python import GraphQLNoRowsInResultSetError
-from taegis_sdk_python._consts import TaegisEnum
 from taegis_sdk_python.services.collector.types import *
 from taegis_sdk_python.utils import (
     build_output_string,
-    parse_union_result,
     prepare_input,
 )
 
@@ -143,7 +140,7 @@ class TaegisSDKCollectorMutation:
             return OSConfig.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for mutation updateOSConfig")
 
-    def delete_os_config(self, cluster_id: str, node_name: Optional[str] = None) -> str:
+    def delete_os_config(self, cluster_id: str, node_name: str | None = None) -> str:
         """No developer notes."""
         endpoint = "deleteOSConfig"
 
@@ -159,7 +156,7 @@ class TaegisSDKCollectorMutation:
             return result.get(endpoint)
         raise GraphQLNoRowsInResultSetError("for mutation deleteOSConfig")
 
-    def add_host(self, cluster_id: str, host_input: HostsInput) -> Dict[str, Any]:
+    def add_host(self, cluster_id: str, host_input: HostsInput) -> dict[str, Any]:
         """Add a address:hostname mapping to a given cluster."""
         endpoint = "addHost"
 
@@ -476,7 +473,7 @@ class TaegisSDKCollectorMutation:
         raise GraphQLNoRowsInResultSetError("for mutation deleteRoleDeployment")
 
     def update_scheduled_service(
-        self, scheduled_service_input: Optional[ScheduledServiceInput] = None
+        self, scheduled_service_input: ScheduledServiceInput | None = None
     ) -> ScheduledService:
         """No developer notes."""
         endpoint = "updateScheduledService"
@@ -496,7 +493,7 @@ class TaegisSDKCollectorMutation:
         raise GraphQLNoRowsInResultSetError("for mutation updateScheduledService")
 
     def create_service(
-        self, service_input: Optional[CreateServiceInput] = None
+        self, service_input: CreateServiceInput | None = None
     ) -> Service:
         """No developer notes."""
         endpoint = "createService"

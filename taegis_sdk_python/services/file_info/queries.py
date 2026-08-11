@@ -1,5 +1,4 @@
 """FileInfo Query."""
-
 # pylint: disable=no-member, unused-argument, too-many-locals, duplicate-code, wildcard-import, unused-wildcard-import, cyclic-import
 
 
@@ -9,14 +8,12 @@
 from __future__ import annotations
 
 import logging
-from typing import TYPE_CHECKING, Any, Dict, List, Optional, Tuple, Union
+from typing import TYPE_CHECKING
 
 from taegis_sdk_python import GraphQLNoRowsInResultSetError
-from taegis_sdk_python._consts import TaegisEnum
 from taegis_sdk_python.services.file_info.types import *
 from taegis_sdk_python.utils import (
     build_output_string,
-    parse_union_result,
     prepare_input,
 )
 
@@ -32,9 +29,7 @@ class TaegisSDKFileInfoQuery:
     def __init__(self, service: FileInfoService):
         self.service = service
 
-    def file_info(
-        self, file_hash: str, include_all_rules: Optional[bool] = None
-    ) -> File:
+    def file_info(self, file_hash: str, include_all_rules: bool | None = None) -> File:
         """Returns details for a single file identified by the given hash. Set includeAllRules = true to include research rule matches."""
         endpoint = "fileInfo"
 
@@ -71,8 +66,8 @@ class TaegisSDKFileInfoQuery:
         raise GraphQLNoRowsInResultSetError("for query fileInfoCounts")
 
     def search_file_info(
-        self, query: str, include_all_rules: Optional[bool] = None
-    ) -> List[File]:
+        self, query: str, include_all_rules: bool | None = None
+    ) -> list[File]:
         """Returns details for all files matching the given CQL query. Set includeAllRules = true to include research rule matches."""
         endpoint = "searchFileInfo"
 
@@ -130,7 +125,7 @@ class TaegisSDKFileInfoQuery:
         raise GraphQLNoRowsInResultSetError("for query fileInfoExists")
 
     def get_file_marking_status(
-        self, file_hash: str, file_metadata_id: Optional[str] = None
+        self, file_hash: str, file_metadata_id: str | None = None
     ) -> FileMarkingStatus:
         """Returns FileMarkingStatus for a file with the given file-hash or fileMetadataId."""
         endpoint = "getFileMarkingStatus"

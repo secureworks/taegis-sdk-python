@@ -1,5 +1,4 @@
 """Trip Query."""
-
 # pylint: disable=no-member, unused-argument, too-many-locals, duplicate-code, wildcard-import, unused-wildcard-import, cyclic-import
 
 
@@ -9,14 +8,13 @@
 from __future__ import annotations
 
 import logging
-from typing import TYPE_CHECKING, Any, Dict, List, Optional, Tuple, Union
+from typing import TYPE_CHECKING
 
 from taegis_sdk_python import GraphQLNoRowsInResultSetError
 from taegis_sdk_python._consts import TaegisEnum
 from taegis_sdk_python.services.trip.types import *
 from taegis_sdk_python.utils import (
     build_output_string,
-    parse_union_result,
     prepare_input,
 )
 
@@ -33,8 +31,8 @@ class TaegisSDKTripQuery:
         self.service = service
 
     def list_active_api_products(
-        self, application: Union[ApiProductGroup, TaegisEnum]
-    ) -> List[ApiProduct]:
+        self, application: ApiProductGroup | TaegisEnum
+    ) -> list[ApiProduct]:
         """No developer notes."""
         endpoint = "listActiveApiProducts"
 
@@ -54,7 +52,7 @@ class TaegisSDKTripQuery:
             )
         raise GraphQLNoRowsInResultSetError("for query listActiveApiProducts")
 
-    def list_api_integrations(self) -> List[ApiIntegrationSummary]:
+    def list_api_integrations(self) -> list[ApiIntegrationSummary]:
         """No developer notes."""
         endpoint = "listApiIntegrations"
 
@@ -73,8 +71,8 @@ class TaegisSDKTripQuery:
         raise GraphQLNoRowsInResultSetError("for query listApiIntegrations")
 
     def list_api_integrations_v2(
-        self, filter_: Optional[ListApiIntegrationsFilter] = None
-    ) -> List[ApiIntegrationSummary]:
+        self, filter_: ListApiIntegrationsFilter | None = None
+    ) -> list[ApiIntegrationSummary]:
         """No developer notes."""
         endpoint = "listApiIntegrationsV2"
 
@@ -154,7 +152,7 @@ class TaegisSDKTripQuery:
             return ApiIntegrationHistoryPage.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for query listApiIntegrationHistory")
 
-    def get_form_options(self, product_id: int, form_item_name: str) -> List[str]:
+    def get_form_options(self, product_id: int, form_item_name: str) -> list[str]:
         """No developer notes."""
         endpoint = "getFormOptions"
 
@@ -170,7 +168,7 @@ class TaegisSDKTripQuery:
             return result.get(endpoint)
         raise GraphQLNoRowsInResultSetError("for query getFormOptions")
 
-    def get_env_config(self) -> List[TripEnvConfig]:
+    def get_env_config(self) -> list[TripEnvConfig]:
         """No developer notes."""
         endpoint = "getEnvConfig"
 
@@ -188,7 +186,7 @@ class TaegisSDKTripQuery:
             )
         raise GraphQLNoRowsInResultSetError("for query getEnvConfig")
 
-    def list_allowed_products_for_tenant(self) -> List[ApiProduct]:
+    def list_allowed_products_for_tenant(self) -> list[ApiProduct]:
         """No developer notes."""
         endpoint = "listAllowedProductsForTenant"
 

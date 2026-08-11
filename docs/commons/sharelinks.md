@@ -172,6 +172,7 @@ print("Unfurled result:", result)
 - Example: unfurl by share id
 ```python
 from taegis_sdk_python.commons.sharelinks.unfurl import unfurl_sharelink
+
 # service = GraphQLService(...)
 result = unfurl_sharelink(service, "abcdef-123456")
 # result's type depends on the sharelink's link_type:

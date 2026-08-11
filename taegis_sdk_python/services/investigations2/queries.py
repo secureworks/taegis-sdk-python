@@ -1,5 +1,4 @@
 """Investigations2 Query."""
-
 # pylint: disable=no-member, unused-argument, too-many-locals, duplicate-code, wildcard-import, unused-wildcard-import, cyclic-import
 
 
@@ -9,14 +8,12 @@
 from __future__ import annotations
 
 import logging
-from typing import TYPE_CHECKING, Any, Dict, List, Optional, Tuple, Union
+from typing import TYPE_CHECKING
 
 from taegis_sdk_python import GraphQLNoRowsInResultSetError
-from taegis_sdk_python._consts import TaegisEnum
 from taegis_sdk_python.services.investigations2.types import *
 from taegis_sdk_python.utils import (
     build_output_string,
-    parse_union_result,
     prepare_input,
 )
 
@@ -313,8 +310,7 @@ class TaegisSDKInvestigations2Query:
         """caseFiles returns file details for all files matching the arguments provided.
         Download URLs will be generated only if the downloadURL field is requested in the query.
         Note: Audit logs are created for all file downloads except embedded files (isEmbedded=true).
-        To filter by embedded status, use CQL: query with isEmbedded=true or isEmbedded=false.
-        """
+        To filter by embedded status, use CQL: query with isEmbedded=true or isEmbedded=false."""
         endpoint = "caseFiles"
 
         result = self.service.execute_query(
@@ -337,8 +333,7 @@ class TaegisSDKInvestigations2Query:
         """casesAggregation allows aggregating data for cases.
         It cannot be used to fetch individual cases or lists of cases, only aggregate data.
         It should not be used by external clients and should only be called from the Taegis UI.
-        Use of this endpoint is discouraged as it may be changed at any time without notice.
-        """
+        Use of this endpoint is discouraged as it may be changed at any time without notice."""
         endpoint = "casesAggregation"
 
         result = self.service.execute_query(
@@ -477,8 +472,7 @@ class TaegisSDKInvestigations2Query:
         self, arguments: ExportInvestigationResourcesArguments
     ) -> InvestigationResourceExport:
         """exportInvestigationResources returns a YAML string representation for auto-investigation resources (rules & templates).
-        The returned string can be saved into a file and imported back into the system using importInvestigationResources.
-        """
+        The returned string can be saved into a file and imported back into the system using importInvestigationResources."""
         endpoint = "exportInvestigationResources"
 
         result = self.service.execute_query(
@@ -533,7 +527,7 @@ class TaegisSDKInvestigations2Query:
             return CommentsV2.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for query commentsV2")
 
-    def investigation_v2_types(self) -> List[InvestigationV2Type]:
+    def investigation_v2_types(self) -> list[InvestigationV2Type]:
         """investigationV2Types returns the available investigation types for a given user and the current tenant's service level."""
         endpoint = "investigationV2Types"
 
@@ -553,7 +547,7 @@ class TaegisSDKInvestigations2Query:
 
     def investigation_v2_statuses(
         self, arguments: InvestigationV2StatusesArguments
-    ) -> List[InvestigationV2Status]:
+    ) -> list[InvestigationV2Status]:
         """investigationStatuses returns the available investigation statuses for a given user and the current tenant's service level."""
         endpoint = "investigationV2Statuses"
 
@@ -598,8 +592,7 @@ class TaegisSDKInvestigations2Query:
         self, arguments: InvestigationFilesV2Arguments
     ) -> InvestigationFilesV2:
         """investigationFilesV2 returns file details for all files matching the arguments provided.
-        The results will not include pre-signed download urls for each file metadata returned.
-        """
+        The results will not include pre-signed download urls for each file metadata returned."""
         endpoint = "investigationFilesV2"
 
         result = self.service.execute_query(

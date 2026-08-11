@@ -7,8 +7,8 @@ from __future__ import annotations
 
 import logging
 import threading
-from datetime import datetime, timedelta
-from typing import TYPE_CHECKING, Any, Dict, List, Optional, Union
+from datetime import datetime, timedelta, timezone
+from typing import TYPE_CHECKING, Any
 
 from gql import Client, GraphQLRequest
 from gql.transport import Transport
@@ -17,7 +17,6 @@ from gql.transport.aiohttp_websockets import AIOHTTPWebsocketsTransport
 from graphql import GraphQLError, GraphQLField, GraphQLSchema
 
 from taegis_sdk_python._consts import DEFAULT_GATEWAY
-from taegis_sdk_python._version import __version__
 from taegis_sdk_python.errors import InvalidGraphQLEndpoint
 from taegis_sdk_python.utils import async_block, prepare_variables, remove_node
 
@@ -33,10 +32,10 @@ class SchemaCache:
 
     _lock = threading.RLock()
 
-    def __init__(self, expires: int, schema: Optional[GraphQLSchema] = None):
+    def __init__(self, expires: int, schema: GraphQLSchema | None = None):
         self._expires = expires
         self._schema = schema
-        self._inserted_at = datetime.now()
+        self._inserted_at = datetime.now(timezone.utc)
 
     def is_expired(self) -> bool:
         """Returns if the schema is expired.
@@ -46,10 +45,12 @@ class SchemaCache:
         bool
             Is schema expired?
         """
-        return self._inserted_at + timedelta(minutes=self._expires) <= datetime.now()
+        return self._inserted_at + timedelta(minutes=self._expires) <= datetime.now(
+            timezone.utc
+        )
 
     @property
-    def schema(self) -> Optional[GraphQLSchema]:
+    def schema(self) -> GraphQLSchema | None:
         """Get the schema.
 
         Returns
@@ -76,7 +77,7 @@ class SchemaCacheMap:
         if cls._instance is None:
             with cls._lock:
                 if cls._instance is None:
-                    cls._instance = super(SchemaCacheMap, cls).__new__(cls)
+                    cls._instance = super().__new__(cls)
                     cls._instance.__post_init__(*args, **kwargs)
         return cls._instance
 
@@ -85,7 +86,7 @@ class SchemaCacheMap:
         self._expires = expires
 
     def get(
-        self, transport: Transport, introspection_args: Dict[str, Any]
+        self, transport: Transport, introspection_args: dict[str, Any]
     ) -> GraphQLSchema:
         """Get the schema from the map.
 
@@ -133,7 +134,7 @@ class SchemaCacheMap:
     @staticmethod
     @async_block
     async def retrieve_schema(
-        transport: Transport, introspection_args: Dict[str, Any]
+        transport: Transport, introspection_args: dict[str, Any]
     ) -> GraphQLSchema:
         """Retrieve the schema from a gql Client with the provided transport and
         introspection query arguments.
@@ -294,7 +295,7 @@ class ServiceCore:
         """Clears the introspection schema."""
         self._cache_map.clear(self.sync_client.transport)
 
-    def get_sync_schema(self) -> Union[GraphQLSchema, None]:
+    def get_sync_schema(self) -> GraphQLSchema | None:
         """Retrieves introspection schema from Synchronous endpoint.
 
         Returns
@@ -304,7 +305,7 @@ class ServiceCore:
         return self.schema
 
     @async_block
-    async def get_ws_schema(self) -> Union[GraphQLSchema, None]:
+    async def get_ws_schema(self) -> GraphQLSchema | None:
         """Retrieves introspection schema from WebSockets endpoint.
 
         Returns
@@ -317,7 +318,7 @@ class ServiceCore:
         return schema
 
     def execute_query(
-        self, endpoint: str, output: str, variables: Optional[Dict[str, Any]] = None
+        self, endpoint: str, output: str, variables: dict[str, Any] | None = None
     ) -> Any:
         """Execute a GraphQL Query.
 
@@ -370,7 +371,7 @@ class ServiceCore:
         return self.execute(query_string, variables)
 
     def execute_mutation(
-        self, endpoint: str, output: str, variables: Optional[Dict[str, Any]] = None
+        self, endpoint: str, output: str, variables: dict[str, Any] | None = None
     ) -> Any:
         """Execute a GraphQL Mutation.
 
@@ -423,8 +424,8 @@ class ServiceCore:
         return self.execute(query_string, variables)
 
     def execute_subscription(
-        self, endpoint: str, output: str, variables: Optional[Dict[str, Any]] = None
-    ) -> List[Any]:
+        self, endpoint: str, output: str, variables: dict[str, Any] | None = None
+    ) -> list[Any]:
         """Execute a GraphQL Subscription.
 
         Parameters
@@ -477,7 +478,7 @@ class ServiceCore:
 
     @async_block
     async def execute(
-        self, query_string: str, variables: Optional[Dict[str, Any]] = None
+        self, query_string: str, variables: dict[str, Any] | None = None
     ) -> Any:
         """Execute a GraphQL string.
 
@@ -521,8 +522,8 @@ class ServiceCore:
 
     @async_block
     async def subscribe(
-        self, query_string: str, variables: Optional[Dict[str, Any]] = None
-    ) -> List[Any]:
+        self, query_string: str, variables: dict[str, Any] | None = None
+    ) -> list[Any]:
         """Execute a subsciption GraphQL string.
 
         Parameters
@@ -609,7 +610,7 @@ class ServiceCore:
                             query_string, exc.nodes[0], exc.locations[0]
                         )
                     else:
-                        raise exc
+                        raise
 
         return query_string
 
@@ -640,16 +641,13 @@ class ServiceCore:
         """
         if graphql_field.args:
             directives = f"""({
-                ', '.join(
-                    f'${arg_name}: {arg_def.type}'
+                ", ".join(
+                    f"${arg_name}: {arg_def.type}"
                     for arg_name, arg_def in graphql_field.args.items()
                 )
             })"""
             definitions = f"""({
-                ', '.join(
-                    f'{arg_name}: ${arg_name}'
-                    for arg_name in graphql_field.args
-                )
+                ", ".join(f"{arg_name}: ${arg_name}" for arg_name in graphql_field.args)
             })"""
         else:
             directives = ""

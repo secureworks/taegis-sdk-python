@@ -11,7 +11,7 @@ def create_sharelink(service: GraphQLService, input_: ShareLinkCreateInput):
     """Create a Taegis Sharelink."""
     result = service.sharelinks.mutation.create_share_link(input_=input_)
 
-    shareable_url = f'{service.core.sync_url.replace("api.", "")}/share/{result.id}'
+    shareable_url = f"{service.core.sync_url.replace('api.', '')}/share/{result.id}"
     return shareable_url
 
 

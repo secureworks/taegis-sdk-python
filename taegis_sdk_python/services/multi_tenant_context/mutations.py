@@ -1,5 +1,4 @@
 """MultiTenantContext Mutation."""
-
 # pylint: disable=no-member, unused-argument, too-many-locals, duplicate-code, wildcard-import, unused-wildcard-import, cyclic-import
 
 
@@ -9,14 +8,12 @@
 from __future__ import annotations
 
 import logging
-from typing import TYPE_CHECKING, Any, Dict, List, Optional, Tuple, Union
+from typing import TYPE_CHECKING
 
 from taegis_sdk_python import GraphQLNoRowsInResultSetError
-from taegis_sdk_python._consts import TaegisEnum
 from taegis_sdk_python.services.multi_tenant_context.types import *
 from taegis_sdk_python.utils import (
     build_output_string,
-    parse_union_result,
     prepare_input,
 )
 
@@ -52,7 +49,7 @@ class TaegisSDKMultiTenantContextMutation:
             return Session.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for mutation createSession")
 
-    def set_session(self, inputs: Optional[List[SessionInput]] = None) -> List[Session]:
+    def set_session(self, inputs: list[SessionInput] | None = None) -> list[Session]:
         """Sets a multi tenant session. Set the tenants you want to look at for a session."""
         endpoint = "setSession"
 
@@ -72,7 +69,7 @@ class TaegisSDKMultiTenantContextMutation:
             )
         raise GraphQLNoRowsInResultSetError("for mutation setSession")
 
-    def add_to_tenant_history(self, input_: SessionInput) -> List[History]:
+    def add_to_tenant_history(self, input_: SessionInput) -> list[History]:
         """Adds to a subject's tenant history. Returns the new histories which were added."""
         endpoint = "addToTenantHistory"
 

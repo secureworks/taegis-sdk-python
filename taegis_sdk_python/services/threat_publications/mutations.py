@@ -1,5 +1,4 @@
 """ThreatPublications Mutation."""
-
 # pylint: disable=no-member, unused-argument, too-many-locals, duplicate-code, wildcard-import, unused-wildcard-import, cyclic-import
 
 
@@ -9,14 +8,13 @@
 from __future__ import annotations
 
 import logging
-from typing import TYPE_CHECKING, Any, Dict, List, Optional, Tuple, Union
+from typing import TYPE_CHECKING
 
 from taegis_sdk_python import GraphQLNoRowsInResultSetError
 from taegis_sdk_python._consts import TaegisEnum
 from taegis_sdk_python.services.threat_publications.types import *
 from taegis_sdk_python.utils import (
     build_output_string,
-    parse_union_result,
     prepare_input,
 )
 
@@ -35,10 +33,10 @@ class TaegisSDKThreatPublicationsMutation:
     def resend_publication(
         self,
         id_: str,
-        language: Union[languageType, TaegisEnum],
+        language: languageType | TaegisEnum,
         dry_run: bool,
-        mode: Optional[Union[ResendMode, TaegisEnum]] = None,
-        email_addresses: Optional[List[str]] = None,
+        mode: ResendMode | TaegisEnum | None = None,
+        email_addresses: list[str] | None = None,
     ) -> ResendPublicationResponse:
         """Resends emails for a publication and language based on the specified mode."""
         endpoint = "resendPublication"

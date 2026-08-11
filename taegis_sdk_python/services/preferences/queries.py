@@ -1,5 +1,4 @@
 """Preferences Query."""
-
 # pylint: disable=no-member, unused-argument, too-many-locals, duplicate-code, wildcard-import, unused-wildcard-import, cyclic-import
 
 
@@ -9,14 +8,12 @@
 from __future__ import annotations
 
 import logging
-from typing import TYPE_CHECKING, Any, Dict, List, Optional, Tuple, Union
+from typing import TYPE_CHECKING
 
 from taegis_sdk_python import GraphQLNoRowsInResultSetError
-from taegis_sdk_python._consts import TaegisEnum
 from taegis_sdk_python.services.preferences.types import *
 from taegis_sdk_python.utils import (
     build_output_string,
-    parse_union_result,
     prepare_input,
 )
 
@@ -142,7 +139,7 @@ class TaegisSDKPreferencesQuery:
             return TenantPreference.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for query tenantPreferenceByKey")
 
-    def list_tenant_preferences_by_key(self, key: str) -> List[TenantPreference]:
+    def list_tenant_preferences_by_key(self, key: str) -> list[TenantPreference]:
         """No developer notes."""
         endpoint = "listTenantPreferencesByKey"
 
@@ -164,7 +161,7 @@ class TaegisSDKPreferencesQuery:
 
     def list_all_tenant_preferences(
         self, filter_: listAllTenantPreferencesInput
-    ) -> List[TenantPreference]:
+    ) -> list[TenantPreference]:
         """No developer notes."""
         endpoint = "listAllTenantPreferences"
 
@@ -184,7 +181,7 @@ class TaegisSDKPreferencesQuery:
             )
         raise GraphQLNoRowsInResultSetError("for query listAllTenantPreferences")
 
-    def ticketing_settings(self) -> List[TicketingSettings]:
+    def ticketing_settings(self) -> list[TicketingSettings]:
         """No developer notes."""
         endpoint = "ticketingSettings"
 
@@ -235,8 +232,8 @@ class TaegisSDKPreferencesQuery:
         raise GraphQLNoRowsInResultSetError("for query providerPreferences")
 
     def get_preferences(
-        self, get_preference_selector: Optional[GetPreferenceSelector] = None
-    ) -> List[UserPreferenceDictionary]:
+        self, get_preference_selector: GetPreferenceSelector | None = None
+    ) -> list[UserPreferenceDictionary]:
         """No developer notes."""
         endpoint = "getPreferences"
 

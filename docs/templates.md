@@ -77,12 +77,12 @@ from taegis_sdk_python.templates import load_jinja2_template_environment
 service = GraphQLService()
 
 environment = load_jinja2_template_environment()
-template = environment.get_template('example.jinja')
+template = environment.get_template("example.jinja")
 
-ips = ['1.1.1.1', '8.8.8.8']
-domains = ['secureworks.com', 'sophos.com']
+ips = ["1.1.1.1", "8.8.8.8"]
+domains = ["secureworks.com", "sophos.com"]
 severity = 0.6
-earliest = '-1d'
+earliest = "-1d"
 
 cql_query = template.render(
     ips=ips,
@@ -91,11 +91,13 @@ cql_query = template.render(
     earliest=earliest,
 )
 
-results = service.alerts.query.alerts_service_search(SearchRequestInput(
-    cql_query=cql_query,
-    limit=10000,
-    offset=0,
-))
+results = service.alerts.query.alerts_service_search(
+    SearchRequestInput(
+        cql_query=cql_query,
+        limit=10000,
+        offset=0,
+    )
+)
 
 print(results)
 ```

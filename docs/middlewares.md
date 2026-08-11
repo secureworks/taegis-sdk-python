@@ -15,7 +15,7 @@ service = GraphQLService(middlewares=(retry_middleware,))
 
 # Override
 with service(middlewares=(headers_logging_middleware, retry_middleware)):
-     results = service.subjects.query.current_subject()
+    results = service.subjects.query.current_subject()
 ```
 
 ## Examples
@@ -31,8 +31,12 @@ The SDK may be configured to provide a maximum amount of seconds or calls before
 ```python
 from taegis_sdk_python.config import write_to_config
 
-write_to_config("backoff.retry", "max_time", 60)  # specifies the maximum amount of total time in seconds that can elapse before giving up
-write_to_config("backoff.retry", "max_tries", 5)  # specifies the maximum number of calls to make to the target function before giving up
+write_to_config(
+    "backoff.retry", "max_time", 60
+)  # specifies the maximum amount of total time in seconds that can elapse before giving up
+write_to_config(
+    "backoff.retry", "max_tries", 5
+)  # specifies the maximum number of calls to make to the target function before giving up
 ```
 
 `to_curl` logs at the info logging level a valid cURL command.  Access Tokens cached by the SDK are replaced with a `<redacted>` string.

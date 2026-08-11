@@ -5,18 +5,16 @@ Taegis SDK Python General Utilities"""
 import asyncio
 import concurrent
 import logging
-from dataclasses import Field
+from dataclasses import Field, is_dataclass
 from dataclasses import fields as dc_fields
-from dataclasses import is_dataclass
 from enum import Enum, EnumMeta
-from typing import Any, Callable, Dict, List, Optional, Union
+from typing import Any, Callable, Optional, Union
 
 from graphql.language.ast import FieldNode
 from graphql.language.location import SourceLocation
-from graphql.type import is_object_type, is_scalar_type
+from graphql.type import is_object_type, is_scalar_type, is_wrapping_type
 from graphql.type import is_union_type as is_gql_union_type
-from graphql.type import is_wrapping_type
-from typing_inspect import get_args, is_union_type
+from typing_inspect import get_args, get_origin, is_union_type
 
 from taegis_sdk_python._consts import TaegisEnum
 
@@ -54,8 +52,13 @@ def unwrap(t: Field) -> Any:
     args = [arg for arg in get_args(t) if arg != type(None) and arg != TaegisEnum]
 
     # Unwrap List[type]
-    if hasattr(t, "_name") and t._name == "List":  # pylint: disable=protected-access
+    if hasattr(t, "_name") and (t._name in ("list", "List")):  # pylint: disable=protected-access
         log.debug(f"{t} is List...")
+        return unwrap(args[0])
+
+    origin = get_origin(t)
+    if origin in (list, tuple):
+        log.debug(f"{t} is {origin.__name__}...")
         return unwrap(args[0])
 
     if is_union_type(t):
@@ -303,7 +306,7 @@ def prepare_input(value: Any) -> Any:  # pylint: disable=too-many-return-stateme
         return {
             key: prepare_input(val)
             for key, val in value.to_dict(encode_json=True).items()
-            if val is not None and not val == TaegisEnum.UNKNOWN.value
+            if val is not None and val != TaegisEnum.UNKNOWN.value
         }
     # return value of Enum instead of the object
     if isinstance(value, Enum):
@@ -327,7 +330,7 @@ def prepare_input(value: Any) -> Any:  # pylint: disable=too-many-return-stateme
         return {
             key: prepare_input(val)
             for key, val in value.items()
-            if val is not None and not val == TaegisEnum.UNKNOWN.value
+            if val is not None and val != TaegisEnum.UNKNOWN.value
         }
 
     if value == TaegisEnum.UNKNOWN.value:
@@ -343,8 +346,8 @@ def prepare_input(value: Any) -> Any:  # pylint: disable=too-many-return-stateme
 
 
 def prepare_variables(
-    variables: Optional[Dict[str, Any]] = None,
-) -> Union[None, Dict[str, Any]]:
+    variables: Optional[dict[str, Any]] = None,
+) -> Union[None, dict[str, Any]]:
     """
     Remove None values from a dictionary.
 
@@ -373,7 +376,7 @@ def prepare_variables(
 
 
 def parse_union_result(
-    union, result: Union[List[Dict[str, Any]], Dict[str, Any]]
+    union, result: Union[list[dict[str, Any]], dict[str, Any]]
 ) -> Any:
     """
     Coerse result into a type from union.
@@ -537,11 +540,11 @@ def decode_enum(type_: Union[Enum, EnumMeta], value: str):
 
 
 __all__ = [
-    "build_output_string",
     "async_block",
+    "build_output_string",
+    "build_output_string_from_introspection",
+    "parse_union_result",
     "prepare_input",
     "prepare_variables",
-    "parse_union_result",
-    "build_output_string_from_introspection",
     "remove_node",
 ]

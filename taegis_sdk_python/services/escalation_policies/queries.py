@@ -1,5 +1,4 @@
 """EscalationPolicies Query."""
-
 # pylint: disable=no-member, unused-argument, too-many-locals, duplicate-code, wildcard-import, unused-wildcard-import, cyclic-import
 
 
@@ -9,14 +8,12 @@
 from __future__ import annotations
 
 import logging
-from typing import TYPE_CHECKING, Any, Dict, List, Optional, Tuple, Union
+from typing import TYPE_CHECKING
 
 from taegis_sdk_python import GraphQLNoRowsInResultSetError
-from taegis_sdk_python._consts import TaegisEnum
 from taegis_sdk_python.services.escalation_policies.types import *
 from taegis_sdk_python.utils import (
     build_output_string,
-    parse_union_result,
     prepare_input,
 )
 
@@ -76,8 +73,7 @@ class TaegisSDKEscalationPoliciesQuery:
         self, arguments: WalkEscalationPolicyArguments
     ) -> EscalationPolicyStep:
         """Walk Escalation Policy gets the next valid contact to try in an escalation policy.
-        If there are no more contacts to try, the escalationStep field will be null and no error will be returned.
-        """
+        If there are no more contacts to try, the escalationStep field will be null and no error will be returned."""
         endpoint = "walkEscalationPolicy"
 
         result = self.service.execute_query(
@@ -95,7 +91,7 @@ class TaegisSDKEscalationPoliciesQuery:
         raise GraphQLNoRowsInResultSetError("for query walkEscalationPolicy")
 
     def contact_method_options(
-        self, arguments: Optional[ContactMethodOptionsArguments] = None
+        self, arguments: ContactMethodOptionsArguments | None = None
     ) -> ContactMethods:
         """Contact Method Options returns a list of currently supported contact methods for the tenant."""
         endpoint = "contactMethodOptions"

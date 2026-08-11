@@ -1,5 +1,4 @@
 """EscalationPolicies Mutation."""
-
 # pylint: disable=no-member, unused-argument, too-many-locals, duplicate-code, wildcard-import, unused-wildcard-import, cyclic-import
 
 
@@ -9,14 +8,12 @@
 from __future__ import annotations
 
 import logging
-from typing import TYPE_CHECKING, Any, Dict, List, Optional, Tuple, Union
+from typing import TYPE_CHECKING
 
 from taegis_sdk_python import GraphQLNoRowsInResultSetError
-from taegis_sdk_python._consts import TaegisEnum
 from taegis_sdk_python.services.escalation_policies.types import *
 from taegis_sdk_python.utils import (
     build_output_string,
-    parse_union_result,
     prepare_input,
 )
 
@@ -77,8 +74,7 @@ class TaegisSDKEscalationPoliciesMutation:
     ) -> EscalationPolicy:
         """Delete an existing escalation policy.
         This is a hard delete and will remove the escalation policy from the system entirely.
-        Policies that are in use by notification rules will need to be unlinked before they can be deleted.
-        """
+        Policies that are in use by notification rules will need to be unlinked before they can be deleted."""
         endpoint = "deleteEscalationPolicy"
 
         result = self.service.execute_mutation(

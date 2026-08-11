@@ -1,5 +1,4 @@
 """TriggerAction Mutation."""
-
 # pylint: disable=no-member, unused-argument, too-many-locals, duplicate-code, wildcard-import, unused-wildcard-import, cyclic-import
 
 
@@ -9,14 +8,12 @@
 from __future__ import annotations
 
 import logging
-from typing import TYPE_CHECKING, Any, Dict, List, Optional, Tuple, Union
+from typing import TYPE_CHECKING, Any
 
 from taegis_sdk_python import GraphQLNoRowsInResultSetError
-from taegis_sdk_python._consts import TaegisEnum
 from taegis_sdk_python.services.trigger_action.types import *
 from taegis_sdk_python.utils import (
     build_output_string,
-    parse_union_result,
     prepare_input,
 )
 
@@ -72,8 +69,8 @@ class TaegisSDKTriggerActionMutation:
         self,
         playbook_action: str,
         inputs: Any,
-        target_resource: Optional[str] = None,
-        reason: Optional[str] = None,
+        target_resource: str | None = None,
+        reason: str | None = None,
     ) -> PlaybookExecution:
         """executePlaybookAction is deprecated, use executePlaybookActionsV2 instead. This endpoint does not support entities."""
         endpoint = "executePlaybookAction"
@@ -100,8 +97,8 @@ class TaegisSDKTriggerActionMutation:
         raise GraphQLNoRowsInResultSetError("for mutation executePlaybookAction")
 
     def execute_playbook_actions(
-        self, input_: List[ExecutePlaybookActionInput]
-    ) -> List[PlaybookExecution]:
+        self, input_: list[ExecutePlaybookActionInput]
+    ) -> list[PlaybookExecution]:
         """executePlaybookActions is deprecated, use executePlaybookActionsV2 instead. This endpoint does not support entities."""
         endpoint = "executePlaybookActions"
 
@@ -126,8 +123,8 @@ class TaegisSDKTriggerActionMutation:
         raise GraphQLNoRowsInResultSetError("for mutation executePlaybookActions")
 
     def execute_playbook_actions_v2(
-        self, input_: List[ExecutePlaybookActionV2Input]
-    ) -> List[PlaybookExecution]:
+        self, input_: list[ExecutePlaybookActionV2Input]
+    ) -> list[PlaybookExecution]:
         """executePlaybookActionsV2 starts a playbook response or context lookup action."""
         endpoint = "executePlaybookActionsV2"
 

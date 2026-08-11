@@ -55,7 +55,7 @@ from taegis_sdk_python import GraphQLService
 
 service = GraphQLService()
 
-with service(output='id tenant_id ... assignee { id name ... }'):
+with service(output="id tenant_id ... assignee { id name ... }"):
     results = service.investigations.query.all_investigations(
         page=1,
         per_page=3,
@@ -111,7 +111,9 @@ import logging
 
 # logging.getLogger("taegis_sdk_python.services.<service>.<type>").setLevel(logging.ERROR)
 
-logging.getLogger("taegis_sdk_python.services.investigations.queries").setLevel(logging.ERROR)
+logging.getLogger("taegis_sdk_python.services.investigations.queries").setLevel(
+    logging.ERROR
+)
 ```
 
 ## Additional Resources

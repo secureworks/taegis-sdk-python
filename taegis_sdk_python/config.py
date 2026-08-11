@@ -53,9 +53,8 @@ def write_config(config: ConfigParser):
     lock_file = config_fp.with_suffix(".lock")
     file_lock = FileLock(lock_file)
 
-    with file_lock:
-        with config_fp.open(mode="w") as f:  # pylint: disable=invalid-name
-            config.write(f)
+    with file_lock, config_fp.open(mode="w") as f:  # pylint: disable=invalid-name
+        config.write(f)
 
     lock_file.unlink(missing_ok=True)
 

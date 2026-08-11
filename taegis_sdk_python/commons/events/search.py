@@ -1,7 +1,7 @@
 """Taegis Commons Events search implementations."""
 
 import logging
-from typing import List, Optional
+from typing import Optional
 
 from taegis_sdk_python import GraphQLService
 from taegis_sdk_python.services.events.types import EventQueryOptions, EventQueryResults
@@ -9,7 +9,7 @@ from taegis_sdk_python.services.events.types import EventQueryOptions, EventQuer
 log = logging.getLogger(__name__)
 
 
-def get_next_page(events_results: List[EventQueryResults]) -> Optional[str]:
+def get_next_page(events_results: list[EventQueryResults]) -> Optional[str]:
     """Retrieve events  next page indicator."""
     try:
         # the next page could be found in any of the result pages,
@@ -27,7 +27,7 @@ def events_search(
     *,
     options: Optional[EventQueryOptions] = None,
     caller_name: str = "Taegis SDK Commons",
-) -> List[EventQueryResults]:
+) -> list[EventQueryResults]:
     """Taegis Events search."""
     if not options:
         options = EventQueryOptions(

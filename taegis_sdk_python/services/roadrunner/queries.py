@@ -1,5 +1,4 @@
 """Roadrunner Query."""
-
 # pylint: disable=no-member, unused-argument, too-many-locals, duplicate-code, wildcard-import, unused-wildcard-import, cyclic-import
 
 
@@ -9,14 +8,12 @@
 from __future__ import annotations
 
 import logging
-from typing import TYPE_CHECKING, Any, Dict, List, Optional, Tuple, Union
+from typing import TYPE_CHECKING
 
 from taegis_sdk_python import GraphQLNoRowsInResultSetError
-from taegis_sdk_python._consts import TaegisEnum
 from taegis_sdk_python.services.roadrunner.types import *
 from taegis_sdk_python.utils import (
     build_output_string,
-    parse_union_result,
     prepare_input,
 )
 
@@ -32,7 +29,7 @@ class TaegisSDKRoadrunnerQuery:
     def __init__(self, service: RoadrunnerService):
         self.service = service
 
-    def syslog_sample(self, filter_: SyslogSampleFilter) -> List[SyslogSample]:
+    def syslog_sample(self, filter_: SyslogSampleFilter) -> list[SyslogSample]:
         """No developer notes."""
         endpoint = "syslogSample"
 
@@ -52,7 +49,7 @@ class TaegisSDKRoadrunnerQuery:
             )
         raise GraphQLNoRowsInResultSetError("for query syslogSample")
 
-    def all_parsers(self) -> List[Parser]:
+    def all_parsers(self) -> list[Parser]:
         """No developer notes."""
         endpoint = "allParsers"
 
@@ -86,7 +83,7 @@ class TaegisSDKRoadrunnerQuery:
             return Parser.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for query parser")
 
-    def native_sensor_types(self) -> List[str]:
+    def native_sensor_types(self) -> list[str]:
         """No developer notes."""
         endpoint = "nativeSensorTypes"
 
@@ -117,11 +114,11 @@ class TaegisSDKRoadrunnerQuery:
 
     def sample_parser(
         self,
-        messages: List[str],
-        parser: Optional[UnvalidatedParserInput] = None,
-        run_isolated: Optional[bool] = None,
-        run_disabled: Optional[bool] = None,
-    ) -> List[SampleResult]:
+        messages: list[str],
+        parser: UnvalidatedParserInput | None = None,
+        run_isolated: bool | None = None,
+        run_disabled: bool | None = None,
+    ) -> list[SampleResult]:
         """No developer notes."""
         endpoint = "sampleParser"
 
@@ -144,7 +141,7 @@ class TaegisSDKRoadrunnerQuery:
             )
         raise GraphQLNoRowsInResultSetError("for query sampleParser")
 
-    def parser_schemas(self) -> List[str]:
+    def parser_schemas(self) -> list[str]:
         """No developer notes."""
         endpoint = "parserSchemas"
 
@@ -153,9 +150,7 @@ class TaegisSDKRoadrunnerQuery:
             return result.get(endpoint)
         raise GraphQLNoRowsInResultSetError("for query parserSchemas")
 
-    def directory(
-        self, filter_: Optional[DirectoryFilterInput] = None
-    ) -> List[Directory]:
+    def directory(self, filter_: DirectoryFilterInput | None = None) -> list[Directory]:
         """No developer notes."""
         endpoint = "directory"
 
@@ -179,7 +174,7 @@ class TaegisSDKRoadrunnerQuery:
             )
         raise GraphQLNoRowsInResultSetError("for query directory")
 
-    def all_samples(self) -> List[Sample]:
+    def all_samples(self) -> list[Sample]:
         """No developer notes."""
         endpoint = "allSamples"
 

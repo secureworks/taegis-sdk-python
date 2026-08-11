@@ -96,19 +96,22 @@ def get_tenants(service: GraphQLService) -> List[Tenants]:
         )
         results.append(result)
 
-    return [
-        tenant
-        for result in results
-        for tenant in result.results
-    ]
+    return [tenant for result in results for tenant in result.results]
+
 
 def create_test_tenants_list(tenants: List[Tenants]) -> List[Tenants]:
     def single_production_enabled(environments):
-        return len([
-            True 
-            for environment in environments 
-            if environment.enabled and environment.name in production_environments
-        ]) == 1
+        return (
+            len(
+                [
+                    True
+                    for environment in environments
+                    if environment.enabled
+                    and environment.name in production_environments
+                ]
+            )
+            == 1
+        )
 
     test_tenants = []
     counter = Counter()
@@ -118,7 +121,8 @@ def create_test_tenants_list(tenants: List[Tenants]) -> List[Tenants]:
             environment = [
                 environment.name
                 for environment in tenant.environments
-                if environment.enabled == True and environment.name in production_environments
+                if environment.enabled == True
+                and environment.name in production_environments
             ][0]
 
             # limit each environment to 100 tenants for consistency testing between environments
@@ -127,6 +131,7 @@ def create_test_tenants_list(tenants: List[Tenants]) -> List[Tenants]:
                 test_tenants.append(tenant)
 
     return test_tenants
+
 
 def threaded_function(service: GraphQLService, tenant):
     results = []
@@ -146,8 +151,9 @@ def threaded_function(service: GraphQLService, tenant):
     except Exception as exc:
         print(exc)
         return []
-    
+
     return results
+
 
 tenants = get_tenants(service)
 test_tenants = create_test_tenants_list(tenants)

@@ -1,5 +1,4 @@
 """Health Query."""
-
 # pylint: disable=no-member, unused-argument, too-many-locals, duplicate-code, wildcard-import, unused-wildcard-import, cyclic-import
 
 
@@ -9,14 +8,12 @@
 from __future__ import annotations
 
 import logging
-from typing import TYPE_CHECKING, Any, Dict, List, Optional, Tuple, Union
+from typing import TYPE_CHECKING
 
 from taegis_sdk_python import GraphQLNoRowsInResultSetError
-from taegis_sdk_python._consts import TaegisEnum
 from taegis_sdk_python.services.health.types import *
 from taegis_sdk_python.utils import (
     build_output_string,
-    parse_union_result,
     prepare_input,
 )
 
@@ -50,7 +47,7 @@ class TaegisSDKHealthQuery:
             return NDRHealthLastEvents.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for query ndrHealthLastEvent")
 
-    def ndr_health_status(self, device_name: str) -> List[NDRHealthStatus]:
+    def ndr_health_status(self, device_name: str) -> list[NDRHealthStatus]:
         """Query to get health status of a device."""
         endpoint = "ndrHealthStatus"
 
@@ -70,7 +67,7 @@ class TaegisSDKHealthQuery:
             )
         raise GraphQLNoRowsInResultSetError("for query ndrHealthStatus")
 
-    def ndr_health_statuses(self) -> List[NDRHealthStatuses]:
+    def ndr_health_statuses(self) -> list[NDRHealthStatuses]:
         """Query to get list of devices with health status of each device."""
         endpoint = "ndrHealthStatuses"
 
@@ -90,7 +87,7 @@ class TaegisSDKHealthQuery:
 
     def ndr_health_metrics(
         self, ndr_health_metrics_query: NDRHealthMetricsQuery
-    ) -> List[NDRHealthMetricsResponse]:
+    ) -> list[NDRHealthMetricsResponse]:
         """Query to get health metrics of a device for the requested type."""
         endpoint = "ndrHealthMetrics"
 

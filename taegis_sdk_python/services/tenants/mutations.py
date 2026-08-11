@@ -1,5 +1,4 @@
 """Tenants Mutation."""
-
 # pylint: disable=no-member, unused-argument, too-many-locals, duplicate-code, wildcard-import, unused-wildcard-import, cyclic-import
 
 
@@ -9,14 +8,12 @@
 from __future__ import annotations
 
 import logging
-from typing import TYPE_CHECKING, Any, Dict, List, Optional, Tuple, Union
+from typing import TYPE_CHECKING
 
 from taegis_sdk_python import GraphQLNoRowsInResultSetError
-from taegis_sdk_python._consts import TaegisEnum
 from taegis_sdk_python.services.tenants.types import *
 from taegis_sdk_python.utils import (
     build_output_string,
-    parse_union_result,
     prepare_input,
 )
 
@@ -331,7 +328,7 @@ class TaegisSDKTenantsMutation:
 
     def set_tenants_license_level(
         self, input_: TenantsLicenseLevelInput
-    ) -> List[Tenant]:
+    ) -> list[Tenant]:
         """Set license level to the specified license level for tenant/s."""
         endpoint = "setTenantsLicenseLevel"
 

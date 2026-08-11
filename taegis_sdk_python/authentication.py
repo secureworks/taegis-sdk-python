@@ -8,7 +8,7 @@ import os
 import threading
 import warnings
 from time import time
-from typing import Any, Dict, Optional, Tuple, Union
+from typing import Any, Optional, Union
 
 from oauthlib.oauth2 import BackendApplicationClient
 from requests import HTTPError, post
@@ -30,7 +30,7 @@ LOCK = threading.RLock()
 
 def check_username(
     request_url: str, username: str
-) -> Dict[str, Any]:  # pragma: no cover
+) -> dict[str, Any]:  # pragma: no cover
     """Check if the user needs to login via password or sso.
 
     Parameters
@@ -61,7 +61,7 @@ def check_username(
     return response.json()
 
 
-def get_oauth_from_env(environment: str) -> Tuple[Optional[str], Optional[str]]:
+def get_oauth_from_env(environment: str) -> tuple[Optional[str], Optional[str]]:
     """
     Retrieve CLIENT_ID and CLIENT_SECRET credentials from environment.
 

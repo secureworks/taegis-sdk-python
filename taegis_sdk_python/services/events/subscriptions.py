@@ -1,5 +1,4 @@
 """Events Subscription."""
-
 # pylint: disable=no-member, unused-argument, too-many-locals, duplicate-code, wildcard-import, unused-wildcard-import, cyclic-import
 
 
@@ -9,14 +8,12 @@
 from __future__ import annotations
 
 import logging
-from typing import TYPE_CHECKING, Any, Dict, List, Optional, Tuple, Union
+from typing import TYPE_CHECKING, Any
 
 from taegis_sdk_python import GraphQLNoRowsInResultSetError
-from taegis_sdk_python._consts import TaegisEnum
 from taegis_sdk_python.services.events.types import *
 from taegis_sdk_python.utils import (
     build_output_string,
-    parse_union_result,
     prepare_input,
 )
 
@@ -35,9 +32,9 @@ class TaegisSDKEventsSubscription:
     def event_query(
         self,
         query: str,
-        metadata: Optional[Dict[str, Any]] = None,
-        options: Optional[EventQueryOptions] = None,
-    ) -> List[EventQueryResults]:
+        metadata: dict[str, Any] | None = None,
+        options: EventQueryOptions | None = None,
+    ) -> list[EventQueryResults]:
         """Evaluate a query string and returns results for the first page of
         each event type covered by the query."""
         endpoint = "eventQuery"
@@ -60,7 +57,7 @@ class TaegisSDKEventsSubscription:
             )
         raise GraphQLNoRowsInResultSetError("for subscription eventQuery")
 
-    def event_page(self, id_: str) -> List[EventQueryResults]:
+    def event_page(self, id_: str) -> list[EventQueryResults]:
         """Returns the next logical page of results for each of the event types
         covered by the query."""
         endpoint = "eventPage"

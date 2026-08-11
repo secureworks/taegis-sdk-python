@@ -1,5 +1,4 @@
 """Comments Query."""
-
 # pylint: disable=no-member, unused-argument, too-many-locals, duplicate-code, wildcard-import, unused-wildcard-import, cyclic-import
 
 
@@ -9,14 +8,12 @@
 from __future__ import annotations
 
 import logging
-from typing import TYPE_CHECKING, Any, Dict, List, Optional, Tuple, Union
+from typing import TYPE_CHECKING
 
 from taegis_sdk_python import GraphQLNoRowsInResultSetError
-from taegis_sdk_python._consts import TaegisEnum
 from taegis_sdk_python.services.comments.types import *
 from taegis_sdk_python.utils import (
     build_output_string,
-    parse_union_result,
     prepare_input,
 )
 
@@ -54,7 +51,7 @@ class TaegisSDKCommentsQuery:
             return Comment.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for query comment")
 
-    def comments_by_parent(self, parent_type: str, parent_id: str) -> List[Comment]:
+    def comments_by_parent(self, parent_type: str, parent_id: str) -> list[Comment]:
         """No developer notes."""
         endpoint = "commentsByParent"
 
@@ -81,7 +78,7 @@ class TaegisSDKCommentsQuery:
 
     def comments_by_parent_section(
         self, parent_type: str, parent_id: str, section_type: str, section_id: str
-    ) -> List[Comment]:
+    ) -> list[Comment]:
         """No developer notes."""
         endpoint = "commentsByParentSection"
 
@@ -131,7 +128,7 @@ class TaegisSDKCommentsQuery:
             return ParentCount.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for query commentsCountByParent")
 
-    def comments_count_by_parent_type(self, parent_type: str) -> List[ParentCount]:
+    def comments_count_by_parent_type(self, parent_type: str) -> list[ParentCount]:
         """No developer notes."""
         endpoint = "commentsCountByParentType"
 
@@ -155,7 +152,7 @@ class TaegisSDKCommentsQuery:
             )
         raise GraphQLNoRowsInResultSetError("for query commentsCountByParentType")
 
-    def unread_comments_by_parents(self, parents: List[Parent]) -> List[Comment]:
+    def unread_comments_by_parents(self, parents: list[Parent]) -> list[Comment]:
         """No developer notes."""
         endpoint = "unreadCommentsByParents"
 
@@ -180,8 +177,8 @@ class TaegisSDKCommentsQuery:
         raise GraphQLNoRowsInResultSetError("for query unreadCommentsByParents")
 
     def latest_bulk_comments_by_parent(
-        self, parent_type: str, parent_ids: List[str]
-    ) -> List[LatestComment]:
+        self, parent_type: str, parent_ids: list[str]
+    ) -> list[LatestComment]:
         """No developer notes."""
         endpoint = "latestBulkCommentsByParent"
 
@@ -207,8 +204,8 @@ class TaegisSDKCommentsQuery:
         raise GraphQLNoRowsInResultSetError("for query latestBulkCommentsByParent")
 
     def comments_count_by_parent_ids(
-        self, parent_type: str, parent_ids: List[str]
-    ) -> List[ParentCount]:
+        self, parent_type: str, parent_ids: list[str]
+    ) -> list[ParentCount]:
         """No developer notes."""
         endpoint = "commentsCountByParentIds"
 

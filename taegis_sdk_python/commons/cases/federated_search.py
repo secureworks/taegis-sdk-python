@@ -3,7 +3,7 @@
 import logging
 import re
 from dataclasses import dataclass, field
-from typing import Callable, List, Optional
+from typing import Callable, Optional
 
 from dataclasses_json import config, dataclass_json
 from taegis_magic.core.utils import remove_output_node
@@ -30,7 +30,7 @@ log = logging.getLogger(__name__)
 class TaegisCommonsInvestigationV2(InvestigationV2):
     """TaegisCommonsInvestigationV2"""
 
-    contributor_subjects: Optional[List[FederatedSubject]] = field(
+    contributor_subjects: Optional[list[FederatedSubject]] = field(
         default=None, metadata=config(field_name="contributorSubjects")
     )
     assignee_subject: Optional[FederatedSubject] = field(
@@ -49,7 +49,7 @@ class TaegisCommonsInvestigationV2(InvestigationV2):
 class TaegisCommonsInvestigationsV2(InvestigationsV2):
     """TaegisCommonsInvestigationsV2"""
 
-    investigations: List[TaegisCommonsInvestigationV2] = field(
+    investigations: list[TaegisCommonsInvestigationV2] = field(
         default_factory=list, metadata=config(field_name="investigations")
     )
 
@@ -100,7 +100,7 @@ def cases_federated_search(
     *,
     limit: int = 10000,
     federated_call: Callable = investigations_search_with_subjects,
-) -> List[InvestigationsV2]:
+) -> list[InvestigationsV2]:
     """Taegis Cases search with Subject federation."""
 
     page = 1

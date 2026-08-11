@@ -1,12 +1,11 @@
 """Taegis SDK Python Middlewares Utilities."""
 
 from collections.abc import Mapping
-from typing import List
 
 from taegis_sdk_python.config import get_config
 
 
-def get_access_tokens() -> List[str]:
+def get_access_tokens() -> list[str]:
     """Retrieve all cached access tokens."""
     config = get_config()
 

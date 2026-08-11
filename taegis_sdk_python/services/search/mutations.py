@@ -1,5 +1,4 @@
 """Search Mutation."""
-
 # pylint: disable=no-member, unused-argument, too-many-locals, duplicate-code, wildcard-import, unused-wildcard-import, cyclic-import
 
 
@@ -9,14 +8,12 @@
 from __future__ import annotations
 
 import logging
-from typing import TYPE_CHECKING, Any, Dict, List, Optional, Tuple, Union
+from typing import TYPE_CHECKING
 
 from taegis_sdk_python import GraphQLNoRowsInResultSetError
-from taegis_sdk_python._consts import TaegisEnum
 from taegis_sdk_python.services.search.types import *
 from taegis_sdk_python.utils import (
     build_output_string,
-    parse_union_result,
     prepare_input,
 )
 
@@ -32,7 +29,7 @@ class TaegisSDKSearchMutation:
     def __init__(self, service: SearchService):
         self.service = service
 
-    def create_search(self, input_: Optional[CreateSearchInput] = None) -> SearchV2:
+    def create_search(self, input_: CreateSearchInput | None = None) -> SearchV2:
         """Create and execute a new search."""
         endpoint = "createSearch"
 
@@ -50,9 +47,7 @@ class TaegisSDKSearchMutation:
             return SearchV2.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for mutation createSearch")
 
-    def get_or_create_search(
-        self, input_: Optional[CreateSearchInput] = None
-    ) -> SearchV2:
+    def get_or_create_search(self, input_: CreateSearchInput | None = None) -> SearchV2:
         """Create and execute a new search if a matching one doesn't exist. Otherwise,
         retrieve search information and its current state. Searches are matched on
         their input data, with queries compared for equivalency via their canonical

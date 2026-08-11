@@ -1,5 +1,4 @@
 """Assets Query."""
-
 # pylint: disable=no-member, unused-argument, too-many-locals, duplicate-code, wildcard-import, unused-wildcard-import, cyclic-import
 
 
@@ -9,14 +8,13 @@
 from __future__ import annotations
 
 import logging
-from typing import TYPE_CHECKING, Any, Dict, List, Optional, Tuple, Union
+from typing import TYPE_CHECKING
 
 from taegis_sdk_python import GraphQLNoRowsInResultSetError
 from taegis_sdk_python._consts import TaegisEnum
 from taegis_sdk_python.services.assets.types import *
 from taegis_sdk_python.utils import (
     build_output_string,
-    parse_union_result,
     prepare_input,
 )
 
@@ -70,7 +68,7 @@ class TaegisSDKAssetsQuery:
             return Asset.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for query asset")
 
-    def assets_by_tag(self, tags: List[str]) -> List[Asset]:
+    def assets_by_tag(self, tags: list[str]) -> list[Asset]:
         """Get a list of assets with tag."""
         endpoint = "assetsByTag"
 
@@ -91,7 +89,7 @@ class TaegisSDKAssetsQuery:
             )
         raise GraphQLNoRowsInResultSetError("for query assetsByTag")
 
-    def all_unique_tags(self) -> List[str]:
+    def all_unique_tags(self) -> list[str]:
         """Get a list of all unique tags."""
         endpoint = "allUniqueTags"
 
@@ -122,12 +120,12 @@ class TaegisSDKAssetsQuery:
 
     def all_assets(
         self,
-        offset: Optional[int] = None,
-        limit: Optional[int] = None,
-        order_by: Optional[Union[AssetsOrderByInput, TaegisEnum]] = None,
-        order_direction: Optional[Union[AssetsOrderDirectionInput, TaegisEnum]] = None,
-        filter_asset_state: Optional[Union[AssetStateFilter, TaegisEnum]] = None,
-        only_most_recent: Optional[bool] = None,
+        offset: int | None = None,
+        limit: int | None = None,
+        order_by: AssetsOrderByInput | TaegisEnum | None = None,
+        order_direction: AssetsOrderDirectionInput | TaegisEnum | None = None,
+        filter_asset_state: AssetStateFilter | TaegisEnum | None = None,
+        only_most_recent: bool | None = None,
     ) -> AssetsResult:
         """Get a list of assets."""
         endpoint = "allAssets"
@@ -154,7 +152,7 @@ class TaegisSDKAssetsQuery:
         raise GraphQLNoRowsInResultSetError("for query allAssets")
 
     def all_assets_export(
-        self, offset: Optional[int] = None, limit: Optional[int] = None
+        self, offset: int | None = None, limit: int | None = None
     ) -> AssetsResult:
         """Get a list of assets for export to CSV."""
         endpoint = "allAssetsExport"
@@ -177,7 +175,7 @@ class TaegisSDKAssetsQuery:
         raise GraphQLNoRowsInResultSetError("for query allAssetsExport")
 
     def asset_count(
-        self, endpoint_type: Optional[Union[AgentType, TaegisEnum]] = None
+        self, endpoint_type: AgentType | TaegisEnum | None = None
     ) -> AssetCounts:
         """Count of assets of a specific endpoint_type."""
         endpoint = "assetCount"
@@ -198,7 +196,7 @@ class TaegisSDKAssetsQuery:
             return AssetCounts.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for query assetCount")
 
-    def asset_count_group_by_endpoint_type(self) -> List[AssetCountsByEndpointType]:
+    def asset_count_group_by_endpoint_type(self) -> list[AssetCountsByEndpointType]:
         """Count of assets of grouped by endpoint_type."""
         endpoint = "assetCountGroupByEndpointType"
 
@@ -236,7 +234,7 @@ class TaegisSDKAssetsQuery:
             return AssetCounts.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for query allAssetsCount")
 
-    def assets_by_ids(self, ids: Optional[List[str]] = None) -> List[Asset]:
+    def assets_by_ids(self, ids: list[str] | None = None) -> list[Asset]:
         """Bulk lookup by ids."""
         endpoint = "assetsByIds"
 
@@ -257,7 +255,7 @@ class TaegisSDKAssetsQuery:
             )
         raise GraphQLNoRowsInResultSetError("for query assetsByIds")
 
-    def assets_by_host_ids(self, host_ids: Optional[List[str]] = None) -> List[Asset]:
+    def assets_by_host_ids(self, host_ids: list[str] | None = None) -> list[Asset]:
         """Bulk lookup by hostIds."""
         endpoint = "assetsByHostIds"
 
@@ -279,8 +277,8 @@ class TaegisSDKAssetsQuery:
         raise GraphQLNoRowsInResultSetError("for query assetsByHostIds")
 
     def assets_by_ip_addresses(
-        self, ip_addresses: Optional[List[str]] = None
-    ) -> List[Asset]:
+        self, ip_addresses: list[str] | None = None
+    ) -> list[Asset]:
         """Bulk lookup by ipAddress."""
         endpoint = "assetsByIpAddresses"
 
@@ -302,8 +300,8 @@ class TaegisSDKAssetsQuery:
         raise GraphQLNoRowsInResultSetError("for query assetsByIpAddresses")
 
     def all_asset_histories(
-        self, offset: Optional[int] = None, limit: Optional[int] = None
-    ) -> List[AssetHistory]:
+        self, offset: int | None = None, limit: int | None = None
+    ) -> list[AssetHistory]:
         """Get a list of asset histories for the tenant."""
         endpoint = "allAssetHistories"
 
@@ -325,8 +323,8 @@ class TaegisSDKAssetsQuery:
         raise GraphQLNoRowsInResultSetError("for query allAssetHistories")
 
     def asset_red_cloak_histories(
-        self, id_: str, offset: Optional[int] = None, limit: Optional[int] = None
-    ) -> List[AssetRedCloakHistory]:
+        self, id_: str, offset: int | None = None, limit: int | None = None
+    ) -> list[AssetRedCloakHistory]:
         """Get history of actions on an asset by id (includes RedCloack history)."""
         endpoint = "assetRedCloakHistories"
 
@@ -350,25 +348,25 @@ class TaegisSDKAssetsQuery:
 
     def search_assets(
         self,
-        offset: Optional[int] = None,
-        limit: Optional[int] = None,
-        hostname: Optional[str] = None,
-        host_id: Optional[str] = None,
-        ip_address: Optional[str] = None,
-        mac_address: Optional[str] = None,
-        os_version: Optional[str] = None,
-        os_family: Optional[str] = None,
-        os_distributor: Optional[str] = None,
-        sensor_version: Optional[str] = None,
-        username: Optional[str] = None,
-        endpoint_type: Optional[str] = None,
-        tag: Optional[str] = None,
-        host_id_partial_match: Optional[bool] = None,
-        only_most_recent: Optional[bool] = None,
-        order_by: Optional[Union[AssetsOrderByInput, TaegisEnum]] = None,
-        order_direction: Optional[Union[AssetsOrderDirectionInput, TaegisEnum]] = None,
-        or_search: Optional[bool] = None,
-        filter_asset_state: Optional[Union[AssetStateFilter, TaegisEnum]] = None,
+        offset: int | None = None,
+        limit: int | None = None,
+        hostname: str | None = None,
+        host_id: str | None = None,
+        ip_address: str | None = None,
+        mac_address: str | None = None,
+        os_version: str | None = None,
+        os_family: str | None = None,
+        os_distributor: str | None = None,
+        sensor_version: str | None = None,
+        username: str | None = None,
+        endpoint_type: str | None = None,
+        tag: str | None = None,
+        host_id_partial_match: bool | None = None,
+        only_most_recent: bool | None = None,
+        order_by: AssetsOrderByInput | TaegisEnum | None = None,
+        order_direction: AssetsOrderDirectionInput | TaegisEnum | None = None,
+        or_search: bool | None = None,
+        filter_asset_state: AssetStateFilter | TaegisEnum | None = None,
     ) -> AssetsResult:
         """search assets. Soon to be deprecated."""
         endpoint = "searchAssets"
@@ -410,7 +408,7 @@ class TaegisSDKAssetsQuery:
     def search_assets_v2(
         self,
         input_: SearchAssetsInput,
-        pagination_input: Optional[SearchAssetsPaginationInput] = None,
+        pagination_input: SearchAssetsPaginationInput | None = None,
     ) -> AssetsResult:
         """search assets v2."""
         endpoint = "searchAssetsV2"
@@ -435,8 +433,8 @@ class TaegisSDKAssetsQuery:
     def export_search_assets(
         self,
         input_: SearchAssetsInput,
-        pagination_input: Optional[SearchAssetsPaginationInput] = None,
-        legacy: Optional[bool] = None,
+        pagination_input: SearchAssetsPaginationInput | None = None,
+        legacy: bool | None = None,
     ) -> AssetsExportOutput:
         """export search assets results."""
         endpoint = "exportSearchAssets"
@@ -459,7 +457,7 @@ class TaegisSDKAssetsQuery:
             return AssetsExportOutput.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for query exportSearchAssets")
 
-    def assets_by_session(self, arguments: AssetsBySessionArguments) -> List[Asset]:
+    def assets_by_session(self, arguments: AssetsBySessionArguments) -> list[Asset]:
         """Return a list of assets for multiple tenants."""
         endpoint = "assetsBySession"
 

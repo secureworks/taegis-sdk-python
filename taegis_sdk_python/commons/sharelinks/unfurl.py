@@ -31,7 +31,7 @@ def unfurl_sharelink(
     elif results.link_type == "investigationId":
         with service(tenant_id=results.tenant_id):
             unfurl_results = service.investigations2.query.investigation_v2(
-                InvestigationV2Arguments(id=results.link_ref)
+                InvestigationV2Arguments(id_=results.link_ref)
             )
     elif results.link_type == "rules":
         with service(tenant_id=results.tenant_id):

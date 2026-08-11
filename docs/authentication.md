@@ -18,6 +18,7 @@ Generate a CLIENT_ID and CLIENT_SECRET:
 ```python
 from taegis_sdk_python import GraphQLService
 from pprint import pprint as pp
+
 service = GraphQLService(environment="US1")
 result = service.clients.mutation.create_client(name="my_awesome_app", roles=None)
 print(f"CLIENT_ID: {result.client.client_id}")

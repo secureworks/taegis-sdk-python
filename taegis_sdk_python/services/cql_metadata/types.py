@@ -6,7 +6,7 @@
 # DO NOT MODIFY
 
 from dataclasses import dataclass, field
-from typing import Any, Dict, List, Optional, Tuple, Union
+from typing import Optional
 
 from dataclasses_json import config, dataclass_json
 
@@ -80,10 +80,10 @@ class EventQueryOptions:
 class Aggregate:
     """Aggregate."""
 
-    aggregations: Optional[List[Aggregation]] = field(
+    aggregations: Optional[list[Aggregation]] = field(
         default=None, metadata=config(field_name="aggregations")
     )
-    by: Optional[List[By]] = field(default=None, metadata=config(field_name="by"))
+    by: Optional[list[By]] = field(default=None, metadata=config(field_name="by"))
 
 
 @dataclass_json
@@ -93,13 +93,13 @@ class PipelineFunc:
 
     head: Optional[int] = field(default=None, metadata=config(field_name="head"))
     tail: Optional[int] = field(default=None, metadata=config(field_name="tail"))
-    fields: Optional[List[str]] = field(
+    fields: Optional[list[str]] = field(
         default=None, metadata=config(field_name="fields")
     )
     aggregate: Optional[Aggregate] = field(
         default=None, metadata=config(field_name="aggregate")
     )
-    sort: Optional[List[SortField]] = field(
+    sort: Optional[list[SortField]] = field(
         default=None, metadata=config(field_name="sort")
     )
 
@@ -109,15 +109,15 @@ class PipelineFunc:
 class ValidatorResults:
     """ValidatorResults."""
 
-    types: Optional[List[str]] = field(
+    types: Optional[list[str]] = field(
         default=None, metadata=config(field_name="types")
     )
-    errors: Optional[List[ParseError]] = field(
+    errors: Optional[list[ParseError]] = field(
         default=None, metadata=config(field_name="errors")
     )
-    warnings: Optional[List[ParseError]] = field(
+    warnings: Optional[list[ParseError]] = field(
         default=None, metadata=config(field_name="warnings")
     )
-    pipeline: Optional[List[PipelineFunc]] = field(
+    pipeline: Optional[list[PipelineFunc]] = field(
         default=None, metadata=config(field_name="pipeline")
     )

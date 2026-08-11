@@ -6,7 +6,7 @@ import logging
 import threading
 from collections.abc import Mapping
 from ssl import SSLContext
-from typing import Any, Callable, Dict, Literal, Optional, Tuple, Union
+from typing import Any, Callable, Literal, Optional, Union
 
 import aiohttp
 from aiohttp.client_reqrep import Fingerprint
@@ -102,9 +102,9 @@ class GraphQLService:
         *,
         environment: Optional[str] = None,
         tenant_id: Optional[str] = None,
-        environments: Optional[Union[Dict[str, str], CIMultiDict[str, str]]] = None,
+        environments: Optional[Union[dict[str, str], CIMultiDict[str, str]]] = None,
         gateway: Optional[str] = None,
-        extra_headers: Optional[Dict[str, Any]] = None,
+        extra_headers: Optional[dict[str, Any]] = None,
         schema_expiry: int = 5,
         proxy: Optional[str] = None,
         proxy_auth: Optional[aiohttp.BasicAuth] = None,
@@ -114,7 +114,7 @@ class GraphQLService:
         execute_timeout: Optional[Union[int, float]] = 300,
         max_message_size: int = 0,
         use_universal_authentication: bool = False,
-        middlewares: Optional[Tuple[Callable]] = None,
+        middlewares: Optional[tuple[Callable]] = None,
         reuse_request_id: bool = False,
         exclude_deprecated_output: bool = True,
     ):  # pylint: disable=too-many-statements
@@ -166,7 +166,7 @@ class GraphQLService:
         else:
             self._environments = CIMultiDict(environments)
 
-        self._environment = environment or list(self._environments)[0]
+        self._environment = environment or next(iter(self._environments))
         self._use_universal_authentication = use_universal_authentication
 
         if self._environment not in self._environments:

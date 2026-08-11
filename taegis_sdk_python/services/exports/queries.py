@@ -1,5 +1,4 @@
 """Exports Query."""
-
 # pylint: disable=no-member, unused-argument, too-many-locals, duplicate-code, wildcard-import, unused-wildcard-import, cyclic-import
 
 
@@ -9,14 +8,12 @@
 from __future__ import annotations
 
 import logging
-from typing import TYPE_CHECKING, Any, Dict, List, Optional, Tuple, Union
+from typing import TYPE_CHECKING
 
 from taegis_sdk_python import GraphQLNoRowsInResultSetError
-from taegis_sdk_python._consts import TaegisEnum
 from taegis_sdk_python.services.exports.types import *
 from taegis_sdk_python.utils import (
     build_output_string,
-    parse_union_result,
     prepare_input,
 )
 
@@ -33,8 +30,8 @@ class TaegisSDKExportsQuery:
         self.service = service
 
     def all_exports(
-        self, include_connected_exports: Optional[bool] = None
-    ) -> List[Export]:
+        self, include_connected_exports: bool | None = None
+    ) -> list[Export]:
         """No developer notes."""
         endpoint = "allExports"
 
@@ -100,8 +97,8 @@ class TaegisSDKExportsQuery:
     def get_reports_from_schedule(
         self,
         id_: str,
-        cursor: Optional[Cursor] = None,
-        filters: Optional[ReportsFilters] = None,
+        cursor: Cursor | None = None,
+        filters: ReportsFilters | None = None,
     ) -> ReportsOutput:
         """No developer notes."""
         endpoint = "getReportsFromSchedule"
@@ -123,7 +120,7 @@ class TaegisSDKExportsQuery:
         raise GraphQLNoRowsInResultSetError("for query getReportsFromSchedule")
 
     def all_reports(
-        self, cursor: Optional[Cursor] = None, filters: Optional[ReportsFilters] = None
+        self, cursor: Cursor | None = None, filters: ReportsFilters | None = None
     ) -> ReportsOutput:
         """No developer notes."""
         endpoint = "allReports"
@@ -144,9 +141,7 @@ class TaegisSDKExportsQuery:
         raise GraphQLNoRowsInResultSetError("for query allReports")
 
     def all_schedules(
-        self,
-        cursor: Optional[Cursor] = None,
-        filters: Optional[SchedulesFilters] = None,
+        self, cursor: Cursor | None = None, filters: SchedulesFilters | None = None
     ) -> SchedulesOutput:
         """No developer notes."""
         endpoint = "allSchedules"
@@ -270,7 +265,7 @@ class TaegisSDKExportsQuery:
             return ReportsOutput.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for query getReportsFromScheduleV2")
 
-    def all_reports_v2(self, input_: Optional[AllReportsInput] = None) -> ReportsOutput:
+    def all_reports_v2(self, input_: AllReportsInput | None = None) -> ReportsOutput:
         """No developer notes."""
         endpoint = "allReportsV2"
 
@@ -289,7 +284,7 @@ class TaegisSDKExportsQuery:
         raise GraphQLNoRowsInResultSetError("for query allReportsV2")
 
     def all_schedules_v2(
-        self, input_: Optional[AllSchedulesInput] = None
+        self, input_: AllSchedulesInput | None = None
     ) -> SchedulesOutput:
         """No developer notes."""
         endpoint = "allSchedulesV2"
@@ -340,7 +335,7 @@ class TaegisSDKExportsQuery:
             return result.get(endpoint)
         raise GraphQLNoRowsInResultSetError("for query getRedQLQueryWithTimeRange")
 
-    def get_all_unsubscriptions(self) -> List[Unsubscription]:
+    def get_all_unsubscriptions(self) -> list[Unsubscription]:
         """No developer notes."""
         endpoint = "getAllUnsubscriptions"
 

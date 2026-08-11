@@ -1,5 +1,4 @@
 """Agent Query."""
-
 # pylint: disable=no-member, unused-argument, too-many-locals, duplicate-code, wildcard-import, unused-wildcard-import, cyclic-import
 
 
@@ -9,14 +8,12 @@
 from __future__ import annotations
 
 import logging
-from typing import TYPE_CHECKING, Any, Dict, List, Optional, Tuple, Union
+from typing import TYPE_CHECKING
 
 from taegis_sdk_python import GraphQLNoRowsInResultSetError
-from taegis_sdk_python._consts import TaegisEnum
 from taegis_sdk_python.services.agent.types import *
 from taegis_sdk_python.utils import (
     build_output_string,
-    parse_union_result,
     prepare_input,
 )
 
@@ -32,9 +29,7 @@ class TaegisSDKAgentQuery:
     def __init__(self, service: AgentService):
         self.service = service
 
-    def agent_packages(
-        self, args: Optional[PackageSearchInput] = None
-    ) -> List[Package]:
+    def agent_packages(self, args: PackageSearchInput | None = None) -> list[Package]:
         """search for agent packages ."""
         endpoint = "agentPackages"
 
@@ -55,7 +50,7 @@ class TaegisSDKAgentQuery:
         raise GraphQLNoRowsInResultSetError("for query agentPackages")
 
     def agent_package_signed_url(
-        self, args: Optional[PackageDownloadInput] = None
+        self, args: PackageDownloadInput | None = None
     ) -> PackageSignedUrl:
         """get agent package via signed url ."""
         endpoint = "agentPackageSignedUrl"
@@ -92,7 +87,7 @@ class TaegisSDKAgentQuery:
             return PackageSignedUrl.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for query agentPackageSignedUrlByID")
 
-    def available_channels(self) -> List[ReleaseChannelsConfig]:
+    def available_channels(self) -> list[ReleaseChannelsConfig]:
         """get all available channels ."""
         endpoint = "availableChannels"
 

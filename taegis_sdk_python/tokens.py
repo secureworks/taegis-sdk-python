@@ -1,11 +1,11 @@
 """JSON Web Token utilities."""
 
-from typing import Any, Dict
+from typing import Any
 
 import jwt
 
 
-def decode_token_claims(access_token: str) -> Dict[str, Any]:
+def decode_token_claims(access_token: str) -> dict[str, Any]:
     """Decode and parse JWT claims.
 
     Parameters

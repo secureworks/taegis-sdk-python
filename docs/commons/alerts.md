@@ -27,7 +27,9 @@ query = "FROM alert WHERE status = 'OPEN'"
 responses = alerts_search(service, query, limit=500)
 
 # Process the responses (e.g., print the number of alerts retrieved)
-total_alerts = sum(len(response.alerts.list) for response in responses if response.alerts)
+total_alerts = sum(
+    len(response.alerts.list_) for response in responses if response.alerts
+)
 print(f"Total alerts retrieved: {total_alerts}")
 ```
 
@@ -58,6 +60,8 @@ query = "FROM alert WHERE status = 'OPEN'"
 responses = alerts_federated_search(service, query, limit=500)
 
 # Process the responses (e.g., print the number of alerts retrieved)
-total_alerts = sum(len(response.alerts.list) for response in responses if response.alerts)
+total_alerts = sum(
+    len(response.alerts.list_) for response in responses if response.alerts
+)
 print(f"Total alerts retrieved: {total_alerts}")
 ```

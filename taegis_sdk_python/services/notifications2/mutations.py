@@ -1,5 +1,4 @@
 """Notifications2 Mutation."""
-
 # pylint: disable=no-member, unused-argument, too-many-locals, duplicate-code, wildcard-import, unused-wildcard-import, cyclic-import
 
 
@@ -9,14 +8,12 @@
 from __future__ import annotations
 
 import logging
-from typing import TYPE_CHECKING, Any, Dict, List, Optional, Tuple, Union
+from typing import TYPE_CHECKING
 
 from taegis_sdk_python import GraphQLNoRowsInResultSetError
-from taegis_sdk_python._consts import TaegisEnum
 from taegis_sdk_python.services.notifications2.types import *
 from taegis_sdk_python.utils import (
     build_output_string,
-    parse_union_result,
     prepare_input,
 )
 
@@ -58,7 +55,7 @@ class TaegisSDKNotifications2Mutation:
 
     def read_notifications(
         self, input_: ReadNotificationsInput
-    ) -> List[NotificationV2]:
+    ) -> list[NotificationV2]:
         """Marks a list of notifications as read."""
         endpoint = "readNotifications"
 
@@ -241,8 +238,7 @@ class TaegisSDKNotifications2Mutation:
     ) -> NotificationRule:
         """Set an escalation policy for a notification rule.
         A notification rule can only have one escalation policy at a time for a given tenant.
-        Calling this endpoint will replace the existing escalation policy with the new one if one was present before.
-        """
+        Calling this endpoint will replace the existing escalation policy with the new one if one was present before."""
         endpoint = "setEscalationPolicyForNotificationRule"
 
         result = self.service.execute_mutation(
@@ -307,7 +303,7 @@ class TaegisSDKNotifications2Mutation:
 
     def create_notification_templates(
         self, input_: CreateNotificationTemplatesInput
-    ) -> List[NotificationTemplate]:
+    ) -> list[NotificationTemplate]:
         """No developer notes."""
         endpoint = "createNotificationTemplates"
 
@@ -350,8 +346,8 @@ class TaegisSDKNotifications2Mutation:
         )
 
     def update_notification_templates(
-        self, inputs: List[UpdateNotificationTemplateInput]
-    ) -> List[NotificationTemplate]:
+        self, inputs: list[UpdateNotificationTemplateInput]
+    ) -> list[NotificationTemplate]:
         """No developer notes."""
         endpoint = "updateNotificationTemplates"
 

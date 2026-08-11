@@ -1,5 +1,4 @@
 """QlSchemas Subscription."""
-
 # pylint: disable=no-member, unused-argument, too-many-locals, duplicate-code, wildcard-import, unused-wildcard-import, cyclic-import
 
 
@@ -9,14 +8,12 @@
 from __future__ import annotations
 
 import logging
-from typing import TYPE_CHECKING, Any, Dict, List, Optional, Tuple, Union
+from typing import TYPE_CHECKING
 
 from taegis_sdk_python import GraphQLNoRowsInResultSetError
-from taegis_sdk_python._consts import TaegisEnum
 from taegis_sdk_python.services.ql_schemas.types import *
 from taegis_sdk_python.utils import (
     build_output_string,
-    parse_union_result,
     prepare_input,
 )
 
@@ -33,8 +30,8 @@ class TaegisSDKQlSchemasSubscription:
         self.service = service
 
     def validate_ql_queries_v1(
-        self, query: str, schemas_query: Optional[QLQueryInputV1] = None
-    ) -> List[QLQueryValidationResultV1]:
+        self, query: str, schemas_query: QLQueryInputV1 | None = None
+    ) -> list[QLQueryValidationResultV1]:
         """Validates a query string and returns a valid boolean or an error."""
         endpoint = "validateQLQueriesV1"
 

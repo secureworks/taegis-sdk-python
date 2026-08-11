@@ -1,5 +1,4 @@
 """MultiTenantIoc Query."""
-
 # pylint: disable=no-member, unused-argument, too-many-locals, duplicate-code, wildcard-import, unused-wildcard-import, cyclic-import
 
 
@@ -9,14 +8,12 @@
 from __future__ import annotations
 
 import logging
-from typing import TYPE_CHECKING, Any, Dict, List, Optional, Tuple, Union
+from typing import TYPE_CHECKING
 
 from taegis_sdk_python import GraphQLNoRowsInResultSetError
-from taegis_sdk_python._consts import TaegisEnum
 from taegis_sdk_python.services.multi_tenant_ioc.types import *
 from taegis_sdk_python.utils import (
     build_output_string,
-    parse_union_result,
     prepare_input,
 )
 
@@ -54,8 +51,7 @@ class TaegisSDKMultiTenantIocQuery:
         self, arguments: EventAggregationArguments
     ) -> EventCountResult:
         """Generate a breakdown (histogram) of the aggregated count of events
-        that match the given constraints. The result rows are broken down per eventType and per day.
-        """
+        that match the given constraints. The result rows are broken down per eventType and per day."""
         endpoint = "eventCountByLogicalType"
 
         result = self.service.execute_query(
@@ -73,14 +69,10 @@ class TaegisSDKMultiTenantIocQuery:
         raise GraphQLNoRowsInResultSetError("for query eventCountByLogicalType")
 
     def event_count_page(
-        self,
-        next_token: str,
-        session_key: Optional[str] = None,
-        limit: Optional[int] = None,
+        self, next_token: str, session_key: str | None = None, limit: int | None = None
     ) -> EventCountResult:
         """Returns next page of results for eventCountByLogicalType if available.
-        If sessionKey not provided will fallback to auth header (single tenant search only).
-        """
+        If sessionKey not provided will fallback to auth header (single tenant search only)."""
         endpoint = "eventCountPage"
 
         result = self.service.execute_query(

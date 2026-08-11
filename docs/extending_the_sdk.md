@@ -24,7 +24,7 @@ print(schema.query_type.fields["alertsServiceSearch"])
 print(schema.type_map["AlertsResponse"].fields)
 print(schema.type_map["AlertsList"].fields)
 print(schema.type_map["Alert2"].fields)
-print(schema.type_map['AuxiliaryEvent'].fields)
+print(schema.type_map["AuxiliaryEvent"].fields)
 ```
 
 ```
@@ -103,6 +103,7 @@ from taegis_sdk_python.services.alerts.types import *
 from dataclasses import dataclass, field
 from dataclasses_json import dataclass_json, config
 
+
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
 class CustomAuxiliaryEvent(AuxiliaryEvent):
@@ -125,7 +126,6 @@ class CustomAlert2(Alert2):
     )
 
 
-
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
 class CustomAlertsList(AlertsList):
@@ -146,7 +146,9 @@ class CustomAlertsResponse(AlertsResponse):
     )
 
 
-def alerts_service_search_with_events(service: GraphQLService, in_: SearchRequestInput) -> CustomAlertsResponse:
+def alerts_service_search_with_events(
+    service: GraphQLService, in_: SearchRequestInput
+) -> CustomAlertsResponse:
     """Query Taegis Alerts with corresponding Events attached."""
     endpoint = "alertsServiceSearch"
     result = service.alerts.execute_query(

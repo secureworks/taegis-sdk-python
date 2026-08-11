@@ -1,5 +1,4 @@
 """Investigations Mutation."""
-
 # pylint: disable=no-member, unused-argument, too-many-locals, duplicate-code, wildcard-import, unused-wildcard-import, cyclic-import
 
 
@@ -9,14 +8,12 @@
 from __future__ import annotations
 
 import logging
-from typing import TYPE_CHECKING, Any, Dict, List, Optional, Tuple, Union
+from typing import TYPE_CHECKING
 
 from taegis_sdk_python import GraphQLNoRowsInResultSetError
-from taegis_sdk_python._consts import TaegisEnum
 from taegis_sdk_python.services.investigations.types import *
 from taegis_sdk_python.utils import (
     build_output_string,
-    parse_union_result,
     prepare_input,
 )
 
@@ -101,7 +98,7 @@ class TaegisSDKInvestigationsMutation:
             return Investigation.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for mutation archiveInvestigation")
 
-    def bulk_archive_investigations(self, ids: List[str]) -> List[str]:
+    def bulk_archive_investigations(self, ids: list[str]) -> list[str]:
         """Bulk Archive Investigations."""
         endpoint = "bulkArchiveInvestigations"
 
@@ -142,7 +139,7 @@ class TaegisSDKInvestigationsMutation:
             return Investigation.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for mutation unArchiveInvestigation")
 
-    def bulk_un_archive_investigations(self, ids: List[str]) -> List[str]:
+    def bulk_un_archive_investigations(self, ids: list[str]) -> list[str]:
         """Bulk UnArchive Investigations."""
         endpoint = "bulkUnArchiveInvestigations"
 
@@ -189,7 +186,7 @@ class TaegisSDKInvestigationsMutation:
         )
 
     def add_assets_to_investigation(
-        self, investigation_id: str, assets: List[str]
+        self, investigation_id: str, assets: list[str]
     ) -> Investigation:
         """Add assets to investigation."""
         endpoint = "addAssetsToInvestigation"
@@ -214,7 +211,7 @@ class TaegisSDKInvestigationsMutation:
         raise GraphQLNoRowsInResultSetError("for mutation addAssetsToInvestigation")
 
     def add_events_to_investigation(
-        self, investigation_id: str, events: List[str]
+        self, investigation_id: str, events: list[str]
     ) -> Investigation:
         """Add events to investigation."""
         endpoint = "addEventsToInvestigation"
@@ -239,7 +236,7 @@ class TaegisSDKInvestigationsMutation:
         raise GraphQLNoRowsInResultSetError("for mutation addEventsToInvestigation")
 
     def add_alerts_to_investigation(
-        self, investigation_id: str, alerts: List[str]
+        self, investigation_id: str, alerts: list[str]
     ) -> Investigation:
         """Add alerts to investigation."""
         endpoint = "addAlertsToInvestigation"
@@ -264,7 +261,7 @@ class TaegisSDKInvestigationsMutation:
         raise GraphQLNoRowsInResultSetError("for mutation addAlertsToInvestigation")
 
     def add_genesis_events_to_investigation(
-        self, investigation_id: str, genesis_events: List[str]
+        self, investigation_id: str, genesis_events: list[str]
     ) -> Investigation:
         """Add genesis events to investigation."""
         endpoint = "addGenesisEventsToInvestigation"
@@ -291,7 +288,7 @@ class TaegisSDKInvestigationsMutation:
         )
 
     def add_genesis_alerts_to_investigation(
-        self, investigation_id: str, genesis_alerts: List[str]
+        self, investigation_id: str, genesis_alerts: list[str]
     ) -> Investigation:
         """Add genesis alerts to investigation."""
         endpoint = "addGenesisAlertsToInvestigation"
@@ -318,7 +315,7 @@ class TaegisSDKInvestigationsMutation:
         )
 
     def add_auth_credentials_to_investigation(
-        self, investigation_id: str, auth_credentials: List[str]
+        self, investigation_id: str, auth_credentials: list[str]
     ) -> Investigation:
         """Add auth credentials to investigation."""
         endpoint = "addAuthCredentialsToInvestigation"
@@ -345,7 +342,7 @@ class TaegisSDKInvestigationsMutation:
         )
 
     def add_search_queries_to_investigation(
-        self, investigation_id: str, search_queries: List[str]
+        self, investigation_id: str, search_queries: list[str]
     ) -> Investigation:
         """Add search queries to investigation."""
         endpoint = "addSearchQueriesToInvestigation"
@@ -375,8 +372,8 @@ class TaegisSDKInvestigationsMutation:
         self,
         investigation_id: str,
         vector_name: str,
-        created_at: Optional[str] = None,
-        updated_at: Optional[str] = None,
+        created_at: str | None = None,
+        updated_at: str | None = None,
     ) -> AccessVector:
         """Access Vectors."""
         endpoint = "addAccessVector"
@@ -425,7 +422,7 @@ class TaegisSDKInvestigationsMutation:
         raise GraphQLNoRowsInResultSetError("for mutation removeAccessVector")
 
     def remove_assets_from_investigation(
-        self, investigation_id: str, assets: List[str]
+        self, investigation_id: str, assets: list[str]
     ) -> Investigation:
         """Remove assets from investigation."""
         endpoint = "removeAssetsFromInvestigation"
@@ -452,7 +449,7 @@ class TaegisSDKInvestigationsMutation:
         )
 
     def remove_events_from_investigation(
-        self, investigation_id: str, events: List[str]
+        self, investigation_id: str, events: list[str]
     ) -> Investigation:
         """Remove events from investigation."""
         endpoint = "removeEventsFromInvestigation"
@@ -479,7 +476,7 @@ class TaegisSDKInvestigationsMutation:
         )
 
     def remove_alerts_from_investigation(
-        self, investigation_id: str, alerts: List[str]
+        self, investigation_id: str, alerts: list[str]
     ) -> Investigation:
         """Remove alerts from investigation."""
         endpoint = "removeAlertsFromInvestigation"
@@ -506,7 +503,7 @@ class TaegisSDKInvestigationsMutation:
         )
 
     def remove_search_queries_from_investigation(
-        self, investigation_id: str, search_queries: List[str]
+        self, investigation_id: str, search_queries: list[str]
     ) -> Investigation:
         """Remove search queries from investigation."""
         endpoint = "removeSearchQueriesFromInvestigation"
@@ -535,8 +532,8 @@ class TaegisSDKInvestigationsMutation:
     def add_bulk_alerts_to_investigation(
         self,
         search_query: str,
-        investigation_id: Optional[str] = None,
-        new_investigation: Optional[InvestigationInput] = None,
+        investigation_id: str | None = None,
+        new_investigation: InvestigationInput | None = None,
     ) -> Investigation:
         """Bulk add alerts to an investigation using restdb search query."""
         endpoint = "addBulkAlertsToInvestigation"
@@ -616,7 +613,7 @@ class TaegisSDKInvestigationsMutation:
         )
 
     def re_process_investigation_background_job(
-        self, investigation_id: str, process_only_events: Optional[bool] = None
+        self, investigation_id: str, process_only_events: bool | None = None
     ) -> InvestigationProcessingResponse:
         """Reprocess investigation background job by id."""
         endpoint = "reProcessInvestigationBackgroundJob"

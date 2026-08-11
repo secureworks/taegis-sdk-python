@@ -2,7 +2,6 @@
 
 import logging
 import re
-from typing import List
 
 from taegis_sdk_python import GraphQLService, build_output_string
 from taegis_sdk_python.services.investigations2.types import (
@@ -19,7 +18,7 @@ def investigations_search(
     query: str,
     *,
     limit: int = 10000,
-) -> List[InvestigationsV2]:
+) -> list[InvestigationsV2]:
     """Taegis Investigations search."""
 
     page = 1

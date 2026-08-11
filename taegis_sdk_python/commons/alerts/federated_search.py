@@ -2,7 +2,7 @@
 
 import logging
 from dataclasses import dataclass, field
-from typing import Any, Callable, Dict, List, Optional
+from typing import Any, Callable, Optional
 
 from dataclasses_json import config, dataclass_json
 
@@ -31,7 +31,7 @@ class TaegisCommonsAuxiliaryEvent(AuxiliaryEvent):
     to take advantage of GQL federated services.
     """
 
-    event_data: Optional[Dict[str, Any]] = field(
+    event_data: Optional[dict[str, Any]] = field(
         default=None, metadata=config(field_name="event_data")
     )
 
@@ -41,7 +41,7 @@ class TaegisCommonsAuxiliaryEvent(AuxiliaryEvent):
 class TaegisCommonsAlert2(Alert2):
     """My TaegisCommons Alert2."""
 
-    event_ids: Optional[List[TaegisCommonsAuxiliaryEvent]] = field(
+    event_ids: Optional[list[TaegisCommonsAuxiliaryEvent]] = field(
         default=None, metadata=config(field_name="event_ids")
     )
 
@@ -51,7 +51,7 @@ class TaegisCommonsAlert2(Alert2):
 class TaegisCommonsAlertsList(AlertsList):
     """My TaegisCommons AlertsList."""
 
-    list: Optional[List[TaegisCommonsAlert2]] = field(
+    list_: Optional[list[TaegisCommonsAlert2]] = field(
         default=None, metadata=config(field_name="list")
     )
 
@@ -112,7 +112,7 @@ def alerts_federated_search(
     caller_name: str = "Taegis SDK Commons",
     federated_call: Callable = alerts_service_search_with_events,
     federated_poll_call: Callable = alerts_service_poll_with_events,
-) -> List[TaegisCommonsAlertsResponse]:
+) -> list[TaegisCommonsAlertsResponse]:
     """
     Search Taegis Alerts service.
     """
@@ -155,9 +155,9 @@ def alerts_federated_search(
             if isinstance(response, AlertsResponse) and response.alerts is not None:
                 poll_responses.append(response)
                 # CX-92571 work around
-                if sum(len(response.alerts.list) for response in poll_responses) >= int(
-                    limit
-                ):
+                if sum(
+                    len(response.alerts.list_) for response in poll_responses
+                ) >= int(limit):
                     break
 
     return poll_responses

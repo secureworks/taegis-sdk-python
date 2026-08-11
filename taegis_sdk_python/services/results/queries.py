@@ -1,5 +1,4 @@
 """Results Query."""
-
 # pylint: disable=no-member, unused-argument, too-many-locals, duplicate-code, wildcard-import, unused-wildcard-import, cyclic-import
 
 
@@ -9,14 +8,12 @@
 from __future__ import annotations
 
 import logging
-from typing import TYPE_CHECKING, Any, Dict, List, Optional, Tuple, Union
+from typing import TYPE_CHECKING
 
 from taegis_sdk_python import GraphQLNoRowsInResultSetError
-from taegis_sdk_python._consts import TaegisEnum
 from taegis_sdk_python.services.results.types import *
 from taegis_sdk_python.utils import (
     build_output_string,
-    parse_union_result,
     prepare_input,
 )
 
@@ -33,7 +30,7 @@ class TaegisSDKResultsQuery:
         self.service = service
 
     def search_results(
-        self, rn: str, cursor: Optional[str] = None, limit: Optional[int] = None
+        self, rn: str, cursor: str | None = None, limit: int | None = None
     ) -> SearchResultPage:
         """Reads results from a completed search or search partition."""
         endpoint = "searchResults"
@@ -55,8 +52,8 @@ class TaegisSDKResultsQuery:
         raise GraphQLNoRowsInResultSetError("for query searchResults")
 
     def search_results_totals(
-        self, history_rns: Optional[List[str]] = None
-    ) -> List[SearchResultTotalResponse]:
+        self, history_rns: list[str] | None = None
+    ) -> list[SearchResultTotalResponse]:
         """Lists result counts for a list of searches by search history id."""
         endpoint = "searchResultsTotals"
 
@@ -79,10 +76,10 @@ class TaegisSDKResultsQuery:
     def search_result_facets(
         self,
         rn: str,
-        fields: Optional[List[str]] = None,
-        filter_: Optional[str] = None,
-        cursor: Optional[str] = None,
-        limit: Optional[int] = None,
+        fields: list[str] | None = None,
+        filter_: str | None = None,
+        cursor: str | None = None,
+        limit: int | None = None,
     ) -> SearchResultFacetPage:
         """Get values for the logical types of a query. If fields is null or empty, all
         available facets are returned."""
