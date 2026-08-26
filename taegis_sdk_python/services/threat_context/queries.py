@@ -132,6 +132,30 @@ class TaegisSDKThreatContextQuery:
             return ThreatContextIntelixReport.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for query intelixReport")
 
+    def intelix_reports(
+        self, input_: ThreatContextIntelixReportInputs
+    ) -> ThreatContextIntelixReports:
+        """Returns a batch of Intelix reports.
+        Return order matches input order: one output per input even on individual hash failure.
+        Individual invalid hash inputs return partial errors on the individual ThreatContextIntelixReport.
+        See individual ThreatContextIntelixReport.Error for individual failures.
+        Invalid permissions, tenant issues, or a batch timeout will cause a full GQL error."""
+        endpoint = "intelixReports"
+
+        result = self.service.execute_query(
+            endpoint=endpoint,
+            variables={
+                "input": prepare_input(input_),
+            },
+            output=build_output_string(
+                ThreatContextIntelixReports,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
+        )
+        if result.get(endpoint) is not None:
+            return ThreatContextIntelixReports.from_dict(result.get(endpoint))
+        raise GraphQLNoRowsInResultSetError("for query intelixReports")
+
     def intelix_get_latest_file_submission(
         self, input_: ThreatContextIntelixGetLatestFileSubmissionInput
     ) -> ThreatContextIntelixGetLatestFileSubmissionResponse:

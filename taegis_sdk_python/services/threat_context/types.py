@@ -176,6 +176,7 @@ class ThreatContextIntelixReport:
 
     report: Optional[str] = field(default=None, metadata=config(field_name="report"))
     error: Optional[str] = field(default=None, metadata=config(field_name="error"))
+    hash_: Optional[str] = field(default=None, metadata=config(field_name="hash"))
 
 
 @dataclass_json
@@ -1434,6 +1435,16 @@ class CacheOptions:
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
+class ThreatContextIntelixReports:
+    """ThreatContextIntelixReports."""
+
+    reports: Optional[list[ThreatContextIntelixReport]] = field(
+        default=None, metadata=config(field_name="reports")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
 class ThreatContextIntelixCreateFileSubmissions:
     """ThreatContextIntelixCreateFileSubmissions."""
 
@@ -1591,6 +1602,36 @@ class ThreatContextIntelixReportInput:
     """ThreatContextIntelixReportInput."""
 
     sha256: Optional[str] = field(default=None, metadata=config(field_name="sha256"))
+    analysis_type: Optional[Union[ThreatContextIntelixAnalysisType, TaegisEnum]] = (
+        field(
+            default=None,
+            metadata=config(
+                encoder=encode_enum,
+                decoder=lambda x: decode_enum(ThreatContextIntelixAnalysisType, x),
+                field_name="analysisType",
+            ),
+        )
+    )
+    report_format: Optional[Union[ThreatContextIntelixReportFormat, TaegisEnum]] = (
+        field(
+            default=None,
+            metadata=config(
+                encoder=encode_enum,
+                decoder=lambda x: decode_enum(ThreatContextIntelixReportFormat, x),
+                field_name="reportFormat",
+            ),
+        )
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class ThreatContextIntelixReportInputs:
+    """ThreatContextIntelixReportInputs."""
+
+    hashes: Optional[list[str]] = field(
+        default=None, metadata=config(field_name="hashes")
+    )
     analysis_type: Optional[Union[ThreatContextIntelixAnalysisType, TaegisEnum]] = (
         field(
             default=None,

@@ -26,7 +26,6 @@ def alerts_search(
         limit = 1
 
     result = service.alerts.query.alerts_service_search(
-        service,
         SearchRequestInput(
             cql_query=query,
             offset=0,
@@ -45,7 +44,6 @@ def alerts_search(
             try:
                 log.debug(f"Submitting page {part}...")
                 response = service.alerts.query.alerts_service_poll(
-                    service,
                     PollRequestInput(
                         search_id=search_id,
                         part_id=part,

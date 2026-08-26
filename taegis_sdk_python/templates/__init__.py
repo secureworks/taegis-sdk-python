@@ -4,7 +4,11 @@ from pathlib import Path
 from typing import Union
 
 from taegis_sdk_python.config import get_config, write_config, write_to_config
-from taegis_sdk_python.templates._jinja2 import load_jinja2_template_environment
+from taegis_sdk_python.templates._jinja2 import (
+    load_jinja2_template_environment,
+    parse_timedelta,
+    time_split,
+)
 
 
 def check_template_config_presets():
@@ -36,4 +40,4 @@ def set_template_path(path: Union[Path, str]):
 
 check_template_config_presets()
 
-__all__ = ["load_jinja2_template_environment"]
+__all__ = ["load_jinja2_template_environment", "parse_timedelta", "time_split"]

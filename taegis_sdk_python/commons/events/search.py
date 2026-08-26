@@ -15,7 +15,9 @@ def get_next_page(events_results: list[EventQueryResults]) -> Optional[str]:
         # the next page could be found in any of the result pages,
         # but we cannot garuntee which result it will be found in
         return next(
-            iter({result.next for result in events_results if result.next is not None})
+            iter(
+                {result.next_ for result in events_results if result.next_ is not None}
+            )
         )
     except StopIteration:
         return None

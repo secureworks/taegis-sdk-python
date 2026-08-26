@@ -8,6 +8,11 @@ from taegis_sdk_python.commons._introspection import (
 from taegis_sdk_python.commons.alerts.search import alerts_search
 from taegis_sdk_python.commons.cases.search import cases_search
 from taegis_sdk_python.commons.events.search import events_search
+from taegis_sdk_python.commons.executor import (
+    execute_delimited_queries,
+    execute_queries,
+    parse_delimited_queries,
+)
 from taegis_sdk_python.commons.investigations.search import investigations_search
 from taegis_sdk_python.commons.sharelinks.create import (
     create_alerts_query_sharelink,
@@ -26,8 +31,11 @@ __all__ = [
     "create_investigations_sharelink",
     "create_sharelink",
     "events_search",
+    "execute_delimited_queries",
+    "execute_queries",
     "introspection_mutation",
     "introspection_query",
     "introspection_subscription",
     "investigations_search",
+    "parse_delimited_queries",
 ]

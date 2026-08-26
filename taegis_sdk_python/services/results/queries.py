@@ -30,7 +30,7 @@ class TaegisSDKResultsQuery:
         self.service = service
 
     def search_results(
-        self, rn: str, cursor: str | None = None, limit: int | None = None
+        self, urn: str, cursor: str | None = None, limit: int | None = None
     ) -> SearchResultPage:
         """Reads results from a completed search or search partition."""
         endpoint = "searchResults"
@@ -38,7 +38,7 @@ class TaegisSDKResultsQuery:
         result = self.service.execute_query(
             endpoint=endpoint,
             variables={
-                "rn": prepare_input(rn),
+                "urn": prepare_input(urn),
                 "cursor": prepare_input(cursor),
                 "limit": prepare_input(limit),
             },
@@ -51,35 +51,30 @@ class TaegisSDKResultsQuery:
             return SearchResultPage.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for query searchResults")
 
-    def search_results_totals(
-        self, history_rns: list[str] | None = None
-    ) -> list[SearchResultTotalResponse]:
+    def search_results_by_history_id_totals(
+        self, ids: list[str]
+    ) -> list[SearchResultsByHistoryIdTotalsResponse]:
         """Lists result counts for a list of searches by search history id."""
-        endpoint = "searchResultsTotals"
+        endpoint = "searchResultsByHistoryIdTotals"
 
         result = self.service.execute_query(
             endpoint=endpoint,
             variables={
-                "historyRNs": prepare_input(history_rns),
+                "ids": prepare_input(ids),
             },
             output=build_output_string(
-                SearchResultTotalResponse,
+                SearchResultsByHistoryIdTotalsResponse,
                 exclude_deprecated_output=self.service.exclude_deprecated_output,
             ),
         )
         if result.get(endpoint) is not None:
-            return SearchResultTotalResponse.schema().load(
+            return SearchResultsByHistoryIdTotalsResponse.schema().load(
                 [r or {} for r in result.get(endpoint)], many=True
             )
-        raise GraphQLNoRowsInResultSetError("for query searchResultsTotals")
+        raise GraphQLNoRowsInResultSetError("for query searchResultsByHistoryIdTotals")
 
     def search_result_facets(
-        self,
-        rn: str,
-        fields: list[str] | None = None,
-        filter_: str | None = None,
-        cursor: str | None = None,
-        limit: int | None = None,
+        self, urn: str, fields: list[str] | None = None, limit: int | None = None
     ) -> SearchResultFacetPage:
         """Get values for the logical types of a query. If fields is null or empty, all
         available facets are returned."""
@@ -88,10 +83,8 @@ class TaegisSDKResultsQuery:
         result = self.service.execute_query(
             endpoint=endpoint,
             variables={
-                "rn": prepare_input(rn),
+                "urn": prepare_input(urn),
                 "fields": prepare_input(fields),
-                "filter": prepare_input(filter_),
-                "cursor": prepare_input(cursor),
                 "limit": prepare_input(limit),
             },
             output=build_output_string(

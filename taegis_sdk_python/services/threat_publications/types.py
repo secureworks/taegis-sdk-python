@@ -11,15 +11,6 @@ from typing import Optional
 from dataclasses_json import config, dataclass_json
 
 
-class ResendMode(str, Enum):
-    """ResendMode."""
-
-    ALL = "ALL"
-    UNDELIVERED = "UNDELIVERED"
-    FAILED = "FAILED"
-    SPECIFIC = "SPECIFIC"
-
-
 class languageType(str, Enum):
     """languageType."""
 
@@ -41,18 +32,6 @@ class ContentFormat(str, Enum):
     HTML = "HTML"
     TEXT = "TEXT"
     PDF = "PDF"
-
-
-@dataclass_json
-@dataclass(order=True, eq=True, frozen=True)
-class ResendPublicationResponse:
-    """ResendPublicationResponse."""
-
-    emails: Optional[list[str]] = field(
-        default=None, metadata=config(field_name="emails")
-    )
-    count: Optional[int] = field(default=None, metadata=config(field_name="count"))
-    sent: Optional[bool] = field(default=None, metadata=config(field_name="sent"))
 
 
 @dataclass_json

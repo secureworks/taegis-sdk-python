@@ -174,6 +174,8 @@ class RetentionMonths(str, Enum):
     TWENTY_FOUR_MONTHS = "TWENTY_FOUR_MONTHS"
     THIRTY_SIX_MONTHS = "THIRTY_SIX_MONTHS"
     SIXTY_MONTHS = "SIXTY_MONTHS"
+    EIGHTY_FOUR_MONTHS = "EIGHTY_FOUR_MONTHS"
+    ONE_HUNDRED_TWENTY_MONTHS = "ONE_HUNDRED_TWENTY_MONTHS"
 
 
 class LicenseLevel(str, Enum):
@@ -204,6 +206,7 @@ class TenantLicenseCapability(str, Enum):
     NG_SIEM = "NG_SIEM"
     AI_SECURITY = "AI_SECURITY"
     MANAGED_RISK = "MANAGED_RISK"
+    SOPHOS_EMAIL = "SOPHOS_EMAIL"
 
 
 @dataclass_json

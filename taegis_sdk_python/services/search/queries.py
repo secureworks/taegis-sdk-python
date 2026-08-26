@@ -29,14 +29,14 @@ class TaegisSDKSearchQuery:
     def __init__(self, service: SearchService):
         self.service = service
 
-    def search(self, rn: str) -> SearchV2:
+    def search(self, urn: str) -> SearchV2:
         """Retrieve search information and its current state."""
         endpoint = "search"
 
         result = self.service.execute_query(
             endpoint=endpoint,
             variables={
-                "rn": prepare_input(rn),
+                "urn": prepare_input(urn),
             },
             output=build_output_string(
                 SearchV2,
@@ -47,14 +47,14 @@ class TaegisSDKSearchQuery:
             return SearchV2.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for query search")
 
-    def search_v2s(self, history_rns: list[str] | None = None) -> list[SearchV2]:
+    def searches_by_history_id(self, ids: list[str]) -> list[SearchV2]:
         """Retrieve searches via their linked search history service ids."""
-        endpoint = "searchV2s"
+        endpoint = "searchesByHistoryId"
 
         result = self.service.execute_query(
             endpoint=endpoint,
             variables={
-                "historyRNs": prepare_input(history_rns),
+                "ids": prepare_input(ids),
             },
             output=build_output_string(
                 SearchV2,
@@ -65,9 +65,9 @@ class TaegisSDKSearchQuery:
             return SearchV2.schema().load(
                 [r or {} for r in result.get(endpoint)], many=True
             )
-        raise GraphQLNoRowsInResultSetError("for query searchV2s")
+        raise GraphQLNoRowsInResultSetError("for query searchesByHistoryId")
 
-    def validate_search(self, input_: ValidateSearchInput) -> ValidateSearchOutput:
+    def validate_search(self, input_: ValidateSearchInput) -> ValidateSearchResponse:
         """Run validation against a search query input without executing it."""
         endpoint = "validateSearch"
 
@@ -77,12 +77,12 @@ class TaegisSDKSearchQuery:
                 "input": prepare_input(input_),
             },
             output=build_output_string(
-                ValidateSearchOutput,
+                ValidateSearchResponse,
                 exclude_deprecated_output=self.service.exclude_deprecated_output,
             ),
         )
         if result.get(endpoint) is not None:
-            return ValidateSearchOutput.from_dict(result.get(endpoint))
+            return ValidateSearchResponse.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for query validateSearch")
 
     def query_spec(self, text: str) -> Any:

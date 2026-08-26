@@ -309,6 +309,9 @@ class PlaybookAction:
     is_mdr_provider_internal_response_action: Optional[bool] = field(
         default=None, metadata=config(field_name="isMDRProviderInternalResponseAction")
     )
+    is_mdr_provider_supported_response_action: Optional[bool] = field(
+        default=None, metadata=config(field_name="isMDRProviderSupportedResponseAction")
+    )
     category: Optional[PlaybookActionCategory] = field(
         default=None, metadata=config(field_name="category")
     )

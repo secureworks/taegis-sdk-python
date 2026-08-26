@@ -101,8 +101,8 @@ class SearchResultTotal:
 class SearchResultSubTotal:
     """SearchResultSubTotal."""
 
-    resource_type: Optional[str] = field(
-        default=None, metadata=config(field_name="resourceType")
+    schema_type: Optional[str] = field(
+        default=None, metadata=config(field_name="schemaType")
     )
     value: Optional[int] = field(default=None, metadata=config(field_name="value"))
 
@@ -122,7 +122,34 @@ class SearchResultTotalResponse:
     """SearchResultTotalResponse."""
 
     history_rn: Optional[str] = field(
-        default=None, metadata=config(field_name="historyRN")
+        default=None,
+        metadata=config(
+            metadata={"deprecated": True, "deprecation_reason": "use historyId"},
+            field_name="historyRN",
+        ),
+    )
+    history_id: Optional[str] = field(
+        default=None, metadata=config(field_name="historyId")
+    )
+    total: Optional[SearchResultTotal] = field(
+        default=None, metadata=config(field_name="total")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class SearchResultsByHistoryIdTotalsResponse:
+    """SearchResultsByHistoryIdTotalsResponse."""
+
+    history_rn: Optional[str] = field(
+        default=None,
+        metadata=config(
+            metadata={"deprecated": True, "deprecation_reason": "use historyId"},
+            field_name="historyRN",
+        ),
+    )
+    history_id: Optional[str] = field(
+        default=None, metadata=config(field_name="historyId")
     )
     total: Optional[SearchResultTotal] = field(
         default=None, metadata=config(field_name="total")
@@ -154,8 +181,8 @@ class SearchResultField:
     enum_values: Optional[list[str]] = field(
         default=None, metadata=config(field_name="enumValues")
     )
-    origin_resource_types: Optional[list[str]] = field(
-        default=None, metadata=config(field_name="originResourceTypes")
+    origin_schema_types: Optional[list[str]] = field(
+        default=None, metadata=config(field_name="originSchemaTypes")
     )
     base_type: Optional[Union[BaseType, TaegisEnum]] = field(
         default=None,
@@ -235,13 +262,6 @@ class SearchResultPage:
 class SearchResultFacetPage:
     """SearchResultFacetPage."""
 
-    rn: Optional[str] = field(
-        default=None,
-        metadata=config(
-            metadata={"deprecated": True, "deprecation_reason": "use urn"},
-            field_name="rn",
-        ),
-    )
     urn: Optional[str] = field(default=None, metadata=config(field_name="urn"))
     facets: Optional[list[SearchResultFacet]] = field(
         default=None, metadata=config(field_name="facets")

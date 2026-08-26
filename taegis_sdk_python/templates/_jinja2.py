@@ -1,6 +1,8 @@
 """Taegis SDK Jinja2 Support."""
 
 import re
+from dataclasses import dataclass
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from typing import Optional, Union
 
@@ -128,3 +130,91 @@ def load_jinja2_template_environment(
     environment.filters["not_matches_regex"] = filter_not_regex
 
     return environment
+
+
+##########
+
+
+@dataclass(frozen=True)
+class TimeWindow:
+    """An inclusive Taegis QL time range with formatted earliest and latest bounds."""
+
+    earliest: str
+    latest: str
+
+
+def parse_timedelta(value: str) -> timedelta:
+    """Parse a duration string into a timedelta."""
+    match = re.fullmatch(r"\s*(\d+)\s*([smhdwy]|mo)\s*", value.lower())
+    if not match:
+        raise ValueError(f"Invalid duration: {value!r}")
+
+    amount, unit = match.groups()
+    amount = int(amount)
+
+    if amount <= 0:
+        raise ValueError("Duration must be greater than zero.")
+
+    if unit == "s":
+        delta = timedelta(seconds=amount)
+    elif unit == "m":
+        delta = timedelta(minutes=amount)
+    elif unit == "h":
+        delta = timedelta(hours=amount)
+    elif unit == "d":
+        delta = timedelta(days=amount)
+    elif unit == "w":
+        delta = timedelta(weeks=amount)
+    elif unit == "mo":
+        delta = timedelta(days=amount * 30)
+    elif unit == "y":
+        delta = timedelta(days=amount * 365)
+    else:
+        raise ValueError(f"Invalid duration unit: {unit!r}")
+
+    return delta
+
+
+def time_split_windows(initial_duration: str, chunk_duration: str) -> list[TimeWindow]:
+    """Create contiguous UTC time windows for a query."""
+    initial_delta = parse_timedelta(initial_duration)
+    chunk_delta = parse_timedelta(chunk_duration)
+
+    # Exclude the current second from the query range.
+    latest_allowed = datetime.now(timezone.utc).replace(microsecond=0) - timedelta(
+        seconds=1
+    )
+    start = latest_allowed - initial_delta
+
+    windows = []
+    while start < latest_allowed:
+        end = min(start + chunk_delta, latest_allowed)
+
+        windows.append(
+            TimeWindow(
+                earliest=(start + timedelta(seconds=1)).strftime("%Y-%m-%dT%H:%M:%S"),
+                latest=end.strftime("%Y-%m-%dT%H:%M:%S"),
+            )
+        )
+
+        start = end
+
+    return windows
+
+
+def time_split(
+    *, environment: Environment, template_text: str, initial: str, chunk: str, **kwargs
+):
+    """Render a template once for each generated time window."""
+    if (
+        "EARLIEST='{{ window.earliest }}'" not in template_text
+        or "LATEST='{{ window.latest }}'" not in template_text
+    ):
+        raise ValueError(
+            "The template must contain the placeholders for window.earliest and window.latest."
+        )
+
+    windows = time_split_windows(initial, chunk)
+    template = environment.from_string(template_text)
+
+    return "\n---".join(template.render(window=window, **kwargs) for window in windows)
