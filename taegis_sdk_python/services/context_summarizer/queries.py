@@ -1,4 +1,5 @@
 """ContextSummarizer Query."""
+
 # pylint: disable=no-member, unused-argument, too-many-locals, duplicate-code, wildcard-import, unused-wildcard-import, cyclic-import
 
 
@@ -8,15 +9,15 @@
 from __future__ import annotations
 
 import logging
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Optional, Union
 
 from taegis_sdk_python import GraphQLNoRowsInResultSetError
-from taegis_sdk_python._consts import TaegisEnum
-from taegis_sdk_python.services.context_summarizer.types import *
 from taegis_sdk_python.utils import (
     build_output_string,
     prepare_input,
 )
+from taegis_sdk_python._consts import TaegisEnum
+from taegis_sdk_python.services.context_summarizer.types import *
 
 if TYPE_CHECKING:  # pragma: no cover
     from taegis_sdk_python.services.context_summarizer import ContextSummarizerService
@@ -34,8 +35,8 @@ class TaegisSDKContextSummarizerQuery:
         self,
         begin_year: int,
         begin_month: int,
-        end_year: int | None = None,
-        end_month: int | None = None,
+        end_year: Optional[int] = None,
+        end_month: Optional[int] = None,
     ) -> BillingMonthEstimate:
         """Estimate the billing for a month, or many months."""
         endpoint = "generativeAIMonthlyBilling"
@@ -142,8 +143,8 @@ class TaegisSDKContextSummarizerQuery:
     def generative_ai_alert_analysis(
         self,
         alert_id: str,
-        fetch_unconditionally: bool | None = None,
-        follow_up_prompt: str | None = None,
+        fetch_unconditionally: Optional[bool] = None,
+        follow_up_prompt: Optional[str] = None,
     ) -> str:
         """Derive an analysis of the alert from its overall content."""
         endpoint = "generativeAIAlertAnalysis"
@@ -162,7 +163,9 @@ class TaegisSDKContextSummarizerQuery:
         raise GraphQLNoRowsInResultSetError("for query generativeAIAlertAnalysis")
 
     def generative_ai_case_summary(
-        self, case_id: str, cache_options: ContextSummarizerCacheOptions | None = None
+        self,
+        case_id: str,
+        cache_options: Optional[ContextSummarizerCacheOptions] = None,
     ) -> ContextSummarizerCaseSummary:
         """Generate a summary of a Case(formerly, Investigation) based on analyses of its Alerts."""
         endpoint = "generativeAICaseSummary"
@@ -185,8 +188,8 @@ class TaegisSDKContextSummarizerQuery:
     def generative_ai_key_findings(
         self,
         case_id: str,
-        cache_options: ContextSummarizerCacheOptions | None = None,
-        output_format: OutputFormat | TaegisEnum | None = None,
+        cache_options: Optional[ContextSummarizerCacheOptions] = None,
+        output_format: Optional[Union[OutputFormat, TaegisEnum]] = None,
     ) -> ContextSummarizerKeyFindings:
         """Generate key findings for a Case based on analyses of its Alerts."""
         endpoint = "generativeAIKeyFindings"

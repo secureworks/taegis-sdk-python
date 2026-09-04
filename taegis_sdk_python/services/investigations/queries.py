@@ -1,4 +1,5 @@
 """Investigations Query."""
+
 # pylint: disable=no-member, unused-argument, too-many-locals, duplicate-code, wildcard-import, unused-wildcard-import, cyclic-import
 
 
@@ -8,15 +9,15 @@
 from __future__ import annotations
 
 import logging
-from typing import TYPE_CHECKING, Any
+from typing import TYPE_CHECKING, Any, Optional, Union
 
 from taegis_sdk_python import GraphQLNoRowsInResultSetError
-from taegis_sdk_python._consts import TaegisEnum
-from taegis_sdk_python.services.investigations.types import *
 from taegis_sdk_python.utils import (
     build_output_string,
     prepare_input,
 )
+from taegis_sdk_python._consts import TaegisEnum
+from taegis_sdk_python.services.investigations.types import *
 
 if TYPE_CHECKING:  # pragma: no cover
     from taegis_sdk_python.services.investigations import InvestigationsService
@@ -75,7 +76,7 @@ class TaegisSDKInvestigationsQuery:
         raise GraphQLNoRowsInResultSetError("for query investigation")
 
     def investigations(
-        self, investigation_ids: list[str] | None = None
+        self, investigation_ids: Optional[list[str]] = None
     ) -> list[Investigation]:
         """Get investigations for the list of ids."""
         endpoint = "investigations"
@@ -102,21 +103,22 @@ class TaegisSDKInvestigationsQuery:
 
     def all_investigations(
         self,
-        status: list[str] | None = None,
-        page: int | None = None,
-        per_page: int | None = None,
-        created_after: str | None = None,
-        created_before: str | None = None,
-        updated_after: str | None = None,
-        updated_before: str | None = None,
-        order_by_field: OrderFieldInput | TaegisEnum | None = None,
-        order_direction: OrderDirectionInput | TaegisEnum | None = None,
-        is_deleted: bool | None = None,
-        hide_threat_hunting_investigations: bool | None = None,
+        status: Optional[list[str]] = None,
+        page: Optional[int] = None,
+        per_page: Optional[int] = None,
+        created_after: Optional[str] = None,
+        created_before: Optional[str] = None,
+        updated_after: Optional[str] = None,
+        updated_before: Optional[str] = None,
+        order_by_field: Optional[Union[OrderFieldInput, TaegisEnum]] = None,
+        order_direction: Optional[Union[OrderDirectionInput, TaegisEnum]] = None,
+        is_deleted: Optional[bool] = None,
+        hide_threat_hunting_investigations: Optional[bool] = None,
     ) -> list[Investigation]:
         """Get all investigations
         Max perPage Value is 100. If requesting over 100, only the first 100 will be returned.
-        deprecated: Use `investigationsSearch` for better investigations query experience."""
+        deprecated: Use `investigationsSearch` for better investigations query experience.
+        """
         endpoint = "allInvestigations"
 
         log.warning(
@@ -153,9 +155,9 @@ class TaegisSDKInvestigationsQuery:
 
     def investigation_count_over_time(
         self,
-        transition_status: str | None = None,
-        after: str | None = None,
-        before: str | None = None,
+        transition_status: Optional[str] = None,
+        after: Optional[str] = None,
+        before: Optional[str] = None,
     ) -> Count:
         """Get the number of investigations created during a given time frame. Can optionslly pass in a desired 'transition_status' (handoff, acknowledge, resolution)."""
         endpoint = "investigationCountOverTime"
@@ -181,9 +183,9 @@ class TaegisSDKInvestigationsQuery:
 
     def mean_time_summary_over_period(
         self,
-        after: str | None = None,
-        before: str | None = None,
-        include_threat_hunt_types: bool | None = None,
+        after: Optional[str] = None,
+        before: Optional[str] = None,
+        include_threat_hunt_types: Optional[bool] = None,
     ) -> TimeSummaryForGroup:
         """Get the average times it took to hand off, acknowledge, and resolve all investigations over the course of the period."""
         endpoint = "meanTimeSummaryOverPeriod"
@@ -211,8 +213,8 @@ class TaegisSDKInvestigationsQuery:
     def investigation_assets(
         self,
         investigation_id: str,
-        page: int | None = None,
-        per_page: int | None = None,
+        page: Optional[int] = None,
+        per_page: Optional[int] = None,
     ) -> InvestigationAssetOutput:
         """Get investigation assets by investigation id."""
         endpoint = "investigationAssets"
@@ -240,8 +242,8 @@ class TaegisSDKInvestigationsQuery:
     def investigation_events(
         self,
         investigation_id: str,
-        page: int | None = None,
-        per_page: int | None = None,
+        page: Optional[int] = None,
+        per_page: Optional[int] = None,
     ) -> InvestigationEventOutput:
         """Get investigation events by investigation id."""
         endpoint = "investigationEvents"
@@ -269,14 +271,15 @@ class TaegisSDKInvestigationsQuery:
     def investigation_alerts(
         self,
         investigation_id: str,
-        page: int | None = None,
-        per_page: int | None = None,
-        filter_query: str | None = None,
-        order_by_field: str | None = None,
-        order_direction: OrderDirection | TaegisEnum | None = None,
+        page: Optional[int] = None,
+        per_page: Optional[int] = None,
+        filter_query: Optional[str] = None,
+        order_by_field: Optional[str] = None,
+        order_direction: Optional[Union[OrderDirection, TaegisEnum]] = None,
     ) -> InvestigationAlertOutput:
         """Get investigation alerts by investigation id
-        deprecated: Use `investigation` query or alerts2 search query (paginated) to get alerts by investigation id."""
+        deprecated: Use `investigation` query or alerts2 search query (paginated) to get alerts by investigation id.
+        """
         endpoint = "investigationAlerts"
 
         log.warning(
@@ -431,7 +434,7 @@ class TaegisSDKInvestigationsQuery:
         raise GraphQLNoRowsInResultSetError("for query investigationsBulkUpdateAlerts")
 
     def investigation_status_summary(
-        self, updated_after: str | None = None, updated_before: str | None = None
+        self, updated_after: Optional[str] = None, updated_before: Optional[str] = None
     ) -> list[SummaryGroup]:
         """Get summary of investigations and status filtered by updated_at."""
         endpoint = "investigationStatusSummary"
@@ -459,16 +462,17 @@ class TaegisSDKInvestigationsQuery:
 
     def investigations_search(
         self,
-        page: int | None = None,
-        per_page: int | None = None,
-        query: str | None = None,
-        filter_text: str | None = None,
-        order_by_field: OrderFieldInput | TaegisEnum | None = None,
-        order_direction: OrderDirectionInput | TaegisEnum | None = None,
+        page: Optional[int] = None,
+        per_page: Optional[int] = None,
+        query: Optional[str] = None,
+        filter_text: Optional[str] = None,
+        order_by_field: Optional[Union[OrderFieldInput, TaegisEnum]] = None,
+        order_direction: Optional[Union[OrderDirectionInput, TaegisEnum]] = None,
     ) -> InvestigationsOutput:
         """Investigations Search.
         Query fields accepts a CQL string (non aggregations). Use filterText for free text search.
-        Max perPage Value is 100. If requesting over 100, only the first 100 will be returned."""
+        Max perPage Value is 100. If requesting over 100, only the first 100 will be returned.
+        """
         endpoint = "investigationsSearch"
 
         log.warning(
@@ -557,7 +561,7 @@ class TaegisSDKInvestigationsQuery:
             return result.get(endpoint)
         raise GraphQLNoRowsInResultSetError("for query getFalsePositives")
 
-    def investigations_count(self, query: str | None = None) -> int:
+    def investigations_count(self, query: Optional[str] = None) -> int:
         """Get aggregated investigations counts based on CQL query."""
         endpoint = "investigationsCount"
 
@@ -598,15 +602,16 @@ class TaegisSDKInvestigationsQuery:
 
     def export_investigations_search(
         self,
-        page: int | None = None,
-        per_page: int | None = None,
-        query: str | None = None,
-        filter_text: str | None = None,
-        order_by_field: OrderFieldInput | TaegisEnum | None = None,
-        order_direction: OrderDirectionInput | TaegisEnum | None = None,
+        page: Optional[int] = None,
+        per_page: Optional[int] = None,
+        query: Optional[str] = None,
+        filter_text: Optional[str] = None,
+        order_by_field: Optional[Union[OrderFieldInput, TaegisEnum]] = None,
+        order_direction: Optional[Union[OrderDirectionInput, TaegisEnum]] = None,
     ) -> InvestigationsExportOutput:
         """Export investigations Search Raw Content
-        Max perPage Value is 100. If requesting over 100, only the first 100 will be returned."""
+        Max perPage Value is 100. If requesting over 100, only the first 100 will be returned.
+        """
         endpoint = "exportInvestigationsSearch"
 
         log.warning(
@@ -699,11 +704,15 @@ class TaegisSDKInvestigationsQuery:
         raise GraphQLNoRowsInResultSetError("for query downloadInvestigationFile")
 
     def investigations_by_session(
-        self, session_id: str, page: int | None = None, per_page: int | None = None
+        self,
+        session_id: str,
+        page: Optional[int] = None,
+        per_page: Optional[int] = None,
     ) -> list[Investigation]:
         """Get investigations by multi-tenant session
         DO NOT USE, this query is unsupported. Use investigationsSearch instead.
-        Max perPage Value is 100. If requesting over 100, only the first 100 will be returned."""
+        Max perPage Value is 100. If requesting over 100, only the first 100 will be returned.
+        """
         endpoint = "investigationsBySession"
 
         log.warning(
@@ -730,15 +739,16 @@ class TaegisSDKInvestigationsQuery:
 
     def get_handoff_investigations(
         self,
-        page: int | None = None,
-        per_page: int | None = None,
-        created_after: str | None = None,
-        created_before: str | None = None,
-        include_threat_hunt_types_only: bool | None = None,
-        exclude_threat_hunt_types: bool | None = None,
+        page: Optional[int] = None,
+        per_page: Optional[int] = None,
+        created_after: Optional[str] = None,
+        created_before: Optional[str] = None,
+        include_threat_hunt_types_only: Optional[bool] = None,
+        exclude_threat_hunt_types: Optional[bool] = None,
     ) -> InvestigationsOutput:
         """Return list of Investigations which are handed off at least once for the the given dates and status
-        Max perPage Value is 100. If requesting over 100, only the first 100 will be returned."""
+        Max perPage Value is 100. If requesting over 100, only the first 100 will be returned.
+        """
         endpoint = "getHandoffInvestigations"
 
         log.warning(

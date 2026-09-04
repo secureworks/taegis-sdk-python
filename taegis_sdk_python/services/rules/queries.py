@@ -1,4 +1,5 @@
 """Rules Query."""
+
 # pylint: disable=no-member, unused-argument, too-many-locals, duplicate-code, wildcard-import, unused-wildcard-import, cyclic-import
 
 
@@ -8,15 +9,15 @@
 from __future__ import annotations
 
 import logging
-from typing import TYPE_CHECKING, Any
+from typing import TYPE_CHECKING, Any, Optional, Union
 
 from taegis_sdk_python import GraphQLNoRowsInResultSetError
-from taegis_sdk_python._consts import TaegisEnum
-from taegis_sdk_python.services.rules.types import *
 from taegis_sdk_python.utils import (
     build_output_string,
     prepare_input,
 )
+from taegis_sdk_python._consts import TaegisEnum
+from taegis_sdk_python.services.rules.types import *
 
 if TYPE_CHECKING:  # pragma: no cover
     from taegis_sdk_python.services.rules import RulesService
@@ -32,9 +33,9 @@ class TaegisSDKRulesQuery:
 
     def rules(
         self,
-        page: int | None = None,
-        count: int | None = None,
-        rule_type: RuleType | TaegisEnum | None = None,
+        page: Optional[int] = None,
+        count: Optional[int] = None,
+        rule_type: Optional[Union[RuleType, TaegisEnum]] = None,
     ) -> list[Rule]:
         """Return pages of all rules, sorted by descending updated at date."""
         endpoint = "rules"
@@ -57,7 +58,7 @@ class TaegisSDKRulesQuery:
         raise GraphQLNoRowsInResultSetError("for query rules")
 
     def all_rules(
-        self, page: int | None = None, count: int | None = None
+        self, page: Optional[int] = None, count: Optional[int] = None
     ) -> list[Rule]:
         """Return pages of all the rules regardless of rule type, sorted by descending updated at date."""
         endpoint = "allRules"
@@ -80,10 +81,10 @@ class TaegisSDKRulesQuery:
 
     def suppression_rules(
         self,
-        page: int | None = None,
-        count: int | None = None,
-        kind: RuleQueryKind | TaegisEnum | None = None,
-        rule_type: RuleType | TaegisEnum | None = None,
+        page: Optional[int] = None,
+        count: Optional[int] = None,
+        kind: Optional[Union[RuleQueryKind, TaegisEnum]] = None,
+        rule_type: Optional[Union[RuleType, TaegisEnum]] = None,
     ) -> list[Rule]:
         """Return pages of alert suppression rules, sorted by descending updated at date.
 
@@ -112,7 +113,7 @@ class TaegisSDKRulesQuery:
         raise GraphQLNoRowsInResultSetError("for query suppressionRules")
 
     def event_tagging_rules(
-        self, input_: EventTaggingRulesInput | None = None
+        self, input_: Optional[EventTaggingRulesInput] = None
     ) -> list[Rule]:
         """Return pages of event tagging rules, sorted by descending updated at date.
 
@@ -140,9 +141,9 @@ class TaegisSDKRulesQuery:
 
     def deleted_rules(
         self,
-        page: int | None = None,
-        count: int | None = None,
-        rule_type: RuleType | TaegisEnum | None = None,
+        page: Optional[int] = None,
+        count: Optional[int] = None,
+        rule_type: Optional[Union[RuleType, TaegisEnum]] = None,
     ) -> list[Rule]:
         """Return deleted rules."""
         endpoint = "deletedRules"
@@ -164,7 +165,9 @@ class TaegisSDKRulesQuery:
             )
         raise GraphQLNoRowsInResultSetError("for query deletedRules")
 
-    def rules_count(self, rule_type: RuleType | TaegisEnum | None = None) -> int:
+    def rules_count(
+        self, rule_type: Optional[Union[RuleType, TaegisEnum]] = None
+    ) -> int:
         """Return a count of all rules."""
         endpoint = "rulesCount"
 
@@ -181,8 +184,8 @@ class TaegisSDKRulesQuery:
 
     def suppression_rules_count(
         self,
-        kind: RuleQueryKind | TaegisEnum | None = None,
-        rule_type: RuleType | TaegisEnum | None = None,
+        kind: Optional[Union[RuleQueryKind, TaegisEnum]] = None,
+        rule_type: Optional[Union[RuleType, TaegisEnum]] = None,
     ) -> int:
         """Return a count of suppression rules. The kind works like in the suppressionRules query."""
         endpoint = "suppressionRulesCount"
@@ -200,7 +203,7 @@ class TaegisSDKRulesQuery:
         raise GraphQLNoRowsInResultSetError("for query suppressionRulesCount")
 
     def event_tagging_rules_count(
-        self, kind: RuleQueryKind | TaegisEnum | None = None
+        self, kind: Optional[Union[RuleQueryKind, TaegisEnum]] = None
     ) -> int:
         """Return a count of event tagging rules. The kind works like in the eventTaggingRules query."""
         endpoint = "eventTaggingRulesCount"
@@ -234,10 +237,10 @@ class TaegisSDKRulesQuery:
 
     def rules_for_event(
         self,
-        event_type: RuleEventType | TaegisEnum,
-        page: int | None = None,
-        count: int | None = None,
-        rule_type: RuleType | TaegisEnum | None = None,
+        event_type: Union[RuleEventType, TaegisEnum],
+        page: Optional[int] = None,
+        count: Optional[int] = None,
+        rule_type: Optional[Union[RuleType, TaegisEnum]] = None,
     ) -> list[Rule]:
         """Return pages of rules for the given event type, sorted by descending updated at date."""
         endpoint = "rulesForEvent"
@@ -262,8 +265,8 @@ class TaegisSDKRulesQuery:
 
     def rules_for_event_count(
         self,
-        event_type: RuleEventType | TaegisEnum,
-        rule_type: RuleType | TaegisEnum | None = None,
+        event_type: Union[RuleEventType, TaegisEnum],
+        rule_type: Optional[Union[RuleType, TaegisEnum]] = None,
     ) -> int:
         """Return a count of all rules for the given event type."""
         endpoint = "rulesForEventCount"
@@ -297,7 +300,7 @@ class TaegisSDKRulesQuery:
             return Rule.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for query rule")
 
-    def filter_keys(self, event_type: RuleEventType | TaegisEnum) -> list[str]:
+    def filter_keys(self, event_type: Union[RuleEventType, TaegisEnum]) -> list[str]:
         """Return a list of all valid filter keys for the given event type."""
         endpoint = "filterKeys"
 
@@ -315,8 +318,8 @@ class TaegisSDKRulesQuery:
     def changes_since(
         self,
         timestamp: str,
-        event_type: RuleEventType | TaegisEnum | None = None,
-        rule_type: RuleType | TaegisEnum | None = None,
+        event_type: Optional[Union[RuleEventType, TaegisEnum]] = None,
+        rule_type: Optional[Union[RuleType, TaegisEnum]] = None,
     ) -> list[Rule]:
         """Return rules that changed since the given time rounded down to the nearest whole minute.
 
@@ -355,9 +358,9 @@ class TaegisSDKRulesQuery:
 
     def test_filters(
         self,
-        event_type: RuleEventType | TaegisEnum,
-        filters: list[RuleFilterInput] | None = None,
-        sample_count: int | None = None,
+        event_type: Union[RuleEventType, TaegisEnum],
+        filters: Optional[list[RuleFilterInput]] = None,
+        sample_count: Optional[int] = None,
     ) -> list[RuleTestMatchStep]:
         """Test rule filters. Only usable by Secureworks for now."""
         endpoint = "testFilters"
@@ -410,7 +413,7 @@ class TaegisSDKRulesQuery:
     def validate_ql_filter(
         self,
         ql_filter: RuleQLFilterInput,
-        optional_event_type: RuleEventType | TaegisEnum | None = None,
+        optional_event_type: Optional[Union[RuleEventType, TaegisEnum]] = None,
     ) -> ValidateQLFilter:
         """Validate and test this proposed QL filter."""
         endpoint = "validateQLFilter"
@@ -431,7 +434,10 @@ class TaegisSDKRulesQuery:
         raise GraphQLNoRowsInResultSetError("for query validateQLFilter")
 
     def search_rules(
-        self, query: SearchRulesInput, page: int | None = None, count: int | None = None
+        self,
+        query: SearchRulesInput,
+        page: Optional[int] = None,
+        count: Optional[int] = None,
     ) -> SearchRulesOutput:
         """Search Rules by CQL Filter."""
         endpoint = "searchRules"
@@ -455,8 +461,8 @@ class TaegisSDKRulesQuery:
     def search_rules_by_field(
         self,
         filters: SearchRulesByFieldInput,
-        page: int | None = None,
-        count: int | None = None,
+        page: Optional[int] = None,
+        count: Optional[int] = None,
     ) -> SearchRulesOutput:
         """Search Rules by Rule Fields."""
         endpoint = "SearchRulesByField"
@@ -480,8 +486,8 @@ class TaegisSDKRulesQuery:
     def updated_watchlist_rules(
         self,
         query: WatchlistRuleQueryInput,
-        page: int | None = None,
-        count: int | None = None,
+        page: Optional[int] = None,
+        count: Optional[int] = None,
     ) -> SearchRulesOutput:
         """Gets a list of global non-deleted and enabled watchlist rules that were recently updated."""
         endpoint = "updatedWatchlistRules"
@@ -503,7 +509,7 @@ class TaegisSDKRulesQuery:
         raise GraphQLNoRowsInResultSetError("for query updatedWatchlistRules")
 
     def rule_facet_aggregations(
-        self, query: RuleFacetAggregationsInput | None = None
+        self, query: Optional[RuleFacetAggregationsInput] = None
     ) -> RuleFacetAggregationsOutput:
         """Returns counts for distinct rule facets that meet the criteria of the optional input CQL query."""
         endpoint = "ruleFacetAggregations"
@@ -523,7 +529,7 @@ class TaegisSDKRulesQuery:
         raise GraphQLNoRowsInResultSetError("for query ruleFacetAggregations")
 
     def ql_rules_tenants_details(
-        self, event_type: RuleEventType | TaegisEnum
+        self, event_type: Union[RuleEventType, TaegisEnum]
     ) -> list[QLTenants]:
         """Returns a list of tenants, parents, and organizations with QL rules for the specified event type."""
         endpoint = "qlRulesTenantsDetails"
@@ -544,7 +550,9 @@ class TaegisSDKRulesQuery:
             )
         raise GraphQLNoRowsInResultSetError("for query qlRulesTenantsDetails")
 
-    def ql_rules_tenants(self, event_type: RuleEventType | TaegisEnum) -> list[str]:
+    def ql_rules_tenants(
+        self, event_type: Union[RuleEventType, TaegisEnum]
+    ) -> list[str]:
         """Returns a list of tenant IDs with QL rules for the specified event type."""
         endpoint = "qlRulesTenants"
 

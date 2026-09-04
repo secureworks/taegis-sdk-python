@@ -1,4 +1,5 @@
 """Notifications2 Subscription."""
+
 # pylint: disable=no-member, unused-argument, too-many-locals, duplicate-code, wildcard-import, unused-wildcard-import, cyclic-import
 
 
@@ -8,7 +9,7 @@
 from __future__ import annotations
 
 import logging
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Optional
 
 from taegis_sdk_python import GraphQLNoRowsInResultSetError
 from taegis_sdk_python.services.notifications2.types import *
@@ -30,7 +31,7 @@ class TaegisSDKNotifications2Subscription:
         self.service = service
 
     def notifications(
-        self, arguments: NotificationSubscriptionArguments | None = None
+        self, arguments: Optional[NotificationSubscriptionArguments] = None
     ) -> list[NotificationSubscription]:
         """Notifications Subscriptions are used to get an event when a new notification is created for the calling user.
         A websocket connection is required to make this graphql call. Once the websocket is opened and the subscription started,
@@ -41,7 +42,8 @@ class TaegisSDKNotifications2Subscription:
         Multiple subscription calls with different arguments can be made needing to create a new websocket connection in order to paginate over the existing notifications.
         As a client is paginating, new notifications will continue to be sent to the client as they are created outside of the pagination calls.
 
-        Filters set in the notification subscription arguments are not applied to newly created notifications at this time."""
+        Filters set in the notification subscription arguments are not applied to newly created notifications at this time.
+        """
         endpoint = "notifications"
 
         result = self.service.execute_subscription(

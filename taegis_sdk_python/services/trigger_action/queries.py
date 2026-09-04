@@ -1,4 +1,5 @@
 """TriggerAction Query."""
+
 # pylint: disable=no-member, unused-argument, too-many-locals, duplicate-code, wildcard-import, unused-wildcard-import, cyclic-import
 
 
@@ -8,15 +9,15 @@
 from __future__ import annotations
 
 import logging
-from typing import TYPE_CHECKING, Any
+from typing import TYPE_CHECKING, Any, Optional, Union
 
 from taegis_sdk_python import GraphQLNoRowsInResultSetError
-from taegis_sdk_python._consts import TaegisEnum
-from taegis_sdk_python.services.trigger_action.types import *
 from taegis_sdk_python.utils import (
     build_output_string,
     prepare_input,
 )
+from taegis_sdk_python._consts import TaegisEnum
+from taegis_sdk_python.services.trigger_action.types import *
 
 if TYPE_CHECKING:  # pragma: no cover
     from taegis_sdk_python.services.trigger_action import TriggerActionService
@@ -104,12 +105,14 @@ class TaegisSDKTriggerActionQuery:
 
     def playbook_actions(
         self,
-        playbook_action_ids: list[str] | None = None,
-        playbook_action_context: str | None = None,
-        playbook_action_category: str | None = None,
-        inputs: Any | None = None,
-        sort: PlaybookActionSortInput | None = None,
-        response_modes: list[PlaybookActionResponseMode | TaegisEnum] | None = None,
+        playbook_action_ids: Optional[list[str]] = None,
+        playbook_action_context: Optional[str] = None,
+        playbook_action_category: Optional[str] = None,
+        inputs: Optional[Any] = None,
+        sort: Optional[PlaybookActionSortInput] = None,
+        response_modes: Optional[
+            list[Union[PlaybookActionResponseMode, TaegisEnum]]
+        ] = None,
     ) -> list[PlaybookAction]:
         """playbookActions returns actions that can be taken for a given context, category and input.
 
@@ -117,7 +120,8 @@ class TaegisSDKTriggerActionQuery:
         If inputs are also provided alongside playbookActionIds, each action's trigger filter is
         evaluated against the inputs — only actions that pass are returned.
         playbookActionIds takes precedence over playbookActionContext when both are provided.
-        When playbookActionIds is omitted, playbookActionContext and inputs are required."""
+        When playbookActionIds is omitted, playbookActionContext and inputs are required.
+        """
         endpoint = "playbookActions"
 
         result = self.service.execute_query(
@@ -142,7 +146,7 @@ class TaegisSDKTriggerActionQuery:
         raise GraphQLNoRowsInResultSetError("for query playbookActions")
 
     def playbook_actions_configured(
-        self, arguments: PlaybookActionsConfiguredArguments | None = None
+        self, arguments: Optional[PlaybookActionsConfiguredArguments] = None
     ) -> list[PlaybookAction]:
         """playbookActionsConfigured returns all known trigger actions
 

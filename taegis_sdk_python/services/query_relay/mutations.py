@@ -1,4 +1,5 @@
 """QueryRelay Mutation."""
+
 # pylint: disable=no-member, unused-argument, too-many-locals, duplicate-code, wildcard-import, unused-wildcard-import, cyclic-import
 
 
@@ -31,7 +32,8 @@ class TaegisSDKQueryRelayMutation:
 
     def execute_query_relay(self, input_: ExecuteQueryRelayInput) -> QueryRelayResponse:
         """Submit a SQL query for asynchronous execution.
-        Returns a token and initial status. Use fetchQueryRelayResults to poll and retrieve results."""
+        Returns a token, correlationId, and initial status. Use fetchQueryRelayResults to poll and retrieve results.
+        """
         endpoint = "executeQueryRelay"
 
         result = self.service.execute_mutation(

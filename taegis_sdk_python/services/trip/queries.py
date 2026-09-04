@@ -1,4 +1,5 @@
 """Trip Query."""
+
 # pylint: disable=no-member, unused-argument, too-many-locals, duplicate-code, wildcard-import, unused-wildcard-import, cyclic-import
 
 
@@ -8,15 +9,15 @@
 from __future__ import annotations
 
 import logging
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Optional, Union
 
 from taegis_sdk_python import GraphQLNoRowsInResultSetError
-from taegis_sdk_python._consts import TaegisEnum
-from taegis_sdk_python.services.trip.types import *
 from taegis_sdk_python.utils import (
     build_output_string,
     prepare_input,
 )
+from taegis_sdk_python._consts import TaegisEnum
+from taegis_sdk_python.services.trip.types import *
 
 if TYPE_CHECKING:  # pragma: no cover
     from taegis_sdk_python.services.trip import TripService
@@ -31,7 +32,7 @@ class TaegisSDKTripQuery:
         self.service = service
 
     def list_active_api_products(
-        self, application: ApiProductGroup | TaegisEnum
+        self, application: Union[ApiProductGroup, TaegisEnum]
     ) -> list[ApiProduct]:
         """No developer notes."""
         endpoint = "listActiveApiProducts"
@@ -71,7 +72,7 @@ class TaegisSDKTripQuery:
         raise GraphQLNoRowsInResultSetError("for query listApiIntegrations")
 
     def list_api_integrations_v2(
-        self, filter_: ListApiIntegrationsFilter | None = None
+        self, filter_: Optional[ListApiIntegrationsFilter] = None
     ) -> list[ApiIntegrationSummary]:
         """No developer notes."""
         endpoint = "listApiIntegrationsV2"

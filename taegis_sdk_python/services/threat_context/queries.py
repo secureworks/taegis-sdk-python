@@ -1,4 +1,5 @@
 """ThreatContext Query."""
+
 # pylint: disable=no-member, unused-argument, too-many-locals, duplicate-code, wildcard-import, unused-wildcard-import, cyclic-import
 
 
@@ -8,15 +9,15 @@
 from __future__ import annotations
 
 import logging
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Optional
 
 from taegis_sdk_python import GraphQLNoRowsInResultSetError
-from taegis_sdk_python.services.threat_context.types import *
 from taegis_sdk_python.utils import (
     build_output_string,
     parse_union_result,
     prepare_input,
 )
+from taegis_sdk_python.services.threat_context.types import *
 
 if TYPE_CHECKING:  # pragma: no cover
     from taegis_sdk_python.services.threat_context import ThreatContextService
@@ -33,8 +34,8 @@ class TaegisSDKThreatContextQuery:
     def reputation(
         self,
         indicators: list[ThreatContextIndicatorInput],
-        cache: CacheOptions | None = None,
-        options: ReputationOptions | None = None,
+        cache: Optional[CacheOptions] = None,
+        options: Optional[ReputationOptions] = None,
     ) -> list[Results]:
         """No developer notes."""
         endpoint = "reputation"
@@ -58,7 +59,7 @@ class TaegisSDKThreatContextQuery:
     def reputation_summaries(
         self,
         indicators: list[ThreatContextIndicatorInput],
-        cache: CacheOptions | None = None,
+        cache: Optional[CacheOptions] = None,
     ) -> IndicatorsSummary:
         """No developer notes."""
         endpoint = "reputationSummaries"
@@ -139,7 +140,8 @@ class TaegisSDKThreatContextQuery:
         Return order matches input order: one output per input even on individual hash failure.
         Individual invalid hash inputs return partial errors on the individual ThreatContextIntelixReport.
         See individual ThreatContextIntelixReport.Error for individual failures.
-        Invalid permissions, tenant issues, or a batch timeout will cause a full GQL error."""
+        Invalid permissions, tenant issues, or a batch timeout will cause a full GQL error.
+        """
         endpoint = "intelixReports"
 
         result = self.service.execute_query(

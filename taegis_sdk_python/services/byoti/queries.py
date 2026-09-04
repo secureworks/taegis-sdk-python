@@ -1,4 +1,5 @@
 """Byoti Query."""
+
 # pylint: disable=no-member, unused-argument, too-many-locals, duplicate-code, wildcard-import, unused-wildcard-import, cyclic-import
 
 
@@ -8,14 +9,14 @@
 from __future__ import annotations
 
 import logging
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Optional
 
 from taegis_sdk_python import GraphQLNoRowsInResultSetError
-from taegis_sdk_python.services.byoti.types import *
 from taegis_sdk_python.utils import (
     build_output_string,
     prepare_input,
 )
+from taegis_sdk_python.services.byoti.types import *
 
 if TYPE_CHECKING:  # pragma: no cover
     from taegis_sdk_python.services.byoti import ByotiService
@@ -50,7 +51,7 @@ class TaegisSDKByotiQuery:
         raise GraphQLNoRowsInResultSetError("for query searchIndicators")
 
     def get_indicators(
-        self, input_: GetIndicatorsInput | None = None
+        self, input_: Optional[GetIndicatorsInput] = None
     ) -> SearchIndicatorsResponse:
         """Query Indicators using the API.  getIndicators will search and return indicators based on provided search parameters. If parameters are empty the query will return any indicators belonging to the caller up to the default of 100 per page."""
         endpoint = "getIndicators"
@@ -70,7 +71,7 @@ class TaegisSDKByotiQuery:
         raise GraphQLNoRowsInResultSetError("for query getIndicators")
 
     def paginate_indicators(
-        self, input_: PaginateIndicatorsInput | None = None
+        self, input_: Optional[PaginateIndicatorsInput] = None
     ) -> SearchIndicatorsResponse:
         """PaginateIndicators is similar to getIndicators but uses cursor based pagination."""
         endpoint = "paginateIndicators"

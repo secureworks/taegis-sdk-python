@@ -1,4 +1,5 @@
 """Assets Mutation."""
+
 # pylint: disable=no-member, unused-argument, too-many-locals, duplicate-code, wildcard-import, unused-wildcard-import, cyclic-import
 
 
@@ -8,7 +9,7 @@
 from __future__ import annotations
 
 import logging
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Optional
 
 from taegis_sdk_python import GraphQLNoRowsInResultSetError
 from taegis_sdk_python.services.assets.types import *
@@ -65,7 +66,7 @@ class TaegisSDKAssetsMutation:
             return Asset.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for mutation integrateAsset")
 
-    def delete_assets(self, ids: list[str], undelete: bool | None = None) -> bool:
+    def delete_assets(self, ids: list[str], undelete: Optional[bool] = None) -> bool:
         """Delete or un-delete asset."""
         endpoint = "deleteAssets"
 
@@ -150,7 +151,7 @@ class TaegisSDKAssetsMutation:
             return Tag.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for mutation deleteAssetTag")
 
-    def update_asset(self, asset_input: AssetInput | None = None) -> Asset:
+    def update_asset(self, asset_input: Optional[AssetInput] = None) -> Asset:
         """Updated the tags for an asset."""
         endpoint = "updateAsset"
 
@@ -174,8 +175,8 @@ class TaegisSDKAssetsMutation:
     def add_investigation_assets(
         self,
         investigation_id: str,
-        host_ids: list[str] | None = None,
-        asset_ids: list[str] | None = None,
+        host_ids: Optional[list[str]] = None,
+        asset_ids: Optional[list[str]] = None,
     ) -> list[Asset]:
         """add investigation assets relation for the list of host_ids and return the asset ids."""
         endpoint = "addInvestigationAssets"
@@ -202,7 +203,7 @@ class TaegisSDKAssetsMutation:
         raise GraphQLNoRowsInResultSetError("for mutation addInvestigationAssets")
 
     def remove_investigation_assets(
-        self, investigation_id: str, asset_ids: list[str] | None = None
+        self, investigation_id: str, asset_ids: Optional[list[str]] = None
     ) -> bool:
         """remove investigation assets relation."""
         endpoint = "removeInvestigationAssets"

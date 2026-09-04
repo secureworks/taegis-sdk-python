@@ -1,4 +1,5 @@
 """XdrCentralConnector Mutation."""
+
 # pylint: disable=no-member, unused-argument, too-many-locals, duplicate-code, wildcard-import, unused-wildcard-import, cyclic-import
 
 
@@ -8,7 +9,7 @@
 from __future__ import annotations
 
 import logging
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Optional
 
 from taegis_sdk_python import GraphQLNoRowsInResultSetError
 from taegis_sdk_python.services.xdr_central_connector.types import *
@@ -174,7 +175,7 @@ class TaegisSDKXdrCentralConnectorMutation:
         )
 
     def create_central_access_token(
-        self, input_: CreateCentralAccessTokenInput | None = None
+        self, input_: Optional[CreateCentralAccessTokenInput] = None
     ) -> CentralAccessToken:
         """create an access token."""
         endpoint = "createCentralAccessToken"

@@ -1,4 +1,5 @@
 """EndpointManagementService Mutation."""
+
 # pylint: disable=no-member, unused-argument, too-many-locals, duplicate-code, wildcard-import, unused-wildcard-import, cyclic-import
 
 
@@ -8,7 +9,7 @@
 from __future__ import annotations
 
 import logging
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Optional
 
 from taegis_sdk_python import GraphQLNoRowsInResultSetError
 from taegis_sdk_python.services.endpoint_management_service.types import *
@@ -100,7 +101,7 @@ class TaegisSDKEndpointManagementServiceMutation:
         raise GraphQLNoRowsInResultSetError("for mutation createPolicy")
 
     def assign_bulk_assets_to_group(
-        self, input_: BulkAssignRequestInput | None = None
+        self, input_: Optional[BulkAssignRequestInput] = None
     ) -> BulkAssignRequestOutput:
         """Assign the assets to target group."""
         endpoint = "assignBulkAssetsToGroup"

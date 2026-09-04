@@ -1,4 +1,5 @@
 """AlertsHistory Query."""
+
 # pylint: disable=no-member, unused-argument, too-many-locals, duplicate-code, wildcard-import, unused-wildcard-import, cyclic-import
 
 
@@ -11,11 +12,11 @@ import logging
 from typing import TYPE_CHECKING
 
 from taegis_sdk_python import GraphQLNoRowsInResultSetError
-from taegis_sdk_python.services.alerts_history.types import *
 from taegis_sdk_python.utils import (
     build_output_string,
     prepare_input,
 )
+from taegis_sdk_python.services.alerts_history.types import *
 
 if TYPE_CHECKING:  # pragma: no cover
     from taegis_sdk_python.services.alerts_history import AlertsHistoryService

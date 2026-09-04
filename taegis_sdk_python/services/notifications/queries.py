@@ -1,4 +1,5 @@
 """Notifications Query."""
+
 # pylint: disable=no-member, unused-argument, too-many-locals, duplicate-code, wildcard-import, unused-wildcard-import, cyclic-import
 
 
@@ -8,15 +9,15 @@
 from __future__ import annotations
 
 import logging
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Optional, Union
 
 from taegis_sdk_python import GraphQLNoRowsInResultSetError
-from taegis_sdk_python._consts import TaegisEnum
-from taegis_sdk_python.services.notifications.types import *
 from taegis_sdk_python.utils import (
     build_output_string,
     prepare_input,
 )
+from taegis_sdk_python._consts import TaegisEnum
+from taegis_sdk_python.services.notifications.types import *
 
 if TYPE_CHECKING:  # pragma: no cover
     from taegis_sdk_python.services.notifications import NotificationsService
@@ -32,11 +33,13 @@ class TaegisSDKNotificationsQuery:
 
     def notifications(
         self,
-        page: int | None = None,
-        per_page: int | None = None,
-        is_deleted: bool | None = None,
-        is_read: bool | None = None,
-        order_direction: NotificationsOrderDirection | TaegisEnum | None = None,
+        page: Optional[int] = None,
+        per_page: Optional[int] = None,
+        is_deleted: Optional[bool] = None,
+        is_read: Optional[bool] = None,
+        order_direction: Optional[
+            Union[NotificationsOrderDirection, TaegisEnum]
+        ] = None,
     ) -> NotificationsOutput:
         """Get all Notifications."""
         endpoint = "notifications"

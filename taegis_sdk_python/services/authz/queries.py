@@ -1,4 +1,5 @@
 """Authz Query."""
+
 # pylint: disable=no-member, unused-argument, too-many-locals, duplicate-code, wildcard-import, unused-wildcard-import, cyclic-import
 
 
@@ -8,15 +9,15 @@
 from __future__ import annotations
 
 import logging
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Optional, Union
 
 from taegis_sdk_python import GraphQLNoRowsInResultSetError
-from taegis_sdk_python._consts import TaegisEnum
-from taegis_sdk_python.services.authz.types import *
 from taegis_sdk_python.utils import (
     build_output_string,
     prepare_input,
 )
+from taegis_sdk_python._consts import TaegisEnum
+from taegis_sdk_python.services.authz.types import *
 
 if TYPE_CHECKING:  # pragma: no cover
     from taegis_sdk_python.services.authz import AuthzService
@@ -286,8 +287,8 @@ class TaegisSDKAuthzQuery:
     def authz_can_subject_idassume_tenant(
         self,
         subject_id: str,
-        subject_type: AuthzSubjectIDType | TaegisEnum | None = None,
-        include_mdr_provider: bool | None = None,
+        subject_type: Optional[Union[AuthzSubjectIDType, TaegisEnum]] = None,
+        include_mdr_provider: Optional[bool] = None,
     ) -> bool:
         """Indicates if the input subject can assume the target tenant, includeMDRProvider optionally also returns true if the subject can assume the tenant through an MDR provider relationship."""
         endpoint = "authzCanSubjectIDAssumeTenant"
@@ -330,7 +331,7 @@ class TaegisSDKAuthzQuery:
         raise GraphQLNoRowsInResultSetError("for query authzCanSubjectAssumeAllTenants")
 
     def authz_can_subject_assign_role(
-        self, id_: str, target_subject_id: str | None = None
+        self, id_: str, target_subject_id: Optional[str] = None
     ) -> AuthzCanSubjectAssignRoleResponse:
         """Check if the subject can assign the input role."""
         endpoint = "authzCanSubjectAssignRole"

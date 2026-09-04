@@ -1,4 +1,5 @@
 """Notifications2 Mutation."""
+
 # pylint: disable=no-member, unused-argument, too-many-locals, duplicate-code, wildcard-import, unused-wildcard-import, cyclic-import
 
 
@@ -238,7 +239,8 @@ class TaegisSDKNotifications2Mutation:
     ) -> NotificationRule:
         """Set an escalation policy for a notification rule.
         A notification rule can only have one escalation policy at a time for a given tenant.
-        Calling this endpoint will replace the existing escalation policy with the new one if one was present before."""
+        Calling this endpoint will replace the existing escalation policy with the new one if one was present before.
+        """
         endpoint = "setEscalationPolicyForNotificationRule"
 
         result = self.service.execute_mutation(

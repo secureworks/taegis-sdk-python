@@ -1,4 +1,5 @@
 """Agent Query."""
+
 # pylint: disable=no-member, unused-argument, too-many-locals, duplicate-code, wildcard-import, unused-wildcard-import, cyclic-import
 
 
@@ -8,14 +9,14 @@
 from __future__ import annotations
 
 import logging
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Optional
 
 from taegis_sdk_python import GraphQLNoRowsInResultSetError
-from taegis_sdk_python.services.agent.types import *
 from taegis_sdk_python.utils import (
     build_output_string,
     prepare_input,
 )
+from taegis_sdk_python.services.agent.types import *
 
 if TYPE_CHECKING:  # pragma: no cover
     from taegis_sdk_python.services.agent import AgentService
@@ -29,7 +30,9 @@ class TaegisSDKAgentQuery:
     def __init__(self, service: AgentService):
         self.service = service
 
-    def agent_packages(self, args: PackageSearchInput | None = None) -> list[Package]:
+    def agent_packages(
+        self, args: Optional[PackageSearchInput] = None
+    ) -> list[Package]:
         """search for agent packages ."""
         endpoint = "agentPackages"
 
@@ -50,7 +53,7 @@ class TaegisSDKAgentQuery:
         raise GraphQLNoRowsInResultSetError("for query agentPackages")
 
     def agent_package_signed_url(
-        self, args: PackageDownloadInput | None = None
+        self, args: Optional[PackageDownloadInput] = None
     ) -> PackageSignedUrl:
         """get agent package via signed url ."""
         endpoint = "agentPackageSignedUrl"

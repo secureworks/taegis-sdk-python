@@ -1,4 +1,5 @@
 """Notifications Mutation."""
+
 # pylint: disable=no-member, unused-argument, too-many-locals, duplicate-code, wildcard-import, unused-wildcard-import, cyclic-import
 
 
@@ -8,7 +9,7 @@
 from __future__ import annotations
 
 import logging
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Optional
 
 from taegis_sdk_python import GraphQLNoRowsInResultSetError
 from taegis_sdk_python.services.notifications.types import *
@@ -131,7 +132,7 @@ class TaegisSDKNotificationsMutation:
         raise GraphQLNoRowsInResultSetError("for mutation deleteNotification")
 
     def bulk_delete_notification(
-        self, ids: list[str] | None = None
+        self, ids: Optional[list[str]] = None
     ) -> list[Notification]:
         """Deletes a list of notificaitons."""
         endpoint = "bulkDeleteNotification"
@@ -171,7 +172,7 @@ class TaegisSDKNotificationsMutation:
         raise GraphQLNoRowsInResultSetError("for mutation readNotification")
 
     def bulk_read_notification(
-        self, ids: list[str] | None = None, mark_all_as_read: bool | None = None
+        self, ids: Optional[list[str]] = None, mark_all_as_read: Optional[bool] = None
     ) -> list[Notification]:
         """Marks a list of notifications as read."""
         endpoint = "bulkReadNotification"

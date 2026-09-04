@@ -1,4 +1,5 @@
 """Audits Query."""
+
 # pylint: disable=no-member, unused-argument, too-many-locals, duplicate-code, wildcard-import, unused-wildcard-import, cyclic-import
 
 
@@ -8,15 +9,15 @@
 from __future__ import annotations
 
 import logging
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Optional, Union
 
 from taegis_sdk_python import GraphQLNoRowsInResultSetError
-from taegis_sdk_python._consts import TaegisEnum
-from taegis_sdk_python.services.audits.types import *
 from taegis_sdk_python.utils import (
     build_output_string,
     prepare_input,
 )
+from taegis_sdk_python._consts import TaegisEnum
+from taegis_sdk_python.services.audits.types import *
 
 if TYPE_CHECKING:  # pragma: no cover
     from taegis_sdk_python.services.audits import AuditsService
@@ -47,7 +48,9 @@ class TaegisSDKAuditsQuery:
             return Audit.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for query audit")
 
-    def all_audits(self, all_audits_input: AllAuditsInput | None = None) -> AuditResult:
+    def all_audits(
+        self, all_audits_input: Optional[AllAuditsInput] = None
+    ) -> AuditResult:
         """Get all audits."""
         endpoint = "allAudits"
 
@@ -84,7 +87,7 @@ class TaegisSDKAuditsQuery:
         raise GraphQLNoRowsInResultSetError("for query searchAudits")
 
     def list_application_events(
-        self, application: AuditEventEnum | TaegisEnum
+        self, application: Union[AuditEventEnum, TaegisEnum]
     ) -> AuditEventResult:
         """Get event name list."""
         endpoint = "ListApplicationEvents"

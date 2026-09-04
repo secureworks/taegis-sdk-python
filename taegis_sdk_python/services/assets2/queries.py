@@ -1,4 +1,5 @@
 """Assets2 Query."""
+
 # pylint: disable=no-member, unused-argument, too-many-locals, duplicate-code, wildcard-import, unused-wildcard-import, cyclic-import
 
 
@@ -8,15 +9,15 @@
 from __future__ import annotations
 
 import logging
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Optional, Union
 
 from taegis_sdk_python import GraphQLNoRowsInResultSetError
-from taegis_sdk_python._consts import TaegisEnum
-from taegis_sdk_python.services.assets2.types import *
 from taegis_sdk_python.utils import (
     build_output_string,
     prepare_input,
 )
+from taegis_sdk_python._consts import TaegisEnum
+from taegis_sdk_python.services.assets2.types import *
 
 if TYPE_CHECKING:  # pragma: no cover
     from taegis_sdk_python.services.assets2 import Assets2Service
@@ -31,7 +32,7 @@ class TaegisSDKAssets2Query:
         self.service = service
 
     def facets_v2(
-        self, endpoint_type: list[EndpointTypeV2 | TaegisEnum] | None = None
+        self, endpoint_type: Optional[list[Union[EndpointTypeV2, TaegisEnum]]] = None
     ) -> list[FacetV2]:
         """Retrieve a list of facets for a given endpoint type."""
         endpoint = "facetsV2"
@@ -55,8 +56,8 @@ class TaegisSDKAssets2Query:
     def facet_info_v2(
         self,
         facets: list[str],
-        order_by: FacetInfoOrderByInputV2 | TaegisEnum | None = None,
-        filter_: AssetFilter | None = None,
+        order_by: Optional[Union[FacetInfoOrderByInputV2, TaegisEnum]] = None,
+        filter_: Optional[AssetFilter] = None,
     ) -> list[FacetInfoV2]:
         """Get facet info based on a currently selected facet."""
         endpoint = "facetInfoV2"
@@ -81,12 +82,12 @@ class TaegisSDKAssets2Query:
 
     def assets_v2(
         self,
-        first: int | None = None,
-        last: int | None = None,
-        after: str | None = None,
-        before: str | None = None,
-        filter_: AssetFilter | None = None,
-        order_by: AssetSearchOrderByInputV2 | TaegisEnum | None = None,
+        first: Optional[int] = None,
+        last: Optional[int] = None,
+        after: Optional[str] = None,
+        before: Optional[str] = None,
+        filter_: Optional[AssetFilter] = None,
+        order_by: Optional[Union[AssetSearchOrderByInputV2, TaegisEnum]] = None,
     ) -> AssetsV2:
         """Retrieve assets."""
         endpoint = "assetsV2"
@@ -112,10 +113,10 @@ class TaegisSDKAssets2Query:
 
     def export_assets_v2(
         self,
-        first: int | None = None,
-        after: str | None = None,
-        filter_: AssetFilter | None = None,
-        order_by: AssetSearchOrderByInputV2 | TaegisEnum | None = None,
+        first: Optional[int] = None,
+        after: Optional[str] = None,
+        filter_: Optional[AssetFilter] = None,
+        order_by: Optional[Union[AssetSearchOrderByInputV2, TaegisEnum]] = None,
     ) -> AssetsExportOutputV2:
         """Retrieve assets in a form coercible into CSV files."""
         endpoint = "exportAssetsV2"
@@ -137,7 +138,7 @@ class TaegisSDKAssets2Query:
             return AssetsExportOutputV2.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for query exportAssetsV2")
 
-    def tag_keys_v2(self, filter_: TagFilter | None = None) -> list[str]:
+    def tag_keys_v2(self, filter_: Optional[TagFilter] = None) -> list[str]:
         """Fetch the tag keys matching the filter criteria."""
         endpoint = "tagKeysV2"
 
@@ -152,7 +153,7 @@ class TaegisSDKAssets2Query:
             return result.get(endpoint)
         raise GraphQLNoRowsInResultSetError("for query tagKeysV2")
 
-    def tag_values_v2(self, filter_: TagFilter | None = None) -> list[str]:
+    def tag_values_v2(self, filter_: Optional[TagFilter] = None) -> list[str]:
         """Fetch the tag values matching the filter criteria."""
         endpoint = "tagValuesV2"
 
@@ -355,12 +356,12 @@ class TaegisSDKAssets2Query:
 
     def assets_hostname(
         self,
-        first: int | None = None,
-        last: int | None = None,
-        after: str | None = None,
-        before: str | None = None,
-        filter_: AssetHostnameFilter | None = None,
-        order_by: AssetHostnameSearchOrderByInput | TaegisEnum | None = None,
+        first: Optional[int] = None,
+        last: Optional[int] = None,
+        after: Optional[str] = None,
+        before: Optional[str] = None,
+        filter_: Optional[AssetHostnameFilter] = None,
+        order_by: Optional[Union[AssetHostnameSearchOrderByInput, TaegisEnum]] = None,
     ) -> AssetsHostname:
         """ "Retrieve hostname details."""
         endpoint = "assetsHostname"
@@ -386,12 +387,12 @@ class TaegisSDKAssets2Query:
 
     def assets_ip_address(
         self,
-        first: int | None = None,
-        last: int | None = None,
-        after: str | None = None,
-        before: str | None = None,
-        filter_: AssetIPAddressFilter | None = None,
-        order_by: AssetIPAddressSearchOrderByInput | TaegisEnum | None = None,
+        first: Optional[int] = None,
+        last: Optional[int] = None,
+        after: Optional[str] = None,
+        before: Optional[str] = None,
+        filter_: Optional[AssetIPAddressFilter] = None,
+        order_by: Optional[Union[AssetIPAddressSearchOrderByInput, TaegisEnum]] = None,
     ) -> AssetsIPAddress:
         """ "Retrieve ipAddress details."""
         endpoint = "assetsIPAddress"
@@ -417,12 +418,12 @@ class TaegisSDKAssets2Query:
 
     def assets_mac_address(
         self,
-        first: int | None = None,
-        last: int | None = None,
-        after: str | None = None,
-        before: str | None = None,
-        filter_: AssetMacAddressFilter | None = None,
-        order_by: AssetMacAddressSearchOrderByInput | TaegisEnum | None = None,
+        first: Optional[int] = None,
+        last: Optional[int] = None,
+        after: Optional[str] = None,
+        before: Optional[str] = None,
+        filter_: Optional[AssetMacAddressFilter] = None,
+        order_by: Optional[Union[AssetMacAddressSearchOrderByInput, TaegisEnum]] = None,
     ) -> AssetsMacAddress:
         """ "Retrieve Mac details."""
         endpoint = "assetsMacAddress"
@@ -471,7 +472,7 @@ class TaegisSDKAssets2Query:
         event_time: str,
         host_name: str,
         exact_match_count: int,
-        endpoint_types: EndpointTypeV2 | TaegisEnum,
+        endpoint_types: Union[EndpointTypeV2, TaegisEnum],
     ) -> list[NetworkInfo]:
         """ "Retrieve network information for a host based on a provided hostname."""
         endpoint = "networkInfoByHostname"
@@ -500,7 +501,7 @@ class TaegisSDKAssets2Query:
         event_time: str,
         ip_address: str,
         exact_match_count: int,
-        endpoint_types: EndpointTypeV2 | TaegisEnum,
+        endpoint_types: Union[EndpointTypeV2, TaegisEnum],
     ) -> list[NetworkInfo]:
         """ "Retrieve network information for a host based on a provided ip address."""
         endpoint = "networkInfoByIpAddress"

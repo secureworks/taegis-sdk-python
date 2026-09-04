@@ -1,4 +1,5 @@
 """Collector Query."""
+
 # pylint: disable=no-member, unused-argument, too-many-locals, duplicate-code, wildcard-import, unused-wildcard-import, cyclic-import
 
 
@@ -8,15 +9,15 @@
 from __future__ import annotations
 
 import logging
-from typing import TYPE_CHECKING, Any
+from typing import TYPE_CHECKING, Any, Optional, Union
 
 from taegis_sdk_python import GraphQLNoRowsInResultSetError
-from taegis_sdk_python._consts import TaegisEnum
-from taegis_sdk_python.services.collector.types import *
 from taegis_sdk_python.utils import (
     build_output_string,
     prepare_input,
 )
+from taegis_sdk_python._consts import TaegisEnum
+from taegis_sdk_python.services.collector.types import *
 
 if TYPE_CHECKING:  # pragma: no cover
     from taegis_sdk_python.services.collector import CollectorService
@@ -49,7 +50,7 @@ class TaegisSDKCollectorQuery:
         raise GraphQLNoRowsInResultSetError("for query getCluster")
 
     def get_cluster_backlog_count(
-        self, cluster_id: str, time_range: TimeRange | TaegisEnum
+        self, cluster_id: str, time_range: Union[TimeRange, TaegisEnum]
     ) -> list[ClusterNodeTimeSeries]:
         """No developer notes."""
         endpoint = "getClusterBacklogCount"
@@ -72,7 +73,7 @@ class TaegisSDKCollectorQuery:
         raise GraphQLNoRowsInResultSetError("for query getClusterBacklogCount")
 
     def get_cluster_backlog_age(
-        self, cluster_id: str, time_range: TimeRange | TaegisEnum
+        self, cluster_id: str, time_range: Union[TimeRange, TaegisEnum]
     ) -> list[ClusterNodeTimeSeries]:
         """No developer notes."""
         endpoint = "getClusterBacklogAge"
@@ -95,7 +96,7 @@ class TaegisSDKCollectorQuery:
         raise GraphQLNoRowsInResultSetError("for query getClusterBacklogAge")
 
     def get_cluster_transmit_bytes(
-        self, cluster_id: str, time_range: TimeRange | TaegisEnum
+        self, cluster_id: str, time_range: Union[TimeRange, TaegisEnum]
     ) -> list[ClusterNodeTimeSeries]:
         """No developer notes."""
         endpoint = "getClusterTransmitBytes"
@@ -118,7 +119,7 @@ class TaegisSDKCollectorQuery:
         raise GraphQLNoRowsInResultSetError("for query getClusterTransmitBytes")
 
     def get_cluster_receive_bytes(
-        self, cluster_id: str, time_range: TimeRange | TaegisEnum
+        self, cluster_id: str, time_range: Union[TimeRange, TaegisEnum]
     ) -> list[ClusterNodeTimeSeries]:
         """No developer notes."""
         endpoint = "getClusterReceiveBytes"
@@ -161,7 +162,7 @@ class TaegisSDKCollectorQuery:
         raise GraphQLNoRowsInResultSetError("for query getClustersByIDs")
 
     def get_cluster_node(
-        self, cluster_id: str, cluster_node_input: ClusterNodeInput | None = None
+        self, cluster_id: str, cluster_node_input: Optional[ClusterNodeInput] = None
     ) -> ClusterNode:
         """No developer notes."""
         endpoint = "getClusterNode"
@@ -236,10 +237,10 @@ class TaegisSDKCollectorQuery:
     def get_cluster_image(
         self,
         cluster_id: str,
-        image_type: ImageType | TaegisEnum,
-        launch_console: bool | None = None,
-        aws_details: AWSDetails | None = None,
-        gcp_details: GCPDetails | None = None,
+        image_type: Union[ImageType, TaegisEnum],
+        launch_console: Optional[bool] = None,
+        aws_details: Optional[AWSDetails] = None,
+        gcp_details: Optional[GCPDetails] = None,
     ) -> Image:
         """Deprecated, use `getClusterImageV2` instead for consolidated inputs."""
         endpoint = "getClusterImage"
@@ -265,7 +266,9 @@ class TaegisSDKCollectorQuery:
             return Image.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for query getClusterImage")
 
-    def get_cloud_zones(self, image_type: ImageType | TaegisEnum) -> list[CloudRegion]:
+    def get_cloud_zones(
+        self, image_type: Union[ImageType, TaegisEnum]
+    ) -> list[CloudRegion]:
         """Get a cloud service region and zones."""
         endpoint = "getCloudZones"
 
@@ -337,7 +340,9 @@ class TaegisSDKCollectorQuery:
             return System.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for query getSystemByRole")
 
-    def get_os_config(self, cluster_id: str, node_name: str | None = None) -> OSConfig:
+    def get_os_config(
+        self, cluster_id: str, node_name: Optional[str] = None
+    ) -> OSConfig:
         """No developer notes."""
         endpoint = "getOSConfig"
 
@@ -625,7 +630,7 @@ class TaegisSDKCollectorQuery:
         raise GraphQLNoRowsInResultSetError("for query getAllRoles")
 
     def get_all_collectors_overview(
-        self, role: str, time_range: TimeRange | TaegisEnum
+        self, role: str, time_range: Union[TimeRange, TaegisEnum]
     ) -> list[CollectorOverview]:
         """Get all collector overview data for the given role and time range."""
         endpoint = "getAllCollectorsOverview"
@@ -648,7 +653,7 @@ class TaegisSDKCollectorQuery:
         raise GraphQLNoRowsInResultSetError("for query getAllCollectorsOverview")
 
     def get_collector_metrics(
-        self, time_range: TimeRange | TaegisEnum
+        self, time_range: Union[TimeRange, TaegisEnum]
     ) -> CollectorMetrics:
         """Get collector data flow metrics over a given time range."""
         endpoint = "getCollectorMetrics"
@@ -668,7 +673,7 @@ class TaegisSDKCollectorQuery:
         raise GraphQLNoRowsInResultSetError("for query getCollectorMetrics")
 
     def get_aggregate_rate_by_collector(
-        self, cluster_id: str, time_range: TimeRange | TaegisEnum
+        self, cluster_id: str, time_range: Union[TimeRange, TaegisEnum]
     ) -> AggregateRateByCollector:
         """Get aggregated data flow rate metrics for a given collector over a given time range."""
         endpoint = "getAggregateRateByCollector"
@@ -689,7 +694,7 @@ class TaegisSDKCollectorQuery:
         raise GraphQLNoRowsInResultSetError("for query getAggregateRateByCollector")
 
     def get_flow_rate(
-        self, cluster_id: str, time_range: TimeRange | TaegisEnum
+        self, cluster_id: str, time_range: Union[TimeRange, TaegisEnum]
     ) -> FlowRate:
         """Get flow rate metrics for a given collector over a given time range."""
         endpoint = "getFlowRate"
@@ -710,10 +715,11 @@ class TaegisSDKCollectorQuery:
         raise GraphQLNoRowsInResultSetError("for query getFlowRate")
 
     def get_log_last_seen_metrics(
-        self, cluster_id: str | None = None
+        self, cluster_id: Optional[str] = None
     ) -> LogLastSeenMetrics:
         """Get last seen metrics for all available log sources for a given cluster.
-        If no clusterId is specified, this will return all log sources metrics for all existing clusters."""
+        If no clusterId is specified, this will return all log sources metrics for all existing clusters.
+        """
         endpoint = "getLogLastSeenMetrics"
 
         log.warning(

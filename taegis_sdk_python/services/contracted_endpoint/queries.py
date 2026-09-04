@@ -1,4 +1,5 @@
 """ContractedEndpoint Query."""
+
 # pylint: disable=no-member, unused-argument, too-many-locals, duplicate-code, wildcard-import, unused-wildcard-import, cyclic-import
 
 
@@ -8,14 +9,14 @@
 from __future__ import annotations
 
 import logging
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Optional
 
 from taegis_sdk_python import GraphQLNoRowsInResultSetError
-from taegis_sdk_python.services.contracted_endpoint.types import *
 from taegis_sdk_python.utils import (
     build_output_string,
     prepare_input,
 )
+from taegis_sdk_python.services.contracted_endpoint.types import *
 
 if TYPE_CHECKING:  # pragma: no cover
     from taegis_sdk_python.services.contracted_endpoint import ContractedEndpointService
@@ -30,7 +31,7 @@ class TaegisSDKContractedEndpointQuery:
         self.service = service
 
     def endpoint_count_for_tenant_id(
-        self, service_date: str | None = None
+        self, service_date: Optional[str] = None
     ) -> ContractedEndpoints:
         """No developer notes."""
         endpoint = "endpointCountForTenantID"

@@ -1,4 +1,5 @@
 """Datasources Mutation."""
+
 # pylint: disable=no-member, unused-argument, too-many-locals, duplicate-code, wildcard-import, unused-wildcard-import, cyclic-import
 
 
@@ -104,7 +105,8 @@ class TaegisSDKDatasourcesMutation:
 
     def attach_data_source_tag(self, input_: DataSourceTagOperationInput) -> list[str]:
         """Attaches or associates an existing tag to datasource(s). Returns the assetIDs attached to the tag.
-        A maximum of 100 assetIDs can be associated in a single operation. A single asset can have up to 16 tags attached to it."""
+        A maximum of 100 assetIDs can be associated in a single operation. A single asset can have up to 16 tags attached to it.
+        """
         endpoint = "attachDataSourceTag"
 
         result = self.service.execute_mutation(

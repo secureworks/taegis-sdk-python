@@ -1,4 +1,5 @@
 """Exports Mutation."""
+
 # pylint: disable=no-member, unused-argument, too-many-locals, duplicate-code, wildcard-import, unused-wildcard-import, cyclic-import
 
 
@@ -8,7 +9,7 @@
 from __future__ import annotations
 
 import logging
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Optional
 
 from taegis_sdk_python import GraphQLNoRowsInResultSetError
 from taegis_sdk_python.services.exports.types import *
@@ -171,8 +172,8 @@ class TaegisSDKExportsMutation:
         self,
         id_: str,
         run_at: str,
-        manual_run: bool | None = None,
-        timeframe: ReportTimeframeInput | None = None,
+        manual_run: Optional[bool] = None,
+        timeframe: Optional[ReportTimeframeInput] = None,
     ) -> Report:
         """No developer notes."""
         endpoint = "reportFromSchedule"

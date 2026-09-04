@@ -1,4 +1,5 @@
 """ThreatPublications Query."""
+
 # pylint: disable=no-member, unused-argument, too-many-locals, duplicate-code, wildcard-import, unused-wildcard-import, cyclic-import
 
 
@@ -8,15 +9,15 @@
 from __future__ import annotations
 
 import logging
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Optional, Union
 
 from taegis_sdk_python import GraphQLNoRowsInResultSetError
-from taegis_sdk_python._consts import TaegisEnum
-from taegis_sdk_python.services.threat_publications.types import *
 from taegis_sdk_python.utils import (
     build_output_string,
     prepare_input,
 )
+from taegis_sdk_python._consts import TaegisEnum
+from taegis_sdk_python.services.threat_publications.types import *
 
 if TYPE_CHECKING:  # pragma: no cover
     from taegis_sdk_python.services.threat_publications import ThreatPublicationsService
@@ -31,7 +32,9 @@ class TaegisSDKThreatPublicationsQuery:
         self.service = service
 
     def threat_publication(
-        self, id_: str, content_format: ContentFormat | TaegisEnum | None = None
+        self,
+        id_: str,
+        content_format: Optional[Union[ContentFormat, TaegisEnum]] = None,
     ) -> ThreatPublication:
         """Retreives a publication by ID."""
         endpoint = "threatPublication"
@@ -52,7 +55,9 @@ class TaegisSDKThreatPublicationsQuery:
         raise GraphQLNoRowsInResultSetError("for query threatPublication")
 
     def threat_publications(
-        self, text: str, content_format: ContentFormat | TaegisEnum | None = None
+        self,
+        text: str,
+        content_format: Optional[Union[ContentFormat, TaegisEnum]] = None,
     ) -> list[ThreatPublication]:
         """Searches publications for text."""
         endpoint = "threatPublications"
@@ -78,7 +83,7 @@ class TaegisSDKThreatPublicationsQuery:
         self,
         from_: int,
         size: int,
-        content_format: ContentFormat | TaegisEnum | None = None,
+        content_format: Optional[Union[ContentFormat, TaegisEnum]] = None,
     ) -> list[ThreatPublication]:
         """Gets the latest publications from an offset with a size."""
         endpoint = "threatLatestPublications"
@@ -102,7 +107,9 @@ class TaegisSDKThreatPublicationsQuery:
         raise GraphQLNoRowsInResultSetError("for query threatLatestPublications")
 
     def threat_publications_search(
-        self, text: list[str], content_format: ContentFormat | TaegisEnum | None = None
+        self,
+        text: list[str],
+        content_format: Optional[Union[ContentFormat, TaegisEnum]] = None,
     ) -> list[ThreatPublication]:
         """Searches publications for array of text."""
         endpoint = "threatPublicationsSearch"

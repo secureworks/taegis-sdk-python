@@ -1,4 +1,5 @@
 """MitreAttackInfo Query."""
+
 # pylint: disable=no-member, unused-argument, too-many-locals, duplicate-code, wildcard-import, unused-wildcard-import, cyclic-import
 
 
@@ -8,14 +9,14 @@
 from __future__ import annotations
 
 import logging
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Optional
 
 from taegis_sdk_python import GraphQLNoRowsInResultSetError
-from taegis_sdk_python.services.mitre_attack_info.types import *
 from taegis_sdk_python.utils import (
     build_output_string,
     prepare_input,
 )
+from taegis_sdk_python.services.mitre_attack_info.types import *
 
 if TYPE_CHECKING:  # pragma: no cover
     from taegis_sdk_python.services.mitre_attack_info import MitreAttackInfoService
@@ -30,7 +31,7 @@ class TaegisSDKMitreAttackInfoQuery:
         self.service = service
 
     def get_mitre_attack_info_by_technique_name(
-        self, in_: str | None = None
+        self, in_: Optional[str] = None
     ) -> list[MitreAttackInformation]:
         """No developer notes."""
         endpoint = "getMitreAttackInfoByTechniqueName"
@@ -54,7 +55,7 @@ class TaegisSDKMitreAttackInfoQuery:
         )
 
     def get_mitre_attack_info_by_technique_names(
-        self, in_: Ids | None = None
+        self, in_: Optional[Ids] = None
     ) -> list[MitreAttackInformation]:
         """No developer notes."""
         endpoint = "getMitreAttackInfoByTechniqueNames"
@@ -78,7 +79,7 @@ class TaegisSDKMitreAttackInfoQuery:
         )
 
     def get_mitre_attack_info_by_technique_id(
-        self, in_: str | None = None
+        self, in_: Optional[str] = None
     ) -> list[MitreAttackInformation]:
         """No developer notes."""
         endpoint = "getMitreAttackInfoByTechniqueId"
@@ -100,7 +101,7 @@ class TaegisSDKMitreAttackInfoQuery:
         raise GraphQLNoRowsInResultSetError("for query getMitreAttackInfoByTechniqueId")
 
     def get_mitre_attack_info_by_technique_ids(
-        self, in_: Ids | None = None
+        self, in_: Optional[Ids] = None
     ) -> list[MitreAttackInformation]:
         """No developer notes."""
         endpoint = "getMitreAttackInfoByTechniqueIds"
@@ -124,7 +125,7 @@ class TaegisSDKMitreAttackInfoQuery:
         )
 
     def get_mitre_attack_info_by_data_source(
-        self, in_: str | None = None
+        self, in_: Optional[str] = None
     ) -> list[MitreAttackInformation]:
         """No developer notes."""
         endpoint = "getMitreAttackInfoByDataSource"
@@ -146,7 +147,7 @@ class TaegisSDKMitreAttackInfoQuery:
         raise GraphQLNoRowsInResultSetError("for query getMitreAttackInfoByDataSource")
 
     def get_mitre_attack_info_by_data_sources(
-        self, in_: Ids | None = None
+        self, in_: Optional[Ids] = None
     ) -> list[MitreAttackInformation]:
         """No developer notes."""
         endpoint = "getMitreAttackInfoByDataSources"
@@ -168,7 +169,7 @@ class TaegisSDKMitreAttackInfoQuery:
         raise GraphQLNoRowsInResultSetError("for query getMitreAttackInfoByDataSources")
 
     def get_mitre_attack_info_by_type(
-        self, in_: str | None = None
+        self, in_: Optional[str] = None
     ) -> list[MitreAttackInformation]:
         """No developer notes."""
         endpoint = "getMitreAttackInfoByType"
@@ -190,7 +191,7 @@ class TaegisSDKMitreAttackInfoQuery:
         raise GraphQLNoRowsInResultSetError("for query getMitreAttackInfoByType")
 
     def get_mitre_attack_info_by_types(
-        self, in_: Ids | None = None
+        self, in_: Optional[Ids] = None
     ) -> list[MitreAttackInformation]:
         """No developer notes."""
         endpoint = "getMitreAttackInfoByTypes"
@@ -212,7 +213,7 @@ class TaegisSDKMitreAttackInfoQuery:
         raise GraphQLNoRowsInResultSetError("for query getMitreAttackInfoByTypes")
 
     def get_mitre_attack_info_by_contributor(
-        self, in_: str | None = None
+        self, in_: Optional[str] = None
     ) -> list[MitreAttackInformation]:
         """No developer notes."""
         endpoint = "getMitreAttackInfoByContributor"
@@ -234,7 +235,7 @@ class TaegisSDKMitreAttackInfoQuery:
         raise GraphQLNoRowsInResultSetError("for query getMitreAttackInfoByContributor")
 
     def get_mitre_attack_info_by_contributors(
-        self, in_: Ids | None = None
+        self, in_: Optional[Ids] = None
     ) -> list[MitreAttackInformation]:
         """No developer notes."""
         endpoint = "getMitreAttackInfoByContributors"
@@ -276,7 +277,7 @@ class TaegisSDKMitreAttackInfoQuery:
         raise GraphQLNoRowsInResultSetError("for query getAllMitreAttackInfo")
 
     def search_mitre_info_by_regex_pattern(
-        self, in_: SearchMitreAttackInput | None = None
+        self, in_: Optional[SearchMitreAttackInput] = None
     ) -> list[MitreAttackInformation]:
         """No developer notes."""
         endpoint = "searchMitreInfoByRegexPattern"

@@ -1,4 +1,5 @@
 """MultiTenantContext Query."""
+
 # pylint: disable=no-member, unused-argument, too-many-locals, duplicate-code, wildcard-import, unused-wildcard-import, cyclic-import
 
 
@@ -8,14 +9,14 @@
 from __future__ import annotations
 
 import logging
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Optional
 
 from taegis_sdk_python import GraphQLNoRowsInResultSetError
-from taegis_sdk_python.services.multi_tenant_context.types import *
 from taegis_sdk_python.utils import (
     build_output_string,
     prepare_input,
 )
+from taegis_sdk_python.services.multi_tenant_context.types import *
 
 if TYPE_CHECKING:  # pragma: no cover
     from taegis_sdk_python.services.multi_tenant_context import (
@@ -31,7 +32,7 @@ class TaegisSDKMultiTenantContextQuery:
     def __init__(self, service: MultiTenantContextService):
         self.service = service
 
-    def get_session(self, keys: list[str] | None = None) -> list[Session]:
+    def get_session(self, keys: Optional[list[str]] = None) -> list[Session]:
         """Gets a multi tenant session. This contains the multiple tenants a subject can look at. If the global key is provided but the session does not exist, it will be populated."""
         endpoint = "getSession"
 

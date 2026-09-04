@@ -1,4 +1,5 @@
 """Datasources Query."""
+
 # pylint: disable=no-member, unused-argument, too-many-locals, duplicate-code, wildcard-import, unused-wildcard-import, cyclic-import
 
 
@@ -8,15 +9,15 @@
 from __future__ import annotations
 
 import logging
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Optional, Union
 
 from taegis_sdk_python import GraphQLNoRowsInResultSetError
-from taegis_sdk_python._consts import TaegisEnum
-from taegis_sdk_python.services.datasources.types import *
 from taegis_sdk_python.utils import (
     build_output_string,
     prepare_input,
 )
+from taegis_sdk_python._consts import TaegisEnum
+from taegis_sdk_python.services.datasources.types import *
 
 if TYPE_CHECKING:  # pragma: no cover
     from taegis_sdk_python.services.datasources import DatasourcesService
@@ -31,7 +32,7 @@ class TaegisSDKDatasourcesQuery:
         self.service = service
 
     def get_data_source_last_seen_asset(
-        self, input_: GetDataSourceInput | None = None
+        self, input_: Optional[GetDataSourceInput] = None
     ) -> list[LastSeenAsset]:
         """Fetches the last seen data about all data sources associated with a tenant based on input parameters.
         It provides ability to filter the data by collectorId and sourceId. Authorization permission is
@@ -60,12 +61,12 @@ class TaegisSDKDatasourcesQuery:
 
     def get_data_source_last_seen_assets_v2(
         self,
-        first: int | None = None,
-        last: int | None = None,
-        after: str | None = None,
-        before: str | None = None,
-        filter_: DataSourceAssetsFilter | None = None,
-        sort: LastSeenAssetsSort | TaegisEnum | None = None,
+        first: Optional[int] = None,
+        last: Optional[int] = None,
+        after: Optional[str] = None,
+        before: Optional[str] = None,
+        filter_: Optional[DataSourceAssetsFilter] = None,
+        sort: Optional[Union[LastSeenAssetsSort, TaegisEnum]] = None,
     ) -> LastSeenAssets:
         """Fetches the last seen data about all data sources associated with a tenant based on input parameters.
         It provides ability to filter the data by collectorId and sourceId. The data returned by this query
@@ -94,10 +95,11 @@ class TaegisSDKDatasourcesQuery:
         raise GraphQLNoRowsInResultSetError("for query getDataSourceLastSeenAssetsV2")
 
     def get_data_source_last_seen_asset_filter_values(
-        self, input_: list[FilterCriteria | TaegisEnum]
+        self, input_: list[Union[FilterCriteria, TaegisEnum]]
     ) -> list[FilterValues]:
         """Provides clients with the ability to retrieve the possible values for a given filter criteria. Note that unique
-        values will be returned, for enum types, only those observed in the data set will be returned."""
+        values will be returned, for enum types, only those observed in the data set will be returned.
+        """
         endpoint = "getDataSourceLastSeenAssetFilterValues"
 
         result = self.service.execute_query(

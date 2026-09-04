@@ -1,4 +1,5 @@
 """Clients Query."""
+
 # pylint: disable=no-member, unused-argument, too-many-locals, duplicate-code, wildcard-import, unused-wildcard-import, cyclic-import
 
 
@@ -8,14 +9,14 @@
 from __future__ import annotations
 
 import logging
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Optional
 
 from taegis_sdk_python import GraphQLNoRowsInResultSetError
-from taegis_sdk_python.services.clients.types import *
 from taegis_sdk_python.utils import (
     build_output_string,
     prepare_input,
 )
+from taegis_sdk_python.services.clients.types import *
 
 if TYPE_CHECKING:  # pragma: no cover
     from taegis_sdk_python.services.clients import ClientsService
@@ -48,13 +49,13 @@ class TaegisSDKClientsQuery:
 
     def clients(
         self,
-        name: str | None = None,
-        client_ids: list[str] | None = None,
-        tenant_id: str | None = None,
-        role_ids: list[str] | None = None,
-        tenant_ids: list[str] | None = None,
-        page: int | None = None,
-        per_page: int | None = None,
+        name: Optional[str] = None,
+        client_ids: Optional[list[str]] = None,
+        tenant_id: Optional[str] = None,
+        role_ids: Optional[list[str]] = None,
+        tenant_ids: Optional[list[str]] = None,
+        page: Optional[int] = None,
+        per_page: Optional[int] = None,
     ) -> list[Client]:
         """Search Clients."""
         endpoint = "clients"
@@ -85,7 +86,7 @@ class TaegisSDKClientsQuery:
         raise GraphQLNoRowsInResultSetError("for query clients")
 
     def clients_search(
-        self, filters: ClientsSearchInput | None = None
+        self, filters: Optional[ClientsSearchInput] = None
     ) -> ClientSearchResults:
         """Returns clients matching the search criteria along with totalCount and totalUnfilteredCount."""
         endpoint = "clientsSearch"

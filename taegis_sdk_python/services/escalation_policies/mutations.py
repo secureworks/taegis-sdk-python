@@ -1,4 +1,5 @@
 """EscalationPolicies Mutation."""
+
 # pylint: disable=no-member, unused-argument, too-many-locals, duplicate-code, wildcard-import, unused-wildcard-import, cyclic-import
 
 
@@ -74,7 +75,8 @@ class TaegisSDKEscalationPoliciesMutation:
     ) -> EscalationPolicy:
         """Delete an existing escalation policy.
         This is a hard delete and will remove the escalation policy from the system entirely.
-        Policies that are in use by notification rules will need to be unlinked before they can be deleted."""
+        Policies that are in use by notification rules will need to be unlinked before they can be deleted.
+        """
         endpoint = "deleteEscalationPolicy"
 
         result = self.service.execute_mutation(

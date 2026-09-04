@@ -52,7 +52,9 @@ def unwrap(t: Field) -> Any:
     args = [arg for arg in get_args(t) if arg != type(None) and arg != TaegisEnum]
 
     # Unwrap List[type]
-    if hasattr(t, "_name") and (t._name in ("list", "List")):  # pylint: disable=protected-access
+    if hasattr(t, "_name") and (
+        t._name in ("list", "List")  # pylint: disable=protected-access
+    ):
         log.debug(f"{t} is List...")
         return unwrap(args[0])
 
@@ -420,11 +422,16 @@ def remove_node(query: str, node: FieldNode, location: SourceLocation) -> str:
     """
     key = node.name.value
     start_idx = location.column - 1
+    node_start_idx = start_idx
+    fragment_prefix = "... on "
+    fragment_start_idx = node_start_idx - len(fragment_prefix)
+    if query[fragment_start_idx:node_start_idx] == fragment_prefix:
+        start_idx = fragment_start_idx
     end_idx = None
 
     brackets_found = 0
     for idx, char in enumerate(query):
-        if idx < start_idx + len(key):
+        if idx < node_start_idx + len(key):
             continue
 
         if char == " ":
@@ -471,11 +478,17 @@ def remove_output_node(
     except ValueError:
         return output
 
+    node_start_idx = start_idx
+    fragment_prefix = "... on "
+    fragment_start_idx = node_start_idx - len(fragment_prefix)
+    if output[fragment_start_idx:node_start_idx] == fragment_prefix:
+        start_idx = fragment_start_idx
+
     end_idx = None
 
     brackets_found = 0
     for idx, char in enumerate(output):
-        if idx < start_idx + len(node):
+        if idx < node_start_idx + len(node):
             continue
 
         if char == " ":

@@ -1,4 +1,5 @@
 """EntityContext Mutation."""
+
 # pylint: disable=no-member, unused-argument, too-many-locals, duplicate-code, wildcard-import, unused-wildcard-import, cyclic-import
 
 
@@ -8,7 +9,7 @@
 from __future__ import annotations
 
 import logging
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Optional
 
 from taegis_sdk_python import GraphQLNoRowsInResultSetError
 from taegis_sdk_python.services.entity_context.types import *
@@ -33,12 +34,13 @@ class TaegisSDKEntityContextMutation:
         self,
         entry_point: EntityContextEntryPoint,
         to_add: EntityContextAddToInput,
-        filters: EntityContextGroupedSubgraphFilters | None = None,
+        filters: Optional[EntityContextGroupedSubgraphFilters] = None,
     ) -> EntityContextGroupedSubgraphForResponse:
         """Mutation to add an subgraph to the graph.
         The entrypoint specifies the type of object you are adding to and will syncronously call the coresponding API.
         Afterwards a subgraph will be generated from the resource ids in options and added to the graph.
-        If multiple Ids are specified, the mutation will be applied to all of them and returned as one subgraph."""
+        If multiple Ids are specified, the mutation will be applied to all of them and returned as one subgraph.
+        """
         endpoint = "entityContextAddTo"
 
         result = self.service.execute_mutation(

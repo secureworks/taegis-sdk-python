@@ -1,4 +1,5 @@
 """Collector Mutation."""
+
 # pylint: disable=no-member, unused-argument, too-many-locals, duplicate-code, wildcard-import, unused-wildcard-import, cyclic-import
 
 
@@ -8,7 +9,7 @@
 from __future__ import annotations
 
 import logging
-from typing import TYPE_CHECKING, Any
+from typing import TYPE_CHECKING, Any, Optional
 
 from taegis_sdk_python import GraphQLNoRowsInResultSetError
 from taegis_sdk_python.services.collector.types import *
@@ -140,7 +141,7 @@ class TaegisSDKCollectorMutation:
             return OSConfig.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for mutation updateOSConfig")
 
-    def delete_os_config(self, cluster_id: str, node_name: str | None = None) -> str:
+    def delete_os_config(self, cluster_id: str, node_name: Optional[str] = None) -> str:
         """No developer notes."""
         endpoint = "deleteOSConfig"
 
@@ -473,7 +474,7 @@ class TaegisSDKCollectorMutation:
         raise GraphQLNoRowsInResultSetError("for mutation deleteRoleDeployment")
 
     def update_scheduled_service(
-        self, scheduled_service_input: ScheduledServiceInput | None = None
+        self, scheduled_service_input: Optional[ScheduledServiceInput] = None
     ) -> ScheduledService:
         """No developer notes."""
         endpoint = "updateScheduledService"
@@ -493,7 +494,7 @@ class TaegisSDKCollectorMutation:
         raise GraphQLNoRowsInResultSetError("for mutation updateScheduledService")
 
     def create_service(
-        self, service_input: CreateServiceInput | None = None
+        self, service_input: Optional[CreateServiceInput] = None
     ) -> Service:
         """No developer notes."""
         endpoint = "createService"

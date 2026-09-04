@@ -1,4 +1,5 @@
 """TenantProfiles Query."""
+
 # pylint: disable=no-member, unused-argument, too-many-locals, duplicate-code, wildcard-import, unused-wildcard-import, cyclic-import
 
 
@@ -8,14 +9,14 @@
 from __future__ import annotations
 
 import logging
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Optional
 
 from taegis_sdk_python import GraphQLNoRowsInResultSetError
-from taegis_sdk_python.services.tenant_profiles.types import *
 from taegis_sdk_python.utils import (
     build_output_string,
     prepare_input,
 )
+from taegis_sdk_python.services.tenant_profiles.types import *
 
 if TYPE_CHECKING:  # pragma: no cover
     from taegis_sdk_python.services.tenant_profiles import TenantProfilesService
@@ -172,7 +173,7 @@ class TaegisSDKTenantProfilesQuery:
         raise GraphQLNoRowsInResultSetError("for query mfaAccessesMtp")
 
     def file_attachments_mtp(
-        self, include_all_versions: bool | None = None
+        self, include_all_versions: Optional[bool] = None
     ) -> list[FileAttachmentMtp]:
         """Retrieve all file attachments for the current tenant. Returns only current files unless `includeAllVersions` is true."""
         endpoint = "fileAttachmentsMtp"
@@ -212,7 +213,7 @@ class TaegisSDKTenantProfilesQuery:
         raise GraphQLNoRowsInResultSetError("for query fileAttachmentMtp")
 
     def file_attachment_by_name_mtp(
-        self, filename: str, version: int | None = None
+        self, filename: str, version: Optional[int] = None
     ) -> FileAttachmentMtp:
         """Retrieve details for a specific version of a file attachment. The latest version is returned unless specified."""
         endpoint = "fileAttachmentByNameMtp"
@@ -276,6 +277,10 @@ class TaegisSDKTenantProfilesQuery:
         """Retrieve a single Entity of Interest by ID."""
         endpoint = "entityOfInterestMtp"
 
+        log.warning(
+            f"GraphQL Query `{endpoint}` is deprecated: 'Entities of Interest is being phased out (CX-176039, CX-176087); do not build new usages against this field. Not yet safe to delete: the central-ui removal has not shipped and known backend consumers have not migrated off.'"
+        )
+
         result = self.service.execute_query(
             endpoint=endpoint,
             variables={
@@ -293,6 +298,10 @@ class TaegisSDKTenantProfilesQuery:
     def tenant_entities_of_interest_mtp(self) -> list[EntityOfInterestMtp]:
         """Retrieve all Entities of Interest for the current tenant."""
         endpoint = "tenantEntitiesOfInterestMtp"
+
+        log.warning(
+            f"GraphQL Query `{endpoint}` is deprecated: 'Entities of Interest is being phased out (CX-176039, CX-176087); do not build new usages against this field. Not yet safe to delete: the central-ui removal has not shipped and known backend consumers have not migrated off.'"
+        )
 
         result = self.service.execute_query(
             endpoint=endpoint,
@@ -313,6 +322,10 @@ class TaegisSDKTenantProfilesQuery:
     ) -> EntityOfInterestMtps:
         """Retrieve Entities of Interest given a set of filter criteria for the current tenant."""
         endpoint = "listAllTenantEntitiesOfInterestMTP"
+
+        log.warning(
+            f"GraphQL Query `{endpoint}` is deprecated: 'Entities of Interest is being phased out (CX-176039, CX-176087); do not build new usages against this field. Not yet safe to delete: the central-ui removal has not shipped and known backend consumers have not migrated off.'"
+        )
 
         result = self.service.execute_query(
             endpoint=endpoint,

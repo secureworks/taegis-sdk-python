@@ -1,4 +1,5 @@
 """EntityContext Query."""
+
 # pylint: disable=no-member, unused-argument, too-many-locals, duplicate-code, wildcard-import, unused-wildcard-import, cyclic-import
 
 
@@ -8,14 +9,14 @@
 from __future__ import annotations
 
 import logging
-from typing import TYPE_CHECKING, Any
+from typing import TYPE_CHECKING, Any, Optional
 
 from taegis_sdk_python import GraphQLNoRowsInResultSetError
-from taegis_sdk_python.services.entity_context.types import *
 from taegis_sdk_python.utils import (
     build_output_string,
     prepare_input,
 )
+from taegis_sdk_python.services.entity_context.types import *
 
 if TYPE_CHECKING:  # pragma: no cover
     from taegis_sdk_python.services.entity_context import EntityContextService
@@ -30,7 +31,7 @@ class TaegisSDKEntityContextQuery:
         self.service = service
 
     def entity_context(
-        self, entity_id: str, origin: EntityContextOrigin | None = None
+        self, entity_id: str, origin: Optional[EntityContextOrigin] = None
     ) -> EntityContextEntity:
         """Returns a single entity that matches the provided id. Must use hashed global id of the entity."""
         endpoint = "entityContext"
@@ -53,7 +54,7 @@ class TaegisSDKEntityContextQuery:
     def entity_context_by_identifiers(
         self,
         identifiers: EntityContextIdByIdentifiers,
-        origin: EntityContextOrigin | None = None,
+        origin: Optional[EntityContextOrigin] = None,
     ) -> EntityContextEntity:
         """Returns a single entity that matches the provided id. Must use valid set or superset of identifiers.
         EntityContextIdByIdentifiers.matchWeakerIdentifiers must be set to false, as only a single entity may be returned by this query.
@@ -78,7 +79,7 @@ class TaegisSDKEntityContextQuery:
     def entity_contexts(
         self,
         arguments: EntityContextsArguments,
-        page: EntityContextPageInput | None = None,
+        page: Optional[EntityContextPageInput] = None,
     ) -> EntityContexts:
         """Returns a list of entities that match the arguments."""
         endpoint = "entityContexts"
@@ -99,7 +100,7 @@ class TaegisSDKEntityContextQuery:
         raise GraphQLNoRowsInResultSetError("for query entityContexts")
 
     def entity_context_edge(
-        self, edge_id: str, origin: EntityContextOrigin | None = None
+        self, edge_id: str, origin: Optional[EntityContextOrigin] = None
     ) -> EntityContextEdge:
         """Returns a single edge that matches the provided id. Must use hashed global id of the edge."""
         endpoint = "entityContextEdge"
@@ -122,15 +123,16 @@ class TaegisSDKEntityContextQuery:
     def entity_context_grouped_subgraph_for(
         self,
         entry_point: EntityContextEntryPoint,
-        filters: EntityContextGroupedSubgraphFilters | None = None,
-        source: EntityContextSourceInput | None = None,
-        options: Any | None = None,
+        filters: Optional[EntityContextGroupedSubgraphFilters] = None,
+        source: Optional[EntityContextSourceInput] = None,
+        options: Optional[Any] = None,
     ) -> EntityContextGroupedSubgraphForResponse:
         """Returns a subgraph with any edges of the same type between two entities grouped together.
         The data source for the subgraph can be from the graph, on-demand, or a on-demand fallback.
         Choosing to retrieve only data currently present in the graph will be the fastest option.
         ON_DEMAND_FALLBACK is the default and is a compromise of the two, first searching the graph
-        and then populating the missing data with on-demand data (which can be much slower)."""
+        and then populating the missing data with on-demand data (which can be much slower).
+        """
         endpoint = "entityContextGroupedSubgraphFor"
 
         result = self.service.execute_query(
@@ -155,8 +157,8 @@ class TaegisSDKEntityContextQuery:
     def entity_context_related_resources(
         self,
         entry_point: EntityContextEntryPoint,
-        time_filter: EntityContextTimeFilters | None = None,
-        page: EntityContextPageInput | None = None,
+        time_filter: Optional[EntityContextTimeFilters] = None,
+        page: Optional[EntityContextPageInput] = None,
     ) -> EntityContextRelatedResources:
         """Provides a list of related events, alerts, and investigations for a given element. If the entryPoint is of type Entity
         it will look at all the edges that are incoming or outgoing to the provided entities. All other entryPoint types will
@@ -191,8 +193,8 @@ class TaegisSDKEntityContextQuery:
                 "filter": {"timeFilter": {"lastSeen": {}}, "collectProperties": True},
             }
         ),
-        page: EntityContextPageInput | None = None,
-        source: EntityContextSourceInput | None = None,
+        page: Optional[EntityContextPageInput] = None,
+        source: Optional[EntityContextSourceInput] = None,
     ) -> EntityContextAssociatedEntitiesResponse:
         """Provides a list of related entities for a given element. If the entrypoint is an entity, it will return just the
         input entity. If its an edge or resource, it will return the entities connected to the edge or resource. If page is
@@ -202,7 +204,8 @@ class TaegisSDKEntityContextQuery:
         the number of edges we can explore to prevent timeouts.
 
         `_displayName` property filters match the canonical display name derived from entity properties before optional
-        enrichment. Because that value is computed after traversal, those filters are also bounded by this traversal limit."""
+        enrichment. Because that value is computed after traversal, those filters are also bounded by this traversal limit.
+        """
         endpoint = "entityContextAssociatedEntities"
 
         result = self.service.execute_query(
@@ -227,7 +230,7 @@ class TaegisSDKEntityContextQuery:
     def entity_context_associated_entity_types(
         self,
         entry_point: EntityContextSingleEntryPoint,
-        source: EntityContextSourceInput | None = None,
+        source: Optional[EntityContextSourceInput] = None,
     ) -> EntityContextAssociatedEntityTypesResponse:
         """No developer notes."""
         endpoint = "entityContextAssociatedEntityTypes"
@@ -261,7 +264,7 @@ class TaegisSDKEntityContextQuery:
                 "useStructuredEntities": True,
             }
         ),
-        source: EntityContextSourceInput | None = None,
+        source: Optional[EntityContextSourceInput] = None,
     ) -> list[EntityContextPivotQLQuery]:
         """Provides a list of QL queries that can be used to pivot from the provided entry point. If the entrypoint is an
         edge, event, alert, or investigation, it will return a list of queries that can be used to pivot to the entities

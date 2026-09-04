@@ -1,4 +1,5 @@
 """Investigations Mutation."""
+
 # pylint: disable=no-member, unused-argument, too-many-locals, duplicate-code, wildcard-import, unused-wildcard-import, cyclic-import
 
 
@@ -8,7 +9,7 @@
 from __future__ import annotations
 
 import logging
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Optional
 
 from taegis_sdk_python import GraphQLNoRowsInResultSetError
 from taegis_sdk_python.services.investigations.types import *
@@ -372,8 +373,8 @@ class TaegisSDKInvestigationsMutation:
         self,
         investigation_id: str,
         vector_name: str,
-        created_at: str | None = None,
-        updated_at: str | None = None,
+        created_at: Optional[str] = None,
+        updated_at: Optional[str] = None,
     ) -> AccessVector:
         """Access Vectors."""
         endpoint = "addAccessVector"
@@ -532,8 +533,8 @@ class TaegisSDKInvestigationsMutation:
     def add_bulk_alerts_to_investigation(
         self,
         search_query: str,
-        investigation_id: str | None = None,
-        new_investigation: InvestigationInput | None = None,
+        investigation_id: Optional[str] = None,
+        new_investigation: Optional[InvestigationInput] = None,
     ) -> Investigation:
         """Bulk add alerts to an investigation using restdb search query."""
         endpoint = "addBulkAlertsToInvestigation"
@@ -613,7 +614,7 @@ class TaegisSDKInvestigationsMutation:
         )
 
     def re_process_investigation_background_job(
-        self, investigation_id: str, process_only_events: bool | None = None
+        self, investigation_id: str, process_only_events: Optional[bool] = None
     ) -> InvestigationProcessingResponse:
         """Reprocess investigation background job by id."""
         endpoint = "reProcessInvestigationBackgroundJob"

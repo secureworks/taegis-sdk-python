@@ -1,4 +1,5 @@
 """Subjects Query."""
+
 # pylint: disable=no-member, unused-argument, too-many-locals, duplicate-code, wildcard-import, unused-wildcard-import, cyclic-import
 
 
@@ -8,14 +9,14 @@
 from __future__ import annotations
 
 import logging
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Optional
 
 from taegis_sdk_python import GraphQLNoRowsInResultSetError
-from taegis_sdk_python.services.subjects.types import *
 from taegis_sdk_python.utils import (
     build_output_string,
     prepare_input,
 )
+from taegis_sdk_python.services.subjects.types import *
 
 if TYPE_CHECKING:  # pragma: no cover
     from taegis_sdk_python.services.subjects import SubjectsService
@@ -29,7 +30,7 @@ class TaegisSDKSubjectsQuery:
     def __init__(self, service: SubjectsService):
         self.service = service
 
-    def current_subject(self, selector: SubjectSelector | None = None) -> Subject:
+    def current_subject(self, selector: Optional[SubjectSelector] = None) -> Subject:
         """Returns the subject from the token provided in Authorization Header."""
         endpoint = "currentSubject"
 

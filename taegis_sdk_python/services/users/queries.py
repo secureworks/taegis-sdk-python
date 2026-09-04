@@ -1,4 +1,5 @@
 """Users Query."""
+
 # pylint: disable=no-member, unused-argument, too-many-locals, duplicate-code, wildcard-import, unused-wildcard-import, cyclic-import
 
 
@@ -8,14 +9,14 @@
 from __future__ import annotations
 
 import logging
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Optional
 
 from taegis_sdk_python import GraphQLNoRowsInResultSetError
-from taegis_sdk_python.services.users.types import *
 from taegis_sdk_python.utils import (
     build_output_string,
     prepare_input,
 )
+from taegis_sdk_python.services.users.types import *
 
 if TYPE_CHECKING:  # pragma: no cover
     from taegis_sdk_python.services.users import UsersService
@@ -32,8 +33,8 @@ class TaegisSDKUsersQuery:
     def tdruser(
         self,
         id_: str,
-        exclude_deactivated_role_assignments: bool | None = None,
-        include_masked_related_users: bool | None = None,
+        exclude_deactivated_role_assignments: Optional[bool] = None,
+        include_masked_related_users: Optional[bool] = None,
     ) -> TDRUser:
         """Get User by id. The ID can be either the ID of the user object or the userID from Auth0."""
         endpoint = "tdruser"
@@ -60,14 +61,14 @@ class TaegisSDKUsersQuery:
 
     def tdrusers(
         self,
-        email: str | None = None,
-        role: str | None = None,
-        tenant_id: str | None = None,
-        role_ids: list[str] | None = None,
-        tenant_ids: list[str] | None = None,
-        status: str | None = None,
-        page: int | None = None,
-        per_page: int | None = None,
+        email: Optional[str] = None,
+        role: Optional[str] = None,
+        tenant_id: Optional[str] = None,
+        role_ids: Optional[list[str]] = None,
+        tenant_ids: Optional[list[str]] = None,
+        status: Optional[str] = None,
+        page: Optional[int] = None,
+        per_page: Optional[int] = None,
     ) -> list[TDRUser]:
         """Search Users."""
         endpoint = "tdrusers"
@@ -95,7 +96,7 @@ class TaegisSDKUsersQuery:
             )
         raise GraphQLNoRowsInResultSetError("for query tdrusers")
 
-    def tdrusers_by_ids(self, user_ids: list[str] | None = None) -> list[TDRUser]:
+    def tdrusers_by_ids(self, user_ids: Optional[list[str]] = None) -> list[TDRUser]:
         """Search users by id list. The list can contain a mixture of IDs or UserIDs."""
         endpoint = "tdrusersByIDs"
 
@@ -117,13 +118,14 @@ class TaegisSDKUsersQuery:
 
     def search_tdrusers_by_ids(
         self,
-        user_ids: list[str] | None = None,
-        include_masked_related_users: bool | None = None,
+        user_ids: Optional[list[str]] = None,
+        include_masked_related_users: Optional[bool] = None,
     ) -> list[SearchByIDsResponse]:
         """ "
         Search users by id list. The list can contain a mixture of IDs or UserIDs. Errors are reported individually for each ID.
         Search will be processed using the X-Tenant-Context header as a filter first. Subsequent searches will use role assignments
-        for user IDs that have not been found until all users are retrieved or all role assignments are exhausted."""
+        for user IDs that have not been found until all users are retrieved or all role assignments are exhausted.
+        """
         endpoint = "searchTDRUsersByIDs"
 
         result = self.service.execute_query(
@@ -182,7 +184,7 @@ class TaegisSDKUsersQuery:
         raise GraphQLNoRowsInResultSetError("for query getSupportPinVerification")
 
     def tdr_users_search(
-        self, filters: TDRUsersSearchInput | None = None
+        self, filters: Optional[TDRUsersSearchInput] = None
     ) -> TDRUsersSearchResults:
         """Fast Search Users."""
         endpoint = "tdrUsersSearch"

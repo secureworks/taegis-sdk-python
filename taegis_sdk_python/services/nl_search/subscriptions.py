@@ -11,7 +11,6 @@ from __future__ import annotations
 import logging
 from typing import TYPE_CHECKING
 
-from taegis_sdk_python.services.nl_search.types import *
 
 if TYPE_CHECKING:  # pragma: no cover
     from taegis_sdk_python.services.nl_search import NlSearchService

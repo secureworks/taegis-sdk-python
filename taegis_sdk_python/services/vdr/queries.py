@@ -1,4 +1,5 @@
 """Vdr Query."""
+
 # pylint: disable=no-member, unused-argument, too-many-locals, duplicate-code, wildcard-import, unused-wildcard-import, cyclic-import
 
 
@@ -8,14 +9,14 @@
 from __future__ import annotations
 
 import logging
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Optional
 
 from taegis_sdk_python import GraphQLNoRowsInResultSetError
-from taegis_sdk_python.services.vdr.types import *
 from taegis_sdk_python.utils import (
     build_output_string,
     prepare_input,
 )
+from taegis_sdk_python.services.vdr.types import *
 
 if TYPE_CHECKING:  # pragma: no cover
     from taegis_sdk_python.services.vdr import VdrService
@@ -156,7 +157,7 @@ class TaegisSDKVdrQuery:
         raise GraphQLNoRowsInResultSetError("for query vdrEdgeServices")
 
     def vdr_vulnerability_metrics(
-        self, arguments: VdrVulnerabilityMetricsInputArgs | None = None
+        self, arguments: Optional[VdrVulnerabilityMetricsInputArgs] = None
     ) -> VdrVulnerabilityMetrics:
         """Get vulnerability metrics for first discovered or last seen."""
         endpoint = "vdrVulnerabilityMetrics"
@@ -175,7 +176,7 @@ class TaegisSDKVdrQuery:
             return VdrVulnerabilityMetrics.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for query vdrVulnerabilityMetrics")
 
-    def vdr_scans(self, arguments: VdrScanInputArgs | None = None) -> VdrScans:
+    def vdr_scans(self, arguments: Optional[VdrScanInputArgs] = None) -> VdrScans:
         """Get VDR scans."""
         endpoint = "vdrScans"
 

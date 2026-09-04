@@ -1,4 +1,5 @@
 """AccessPoints Query."""
+
 # pylint: disable=no-member, unused-argument, too-many-locals, duplicate-code, wildcard-import, unused-wildcard-import, cyclic-import
 
 
@@ -11,10 +12,10 @@ import logging
 from typing import TYPE_CHECKING
 
 from taegis_sdk_python import GraphQLNoRowsInResultSetError
-from taegis_sdk_python.services.access_points.types import *
 from taegis_sdk_python.utils import (
     build_output_string,
 )
+from taegis_sdk_python.services.access_points.types import *
 
 if TYPE_CHECKING:  # pragma: no cover
     from taegis_sdk_python.services.access_points import AccessPointsService

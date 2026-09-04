@@ -1,4 +1,5 @@
 """Tenants Mutation."""
+
 # pylint: disable=no-member, unused-argument, too-many-locals, duplicate-code, wildcard-import, unused-wildcard-import, cyclic-import
 
 
@@ -390,6 +391,26 @@ class TaegisSDKTenantsMutation:
         raise GraphQLNoRowsInResultSetError(
             "for mutation recordTenantLicenseCapabilitiesRefreshFailure"
         )
+
+    def set_tenant_mapping(
+        self, input_: SetTenantMappingInput
+    ) -> SetTenantMappingResult:
+        """Set mapping data for a tenant."""
+        endpoint = "setTenantMapping"
+
+        result = self.service.execute_mutation(
+            endpoint=endpoint,
+            variables={
+                "input": prepare_input(input_),
+            },
+            output=build_output_string(
+                SetTenantMappingResult,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
+        )
+        if result.get(endpoint) is not None:
+            return SetTenantMappingResult.from_dict(result.get(endpoint))
+        raise GraphQLNoRowsInResultSetError("for mutation setTenantMapping")
 
     def change_tenant_hierarchy(
         self, tenant_id: str, new_partner_tenant_id: str

@@ -1,4 +1,5 @@
 """Roadrunner Query."""
+
 # pylint: disable=no-member, unused-argument, too-many-locals, duplicate-code, wildcard-import, unused-wildcard-import, cyclic-import
 
 
@@ -8,14 +9,14 @@
 from __future__ import annotations
 
 import logging
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Optional
 
 from taegis_sdk_python import GraphQLNoRowsInResultSetError
-from taegis_sdk_python.services.roadrunner.types import *
 from taegis_sdk_python.utils import (
     build_output_string,
     prepare_input,
 )
+from taegis_sdk_python.services.roadrunner.types import *
 
 if TYPE_CHECKING:  # pragma: no cover
     from taegis_sdk_python.services.roadrunner import RoadrunnerService
@@ -115,9 +116,9 @@ class TaegisSDKRoadrunnerQuery:
     def sample_parser(
         self,
         messages: list[str],
-        parser: UnvalidatedParserInput | None = None,
-        run_isolated: bool | None = None,
-        run_disabled: bool | None = None,
+        parser: Optional[UnvalidatedParserInput] = None,
+        run_isolated: Optional[bool] = None,
+        run_disabled: Optional[bool] = None,
     ) -> list[SampleResult]:
         """No developer notes."""
         endpoint = "sampleParser"
@@ -150,7 +151,9 @@ class TaegisSDKRoadrunnerQuery:
             return result.get(endpoint)
         raise GraphQLNoRowsInResultSetError("for query parserSchemas")
 
-    def directory(self, filter_: DirectoryFilterInput | None = None) -> list[Directory]:
+    def directory(
+        self, filter_: Optional[DirectoryFilterInput] = None
+    ) -> list[Directory]:
         """No developer notes."""
         endpoint = "directory"
 

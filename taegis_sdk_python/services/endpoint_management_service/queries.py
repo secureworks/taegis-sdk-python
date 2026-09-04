@@ -1,4 +1,5 @@
 """EndpointManagementService Query."""
+
 # pylint: disable=no-member, unused-argument, too-many-locals, duplicate-code, wildcard-import, unused-wildcard-import, cyclic-import
 
 
@@ -8,15 +9,15 @@
 from __future__ import annotations
 
 import logging
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Optional, Union
 
 from taegis_sdk_python import GraphQLNoRowsInResultSetError
-from taegis_sdk_python._consts import TaegisEnum
-from taegis_sdk_python.services.endpoint_management_service.types import *
 from taegis_sdk_python.utils import (
     build_output_string,
     prepare_input,
 )
+from taegis_sdk_python._consts import TaegisEnum
+from taegis_sdk_python.services.endpoint_management_service.types import *
 
 if TYPE_CHECKING:  # pragma: no cover
     from taegis_sdk_python.services.endpoint_management_service import (
@@ -51,7 +52,7 @@ class TaegisSDKEndpointManagementServiceQuery:
         raise GraphQLNoRowsInResultSetError("for query allEndpointGroups")
 
     def all_endpoint_groups_paged(
-        self, first: int | None = None, after: str | None = None
+        self, first: Optional[int] = None, after: Optional[str] = None
     ) -> EndpointGroupsPagedOutput:
         """Get list of all endpoint groups for a tenant, paged."""
         endpoint = "allEndpointGroupsPaged"
@@ -201,7 +202,7 @@ class TaegisSDKEndpointManagementServiceQuery:
         raise GraphQLNoRowsInResultSetError("for query agentSetting")
 
     def agent_settings(
-        self, first: int | None = None, after: str | None = None
+        self, first: Optional[int] = None, after: Optional[str] = None
     ) -> AgentSettings:
         """fetch paginated list of agent settings items."""
         endpoint = "agentSettings"
@@ -222,7 +223,7 @@ class TaegisSDKEndpointManagementServiceQuery:
         raise GraphQLNoRowsInResultSetError("for query agentSettings")
 
     def get_settings_for_profile(
-        self, profile_name: AgentSettingsProfile | TaegisEnum | None = None
+        self, profile_name: Optional[Union[AgentSettingsProfile, TaegisEnum]] = None
     ) -> AgentSettingsDefaults:
         """fetch the setting defaults for a given profile."""
         endpoint = "getSettingsForProfile"

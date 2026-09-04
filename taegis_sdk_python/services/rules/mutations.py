@@ -1,4 +1,5 @@
 """Rules Mutation."""
+
 # pylint: disable=no-member, unused-argument, too-many-locals, duplicate-code, wildcard-import, unused-wildcard-import, cyclic-import
 
 
@@ -8,7 +9,7 @@
 from __future__ import annotations
 
 import logging
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Optional
 
 from taegis_sdk_python import GraphQLNoRowsInResultSetError
 from taegis_sdk_python.services.rules.types import *
@@ -70,7 +71,7 @@ class TaegisSDKRulesMutation:
         raise GraphQLNoRowsInResultSetError("for mutation createCustomSuppressionRule")
 
     def create_rule(
-        self, input_: RuleInput, filters: list[RuleFilterInput] | None = None
+        self, input_: RuleInput, filters: Optional[list[RuleFilterInput]] = None
     ) -> Rule:
         """Create the given new rule, with optional filters."""
         endpoint = "createRule"
@@ -186,7 +187,7 @@ class TaegisSDKRulesMutation:
             return Rule.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for mutation updateRule")
 
-    def delete_rule(self, rule_id: str, hard: bool | None = None) -> Rule:
+    def delete_rule(self, rule_id: str, hard: Optional[bool] = None) -> Rule:
         """Delete the given rule. This is normally a soft delete and can be undone with restoreRule.
 
         If the hard parameter is true this will be a permanent hard deletion. Only do this with care!
@@ -213,7 +214,8 @@ class TaegisSDKRulesMutation:
     def restore_rule(self, rule_id: str) -> Rule:
         """Restore the given rule from deleted status.
 
-        It will remain disabled from being deleted and can be enabled with enableRule."""
+        It will remain disabled from being deleted and can be enabled with enableRule.
+        """
         endpoint = "restoreRule"
 
         result = self.service.execute_mutation(
@@ -249,7 +251,10 @@ class TaegisSDKRulesMutation:
         raise GraphQLNoRowsInResultSetError("for mutation updateFilter")
 
     def update_filters(
-        self, rule_id: str, filters: list[RuleFilterInput], replace: bool | None = None
+        self,
+        rule_id: str,
+        filters: list[RuleFilterInput],
+        replace: Optional[bool] = None,
     ) -> list[RuleFilter]:
         """Bulk update the given list of filters for the given Rule ID.
 

@@ -1,4 +1,5 @@
 """FileInfo Mutation."""
+
 # pylint: disable=no-member, unused-argument, too-many-locals, duplicate-code, wildcard-import, unused-wildcard-import, cyclic-import
 
 
@@ -8,7 +9,7 @@
 from __future__ import annotations
 
 import logging
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Optional
 
 from taegis_sdk_python import GraphQLNoRowsInResultSetError
 from taegis_sdk_python.services.file_info.types import *
@@ -63,9 +64,9 @@ class TaegisSDKFileInfoMutation:
 
     def set_malicious(
         self,
-        id_: str | None = None,
-        file_hash: str | None = None,
-        malicious: bool | None = None,
+        id_: Optional[str] = None,
+        file_hash: Optional[str] = None,
+        malicious: Optional[bool] = None,
     ) -> File:
         """Sets the malicious flag for the file."""
         endpoint = "setMalicious"

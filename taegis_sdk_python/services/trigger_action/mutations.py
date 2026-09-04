@@ -1,4 +1,5 @@
 """TriggerAction Mutation."""
+
 # pylint: disable=no-member, unused-argument, too-many-locals, duplicate-code, wildcard-import, unused-wildcard-import, cyclic-import
 
 
@@ -8,7 +9,7 @@
 from __future__ import annotations
 
 import logging
-from typing import TYPE_CHECKING, Any
+from typing import TYPE_CHECKING, Any, Optional
 
 from taegis_sdk_python import GraphQLNoRowsInResultSetError
 from taegis_sdk_python.services.trigger_action.types import *
@@ -69,8 +70,8 @@ class TaegisSDKTriggerActionMutation:
         self,
         playbook_action: str,
         inputs: Any,
-        target_resource: str | None = None,
-        reason: str | None = None,
+        target_resource: Optional[str] = None,
+        reason: Optional[str] = None,
     ) -> PlaybookExecution:
         """executePlaybookAction is deprecated, use executePlaybookActionsV2 instead. This endpoint does not support entities."""
         endpoint = "executePlaybookAction"

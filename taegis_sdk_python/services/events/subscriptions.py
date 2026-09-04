@@ -1,4 +1,5 @@
 """Events Subscription."""
+
 # pylint: disable=no-member, unused-argument, too-many-locals, duplicate-code, wildcard-import, unused-wildcard-import, cyclic-import
 
 
@@ -8,7 +9,7 @@
 from __future__ import annotations
 
 import logging
-from typing import TYPE_CHECKING, Any
+from typing import TYPE_CHECKING, Any, Optional
 
 from taegis_sdk_python import GraphQLNoRowsInResultSetError
 from taegis_sdk_python.services.events.types import *
@@ -32,8 +33,8 @@ class TaegisSDKEventsSubscription:
     def event_query(
         self,
         query: str,
-        metadata: dict[str, Any] | None = None,
-        options: EventQueryOptions | None = None,
+        metadata: Optional[dict[str, Any]] = None,
+        options: Optional[EventQueryOptions] = None,
     ) -> list[EventQueryResults]:
         """Evaluate a query string and returns results for the first page of
         each event type covered by the query."""

@@ -602,7 +602,10 @@ class ServiceCore:
                     break
 
                 except GraphQLError as exc:
-                    if "Cannot query field" in exc.message:
+                    if (
+                        "Cannot query field" in exc.message
+                        or "Unknown type" in exc.message
+                    ):
                         log.warning(
                             f"{self.service.environment} - field {exc.nodes[0].name.value} not found.  Removing from query string..."
                         )

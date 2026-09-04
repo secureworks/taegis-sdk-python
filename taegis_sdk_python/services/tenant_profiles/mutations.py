@@ -1,4 +1,5 @@
 """TenantProfiles Mutation."""
+
 # pylint: disable=no-member, unused-argument, too-many-locals, duplicate-code, wildcard-import, unused-wildcard-import, cyclic-import
 
 
@@ -8,7 +9,7 @@
 from __future__ import annotations
 
 import logging
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Optional
 
 from taegis_sdk_python import GraphQLNoRowsInResultSetError
 from taegis_sdk_python.services.tenant_profiles.types import *
@@ -46,7 +47,7 @@ class TaegisSDKTenantProfilesMutation:
         raise GraphQLNoRowsInResultSetError("for mutation createProfileMtp")
 
     def create_network_range_mtp(
-        self, input_: NetworkRangeCreateMtpInput | None = None
+        self, input_: Optional[NetworkRangeCreateMtpInput] = None
     ) -> NetworkRangeMtp:
         """No developer notes."""
         endpoint = "createNetworkRangeMtp"
@@ -66,7 +67,7 @@ class TaegisSDKTenantProfilesMutation:
         raise GraphQLNoRowsInResultSetError("for mutation createNetworkRangeMtp")
 
     def update_network_range_mtp(
-        self, id_: str, network: NetworkRangeUpdateMtpInput | None = None
+        self, id_: str, network: Optional[NetworkRangeUpdateMtpInput] = None
     ) -> NetworkRangeMtp:
         """No developer notes."""
         endpoint = "updateNetworkRangeMtp"
@@ -386,6 +387,10 @@ class TaegisSDKTenantProfilesMutation:
         """Create a new Entity of Interest for the current tenant."""
         endpoint = "createEntityOfInterestMtp"
 
+        log.warning(
+            f"GraphQL Mutation `{endpoint}` is deprecated: 'Entities of Interest is being phased out (CX-176039, CX-176087); do not build new usages against this field. Not yet safe to delete: the central-ui removal has not shipped and known backend consumers have not migrated off.'"
+        )
+
         result = self.service.execute_mutation(
             endpoint=endpoint,
             variables={
@@ -406,6 +411,10 @@ class TaegisSDKTenantProfilesMutation:
         """Update an existing Entity of Interest."""
         endpoint = "updateEntityOfInterestMtp"
 
+        log.warning(
+            f"GraphQL Mutation `{endpoint}` is deprecated: 'Entities of Interest is being phased out (CX-176039, CX-176087); do not build new usages against this field. Not yet safe to delete: the central-ui removal has not shipped and known backend consumers have not migrated off.'"
+        )
+
         result = self.service.execute_mutation(
             endpoint=endpoint,
             variables={
@@ -424,6 +433,10 @@ class TaegisSDKTenantProfilesMutation:
     def delete_entity_of_interest_mtp(self, id_: str) -> EntityOfInterestMtp:
         """Delete an Entity of Interest."""
         endpoint = "deleteEntityOfInterestMtp"
+
+        log.warning(
+            f"GraphQL Mutation `{endpoint}` is deprecated: 'Entities of Interest is being phased out (CX-176039, CX-176087); do not build new usages against this field. Not yet safe to delete: the central-ui removal has not shipped and known backend consumers have not migrated off.'"
+        )
 
         result = self.service.execute_mutation(
             endpoint=endpoint,

@@ -1,4 +1,5 @@
 """Tenants Query."""
+
 # pylint: disable=no-member, unused-argument, too-many-locals, duplicate-code, wildcard-import, unused-wildcard-import, cyclic-import
 
 
@@ -8,14 +9,14 @@
 from __future__ import annotations
 
 import logging
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Optional
 
 from taegis_sdk_python import GraphQLNoRowsInResultSetError
-from taegis_sdk_python.services.tenants.types import *
 from taegis_sdk_python.utils import (
     build_output_string,
     prepare_input,
 )
+from taegis_sdk_python.services.tenants.types import *
 
 if TYPE_CHECKING:  # pragma: no cover
     from taegis_sdk_python.services.tenants import TenantsService
@@ -30,7 +31,7 @@ class TaegisSDKTenantsQuery:
         self.service = service
 
     def assignable_services(
-        self, tenant_id: str | None = None, service_ids: list[str] | None = None
+        self, tenant_id: Optional[str] = None, service_ids: Optional[list[str]] = None
     ) -> list[Service]:
         """Returns the assignable Services for the optional tenant, or assignable Services for all accessible tenants if a tenant is not specified.  Only Secureworks and Partners may manage Services, for other tenants this will return an empty list."""
         endpoint = "assignableServices"
@@ -112,9 +113,9 @@ class TaegisSDKTenantsQuery:
 
     def get_sso_connection_config(
         self,
-        metadata_url: str | None = None,
-        metadata_xml: str | None = None,
-        cert: str | None = None,
+        metadata_url: Optional[str] = None,
+        metadata_xml: Optional[str] = None,
+        cert: Optional[str] = None,
     ) -> SSOConnectionConfigResponse:
         """Downloads configuration for an SSO connection if metadataURL is provided, or extracts the configuration from the metadataXML string if provided, or the certificate attributes if that is provided. Currently applicable only to SAML connections."""
         endpoint = "getSSOConnectionConfig"

@@ -1,4 +1,5 @@
 """Clients Mutation."""
+
 # pylint: disable=no-member, unused-argument, too-many-locals, duplicate-code, wildcard-import, unused-wildcard-import, cyclic-import
 
 
@@ -8,7 +9,7 @@
 from __future__ import annotations
 
 import logging
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Optional
 
 from taegis_sdk_python import GraphQLNoRowsInResultSetError
 from taegis_sdk_python.services.clients.types import *
@@ -32,8 +33,8 @@ class TaegisSDKClientsMutation:
     def create_client(
         self,
         name: str,
-        roles: list[str] | None = None,
-        input_: CreateClientInput | None = None,
+        roles: Optional[list[str]] = None,
+        input_: Optional[CreateClientInput] = None,
     ) -> NewClient:
         """Create a new client (SCWX (tenant 5000) clients are disallowed). The new client will be assigned the TenantAnalyst role if the `roles` parameter is omitted."""
         endpoint = "createClient"
@@ -54,7 +55,7 @@ class TaegisSDKClientsMutation:
             return NewClient.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for mutation createClient")
 
-    def rotate_client_secret(self, id_: str, secret: str | None = None) -> NewClient:
+    def rotate_client_secret(self, id_: str, secret: Optional[str] = None) -> NewClient:
         """Generate a new secret for an existing client."""
         endpoint = "rotateClientSecret"
 

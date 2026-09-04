@@ -1,4 +1,5 @@
 """ThreatScore Query."""
+
 # pylint: disable=no-member, unused-argument, too-many-locals, duplicate-code, wildcard-import, unused-wildcard-import, cyclic-import
 
 
@@ -8,14 +9,14 @@
 from __future__ import annotations
 
 import logging
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Optional
 
 from taegis_sdk_python import GraphQLNoRowsInResultSetError
-from taegis_sdk_python.services.threat_score.types import *
 from taegis_sdk_python.utils import (
     build_output_string,
     prepare_input,
 )
+from taegis_sdk_python.services.threat_score.types import *
 
 if TYPE_CHECKING:  # pragma: no cover
     from taegis_sdk_python.services.threat_score import ThreatScoreService
@@ -48,7 +49,7 @@ class TaegisSDKThreatScoreQuery:
         raise GraphQLNoRowsInResultSetError("for query alertPrioritizationById")
 
     def alert_prioritization_by_ids(
-        self, ids: list[str] | None = None
+        self, ids: Optional[list[str]] = None
     ) -> list[AlertPrioritization]:
         """Provide a list of Alert IDs to retrieve each Alert Prioritization."""
         endpoint = "alertPrioritizationByIds"

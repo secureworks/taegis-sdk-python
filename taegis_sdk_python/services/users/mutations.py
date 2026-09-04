@@ -1,4 +1,5 @@
 """Users Mutation."""
+
 # pylint: disable=no-member, unused-argument, too-many-locals, duplicate-code, wildcard-import, unused-wildcard-import, cyclic-import
 
 
@@ -8,7 +9,7 @@
 from __future__ import annotations
 
 import logging
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Optional
 
 from taegis_sdk_python import GraphQLNoRowsInResultSetError
 from taegis_sdk_python.services.users.types import *
@@ -187,7 +188,7 @@ class TaegisSDKUsersMutation:
         raise GraphQLNoRowsInResultSetError("for mutation removeTDRUserRoles")
 
     def append_tdruser_internal_roles(
-        self, id_: str, roles: list[str], expires_at: str | None = None
+        self, id_: str, roles: list[str], expires_at: Optional[str] = None
     ) -> TDRUser:
         """Append internal roles to a users role assignments."""
         endpoint = "appendTDRUserInternalRoles"
@@ -319,7 +320,7 @@ class TaegisSDKUsersMutation:
         raise GraphQLNoRowsInResultSetError("for mutation resendMigrationEmail")
 
     def forgot_password(
-        self, email: str, app: str | None = None
+        self, email: str, app: Optional[str] = None
     ) -> ForgotPasswordResponse:
         """Initiate the password reset workflow requested by a user."""
         endpoint = "forgotPassword"

@@ -1,4 +1,5 @@
 """Preferences Subscription."""
+
 # pylint: disable=no-member, unused-argument, too-many-locals, duplicate-code, wildcard-import, unused-wildcard-import, cyclic-import
 
 
@@ -10,7 +11,6 @@ from __future__ import annotations
 import logging
 from typing import TYPE_CHECKING
 
-from taegis_sdk_python.services.preferences.types import *
 
 if TYPE_CHECKING:  # pragma: no cover
     from taegis_sdk_python.services.preferences import PreferencesService

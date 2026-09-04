@@ -1,4 +1,5 @@
 """MultiTenantContext Mutation."""
+
 # pylint: disable=no-member, unused-argument, too-many-locals, duplicate-code, wildcard-import, unused-wildcard-import, cyclic-import
 
 
@@ -8,7 +9,7 @@
 from __future__ import annotations
 
 import logging
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Optional
 
 from taegis_sdk_python import GraphQLNoRowsInResultSetError
 from taegis_sdk_python.services.multi_tenant_context.types import *
@@ -49,7 +50,7 @@ class TaegisSDKMultiTenantContextMutation:
             return Session.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for mutation createSession")
 
-    def set_session(self, inputs: list[SessionInput] | None = None) -> list[Session]:
+    def set_session(self, inputs: Optional[list[SessionInput]] = None) -> list[Session]:
         """Sets a multi tenant session. Set the tenants you want to look at for a session."""
         endpoint = "setSession"
 
