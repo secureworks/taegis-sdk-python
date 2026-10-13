@@ -126,6 +126,31 @@ class TaegisSDKUsersMutation:
             return TDRUser.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for mutation changeTDRUserEmail")
 
+    def admin_change_tdruser_email(
+        self,
+        current_email_address: str,
+        new_email_address: str,
+        jira_ticket_id: Optional[str] = None,
+    ) -> TDRUser:
+        """Admin-initiated email address change for a user who cannot make the change themselves."""
+        endpoint = "adminChangeTDRUserEmail"
+
+        result = self.service.execute_mutation(
+            endpoint=endpoint,
+            variables={
+                "currentEmailAddress": prepare_input(current_email_address),
+                "newEmailAddress": prepare_input(new_email_address),
+                "jiraTicketId": prepare_input(jira_ticket_id),
+            },
+            output=build_output_string(
+                TDRUser,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
+        )
+        if result.get(endpoint) is not None:
+            return TDRUser.from_dict(result.get(endpoint))
+        raise GraphQLNoRowsInResultSetError("for mutation adminChangeTDRUserEmail")
+
     def current_tdruser_change_email_address(self, new_email_address: str) -> TDRUser:
         """Account owner-initiated email address change."""
         endpoint = "currentTDRUserChangeEmailAddress"
@@ -280,6 +305,46 @@ class TaegisSDKUsersMutation:
         if result.get(endpoint) is not None:
             return MFAResetResponse.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for mutation currentUserResetMFA")
+
+    def verify_current_user_mfa_registration(
+        self, input_: VerifyCurrentUserMFARegistrationInput
+    ) -> MFAResetResponse:
+        """Verify the current user's MFA registration."""
+        endpoint = "verifyCurrentUserMFARegistration"
+
+        result = self.service.execute_mutation(
+            endpoint=endpoint,
+            variables={
+                "input": prepare_input(input_),
+            },
+            output=build_output_string(
+                MFAResetResponse,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
+        )
+        if result.get(endpoint) is not None:
+            return MFAResetResponse.from_dict(result.get(endpoint))
+        raise GraphQLNoRowsInResultSetError(
+            "for mutation verifyCurrentUserMFARegistration"
+        )
+
+    def admin_reset_tdruser_mfa(self, id_: str) -> TDRUser:
+        """Support-initiated reset of a user's software-token MFA configuration."""
+        endpoint = "adminResetTDRUserMFA"
+
+        result = self.service.execute_mutation(
+            endpoint=endpoint,
+            variables={
+                "id": prepare_input(id_),
+            },
+            output=build_output_string(
+                TDRUser,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
+        )
+        if result.get(endpoint) is not None:
+            return TDRUser.from_dict(result.get(endpoint))
+        raise GraphQLNoRowsInResultSetError("for mutation adminResetTDRUserMFA")
 
     def register_partner_user(
         self, registration_input: PartnerRegistrationInput

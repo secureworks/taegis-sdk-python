@@ -14,8 +14,6 @@ from typing import Optional
 from dataclasses_json import config, dataclass_json
 
 
-
-
 class languageType(str, Enum):
     """languageType."""
 

@@ -168,6 +168,9 @@ class PlaybookActionsConfiguredArguments:
         default=None, metadata=config(field_name="category")
     )
     enabled: Optional[bool] = field(default=None, metadata=config(field_name="enabled"))
+    is_mdr_provider_internal_response_action: Optional[bool] = field(
+        default=None, metadata=config(field_name="isMDRProviderInternalResponseAction")
+    )
     page: Optional[int] = field(default=None, metadata=config(field_name="page"))
     per_page: Optional[int] = field(default=None, metadata=config(field_name="perPage"))
 

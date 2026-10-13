@@ -4,7 +4,7 @@ import re
 from dataclasses import dataclass
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
-from typing import Optional, Union
+from typing import Union
 
 from jinja2 import Environment, FileSystemLoader
 
@@ -26,16 +26,13 @@ def escape_value(value):
 # Filters
 
 
-def filter_or(value: list[str], field_name: Optional[str] = None, operator: str = "="):
+def filter_or(value: list[str], field_name: str, operator: str = "="):
     """Format values for Taegis QL OR statement."""
     if not isinstance(value, list):
         raise TypeError("Input is not list.")
 
     return " OR ".join(
-        [
-            f"{field_name} {operator} {escape_value(item)}" if field_name else value
-            for item in value
-        ]
+        [f"{field_name} {operator} {escape_value(item)}" for item in value]
     )
 
 

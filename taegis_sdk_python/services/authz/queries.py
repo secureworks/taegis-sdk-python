@@ -12,10 +12,7 @@ import logging
 from typing import TYPE_CHECKING, Optional, Union
 
 from taegis_sdk_python import GraphQLNoRowsInResultSetError
-from taegis_sdk_python.utils import (
-    build_output_string,
-    prepare_input,
-)
+from taegis_sdk_python.utils import build_output_string, prepare_input
 from taegis_sdk_python._consts import TaegisEnum
 from taegis_sdk_python.services.authz.types import *
 
@@ -196,6 +193,26 @@ class TaegisSDKAuthzQuery:
                 [r or {} for r in result.get(endpoint)], many=True
             )
         raise GraphQLNoRowsInResultSetError("for query authzCheckPermissions")
+
+    def authz_check_management_permission(
+        self, input_: AuthzObjectActionInput
+    ) -> AuthzPolicy:
+        """Similar to authzCheckPermission but can evaluate a disabled tenant."""
+        endpoint = "authzCheckManagementPermission"
+
+        result = self.service.execute_query(
+            endpoint=endpoint,
+            variables={
+                "input": prepare_input(input_),
+            },
+            output=build_output_string(
+                AuthzPolicy,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
+        )
+        if result.get(endpoint) is not None:
+            return AuthzPolicy.from_dict(result.get(endpoint))
+        raise GraphQLNoRowsInResultSetError("for query authzCheckManagementPermission")
 
     def authz_check_tenants(
         self, input_: AuthzObjectActionInput, tenants: list[str]

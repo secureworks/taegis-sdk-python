@@ -32,6 +32,7 @@ class RBACObject(str, Enum):
 
     COLLECTOR = "COLLECTOR"
     COLLECTORADMIN = "COLLECTORADMIN"
+    COLLECTORENROLLMENT = "COLLECTORENROLLMENT"
     DATASOURCE = "DATASOURCE"
 
 
@@ -47,6 +48,9 @@ class RBACAction(str, Enum):
     LOGIN = "LOGIN"
     CREDENTIALS = "CREDENTIALS"
     ENDPOINTCREDENTIALS = "ENDPOINTCREDENTIALS"
+    MINTENROLLMENTCODE = "MINTENROLLMENTCODE"
+    ENROLLDEVICE = "ENROLLDEVICE"
+    CONFIRMCERTIFICATE = "CONFIRMCERTIFICATE"
 
 
 class DayType(str, Enum):
@@ -753,6 +757,63 @@ class CollectorsPageCursor:
     total_count: Optional[int] = field(
         default=None, metadata=config(field_name="totalCount")
     )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class EnrollmentCode:
+    """EnrollmentCode."""
+
+    code: Optional[str] = field(default=None, metadata=config(field_name="code"))
+    not_after: Optional[int] = field(
+        default=None, metadata=config(field_name="notAfter")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class MintEnrollmentCodeInput:
+    """MintEnrollmentCodeInput."""
+
+    tenant_id: Optional[str] = field(
+        default=None, metadata=config(field_name="tenantId")
+    )
+    subject: Optional[str] = field(default=None, metadata=config(field_name="subject"))
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class EnrollDeviceInput:
+    """EnrollDeviceInput."""
+
+    code: Optional[str] = field(default=None, metadata=config(field_name="code"))
+    csr: Optional[str] = field(default=None, metadata=config(field_name="csr"))
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class ConfirmCertificateInput:
+    """ConfirmCertificateInput."""
+
+    code: Optional[str] = field(default=None, metadata=config(field_name="code"))
+    fingerprint: Optional[str] = field(
+        default=None, metadata=config(field_name="fingerprint")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class DeviceCertificate:
+    """DeviceCertificate."""
+
+    cert_pem: Optional[str] = field(default=None, metadata=config(field_name="certPem"))
+    chain_pem: Optional[str] = field(
+        default=None, metadata=config(field_name="chainPem")
+    )
+    fingerprint: Optional[str] = field(
+        default=None, metadata=config(field_name="fingerprint")
+    )
+    expires: Optional[int] = field(default=None, metadata=config(field_name="expires"))
 
 
 @dataclass_json

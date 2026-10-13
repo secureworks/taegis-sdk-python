@@ -14,8 +14,6 @@ from typing import Any, Optional
 from dataclasses_json import config, dataclass_json
 
 
-
-
 class NotificationsOrderDirection(str, Enum):
     """NotificationsOrderDirection."""
 

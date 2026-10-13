@@ -12,10 +12,7 @@ import logging
 from typing import TYPE_CHECKING, Optional
 
 from taegis_sdk_python import GraphQLNoRowsInResultSetError
-from taegis_sdk_python.utils import (
-    build_output_string,
-    prepare_input,
-)
+from taegis_sdk_python.utils import build_output_string, prepare_input
 from taegis_sdk_python.services.users.types import *
 
 if TYPE_CHECKING:  # pragma: no cover
@@ -70,7 +67,7 @@ class TaegisSDKUsersQuery:
         page: Optional[int] = None,
         per_page: Optional[int] = None,
     ) -> list[TDRUser]:
-        """Search Users."""
+        """Search Users. Requests for TDRUser.is_mfa_reset_eligible are ignored; the field is returned as false."""
         endpoint = "tdrusers"
 
         result = self.service.execute_query(
@@ -97,7 +94,7 @@ class TaegisSDKUsersQuery:
         raise GraphQLNoRowsInResultSetError("for query tdrusers")
 
     def tdrusers_by_ids(self, user_ids: Optional[list[str]] = None) -> list[TDRUser]:
-        """Search users by id list. The list can contain a mixture of IDs or UserIDs."""
+        """Search users by id list. Requests for TDRUser.is_mfa_reset_eligible are ignored; the field is returned as false."""
         endpoint = "tdrusersByIDs"
 
         result = self.service.execute_query(
@@ -121,10 +118,10 @@ class TaegisSDKUsersQuery:
         user_ids: Optional[list[str]] = None,
         include_masked_related_users: Optional[bool] = None,
     ) -> list[SearchByIDsResponse]:
-        """ "
-        Search users by id list. The list can contain a mixture of IDs or UserIDs. Errors are reported individually for each ID.
+        """Search users by id list. The list can contain a mixture of IDs or UserIDs. Errors are reported individually for each ID.
         Search will be processed using the X-Tenant-Context header as a filter first. Subsequent searches will use role assignments
         for user IDs that have not been found until all users are retrieved or all role assignments are exhausted.
+        Requests for TDRUser.is_mfa_reset_eligible are ignored; the field is returned as false.
         """
         endpoint = "searchTDRUsersByIDs"
 
@@ -186,7 +183,7 @@ class TaegisSDKUsersQuery:
     def tdr_users_search(
         self, filters: Optional[TDRUsersSearchInput] = None
     ) -> TDRUsersSearchResults:
-        """Fast Search Users."""
+        """Fast Search Users. Requests for TDRUser.is_mfa_reset_eligible are ignored; the field is returned as false."""
         endpoint = "tdrUsersSearch"
 
         result = self.service.execute_query(

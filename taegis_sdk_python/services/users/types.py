@@ -33,6 +33,7 @@ class UsersAuthzAction(str, Enum):
     SEARCH = "search"
     UPDATE = "update"
     UPDATE_SCWX = "updateScwx"
+    ADMIN_UPDATE = "adminUpdate"
     DEACTIVATE = "deactivate"
     ASSIGN_INTERNAL = "assignInternal"
     VALIDATE_PIN = "validatePin"
@@ -43,6 +44,7 @@ class UsersAuthzAction(str, Enum):
     SET_MFA = "setMFA"
     REGISTER_USER = "registerUser"
     CREATE_PRE_REGISTERED_USER = "createPreRegisteredUser"
+    RESET_MFA = "resetMFA"
 
 
 class GraphQLQueryType(str, Enum):
@@ -321,6 +323,19 @@ class VerifyMFARegistrationInput:
     code: Optional[str] = field(default=None, metadata=config(field_name="code"))
     challenge_session: Optional[str] = field(
         default=None, metadata=config(field_name="challenge_session")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class VerifyCurrentUserMFARegistrationInput:
+    """VerifyCurrentUserMFARegistrationInput."""
+
+    ticket_id: Optional[str] = field(
+        default=None, metadata=config(field_name="ticket_id")
+    )
+    password: Optional[str] = field(
+        default=None, metadata=config(field_name="password")
     )
 
 
@@ -792,6 +807,9 @@ class AuthorizeCheckResponse:
     )
     id_: Optional[str] = field(default=None, metadata=config(field_name="id"))
     domain: Optional[str] = field(default=None, metadata=config(field_name="domain"))
+    is_mfa_reset_eligible: Optional[bool] = field(
+        default=None, metadata=config(field_name="is_mfa_reset_eligible")
+    )
     connection: Optional[AuthorizeCheckConnection] = field(
         default=None, metadata=config(field_name="connection")
     )
@@ -1018,6 +1036,9 @@ class TDRUser:
     )
     is_sophos_mdr: Optional[bool] = field(
         default=None, metadata=config(field_name="is_sophos_mdr")
+    )
+    is_mfa_reset_eligible: Optional[bool] = field(
+        default=None, metadata=config(field_name="is_mfa_reset_eligible")
     )
     tenants: Optional[list[TDRUserTenant]] = field(
         default=None,

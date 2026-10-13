@@ -679,6 +679,33 @@ class SetTenantLicenseCapabilitiesResult:
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
+class SetTenantNativeTaegisCapabilityInput:
+    """SetTenantNativeTaegisCapabilityInput."""
+
+    tenant_id: Optional[str] = field(
+        default=None, metadata=config(field_name="tenantID")
+    )
+    xdr_owned_by_taegis: Optional[bool] = field(
+        default=None, metadata=config(field_name="xdrOwnedByTaegis")
+    )
+    attempted_at: Optional[str] = field(
+        default=None, metadata=config(field_name="attemptedAt")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class SetTenantNativeTaegisCapabilityResult:
+    """SetTenantNativeTaegisCapabilityResult."""
+
+    tenant_id: Optional[str] = field(
+        default=None, metadata=config(field_name="tenantID")
+    )
+    success: Optional[bool] = field(default=None, metadata=config(field_name="success"))
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
 class RecordTenantLicenseCapabilitiesRefreshFailureInput:
     """RecordTenantLicenseCapabilitiesRefreshFailureInput."""
 
@@ -837,30 +864,13 @@ class VerifyRegisteredDomainInput:
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
-class TenantsLicenseLevelInput:
-    """TenantsLicenseLevelInput."""
-
-    tenant_ids: Optional[list[str]] = field(
-        default=None, metadata=config(field_name="tenantIds")
-    )
-    license_level: Optional[Union[LicenseLevel, TaegisEnum]] = field(
-        default=None,
-        metadata=config(
-            encoder=encode_enum,
-            decoder=lambda x: decode_enum(LicenseLevel, x),
-            field_name="licenseLevel",
-        ),
-    )
-
-
-@dataclass_json
-@dataclass(order=True, eq=True, frozen=True)
 class SetTenantMappingInput:
     """SetTenantMappingInput."""
 
     tenant_id: Optional[str] = field(
         default=None, metadata=config(field_name="tenantID")
     )
+    unmap: Optional[bool] = field(default=None, metadata=config(field_name="unmap"))
     sophos_account_id: Optional[str] = field(
         default=None, metadata=config(field_name="sophosAccountID")
     )

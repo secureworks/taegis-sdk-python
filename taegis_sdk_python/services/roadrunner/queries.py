@@ -12,10 +12,7 @@ import logging
 from typing import TYPE_CHECKING, Optional
 
 from taegis_sdk_python import GraphQLNoRowsInResultSetError
-from taegis_sdk_python.utils import (
-    build_output_string,
-    prepare_input,
-)
+from taegis_sdk_python.utils import build_output_string, prepare_input
 from taegis_sdk_python.services.roadrunner.types import *
 
 if TYPE_CHECKING:  # pragma: no cover
@@ -150,32 +147,6 @@ class TaegisSDKRoadrunnerQuery:
         if result.get(endpoint) is not None:
             return result.get(endpoint)
         raise GraphQLNoRowsInResultSetError("for query parserSchemas")
-
-    def directory(
-        self, filter_: Optional[DirectoryFilterInput] = None
-    ) -> list[Directory]:
-        """No developer notes."""
-        endpoint = "directory"
-
-        log.warning(
-            f"GraphQL Query `{endpoint}` is deprecated: 'Deprecated for MVP 10/2022 remove after suitable time if not used'"
-        )
-
-        result = self.service.execute_query(
-            endpoint=endpoint,
-            variables={
-                "filter": prepare_input(filter_),
-            },
-            output=build_output_string(
-                Directory,
-                exclude_deprecated_output=self.service.exclude_deprecated_output,
-            ),
-        )
-        if result.get(endpoint) is not None:
-            return Directory.schema().load(
-                [r or {} for r in result.get(endpoint)], many=True
-            )
-        raise GraphQLNoRowsInResultSetError("for query directory")
 
     def all_samples(self) -> list[Sample]:
         """No developer notes."""

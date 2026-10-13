@@ -159,6 +159,25 @@ class ContextSummarizerCacheOptions:
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
+class ContextSummarizerCaseSummary:
+    """ContextSummarizerCaseSummary."""
+
+    summary: Optional[str] = field(default=None, metadata=config(field_name="summary"))
+    cache_results: Optional[ContextSummarizerCacheResults] = field(
+        default=None, metadata=config(field_name="cacheResults")
+    )
+    output_format: Optional[Union[OutputFormat, TaegisEnum]] = field(
+        default=None,
+        metadata=config(
+            encoder=encode_enum,
+            decoder=lambda x: decode_enum(OutputFormat, x),
+            field_name="outputFormat",
+        ),
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
 class ContextSummarizerKeyFindings:
     """ContextSummarizerKeyFindings."""
 
@@ -181,10 +200,20 @@ class ContextSummarizerKeyFindings:
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
-class ContextSummarizerCaseSummary:
-    """ContextSummarizerCaseSummary."""
+class ContextSummarizerDetectionAnalysis:
+    """ContextSummarizerDetectionAnalysis."""
 
-    summary: Optional[str] = field(default=None, metadata=config(field_name="summary"))
+    analysis: Optional[str] = field(
+        default=None, metadata=config(field_name="analysis")
+    )
     cache_results: Optional[ContextSummarizerCacheResults] = field(
         default=None, metadata=config(field_name="cacheResults")
+    )
+    output_format: Optional[Union[OutputFormat, TaegisEnum]] = field(
+        default=None,
+        metadata=config(
+            encoder=encode_enum,
+            decoder=lambda x: decode_enum(OutputFormat, x),
+            field_name="outputFormat",
+        ),
     )

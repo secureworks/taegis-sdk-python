@@ -327,27 +327,6 @@ class TaegisSDKTenantsMutation:
             return Tenant.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for mutation disableTenantSupport")
 
-    def set_tenants_license_level(
-        self, input_: TenantsLicenseLevelInput
-    ) -> list[Tenant]:
-        """Set license level to the specified license level for tenant/s."""
-        endpoint = "setTenantsLicenseLevel"
-
-        result = self.service.execute_mutation(
-            endpoint=endpoint,
-            variables={
-                "input": prepare_input(input_),
-            },
-            output=build_output_string(
-                Tenant, exclude_deprecated_output=self.service.exclude_deprecated_output
-            ),
-        )
-        if result.get(endpoint) is not None:
-            return Tenant.schema().load(
-                [r or {} for r in result.get(endpoint)], many=True
-            )
-        raise GraphQLNoRowsInResultSetError("for mutation setTenantsLicenseLevel")
-
     def set_tenant_license_capabilities(
         self, input_: SetTenantLicenseCapabilitiesInput
     ) -> SetTenantLicenseCapabilitiesResult:
@@ -367,6 +346,28 @@ class TaegisSDKTenantsMutation:
         if result.get(endpoint) is not None:
             return SetTenantLicenseCapabilitiesResult.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for mutation setTenantLicenseCapabilities")
+
+    def set_tenant_native_taegis_capability(
+        self, input_: SetTenantNativeTaegisCapabilityInput
+    ) -> SetTenantNativeTaegisCapabilityResult:
+        """Set only the mapper-derived TAEGIS license capability, preserving all other capabilities."""
+        endpoint = "setTenantNativeTaegisCapability"
+
+        result = self.service.execute_mutation(
+            endpoint=endpoint,
+            variables={
+                "input": prepare_input(input_),
+            },
+            output=build_output_string(
+                SetTenantNativeTaegisCapabilityResult,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
+        )
+        if result.get(endpoint) is not None:
+            return SetTenantNativeTaegisCapabilityResult.from_dict(result.get(endpoint))
+        raise GraphQLNoRowsInResultSetError(
+            "for mutation setTenantNativeTaegisCapability"
+        )
 
     def record_tenant_license_capabilities_refresh_failure(
         self, input_: RecordTenantLicenseCapabilitiesRefreshFailureInput

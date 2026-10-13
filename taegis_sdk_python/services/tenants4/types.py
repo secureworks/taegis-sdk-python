@@ -212,6 +212,7 @@ class TenantLicenseCapability(str, Enum):
     AI_SECURITY = "AI_SECURITY"
     MANAGED_RISK = "MANAGED_RISK"
     SOPHOS_EMAIL = "SOPHOS_EMAIL"
+    TAEGIS = "TAEGIS"
 
 
 @dataclass_json
@@ -238,6 +239,12 @@ class MappedTenant:
     )
     hydrate_to: Optional[str] = field(
         default=None, metadata=config(field_name="hydrateTo")
+    )
+    created_at: Optional[str] = field(
+        default=None, metadata=config(field_name="createdAt")
+    )
+    updated_at: Optional[str] = field(
+        default=None, metadata=config(field_name="updatedAt")
     )
     last_refresh: Optional[str] = field(
         default=None, metadata=config(field_name="lastRefresh")

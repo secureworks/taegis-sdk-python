@@ -187,6 +187,9 @@ class SearchPartition:
     schema_type: Optional[str] = field(
         default=None, metadata=config(field_name="schemaType")
     )
+    over_threshold: Optional[bool] = field(
+        default=None, metadata=config(field_name="overThreshold")
+    )
     errors: Optional[list[str]] = field(
         default=None, metadata=config(field_name="errors")
     )
@@ -317,6 +320,9 @@ class SearchV2:
     urn: Optional[str] = field(default=None, metadata=config(field_name="urn"))
     history_id: Optional[str] = field(
         default=None, metadata=config(field_name="historyId")
+    )
+    over_threshold: Optional[bool] = field(
+        default=None, metadata=config(field_name="overThreshold")
     )
     errors: Optional[list[str]] = field(
         default=None, metadata=config(field_name="errors")

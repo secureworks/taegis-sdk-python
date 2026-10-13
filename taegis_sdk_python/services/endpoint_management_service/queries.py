@@ -12,10 +12,7 @@ import logging
 from typing import TYPE_CHECKING, Optional, Union
 
 from taegis_sdk_python import GraphQLNoRowsInResultSetError
-from taegis_sdk_python.utils import (
-    build_output_string,
-    prepare_input,
-)
+from taegis_sdk_python.utils import build_output_string, prepare_input
 from taegis_sdk_python._consts import TaegisEnum
 from taegis_sdk_python.services.endpoint_management_service.types import *
 

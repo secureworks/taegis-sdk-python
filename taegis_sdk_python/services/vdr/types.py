@@ -830,6 +830,7 @@ class VdrVulnerability:
     identity: Optional[str] = field(
         default=None, metadata=config(field_name="identity")
     )
+    ipv4: Optional[str] = field(default=None, metadata=config(field_name="ipv4"))
     is_verified: Optional[bool] = field(
         default=None, metadata=config(field_name="isVerified")
     )

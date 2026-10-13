@@ -1474,6 +1474,7 @@ class ThreatContextIntelixCreateFileSubmissionsInput:
     """ThreatContextIntelixCreateFileSubmissionsInput."""
 
     sha256: Optional[str] = field(default=None, metadata=config(field_name="sha256"))
+    alert_id: Optional[str] = field(default=None, metadata=config(field_name="alertId"))
     create_file_submissions: Optional[ThreatContextIntelixCreateFileSubmissions] = (
         field(default=None, metadata=config(field_name="createFileSubmissions"))
     )

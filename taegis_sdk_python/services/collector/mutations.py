@@ -533,3 +533,64 @@ class TaegisSDKCollectorMutation:
         if result.get(endpoint) is not None:
             return Network.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for mutation updateClusterNetwork")
+
+    def mint_enrollment_code(self, input_: MintEnrollmentCodeInput) -> EnrollmentCode:
+        """Mint a short-lived enrollment code bound to a tenant and subject. Warm renewal: a device holding a
+        valid leaf mints one over mTLS and the gateway supplies the verified tenantId and subject. Returns
+        the plaintext code exactly once; only a hash is persisted."""
+        endpoint = "mintEnrollmentCode"
+
+        result = self.service.execute_mutation(
+            endpoint=endpoint,
+            variables={
+                "input": prepare_input(input_),
+            },
+            output=build_output_string(
+                EnrollmentCode,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
+        )
+        if result.get(endpoint) is not None:
+            return EnrollmentCode.from_dict(result.get(endpoint))
+        raise GraphQLNoRowsInResultSetError("for mutation mintEnrollmentCode")
+
+    def enroll_device(self, input_: EnrollDeviceInput) -> DeviceCertificate:
+        """The single signing path for cold (first-boot) and warm (renewal) enrollment. Validates the code
+        (unexpired, unconsumed), requests signing with the code's tenant and subject, and binds the first
+        subject pki-svc reports for a successfully signed certificate. Later attempts must report that
+        same subject. Returns the cert + chain (never a private key). The code is consumed at confirm, not
+        here, so a signing failure leaves it open within the issuance-attempt budget."""
+        endpoint = "enrollDevice"
+
+        result = self.service.execute_mutation(
+            endpoint=endpoint,
+            variables={
+                "input": prepare_input(input_),
+            },
+            output=build_output_string(
+                DeviceCertificate,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
+        )
+        if result.get(endpoint) is not None:
+            return DeviceCertificate.from_dict(result.get(endpoint))
+        raise GraphQLNoRowsInResultSetError("for mutation enrollDevice")
+
+    def confirm_certificate(self, input_: ConfirmCertificateInput) -> bool:
+        """Confirm a newly enrolled/renewed certificate. Checks the fingerprint's certificate against the
+        code's tenant and subject, then calls pki-svc activateClientCertificate to promote the confirmed
+        cert and revoke the subject's other outstanding certs. The code is consumed only after activation
+        succeeds; until confirm the old cert stays valid, so a failed confirm never strands the device.
+        """
+        endpoint = "confirmCertificate"
+
+        result = self.service.execute_mutation(
+            endpoint=endpoint,
+            variables={
+                "input": prepare_input(input_),
+            },
+            output="",
+        )
+        if result.get(endpoint) is not None:
+            return result.get(endpoint)
+        raise GraphQLNoRowsInResultSetError("for mutation confirmCertificate")

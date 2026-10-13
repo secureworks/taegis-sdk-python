@@ -12,10 +12,7 @@ import logging
 from typing import TYPE_CHECKING
 
 from taegis_sdk_python import GraphQLNoRowsInResultSetError
-from taegis_sdk_python.utils import (
-    build_output_string,
-    prepare_input,
-)
+from taegis_sdk_python.utils import build_output_string, prepare_input
 from taegis_sdk_python.services.detector_registry.types import *
 
 if TYPE_CHECKING:  # pragma: no cover

@@ -40,6 +40,9 @@ class SortByFieldInput(str, Enum):
     THREAT_GROUP_LAST_KNOWN_ACTIVITY = "threat_group_last_known_activity"
     REPORT_NAME = "report_name"
     REPORT_PUBLISHED = "report_published"
+    INDICATOR_VALUE = "indicator_value"
+    INDICATOR_LAST_OBSERVATION = "indicator_last_observation"
+    INDICATOR_DATE_ADDED = "indicator_date_added"
 
 
 class ThreatFacetObject(str, Enum):
@@ -49,6 +52,7 @@ class ThreatFacetObject(str, Enum):
     MALWARE = "malware"
     REPORT = "report"
     ALL = "all"
+    INDICATOR = "indicator"
 
 
 class ThreatParentType(str, Enum):
@@ -603,6 +607,98 @@ class ThreatAnalysis:
     )
     report_id: Optional[str] = field(
         default=None, metadata=config(field_name="ReportID")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class ThreatLinkedEntities:
+    """ThreatLinkedEntities."""
+
+    malware: Optional[list[str]] = field(
+        default=None, metadata=config(field_name="malware")
+    )
+    threat_group: Optional[list[str]] = field(
+        default=None, metadata=config(field_name="threatGroup")
+    )
+    campaign: Optional[list[str]] = field(
+        default=None, metadata=config(field_name="campaign")
+    )
+    report: Optional[list[str]] = field(
+        default=None, metadata=config(field_name="report")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class ThreatObservationGrouping:
+    """ThreatObservationGrouping."""
+
+    data_source: Optional[str] = field(
+        default=None, metadata=config(field_name="data_source")
+    )
+    malware: Optional[str] = field(default=None, metadata=config(field_name="malware"))
+    threat_group: Optional[str] = field(
+        default=None, metadata=config(field_name="threat_group")
+    )
+    campaign: Optional[str] = field(
+        default=None, metadata=config(field_name="campaign")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class ThreatObservationTags:
+    """ThreatObservationTags."""
+
+    malware: Optional[list[str]] = field(
+        default=None, metadata=config(field_name="malware")
+    )
+    threat_group: Optional[list[str]] = field(
+        default=None, metadata=config(field_name="threat_group")
+    )
+    campaign: Optional[list[str]] = field(
+        default=None, metadata=config(field_name="campaign")
+    )
+    credibility: Optional[list[str]] = field(
+        default=None, metadata=config(field_name="credibility")
+    )
+    data_feed_type: Optional[list[str]] = field(
+        default=None, metadata=config(field_name="data_feed_type")
+    )
+    data_source: Optional[list[str]] = field(
+        default=None, metadata=config(field_name="data_source")
+    )
+    http_method: Optional[list[str]] = field(
+        default=None, metadata=config(field_name="http_method")
+    )
+    indicator_type: Optional[list[str]] = field(
+        default=None, metadata=config(field_name="indicator_type")
+    )
+    infrastructure_type: Optional[list[str]] = field(
+        default=None, metadata=config(field_name="infrastructure_type")
+    )
+    port: Optional[list[str]] = field(default=None, metadata=config(field_name="port"))
+    protocol: Optional[list[str]] = field(
+        default=None, metadata=config(field_name="protocol")
+    )
+    source_type: Optional[list[str]] = field(
+        default=None, metadata=config(field_name="source_type")
+    )
+    threat_intelligence_author: Optional[list[str]] = field(
+        default=None, metadata=config(field_name="threat_intelligence_author")
+    )
+    threat_intelligence_publication: Optional[list[str]] = field(
+        default=None, metadata=config(field_name="threat_intelligence_publication")
+    )
+    threat_intelligence_url: Optional[list[str]] = field(
+        default=None, metadata=config(field_name="threat_intelligence_url")
+    )
+    tims2_investigation: Optional[list[str]] = field(
+        default=None, metadata=config(field_name="tims2_investigation")
+    )
+    workflow: Optional[list[str]] = field(
+        default=None, metadata=config(field_name="workflow")
     )
 
 
@@ -1535,6 +1631,37 @@ class SortByInput:
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
+class ThreatIndicatorObservation:
+    """ThreatIndicatorObservation."""
+
+    observation_instances: Optional[int] = field(
+        default=None, metadata=config(field_name="observation_instances")
+    )
+    credibility: Optional[str] = field(
+        default=None, metadata=config(field_name="credibility")
+    )
+    valid_from: Optional[str] = field(
+        default=None, metadata=config(field_name="valid_from")
+    )
+    last_observation: Optional[str] = field(
+        default=None, metadata=config(field_name="last_observation")
+    )
+    detection_valid_until: Optional[str] = field(
+        default=None, metadata=config(field_name="detection_valid_until")
+    )
+    enrichment_valid_until: Optional[str] = field(
+        default=None, metadata=config(field_name="enrichment_valid_until")
+    )
+    observation_grouping: Optional[ThreatObservationGrouping] = field(
+        default=None, metadata=config(field_name="observation_grouping")
+    )
+    tags: Optional[ThreatObservationTags] = field(
+        default=None, metadata=config(field_name="tags")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
 class ThreatIdentityInput:
     """ThreatIdentityInput."""
 
@@ -1715,6 +1842,21 @@ class ThreatWhereInput:
     )
     text_search: Optional[str] = field(
         default=None, metadata=config(field_name="textSearch")
+    )
+    credibility: Optional[str] = field(
+        default=None, metadata=config(field_name="credibility")
+    )
+    credibility_contains: Optional[str] = field(
+        default=None, metadata=config(field_name="credibility_contains")
+    )
+    indicator_type: Optional[str] = field(
+        default=None, metadata=config(field_name="indicatorType")
+    )
+    indicator_type_contains: Optional[str] = field(
+        default=None, metadata=config(field_name="indicatorType_contains")
+    )
+    watchlist: Optional[str] = field(
+        default=None, metadata=config(field_name="watchlist")
     )
     and_: Optional[list["ThreatWhereInput"]] = field(
         default=None, metadata=config(field_name="and")
@@ -2256,6 +2398,28 @@ class ThreatIndicator:
     no_results: Optional[bool] = field(
         default=None, metadata=config(field_name="noResults")
     )
+    credibility: Optional[str] = field(
+        default=None, metadata=config(field_name="credibility")
+    )
+    suitable_for_detection: Optional[bool] = field(
+        default=None, metadata=config(field_name="suitable_for_detection")
+    )
+    context: Optional[str] = field(default=None, metadata=config(field_name="context"))
+    observation_groupings: Optional[int] = field(
+        default=None, metadata=config(field_name="observation_groupings")
+    )
+    observation_instances: Optional[int] = field(
+        default=None, metadata=config(field_name="observation_instances")
+    )
+    last_observation: Optional[str] = field(
+        default=None, metadata=config(field_name="last_observation")
+    )
+    detection_valid_until: Optional[str] = field(
+        default=None, metadata=config(field_name="detection_valid_until")
+    )
+    enrichment_valid_until: Optional[str] = field(
+        default=None, metadata=config(field_name="enrichment_valid_until")
+    )
     type_: Optional[Union[ThreatObjectType, TaegisEnum]] = field(
         default=None,
         metadata=config(
@@ -2303,6 +2467,12 @@ class ThreatIndicator:
     location: Optional[ThreatLocation] = field(
         default=None, metadata=config(field_name="location")
     )
+    linked_entities: Optional[ThreatLinkedEntities] = field(
+        default=None, metadata=config(field_name="linked_entities")
+    )
+    observations: Optional[list[ThreatIndicatorObservation]] = field(
+        default=None, metadata=config(field_name="observations")
+    )
 
 
 ThreatResult = Union[
@@ -2342,10 +2512,24 @@ class ThreatIdentityRelationship:
     """ThreatIdentityRelationship."""
 
     identity: Optional[ThreatIdentity] = field(
-        default=None, metadata=config(field_name="identity")
+        default=None,
+        metadata=config(
+            metadata={
+                "deprecated": True,
+                "deprecation_reason": "Legacy ADB identity metadata is being retired.",
+            },
+            field_name="identity",
+        ),
     )
     relationship: Optional[ThreatRelationship] = field(
-        default=None, metadata=config(field_name="relationship")
+        default=None,
+        metadata=config(
+            metadata={
+                "deprecated": True,
+                "deprecation_reason": "Legacy ADB identity relationship metadata is being retired.",
+            },
+            field_name="relationship",
+        ),
     )
 
 
@@ -2358,7 +2542,14 @@ class ThreatReportRelationship:
         default=None, metadata=config(field_name="report")
     )
     relationship: Optional[ThreatRelationship] = field(
-        default=None, metadata=config(field_name="relationship")
+        default=None,
+        metadata=config(
+            metadata={
+                "deprecated": True,
+                "deprecation_reason": "Legacy TIMS relationship metadata is being retired; use the sibling field for linked-object data.",
+            },
+            field_name="relationship",
+        ),
     )
 
 
@@ -2371,7 +2562,14 @@ class ThreatMalwareRelationship:
         default=None, metadata=config(field_name="malware")
     )
     relationship: Optional[ThreatRelationship] = field(
-        default=None, metadata=config(field_name="relationship")
+        default=None,
+        metadata=config(
+            metadata={
+                "deprecated": True,
+                "deprecation_reason": "Legacy TIMS relationship metadata is being retired; use the sibling field for linked-object data.",
+            },
+            field_name="relationship",
+        ),
     )
 
 
@@ -2384,23 +2582,14 @@ class ThreatGroupRelationship:
         default=None, metadata=config(field_name="group")
     )
     relationship: Optional[ThreatRelationship] = field(
-        default=None, metadata=config(field_name="relationship")
-    )
-
-
-@dataclass_json
-@dataclass(order=True, eq=True, frozen=True)
-class ThreatObjectIntelligence:
-    """ThreatObjectIntelligence."""
-
-    malwares: Optional[list[ThreatMalware]] = field(
-        default=None, metadata=config(field_name="malwares")
-    )
-    groups: Optional[list[ThreatGroup]] = field(
-        default=None, metadata=config(field_name="groups")
-    )
-    reports: Optional[list[ThreatReport]] = field(
-        default=None, metadata=config(field_name="reports")
+        default=None,
+        metadata=config(
+            metadata={
+                "deprecated": True,
+                "deprecation_reason": "Legacy TIMS relationship metadata is being retired; use the sibling field for linked-object data.",
+            },
+            field_name="relationship",
+        ),
     )
 
 
@@ -2439,6 +2628,25 @@ class ThreatMalwareIntelligence:
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
+class ThreatObjectIntelligence:
+    """ThreatObjectIntelligence."""
+
+    malwares: Optional[list[ThreatMalware]] = field(
+        default=None, metadata=config(field_name="malwares")
+    )
+    groups: Optional[list[ThreatGroup]] = field(
+        default=None, metadata=config(field_name="groups")
+    )
+    reports: Optional[list[ThreatReport]] = field(
+        default=None, metadata=config(field_name="reports")
+    )
+    indicators: Optional[list[ThreatIndicator]] = field(
+        default=None, metadata=config(field_name="indicators")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
 class ThreatIndicatorIntelligence:
     """ThreatIndicatorIntelligence."""
 
@@ -2446,7 +2654,14 @@ class ThreatIndicatorIntelligence:
         default=None, metadata=config(field_name="indicator")
     )
     identities: Optional[list[ThreatIdentityRelationship]] = field(
-        default=None, metadata=config(field_name="identities")
+        default=None,
+        metadata=config(
+            metadata={
+                "deprecated": True,
+                "deprecation_reason": "Legacy ADB list-source metadata is being retired.",
+            },
+            field_name="identities",
+        ),
     )
     reports: Optional[list[ThreatReportRelationship]] = field(
         default=None, metadata=config(field_name="reports")
@@ -2458,7 +2673,14 @@ class ThreatIndicatorIntelligence:
         default=None, metadata=config(field_name="groups")
     )
     watchlists: Optional[list[ThreatRelationship]] = field(
-        default=None, metadata=config(field_name="watchlists")
+        default=None,
+        metadata=config(
+            metadata={
+                "deprecated": True,
+                "deprecation_reason": "Legacy ADB watchlist relationships are being retired.",
+            },
+            field_name="watchlists",
+        ),
     )
 
 

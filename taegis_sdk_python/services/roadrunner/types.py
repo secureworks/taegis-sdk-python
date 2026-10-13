@@ -155,16 +155,6 @@ class Parser:
         default=None, metadata=config(field_name="parentId")
     )
     code: Optional[str] = field(default=None, metadata=config(field_name="code"))
-    directory_id: Optional[int] = field(
-        default=None,
-        metadata=config(
-            metadata={
-                "deprecated": True,
-                "deprecation_reason": "Deprecated for MVP 10/2022 remove after suitable time if not used",
-            },
-            field_name="directoryId",
-        ),
-    )
     disabled: Optional[bool] = field(
         default=None, metadata=config(field_name="disabled")
     )
@@ -208,58 +198,11 @@ class UpdatedParserInput:
     parent_id: Optional[int] = field(
         default=None, metadata=config(field_name="parentId")
     )
-    directory_id: Optional[int] = field(
-        default=None,
-        metadata=config(
-            metadata={
-                "deprecated": True,
-                "deprecation_reason": "Deprecated for MVP 10/2022 remove after suitable time if not used",
-            },
-            field_name="directoryId",
-        ),
-    )
     disabled: Optional[bool] = field(
         default=None, metadata=config(field_name="disabled")
     )
     override_global: Optional[bool] = field(
         default=None, metadata=config(field_name="overrideGlobal")
-    )
-
-
-@dataclass_json
-@dataclass(order=True, eq=True, frozen=True)
-class Directory:
-    """Directory."""
-
-    id_: Optional[int] = field(default=None, metadata=config(field_name="id"))
-    tenant_id: Optional[str] = field(
-        default=None, metadata=config(field_name="tenantId")
-    )
-    name: Optional[str] = field(default=None, metadata=config(field_name="name"))
-    parent_id: Optional[int] = field(
-        default=None, metadata=config(field_name="parentId")
-    )
-
-
-@dataclass_json
-@dataclass(order=True, eq=True, frozen=True)
-class DirectoryInput:
-    """DirectoryInput."""
-
-    name: Optional[str] = field(default=None, metadata=config(field_name="name"))
-    parent_id: Optional[int] = field(
-        default=None, metadata=config(field_name="parentId")
-    )
-
-
-@dataclass_json
-@dataclass(order=True, eq=True, frozen=True)
-class UpdatedDirectoryInput:
-    """UpdatedDirectoryInput."""
-
-    name: Optional[str] = field(default=None, metadata=config(field_name="name"))
-    parent_id: Optional[int] = field(
-        default=None, metadata=config(field_name="parentId")
     )
 
 
@@ -287,14 +230,6 @@ class SchemaResult:
 @dataclass(order=True, eq=True, frozen=True)
 class ParserFilterInput:
     """ParserFilterInput."""
-
-    id_: Optional[int] = field(default=None, metadata=config(field_name="id"))
-
-
-@dataclass_json
-@dataclass(order=True, eq=True, frozen=True)
-class DirectoryFilterInput:
-    """DirectoryFilterInput."""
 
     id_: Optional[int] = field(default=None, metadata=config(field_name="id"))
 
@@ -384,16 +319,6 @@ class ParserInput:
     code: Optional[str] = field(default=None, metadata=config(field_name="code"))
     parent_id: Optional[int] = field(
         default=None, metadata=config(field_name="parentId")
-    )
-    directory_id: Optional[int] = field(
-        default=None,
-        metadata=config(
-            metadata={
-                "deprecated": True,
-                "deprecation_reason": "Deprecated for MVP 10/2022 remove after suitable time if not used",
-            },
-            field_name="directoryId",
-        ),
     )
     disabled: Optional[bool] = field(
         default=None, metadata=config(field_name="disabled")

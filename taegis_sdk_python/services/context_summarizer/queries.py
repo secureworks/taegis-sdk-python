@@ -12,10 +12,7 @@ import logging
 from typing import TYPE_CHECKING, Optional, Union
 
 from taegis_sdk_python import GraphQLNoRowsInResultSetError
-from taegis_sdk_python.utils import (
-    build_output_string,
-    prepare_input,
-)
+from taegis_sdk_python.utils import build_output_string, prepare_input
 from taegis_sdk_python._consts import TaegisEnum
 from taegis_sdk_python.services.context_summarizer.types import *
 
@@ -145,9 +142,14 @@ class TaegisSDKContextSummarizerQuery:
         alert_id: str,
         fetch_unconditionally: Optional[bool] = None,
         follow_up_prompt: Optional[str] = None,
+        output_format: Optional[Union[OutputFormat, TaegisEnum]] = None,
     ) -> str:
         """Derive an analysis of the alert from its overall content."""
         endpoint = "generativeAIAlertAnalysis"
+
+        log.warning(
+            f"GraphQL Query `{endpoint}` is deprecated: 'Use generativeAIDetectionAnalysis instead'"
+        )
 
         result = self.service.execute_query(
             endpoint=endpoint,
@@ -155,6 +157,7 @@ class TaegisSDKContextSummarizerQuery:
                 "alertId": prepare_input(alert_id),
                 "fetchUnconditionally": prepare_input(fetch_unconditionally),
                 "followUpPrompt": prepare_input(follow_up_prompt),
+                "outputFormat": prepare_input(output_format),
             },
             output="",
         )
@@ -162,10 +165,38 @@ class TaegisSDKContextSummarizerQuery:
             return result.get(endpoint)
         raise GraphQLNoRowsInResultSetError("for query generativeAIAlertAnalysis")
 
+    def generative_ai_detection_analysis(
+        self,
+        detection_id: str,
+        cache_options: Optional[ContextSummarizerCacheOptions] = None,
+        follow_up_prompt: Optional[str] = None,
+        output_format: Optional[Union[OutputFormat, TaegisEnum]] = None,
+    ) -> ContextSummarizerDetectionAnalysis:
+        """Derive an analysis of the detection from its overall content."""
+        endpoint = "generativeAIDetectionAnalysis"
+
+        result = self.service.execute_query(
+            endpoint=endpoint,
+            variables={
+                "detectionId": prepare_input(detection_id),
+                "cacheOptions": prepare_input(cache_options),
+                "followUpPrompt": prepare_input(follow_up_prompt),
+                "outputFormat": prepare_input(output_format),
+            },
+            output=build_output_string(
+                ContextSummarizerDetectionAnalysis,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
+        )
+        if result.get(endpoint) is not None:
+            return ContextSummarizerDetectionAnalysis.from_dict(result.get(endpoint))
+        raise GraphQLNoRowsInResultSetError("for query generativeAIDetectionAnalysis")
+
     def generative_ai_case_summary(
         self,
         case_id: str,
         cache_options: Optional[ContextSummarizerCacheOptions] = None,
+        output_format: Optional[Union[OutputFormat, TaegisEnum]] = None,
     ) -> ContextSummarizerCaseSummary:
         """Generate a summary of a Case(formerly, Investigation) based on analyses of its Alerts."""
         endpoint = "generativeAICaseSummary"
@@ -175,6 +206,7 @@ class TaegisSDKContextSummarizerQuery:
             variables={
                 "caseId": prepare_input(case_id),
                 "cacheOptions": prepare_input(cache_options),
+                "outputFormat": prepare_input(output_format),
             },
             output=build_output_string(
                 ContextSummarizerCaseSummary,

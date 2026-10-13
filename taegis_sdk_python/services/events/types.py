@@ -169,6 +169,9 @@ class EventFetchOptions:
     include_alerts_data: Optional[bool] = field(
         default=None, metadata=config(field_name="includeAlertsData")
     )
+    include_detection_ids: Optional[bool] = field(
+        default=None, metadata=config(field_name="includeDetectionIds")
+    )
     include_mitre_attack_info_data: Optional[bool] = field(
         default=None, metadata=config(field_name="includeMitreAttackInfoData")
     )
