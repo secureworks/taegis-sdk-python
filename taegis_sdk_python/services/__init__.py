@@ -81,6 +81,7 @@ from taegis_sdk_python.services.tenant_profiles import TenantProfilesService
 from taegis_sdk_python.services.tenants import TenantsService
 from taegis_sdk_python.services.tenants4 import Tenants4Service
 from taegis_sdk_python.services.threat import ThreatService
+from taegis_sdk_python.services.threat_context import ThreatContextService
 from taegis_sdk_python.services.threat_publications import ThreatPublicationsService
 from taegis_sdk_python.services.threat_score import ThreatScoreService
 from taegis_sdk_python.services.trigger_action import TriggerActionService
@@ -258,6 +259,7 @@ class GraphQLService:
         self._tenants = None
         self._tenants4 = None
         self._threat = None
+        self._threat_context = None
         self._threat_publications = None
         self._threat_score = None
         self._trigger_action = None
@@ -907,6 +909,13 @@ class GraphQLService:
         if not self._threat:
             self._threat = ThreatService(self)
         return self._threat
+
+    @property
+    def threat_context(self):
+        """Threat Context Service Endpoint."""
+        if not self._threat_context:
+            self._threat_context = ThreatContextService(self)
+        return self._threat_context
 
     @property
     def threat_publications(self):

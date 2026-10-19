@@ -29,6 +29,7 @@ def events_search(
     *,
     options: Optional[EventQueryOptions] = None,
     caller_name: str = "Taegis SDK Commons",
+    query_source: str = "taegis-sdk-commons"
 ) -> list[EventQueryResults]:
     """Taegis Events search."""
     if not options:
@@ -44,7 +45,7 @@ def events_search(
     result = service.events.subscription.event_query(
         query=query,
         options=options,
-        metadata={"callerName": caller_name},
+        metadata={"callerName": caller_name, "querySource": query_source},
     )
     results.append(result)
     next_page = get_next_page(result)
