@@ -64,22 +64,28 @@ def filter_not_in(value: list[str], field_name: str):
     return f"{field_name} !IN ({in_})"
 
 
-def filter_regex(value: list[str], field_name: str, separator="|"):
+def filter_regex(value: list[str], field_name: str, separator="|", escape=True):
     """Format values for Taegis QL MATCHES_REGEX statement."""
     if not isinstance(value, list):
         raise TypeError("Input is not list.")
 
-    pattern = separator.join([re.escape(rf"{item}") for item in value])
+    if escape:
+        pattern = separator.join([re.escape(item) for item in value])
+    else:
+        pattern = separator.join(value)
 
     return f"{field_name} MATCHES_REGEX '{pattern}'"
 
 
-def filter_not_regex(value: list[str], field_name: str, separator="|"):
+def filter_not_regex(value: list[str], field_name: str, separator="|", escape=True):
     """Format values for Taegis QL !MATCHES_REGEX statement."""
     if not isinstance(value, list):
         raise TypeError("Input is not list.")
 
-    pattern = separator.join([re.escape(rf"{item}") for item in value])
+    if escape:
+        pattern = separator.join([re.escape(item) for item in value])
+    else:
+        pattern = separator.join(value)
 
     return f"{field_name} !MATCHES_REGEX '{pattern}'"
 

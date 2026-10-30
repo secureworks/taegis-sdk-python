@@ -28,6 +28,13 @@ class languageType(str, Enum):
     FR_FR = "FR_FR"
 
 
+class PublicationOrderBy(str, Enum):
+    """PublicationOrderBy."""
+
+    CREATED_TIMESTAMP = "CREATED_TIMESTAMP"
+    UPDATED_TIMESTAMP = "UPDATED_TIMESTAMP"
+
+
 class ContentFormat(str, Enum):
     """ContentFormat."""
 

@@ -334,6 +334,9 @@ class VerifyCurrentUserMFARegistrationInput:
     ticket_id: Optional[str] = field(
         default=None, metadata=config(field_name="ticket_id")
     )
+    is_registration: Optional[bool] = field(
+        default=None, metadata=config(field_name="is_registration")
+    )
     password: Optional[str] = field(
         default=None, metadata=config(field_name="password")
     )

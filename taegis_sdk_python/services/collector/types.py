@@ -53,6 +53,14 @@ class RBACAction(str, Enum):
     CONFIRMCERTIFICATE = "CONFIRMCERTIFICATE"
 
 
+class ClusterRemoteAssistanceGrantStatus(str, Enum):
+    """ClusterRemoteAssistanceGrantStatus."""
+
+    ACTIVE = "ACTIVE"
+    REVOKED = "REVOKED"
+    EXPIRED = "EXPIRED"
+
+
 class DayType(str, Enum):
     """DayType."""
 
@@ -91,6 +99,30 @@ class ImageType(str, Enum):
     AZURE = "AZURE"
     GCP = "GCP"
     QCOW2 = "QCOW2"
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class EnableClusterRemoteAssistanceInput:
+    """EnableClusterRemoteAssistanceInput."""
+
+    cluster_node_name: Optional[str] = field(
+        default=None, metadata=config(field_name="clusterNodeName")
+    )
+    duration_hours: Optional[int] = field(
+        default=None, metadata=config(field_name="durationHours")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class RevokeClusterRemoteAssistanceInput:
+    """RevokeClusterRemoteAssistanceInput."""
+
+    cluster_node_name: Optional[str] = field(
+        default=None, metadata=config(field_name="clusterNodeName")
+    )
+    grant_id: Optional[str] = field(default=None, metadata=config(field_name="grantId"))
 
 
 @dataclass_json
@@ -814,6 +846,57 @@ class DeviceCertificate:
         default=None, metadata=config(field_name="fingerprint")
     )
     expires: Optional[int] = field(default=None, metadata=config(field_name="expires"))
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class ClusterRemoteAssistanceGrant:
+    """ClusterRemoteAssistanceGrant."""
+
+    grant_id: Optional[str] = field(default=None, metadata=config(field_name="grantId"))
+    cluster_node_name: Optional[str] = field(
+        default=None, metadata=config(field_name="clusterNodeName")
+    )
+    tenant_id: Optional[str] = field(
+        default=None, metadata=config(field_name="tenantId")
+    )
+    kind: Optional[str] = field(default=None, metadata=config(field_name="kind"))
+    created_at: Optional[str] = field(
+        default=None, metadata=config(field_name="createdAt")
+    )
+    expires_at: Optional[str] = field(
+        default=None, metadata=config(field_name="expiresAt")
+    )
+    revoked_at: Optional[str] = field(
+        default=None, metadata=config(field_name="revokedAt")
+    )
+    created_by_customer_user_id: Optional[str] = field(
+        default=None, metadata=config(field_name="createdByCustomerUserId")
+    )
+    revoked_by_customer_user_id: Optional[str] = field(
+        default=None, metadata=config(field_name="revokedByCustomerUserId")
+    )
+    status: Optional[Union[ClusterRemoteAssistanceGrantStatus, TaegisEnum]] = field(
+        default=None,
+        metadata=config(
+            encoder=encode_enum,
+            decoder=lambda x: decode_enum(ClusterRemoteAssistanceGrantStatus, x),
+            field_name="status",
+        ),
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class EnableClusterRemoteAssistancePayload:
+    """EnableClusterRemoteAssistancePayload."""
+
+    remote_assistance_token: Optional[str] = field(
+        default=None, metadata=config(field_name="remoteAssistanceToken")
+    )
+    grant: Optional[ClusterRemoteAssistanceGrant] = field(
+        default=None, metadata=config(field_name="grant")
+    )
 
 
 @dataclass_json

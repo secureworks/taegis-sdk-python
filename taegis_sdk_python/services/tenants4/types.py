@@ -70,6 +70,13 @@ class TenantEnvironment(str, Enum):
     PILOT_QUEBEC = "PILOT_QUEBEC"
 
 
+class TenantManagement(str, Enum):
+    """TenantManagement."""
+
+    PARTNER = "PARTNER"
+    ORGANIZATION = "ORGANIZATION"
+
+
 class TenantResultOrder(str, Enum):
     """TenantResultOrder."""
 
@@ -401,6 +408,40 @@ class RequestTenantContext:
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
+class TenantRelationships:
+    """TenantRelationships."""
+
+    partner_tenant_id: Optional[str] = field(
+        default=None, metadata=config(field_name="partnerTenantID")
+    )
+    partner_uuid: Optional[str] = field(
+        default=None, metadata=config(field_name="partnerUUID")
+    )
+    partner_name: Optional[str] = field(
+        default=None, metadata=config(field_name="partnerName")
+    )
+    organization_tenant_id: Optional[str] = field(
+        default=None, metadata=config(field_name="organizationTenantID")
+    )
+    organization_uuid: Optional[str] = field(
+        default=None, metadata=config(field_name="organizationUUID")
+    )
+    organization_name: Optional[str] = field(
+        default=None, metadata=config(field_name="organizationName")
+    )
+    primary: Optional[bool] = field(default=None, metadata=config(field_name="primary"))
+    managed: Optional[list[Union[TenantManagement, TaegisEnum]]] = field(
+        default=None,
+        metadata=config(
+            encoder=encode_enum,
+            decoder=lambda x: decode_enum(TenantManagement, x),
+            field_name="managed",
+        ),
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
 class RetentionPolicy:
     """RetentionPolicy."""
 
@@ -644,6 +685,9 @@ class TenantV4:
                 field_name="licenseCapabilities",
             ),
         )
+    )
+    tenant_relationships: Optional[TenantRelationships] = field(
+        default=None, metadata=config(field_name="tenantRelationships")
     )
 
 

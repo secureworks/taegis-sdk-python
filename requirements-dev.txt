@@ -1,2 +1,2 @@
-pylint==3.2.3
+pylint
 black

@@ -744,6 +744,35 @@ class Collection:
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
+class EntityApplicationSnapshot:
+    """EntityApplicationSnapshot."""
+
+    property_type: Optional[str] = field(
+        default=None, metadata=config(field_name="property_type")
+    )
+    app_id: Optional[str] = field(default=None, metadata=config(field_name="app_id"))
+    app_name: Optional[str] = field(
+        default=None, metadata=config(field_name="app_name")
+    )
+    app_type: Optional[str] = field(
+        default=None, metadata=config(field_name="app_type")
+    )
+    app_vendor: Optional[str] = field(
+        default=None, metadata=config(field_name="app_vendor")
+    )
+    app_version: Optional[str] = field(
+        default=None, metadata=config(field_name="app_version")
+    )
+    file_path: Optional[str] = field(
+        default=None, metadata=config(field_name="file_path")
+    )
+    full_url: Optional[str] = field(
+        default=None, metadata=config(field_name="full_url")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
 class EntityAuthDomainSnapshot:
     """EntityAuthDomainSnapshot."""
 
@@ -922,6 +951,15 @@ class EntityDomainNameSnapshot:
     domain_name: Optional[str] = field(
         default=None, metadata=config(field_name="domain_name")
     )
+    threat_intel_hits_csv: Optional[str] = field(
+        default=None, metadata=config(field_name="threat_intel_hits_csv")
+    )
+    threat_intel_score: Optional[float] = field(
+        default=None, metadata=config(field_name="threat_intel_score")
+    )
+    threat_intel_updated_at_usec: Optional[int] = field(
+        default=None, metadata=config(field_name="threat_intel_updated_at_usec")
+    )
 
 
 @dataclass_json
@@ -1035,6 +1073,15 @@ class EntityFileHashSnapshot:
     hash_value: Optional[str] = field(
         default=None, metadata=config(field_name="hash_value")
     )
+    threat_intel_hits_csv: Optional[str] = field(
+        default=None, metadata=config(field_name="threat_intel_hits_csv")
+    )
+    threat_intel_score: Optional[float] = field(
+        default=None, metadata=config(field_name="threat_intel_score")
+    )
+    threat_intel_updated_at_usec: Optional[int] = field(
+        default=None, metadata=config(field_name="threat_intel_updated_at_usec")
+    )
 
 
 @dataclass_json
@@ -1079,6 +1126,9 @@ class EntityHostSnapshot:
     )
     sensor_type: Optional[str] = field(
         default=None, metadata=config(field_name="sensor_type")
+    )
+    serial_number: Optional[str] = field(
+        default=None, metadata=config(field_name="serial_number")
     )
     system_type: Optional[str] = field(
         default=None, metadata=config(field_name="system_type")
@@ -1139,6 +1189,15 @@ class EntityIpAddressSnapshot:
     )
     ip_geo_longitude: Optional[float] = field(
         default=None, metadata=config(field_name="ip_geo_longitude")
+    )
+    threat_intel_hits_csv: Optional[str] = field(
+        default=None, metadata=config(field_name="threat_intel_hits_csv")
+    )
+    threat_intel_score: Optional[float] = field(
+        default=None, metadata=config(field_name="threat_intel_score")
+    )
+    threat_intel_updated_at_usec: Optional[int] = field(
+        default=None, metadata=config(field_name="threat_intel_updated_at_usec")
     )
 
 
@@ -1901,6 +1960,7 @@ class AlertSnapshotMetadata:
 
 
 PropertiesSnapshot = Union[
+    EntityApplicationSnapshot,
     EntityAuthDomainSnapshot,
     EntityCertificateSnapshot,
     EntityCloudObjectSnapshot,
@@ -2163,6 +2223,9 @@ class AlertSnapshot:
     parent_tenant_id: Optional[str] = field(
         default=None, metadata=config(field_name="parent_tenant_id")
     )
+    mdr_provider: Optional[str] = field(
+        default=None, metadata=config(field_name="mdr_provider")
+    )
     suppressed: Optional[bool] = field(
         default=None, metadata=config(field_name="suppressed")
     )
@@ -2179,8 +2242,16 @@ class AlertSnapshot:
     threat_score_v2: Optional[float] = field(
         default=None, metadata=config(field_name="threat_score_v2")
     )
+    vids: Optional[list[int]] = field(default=None, metadata=config(field_name="vids"))
     observation: Optional[bool] = field(
-        default=None, metadata=config(field_name="observation")
+        default=None,
+        metadata=config(
+            metadata={
+                "deprecated": True,
+                "deprecation_reason": "use threat_score_v2 value instead",
+            },
+            field_name="observation",
+        ),
     )
     metadata: Optional[AlertSnapshotMetadata] = field(
         default=None, metadata=config(field_name="metadata")

@@ -3307,6 +3307,9 @@ class Alert2:
     sensor_types: Optional[list[str]] = field(
         default=None, metadata=config(field_name="sensor_types")
     )
+    combined_username: Optional[str] = field(
+        default=None, metadata=config(field_name="combined_username")
+    )
     threat_score: Optional[float] = field(
         default=None, metadata=config(field_name="threat_score")
     )
