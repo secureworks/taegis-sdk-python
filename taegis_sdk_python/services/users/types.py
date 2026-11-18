@@ -1037,6 +1037,9 @@ class TDRUser:
     managed_by_central: Optional[bool] = field(
         default=None, metadata=config(field_name="managed_by_central")
     )
+    fusion_login_enabled: Optional[bool] = field(
+        default=None, metadata=config(field_name="fusion_login_enabled")
+    )
     is_sophos_mdr: Optional[bool] = field(
         default=None, metadata=config(field_name="is_sophos_mdr")
     )

@@ -145,6 +145,18 @@ class EntityContextPivotQLQuery:
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
+class EntityContextEnrichmentSource:
+    """EntityContextEnrichmentSource."""
+
+    event_id: Optional[str] = field(default=None, metadata=config(field_name="eventId"))
+    detection_id: Optional[str] = field(
+        default=None, metadata=config(field_name="detectionId")
+    )
+    case_id: Optional[str] = field(default=None, metadata=config(field_name="caseId"))
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
 class EntityContextIpGeoEnrichment:
     """EntityContextIpGeoEnrichment."""
 
@@ -974,6 +986,25 @@ class EntityContextGroupedEdge:
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
+class EntityContextEnrichedProperty:
+    """EntityContextEnrichedProperty."""
+
+    enrichment_type: Optional[str] = field(
+        default=None, metadata=config(field_name="enrichmentType")
+    )
+    enriched_at: Optional[str] = field(
+        default=None, metadata=config(field_name="enrichedAt")
+    )
+    property_: Optional[EntityContextProperty] = field(
+        default=None, metadata=config(field_name="property")
+    )
+    enriched_from: Optional[EntityContextEnrichmentSource] = field(
+        default=None, metadata=config(field_name="enrichedFrom")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
 class EntityContextEntityCollectionFilter:
     """EntityContextEntityCollectionFilter."""
 
@@ -1055,6 +1086,46 @@ class EntityContextGroupedSubgraphFilters:
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
+class EntityContextEntityMetadata:
+    """EntityContextEntityMetadata."""
+
+    added_by_enrichment: Optional[bool] = field(
+        default=None, metadata=config(field_name="addedByEnrichment")
+    )
+    enriched_properties: Optional[list[EntityContextEnrichedProperty]] = field(
+        default=None, metadata=config(field_name="enrichedProperties")
+    )
+    fetch_method: Optional[Union[EntityContextSource, TaegisEnum]] = field(
+        default=None,
+        metadata=config(
+            encoder=encode_enum,
+            decoder=lambda x: decode_enum(EntityContextSource, x),
+            field_name="fetchMethod",
+        ),
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class EntityContextAssociatedEntitiesFilters:
+    """EntityContextAssociatedEntitiesFilters."""
+
+    sort_by: Optional[str] = field(default=None, metadata=config(field_name="sortBy"))
+    sort_order: Optional[Union[EntityContextSortOrder, TaegisEnum]] = field(
+        default=None,
+        metadata=config(
+            encoder=encode_enum,
+            decoder=lambda x: decode_enum(EntityContextSortOrder, x),
+            field_name="sortOrder",
+        ),
+    )
+    filter_: Optional[EntityContextEntityCollectionFilter] = field(
+        default=None, metadata=config(field_name="filter")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
 class EntityContextEntity:
     """EntityContextEntity."""
 
@@ -1083,6 +1154,9 @@ class EntityContextEntity:
     enrichments: Optional[EntityContextEntityEnrichments] = field(
         default=None, metadata=config(field_name="enrichments")
     )
+    metadata: Optional[EntityContextEntityMetadata] = field(
+        default=None, metadata=config(field_name="metadata")
+    )
 
 
 @dataclass_json
@@ -1096,25 +1170,6 @@ class EntityContexts:
     )
     page_info: Optional[EntityContextPageInfo] = field(
         default=None, metadata=config(field_name="pageInfo")
-    )
-
-
-@dataclass_json
-@dataclass(order=True, eq=True, frozen=True)
-class EntityContextAssociatedEntitiesFilters:
-    """EntityContextAssociatedEntitiesFilters."""
-
-    sort_by: Optional[str] = field(default=None, metadata=config(field_name="sortBy"))
-    sort_order: Optional[Union[EntityContextSortOrder, TaegisEnum]] = field(
-        default=None,
-        metadata=config(
-            encoder=encode_enum,
-            decoder=lambda x: decode_enum(EntityContextSortOrder, x),
-            field_name="sortOrder",
-        ),
-    )
-    filter_: Optional[EntityContextEntityCollectionFilter] = field(
-        default=None, metadata=config(field_name="filter")
     )
 
 

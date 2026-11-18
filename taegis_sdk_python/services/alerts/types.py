@@ -1810,6 +1810,15 @@ class AggregationKeys:
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
+class AggregationValues:
+    """AggregationValues."""
+
+    key: Optional[str] = field(default=None, metadata=config(field_name="key"))
+    value: Optional[float] = field(default=None, metadata=config(field_name="value"))
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
 class AlertsAggregateResponse_AlertsAggregation_Severity:
     """AlertsAggregateResponse_AlertsAggregation_Severity."""
 
@@ -2193,27 +2202,6 @@ class WatchlistMatchesInput:
     entity: Optional[str] = field(default=None, metadata=config(field_name="entity"))
     details: Optional[list[MatchDetailsInput]] = field(
         default=None, metadata=config(field_name="details")
-    )
-
-
-@dataclass_json
-@dataclass(order=True, eq=True, frozen=True)
-class AggregationResponse:
-    """AggregationResponse."""
-
-    key: Optional[str] = field(
-        default=None,
-        metadata=config(
-            metadata={
-                "deprecated": True,
-                "deprecation_reason": "use keys instead for the broken out name/value pairs",
-            },
-            field_name="key",
-        ),
-    )
-    value: Optional[float] = field(default=None, metadata=config(field_name="value"))
-    keys: Optional[list[AggregationKeys]] = field(
-        default=None, metadata=config(field_name="keys")
     )
 
 
@@ -2630,6 +2618,30 @@ class BruteForceDetailsInput:
     )
     most_recent_auths_failures: Optional[list[BruteForceAuthInput]] = field(
         default=None, metadata=config(field_name="most_recent_auths_failures")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
+class AggregationResponse:
+    """AggregationResponse."""
+
+    key: Optional[str] = field(
+        default=None,
+        metadata=config(
+            metadata={
+                "deprecated": True,
+                "deprecation_reason": "use keys instead for the broken out name/value pairs",
+            },
+            field_name="key",
+        ),
+    )
+    value: Optional[float] = field(default=None, metadata=config(field_name="value"))
+    values: Optional[list[AggregationValues]] = field(
+        default=None, metadata=config(field_name="values")
+    )
+    keys: Optional[list[AggregationKeys]] = field(
+        default=None, metadata=config(field_name="keys")
     )
 
 

@@ -11,17 +11,17 @@ from taegis_sdk_python.config import get_config
 SECTION = "backoff.retry"
 
 
-def config_max_time() -> Optional[int]:
+def config_max_time() -> Optional[float]:
     """Provide Max Time elapsed for retry.
 
     Returns
     -------
-    int
+    Optional[float]
         Seconds.
     """
     config = get_config()
 
-    return config.getint(SECTION, "max_time", fallback=10)
+    return config.getfloat(SECTION, "max_time", fallback=10.0)
 
 
 def config_max_tries() -> Optional[int]:

@@ -1531,6 +1531,22 @@ class CollectorOverview:
 
 @dataclass_json
 @dataclass(order=True, eq=True, frozen=True)
+class ClusterChartDeployment:
+    """ClusterChartDeployment."""
+
+    tenant_id: Optional[str] = field(
+        default=None, metadata=config(field_name="tenantID")
+    )
+    cluster_id: Optional[str] = field(
+        default=None, metadata=config(field_name="clusterID")
+    )
+    deployment: Optional[Deployment] = field(
+        default=None, metadata=config(field_name="deployment")
+    )
+
+
+@dataclass_json
+@dataclass(order=True, eq=True, frozen=True)
 class System:
     """System."""
 

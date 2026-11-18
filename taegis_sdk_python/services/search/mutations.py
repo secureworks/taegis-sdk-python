@@ -70,3 +70,27 @@ class TaegisSDKSearchMutation:
         if result.get(endpoint) is not None:
             return SearchV2.from_dict(result.get(endpoint))
         raise GraphQLNoRowsInResultSetError("for mutation getOrCreateSearch")
+
+    def cancel_search(self, urn: str, reason: Optional[str] = None) -> SearchV2:
+        """Cancel a search before any of its partitions starts. Cancel is all or
+        nothing: if a runner has already picked up any partition, nothing changes and
+        the request fails with SEARCHx1600. Canceling an already canceled search
+        succeeds. A canceled search reports status COMPLETE with no successful
+        partitions, and each partition CANCELED. A caller who may create searches in every tenant
+        of the search may cancel it."""
+        endpoint = "cancelSearch"
+
+        result = self.service.execute_mutation(
+            endpoint=endpoint,
+            variables={
+                "urn": prepare_input(urn),
+                "reason": prepare_input(reason),
+            },
+            output=build_output_string(
+                SearchV2,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
+        )
+        if result.get(endpoint) is not None:
+            return SearchV2.from_dict(result.get(endpoint))
+        raise GraphQLNoRowsInResultSetError("for mutation cancelSearch")

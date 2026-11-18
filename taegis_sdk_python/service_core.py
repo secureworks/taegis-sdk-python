@@ -10,6 +10,7 @@ import threading
 from datetime import datetime, timedelta, timezone
 from typing import TYPE_CHECKING, Any
 
+import backoff
 from gql import Client, GraphQLRequest
 from gql.transport import Transport
 from gql.transport.aiohttp import AIOHTTPTransport
@@ -19,6 +20,10 @@ from graphql import GraphQLError, GraphQLField, GraphQLSchema
 from taegis_sdk_python._consts import DEFAULT_GATEWAY
 from taegis_sdk_python.errors import InvalidGraphQLEndpoint
 from taegis_sdk_python.utils import async_block, prepare_variables, remove_node
+from taegis_sdk_python.middlewares.retry._default import (
+    config_max_time,
+    config_max_tries,
+)
 
 if TYPE_CHECKING:  # pragma: no cover
     from taegis_sdk_python.services import GraphQLService
@@ -476,6 +481,14 @@ class ServiceCore:
 
         return self.subscribe(query_string, variables)
 
+    @backoff.on_exception(
+        backoff.expo,
+        GraphQLError,
+        max_time=config_max_time,
+        max_tries=config_max_tries,
+        giveup=lambda e: isinstance(e.extensions, dict)
+        and not e.extensions.get("subcode") in ("EVENTSx1203",),
+    )
     @async_block
     async def execute(
         self, query_string: str, variables: dict[str, Any] | None = None
@@ -520,6 +533,14 @@ class ServiceCore:
 
         return response
 
+    @backoff.on_exception(
+        backoff.expo,
+        GraphQLError,
+        max_time=config_max_time,
+        max_tries=config_max_tries,
+        giveup=lambda e: isinstance(e.extensions, dict)
+        and not e.extensions.get("subcode") in ("EVENTSx1203",),
+    )
     @async_block
     async def subscribe(
         self, query_string: str, variables: dict[str, Any] | None = None

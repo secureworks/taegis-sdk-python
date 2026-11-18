@@ -206,6 +206,9 @@ class PartnerPreference:
     tenant_id: Optional[str] = field(
         default=None, metadata=config(field_name="tenantID")
     )
+    central_tenant_id: Optional[str] = field(
+        default=None, metadata=config(field_name="centralTenantID")
+    )
     partner_id: Optional[str] = field(
         default=None, metadata=config(field_name="partnerID")
     )

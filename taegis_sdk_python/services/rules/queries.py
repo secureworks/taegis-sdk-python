@@ -327,8 +327,8 @@ class TaegisSDKRulesQuery:
         The event type, if provided, will limit the returned rules to those for that
         event type.
 
-        The rule type may be nil. If it is nil, the returned rules will be of
-        both types: regex and QL.
+        If the rule type is omitted or null, rules of all types are returned.
+        An explicit rule type limits the returned rules to that type.
 
         If no rules or filters have changed since that time, nothing will be returned.
 

@@ -2781,10 +2781,10 @@ class CreateCaseInput:
     source_id: Optional[str] = field(
         default=None, metadata=config(field_name="sourceId")
     )
-    rule_id: Optional[str] = field(default=None, metadata=config(field_name="ruleId"))
     template_id: Optional[str] = field(
         default=None, metadata=config(field_name="templateId")
     )
+    rule_id: Optional[str] = field(default=None, metadata=config(field_name="ruleId"))
     key_findings: Optional[CreateKeyFindingsDocumentInput] = field(
         default=None, metadata=config(field_name="keyFindings")
     )
@@ -2842,6 +2842,9 @@ class UpdateCaseInput:
     )
     source_id: Optional[str] = field(
         default=None, metadata=config(field_name="sourceId")
+    )
+    risk_score: Optional[float] = field(
+        default=None, metadata=config(field_name="riskScore")
     )
     key_findings: Optional[UpdateKeyFindingsDocumentInput] = field(
         default=None, metadata=config(field_name="keyFindings")

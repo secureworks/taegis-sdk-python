@@ -626,6 +626,30 @@ class TaegisSDKCollectorQuery:
             return result.get(endpoint)
         raise GraphQLNoRowsInResultSetError("for query getAllRoles")
 
+    def get_cluster_deployments_by_chart(
+        self, chart: str
+    ) -> list[ClusterChartDeployment]:
+        """Get all non-role (integration) deployments of a chart across every tenant, ordered by deployment.
+        Endpoints are never returned. Avoid requesting deployment.status, it costs one query per row.
+        """
+        endpoint = "getClusterDeploymentsByChart"
+
+        result = self.service.execute_query(
+            endpoint=endpoint,
+            variables={
+                "chart": prepare_input(chart),
+            },
+            output=build_output_string(
+                ClusterChartDeployment,
+                exclude_deprecated_output=self.service.exclude_deprecated_output,
+            ),
+        )
+        if result.get(endpoint) is not None:
+            return ClusterChartDeployment.schema().load(
+                [r or {} for r in result.get(endpoint)], many=True
+            )
+        raise GraphQLNoRowsInResultSetError("for query getClusterDeploymentsByChart")
+
     def get_all_collectors_overview(
         self, role: str, time_range: Union[TimeRange, TaegisEnum]
     ) -> list[CollectorOverview]:
